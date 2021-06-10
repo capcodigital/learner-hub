@@ -7,23 +7,23 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/capcodigital/repo_name">
+  <a href="https://github.com/capcodigital/flutter-confluence">
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">[PROJECT_TITLE]</h3>
+  <h3 align="center">Flutter Confluence</h3>
 
   <p align="center">
-    [PROJECT_DESCRIPTION]
+  An application built in Flutter that showcases confluence pages
     <br />
-    <a href="https://github.com/capcodigital/repo_name"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/capcodigital/flutter-confluence"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/capcodigital/repo_name">View Demo</a>
+    <a href="https://github.com/capcodigital/flutter-confluence">View Demo</a>
     ·
-    <a href="https://github.com/capcodigital/repo_name/issues">Report Bug</a>
+    <a href="https://github.com/capcodigital/flutter-confluence/issues">Report Bug</a>
     ·
-    <a href="https://github.com/capcodigital/repo_name/issues">Request Feature</a>
+    <a href="https://github.com/capcodigital/flutter-confluence/issues">Request Feature</a>
   </p>
 </p>
 
@@ -86,7 +86,7 @@ pre-commit install
 
 ```shell
 # clone the repo
-git clone https://github.com/capcodigital/repo_name.git
+git clone https://github.com/capcodigital/flutter-confluence.git
 ```
 
 <!-- USAGE EXAMPLES -->
@@ -99,7 +99,7 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 <!-- ROADMAP -->
 ## Roadmap
 
-See the [open issues](https://github.com/capcodigital/repo_name/issues) for a list of proposed features (and known issues).
+See the [open issues](https://github.com/capcodigital/flutter-confluence/issues) for a list of proposed features (and known issues).
 
 <!-- CONTRIBUTING -->
 ## Contributing
@@ -129,13 +129,13 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/capcodigital/repo_name.svg?style=for-the-badge
-[contributors-url]: https://github.com/capcodigital/repo_name/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/capcodigital/repo_name.svg?style=for-the-badge
-[forks-url]: https://github.com/capcodigital/repo_name/network/members
-[stars-shield]: https://img.shields.io/github/stars/capcodigital/repo_name.svg?style=for-the-badge
-[stars-url]: https://github.com/capcodigital/repo_name/stargazers
-[issues-shield]: https://img.shields.io/github/issues/capcodigital/repo_name.svg?style=for-the-badge
-[issues-url]: https://github.com/capcodigital/repo_name/issues
-[license-shield]: https://img.shields.io/github/license/capcodigital/repo_name.svg?style=for-the-badge
-[license-url]: https://github.com/capcodigital/repo_name/blob/master/LICENSE
+[contributors-shield]: https://img.shields.io/github/contributors/capcodigital/flutter-confluence.svg?style=for-the-badge
+[contributors-url]: https://github.com/capcodigital/flutter-confluence/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/capcodigital/flutter-confluence.svg?style=for-the-badge
+[forks-url]: https://github.com/capcodigital/flutter-confluence/network/members
+[stars-shield]: https://img.shields.io/github/stars/capcodigital/flutter-confluence.svg?style=for-the-badge
+[stars-url]: https://github.com/capcodigital/flutter-confluence/stargazers
+[issues-shield]: https://img.shields.io/github/issues/capcodigital/flutter-confluence.svg?style=for-the-badge
+[issues-url]: https://github.com/capcodigital/flutter-confluence/issues
+[license-shield]: https://img.shields.io/github/license/capcodigital/flutter-confluence.svg?style=for-the-badge
+[license-url]: https://github.com/capcodigital/flutter-confluence/blob/master/LICENSE
