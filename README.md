@@ -73,14 +73,11 @@ To get a local copy up and running follow these simple steps.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
+#### Flutter Installation
 
-```shell
-# installs the tooling requirements
-pip install -r requirements.txt
-# installs the git hook for pre-commit
-pre-commit install
-```
+In order to run the application locally, you must have the Flutter SDK installed.
+
+Follow the steps within the [Flutter Documentation](https://flutter.dev/docs/get-started/install) to install the Flutter SDK on your local machine.
 
 ### Installation
 
@@ -92,9 +89,11 @@ git clone https://github.com/capcodigital/flutter-confluence.git
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+### Designs
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+<img src="images/home-screen.png" alt="HomeScreen" width="200" height="400">
+
+For details related to the user flow and usage, please visit the [confluence page](https://ilabs-capco.atlassian.net/wiki/spaces/BPG/pages/2610627123/Flutter+Confluence) for this project.
 
 <!-- ROADMAP -->
 ## Roadmap
