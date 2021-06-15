@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../core/certification.dart';
+import '../../domain/entities/certification.dart';
 import '../widgets/list_row.dart';
 
 class HomePage extends StatelessWidget {

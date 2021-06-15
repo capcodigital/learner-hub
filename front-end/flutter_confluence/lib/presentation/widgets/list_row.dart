@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../core/certification.dart';
+import '../../domain/entities/certification.dart';
 
 class ListRow extends StatelessWidget {
   final Certification item;
