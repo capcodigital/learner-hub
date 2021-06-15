@@ -1,18 +1,34 @@
 class Certification {
   String userName;
   String certificationTitle;
+  // Field certificationType is used temporarily to determine the certification icon
   String certificationType;
   String certificationDate;
   late String certificationIconName;
 
   Certification(this.userName, this.certificationTitle, this.certificationType,
       this.certificationDate) {
-    this.certificationIconName =
-        getCertificationIconName(this.certificationType);
+    this.certificationIconName = getCertificationIconName();
+  }
+
+  String getCertificationIconName() {
+    switch (this.certificationType) {
+      case "gcp":
+        return "ic_gcp.png";
+      case "azure":
+        return "ic_azure.png";
+      case "cloud_native":
+        return "ic_cloud_native.png";
+      case "hashicorp":
+        return "ic_hashicorp.png";
+    }
+    return "ic_gcp.png";
   }
 }
 
-final List<Certification> dummyItems = [
+// This list of dummy items is used temporarily and will be removed when
+// we add the real data
+final List<Certification> certifications = [
   Certification(
       "John Smith", "Professional Network Engineer", "aws", "1/6/2021"),
   Certification("Jane Doe", "GCP Associcate Cloud Engineer", "aws", "2/4/2020"),
@@ -33,17 +49,3 @@ final List<Certification> dummyItems = [
   Certification("Michael Jones", "GCP Chief Engineer", "gcp", "4/1/21"),
   Certification("Michael Jones", "Azure Chief Architect", "azure", "4/1/20"),
 ];
-
-String getCertificationIconName(String identifier) {
-  switch (identifier) {
-    case "gcp":
-      return "ic_gcp.png";
-    case "azure":
-      return "ic_azure.png";
-    case "cloud_native":
-      return "ic_cloud_native.png";
-    case "hashicorp":
-      return "ic_hashicorp.png";
-  }
-  return "ic_gcp.png";
-}
