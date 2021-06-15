@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'home_page.dart';
+import 'home_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -12,6 +13,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
-        home: HomePage());
+        home: HomeScreen());
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import './item.dart';
+import 'certification.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -23,12 +23,12 @@ class HomePage extends StatelessWidget {
         child: ListTile(
           leading: CircleAvatar(
             backgroundColor: Colors.transparent,
-            backgroundImage:
-                AssetImage('assets/${dummyItems[position].iconName}'),
+            backgroundImage: AssetImage(
+                'assets/${dummyItems[position].certificationIconName}'),
           ),
-          title: Text(dummyItems[position].user),
+          title: Text(dummyItems[position].userName),
           subtitle: Text(dummyItems[position].certificationTitle),
-          trailing: Text(dummyItems[position].date),
+          trailing: Text(dummyItems[position].certificationDate),
         ),
       ),
     );
