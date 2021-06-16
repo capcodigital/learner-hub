@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_confluence/toggle-switch.dart';
+import 'presentation/pages/home_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -11,19 +12,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
-        home: Scaffold(
-          appBar: AppBar(
-            title: Text('Flutter Confluence'),
-          ),
-          body: Container(
-            child: Padding(
-              padding: const EdgeInsets.all(32.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [ToggleButton()],
-              ),
-            ),
-          ),
-        ));
+        theme: ThemeData(primaryColor: jiraColor),
+        home: HomePage());
   }
 }
