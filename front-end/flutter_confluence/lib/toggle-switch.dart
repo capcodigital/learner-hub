@@ -6,15 +6,15 @@ class ToggleButton extends StatefulWidget {
   _ToggleButtonState createState() => _ToggleButtonState();
 }
 
-const Color jiraColor = Constants.JIRA_COLOR;
-const double width = 300.0;
-const double height = 50.0;
-const double inProgressAlign = -1;
-const double completedAlign = 1;
-const Color selectedColor = Colors.white;
-const Color normalColor = jiraColor;
-
 class _ToggleButtonState extends State<ToggleButton> {
+  final Color jiraColor = Constants.JIRA_COLOR;
+  final double width = 300.0;
+  final double height = 50.0;
+  final double inProgressAlign = -1;
+  final double completedAlign = 1;
+  final Color selectedColor = Colors.white;
+  final Color normalColor = Constants.JIRA_COLOR;
+
   double? xAlign;
   Color? inProgressColor;
   Color? completedColor;
