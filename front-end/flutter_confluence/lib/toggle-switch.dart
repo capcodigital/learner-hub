@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_confluence/core/constants.dart';
 
 class ToggleButton extends StatefulWidget {
   @override
   _ToggleButtonState createState() => _ToggleButtonState();
 }
 
-const Color jiraColor = Color(0xff0052CC);
+const Color jiraColor = Constants.JIRA_COLOR;
 const double width = 300.0;
-const double height = 60.0;
+const double height = 50.0;
 const double inProgressAlign = -1;
 const double completedAlign = 1;
 const Color selectedColor = Colors.white;
