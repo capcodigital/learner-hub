@@ -1,28 +1,45 @@
 class Certification {
-  String userName;
-  String certificationTitle;
+  static const IC_GCP = 'ic_gcp.png';
+  static const IC_AZURE = 'ic_azure.png';
+  static const IC_CLOUD_NATIVE = 'ic_cloud_native.png';
+  static const IC_HASHICORP = 'ic_hashicorp.png';
+  static const IC_AWS = 'ic_aws.png';
+
+  static const GCP = 'gcp';
+  static const AZURE = 'azure';
+  static const CLOUD_NATIVE = 'cloud_native';
+  static const HASHICORP = 'hashicorp';
+  static const AWS = 'aws';
+
+  final String userName;
+  final String certificationTitle;
   // Field certificationType is used temporarily to determine the certification icon
-  String certificationType;
-  String certificationDate;
+  final String certificationType;
+  final String certificationDate;
   late String certificationIconName;
 
-  Certification(this.userName, this.certificationTitle, this.certificationType,
-      this.certificationDate) {
+  Certification(
+      {required this.userName,
+      required this.certificationTitle,
+      required this.certificationType,
+      required this.certificationDate}) {
     this.certificationIconName = getCertificationIconName();
   }
 
   String getCertificationIconName() {
     switch (this.certificationType) {
-      case "gcp":
-        return "ic_gcp.png";
-      case "azure":
-        return "ic_azure.png";
-      case "cloud_native":
-        return "ic_cloud_native.png";
-      case "hashicorp":
-        return "ic_hashicorp.png";
+      case GCP:
+        return IC_GCP;
+      case AZURE:
+        return IC_AZURE;
+      case CLOUD_NATIVE:
+        return IC_CLOUD_NATIVE;
+      case HASHICORP:
+        return IC_HASHICORP;
+      case AWS:
+        return IC_AWS;
     }
-    return "ic_gcp.png";
+    return "";
   }
 }
 
@@ -30,22 +47,63 @@ class Certification {
 // we add the real data
 final List<Certification> certifications = [
   Certification(
-      "John Smith", "Professional Network Engineer", "aws", "1/6/2021"),
-  Certification("Jane Doe", "GCP Associcate Cloud Engineer", "aws", "2/4/2020"),
-  Certification("Jack Jones", "Cloud Native Architect Associate",
-      "cloud_native", "1/7/2021"),
+      userName: "John Smith",
+      certificationTitle: "Professional Network Engineer",
+      certificationType: "aws",
+      certificationDate: "1/6/2021"),
   Certification(
-      "Jane Smith", "Microsoft Azure Data Fundamentals", "azure", "12/4/20"),
+      userName: "Jane Doe",
+      certificationTitle: "GCP Associcate Cloud Engineer",
+      certificationType: "gcp",
+      certificationDate: "2/4/2020"),
   Certification(
-      "Jane Smith", "Associate Terraform Engineer", "hashicorp", "12/1/21"),
-  Certification("Jack Jones", "Cloud Native Architect Professional",
-      "cloud_native", "9/11/20"),
+      userName: "Jack Jones",
+      certificationTitle: "Cloud Native Architect Associate",
+      certificationType: "cloud_native",
+      certificationDate: "1/7/2021"),
   Certification(
-      "Jane Smith", "Microsoft Azure Data Fundamentals", "azure", "11/3/20"),
+      userName: "Jane Smith",
+      certificationTitle: "Microsoft Azure Data Fundamentals",
+      certificationType: "azure",
+      certificationDate: "12/4/20"),
   Certification(
-      "Jane Smith", "Associate Terraform Engineer", "hashicorp", "22/8/19"),
-  Certification("Jane Doe", "Chief Terraform Engineer", "hashicorp", "2/8/20"),
-  Certification("John Smith", "Azure Chief Engineer", "azure", "22/8/19"),
-  Certification("Michael Jones", "GCP Chief Engineer", "gcp", "4/1/21"),
-  Certification("Michael Jones", "Azure Chief Architect", "azure", "4/1/20"),
+      userName: "Jane Smith",
+      certificationTitle: "Associate Terraform Engineer",
+      certificationType: "hashicorp",
+      certificationDate: "12/1/21"),
+  Certification(
+      userName: "Jack Jones",
+      certificationTitle: "Cloud Native Architect Professional",
+      certificationType: "cloud_native",
+      certificationDate: "9/11/20"),
+  Certification(
+      userName: "Jane Smith",
+      certificationTitle: "Microsoft Azure Data Fundamentals",
+      certificationType: "azure",
+      certificationDate: "11/3/20"),
+  Certification(
+      userName: "Jane Smith",
+      certificationTitle: "Associate Terraform Engineer",
+      certificationType: "hashicorp",
+      certificationDate: "22/8/19"),
+  Certification(
+      userName: "Jane Doe",
+      certificationTitle: "Chief Terraform Engineer",
+      certificationType: "hashicorp",
+      certificationDate: "2/8/20"),
+  Certification(
+      userName: "John Smith",
+      certificationTitle: "Azure Chief Engineer",
+      certificationType: "azure",
+      certificationDate: "22/8/19"),
+  Certification(
+      userName: "Michael Jones",
+      certificationTitle: "GCP Chief Engineer",
+      certificationType: "gcp",
+      certificationDate: "4/1/21"),
+  Certification(
+      userName: "Michael Jones",
+      certificationTitle: "Azure Chief Architect",
+      certificationType: "azure",
+      certificationDate: "4/1/20"),
 ];

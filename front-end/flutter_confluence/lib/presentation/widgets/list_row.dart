@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 import '../../domain/entities/certification.dart';
 
+final double listRowIconSize = 50.0;
+final double listRowIconRightMargin = 22.0;
+final double listRowUserTextSize = 18.0;
+final double listRowInfoMarginTop = 10.0;
+final double listRowInfoTextSize = 12.0;
+final double listRowDateTextSize = 14.0;
+
 class ListRow extends StatelessWidget {
   final Certification item;
   ListRow({required this.item});
@@ -18,28 +25,30 @@ class ListRow extends StatelessWidget {
         child: Row(
           children: <Widget>[
             Container(
-                width: 50.0,
-                height: 50.0,
-                decoration: new BoxDecoration(
+                width: listRowIconSize,
+                height: listRowIconSize,
+                decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    image: new DecorationImage(
+                    image: DecorationImage(
                         fit: BoxFit.cover,
                         image: AssetImage(
                             'assets/${item.certificationIconName}')))),
             Padding(
-              padding: EdgeInsets.only(left: 22),
+              padding: EdgeInsets.only(left: listRowIconRightMargin),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
                     item.userName,
-                    style: TextStyle(color: Colors.black, fontSize: 18),
+                    style: TextStyle(
+                        color: Colors.black, fontSize: listRowUserTextSize),
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 10),
+                    margin: EdgeInsets.only(top: listRowInfoMarginTop),
                     child: Text(
                       item.certificationTitle,
-                      style: TextStyle(color: Colors.grey, fontSize: 12),
+                      style: TextStyle(
+                          color: Colors.grey, fontSize: listRowInfoTextSize),
                     ),
                   )
                 ],
@@ -51,7 +60,8 @@ class ListRow extends StatelessWidget {
               children: <Widget>[
                 Text(
                   item.certificationDate,
-                  style: TextStyle(color: Colors.grey, fontSize: 14),
+                  style: TextStyle(
+                      color: Colors.grey, fontSize: listRowDateTextSize),
                 ),
               ],
             ),
