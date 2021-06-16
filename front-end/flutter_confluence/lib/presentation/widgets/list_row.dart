@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import '../../domain/entities/certification.dart';
 
-final double listRowIconSize = 50.0;
-final double listRowIconRightMargin = 22.0;
-final double listRowUserTextSize = 18.0;
-final double listRowInfoMarginTop = 10.0;
-final double listRowInfoTextSize = 12.0;
-final double listRowDateTextSize = 14.0;
-
 class ListRow extends StatelessWidget {
+  final double listRowIconSize = 50.0;
+  final double listRowIconRightMargin = 22.0;
+  final double listRowUserTextSize = 18.0;
+  final double listRowInfoMarginTop = 10.0;
+  final double listRowInfoTextSize = 12.0;
+  final double listRowDateTextSize = 14.0;
   final Certification item;
   ListRow({required this.item});
 

@@ -1,45 +1,39 @@
+import '../../core/constants.dart';
+
 class Certification {
-  static const IC_GCP = 'ic_gcp.png';
-  static const IC_AZURE = 'ic_azure.png';
-  static const IC_CLOUD_NATIVE = 'ic_cloud_native.png';
-  static const IC_HASHICORP = 'ic_hashicorp.png';
-  static const IC_AWS = 'ic_aws.png';
-
-  static const GCP = 'gcp';
-  static const AZURE = 'azure';
-  static const CLOUD_NATIVE = 'cloud_native';
-  static const HASHICORP = 'hashicorp';
-  static const AWS = 'aws';
-
   final String userName;
   final String certificationTitle;
   // Field certificationType is used temporarily to determine the certification icon
   final String certificationType;
   final String certificationDate;
-  late String certificationIconName;
+  String? certificationIconName;
 
   Certification(
       {required this.userName,
       required this.certificationTitle,
       required this.certificationType,
       required this.certificationDate}) {
-    this.certificationIconName = getCertificationIconName();
+    setCertificationIconName();
   }
 
-  String getCertificationIconName() {
+  void setCertificationIconName() {
     switch (this.certificationType) {
-      case GCP:
-        return IC_GCP;
-      case AZURE:
-        return IC_AZURE;
-      case CLOUD_NATIVE:
-        return IC_CLOUD_NATIVE;
-      case HASHICORP:
-        return IC_HASHICORP;
-      case AWS:
-        return IC_AWS;
+      case Constants.GCP:
+        certificationIconName = Constants.IC_GCP;
+        break;
+      case Constants.AZURE:
+        certificationIconName = Constants.IC_AZURE;
+        break;
+      case Constants.CLOUD_NATIVE:
+        certificationIconName = Constants.IC_CLOUD_NATIVE;
+        break;
+      case Constants.HASHICORP:
+        certificationIconName = Constants.IC_HASHICORP;
+        break;
+      case Constants.AWS:
+        certificationIconName = Constants.IC_AWS;
+        break;
     }
-    return "";
   }
 }
 
