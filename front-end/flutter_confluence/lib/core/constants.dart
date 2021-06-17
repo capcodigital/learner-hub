@@ -1,4 +1,10 @@
+import 'dart:ui';
+
 class Constants {
+  // Colors
+  static const JIRA_COLOR = const Color(0xff0052CC);
+
+  // Certifications
   static const IC_GCP = 'ic_gcp.png';
   static const IC_AZURE = 'ic_azure.png';
   static const IC_CLOUD_NATIVE = 'ic_cloud_native.png';
