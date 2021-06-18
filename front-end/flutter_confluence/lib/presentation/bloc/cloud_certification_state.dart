@@ -15,7 +15,7 @@ class Loading extends CloudCertificationState {}
 
 class Loaded extends CloudCertificationState {
   final List<Certification> items;
-  
+
   Loaded({required this.items});
 
   @override
@@ -25,7 +25,7 @@ class Loaded extends CloudCertificationState {
 class Error extends CloudCertificationState {
   final String message;
 
-  Error({required this.message})
+  Error({required this.message});
 
   @override
   List<Object> get props => [message];
