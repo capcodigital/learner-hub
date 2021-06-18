@@ -1,5 +1,5 @@
 import 'package:flutter_confluence/core/constants.dart';
-import 'package:flutter_confluence/core/error/ServerException.dart';
+import 'package:flutter_confluence/core/error/custom_exceptions.dart';
 import 'package:flutter_confluence/data/models/cloud_certification_model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
