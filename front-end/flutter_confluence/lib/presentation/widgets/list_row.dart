@@ -13,10 +13,10 @@ class ListRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return getRow(item);
+    return getRow(item, context);
   }
 
-  Widget getRow(Certification item) {
+  Widget getRow(Certification item, BuildContext context) {
     return Card(
       color: Colors.white,
       child: Padding(
