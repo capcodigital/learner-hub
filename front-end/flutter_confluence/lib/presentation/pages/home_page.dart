@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import '../widgets/list_view_certif.dart';
 import '../../domain/entities/certification.dart';
-import '../widgets/list_row.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -9,10 +9,6 @@ class HomePage extends StatelessWidget {
         appBar: AppBar(
           title: Text('Flutter Confluence'),
         ),
-        body: ListView.builder(
-            itemCount: certifications.length,
-            itemBuilder: (BuildContext context, int position) {
-              return ListRow(item: certifications[position]);
-            }));
+        body: ListViewCertif(items: certifications));
   }
 }

@@ -6,3 +6,7 @@ abstract class CloudCertificationEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class GetCertificationsEvent extends CloudCertificationEvent {
+  GetCertificationsEvent();
+}
