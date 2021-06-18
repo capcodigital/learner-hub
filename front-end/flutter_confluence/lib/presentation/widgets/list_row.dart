@@ -30,22 +30,21 @@ class ListRow extends StatelessWidget {
                     shape: BoxShape.circle,
                     image: DecorationImage(
                         fit: BoxFit.cover,
-                        image: AssetImage(
-                            'assets/${item.certificationIconName}')))),
+                        image: AssetImage('assets/${item.icon}')))),
             Padding(
               padding: EdgeInsets.only(left: listRowIconRightMargin),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    item.userName,
+                    item.name,
                     style: TextStyle(
                         color: Colors.black, fontSize: listRowUserTextSize),
                   ),
                   Container(
                     margin: EdgeInsets.only(top: listRowInfoMarginTop),
                     child: Text(
-                      item.certificationTitle,
+                      item.certification,
                       style: TextStyle(
                           color: Colors.grey, fontSize: listRowInfoTextSize),
                     ),
@@ -58,7 +57,7 @@ class ListRow extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  item.certificationDate,
+                  item.date,
                   style: TextStyle(
                       color: Colors.grey, fontSize: listRowDateTextSize),
                 ),
