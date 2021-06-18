@@ -1,6 +1,6 @@
 import 'package:flutter_confluence/core/constants.dart';
 import 'package:flutter_confluence/core/error/ServerException.dart';
-import 'package:flutter_confluence/data/models/CloudCertificationModel.dart';
+import 'package:flutter_confluence/data/models/cloud_certification_model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -33,23 +33,13 @@ class CloudCertificationRemoteDataSourceImpl extends CloudCertificationRemoteDat
     );
 
     if (response.statusCode == 200) {
-      var rawJson = json.decode(response.body);
-      var data = CertificationListDto.fromJson(rawJson);
-      return data.certifications;
+      return (json.decode(response.body) as Map<String, dynamic>)
+          .values
+          .map((e) => CloudCertificationModel.fromJson(e))
+          .toList();
+
     } else {
       throw ServerException();
     }
-  }
-}
-
-class CertificationListDto {
-  final List<CloudCertificationModel> certifications;
-
-  CertificationListDto({required this.certifications});
-
-  factory CertificationListDto.fromJson(Map<String, dynamic> json) {
-    var certs =
-        json.values.map((e) => CloudCertificationModel.fromJson(e)).toList();
-    return CertificationListDto(certifications: certs);
   }
 }

@@ -1,31 +1,36 @@
-import 'dart:convert';
-
 import 'package:flutter_confluence/core/error/ServerException.dart';
-import 'package:flutter_confluence/data/datasources/CloudCertificationRemoteDataSourceImpl.dart';
+import 'package:flutter_confluence/data/datasources/cloud_certification_remote_data_source.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:http/http.dart';
-import 'package:http/testing.dart';
-import 'package:flutter_confluence/core/error/ServerException.dart';
-import '../../fixtures/FixtureReader.dart';
+import 'package:http/http.dart' as http;
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
 
+import '../../fixtures/FixtureReader.dart';
+import 'cloud_certification_remote_data_source_test.mocks.dart';
+
+/*
+------------------
+When using GenerateMocks(), you will need to run this command so the runner
+can generate the mocks:
+
+$pub run build_runner build
+
+More information here: - https://github.com/dart-lang/mockito/blob/master/NULL_SAFETY_README.md
+------------------
+*/
+@GenerateMocks([http.Client])
 void main() {
   late CloudCertificationRemoteDataSourceImpl dataSource;
-  late Client mockHttpClient;
+  late MockClient mockHttpClient;
 
   setUp(() {
-    mockHttpClient = MockClient((request) async {
-      return Response(json.encode({'error': 'Mock Not set'}), 200);
-    });
+    mockHttpClient = MockClient();
     dataSource = CloudCertificationRemoteDataSourceImpl(client: mockHttpClient);
   });
 
   void setUpMockHttpClient(String fixtureName, {int statusCode = 200}) {
-    var newClient = MockClient((request) async {
-      var responseBody = fixture(fixtureName);
-      var jsonMap = jsonDecode(responseBody);
-      return Response(json.encode(jsonMap), statusCode);
-    });
-    dataSource = CloudCertificationRemoteDataSourceImpl(client: newClient);
+    when(mockHttpClient.get(any, headers: anyNamed('headers'))).thenAnswer(
+        (_) async => http.Response(fixture(fixtureName), statusCode));
   }
 
   group('getCompletedCertifications', () {
@@ -40,10 +45,10 @@ void main() {
 
     test(
       'should return a ServerException when the response code is not 200 (success)',
-      ()  {
+      () {
         setUpMockHttpClient("completed.json", statusCode: 500);
-        expect(dataSource.getCompletedCertifications(),
-             throwsA(TypeMatcher<ServerException>()));
+        expect(() async => await dataSource.getCompletedCertifications(),
+            throwsA(TypeMatcher<ServerException>()));
       },
     );
   });
@@ -60,9 +65,9 @@ void main() {
 
     test(
       'should return a ServerException when the response code is not 200 (success)',
-          ()  {
-        setUpMockHttpClient("completed.json", statusCode: 500);
-        expect(dataSource.getCompletedCertifications(),
+      () {
+        setUpMockHttpClient("in_progress.json", statusCode: 500);
+        expect(() async => await dataSource.getCompletedCertifications(),
             throwsA(TypeMatcher<ServerException>()));
       },
     );
