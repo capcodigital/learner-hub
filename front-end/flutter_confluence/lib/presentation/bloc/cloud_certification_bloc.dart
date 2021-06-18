@@ -2,9 +2,10 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_confluence/core/error/failures.dart';
-import 'package:flutter_confluence/core/usecases/usecase.dart';
-import 'package:flutter_confluence/domain/usecases/get_cloud_certifications.dart';
+
+import '../../core/error/failures.dart';
+import '../../core/usecases/usecase.dart';
+import '../../domain/usecases/get_cloud_certifications.dart';
 import '../../domain/entities/certification.dart';
 
 part 'cloud_certification_event.dart';
@@ -18,13 +19,13 @@ class CloudCertificationBloc
       : super(CloudCertificationInitial());
 
   @override
-  CloudCertificationState get inititalState => Empty();
+  CloudCertificationState get initialState => Empty();
 
   @override
   Stream<CloudCertificationState> mapEventToState(
     CloudCertificationEvent event,
   ) async* {
-    if (event is GetCloudCertifications) {
+    if (event is GetCertificationsEvent) {
       yield Loading();
       final result = await getCloudCertifications(NoParams());
       yield* _getState(result);

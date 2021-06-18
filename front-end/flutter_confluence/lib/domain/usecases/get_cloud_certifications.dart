@@ -1,10 +1,10 @@
 import 'dart:async';
 
-import 'package:equatable/equatable.dart';
-import 'package:flutter_confluence/core/error/failures.dart';
 import 'package:dartz/dartz.dart';
-import 'package:flutter_confluence/core/usecases/usecase.dart';
-import 'package:flutter_confluence/domain/entities/certification.dart';
+
+import '../../core/error/failures.dart';
+import '../../core/usecases/usecase.dart';
+import '../entities/certification.dart';
 
 class GetCloudCertifications implements UseCase<List<Certification>, NoParams> {
   @override
