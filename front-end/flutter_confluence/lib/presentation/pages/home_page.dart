@@ -12,7 +12,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   static const double appTitleTextSize = 18.0;
-  static const double toggleButtonPadding = 16.0;
+  static const double toggleButtonPadding = 23.0;
 
   @override
   initState() {
@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           Container(
             alignment: Alignment.center,
-            padding: const EdgeInsets.all(toggleButtonPadding),
+            padding: const EdgeInsets.only(top: toggleButtonPadding),
             child: ToggleButton((toggleState) {
               if (toggleState == ToggleState.COMPLETED) {
                 fetchCompletedCertifications();

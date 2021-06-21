@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import '../../domain/entities/certification.dart';
 
 class ListRow extends StatelessWidget {
-  final double listRowIconSize = 50.0;
-  final double listRowIconRightMargin = 22.0;
-  final double listRowUserTextSize = 16.0;
-  final double listRowInfoMarginTop = 10.0;
-  final double listRowInfoTextSize = 12.0;
-  final double listRowDateTextSize = 14.0;
+  static const listRowIconSize = 50.0;
+  static const listRowIconPadding = 16.0;
+  static const listRowIconRightMargin = 23.0;
+  static const listRowUserTextSize = 16.0;
+  static const listRowInfoMarginTop = 10.0;
+  static const listRowInfoTextSize = 12.0;
+  static const listRowInfoTextColor = Color(0xBF000000);
+  static const listRowDateTextSize = 14.0;
+
   final Certification item;
   ListRow({required this.item});
 
@@ -21,7 +24,7 @@ class ListRow extends StatelessWidget {
       elevation: 0,
       color: Colors.transparent,
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.all(listRowIconPadding),
         child: Row(
           children: <Widget>[
             Container(
@@ -47,7 +50,8 @@ class ListRow extends StatelessWidget {
                     child: Text(
                       item.certification,
                       style: TextStyle(
-                          color: Colors.grey, fontSize: listRowInfoTextSize),
+                          color: listRowInfoTextColor,
+                          fontSize: listRowInfoTextSize),
                     ),
                   )
                 ],
@@ -60,7 +64,8 @@ class ListRow extends StatelessWidget {
                 Text(
                   item.date,
                   style: TextStyle(
-                      color: Colors.grey, fontSize: listRowDateTextSize),
+                      color: listRowInfoTextColor,
+                      fontSize: listRowDateTextSize),
                 ),
               ],
             ),
