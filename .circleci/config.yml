@@ -44,7 +44,7 @@ jobs:
           name: check flutter requirements
           command: flutter doctor -v
       - run:
-          name: build app
+          name: build android app
           command: flutter -v build apk
           working_directory: ~/project/front-end/flutter_confluence
       - run:
@@ -56,7 +56,7 @@ jobs:
           paths:
             - app.apk
       - run:
-          name: build app
+          name: build web app
           command: flutter -v build web
           working_directory: ~/project/front-end/flutter_confluence
       - run:
