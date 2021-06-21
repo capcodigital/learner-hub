@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import '../../domain/entities/certification.dart';
 import 'list_row.dart';
 
-class ListViewCertif extends StatelessWidget {
+class CartificationsView extends StatelessWidget {
   final List<Certification> items;
-  ListViewCertif({required this.items});
+  CartificationsView({required this.items});
 
   @override
   Widget build(BuildContext context) {

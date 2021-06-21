@@ -4,7 +4,7 @@ import '../../domain/entities/certification.dart';
 class ListRow extends StatelessWidget {
   final double listRowIconSize = 50.0;
   final double listRowIconRightMargin = 22.0;
-  final double listRowUserTextSize = 18.0;
+  final double listRowUserTextSize = 16.0;
   final double listRowInfoMarginTop = 10.0;
   final double listRowInfoTextSize = 12.0;
   final double listRowDateTextSize = 14.0;
@@ -18,7 +18,8 @@ class ListRow extends StatelessWidget {
 
   Widget getRow(Certification item, BuildContext context) {
     return Card(
-      color: Colors.white,
+      elevation: 0,
+      color: Colors.transparent,
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Row(
