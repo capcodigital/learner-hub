@@ -11,6 +11,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  static const double appTitleTextSize = 18.0;
+  static const double toggleButtonPadding = 16.0;
+
   @override
   initState() {
     super.initState();
@@ -33,7 +36,7 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           title: Text(
             'Cloud Certifications',
-            style: TextStyle(fontSize: 18),
+            style: TextStyle(fontSize: appTitleTextSize),
           ),
         ),
         body: buildBody(context));
@@ -50,7 +53,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           Container(
             alignment: Alignment.center,
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(toggleButtonPadding),
             child: ToggleButton((toggleState) {
               if (toggleState == ToggleState.COMPLETED) {
                 fetchCompletedCertifications();
