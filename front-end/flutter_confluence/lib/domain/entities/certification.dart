@@ -104,30 +104,15 @@ final List<Certification> mockCompletedCerts = [
 
 final List<Certification> mockInrogressCerts = [
   Certification(
-      name: "Penny Hardaway",
+      name: "Mathew Adams",
       certification: "Professional Network Engineer",
       platform: "aws",
       date: "1/6/2021"),
   Certification(
-      name: "Scottie Pippen",
+      name: "Judie Blades",
       certification: "GCP Associcate Cloud Engineer",
       platform: "gcp",
       date: "2/4/2020"),
-  Certification(
-      name: "Jack Jones",
-      certification: "Cloud Native Architect Associate",
-      platform: "cloud_native",
-      date: "1/7/2021"),
-  Certification(
-      name: "Jane Smith",
-      certification: "Microsoft Azure Data Fundamentals",
-      platform: "azure",
-      date: "12/4/20"),
-  Certification(
-      name: "Jane Smith",
-      certification: "Associate Terraform Engineer",
-      platform: "hashicorp",
-      date: "12/1/21"),
   Certification(
       name: "Jack Jones",
       certification: "Cloud Native Architect Professional",
@@ -143,24 +128,4 @@ final List<Certification> mockInrogressCerts = [
       certification: "Associate Terraform Engineer",
       platform: "hashicorp",
       date: "22/8/19"),
-  Certification(
-      name: "Jane Doe",
-      certification: "Chief Terraform Engineer",
-      platform: "hashicorp",
-      date: "2/8/20"),
-  Certification(
-      name: "John Smith",
-      certification: "Azure Chief Engineer",
-      platform: "azure",
-      date: "22/8/19"),
-  Certification(
-      name: "Michael Jones",
-      certification: "GCP Chief Engineer",
-      platform: "gcp",
-      date: "4/1/21"),
-  Certification(
-      name: "Michael Jones",
-      certification: "Azure Chief Architect",
-      platform: "azure",
-      date: "4/1/20"),
 ];

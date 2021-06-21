@@ -9,7 +9,7 @@ class CartificationsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        itemCount: mockCompletedCerts.length,
+        itemCount: items.length,
         itemBuilder: (BuildContext context, int position) {
           return ListRow(item: items[position]);
         });
