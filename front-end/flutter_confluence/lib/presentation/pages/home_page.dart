@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_confluence/presentation/widgets/toggle_view.dart';
 
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../toggle-switch.dart';
 import '../bloc/cloud_certification_bloc.dart';
 import '../widgets/certifications_view.dart';
 
@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           title: Text(
             'Cloud Certifications',
-            style: TextStyle(fontFamily: 'Montserrat', fontSize: 18),
+            style: TextStyle(fontSize: 18),
           ),
         ),
         body: buildBody(context));
@@ -51,7 +51,7 @@ class _HomePageState extends State<HomePage> {
           Container(
             alignment: Alignment.center,
             padding: const EdgeInsets.all(16.0),
-            child: ToggleView((toggleState) {
+            child: ToggleButton((toggleState) {
               if (toggleState == ToggleState.COMPLETED) {
                 fetchCompletedCertifications();
               } else if (toggleState == ToggleState.IN_PROGRESS) {
