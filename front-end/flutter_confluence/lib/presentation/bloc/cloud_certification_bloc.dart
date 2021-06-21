@@ -4,7 +4,6 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../core/error/failures.dart';
-import '../../core/usecases/usecase.dart';
 import '../../domain/usecases/get_cloud_certifications.dart';
 import '../../domain/entities/certification.dart';
 
@@ -31,7 +30,7 @@ class CloudCertificationBloc
   ) async* {
     if (event is GetCertificationsEvent) {
       yield Loading();
-      final result = await getCloudCertifications(NoParams());
+      final result = await getCloudCertifications();
       yield* _getState(result);
     }
   }
