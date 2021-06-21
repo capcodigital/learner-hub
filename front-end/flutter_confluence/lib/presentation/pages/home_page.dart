@@ -14,7 +14,7 @@ class _HomePageState extends State<HomePage> {
   initState() {
     super.initState();
     BlocProvider.of<CloudCertificationBloc>(context)
-        .add(GetCertificationsEvent());
+        .add(GetCompletedCertificationsEvent());
   }
 
   @override

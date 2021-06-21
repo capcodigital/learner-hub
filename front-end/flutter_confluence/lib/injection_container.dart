@@ -1,12 +1,16 @@
-import 'package:flutter_confluence/domain/usecases/get_cloud_certifications.dart';
 import 'package:flutter_confluence/presentation/bloc/cloud_certification_bloc.dart';
 import 'package:get_it/get_it.dart';
+
+import 'domain/usecases/get_completed_certifications.dart';
+import 'domain/usecases/get_in_progress_certifications.dart';
 
 final sl = GetIt.instance;
 
 Future<void> init() async {
-  sl.registerFactory(
-      () => CloudCertificationBloc(getCloudCertifications: sl()));
+  sl.registerFactory(() =>
+      CloudCertificationBloc(completedUseCase: sl(), inProgressUseCase: sl()));
 
-  sl.registerLazySingleton(() => GetCloudCertifications());
+  sl.registerLazySingleton(() => GetCompletedCertifications());
+
+  sl.registerLazySingleton(() => GetInProgressCertifications());
 }

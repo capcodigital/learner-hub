@@ -7,6 +7,10 @@ abstract class CloudCertificationEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class GetCertificationsEvent extends CloudCertificationEvent {
-  GetCertificationsEvent();
+class GetCompletedCertificationsEvent extends CloudCertificationEvent {
+  GetCompletedCertificationsEvent();
+}
+
+class GetInProgressCertificationsEvent extends CloudCertificationEvent {
+  GetInProgressCertificationsEvent();
 }

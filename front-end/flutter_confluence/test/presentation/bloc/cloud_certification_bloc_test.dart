@@ -1,19 +1,25 @@
+import 'package:flutter_confluence/domain/usecases/get_completed_certifications.dart';
+import 'package:flutter_confluence/domain/usecases/get_in_progress_certifications.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
-import 'package:flutter_confluence/domain/usecases/get_cloud_certifications.dart';
 import 'package:flutter_confluence/presentation/bloc/cloud_certification_bloc.dart';
 
-class MockGetCloudCertifications extends Mock
-    implements GetCloudCertifications {}
+class MockGetCompleted extends Mock implements GetCompletedCertifications {}
+
+class MockGetInProgress extends Mock implements GetInProgressCertifications {}
 
 void main() {
-  late MockGetCloudCertifications mockUseCase = MockGetCloudCertifications();
+  late MockGetCompleted mockCompletedCase = MockGetCompleted();
+  late MockGetInProgress mockInProgressCase = MockGetInProgress();
   late CloudCertificationBloc bloc;
 
   setUp(() {
-    mockUseCase = MockGetCloudCertifications();
-    bloc = CloudCertificationBloc(getCloudCertifications: mockUseCase);
+    mockCompletedCase = MockGetCompleted();
+    mockInProgressCase = MockGetInProgress();
+    bloc = CloudCertificationBloc(
+        completedUseCase: mockCompletedCase,
+        inProgressUseCase: mockInProgressCase);
   });
 
   test('initialState should be Empty', () {

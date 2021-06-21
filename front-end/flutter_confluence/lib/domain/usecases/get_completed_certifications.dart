@@ -6,9 +6,10 @@ import '../../core/error/failures.dart';
 import '../../core/usecases/usecase.dart';
 import '../entities/certification.dart';
 
-class GetCloudCertifications implements UseCase<List<Certification>, void> {
+class GetCompletedCertifications implements UseCase<List<Certification>, void> {
   @override
   Future<Either<Failure, List<Certification>>> call() async {
+    // Returning mock data atm
     return Right(certifications);
   }
 }
