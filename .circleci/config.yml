@@ -28,6 +28,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: check flutter requirements
+          command: flutter doctor -v
+      - run:
           name: run tests
           command: flutter test
           working_directory: ~/project/front-end/flutter_confluence
@@ -38,6 +41,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: check flutter requirements
+          command: flutter doctor -v
+      - run:
           name: build app
           command: flutter -v build apk
           working_directory: ~/project/front-end/flutter_confluence
@@ -45,7 +51,6 @@ jobs:
           name: copy
           command: cp -r ./build/app/outputs/flutter-apk /tmp/workspace
           working_directory: ~/project/front-end/flutter_confluence
-
       - persist_to_workspace:
           root: /tmp/workspace
           paths:
