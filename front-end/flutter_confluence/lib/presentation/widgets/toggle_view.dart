@@ -4,13 +4,15 @@ import 'package:flutter/material.dart';
 // and renamed it to avoid confilcts. Will delete this one and
 // use the original when merge develop to this branch
 class ToggleView extends StatefulWidget {
-  final Function callback;
+  final Function(ToggleState) callback;
 
   ToggleView(this.callback);
 
   @override
   _ToggleButtonState createState() => _ToggleButtonState(callback);
 }
+
+enum ToggleState { COMPLETED, IN_PROGRESS }
 
 class _ToggleButtonState extends State<ToggleView> {
   static const JIRA_COLOR = const Color(0xff0052CC);
@@ -72,7 +74,7 @@ class _ToggleButtonState extends State<ToggleView> {
                 xAlign = inProgressAlign;
                 inProgressColor = selectedColor;
                 completedColor = normalColor;
-                callback.call();
+                callback.call(ToggleState.IN_PROGRESS);
               });
             },
             child: Align(
@@ -98,7 +100,7 @@ class _ToggleButtonState extends State<ToggleView> {
                 xAlign = completedAlign;
                 completedColor = selectedColor;
                 inProgressColor = normalColor;
-                callback.call();
+                callback.call(ToggleState.COMPLETED);
               });
             },
             child: Align(

@@ -10,6 +10,8 @@ class GetCompletedCertifications implements UseCase<List<Certification>, void> {
   @override
   Future<Either<Failure, List<Certification>>> call() async {
     // Returning mock data atm
-    return Right(mockCompletedCerts);
+    return Future.delayed(Duration(milliseconds: 3000), () {
+      return Right(mockCompletedCerts);
+    });
   }
 }

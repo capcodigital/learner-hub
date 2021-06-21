@@ -14,12 +14,17 @@ class _HomePageState extends State<HomePage> {
   @override
   initState() {
     super.initState();
-    fetchCertifications();
+    fetchInProgressCertifications();
   }
 
-  void fetchCertifications() {
+  void fetchCompletedCertifications() {
     BlocProvider.of<CloudCertificationBloc>(context)
         .add(GetCompletedCertificationsEvent());
+  }
+
+  void fetchInProgressCertifications() {
+    BlocProvider.of<CloudCertificationBloc>(context)
+        .add(GetInProgressCertificationsEvent());
   }
 
   @override
@@ -46,9 +51,12 @@ class _HomePageState extends State<HomePage> {
           Container(
             alignment: Alignment.center,
             padding: const EdgeInsets.all(16.0),
-            child: ToggleView(() {
-              print("called");
-              fetchCertifications();
+            child: ToggleView((toggleState) {
+              if (toggleState == ToggleState.COMPLETED) {
+                fetchCompletedCertifications();
+              } else if (toggleState == ToggleState.IN_PROGRESS) {
+                fetchInProgressCertifications();
+              }
             }),
           ),
           BlocBuilder<CloudCertificationBloc, CloudCertificationState>(
@@ -56,9 +64,9 @@ class _HomePageState extends State<HomePage> {
               if (state is Loaded) {
                 return Expanded(child: CartificationsView(items: state.items));
               } else if (state is Loading)
-                return Text('Loading');
+                return Text('Loading...');
               else if (state is Empty)
-                return Text('Empty');
+                return Text('No results');
               else if (state is Error)
                 return Text('Error');
               else
