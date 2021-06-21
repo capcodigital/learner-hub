@@ -9,7 +9,7 @@ class ListViewCertif extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        itemCount: certifications.length,
+        itemCount: mockCompletedCerts.length,
         itemBuilder: (BuildContext context, int position) {
           return ListRow(item: items[position]);
         });

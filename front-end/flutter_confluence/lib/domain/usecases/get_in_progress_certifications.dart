@@ -11,6 +11,6 @@ class GetInProgressCertifications
   @override
   Future<Either<Failure, List<Certification>>> call() async {
     // Returning mock data atm
-    return Right(certifications);
+    return Right(mockCompletedCerts);
   }
 }
