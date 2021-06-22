@@ -22,10 +22,7 @@ class CloudCertificationBloc
 
   CloudCertificationBloc(
       {required this.completedUseCase, required this.inProgressUseCase})
-      : super(CloudCertificationInitial());
-
-  @override
-  CloudCertificationState get initialState => Empty();
+      : super(Empty());
 
   @override
   Stream<CloudCertificationState> mapEventToState(

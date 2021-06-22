@@ -23,6 +23,6 @@ void main() {
   });
 
   test('initialState should be Empty', () {
-    expect(bloc.initialState, equals(Empty()));
+    expect(bloc.state, equals(Empty()));
   });
 }

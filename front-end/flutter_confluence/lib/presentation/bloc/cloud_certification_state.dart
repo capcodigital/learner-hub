@@ -7,8 +7,6 @@ abstract class CloudCertificationState extends Equatable {
   List<Object> get props => [];
 }
 
-class CloudCertificationInitial extends CloudCertificationState {}
-
 class Empty extends CloudCertificationState {}
 
 class Loading extends CloudCertificationState {}
