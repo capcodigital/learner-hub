@@ -1,16 +1,19 @@
+import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_confluence/core/usecases/usecase.dart';
 
+import '../../core/errors/failures.dart';
+import '../../core/usecases/usecase.dart';
 import '../entities/cloud_certification.dart';
 import '../repositories/cloud_certification_repository.dart';
 
-class GetCompletedCertification implements UseCase<CloudCertification> {
+class GetCompletedCertification
+    implements UseCase<CloudCertification, NoParams> {
   final CloudCertificationRepository repository;
 
   GetCompletedCertification(this.repository);
 
   @override
-  Future<CloudCertification> call() async {
+  Future<Either<Failure, CloudCertification>> call(NoParams) async {
     return await repository.getCompletetedCertifications();
   }
 }
