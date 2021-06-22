@@ -14,7 +14,7 @@ def check_pullclean_errors(original_func):
     @wraps(original_func)
     async def decorated(*args, **kwargs):
         try:
-            return await original_func(*args, **kwargs)
+            return original_func(*args, **kwargs)
         except (pull_clean.EnvFileMissingError, pull_clean.EnvVariablesError):
             raise HTTPException(
                 status_code=500, detail='.env file missing or contains invalid data')
