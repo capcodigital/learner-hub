@@ -13,7 +13,7 @@ class GetCompletedCertification
   GetCompletedCertification(this.repository);
 
   @override
-  Future<Either<Failure, CloudCertification>> call(NoParams) async {
+  Future<Either<Failure, CloudCertification>> Execute(NoParams noParams) async {
     return await repository.getCompletetedCertifications();
   }
 }

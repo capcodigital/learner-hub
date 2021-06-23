@@ -2,22 +2,19 @@ import 'package:equatable/equatable.dart';
 
 import '../../core/constants.dart';
 
-class CloudCertification extends Equatable{
+class CloudCertification extends Equatable {
   final String name;
   final String platform;
   final String certificationType;
   final String certificationDate;
-  String? certificationIconName;
 
   CloudCertification(
       {required this.name,
       required this.platform,
       required this.certificationType,
-      required this.certificationDate}){
-    setCertificationIconName();
-  }
+      required this.certificationDate});
 
-    String get icon {
+  String? get certificationIconName {
     switch (this.certificationType) {
       case Constants.GCP:
         return Constants.IC_GCP;
@@ -33,5 +30,11 @@ class CloudCertification extends Equatable{
   }
 
   @override
-  List<Object?> get props => [name, platform, certificationType, certificationType, certificationIconName];
+  List<Object?> get props => [
+        name,
+        platform,
+        certificationType,
+        certificationType,
+        certificationIconName
+      ];
 }
