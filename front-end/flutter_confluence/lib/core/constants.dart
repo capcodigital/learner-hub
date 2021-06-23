@@ -10,6 +10,7 @@ class Constants {
   static const IC_CLOUD_NATIVE = 'ic_cloud_native.png';
   static const IC_HASHICORP = 'ic_hashicorp.png';
   static const IC_AWS = 'ic_aws.png';
+  static const IC_UNKNOWN = 'ic_unknown.png';
 
   static const GCP = 'gcp';
   static const AZURE = 'azure';
