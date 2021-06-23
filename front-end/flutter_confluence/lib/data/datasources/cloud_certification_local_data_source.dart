@@ -8,21 +8,25 @@ abstract class CloudCertificationLocalDataSource {
   Future<List<CloudCertificationModel>> getCompletedCertifications();
   Future<List<CloudCertificationModel>> getInProgressCertifications();
 
-  Future<void> saveCompletedCertifications(List<CloudCertificationModel> certifications);
-  Future<void> saveInProgressCertifications(List<CloudCertificationModel> certifications);
+  Future<void> saveCompletedCertifications(
+      List<CloudCertificationModel> certifications);
+  Future<void> saveInProgressCertifications(
+      List<CloudCertificationModel> certifications);
 }
 
 const COMPLETED_CERTIFICATIONS_KEY = 'CACHED_COMPLETED';
 const IN_PROGRESS_CERTIFICATIONS_KEY = 'CACHED_IN_PROGRESS';
 
-class CloudCertificationLocalDataSourceImpl implements CloudCertificationLocalDataSource {
+class CloudCertificationLocalDataSourceImpl
+    implements CloudCertificationLocalDataSource {
   final SharedPreferences sharedPreferences;
 
   CloudCertificationLocalDataSourceImpl({required this.sharedPreferences});
 
   @override
   Future<List<CloudCertificationModel>> getCompletedCertifications() {
-    final jsonString = sharedPreferences.getString(COMPLETED_CERTIFICATIONS_KEY);
+    final jsonString =
+        sharedPreferences.getString(COMPLETED_CERTIFICATIONS_KEY);
     if (jsonString != null) {
       var certifications = (json.decode(jsonString) as List)
           .map((e) => CloudCertificationModel.fromJson(e))
@@ -48,7 +52,8 @@ class CloudCertificationLocalDataSourceImpl implements CloudCertificationLocalDa
   }
 
   @override
-  Future<void> saveCompletedCertifications(List<CloudCertificationModel> certifications) {
+  Future<void> saveCompletedCertifications(
+      List<CloudCertificationModel> certifications) {
     return sharedPreferences.setString(
       COMPLETED_CERTIFICATIONS_KEY,
       json.encode(certifications),
@@ -56,7 +61,8 @@ class CloudCertificationLocalDataSourceImpl implements CloudCertificationLocalDa
   }
 
   @override
-  Future<void> saveInProgressCertifications(List<CloudCertificationModel> certifications) {
+  Future<void> saveInProgressCertifications(
+      List<CloudCertificationModel> certifications) {
     return sharedPreferences.setString(
       IN_PROGRESS_CERTIFICATIONS_KEY,
       json.encode(certifications),

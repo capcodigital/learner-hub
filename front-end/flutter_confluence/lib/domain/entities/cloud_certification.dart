@@ -32,10 +32,6 @@ class CloudCertification extends Equatable {
   }
 
   @override
-  List<Object?> get props => [
-        name,
-        platform,
-        certificationType,
-        certificationType
-      ];
+  List<Object?> get props =>
+      [name, platform, certificationType, certificationDate];
 }

@@ -19,21 +19,27 @@ class CloudCertificationsRepositoryImpl extends CloudCertificationRepository {
     required this.networkInfo,
   });
 
-  @override
-  Future<Either<Failure, List<CloudCertification>>> getCompletedCertifications() async {
+  Future<Either<Failure, List<CloudCertification>>> _getCertifications(
+    bool isProgressCert,
+    Future<List<CloudCertificationModel>> Function() getInProgressOrCompleted,
+  ) async {
     try {
       if (await networkInfo.isConnected) {
         try {
-          final certifications = await remoteDataSource.getCompletedCertifications();
-          localDataSource.saveCompletedCertifications(certifications);
-          return Right(certifications.map((e) => e.toCloudCertification()).toList());
+          final certifications = await getInProgressOrCompleted();
+          if (isProgressCert) {
+            localDataSource.saveInProgressCertifications(certifications);
+          } else {
+            localDataSource.saveCompletedCertifications(certifications);
+          }
+          return Right(certifications);
         } on ServerException {
           return Left(ServerFailure());
         }
       } else {
         try {
-          final localCertifications = await localDataSource.getCompletedCertifications();
-          return Right(localCertifications.map((e) => e.toCloudCertification()).toList());
+          final localCertifications = await getInProgressOrCompleted();
+          return Right(localCertifications);
         } on CacheException {
           return Left(CacheFailure());
         }
@@ -44,32 +50,16 @@ class CloudCertificationsRepositoryImpl extends CloudCertificationRepository {
   }
 
   @override
-  Future<Either<Failure, List<CloudCertification>>> getInProgressCertifications() async {
-    if (await networkInfo.isConnected) {
-      try {
-        final certifications = await remoteDataSource.getInProgressCertifications();
-        localDataSource.saveInProgressCertifications(certifications);
-        return Right(certifications.map((e) => e.toCloudCertification()).toList());
-      } on ServerException {
-        return Left(ServerFailure());
-      }
-    } else {
-      try {
-        final localCertifications = await localDataSource.getInProgressCertifications();
-        return Right(localCertifications.map((e) => e.toCloudCertification()).toList());
-      } on CacheException {
-        return Left(CacheFailure());
-      }
-    }
+  Future<Either<Failure, List<CloudCertification>>>
+      getCompletedCertifications() async {
+    return await _getCertifications(
+        false, () => remoteDataSource.getCompletedCertifications());
   }
-}
 
-extension CloudCertificationMapper on CloudCertificationModel {
-  CloudCertification toCloudCertification() {
-    return CloudCertification(
-        name: this.name,
-        platform: this.platform,
-        certificationType: this.certificationName,
-        certificationDate: this.date);
+  @override
+  Future<Either<Failure, List<CloudCertification>>>
+      getInProgressCertifications() async {
+    return await _getCertifications(
+        true, () => remoteDataSource.getInProgressCertifications());
   }
 }
