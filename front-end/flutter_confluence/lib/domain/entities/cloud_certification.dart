@@ -14,7 +14,7 @@ class CloudCertification extends Equatable {
       required this.certificationType,
       required this.certificationDate});
 
-  String? get certificationIconName {
+  String get certificationIconName {
     switch (this.certificationType) {
       case Constants.GCP:
         return Constants.IC_GCP;
@@ -26,6 +26,8 @@ class CloudCertification extends Equatable {
         return Constants.IC_HASHICORP;
       case Constants.AWS:
         return Constants.IC_AWS;
+      default:
+        return Constants.IC_UNKNOWN;
     }
   }
 
