@@ -24,7 +24,7 @@ class CloudCertificationRepositoryImpl implements CloudCertificationRepository {
       getInProgressCertifications() async {
     // Return mock data atm
     return Future.delayed(Duration(milliseconds: 2000), () {
-      return Right(mockInrogressCerts);
+      return Right(mockInProgressCerts);
     });
   }
 }

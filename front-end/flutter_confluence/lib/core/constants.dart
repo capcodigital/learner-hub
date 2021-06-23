@@ -87,7 +87,7 @@ final List<CloudCertification> mockCompletedCerts = [
       certificationDate: "4/1/20"),
 ];
 
-final List<CloudCertification> mockInrogressCerts = [
+final List<CloudCertification> mockInProgressCerts = [
   CloudCertification(
       name: "Mathew Adams",
       certificationType: "Professional Network Engineer",
