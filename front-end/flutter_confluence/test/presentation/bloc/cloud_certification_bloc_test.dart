@@ -1,13 +1,13 @@
-import 'package:flutter_confluence/domain/usecases/get_completed_certifications.dart';
-import 'package:flutter_confluence/domain/usecases/get_in_progress_certifications.dart';
+import 'package:flutter_confluence/domain/usecases/get_completed_certification.dart';
+import 'package:flutter_confluence/domain/usecases/get_in_progress_certification.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
 import 'package:flutter_confluence/presentation/bloc/cloud_certification_bloc.dart';
 
-class MockGetCompleted extends Mock implements GetCompletedCertifications {}
+class MockGetCompleted extends Mock implements GetCompletedCertification {}
 
-class MockGetInProgress extends Mock implements GetInProgressCertifications {}
+class MockGetInProgress extends Mock implements GetInProgressCertification {}
 
 void main() {
   late MockGetCompleted mockCompletedCase = MockGetCompleted();

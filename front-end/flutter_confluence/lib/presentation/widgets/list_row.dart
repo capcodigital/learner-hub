@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../domain/entities/certification.dart';
+import 'package:flutter_confluence/domain/entities/cloud_certification.dart';
 
 class ListRow extends StatelessWidget {
   static const listRowIconSize = 50.0;
@@ -11,7 +11,7 @@ class ListRow extends StatelessWidget {
   static const listRowInfoTextColor = Color(0xBF000000);
   static const listRowDateTextSize = 14.0;
 
-  final Certification item;
+  final CloudCertification item;
   ListRow({required this.item});
 
   @override
@@ -19,7 +19,7 @@ class ListRow extends StatelessWidget {
     return getRow(item, context);
   }
 
-  Widget getRow(Certification item, BuildContext context) {
+  Widget getRow(CloudCertification item, BuildContext context) {
     return Card(
       elevation: 0,
       color: Colors.transparent,
@@ -34,7 +34,8 @@ class ListRow extends StatelessWidget {
                     shape: BoxShape.circle,
                     image: DecorationImage(
                         fit: BoxFit.cover,
-                        image: AssetImage('assets/${item.icon}')))),
+                        image: AssetImage(
+                            'assets/${item.certificationIconName}')))),
             Padding(
               padding: EdgeInsets.only(left: listRowIconRightMargin),
               child: Column(
@@ -48,7 +49,7 @@ class ListRow extends StatelessWidget {
                   Container(
                     margin: EdgeInsets.only(top: listRowInfoMarginTop),
                     child: Text(
-                      item.certification,
+                      item.certificationType,
                       style: TextStyle(
                           color: listRowInfoTextColor,
                           fontSize: listRowInfoTextSize),
@@ -62,7 +63,7 @@ class ListRow extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  item.date,
+                  item.certificationDate,
                   style: TextStyle(
                       color: listRowInfoTextColor,
                       fontSize: listRowDateTextSize),

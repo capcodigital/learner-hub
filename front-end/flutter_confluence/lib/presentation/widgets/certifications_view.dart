@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '../../domain/entities/certification.dart';
+import 'package:flutter_confluence/domain/entities/cloud_certification.dart';
 import 'list_row.dart';
 
 class CartificationsView extends StatelessWidget {
-  final List<Certification> items;
+  final List<CloudCertification> items;
   CartificationsView({required this.items});
 
   @override

@@ -12,7 +12,7 @@ class Empty extends CloudCertificationState {}
 class Loading extends CloudCertificationState {}
 
 class Loaded extends CloudCertificationState {
-  final List<Certification> items;
+  final List<CloudCertification> items;
 
   Loaded({required this.items});
 

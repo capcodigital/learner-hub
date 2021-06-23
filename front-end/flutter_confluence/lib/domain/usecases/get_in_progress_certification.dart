@@ -10,7 +10,8 @@ class GetInProgressCertification {
 
   GetInProgressCertification(this.repository);
 
-  Future<Either<Failure, CloudCertification>> execute(NoParams noParams) async {
+  Future<Either<Failure, List<CloudCertification>>> execute(
+      NoParams noParams) async {
     return await repository.getInProgressCertifications();
   }
 }
