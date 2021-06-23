@@ -17,23 +17,18 @@ class CloudCertification extends Equatable{
     setCertificationIconName();
   }
 
-  void setCertificationIconName() {
+    String get icon {
     switch (this.certificationType) {
       case Constants.GCP:
-        certificationIconName = Constants.IC_GCP;
-        break;
+        return Constants.IC_GCP;
       case Constants.AZURE:
-        certificationIconName = Constants.IC_AZURE;
-        break;
+        return Constants.IC_AZURE;
       case Constants.CLOUD_NATIVE:
-        certificationIconName = Constants.IC_CLOUD_NATIVE;
-        break;
+        return Constants.IC_CLOUD_NATIVE;
       case Constants.HASHICORP:
-        certificationIconName = Constants.IC_HASHICORP;
-        break;
+        return Constants.IC_HASHICORP;
       case Constants.AWS:
-        certificationIconName = Constants.IC_AWS;
-
+        return Constants.IC_AWS;
     }
   }
 
