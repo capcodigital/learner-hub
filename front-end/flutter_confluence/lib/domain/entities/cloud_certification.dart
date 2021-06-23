@@ -36,7 +36,6 @@ class CloudCertification extends Equatable {
         name,
         platform,
         certificationType,
-        certificationType,
-        certificationIconName
+        certificationType
       ];
 }
