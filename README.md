@@ -64,7 +64,9 @@ Here's a blank template to get started:
 
 ### Built With
 
-* []()
+* [Flutter](https://flutter.dev/)
+* [CircleCI](https://circleci.com/)
+* [Terraform](https://www.terraform.io/)
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -73,17 +75,55 @@ To get a local copy up and running follow these simple steps.
 
 ### Prerequisites
 
+* Flutter
+* Python Virtual Environment
+* Terraform
+* gGloud
+* GCP Service Account Key
+
 #### Flutter Installation
 
-In order to run the application locally, you must have the Flutter SDK installed.
+In order to run the application locally, you must have the Flutter SDK installed.  Follow the steps within the [Flutter Documentation](https://flutter.dev/docs/get-started/install) to install the Flutter SDK on your local machine.
 
-Follow the steps within the [Flutter Documentation](https://flutter.dev/docs/get-started/install) to install the Flutter SDK on your local machine.
+#### Python Virtual Environment
+
+To use `pre-commit` isolated from other projects a virtual environment called _.venv-flutter-confluence_.  The virtual environment can be created in multiple ways, this example shows using `pyenv` which can be found [here](https://github.com/pyenv/pyenv).
+
+```shell
+pyenv virtualenv 3.9.1 .venv-flutter-confluence
+```
+
+#### Terraform
+
+To develop the `terraform` configuration you will need the correct version of `terraform` installed, currently `1.0.0`.  One approach is to use `tfenv` to enable local management of multiple versions.  For instructions on installing `tfenv` see [here](https://github.com/tfutils/tfenv).
+
+```shell
+tfenv install 1.0.0
+tfenv use 1.0.0
+```
+
+#### gCloud
+
+`gcloud` needs to to be installed on the local machine.  You can find installation instructions in the offical documentation [here](https://cloud.google.com/sdk/docs/install).
+
+#### GCP Service Account Key
+
+A service account key file is required to be located in the project root called `.gcloud.json`.
+
+This service account must have the following roles:
+
+* Service Usage Admin
+* Storage Admin
+* Storage Object Admin
 
 ### Installation
 
 ```shell
 # clone the repo
 git clone https://github.com/capcodigital/flutter-confluence.git
+
+# configures the local env
+source .env
 ```
 
 <!-- USAGE EXAMPLES -->
