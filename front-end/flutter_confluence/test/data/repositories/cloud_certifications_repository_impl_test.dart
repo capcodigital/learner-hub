@@ -8,7 +8,6 @@ import 'package:flutter_confluence/data/datasources/cloud_certification_local_da
 import 'package:flutter_confluence/data/datasources/cloud_certification_remote_data_source.dart';
 import 'package:flutter_confluence/data/models/cloud_certification_model.dart';
 import 'package:flutter_confluence/data/repositories/cloud_certifications_repository_impl.dart';
-import 'package:flutter_confluence/domain/entities/cloud_certification.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -16,23 +15,29 @@ import 'package:mockito/mockito.dart';
 import '../../fixtures/FixtureReader.dart';
 import 'cloud_certifications_repository_impl_test.mocks.dart';
 
-@GenerateMocks([CloudCertificationRemoteDataSource, CloudCertificationLocalDataSource, NetworkInfo])
+@GenerateMocks([
+  CloudCertificationRemoteDataSource,
+  CloudCertificationLocalDataSource,
+  NetworkInfo
+])
 void main() {
   late CloudCertificationsRepositoryImpl repository;
   late MockCloudCertificationRemoteDataSource mockRemoteDataSource;
   late MockCloudCertificationLocalDataSource mockLocalDataSource;
   late MockNetworkInfo mockNetworkInfo;
 
-  final remoteCertifications = (json.decode(fixture('completed.json')) as Map<String, dynamic>)
-      .values
-      .map((e) => CloudCertificationModel.fromJson(e))
-      .take(1)
-      .toList();
+  final remoteCertifications =
+      (json.decode(fixture('completed.json')) as Map<String, dynamic>)
+          .values
+          .map((e) => CloudCertificationModel.fromJson(e))
+          .take(1)
+          .toList();
 
-  final localCertifications = (json.decode(fixture('cached_completed_certifications.json')) as List)
-      .map((e) => CloudCertificationModel.fromJson(e))
-      .take(1)
-      .toList();
+  final localCertifications =
+      (json.decode(fixture('cached_completed_certifications.json')) as List)
+          .map((e) => CloudCertificationModel.fromJson(e))
+          .take(1)
+          .toList();
 
   setUp(() {
     mockRemoteDataSource = MockCloudCertificationRemoteDataSource();
@@ -50,9 +55,12 @@ void main() {
       when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
     });
 
-    test('should return remote data when the call to remote data source is successful', () async {
+    test(
+        'should return remote data when the call to remote data source is successful',
+        () async {
       // arrange
-      when(mockRemoteDataSource.getCompletedCertifications()).thenAnswer((_) async => remoteCertifications);
+      when(mockRemoteDataSource.getCompletedCertifications())
+          .thenAnswer((_) async => remoteCertifications);
       // act
       final certifications = await repository.getCompletedCertifications();
 
@@ -64,18 +72,21 @@ void main() {
       // won't work. Maybe because the mapping of the entities?
       // So I getting just the value of the right side
       expect(certifications.isRight(), true);
-      var expected = remoteCertifications.map((e) => e.toCloudCertification()).toList();
-      expect(certifications.getOrElse(() => []), equals(expected));
+      expect(certifications.getOrElse(() => []), equals(remoteCertifications));
     });
 
-    test('certifications are saved in local cache when fetched from remote source', () async {
+    test(
+        'certifications are saved in local cache when fetched from remote source',
+        () async {
       // arrange
-      when(mockRemoteDataSource.getCompletedCertifications()).thenAnswer((_) async => remoteCertifications);
+      when(mockRemoteDataSource.getCompletedCertifications())
+          .thenAnswer((_) async => remoteCertifications);
       // act
       final certifications = await repository.getCompletedCertifications();
       // assert
       verify(mockRemoteDataSource.getCompletedCertifications());
-      verify(mockLocalDataSource.saveCompletedCertifications(remoteCertifications));
+      verify(mockLocalDataSource
+          .saveCompletedCertifications(remoteCertifications));
     });
   });
 
@@ -84,9 +95,12 @@ void main() {
       when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
     });
 
-    test('should return remote data when the call to remote data source is successful', () async {
+    test(
+        'should return remote data when the call to remote data source is successful',
+        () async {
       // arrange
-      when(mockRemoteDataSource.getInProgressCertifications()).thenAnswer((_) async => remoteCertifications);
+      when(mockRemoteDataSource.getInProgressCertifications())
+          .thenAnswer((_) async => remoteCertifications);
       // act
       final certifications = await repository.getInProgressCertifications();
 
@@ -98,18 +112,21 @@ void main() {
       // won't work. Maybe because the mapping of the entities?
       // So I getting just the value of the right side
       expect(certifications.isRight(), true);
-      var expected = remoteCertifications.map((e) => e.toCloudCertification()).toList();
-      expect(certifications.getOrElse(() => []), equals(expected));
+      expect(certifications.getOrElse(() => []), equals(remoteCertifications));
     });
 
-    test('certifications are saved in local cache when fetched from remote source', () async {
+    test(
+        'certifications are saved in local cache when fetched from remote source',
+        () async {
       // arrange
-      when(mockRemoteDataSource.getInProgressCertifications()).thenAnswer((_) async => remoteCertifications);
+      when(mockRemoteDataSource.getInProgressCertifications())
+          .thenAnswer((_) async => remoteCertifications);
       // act
       final certifications = await repository.getInProgressCertifications();
       // assert
       verify(mockRemoteDataSource.getInProgressCertifications());
-      verify(mockLocalDataSource.saveInProgressCertifications(remoteCertifications));
+      verify(mockLocalDataSource
+          .saveInProgressCertifications(remoteCertifications));
     });
   });
 
@@ -118,9 +135,11 @@ void main() {
       when(mockNetworkInfo.isConnected).thenAnswer((_) async => false);
     });
 
-    test('should return the local completed data when the device is offline', () async {
+    test('should return the local completed data when the device is offline',
+        () async {
       //arrange
-      when(mockLocalDataSource.getCompletedCertifications()).thenAnswer((_) async => localCertifications);
+      when(mockLocalDataSource.getCompletedCertifications())
+          .thenAnswer((_) async => localCertifications);
 
       // act
       var certifications = await repository.getCompletedCertifications();
@@ -130,9 +149,11 @@ void main() {
       verify(mockLocalDataSource.getCompletedCertifications());
     });
 
-    test('should return the local in_progress data when the device is offline', () async {
+    test('should return the local in_progress data when the device is offline',
+        () async {
       //arrange
-      when(mockLocalDataSource.getInProgressCertifications()).thenAnswer((_) async => localCertifications);
+      when(mockLocalDataSource.getInProgressCertifications())
+          .thenAnswer((_) async => localCertifications);
 
       // act
       var certifications = await repository.getInProgressCertifications();
@@ -148,9 +169,12 @@ void main() {
       when(mockNetworkInfo.isConnected).thenAnswer((_) async => false);
     });
 
-    test('should return a failure when in_progress is called when the device is offline and cache is empty', () async {
+    test(
+        'should return a failure when in_progress is called when the device is offline and cache is empty',
+        () async {
       //arrange
-      when(mockLocalDataSource.getInProgressCertifications()).thenThrow(CacheException());
+      when(mockLocalDataSource.getInProgressCertifications())
+          .thenThrow(CacheException());
 
       // act
       var certifications = await repository.getInProgressCertifications();
@@ -161,9 +185,12 @@ void main() {
       expect(certifications, equals(Left(CacheFailure())));
     });
 
-    test('should return a failure when completed is called when the device is offline and cache is empty', () async {
+    test(
+        'should return a failure when completed is called when the device is offline and cache is empty',
+        () async {
       //arrange
-      when(mockLocalDataSource.getCompletedCertifications()).thenThrow(CacheException());
+      when(mockLocalDataSource.getCompletedCertifications())
+          .thenThrow(CacheException());
 
       // act
       var certifications = await repository.getCompletedCertifications();
