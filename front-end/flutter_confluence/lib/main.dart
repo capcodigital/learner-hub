@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_confluence/core/constants.dart';
 import 'presentation/pages/home_page.dart';
 
 void main() {
@@ -11,6 +12,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
+        theme: ThemeData(primaryColor: Constants.JIRA_COLOR),
         home: HomePage());
   }
 }
