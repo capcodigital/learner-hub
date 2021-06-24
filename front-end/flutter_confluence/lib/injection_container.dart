@@ -9,8 +9,8 @@ import 'data/datasources/cloud_certification_local_data_source.dart';
 import 'data/datasources/cloud_certification_remote_data_source.dart';
 import 'domain/repositories/cloud_certification_repository.dart';
 import 'presentation/bloc/cloud_certification_bloc.dart';
-import 'domain/usecases/get_completed_certification.dart';
-import 'domain/usecases/get_in_progress_certification.dart';
+import 'domain/usecases/get_completed_certifications.dart';
+import 'domain/usecases/get_in_progress_certifications.dart';
 
 final sl = GetIt.instance;
 
@@ -18,9 +18,9 @@ Future<void> init() async {
   sl.registerFactory(() =>
       CloudCertificationBloc(completedUseCase: sl(), inProgressUseCase: sl()));
 
-  sl.registerLazySingleton(() => GetCompletedCertification(sl()));
+  sl.registerLazySingleton(() => GetCompletedCertifications(sl()));
 
-  sl.registerLazySingleton(() => GetInProgressCertification(sl()));
+  sl.registerLazySingleton(() => GetInProgressCertifications(sl()));
 
   sl.registerLazySingleton<CloudCertificationRepository>(
         () => CloudCertificationsRepositoryImpl(

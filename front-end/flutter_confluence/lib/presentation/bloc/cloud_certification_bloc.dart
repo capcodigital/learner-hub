@@ -5,8 +5,8 @@ import 'package:equatable/equatable.dart';
 import '../../core/error/failures.dart';
 import '../../core/usecases/usecase.dart';
 import '../../domain/entities/cloud_certification.dart';
-import '../../domain/usecases/get_completed_certification.dart';
-import '../../domain/usecases/get_in_progress_certification.dart';
+import '../../domain/usecases/get_completed_certifications.dart';
+import '../../domain/usecases/get_in_progress_certifications.dart';
 
 part 'cloud_certification_event.dart';
 part 'cloud_certification_state.dart';
@@ -17,8 +17,8 @@ const UNKNOWN_ERROR_MSG = "Unknown Error";
 
 class CloudCertificationBloc
     extends Bloc<CloudCertificationEvent, CloudCertificationState> {
-  final GetCompletedCertification completedUseCase;
-  final GetInProgressCertification inProgressUseCase;
+  final GetCompletedCertifications completedUseCase;
+  final GetInProgressCertifications inProgressUseCase;
 
   CloudCertificationBloc(
       {required this.completedUseCase, required this.inProgressUseCase})

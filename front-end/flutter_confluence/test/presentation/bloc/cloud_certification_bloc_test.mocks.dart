@@ -11,9 +11,9 @@ import 'package:flutter_confluence/domain/entities/cloud_certification.dart'
     as _i7;
 import 'package:flutter_confluence/domain/repositories/cloud_certification_repository.dart'
     as _i2;
-import 'package:flutter_confluence/domain/usecases/get_completed_certification.dart'
+import 'package:flutter_confluence/domain/usecases/get_completed_certifications.dart'
     as _i4;
-import 'package:flutter_confluence/domain/usecases/get_in_progress_certification.dart'
+import 'package:flutter_confluence/domain/usecases/get_in_progress_certifications.dart'
     as _i9;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -35,7 +35,7 @@ class _FakeEither<L, R> extends _i1.Fake implements _i3.Either<L, R> {
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockGetCompletedCertification extends _i1.Mock
-    implements _i4.GetCompletedCertification {
+    implements _i4.GetCompletedCertifications {
   MockGetCompletedCertification() {
     _i1.throwOnMissingStub(this);
   }
@@ -59,7 +59,7 @@ class MockGetCompletedCertification extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockGetInProgressCertification extends _i1.Mock
-    implements _i9.GetInProgressCertification {
+    implements _i9.GetInProgressCertifications {
   MockGetInProgressCertification() {
     _i1.throwOnMissingStub(this);
   }

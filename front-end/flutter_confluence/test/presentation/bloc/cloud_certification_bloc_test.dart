@@ -4,8 +4,8 @@ import 'package:flutter_confluence/core/constants.dart';
 import 'package:flutter_confluence/core/error/failures.dart';
 import 'package:flutter_confluence/core/usecases/usecase.dart';
 import 'package:flutter_confluence/data/models/cloud_certification_model.dart';
-import 'package:flutter_confluence/domain/usecases/get_completed_certification.dart';
-import 'package:flutter_confluence/domain/usecases/get_in_progress_certification.dart';
+import 'package:flutter_confluence/domain/usecases/get_completed_certifications.dart';
+import 'package:flutter_confluence/domain/usecases/get_in_progress_certifications.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -15,7 +15,7 @@ import '../../fixtures/FixtureReader.dart';
 import 'cloud_certification_bloc_test.mocks.dart';
 import 'package:bloc_test/bloc_test.dart';
 
-@GenerateMocks([GetCompletedCertification, GetInProgressCertification])
+@GenerateMocks([GetCompletedCertifications, GetInProgressCertifications])
 void main() {
 
   final mockCompletedCerts =

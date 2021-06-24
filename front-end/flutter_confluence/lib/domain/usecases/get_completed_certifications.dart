@@ -4,12 +4,14 @@ import '../../core/error/failures.dart';
 import '../entities/cloud_certification.dart';
 import '../repositories/cloud_certification_repository.dart';
 
-class GetInProgressCertification {
+class GetCompletedCertifications {
   final CloudCertificationRepository repository;
 
-  GetInProgressCertification(this.repository);
+  GetCompletedCertifications(this.repository);
 
-  Future<Either<Failure, List<CloudCertification>>> execute(NoParams noParams) async {
-    return await repository.getInProgressCertifications();
+  Future<Either<Failure, List<CloudCertification>>> execute(
+      NoParams noParams) async {
+    return await repository.getCompletedCertifications();
   }
 }
+
