@@ -30,13 +30,11 @@ void main() {
       (json.decode(fixture('completed.json')) as Map<String, dynamic>)
           .values
           .map((e) => CloudCertificationModel.fromJson(e))
-          .take(1)
           .toList();
 
   final localCertifications =
       (json.decode(fixture('cached_completed_certifications.json')) as List)
           .map((e) => CloudCertificationModel.fromJson(e))
-          .take(1)
           .toList();
 
   setUp(() {
