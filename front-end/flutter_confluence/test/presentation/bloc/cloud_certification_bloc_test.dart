@@ -84,10 +84,12 @@ void main() {
 
     blocTest(
       'should emit Loading, Loaded',
-      build: () => bloc,
-      act: (blo) => {
+      build: () {
         when(mockCompletedCase.execute(any))
-            .thenAnswer((_) async => Right(mockCompletedCerts)),
+            .thenAnswer((_) async => Right(mockCompletedCerts));
+        return bloc;
+        },
+      act: (blo) => {
         bloc.add(GetCompletedCertificationsEvent())
       },
       expect: () => orderCompleted,
@@ -95,10 +97,12 @@ void main() {
 
     blocTest(
       'should emit, Loading, ServerError',
-      build: () => bloc,
-      act: (blo) => {
+      build: () {
         when(mockCompletedCase.execute(any))
-            .thenAnswer((_) async => Left(ServerFailure())),
+            .thenAnswer((_) async => Left(ServerFailure()));
+        return bloc;
+        },
+      act: (blo) => {
         bloc.add(GetCompletedCertificationsEvent())
       },
       expect: () => orderServerError,
@@ -106,10 +110,12 @@ void main() {
 
     blocTest(
       'should emit Loading, CacheError',
-      build: () => bloc,
-      act: (blo) => {
+      build: () {
         when(mockCompletedCase.execute(any))
-            .thenAnswer((_) async => Left(CacheFailure())),
+            .thenAnswer((_) async => Left(CacheFailure()));
+        return bloc;
+      },
+      act: (blo) => {
         bloc.add(GetCompletedCertificationsEvent())
       },
       expect: () => orderCacheError,
@@ -134,10 +140,12 @@ void main() {
 
     blocTest(
       'should emit Loading, Loaded',
-      build: () => bloc,
-      act: (blo) => {
+      build: () {
         when(mockInProgressCase.execute(any))
-            .thenAnswer((_) async => Right(mockInProgressCerts)),
+            .thenAnswer((_) async => Right(mockInProgressCerts));
+        return bloc;
+      },
+      act: (blo) => {
         bloc.add(GetInProgressCertificationsEvent())
       },
       expect: () => orderInProgress,
@@ -145,10 +153,12 @@ void main() {
 
     blocTest(
       'should emit Loading, ServerError',
-      build: () => bloc,
-      act: (blo) => {
+      build: () {
         when(mockInProgressCase.execute(any))
-            .thenAnswer((_) async => Left(ServerFailure())),
+            .thenAnswer((_) async => Left(ServerFailure()));
+        return bloc;
+      },
+      act: (blo) => {
         bloc.add(GetInProgressCertificationsEvent())
       },
       expect: () => orderServerError,
@@ -156,10 +166,12 @@ void main() {
 
     blocTest(
       'should emit Loading, CacheError',
-      build: () => bloc,
-      act: (blo) => {
+      build: () {
         when(mockInProgressCase.execute(any))
-            .thenAnswer((_) async => Left(CacheFailure())),
+            .thenAnswer((_) async => Left(CacheFailure()));
+        return bloc;
+      },
+      act: (blo) => {
         bloc.add(GetInProgressCertificationsEvent())
       },
       expect: () => orderCacheError,
