@@ -31,12 +31,12 @@ class _FakeEither<L, R> extends _i1.Fake implements _i3.Either<L, R> {
   String toString() => super.toString();
 }
 
-/// A class which mocks [GetCompletedCertification].
+/// A class which mocks [GetCompletedCertifications].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockGetCompletedCertification extends _i1.Mock
+class MockGetCompletedCertifications extends _i1.Mock
     implements _i4.GetCompletedCertifications {
-  MockGetCompletedCertification() {
+  MockGetCompletedCertifications() {
     _i1.throwOnMissingStub(this);
   }
 
@@ -46,21 +46,21 @@ class MockGetCompletedCertification extends _i1.Mock
               returnValue: _FakeCloudCertificationRepository())
           as _i2.CloudCertificationRepository);
   @override
-  _i5.Future<_i3.Either<_i6.Failure, List<_i7.CloudCertification>>> execute(
+  _i5.Future<_i3.Either<_i6.Failure, List<_i7.CloudCertification>>> call(
           _i8.NoParams? noParams) =>
-      (super.noSuchMethod(Invocation.method(#execute, [noParams]),
+      (super.noSuchMethod(Invocation.method(#call, [noParams]),
           returnValue: Future<
                   _i3.Either<_i6.Failure, List<_i7.CloudCertification>>>.value(
               _FakeEither<_i6.Failure, List<_i7.CloudCertification>>())) as _i5
           .Future<_i3.Either<_i6.Failure, List<_i7.CloudCertification>>>);
 }
 
-/// A class which mocks [GetInProgressCertification].
+/// A class which mocks [GetInProgressCertifications].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockGetInProgressCertification extends _i1.Mock
+class MockGetInProgressCertifications extends _i1.Mock
     implements _i9.GetInProgressCertifications {
-  MockGetInProgressCertification() {
+  MockGetInProgressCertifications() {
     _i1.throwOnMissingStub(this);
   }
 
@@ -70,9 +70,9 @@ class MockGetInProgressCertification extends _i1.Mock
               returnValue: _FakeCloudCertificationRepository())
           as _i2.CloudCertificationRepository);
   @override
-  _i5.Future<_i3.Either<_i6.Failure, List<_i7.CloudCertification>>> execute(
+  _i5.Future<_i3.Either<_i6.Failure, List<_i7.CloudCertification>>> call(
           _i8.NoParams? noParams) =>
-      (super.noSuchMethod(Invocation.method(#execute, [noParams]),
+      (super.noSuchMethod(Invocation.method(#call, [noParams]),
           returnValue: Future<
                   _i3.Either<_i6.Failure, List<_i7.CloudCertification>>>.value(
               _FakeEither<_i6.Failure, List<_i7.CloudCertification>>())) as _i5

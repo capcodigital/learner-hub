@@ -50,13 +50,13 @@ void main() {
     Error(message: CACHE_FAILURE_MSG),
   ];
 
-  late MockGetCompletedCertification mockCompletedCase;
-  late MockGetInProgressCertification mockInProgressCase;
+  late MockGetCompletedCertifications mockCompletedCase;
+  late MockGetInProgressCertifications mockInProgressCase;
   late CloudCertificationBloc bloc;
 
   setUp(() {
-    mockCompletedCase = MockGetCompletedCertification();
-    mockInProgressCase = MockGetInProgressCertification();
+    mockCompletedCase = MockGetCompletedCertifications();
+    mockInProgressCase = MockGetInProgressCertifications();
     bloc = CloudCertificationBloc(
       completedUseCase: mockCompletedCase,
       inProgressUseCase: mockInProgressCase);
@@ -72,20 +72,20 @@ void main() {
       'should get list of completed certifications',
           () async {
         // arrange
-        when(mockCompletedCase.execute(any))
+        when(mockCompletedCase(any))
             .thenAnswer((_) async => Right(mockCompletedCerts));
         // act
         bloc.add(GetCompletedCertificationsEvent());
-        await untilCalled(mockCompletedCase.execute(any));
+        await untilCalled(mockCompletedCase(any));
         // assert
-        verify(mockCompletedCase.execute(NoParams()));
+        verify(mockCompletedCase(NoParams()));
       },
     );
 
     blocTest(
       'should emit Loading, Loaded',
       build: () {
-        when(mockCompletedCase.execute(any))
+        when(mockCompletedCase(any))
             .thenAnswer((_) async => Right(mockCompletedCerts));
         return bloc;
         },
@@ -98,7 +98,7 @@ void main() {
     blocTest(
       'should emit, Loading, ServerError',
       build: () {
-        when(mockCompletedCase.execute(any))
+        when(mockCompletedCase(any))
             .thenAnswer((_) async => Left(ServerFailure()));
         return bloc;
         },
@@ -111,7 +111,7 @@ void main() {
     blocTest(
       'should emit Loading, CacheError',
       build: () {
-        when(mockCompletedCase.execute(any))
+        when(mockCompletedCase(any))
             .thenAnswer((_) async => Left(CacheFailure()));
         return bloc;
       },
@@ -128,20 +128,20 @@ void main() {
       'should get list of in progress certifications',
           () async {
         // arrange
-        when(mockInProgressCase.execute(any))
+        when(mockInProgressCase(any))
             .thenAnswer((_) async => Right(mockInProgressCerts));
         // act
         bloc.add(GetInProgressCertificationsEvent());
-        await untilCalled(mockInProgressCase.execute(any));
+        await untilCalled(mockInProgressCase(any));
         // assert
-        verify(mockInProgressCase.execute(NoParams()));
+        verify(mockInProgressCase(NoParams()));
       },
     );
 
     blocTest(
       'should emit Loading, Loaded',
       build: () {
-        when(mockInProgressCase.execute(any))
+        when(mockInProgressCase(any))
             .thenAnswer((_) async => Right(mockInProgressCerts));
         return bloc;
       },
@@ -154,7 +154,7 @@ void main() {
     blocTest(
       'should emit Loading, ServerError',
       build: () {
-        when(mockInProgressCase.execute(any))
+        when(mockInProgressCase(any))
             .thenAnswer((_) async => Left(ServerFailure()));
         return bloc;
       },
@@ -167,7 +167,7 @@ void main() {
     blocTest(
       'should emit Loading, CacheError',
       build: () {
-        when(mockInProgressCase.execute(any))
+        when(mockInProgressCase(any))
             .thenAnswer((_) async => Left(CacheFailure()));
         return bloc;
       },

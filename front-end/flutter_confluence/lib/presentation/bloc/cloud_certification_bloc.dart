@@ -30,11 +30,11 @@ class CloudCertificationBloc
   ) async* {
     if (event is GetCompletedCertificationsEvent) {
       yield Loading();
-      final result = await completedUseCase.execute(NoParams());
+      final result = await completedUseCase(NoParams());
       yield* _getState(result);
     } else if (event is GetInProgressCertificationsEvent) {
       yield Loading();
-      final result = await inProgressUseCase.execute(NoParams());
+      final result = await inProgressUseCase(NoParams());
       yield* _getState(result);
     }
   }
