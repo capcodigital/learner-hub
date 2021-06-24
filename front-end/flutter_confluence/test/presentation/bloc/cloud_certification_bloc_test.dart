@@ -89,8 +89,8 @@ void main() {
             .thenAnswer((_) async => Right(mockCompletedCerts));
         return bloc;
         },
-      act: (blo) => {
-        bloc.add(GetCompletedCertificationsEvent())
+      act: (CloudCertificationBloc blo) => {
+        blo.add(GetCompletedCertificationsEvent())
       },
       expect: () => orderCompleted,
     );
@@ -102,8 +102,8 @@ void main() {
             .thenAnswer((_) async => Left(ServerFailure()));
         return bloc;
         },
-      act: (blo) => {
-        bloc.add(GetCompletedCertificationsEvent())
+      act: (CloudCertificationBloc blo) => {
+        blo.add(GetCompletedCertificationsEvent())
       },
       expect: () => orderServerError,
     );
@@ -115,8 +115,8 @@ void main() {
             .thenAnswer((_) async => Left(CacheFailure()));
         return bloc;
       },
-      act: (blo) => {
-        bloc.add(GetCompletedCertificationsEvent())
+      act: (CloudCertificationBloc blo) => {
+        blo.add(GetCompletedCertificationsEvent())
       },
       expect: () => orderCacheError,
     );
@@ -145,8 +145,8 @@ void main() {
             .thenAnswer((_) async => Right(mockInProgressCerts));
         return bloc;
       },
-      act: (blo) => {
-        bloc.add(GetInProgressCertificationsEvent())
+      act: (CloudCertificationBloc blo) => {
+        blo.add(GetInProgressCertificationsEvent())
       },
       expect: () => orderInProgress,
     );
@@ -158,8 +158,8 @@ void main() {
             .thenAnswer((_) async => Left(ServerFailure()));
         return bloc;
       },
-      act: (blo) => {
-        bloc.add(GetInProgressCertificationsEvent())
+      act: (CloudCertificationBloc blo) => {
+        blo.add(GetInProgressCertificationsEvent())
       },
       expect: () => orderServerError,
     );
@@ -171,8 +171,8 @@ void main() {
             .thenAnswer((_) async => Left(CacheFailure()));
         return bloc;
       },
-      act: (blo) => {
-        bloc.add(GetInProgressCertificationsEvent())
+      act: (CloudCertificationBloc blo) => {
+        blo.add(GetInProgressCertificationsEvent())
       },
       expect: () => orderCacheError,
     );
