@@ -19,26 +19,39 @@ class CloudCertificationsRepositoryImpl extends CloudCertificationRepository {
     required this.networkInfo,
   });
 
-  Future<Either<Failure, List<CloudCertification>>> _getCertifications(
-    bool isProgressCert,
-    Future<List<CloudCertificationModel>> Function() getInProgressOrCompleted,
+  @override
+  Future<Either<Failure, List<CloudCertification>>> getCompletedCertifications() async {
+    return await _getData(
+        remoteDataSource.getCompletedCertifications,
+        localDataSource.getCompletedCertifications,
+        localDataSource.saveCompletedCertifications);
+  }
+
+  @override
+  Future<Either<Failure, List<CloudCertification>>> getInProgressCertifications() async {
+    return await _getData(
+        remoteDataSource.getInProgressCertifications,
+        localDataSource.getInProgressCertifications,
+        localDataSource.saveInProgressCertifications);
+  }
+
+  Future<Either<Failure, List<CloudCertification>>> _getData(
+    Future<List<CloudCertificationModel>> Function() getRemoteData,
+    Future<List<CloudCertificationModel>> Function() getLocalData,
+    Future<void> Function(List<CloudCertificationModel> certifications) saveDataIntoCache,
   ) async {
     try {
       if (await networkInfo.isConnected) {
         try {
-          final certifications = await getInProgressOrCompleted();
-          if (isProgressCert) {
-            localDataSource.saveInProgressCertifications(certifications);
-          } else {
-            localDataSource.saveCompletedCertifications(certifications);
-          }
+          final certifications = await getRemoteData();
+          saveDataIntoCache(certifications);
           return Right(certifications);
         } on ServerException {
           return Left(ServerFailure());
         }
       } else {
         try {
-          final localCertifications = await getInProgressOrCompleted();
+          final localCertifications = await getLocalData();
           return Right(localCertifications);
         } on CacheException {
           return Left(CacheFailure());
@@ -47,19 +60,5 @@ class CloudCertificationsRepositoryImpl extends CloudCertificationRepository {
     } on Exception {
       return Left(ServerFailure());
     }
-  }
-
-  @override
-  Future<Either<Failure, List<CloudCertification>>>
-      getCompletedCertifications() async {
-    return await _getCertifications(
-        false, () => remoteDataSource.getCompletedCertifications());
-  }
-
-  @override
-  Future<Either<Failure, List<CloudCertification>>>
-      getInProgressCertifications() async {
-    return await _getCertifications(
-        true, () => remoteDataSource.getInProgressCertifications());
   }
 }
