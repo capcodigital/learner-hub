@@ -2,7 +2,6 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
-
 import 'data/repositories/cloud_certifications_repository_impl.dart';
 import 'core/network/network_info.dart';
 import 'data/datasources/cloud_certification_local_data_source.dart';
@@ -23,24 +22,20 @@ Future<void> init() async {
   sl.registerLazySingleton(() => GetInProgressCertifications(sl()));
 
   sl.registerLazySingleton<CloudCertificationRepository>(
-        () => CloudCertificationsRepositoryImpl(
-        remoteDataSource: sl(),
-        localDataSource: sl(),
-        networkInfo: sl()),
+    () => CloudCertificationsRepositoryImpl(
+        remoteDataSource: sl(), localDataSource: sl(), networkInfo: sl()),
   );
 
   sl.registerLazySingleton<CloudCertificationRemoteDataSource>(
-        () => CloudCertificationRemoteDataSourceImpl(
-        client: sl()),
+    () => CloudCertificationRemoteDataSourceImpl(client: sl()),
   );
 
   sl.registerLazySingleton<CloudCertificationLocalDataSource>(
-        () => CloudCertificationLocalDataSourceImpl(
-        sharedPreferences: sl()),
+    () => CloudCertificationLocalDataSourceImpl(sharedPreferences: sl()),
   );
 
   sl.registerLazySingleton<NetworkInfo>(
-        () => NetworkInfoImpl(sl()),
+    () => NetworkInfoImpl(sl()),
   );
 
   final sharedPreferences = await SharedPreferences.getInstance();

@@ -10,4 +10,3 @@ abstract class UseCase<Type, NoParams> {
 class NoParams extends Equatable {
   List<Object> get props => [];
 }
-

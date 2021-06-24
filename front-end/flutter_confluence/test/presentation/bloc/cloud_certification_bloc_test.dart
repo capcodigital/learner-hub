@@ -17,18 +17,17 @@ import 'package:bloc_test/bloc_test.dart';
 
 @GenerateMocks([GetCompletedCertifications, GetInProgressCertifications])
 void main() {
-
   final mockCompletedCerts =
-  (json.decode(fixture('completed.json')) as Map<String, dynamic>)
-      .values
-      .map((e) => CloudCertificationModel.fromJson(e))
-      .toList();
+      (json.decode(fixture('completed.json')) as Map<String, dynamic>)
+          .values
+          .map((e) => CloudCertificationModel.fromJson(e))
+          .toList();
 
   final mockInProgressCerts =
-  (json.decode(fixture('in_progress.json')) as Map<String, dynamic>)
-      .values
-      .map((e) => CloudCertificationModel.fromJson(e))
-      .toList();
+      (json.decode(fixture('in_progress.json')) as Map<String, dynamic>)
+          .values
+          .map((e) => CloudCertificationModel.fromJson(e))
+          .toList();
 
   final orderCompleted = [
     Loading(),
@@ -58,8 +57,8 @@ void main() {
     mockCompletedCase = MockGetCompletedCertifications();
     mockInProgressCase = MockGetInProgressCertifications();
     bloc = CloudCertificationBloc(
-      completedUseCase: mockCompletedCase,
-      inProgressUseCase: mockInProgressCase);
+        completedUseCase: mockCompletedCase,
+        inProgressUseCase: mockInProgressCase);
   });
 
   test('initial bloc state should be Empty', () {
@@ -67,10 +66,9 @@ void main() {
   });
 
   group('GetCompletedCertifications', () {
-
     test(
       'should get list of completed certifications',
-          () async {
+      () async {
         // arrange
         when(mockCompletedCase(any))
             .thenAnswer((_) async => Right(mockCompletedCerts));
@@ -88,10 +86,9 @@ void main() {
         when(mockCompletedCase(any))
             .thenAnswer((_) async => Right(mockCompletedCerts));
         return bloc;
-        },
-      act: (CloudCertificationBloc blo) => {
-        blo.add(GetCompletedCertificationsEvent())
       },
+      act: (CloudCertificationBloc blo) =>
+          {blo.add(GetCompletedCertificationsEvent())},
       expect: () => orderCompleted,
     );
 
@@ -101,10 +98,9 @@ void main() {
         when(mockCompletedCase(any))
             .thenAnswer((_) async => Left(ServerFailure()));
         return bloc;
-        },
-      act: (CloudCertificationBloc blo) => {
-        blo.add(GetCompletedCertificationsEvent())
       },
+      act: (CloudCertificationBloc blo) =>
+          {blo.add(GetCompletedCertificationsEvent())},
       expect: () => orderServerError,
     );
 
@@ -115,18 +111,16 @@ void main() {
             .thenAnswer((_) async => Left(CacheFailure()));
         return bloc;
       },
-      act: (CloudCertificationBloc blo) => {
-        blo.add(GetCompletedCertificationsEvent())
-      },
+      act: (CloudCertificationBloc blo) =>
+          {blo.add(GetCompletedCertificationsEvent())},
       expect: () => orderCacheError,
     );
-
   });
 
   group('GetInProgressCertifications', () {
     test(
       'should get list of in progress certifications',
-          () async {
+      () async {
         // arrange
         when(mockInProgressCase(any))
             .thenAnswer((_) async => Right(mockInProgressCerts));
@@ -145,9 +139,8 @@ void main() {
             .thenAnswer((_) async => Right(mockInProgressCerts));
         return bloc;
       },
-      act: (CloudCertificationBloc blo) => {
-        blo.add(GetInProgressCertificationsEvent())
-      },
+      act: (CloudCertificationBloc blo) =>
+          {blo.add(GetInProgressCertificationsEvent())},
       expect: () => orderInProgress,
     );
 
@@ -158,9 +151,8 @@ void main() {
             .thenAnswer((_) async => Left(ServerFailure()));
         return bloc;
       },
-      act: (CloudCertificationBloc blo) => {
-        blo.add(GetInProgressCertificationsEvent())
-      },
+      act: (CloudCertificationBloc blo) =>
+          {blo.add(GetInProgressCertificationsEvent())},
       expect: () => orderServerError,
     );
 
@@ -171,12 +163,9 @@ void main() {
             .thenAnswer((_) async => Left(CacheFailure()));
         return bloc;
       },
-      act: (CloudCertificationBloc blo) => {
-        blo.add(GetInProgressCertificationsEvent())
-      },
+      act: (CloudCertificationBloc blo) =>
+          {blo.add(GetInProgressCertificationsEvent())},
       expect: () => orderCacheError,
     );
-
   });
-
 }
