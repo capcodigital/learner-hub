@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:flutter_confluence/core/error/failures.dart';
-
+import '../../core/error/failures.dart';
 import '../entities/cloud_certification.dart';
 
 abstract class CloudCertificationRepository {

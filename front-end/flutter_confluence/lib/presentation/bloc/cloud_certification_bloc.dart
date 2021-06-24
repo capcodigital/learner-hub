@@ -2,11 +2,11 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_confluence/core/error/failures.dart';
-import 'package:flutter_confluence/core/usecases/usecase.dart';
-import 'package:flutter_confluence/domain/entities/cloud_certification.dart';
-import 'package:flutter_confluence/domain/usecases/get_completed_certification.dart';
-import 'package:flutter_confluence/domain/usecases/get_in_progress_certification.dart';
+import '../../core/error/failures.dart';
+import '../../core/usecases/usecase.dart';
+import '../../domain/entities/cloud_certification.dart';
+import '../../domain/usecases/get_completed_certification.dart';
+import '../../domain/usecases/get_in_progress_certification.dart';
 
 part 'cloud_certification_event.dart';
 part 'cloud_certification_state.dart';
