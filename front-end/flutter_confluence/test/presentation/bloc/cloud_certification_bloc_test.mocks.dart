@@ -5,7 +5,8 @@
 import 'dart:async' as _i5;
 
 import 'package:dartz/dartz.dart' as _i3;
-import 'package:flutter_confluence/core/errors/failures.dart' as _i6;
+import 'package:flutter_confluence/core/error/failures.dart' as _i6;
+import 'package:flutter_confluence/core/usecases/usecase.dart' as _i8;
 import 'package:flutter_confluence/domain/entities/cloud_certification.dart'
     as _i7;
 import 'package:flutter_confluence/domain/repositories/cloud_certification_repository.dart'
@@ -13,7 +14,7 @@ import 'package:flutter_confluence/domain/repositories/cloud_certification_repos
 import 'package:flutter_confluence/domain/usecases/get_completed_certification.dart'
     as _i4;
 import 'package:flutter_confluence/domain/usecases/get_in_progress_certification.dart'
-    as _i8;
+    as _i9;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: avoid_redundant_argument_values
@@ -46,7 +47,7 @@ class MockGetCompletedCertification extends _i1.Mock
           as _i2.CloudCertificationRepository);
   @override
   _i5.Future<_i3.Either<_i6.Failure, List<_i7.CloudCertification>>> execute(
-          _i4.NoParams? noParams) =>
+          _i8.NoParams? noParams) =>
       (super.noSuchMethod(Invocation.method(#execute, [noParams]),
           returnValue: Future<
                   _i3.Either<_i6.Failure, List<_i7.CloudCertification>>>.value(
@@ -58,7 +59,7 @@ class MockGetCompletedCertification extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockGetInProgressCertification extends _i1.Mock
-    implements _i8.GetInProgressCertification {
+    implements _i9.GetInProgressCertification {
   MockGetInProgressCertification() {
     _i1.throwOnMissingStub(this);
   }
@@ -70,7 +71,7 @@ class MockGetInProgressCertification extends _i1.Mock
           as _i2.CloudCertificationRepository);
   @override
   _i5.Future<_i3.Either<_i6.Failure, List<_i7.CloudCertification>>> execute(
-          _i4.NoParams? noParams) =>
+          _i8.NoParams? noParams) =>
       (super.noSuchMethod(Invocation.method(#execute, [noParams]),
           returnValue: Future<
                   _i3.Either<_i6.Failure, List<_i7.CloudCertification>>>.value(

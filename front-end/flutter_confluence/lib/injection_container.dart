@@ -15,7 +15,12 @@ Future<void> init() async {
 
   sl.registerLazySingleton(() => GetInProgressCertification(sl()));
 
-  sl.registerLazySingleton<CloudCertificationRepository>(
-    () => CloudCertificationRepositoryImpl(),
-  );
+  // sl.registerLazySingleton<CloudCertificationRepository>(
+  //   () => CloudCertificationRepositoryImpl(),
+  // );
+  //
+  // final sharedPreferences = await SharedPreferences.getInstance();
+  // sl.registerLazySingleton<CloudCertificationRepository>(
+  //       () => CloudCertificationRepositoryImpl(),
+  // );
 }
