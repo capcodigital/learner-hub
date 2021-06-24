@@ -50,11 +50,13 @@ void main() {
     Error(message: CACHE_FAILURE_MSG),
   ];
 
-  final MockGetCompletedCertification mockCompletedCase = MockGetCompletedCertification();
-  final MockGetInProgressCertification mockInProgressCase = MockGetInProgressCertification();
+  late MockGetCompletedCertification mockCompletedCase;
+  late MockGetInProgressCertification mockInProgressCase;
   late CloudCertificationBloc bloc;
 
   setUp(() {
+    mockCompletedCase = MockGetCompletedCertification();
+    mockInProgressCase = MockGetInProgressCertification();
     bloc = CloudCertificationBloc(
       completedUseCase: mockCompletedCase,
       inProgressUseCase: mockInProgressCase);
