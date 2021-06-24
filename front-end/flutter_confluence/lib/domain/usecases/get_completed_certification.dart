@@ -10,8 +10,8 @@ class GetCompletedCertification {
 
   GetCompletedCertification(this.repository);
 
-  Future<Either<Failure, CloudCertification>> execute(NoParams noParams) async {
-    return await repository.getCompletetedCertifications();
+  Future<Either<Failure, List<CloudCertification>>> execute(NoParams noParams) async {
+    return await repository.getCompletedCertifications();
   }
 }
 
