@@ -11,6 +11,7 @@ import '../../domain/usecases/get_in_progress_certifications.dart';
 part 'cloud_certification_event.dart';
 part 'cloud_certification_state.dart';
 
+// Move error messages to constants file
 const SERVER_FAILURE_MSG = "Server Failure";
 const CACHE_FAILURE_MSG = "Cache Failure";
 const UNKNOWN_ERROR_MSG = "Unknown Error";
