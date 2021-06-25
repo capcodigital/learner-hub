@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_confluence/domain/entities/cloud_certification.dart';
 
 class ListRow extends StatelessWidget {
-  static const listRowIconSize = 50.0;
+  static const listRowIconRadius = 30.0;
   static const listRowIconPadding = 16.0;
   static const listRowIconRightMargin = 23.0;
   static const listRowUserTextSize = 16.0;
@@ -27,15 +27,11 @@ class ListRow extends StatelessWidget {
         padding: EdgeInsets.all(listRowIconPadding),
         child: Row(
           children: <Widget>[
-            Container(
-                width: listRowIconSize,
-                height: listRowIconSize,
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: AssetImage(
-                            'assets/${item.certificationIconName}')))),
+            CircleAvatar(
+              radius: listRowIconRadius,
+              backgroundImage: AssetImage('assets/${item.certificationIconName}'),
+              backgroundColor: Colors.transparent,
+            ),
             Padding(
               padding: EdgeInsets.only(left: listRowIconRightMargin),
               child: Column(
