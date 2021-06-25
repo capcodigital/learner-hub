@@ -1,0 +1,117 @@
+version: 2
+
+jobs:
+  infra:
+    docker:
+      - image: "hashicorp/terraform:1.0.0"
+    steps:
+      - checkout
+      - run:
+          name: add gcp key
+          command: echo $GOOGLE_CREDENTIALS > $GOOGLE_APPLICATION_CREDENTIALS
+      - run:
+          name: terraform init
+          command: terraform -chdir="ops/storage" init -backend-config="bucket=${GOOGLE_BACKEND_BUCKET}"
+      - run:
+          name: terraform validate
+          command: terraform -chdir="ops/storage" validate
+      - run:
+          name: terraform plan
+          command: terraform -chdir="ops/storage" plan -var="project_name=${GOOGLE_PROJECT}" -out="plan.out"
+      - run:
+          name: terraform apply
+          command: terraform -chdir="ops/storage" apply -lock=true -refresh=true -auto-approve "plan.out"
+
+  tests:
+    docker:
+      - image: "cirrusci/flutter:2.2.2"
+    steps:
+      - checkout
+      - run:
+          name: check flutter requirements
+          command: flutter doctor -v
+      - run:
+          name: run tests
+          command: flutter test
+          working_directory: ~/project/front-end/flutter_confluence
+
+  build:
+    docker:
+      - image: "cirrusci/flutter:2.2.2"
+    steps:
+      - checkout
+      - run:
+          name: check flutter requirements
+          command: flutter doctor -v
+      - run:
+          name: build android app
+          command: flutter -v build apk
+          working_directory: ~/project/front-end/flutter_confluence
+      - run:
+          name: copy
+          command: cp -r ~/project/front-end/flutter_confluence/build/app/outputs/apk/release/app-release.apk
+          working_directory: ~/project/front-end/flutter_confluence
+      - persist_to_workspace:
+          root: /tmp/workspace
+          paths:
+            - app.apk
+      - run:
+          name: build web app
+          command: flutter -v build web
+          working_directory: ~/project/front-end/flutter_confluence
+      - run:
+          name: copy
+          command: cp -r ~/project/front-end/flutter_confluence/build/web
+          working_directory: ~/project/front-end/flutter_confluence
+      - persist_to_workspace:
+          root: /tmp/workspace
+          paths:
+            - web
+
+  upload:
+    docker:
+      - image: "google/cloud-sdk:345.0.0-slim"
+    steps:
+      - attach_workspace:
+          at: /tmp/workspace
+      - checkout
+      - run:
+          name: add gcp key
+          command: echo $GOOGLE_CREDENTIALS > $GOOGLE_APPLICATION_CREDENTIALS
+      - run:
+          name: authenticate gcloud
+          command: gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS
+      - run:
+          name: set the gcp project
+          command: gcloud config set project ${GOOGLE_PROJECT}
+      - run:
+          name: upload app to gcs
+          command: gsutil cp /tmp/workspace/app.apk gs://${GOOGLE_PROJECT}-build
+
+workflows:
+  version: 2
+  commit:
+    jobs:
+      - tests
+      - build:
+          requires:
+            - tests
+          filters:
+            branches:
+              only:
+                - main
+      - infra:
+          requires:
+            - tests
+          filters:
+              branches:
+                only:
+                  - main
+      - upload:
+          requires:
+            - build
+            - infra
+          filters:
+            branches:
+              only:
+                - main
