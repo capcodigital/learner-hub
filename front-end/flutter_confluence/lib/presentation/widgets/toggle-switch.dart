@@ -75,7 +75,7 @@ class _ToggleButtonState extends State<ToggleButton> {
                 completedColor = normalColor;
                 // Check if this is the correct function to call,
                 // it may be the inprogress that you need to call
-                fetchCompletedCertifications(context);
+                fetchInProgressCertifications(context);
               });
             },
             child: Align(
@@ -101,7 +101,7 @@ class _ToggleButtonState extends State<ToggleButton> {
                 xAlign = completedAlign;
                 completedColor = selectedColor;
                 inProgressColor = normalColor;
-                fetchInProgressCertifications(context);
+                fetchCompletedCertifications(context);
               });
             },
             child: Align(
