@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_confluence/core/error/custom_exceptions.dart';
-import 'package:flutter_confluence/core/errors/failures.dart';
+import 'package:flutter_confluence/core/error/failures.dart';
 import 'package:flutter_confluence/core/network/network_info.dart';
 import 'package:flutter_confluence/data/datasources/cloud_certification_local_data_source.dart';
 import 'package:flutter_confluence/data/datasources/cloud_certification_remote_data_source.dart';

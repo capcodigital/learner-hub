@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_confluence/core/constants.dart';
+import 'package:flutter_confluence/presentation/bloc/cloud_certification_bloc.dart';
 
 class ToggleButton extends StatefulWidget {
   @override
@@ -18,6 +20,16 @@ class _ToggleButtonState extends State<ToggleButton> {
   double? xAlign;
   Color? inProgressColor;
   Color? completedColor;
+
+  void fetchCompletedCertifications(BuildContext context) {
+    BlocProvider.of<CloudCertificationBloc>(context)
+        .add(GetCompletedCertificationsEvent());
+  }
+
+  void fetchInProgressCertifications(BuildContext context) {
+    BlocProvider.of<CloudCertificationBloc>(context)
+        .add(GetInProgressCertificationsEvent());
+  }
 
   @override
   void initState() {
@@ -60,8 +72,10 @@ class _ToggleButtonState extends State<ToggleButton> {
               setState(() {
                 xAlign = inProgressAlign;
                 inProgressColor = selectedColor;
-
                 completedColor = normalColor;
+                // Check if this is the correct function to call,
+                // it may be the inprogress that you need to call
+                fetchInProgressCertifications(context);
               });
             },
             child: Align(
@@ -87,6 +101,7 @@ class _ToggleButtonState extends State<ToggleButton> {
                 xAlign = completedAlign;
                 completedColor = selectedColor;
                 inProgressColor = normalColor;
+                fetchCompletedCertifications(context);
               });
             },
             child: Align(
