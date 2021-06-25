@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../injection_container.dart';
 import '../widgets/toggle-switch.dart';
 import '../bloc/cloud_certification_bloc.dart';
 import '../widgets/certifications_view.dart';
@@ -40,17 +41,18 @@ class _HomePageState extends State<HomePage> {
             style: TextStyle(fontSize: appTitleTextSize),
           ),
         ),
-        body: Container(constraints: BoxConstraints.expand(),
-      decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage("assets/ic_home_background.png"),
-              fit: BoxFit.cover), child: buildBody(context),));
+        body: Container(
+            constraints: BoxConstraints.expand(),
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage("assets/ic_home_background.png"),
+                    fit: BoxFit.cover)),
+            child: buildBody(context)));
   }
 
   BlocProvider<CloudCertificationBloc> buildBody(BuildContext context) {
     return BlocProvider(
       create: (_) => sl<CloudCertificationBloc>(),
-      ),
       child: Column(
         children: [
           Container(
