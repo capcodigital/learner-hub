@@ -42,9 +42,9 @@ class HomePage extends StatelessWidget {
   BlocProvider<CloudCertificationBloc> buildBody(BuildContext context) {
     return BlocProvider(
       create: (_) {
-        final bl = sl<CloudCertificationBloc>();
-        bl..add(GetInProgressCertificationsEvent());
-        return bl;
+        final bloc = sl<CloudCertificationBloc>();
+        bloc..add(GetInProgressCertificationsEvent());
+        return bloc;
         },
       child: Column(
         children: [
