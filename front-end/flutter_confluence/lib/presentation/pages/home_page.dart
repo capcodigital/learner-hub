@@ -16,12 +16,6 @@ class _HomePageState extends State<HomePage> {
   static const double toggleButtonPaddingTop = 23.0;
   static const double toggleButtonPaddingBottom = 16.0;
 
-  @override
-  initState() {
-    super.initState();
-    fetchInProgressCertifications();
-  }
-
   void fetchCompletedCertifications() {
     BlocProvider.of<CloudCertificationBloc>(context)
         .add(GetCompletedCertificationsEvent());
@@ -52,7 +46,11 @@ class _HomePageState extends State<HomePage> {
 
   BlocProvider<CloudCertificationBloc> buildBody(BuildContext context) {
     return BlocProvider(
-      create: (_) => sl<CloudCertificationBloc>(),
+      create: (_) {
+        final bl = sl<CloudCertificationBloc>();
+        bl..add(GetInProgressCertificationsEvent());
+        return bl;
+        },
       child: Column(
         children: [
           Container(
