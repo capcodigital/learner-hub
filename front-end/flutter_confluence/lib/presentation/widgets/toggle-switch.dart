@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_confluence/core/constants.dart';
-
-enum ToggleState { COMPLETED, IN_PROGRESS }
+import 'package:flutter_confluence/presentation/bloc/cloud_certification_bloc.dart';
 
 class ToggleButton extends StatefulWidget {
-  final Function(ToggleState, BuildContext context) callback;
-
-  ToggleButton(this.callback);
-
   @override
-  _ToggleButtonState createState() =>
-      _ToggleButtonState(callback: this.callback);
+  _ToggleButtonState createState() => _ToggleButtonState();
 }
 
 class _ToggleButtonState extends State<ToggleButton> {
@@ -26,9 +21,15 @@ class _ToggleButtonState extends State<ToggleButton> {
   Color? inProgressColor;
   Color? completedColor;
 
-  Function? callback;
+  void fetchCompletedCertifications(BuildContext context) {
+    BlocProvider.of<CloudCertificationBloc>(context)
+        .add(GetCompletedCertificationsEvent());
+  }
 
-  _ToggleButtonState({this.callback});
+  void fetchInProgressCertifications(BuildContext context) {
+    BlocProvider.of<CloudCertificationBloc>(context)
+        .add(GetInProgressCertificationsEvent());
+  }
 
   @override
   void initState() {
@@ -72,7 +73,9 @@ class _ToggleButtonState extends State<ToggleButton> {
                 xAlign = inProgressAlign;
                 inProgressColor = selectedColor;
                 completedColor = normalColor;
-                callback?.call(ToggleState.IN_PROGRESS, context);
+                // Check if this is the correct function to call,
+                // it may be the inprogress that you need to call
+                fetchCompletedCertifications(context);
               });
             },
             child: Align(
@@ -98,7 +101,7 @@ class _ToggleButtonState extends State<ToggleButton> {
                 xAlign = completedAlign;
                 completedColor = selectedColor;
                 inProgressColor = normalColor;
-                callback?.call(ToggleState.COMPLETED, context);
+                fetchInProgressCertifications(context);
               });
             },
             child: Align(

@@ -11,16 +11,6 @@ class HomePage extends StatelessWidget {
   static const double toggleButtonPaddingTop = 23.0;
   static const double toggleButtonPaddingBottom = 16.0;
 
-  void fetchCompletedCertifications(BuildContext context) {
-    BlocProvider.of<CloudCertificationBloc>(context)
-        .add(GetCompletedCertificationsEvent());
-  }
-
-  void fetchInProgressCertifications(BuildContext context) {
-    BlocProvider.of<CloudCertificationBloc>(context)
-        .add(GetInProgressCertificationsEvent());
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,20 +35,14 @@ class HomePage extends StatelessWidget {
         final bloc = sl<CloudCertificationBloc>();
         bloc..add(GetInProgressCertificationsEvent());
         return bloc;
-        },
+      },
       child: Column(
         children: [
           Container(
             alignment: Alignment.center,
             padding: const EdgeInsets.only(
                 top: toggleButtonPaddingTop, bottom: toggleButtonPaddingBottom),
-            child: ToggleButton((toggleState, buildContext) {
-              if (toggleState == ToggleState.COMPLETED) {
-                fetchCompletedCertifications(buildContext);
-              } else if (toggleState == ToggleState.IN_PROGRESS) {
-                fetchInProgressCertifications(buildContext);
-              }
-            }),
+            child: ToggleButton(),
           ),
           BlocBuilder<CloudCertificationBloc, CloudCertificationState>(
             builder: (context, state) {
