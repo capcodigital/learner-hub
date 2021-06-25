@@ -6,22 +6,17 @@ import '../widgets/toggle-switch.dart';
 import '../bloc/cloud_certification_bloc.dart';
 import '../widgets/certifications_view.dart';
 
-class HomePage extends StatefulWidget {
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
+class HomePage extends StatelessWidget {
   static const double appTitleTextSize = 18.0;
   static const double toggleButtonPaddingTop = 23.0;
   static const double toggleButtonPaddingBottom = 16.0;
 
-  void fetchCompletedCertifications() {
+  void fetchCompletedCertifications(BuildContext context) {
     BlocProvider.of<CloudCertificationBloc>(context)
         .add(GetCompletedCertificationsEvent());
   }
 
-  void fetchInProgressCertifications() {
+  void fetchInProgressCertifications(BuildContext context) {
     BlocProvider.of<CloudCertificationBloc>(context)
         .add(GetInProgressCertificationsEvent());
   }
@@ -59,9 +54,9 @@ class _HomePageState extends State<HomePage> {
                 top: toggleButtonPaddingTop, bottom: toggleButtonPaddingBottom),
             child: ToggleButton((toggleState) {
               if (toggleState == ToggleState.COMPLETED) {
-                fetchCompletedCertifications();
+                fetchCompletedCertifications(context);
               } else if (toggleState == ToggleState.IN_PROGRESS) {
-                fetchInProgressCertifications();
+                fetchInProgressCertifications(context);
               }
             }),
           ),
