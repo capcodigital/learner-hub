@@ -4,7 +4,7 @@ import 'package:flutter_confluence/core/constants.dart';
 enum ToggleState { COMPLETED, IN_PROGRESS }
 
 class ToggleButton extends StatefulWidget {
-  final Function(ToggleState) callback;
+  final Function(ToggleState, BuildContext context) callback;
 
   ToggleButton(this.callback);
 
@@ -72,7 +72,7 @@ class _ToggleButtonState extends State<ToggleButton> {
                 xAlign = inProgressAlign;
                 inProgressColor = selectedColor;
                 completedColor = normalColor;
-                callback?.call(ToggleState.IN_PROGRESS);
+                callback?.call(ToggleState.IN_PROGRESS, context);
               });
             },
             child: Align(
@@ -98,7 +98,7 @@ class _ToggleButtonState extends State<ToggleButton> {
                 xAlign = completedAlign;
                 completedColor = selectedColor;
                 inProgressColor = normalColor;
-                callback?.call(ToggleState.COMPLETED);
+                callback?.call(ToggleState.COMPLETED, context);
               });
             },
             child: Align(

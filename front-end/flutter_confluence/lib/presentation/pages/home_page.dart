@@ -52,11 +52,11 @@ class HomePage extends StatelessWidget {
             alignment: Alignment.center,
             padding: const EdgeInsets.only(
                 top: toggleButtonPaddingTop, bottom: toggleButtonPaddingBottom),
-            child: ToggleButton((toggleState) {
+            child: ToggleButton((toggleState, buildContext) {
               if (toggleState == ToggleState.COMPLETED) {
-                fetchCompletedCertifications(context);
+                fetchCompletedCertifications(buildContext);
               } else if (toggleState == ToggleState.IN_PROGRESS) {
-                fetchInProgressCertifications(context);
+                fetchInProgressCertifications(buildContext);
               }
             }),
           ),
