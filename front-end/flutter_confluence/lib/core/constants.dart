@@ -1,7 +1,5 @@
 import 'dart:ui';
 
-import 'package:flutter_confluence/domain/entities/cloud_certification.dart';
-
 class Constants {
   // Colors
   static const JIRA_COLOR = const Color(0xff0052CC);
