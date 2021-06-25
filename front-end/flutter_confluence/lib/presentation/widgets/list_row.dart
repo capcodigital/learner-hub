@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_confluence/domain/entities/cloud_certification.dart';
 
 class ListRow extends StatelessWidget {
-  static const listRowIconRadius = 30.0;
+  static const listRowIconSize = 60.0;
+  static const listRowIconBorderWidth = 3.0;
   static const listRowIconPadding = 16.0;
   static const listRowIconRightMargin = 23.0;
   static const listRowUserTextSize = 16.0;
@@ -21,54 +22,35 @@ class ListRow extends StatelessWidget {
 
   Widget getRow(CloudCertification item, BuildContext context) {
     return Card(
-      elevation: 0,
-      color: Colors.transparent,
-      child: Padding(
-        padding: EdgeInsets.all(listRowIconPadding),
-        child: Row(
+        elevation: 0,
+        color: Colors.transparent,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            CircleAvatar(
-              radius: listRowIconRadius,
-              backgroundImage: AssetImage('assets/${item.certificationIconName}'),
-              backgroundColor: Colors.transparent,
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: listRowIconRightMargin),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
+            ListTile(
+              leading: Container(
+                  child: new CircleAvatar(
+                      foregroundImage:
+                          AssetImage('assets/${item.certificationIconName}'),
+                      foregroundColor: Colors.transparent,
+                      backgroundColor: Colors.transparent),
+                  width: listRowIconSize,
+                  height: listRowIconSize,
+                  padding: EdgeInsets.all(listRowIconBorderWidth),
+                  decoration: new BoxDecoration(
+                    shape: BoxShape.circle,
+                  )),
+              title: Text(item.name),
+              subtitle: Row(
+                children: [
+                  Expanded(child: Text(item.certificationType)),
                   Text(
-                    item.name,
-                    style: TextStyle(
-                        color: Colors.black, fontSize: listRowUserTextSize),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top: listRowInfoMarginTop),
-                    child: Text(
-                      item.certificationType,
-                      style: TextStyle(
-                          color: listRowInfoTextColor,
-                          fontSize: listRowInfoTextSize),
-                    ),
+                    item.certificationDate,
                   )
                 ],
               ),
             ),
-            Spacer(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  item.certificationDate,
-                  style: TextStyle(
-                      color: listRowInfoTextColor,
-                      fontSize: listRowDateTextSize),
-                ),
-              ],
-            ),
           ],
-        ),
-      ),
-    );
+        ));
   }
 }

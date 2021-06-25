@@ -14,7 +14,7 @@ class Constants {
 
   static const GCP = 'gcp';
   static const AZURE = 'azure';
-  static const CLOUD_NATIVE = 'cloud_native';
+  static const CLOUD_NATIVE = 'cloud native foundation';
   static const HASHICORP = 'hashicorp';
   static const AWS = 'aws';
 

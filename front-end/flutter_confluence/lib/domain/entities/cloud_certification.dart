@@ -15,7 +15,7 @@ class CloudCertification extends Equatable {
       required this.certificationDate});
 
   String get certificationIconName {
-    switch (this.platform) {
+    switch (this.platform.toLowerCase()) {
       case Constants.GCP:
         return Constants.IC_GCP;
       case Constants.AZURE:
