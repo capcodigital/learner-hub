@@ -63,7 +63,7 @@ class HomePage extends StatelessWidget {
           BlocBuilder<CloudCertificationBloc, CloudCertificationState>(
             builder: (context, state) {
               if (state is Loaded) {
-                return Expanded(child: CartificationsView(items: state.items));
+                return Expanded(child: CertificationsView(items: state.items));
               } else if (state is Loading)
                 return Text('Loading...');
               else if (state is Empty)

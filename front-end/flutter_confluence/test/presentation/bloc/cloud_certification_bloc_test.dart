@@ -41,12 +41,12 @@ void main() {
 
   final orderServerError = [
     Loading(),
-    Error(message: SERVER_FAILURE_MSG),
+    Error(message: Constants.SERVER_FAILURE_MSG),
   ];
 
   final orderCacheError = [
     Loading(),
-    Error(message: CACHE_FAILURE_MSG),
+    Error(message: Constants.CACHE_FAILURE_MSG),
   ];
 
   late MockGetCompletedCertifications mockCompletedCase;
