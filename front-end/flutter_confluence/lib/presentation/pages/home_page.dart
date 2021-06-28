@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_confluence/presentation/widgets/searchbox.dart';
 
-import '../../injection_container.dart';
 import '../bloc/cloud_certification_bloc.dart';
 import '../widgets/certifications_view.dart';
 import '../widgets/toggle-switch.dart';
@@ -31,65 +30,59 @@ class HomePage extends StatelessWidget {
         body: Container(
             constraints: BoxConstraints.expand(),
             decoration: BoxDecoration(
-                image: DecorationImage(image: AssetImage("assets/ic_home_background.png"), fit: BoxFit.cover)),
+                image: DecorationImage(
+                    image: AssetImage("assets/ic_home_background.png"),
+                    fit: BoxFit.cover)),
             child: buildBody(context)));
   }
 
-  BlocProvider<CloudCertificationBloc> buildBody(BuildContext context) {
-    final bloc = sl<CloudCertificationBloc>();
-
+  buildBody(BuildContext context) {
     void doSearch(String searchTerm) {
-      bloc.add(SearchCertificationsEvent(searchTerm));
+      BlocProvider.of<CloudCertificationBloc>(context)
+          .add(SearchCertificationsEvent(searchTerm));
     }
 
-    return BlocProvider(
-      create: (_) {
-        bloc.add(GetInProgressCertificationsEvent());
-        return bloc;
-      },
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(
-                top: headerTopPadding,
-                bottom: headerBottomPadding),
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(
-                      left: searchbarHorizontalPadding,
-                      right: searchbarHorizontalPadding),
-                  child: SearchBox(
-                    onSearchTermChanged: doSearch,
-                    onSearchSubmitted: doSearch,
-                  ),
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(
+              top: headerTopPadding, bottom: headerBottomPadding),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: searchbarHorizontalPadding,
+                    right: searchbarHorizontalPadding),
+                child: SearchBox(
+                  onSearchTermChanged: doSearch,
+                  onSearchSubmitted: doSearch,
                 ),
-                SizedBox(
-                  height: headerItemsSpacing,
-                ),
-                ToggleButton()
-              ],
-            ),
+              ),
+              SizedBox(
+                height: headerItemsSpacing,
+              ),
+              ToggleButton()
+            ],
           ),
-          BlocBuilder<CloudCertificationBloc, CloudCertificationState>(
-            builder: (context, state) {
-              log("HOME PAGE - New State received: " + state.toString());
-              if (state is Loaded) {
-                return Expanded(child: CertificationsView(items: state.items));
-              } else if (state is Loading)
-                return Text('Loading...');
-              else if (state is Empty)
-                return Text('No results');
-              else if (state is EmptySearchResult)
-                return Text('No results found');
-              else if (state is Error)
-                return Text('Error');
-              else
-                return Text('Unknown state');
-            },
-          )
-        ],
-      ),
+        ),
+        BlocBuilder<CloudCertificationBloc, CloudCertificationState>(
+          builder: (context, state) {
+            log("HOME PAGE - New State received: " + state.toString());
+            if (state is Loaded) {
+              return Expanded(child: CertificationsView(items: state.items));
+            } else if (state is Loading)
+              return Text('Loading...');
+            else if (state is Empty)
+              return Text('No results');
+            else if (state is EmptySearchResult)
+              return Text('No results found');
+            else if (state is Error)
+              return Text('Error');
+            else
+              return Text('Unknown state');
+          },
+        )
+      ],
     );
   }
 }

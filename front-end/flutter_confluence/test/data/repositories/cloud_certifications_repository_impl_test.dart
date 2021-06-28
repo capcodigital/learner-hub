@@ -80,7 +80,7 @@ void main() {
       when(mockRemoteDataSource.getCompletedCertifications())
           .thenAnswer((_) async => remoteCertifications);
       // act
-      final certifications = await repository.getCompletedCertifications();
+      await repository.getCompletedCertifications();
       // assert
       verify(mockRemoteDataSource.getCompletedCertifications());
       verify(mockLocalDataSource
@@ -120,7 +120,7 @@ void main() {
       when(mockRemoteDataSource.getInProgressCertifications())
           .thenAnswer((_) async => remoteCertifications);
       // act
-      final certifications = await repository.getInProgressCertifications();
+      await repository.getInProgressCertifications();
       // assert
       verify(mockRemoteDataSource.getInProgressCertifications());
       verify(mockLocalDataSource
@@ -140,7 +140,7 @@ void main() {
           .thenAnswer((_) async => localCertifications);
 
       // act
-      var certifications = await repository.getCompletedCertifications();
+      await repository.getCompletedCertifications();
 
       // assert
       verifyZeroInteractions(mockRemoteDataSource);
@@ -154,7 +154,7 @@ void main() {
           .thenAnswer((_) async => localCertifications);
 
       // act
-      var certifications = await repository.getInProgressCertifications();
+      await repository.getInProgressCertifications();
 
       // assert
       verifyZeroInteractions(mockRemoteDataSource);
