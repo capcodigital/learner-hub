@@ -24,9 +24,19 @@ class HomePage extends StatelessWidget {
             constraints: BoxConstraints.expand(),
             decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage("assets/ic_home_background.png"),
+                    image: AssetImage("assets/back-layer.png"),
                     fit: BoxFit.cover)),
-            child: buildBody(context)));
+            child: Stack(
+              children: <Widget>[
+                Positioned(
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints.expand(),
+                    child: Image.asset('assets/front-layer.png'),
+                  ),
+                ),
+                buildBody(context)
+              ],
+            )));
   }
 
   BlocProvider<CloudCertificationBloc> buildBody(BuildContext context) {
