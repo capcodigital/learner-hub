@@ -6,37 +6,58 @@ import '../widgets/toggle-switch.dart';
 import '../bloc/cloud_certification_bloc.dart';
 import '../widgets/certifications_view.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return _HomePageState();
+  }
+}
+
+class _HomePageState extends State<HomePage> {
   static const double appTitleTextSize = 18.0;
   static const double toggleButtonPaddingTop = 23.0;
   static const double toggleButtonPaddingBottom = 16.0;
 
+  var top = 160.0;
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'Cloud Certifications',
-            style: TextStyle(fontSize: appTitleTextSize),
-          ),
+    return new Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Cloud Certifications',
+          style: TextStyle(fontSize: appTitleTextSize),
         ),
-        body: Container(
-            constraints: BoxConstraints.expand(),
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage("assets/back-layer.png"),
-                    fit: BoxFit.cover)),
-            child: Stack(
-              children: <Widget>[
-                Positioned(
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints.expand(),
+      ),
+      body: new NotificationListener(
+          onNotification: (notification) {
+            if (notification is ScrollUpdateNotification) {
+              if(notification.scrollDelta != null) {
+                final delta = notification.scrollDelta!;
+                setState(() {
+                  top += delta / 10;
+                });
+              }
+            }
+            return true;
+          },
+          child: Container(
+              constraints: BoxConstraints.expand(),
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage("assets/back-layer.png"),
+                      fit: BoxFit.cover)),
+              child: Stack(
+                children: <Widget>[
+                  Positioned(
+                    left: 40,
+                    top: top,
                     child: Image.asset('assets/front-layer.png'),
                   ),
-                ),
-                buildBody(context)
-              ],
-            )));
+                  buildBody(context)
+                ],
+              ))),
+    );
   }
 
   BlocProvider<CloudCertificationBloc> buildBody(BuildContext context) {
