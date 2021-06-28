@@ -9,6 +9,8 @@ class Empty extends CloudCertificationState {}
 
 class Loading extends CloudCertificationState {}
 
+class EmptySearchResult extends CloudCertificationState {}
+
 class Loaded extends CloudCertificationState {
   final List<CloudCertification> items;
 

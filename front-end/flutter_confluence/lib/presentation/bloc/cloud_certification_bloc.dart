@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
@@ -25,6 +26,9 @@ class CloudCertificationBloc
   Stream<CloudCertificationState> mapEventToState(
     CloudCertificationEvent event,
   ) async* {
+
+    log(this.runtimeType.toString() + " - New event received: " + event.runtimeType.toString());
+
     if (event is GetCompletedCertificationsEvent) {
       yield Loading();
       final result = await completedUseCase(NoParams());
@@ -33,6 +37,18 @@ class CloudCertificationBloc
       yield Loading();
       final result = await inProgressUseCase(NoParams());
       yield* _getState(result);
+    }
+
+    if(event is SearchCertificationsEvent) {
+      var searchTerm = event.searchTerm;
+      if (searchTerm.isEmpty) {
+        //TODO: Reset to latest state with data
+      }
+      else{
+        yield Loading();
+        //TODO: Filter data here
+        yield EmptySearchResult();
+      }
     }
   }
 
