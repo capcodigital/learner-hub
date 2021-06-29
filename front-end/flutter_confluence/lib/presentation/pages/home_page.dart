@@ -22,14 +22,14 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+    return Scaffold(
       appBar: AppBar(
         title: Text(
           'Cloud Certifications',
           style: TextStyle(fontSize: appTitleTextSize),
         ),
       ),
-      body: new NotificationListener(
+      body: NotificationListener(
           onNotification: (notification) {
             if (notification is ScrollUpdateNotification) {
               if (notification.scrollDelta != null) {
