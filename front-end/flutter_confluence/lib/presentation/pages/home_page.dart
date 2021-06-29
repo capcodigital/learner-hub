@@ -18,7 +18,7 @@ class _HomePageState extends State<HomePage> {
   static const double toggleButtonPaddingTop = 23.0;
   static const double toggleButtonPaddingBottom = 16.0;
 
-  var top = 160.0;
+  var top = 130.0;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage> {
       body: new NotificationListener(
           onNotification: (notification) {
             if (notification is ScrollUpdateNotification) {
-              if(notification.scrollDelta != null) {
+              if (notification.scrollDelta != null) {
                 final delta = notification.scrollDelta!;
                 setState(() {
                   top += delta / 10;
