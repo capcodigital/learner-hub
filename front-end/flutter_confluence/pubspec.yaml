@@ -60,8 +60,14 @@ flutter:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   assets:
-    - assets/
- 
+    - assets/back-layer.png
+    - assets/front-layer.png
+    - assets/ic_aws.png
+    - assets/ic_azure.png
+    - assets/ic_cloud_native.png
+    - assets/ic_gcp.png
+    - assets/ic_hashicorp.png
+    - assets/ic_unknown.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -14,13 +14,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  static const double APP_TITLE_TEXT_SIZE = 18.0;
-  static const double TOGGLE_PADDING_TOP = 23.0;
-  static const double TOGGLE_PADDING_BOTTOM = 16.0;
-  static const double FRONT_LAYER_LEFT_MARGIN = 40;
-  static const double FRONT_LAYER_INITIAL_TOP = 130;
-  static const double PARALLAX_SMOOTH_FACTOR = 0.1;
-  var frontLayerTop = FRONT_LAYER_INITIAL_TOP;
+  static const double appTitleTextSize = 18.0;
+  static const double togglePaddingTop = 23.0;
+  static const double togglePaddingBottom = 16.0;
+  static const double frontLayerLeftMargin = 40;
+  static const double frontLayerInitialTop = 130;
+  static const double parallaxSmoothFactor = 0.1;
+  var frontLayerTop = frontLayerInitialTop;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text(
           'Cloud Certifications',
-          style: TextStyle(fontSize: APP_TITLE_TEXT_SIZE),
+          style: TextStyle(fontSize: appTitleTextSize),
         ),
       ),
       body: buildBody(),
@@ -42,7 +42,7 @@ class _HomePageState extends State<HomePage> {
             if (notification.scrollDelta != null) {
               final delta = notification.scrollDelta!;
               setState(() {
-                frontLayerTop += delta * PARALLAX_SMOOTH_FACTOR;
+                frontLayerTop += delta * parallaxSmoothFactor;
               });
             }
           }
@@ -57,7 +57,7 @@ class _HomePageState extends State<HomePage> {
             child: Stack(
               children: <Widget>[
                 Positioned(
-                  left: FRONT_LAYER_LEFT_MARGIN,
+                  left: frontLayerLeftMargin,
                   top: frontLayerTop,
                   child: Image.asset('assets/front-layer.png'),
                 ),
@@ -78,7 +78,7 @@ class _HomePageState extends State<HomePage> {
           Container(
             alignment: Alignment.center,
             padding: const EdgeInsets.only(
-                top: TOGGLE_PADDING_TOP, bottom: TOGGLE_PADDING_BOTTOM),
+                top: togglePaddingTop, bottom: togglePaddingBottom),
             child: ToggleButton(),
           ),
           BlocBuilder<CloudCertificationBloc, CloudCertificationState>(
