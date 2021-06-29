@@ -3,6 +3,7 @@ import 'dart:ui';
 class Constants {
   // Colors
   static const JIRA_COLOR = const Color(0xff0052CC);
+  static const BLACK_75 = const Color(0xBF000000);
 
   // Certifications
   static const IC_GCP = 'ic_gcp.png';
