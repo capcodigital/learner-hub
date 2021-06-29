@@ -9,6 +9,8 @@ class ToggleButton extends StatefulWidget {
 }
 
 class _ToggleButtonState extends State<ToggleButton> {
+  static const textSize = 16.0;
+
   final Color jiraColor = Constants.JIRA_COLOR;
   final double width = 300.0;
   final double height = 50.0;
@@ -88,8 +90,9 @@ class _ToggleButtonState extends State<ToggleButton> {
                   'In Progress',
                   style: TextStyle(
                     color: inProgressColor,
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.bold,
+                    fontSize: textSize,
+                    fontFamily: 'Montserrat',
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ),
@@ -114,8 +117,9 @@ class _ToggleButtonState extends State<ToggleButton> {
                   'Completed',
                   style: TextStyle(
                     color: completedColor,
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.bold,
+                    fontSize: textSize,
+                    fontFamily: 'Montserrat',
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ),
