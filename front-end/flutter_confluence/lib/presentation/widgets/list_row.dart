@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_confluence/core/constants.dart';
 import 'package:flutter_confluence/domain/entities/cloud_certification.dart';
 
 class ListRow extends StatelessWidget {
   static const LIST_ROW_ICON_SIZE = 60.0;
   static const LIST_ROW_ICON_BORDER_WIDTH = 1.0;
-  static const LIST_ROW_ICON_BORDER_COLOR = Color(0xFF0052CC);
+  static const LIST_ROW_ICON_BORDER_COLOR = Constants.JIRA_COLOR;
   static const LIST_ROW_ICON_PADDING = 16.0;
   static const LIST_ROW_ICON_RIGHT_MARGIN = 23.0;
+  static const LIST_ROW_USER_TEXT_COLOR = Colors.black;
   static const LIST_ROW_USER_TEXT_SIZE = 16.0;
   static const LIST_ROW_INFO_MARGIN_TOP = 10.0;
   static const LIST_ROW_INFO_TEXT_SIZE = 12.0;
-  static const LIST_ROW_INFO_TEXT_COLOR = Color(0xBF000000);
+  static const LIST_ROW_INFO_TEXT_COLOR = Constants.BLACK_75;
   static const LIST_ROW_DATE_TEXT_SIZE = 14.0;
 
   final CloudCertification item;
@@ -44,12 +46,20 @@ class ListRow extends StatelessWidget {
                       width: LIST_ROW_ICON_BORDER_WIDTH,
                     ),
                   )),
-              title: Text(item.name),
+              title: Text(
+                  item.name,
+                  style: TextStyle(color: LIST_ROW_USER_TEXT_COLOR)
+              ),
               subtitle: Row(
                 children: [
-                  Expanded(child: Text(item.certificationType)),
+                  Expanded(
+                      child:
+                      Text(
+                          item.certificationType,
+                      style: TextStyle(color: LIST_ROW_INFO_TEXT_COLOR),)),
                   Text(
                     item.certificationDate,
+                    style: TextStyle(color: LIST_ROW_INFO_TEXT_COLOR),
                   )
                 ],
               ),
