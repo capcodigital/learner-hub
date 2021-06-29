@@ -31,38 +31,42 @@ class _HomePageState extends State<HomePage> {
           style: TextStyle(fontSize: appTitleTextSize),
         ),
       ),
-      body: NotificationListener(
-          onNotification: (notification) {
-            if (notification is ScrollUpdateNotification) {
-              if (notification.scrollDelta != null) {
-                final delta = notification.scrollDelta!;
-                setState(() {
-                  frontLayerTop += delta * parallaxSmoothFactor;
-                });
-              }
-            }
-            return true;
-          },
-          child: Container(
-              constraints: BoxConstraints.expand(),
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage("assets/back-layer.png"),
-                      fit: BoxFit.cover)),
-              child: Stack(
-                children: <Widget>[
-                  Positioned(
-                    left: frontLayerLeftMargin,
-                    top: frontLayerTop,
-                    child: Image.asset('assets/front-layer.png'),
-                  ),
-                  buildBody(context)
-                ],
-              ))),
+      body: buildBody(),
     );
   }
 
-  BlocProvider<CloudCertificationBloc> buildBody(BuildContext context) {
+  Widget buildBody() {
+    return NotificationListener(
+        onNotification: (notification) {
+          if (notification is ScrollUpdateNotification) {
+            if (notification.scrollDelta != null) {
+              final delta = notification.scrollDelta!;
+              setState(() {
+                frontLayerTop += delta * parallaxSmoothFactor;
+              });
+            }
+          }
+          return true;
+        },
+        child: Container(
+            constraints: BoxConstraints.expand(),
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage("assets/back-layer.png"),
+                    fit: BoxFit.cover)),
+            child: Stack(
+              children: <Widget>[
+                Positioned(
+                  left: frontLayerLeftMargin,
+                  top: frontLayerTop,
+                  child: Image.asset('assets/front-layer.png'),
+                ),
+                buildBlocProvidedBody(context)
+              ],
+            )));
+  }
+
+  BlocProvider<CloudCertificationBloc> buildBlocProvidedBody(BuildContext context) {
     return BlocProvider(
       create: (_) {
         final bloc = sl<CloudCertificationBloc>();
