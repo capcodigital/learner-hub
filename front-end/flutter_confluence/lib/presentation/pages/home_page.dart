@@ -17,8 +17,10 @@ class _HomePageState extends State<HomePage> {
   static const double appTitleTextSize = 18.0;
   static const double toggleButtonPaddingTop = 23.0;
   static const double toggleButtonPaddingBottom = 16.0;
-
-  var top = 130.0;
+  static const double frontLayerLeftMargin = 40;
+  static const double frontLayerInitialTop = 130;
+  static const double parallaxSmoothFactor = 0.1;
+  var frontLayerTop = frontLayerInitialTop;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +37,7 @@ class _HomePageState extends State<HomePage> {
               if (notification.scrollDelta != null) {
                 final delta = notification.scrollDelta!;
                 setState(() {
-                  top += delta / 10;
+                  frontLayerTop += delta * parallaxSmoothFactor;
                 });
               }
             }
@@ -50,8 +52,8 @@ class _HomePageState extends State<HomePage> {
               child: Stack(
                 children: <Widget>[
                   Positioned(
-                    left: 40,
-                    top: top,
+                    left: frontLayerLeftMargin,
+                    top: frontLayerTop,
                     child: Image.asset('assets/front-layer.png'),
                   ),
                   buildBody(context)
