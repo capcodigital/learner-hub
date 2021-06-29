@@ -86,15 +86,11 @@ class _ToggleButtonState extends State<ToggleButton> {
                 width: width * 0.5,
                 color: Colors.transparent,
                 alignment: Alignment.center,
-                child: Text(
-                  'In Progress',
-                  style: TextStyle(
-                    color: inProgressColor,
-                    fontSize: textSize,
-                    fontFamily: 'Montserrat',
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
+                child: Text('In Progress',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline2
+                        ?.copyWith(color: inProgressColor)),
               ),
             ),
           ),
@@ -113,15 +109,11 @@ class _ToggleButtonState extends State<ToggleButton> {
                 width: width * 0.5,
                 color: Colors.transparent,
                 alignment: Alignment.center,
-                child: Text(
-                  'Completed',
-                  style: TextStyle(
-                    color: completedColor,
-                    fontSize: textSize,
-                    fontFamily: 'Montserrat',
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
+                child: Text('Completed',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline2
+                        ?.copyWith(color: completedColor)),
               ),
             ),
           ),

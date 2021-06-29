@@ -8,11 +8,6 @@ class ListRow extends StatelessWidget {
   static const listRowIconBorderColor = Constants.JIRA_COLOR;
   static const listRowIconPadding = 16.0;
   static const listRowIconRightMargin = 23.0;
-  static const listRowTitleTextColor = Colors.black;
-  static const listRowTitleTextSize = 15.0;
-  static const listRowInfoMarginTop = 10.0;
-  static const listRowInfoTextSize = 12.0;
-  static const listListRowInfoTextColor = Constants.BLACK_75;
 
   final CloudCertification item;
   ListRow({required this.item});
@@ -46,30 +41,16 @@ class ListRow extends StatelessWidget {
                       width: listRowIconBorderWidth,
                     ),
                   )),
-              title: Text(item.name,
-                  style: TextStyle(
-                      color: listRowTitleTextColor,
-                      fontFamily: 'Montserrat',
-                      fontSize: listRowTitleTextSize,
-                      fontWeight: FontWeight.w600)),
+              title:
+                  Text(item.name, style: Theme.of(context).textTheme.headline2),
               subtitle: Row(
                 children: [
                   Expanded(
-                      child: Text(
-                    item.certificationType,
-                    style: TextStyle(
-                        color: listListRowInfoTextColor,
-                        fontFamily: 'Montserrat',
-                        fontSize: listRowInfoTextSize,
-                        fontWeight: FontWeight.w400),
-                  )),
+                      child: Text(item.certificationType,
+                          style: Theme.of(context).textTheme.headline3)),
                   Text(
                     item.certificationDate,
-                    style: TextStyle(
-                        color: listListRowInfoTextColor,
-                        fontFamily: 'Montserrat',
-                        fontSize: listRowInfoTextSize,
-                        fontWeight: FontWeight.w400),
+                    style: Theme.of(context).textTheme.headline3,
                   )
                 ],
               ),
