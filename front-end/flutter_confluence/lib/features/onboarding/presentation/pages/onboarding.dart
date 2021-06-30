@@ -56,30 +56,29 @@ class OnBoardingPage extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                PlatformIcon('assets/ic_aws.png'),
-                                PlatformIcon('assets/ic_azure.png'),
+                                PlatformIcon('assets/${Constants.IC_AWS}'),
+                                PlatformIcon('assets/${Constants.IC_AZURE}'),
                               ],
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                PlatformIcon('assets/ic_gcp.png'),
-                                PlatformIcon('assets/ic_hashicorp.png'),
+                                PlatformIcon('assets/${Constants.IC_GCP}'),
+                                PlatformIcon(
+                                    'assets/${Constants.IC_HASHICORP}'),
                               ],
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                PlatformIcon('assets/ic_cloud_native.png'),
-                                Padding(
-                                  padding: const EdgeInsets.all(0),
-                                  child: Opacity(
-                                      opacity: 0.0,
-                                      child: PlatformIcon(
-                                          'assets/ic_cloud_native.png')),
-                                )
+                                PlatformIcon(
+                                    'assets/${Constants.IC_CLOUD_NATIVE}'),
+                                Opacity(
+                                    opacity: 0.0,
+                                    child: PlatformIcon(
+                                        'assets/${Constants.IC_CLOUD_NATIVE}')),
                               ],
                             ),
                           ],
