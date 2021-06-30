@@ -19,19 +19,19 @@ class CloudCertificationModel extends CloudCertification {
 
   factory CloudCertificationModel.fromJson(Map<String, dynamic> json) {
     return CloudCertificationModel(
-      name: json['Name'],
-      platform: json['Platform'],
-      certificationName: json['Certification'],
-      date: json['Date'],
+      name: json['name'],
+      platform: json['platform'],
+      certificationName: json['certification'],
+      date: json['date'],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'Name': this.name,
-      'Platform': this.platform,
-      'Certification': this.certificationName,
-      'Date': this.date,
+      'name': this.name,
+      'platform': this.platform,
+      'certification': this.certificationName,
+      'date': this.date,
     };
   }
 

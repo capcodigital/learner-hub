@@ -33,8 +33,7 @@ class CloudCertificationRemoteDataSourceImpl extends CloudCertificationRemoteDat
     );
 
     if (response.statusCode == 200) {
-      return (json.decode(response.body) as Map<String, dynamic>)
-          .values
+      return (json.decode(response.body) as List)
           .map((e) => CloudCertificationModel.fromJson(e))
           .toList();
 

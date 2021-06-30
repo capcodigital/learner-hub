@@ -18,14 +18,12 @@ import 'package:bloc_test/bloc_test.dart';
 @GenerateMocks([GetCompletedCertifications, GetInProgressCertifications])
 void main() {
   final mockCompletedCerts =
-      (json.decode(fixture('completed.json')) as Map<String, dynamic>)
-          .values
+      (json.decode(fixture('completed.json')) as List)
           .map((e) => CloudCertificationModel.fromJson(e))
           .toList();
 
   final mockInProgressCerts =
-      (json.decode(fixture('in_progress.json')) as Map<String, dynamic>)
-          .values
+      (json.decode(fixture('in_progress.json')) as List)
           .map((e) => CloudCertificationModel.fromJson(e))
           .toList();
 

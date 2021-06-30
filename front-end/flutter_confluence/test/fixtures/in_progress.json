@@ -1,194 +1,212 @@
-{
-  "1": {
-    "Name": "Jonathan Fenwick",
-    "Platform": "GCP",
-    "Certification": "Professional Security Engineer",
-    "Date": "30 Jun 2021"
+[
+  {
+    "name": "Jonathan Fenwick",
+    "platform": "GCP",
+    "certification": "Professional Security Engineer",
+    "date": "30 Jun 2021"
   },
-  "2": {
-    "Name": "Jonathan Fenwick",
-    "Platform": "GCP",
-    "Certification": "Professional Network Engineer",
-    "Date": "30 Jun 2021"
+  {
+    "name": "Jonathan Fenwick",
+    "platform": "GCP",
+    "certification": "Professional Network Engineer",
+    "date": "30 Jun 2021"
   },
-  "3": {
-    "Name": "Jonathan Fenwick",
-    "Platform": "Hashicorp",
-    "Certification": "Consul Associate Engineer",
-    "Date": "31 Jul 2021"
+  {
+    "name": "Jonathan Fenwick",
+    "platform": "Hashicorp",
+    "certification": "Consul Associate Engineer",
+    "date": "31 Jul 2021"
   },
-  "4": {
-    "Name": "Sam Larsen",
-    "Platform": "GCP",
-    "Certification": "Professional Cloud Architect",
-    "Date": "30 Jun 2021"
+  {
+    "name": "Sam Larsen",
+    "platform": "GCP",
+    "certification": "Professional Cloud Architect",
+    "date": "30 Jun 2021"
   },
-  "5": {
-    "Name": "Sam Larsen",
-    "Platform": "Cloud Native Foundation",
-    "Certification": "Certified Kubernetes Administrator (CKA)",
-    "Date": "31 Jul 2021"
+  {
+    "name": "Sam Larsen",
+    "platform": "Cloud Native Foundation",
+    "certification": "Certified Kubernetes Administrator (CKA)",
+    "date": "31 Jul 2021"
   },
-  "6": {
-    "Name": "Ashish Patel",
-    "Platform": "GCP",
-    "Certification": "Professional Cloud Security Engineer",
-    "Date": "30 Nov 2020"
+  {
+    "name": "Ashish Patel",
+    "platform": "GCP",
+    "certification": "Professional Cloud Security Engineer",
+    "date": "30 Nov 2020"
   },
-  "7": {
-    "Name": "Sanjida Gafur",
-    "Platform": "AWS",
-    "Certification": "AWS Solution Architect Associate",
-    "Date": "March 2021"
+  {
+    "name": "Sanjida Gafur",
+    "platform": "AWS",
+    "certification": "AWS Solution Architect Associate",
+    "date": "March 2021"
   },
-  "8": {
-    "Name": "Andrea Ferrando",
-    "Platform": "Cloud Native Foundation",
-    "Certification": "Certified Kubernetes Application Developer (CKAD)",
-    "Date": "12 Aug 2021"
+  {
+    "name": "Andrea Ferrando",
+    "platform": "Cloud Native Foundation",
+    "certification": "Certified Kubernetes Application Developer (CKAD)",
+    "date": "12 Aug 2021"
   },
-  "9": {
-    "Name": "Alexandra McCarroll",
-    "Platform": "GCP",
-    "Certification": "Associate Cloud Engineer",
-    "Date": "May"
+  {
+    "name": "Alexandra McCarroll",
+    "platform": "GCP",
+    "certification": "Associate Cloud Engineer",
+    "date": "May"
   },
-  "10": {
-    "Name": "Alison Tshala",
-    "Platform": "AWS",
-    "Certification": "AWS Certified Developer - Associate",
-    "Date": "27 Jun 2021"
+  {
+    "name": "Alison Tshala",
+    "platform": "AWS",
+    "certification": "AWS Certified Developer - Associate",
+    "date": "27 Jun 2021"
   },
-  "11": {
-    "Name": "Rory Fielding",
-    "Platform": "GCP",
-    "Certification": "Associate Cloud Engineer",
-    "Date": "March 2021"
+  {
+    "name": "Rory Fielding",
+    "platform": "GCP",
+    "certification": "Associate Cloud Engineer",
+    "date": "March 2021"
   },
-  "12": {
-    "Name": "Juan Echeverry",
-    "Platform": "AWS",
-    "Certification": "AWS Cloud Practitioner",
-    "Date": "March 2021"
+  {
+    "name": "Juan Echeverry",
+    "platform": "AWS",
+    "certification": "AWS Cloud Practitioner",
+    "date": "March 2021"
   },
-  "13": {
-    "Name": "Catalin Stoiovici",
-    "Platform": "AWS",
-    "Certification": "AWS Solution Architect Associate",
-    "Date": "Q3/Q4"
+  {
+    "name": "Catalin Stoiovici",
+    "platform": "AWS",
+    "certification": "AWS Solution Architect Associate",
+    "date": "Q3/Q4"
   },
-  "14": {
-    "Name": "Vicky Dineshchandra",
-    "Platform": "GCP",
-    "Certification": "Associate Cloud Engineer",
-    "Date": "April 2021"
+  {
+    "name": "Vicky Dineshchandra",
+    "platform": "GCP",
+    "certification": "Associate Cloud Engineer",
+    "date": "Q3/Q4"
   },
-  "15": {
-    "Name": "Shishir Gupta",
-    "Platform": "GCP",
-    "Certification": "Associate Cloud Engineer",
-    "Date": "June 2021"
+  {
+    "name": "Shishir Gupta",
+    "platform": "GCP",
+    "certification": "Associate Cloud Engineer",
+    "date": "June 2021"
   },
-  "16": {
-    "Name": "Domin Thomas",
-    "Platform": "GCP",
-    "Certification": "Certified Kubernetes Application Developer (CKAD)",
-    "Date": "August 2021"
+  {
+    "name": "Domin Thomas",
+    "platform": "GCP",
+    "certification": "Certified Kubernetes Application Developer (CKAD)",
+    "date": "August 2021"
   },
-  "17": {
-    "Name": "Kevin Leslie",
-    "Platform": "Hashicorp",
-    "Certification": "Associate Terraform Engineer",
-    "Date": "March 2021"
+  {
+    "name": "Kevin Leslie",
+    "platform": "Hashicorp",
+    "certification": "Associate Terraform Engineer",
+    "date": "March 2021"
   },
-  "18": {
-    "Name": "Suman Gautam",
-    "Platform": "GCP",
-    "Certification": "Associate Cloud Engineer",
-    "Date": "June 2021"
+  {
+    "name": "Suman Gautam",
+    "platform": "GCP",
+    "certification": "Associate Cloud Engineer",
+    "date": "June 2021"
   },
-  "19": {
-    "Name": "Ali Yassine",
-    "Platform": "GCP",
-    "Certification": "Professional Cloud Architect",
-    "Date": "June 2021"
+  {
+    "name": "Ali Yassine",
+    "platform": "GCP",
+    "certification": "Professional Cloud Architect",
+    "date": "30 Nov 2021"
   },
-  "20": {
-    "Name": "Ravikalaa Krishnan",
-    "Platform": "GCP",
-    "Certification": "Associate Cloud Engineer",
-    "Date": "01 Jul 2021"
+  {
+    "name": "Ravikalaa Krishnan",
+    "platform": "GCP",
+    "certification": "Associate Cloud Engineer",
+    "date": "01 Jul 2021"
   },
-  "21": {
-    "Name": "Daniel Payne",
-    "Platform": "GCP",
-    "Certification": "Professional Cloud Architect",
-    "Date": "Dec 2022"
+  {
+    "name": "Daniel Payne",
+    "platform": "GCP",
+    "certification": "Professional Cloud Architect",
+    "date": "Dec 2022"
   },
-  "22": {
-    "Name": "Rituja Rao",
-    "Platform": "Azure",
-    "Certification": "AI Fundamentals",
-    "Date": "30 Jul 2021"
+  {
+    "name": "Rituja Rao",
+    "platform": "Azure",
+    "certification": "AI Fundamentals",
+    "date": "30 Jul 2021"
   },
-  "23": {
-    "Name": "Rituja Rao",
-    "Platform": "Azure",
-    "Certification": "Microsoft Azure Data Fundamentals",
-    "Date": "22 Aug 2021"
+  {
+    "name": "Rituja Rao",
+    "platform": "Azure",
+    "certification": "Microsoft Azure Data Fundamentals",
+    "date": "22 Aug 2021"
   },
-  "24": {
-    "Name": "Jamie Hughes",
-    "Platform": "Azure",
-    "Certification": "Microsoft Azure Fundamentals (AZ-900)",
-    "Date": "June 2021"
+  {
+    "name": "Jamie Hughes",
+    "platform": "Azure",
+    "certification": "Microsoft Azure Fundamentals (AZ-900)",
+    "date": "June 2021"
   },
-  "25": {
-    "Name": "Jamie Hughes",
-    "Platform": "Azure",
-    "Certification": "Microsoft Azure Data Fundamentals",
-    "Date": "June 2021"
+  {
+    "name": "Jamie Hughes",
+    "platform": "Azure",
+    "certification": "Microsoft Azure Data Fundamentals",
+    "date": "June 2021"
   },
-  "26": {
-    "Name": "Sanjay Kumar Bharwani",
-    "Platform": "Azure",
-    "Certification": "Microsoft Azure Fundamentals (AZ-900)",
-    "Date": "July 2021"
+  {
+    "name": "Sanjay Kumar Bharwani",
+    "platform": "Azure",
+    "certification": "Microsoft Azure Fundamentals (AZ-900)",
+    "date": "July 2021"
   },
-  "27": {
-    "Name": "Haris Mexis",
-    "Platform": "GCP",
-    "Certification": "Associate Cloud Engineer",
-    "Date": "July 2021"
+  {
+    "name": "Haris Mexis",
+    "platform": "GCP",
+    "certification": "Associate Cloud Engineer",
+    "date": "July 2021"
   },
-  "28": {
-    "Name": "Wai-Lam Kwok",
-    "Platform": "AWS",
-    "Certification": "AWS Cloud Practitioner",
-    "Date": "July 2021"
+  {
+    "name": "Wai-Lam Kwok",
+    "platform": "AWS",
+    "certification": "AWS Cloud Practitioner",
+    "date": "July 2021"
   },
-  "29": {
-    "Name": "Alexandra Veres",
-    "Platform": "GCP",
-    "Certification": "Associate Cloud Engineer",
-    "Date": "July 2021"
+  {
+    "name": "Alexandra Veres",
+    "platform": "GCP",
+    "certification": "Associate Cloud Engineer",
+    "date": "July 2021"
   },
-  "30": {
-    "Name": "Shilpa Chourasia",
-    "Platform": "Azure",
-    "Certification": "Microsoft Azure Fundamentals (AZ-900)",
-    "Date": "July 2021"
+  {
+    "name": "Shilpa Chourasia",
+    "platform": "Azure",
+    "certification": "Microsoft Azure Fundamentals (AZ-900)",
+    "date": "July 2021"
   },
-  "31": {
-    "Name": "Puja Deep",
-    "Platform": "GCP",
-    "Certification": "Associate Cloud Engineer",
-    "Date": "July 2021"
+  {
+    "name": "Puja Deep",
+    "platform": "GCP",
+    "certification": "Associate Cloud Engineer",
+    "date": "July 2021"
   },
-  "32": {
-    "Name": "Dimitri Calianno",
-    "Platform": "GCP",
-    "Certification": "Professional Cloud Security Engineer",
-    "Date": "30 Jul 2021"
+  {
+    "name": "Dimitri Calianno",
+    "platform": "GCP",
+    "certification": "Professional Cloud Security Engineer",
+    "date": "30 Jul 2021"
+  },
+  {
+    "name": "Chijioke Amago",
+    "platform": "AWS",
+    "certification": "Microsoft Azure Fundamentals (AZ-900)",
+    "date": "June 2021"
+  },
+  {
+    "name": "Aditya Vijay",
+    "platform": "GCP",
+    "certification": "Associate Cloud Engineer",
+    "date": "July 2021"
+  },
+  {
+    "name": "Shaba Yashmin",
+    "platform": "AWS",
+    "certification": "AWS Cloud Practitioner",
+    "date": "June 2021"
   }
-}
+]
