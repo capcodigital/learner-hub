@@ -5,13 +5,13 @@ import 'package:equatable/equatable.dart';
 
 import '../../../../core/error/failures.dart';
 import '../../../../core/usecases/usecase.dart';
-import '../../domain/usecases/authenticate.dart';
+import '../../domain/usecases/authenticate_use_case.dart';
 
 part 'on_boarding_event.dart';
 part 'on_boarding_state.dart';
 
 class OnBoardingBloc extends Bloc<OnBoardingEvent, OnBoardingState> {
-  final Authenticate authUseCase;
+  final AuthenticateUseCase authUseCase;
 
   OnBoardingBloc({required this.authUseCase}) : super(Empty());
 

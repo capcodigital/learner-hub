@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_confluence/core/constants.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../core/constants.dart';
+import '../bloc/on_boarding_bloc.dart';
+import '../../../../injection_container.dart';
 import '../widgets/platform_icon.dart';
 
 class OnBoardingPage extends StatelessWidget {
@@ -13,6 +16,10 @@ class OnBoardingPage extends StatelessWidget {
   static const cardWidth = 180.0;
   static const cardHeight = 260.0;
 
+  void authenticate(BuildContext context) {
+    BlocProvider.of<OnBoardingBloc>(context).add(AuthenticationEvent());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +30,18 @@ class OnBoardingPage extends StatelessWidget {
     );
   }
 
-  Widget buildBody(BuildContext context) {
+  BlocProvider<OnBoardingBloc> buildBody(BuildContext context) {
+    return BlocProvider(create: (_) {
+      final bloc = sl<OnBoardingBloc>();
+      return bloc;
+    }, child: BlocBuilder<OnBoardingBloc, OnBoardingState>(
+      builder: (ctx, state) {
+        return _buildBody(ctx);
+      },
+    ));
+  }
+
+  Widget _buildBody(BuildContext context) {
     return Column(
       children: [
         Row(
@@ -131,20 +149,21 @@ class OnBoardingPage extends StatelessWidget {
           margin: EdgeInsets.only(top: 34),
         ),
         Container(
-          margin: EdgeInsets.only(top: 48),
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(primary: Colors.white),
-            onPressed: () {},
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(msgAuthenticate,
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline1
-                      ?.copyWith(color: Constants.JIRA_COLOR)),
-            ),
-          ),
-        ),
+            margin: EdgeInsets.only(top: 48),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(primary: Colors.white),
+              onPressed: () {
+                authenticate(context);
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(msgAuthenticate,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline1
+                        ?.copyWith(color: Constants.JIRA_COLOR)),
+              ),
+            )),
       ],
     );
   }
