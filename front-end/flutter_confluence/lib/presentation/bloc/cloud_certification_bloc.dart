@@ -1,11 +1,14 @@
 import 'dart:async';
 import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
+
+import '../../core/constants.dart';
 import '../../core/error/failures.dart';
 import '../../core/usecases/usecase.dart';
-import '../../core/constants.dart';
+import '../../core/utils/extensions.dart';
 import '../../domain/entities/cloud_certification.dart';
 import '../../domain/usecases/get_completed_certifications.dart';
 import '../../domain/usecases/get_in_progress_certifications.dart';
@@ -39,21 +42,12 @@ class CloudCertificationBloc
       yield* _getState(result);
     }
 
-    if(event is SearchCertificationsEvent) {
-      var searchTerm = event.searchTerm;
-      if (searchTerm.isEmpty) {
-        //TODO: Reset to latest state with data
-      }
-      else{
-        yield Loading();
-        //TODO: Filter data here
-        yield EmptySearchResult();
-      }
+    if (event is SearchCertificationsEvent) {
+      yield* _getSearchState(event);
     }
   }
 
-  Stream<CloudCertificationState> _getState(
-      Either<Failure, List<CloudCertification>> arg) async* {
+  Stream<CloudCertificationState> _getState(Either<Failure, List<CloudCertification>> arg) async* {
     yield arg.fold(
       (failure) => Error(message: _mapFailureToMessage(failure)),
       (certifications) => Loaded(items: certifications),
@@ -68,6 +62,29 @@ class CloudCertificationBloc
         return Constants.CACHE_FAILURE_MSG;
       default:
         return Constants.UNKNOWN_ERROR_MSG;
+    }
+  }
+
+  Stream<CloudCertificationState> _getSearchState(SearchCertificationsEvent event) async* {
+    var searchTerm = event.searchTerm.trim();
+    var allItems = state.items;
+
+    log("Search term received: " + searchTerm);
+    if (searchTerm.isEmpty) {
+      yield Loaded(items: allItems);
+    } else {
+      yield Loading();
+      var filtered = allItems
+          .where((element) =>
+              element.name.containsIgnoreCase(searchTerm) ||
+              element.certificationType.containsIgnoreCase(searchTerm) ||
+              element.platform.containsIgnoreCase(searchTerm))
+          .toList();
+      if (filtered.isNotEmpty) {
+        yield Filtered(items: allItems, filteredItems: filtered);
+      } else {
+        yield EmptySearchResult(items: allItems);
+      }
     }
   }
 }

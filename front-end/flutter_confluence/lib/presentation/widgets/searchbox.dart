@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_confluence/core/constants.dart';
 
 class SearchBox extends StatelessWidget {
   final String hintText;
@@ -8,9 +7,8 @@ class SearchBox extends StatelessWidget {
   final ValueChanged<String> onSearchSubmitted;
 
   final double widgetHeight = 50.0;
-  final double iconHorizontalPadding = 20.0;
+  static const double iconHorizontalPadding = 20.0;
   final double iconSize = 30.0;
-  final Color accentColour = Constants.JIRA_COLOR;
 
   const SearchBox({
     this.hintText = "Search...",
@@ -27,7 +25,7 @@ class SearchBox extends StatelessWidget {
               color: Colors.black45,
               blurRadius: 10.0,
               offset: Offset(0, 10))],
-          borderRadius: BorderRadius.circular(50.0)),
+          borderRadius: BorderRadius.circular(25.0)),
       child: TextField(
         onChanged: onSearchTermChanged,
         onSubmitted: onSearchSubmitted,
@@ -40,7 +38,7 @@ class SearchBox extends StatelessWidget {
             disabledBorder: InputBorder.none,
             hintText: hintText,
             prefixIcon: Padding(
-              padding: EdgeInsets.only(
+              padding: const EdgeInsets.only(
                   left: iconHorizontalPadding,
                   right: iconHorizontalPadding),
               child: Icon(

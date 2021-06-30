@@ -74,6 +74,8 @@ class HomePage extends StatelessWidget {
               return Text('Loading...');
             else if (state is Empty)
               return Text('No results');
+            else if (state is Filtered)
+              return Expanded(child: CertificationsView(items: state.filteredItems));
             else if (state is EmptySearchResult)
               return Text('No results found');
             else if (state is Error)
