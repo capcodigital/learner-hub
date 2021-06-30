@@ -9,3 +9,5 @@ List<Object> get props => [];
 class ServerFailure extends Failure {}
 
 class CacheFailure extends Failure {}
+
+class AuthFailure extends Failure {}

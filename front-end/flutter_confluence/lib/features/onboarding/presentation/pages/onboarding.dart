@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_confluence/core/constants.dart';
-import 'package:flutter_confluence/features/onboarding/presentation/widgets/platform_icon.dart';
+import '../widgets/platform_icon.dart';
 
 class OnBoardingPage extends StatelessWidget {
-
   static const msgTrainingTypes = "Training Types";
   static const msgCardWelcome =
       "See the name, the date, the title of certification";

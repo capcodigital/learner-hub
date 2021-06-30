@@ -1,7 +1,7 @@
 import 'package:local_auth/local_auth.dart';
 
 abstract class OnBoardingDataSource {
-  Future authenticate();
+  void authenticate();
 }
 
 class OnBoardingDataSourceImpl extends OnBoardingDataSource {
@@ -10,7 +10,12 @@ class OnBoardingDataSourceImpl extends OnBoardingDataSource {
   OnBoardingDataSourceImpl({required this.auth});
 
   @override
-  Future authenticate() {
-    return Future.value();
+  void authenticate() async {
+    var localAuth = LocalAuthentication();
+    bool didAuthenticate =
+        await localAuth.authenticate(
+        localizedReason: 'Please authenticate to show account balance',
+        biometricOnly: true);
   }
+
 }
