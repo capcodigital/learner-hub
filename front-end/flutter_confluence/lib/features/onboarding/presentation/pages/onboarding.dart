@@ -2,14 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_confluence/core/constants.dart';
 import 'package:flutter_confluence/features/onboarding/presentation/widgets/platform_icon.dart';
 
-class OnBoardingPage extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() {
-    return _OnBoardingPageState();
-  }
-}
+class OnBoardingPage extends StatelessWidget {
 
-class _OnBoardingPageState extends State<OnBoardingPage> {
   static const msgTrainingTypes = "Training Types";
   static const msgCardWelcome =
       "See the name, the date, the title of certification";
@@ -25,12 +19,12 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.only(top: 80),
-        child: buildBody(),
+        child: buildBody(context),
       ),
     );
   }
 
-  Widget buildBody() {
+  Widget buildBody(BuildContext context) {
     return Column(
       children: [
         Row(
@@ -56,7 +50,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                               .headline2
                               ?.copyWith(color: Colors.white)),
                       Container(
-                        margin: EdgeInsets.only(top: 6),
+                        margin: EdgeInsets.only(top: 6.0),
                         child: Column(
                           children: [
                             Row(
