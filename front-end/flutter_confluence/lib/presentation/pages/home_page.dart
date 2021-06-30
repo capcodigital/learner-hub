@@ -79,9 +79,11 @@ class _HomePageState extends State<HomePage> {
           .add(SearchCertificationsEvent(searchTerm));
     }
 
+    final searchController = TextEditingController();
     void clearSearch() {
+      searchController.clear();
       BlocProvider.of<CloudCertificationBloc>(context)
-          .add(ClearSearchEvent());
+          .add(SearchCertificationsEvent(""));
     }
 
     return Column(
@@ -96,6 +98,7 @@ class _HomePageState extends State<HomePage> {
                     left: searchbarHorizontalPadding,
                     right: searchbarHorizontalPadding),
                 child: SearchBox(
+                  controller: searchController,
                   onSearchTermChanged: doSearch,
                   onSearchSubmitted: doSearch,
                 ),

@@ -21,7 +21,3 @@ class SearchCertificationsEvent extends CloudCertificationEvent {
   @override
   List<Object> get props => [searchTerm];
 }
-
-class ClearSearchEvent extends CloudCertificationEvent {
-  ClearSearchEvent();
-}

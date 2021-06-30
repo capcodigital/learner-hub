@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 class SearchBox extends StatelessWidget {
   final String hintText;
   final ValueChanged<String>? onSearchTermChanged;
-  final ValueChanged<String> onSearchSubmitted;
+  final ValueChanged<String>? onSearchSubmitted;
+
+  final TextEditingController? controller;
 
   final double widgetHeight = 50.0;
   static const double iconHorizontalPadding = 20.0;
@@ -13,7 +15,8 @@ class SearchBox extends StatelessWidget {
   const SearchBox({
     this.hintText = "Search...",
     this.onSearchTermChanged,
-    required this.onSearchSubmitted});
+    this.controller,
+    this.onSearchSubmitted});
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +30,7 @@ class SearchBox extends StatelessWidget {
               offset: Offset(0, 10))],
           borderRadius: BorderRadius.circular(25.0)),
       child: TextField(
+        controller: controller,
         onChanged: onSearchTermChanged,
         onSubmitted: onSearchSubmitted,
         decoration: InputDecoration(

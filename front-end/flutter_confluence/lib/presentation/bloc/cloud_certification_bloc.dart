@@ -45,10 +45,6 @@ class CloudCertificationBloc
     if (event is SearchCertificationsEvent) {
       yield* _getSearchState(event);
     }
-    
-    if (event is ClearSearchEvent) {
-      yield Loaded(items: state.items);
-    }
   }
 
   Stream<CloudCertificationState> _getState(Either<Failure, List<CloudCertification>> arg) async* {
