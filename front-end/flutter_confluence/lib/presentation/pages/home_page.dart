@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_confluence/presentation/widgets/empty_search.dart';
 import 'package:flutter_confluence/presentation/widgets/searchbox.dart';
 
 import '../bloc/cloud_certification_bloc.dart';
@@ -42,6 +43,11 @@ class HomePage extends StatelessWidget {
           .add(SearchCertificationsEvent(searchTerm));
     }
 
+    void clearSearch() {
+      BlocProvider.of<CloudCertificationBloc>(context)
+          .add(ClearSearchEvent());
+    }
+
     return Column(
       children: [
         Padding(
@@ -77,7 +83,7 @@ class HomePage extends StatelessWidget {
             else if (state is Filtered)
               return Expanded(child: CertificationsView(items: state.filteredItems));
             else if (state is EmptySearchResult)
-              return Text('No results found');
+              return EmptySearch(onClearPressed: clearSearch);
             else if (state is Error)
               return Text('Error');
             else

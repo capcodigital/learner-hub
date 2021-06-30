@@ -22,3 +22,6 @@ class SearchCertificationsEvent extends CloudCertificationEvent {
   List<Object> get props => [searchTerm];
 }
 
+class ClearSearchEvent extends CloudCertificationEvent {
+  ClearSearchEvent();
+}
