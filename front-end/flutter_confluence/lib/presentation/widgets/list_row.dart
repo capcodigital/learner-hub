@@ -8,12 +8,6 @@ class ListRow extends StatelessWidget {
   static const listRowIconBorderColor = Constants.JIRA_COLOR;
   static const listRowIconPadding = 16.0;
   static const listRowIconRightMargin = 23.0;
-  static const listRowUserTextColor = Colors.black;
-  static const listRowUserTextSize = 16.0;
-  static const listRowInfoMarginTop = 10.0;
-  static const listRowInfoTextSize = 12.0;
-  static const listListRowInfoTextColor = Constants.BLACK_75;
-  static const listListRowDateTextSize = 14.0;
 
   final CloudCertification item;
   ListRow({required this.item});
@@ -34,7 +28,8 @@ class ListRow extends StatelessWidget {
               leading: Container(
                   child: CircleAvatar(
                     backgroundColor: Colors.transparent,
-                    backgroundImage: AssetImage('assets/${item.certificationIconName}'),
+                    backgroundImage:
+                        AssetImage('assets/${item.certificationIconName}'),
                   ),
                   width: listRowIconSize,
                   height: listRowIconSize,
@@ -46,20 +41,16 @@ class ListRow extends StatelessWidget {
                       width: listRowIconBorderWidth,
                     ),
                   )),
-              title: Text(
-                  item.name,
-                  style: TextStyle(color: listRowUserTextColor)
-              ),
+              title:
+                  Text(item.name, style: Theme.of(context).textTheme.headline2),
               subtitle: Row(
                 children: [
                   Expanded(
-                      child:
-                      Text(
-                          item.certificationType,
-                      style: TextStyle(color: listListRowInfoTextColor),)),
+                      child: Text(item.certificationType,
+                          style: Theme.of(context).textTheme.headline3)),
                   Text(
                     item.certificationDate,
-                    style: TextStyle(color: listListRowInfoTextColor),
+                    style: Theme.of(context).textTheme.headline3,
                   )
                 ],
               ),

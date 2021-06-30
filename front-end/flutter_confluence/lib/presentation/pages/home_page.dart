@@ -14,7 +14,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  static const double appTitleTextSize = 18.0;
   static const double togglePaddingTop = 23.0;
   static const double togglePaddingBottom = 16.0;
   static const double frontLayerLeftMargin = 40;
@@ -28,7 +27,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text(
           'Cloud Certifications',
-          style: TextStyle(fontSize: appTitleTextSize),
+          style: Theme.of(context).textTheme.headline1
         ),
       ),
       body: buildBody(),
@@ -66,7 +65,8 @@ class _HomePageState extends State<HomePage> {
             )));
   }
 
-  BlocProvider<CloudCertificationBloc> buildBlocProvidedBody(BuildContext context) {
+  BlocProvider<CloudCertificationBloc> buildBlocProvidedBody(
+      BuildContext context) {
     return BlocProvider(
       create: (_) {
         final bloc = sl<CloudCertificationBloc>();
