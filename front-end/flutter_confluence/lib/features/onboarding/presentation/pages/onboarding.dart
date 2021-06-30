@@ -18,16 +18,15 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
   static const msgAuthenticate = "Authenticate";
 
   static const cardWidth = 180.0;
-  static const cardHeight = 400.0;
+  static const cardHeight = 260.0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Cloud Certifications',
-            style: Theme.of(context).textTheme.headline1),
+      body: Padding(
+        padding: const EdgeInsets.only(top: 80),
+        child: buildBody(),
       ),
-      body: buildBody(),
     );
   }
 
@@ -83,9 +82,9 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(0),
                                   child: Opacity(
-                                    opacity: 0.0,
-                                    child: PlatformIcon('assets/ic_cloud_native.png')
-                                  ),
+                                      opacity: 0.0,
+                                      child: PlatformIcon(
+                                          'assets/ic_cloud_native.png')),
                                 )
                               ],
                             ),
@@ -114,20 +113,35 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
             )
           ],
         ),
-        Container(child: Image.asset('assets/ic_flutter.png')),
-        Container(child: Image.asset('assets/ic_plus.png')),
-        Container(child: Image.asset('assets/ic_confluence.png')),
-        Text(msgWelcome),
-        ElevatedButton(
-          style: ElevatedButton.styleFrom(primary: Colors.white),
-          onPressed: () {},
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Text(msgAuthenticate,
-                style: Theme.of(context)
-                    .textTheme
-                    .headline2
-                    ?.copyWith(color: Constants.JIRA_COLOR)),
+        Container(
+          child: Image.asset('assets/ic_flutter.png'),
+          margin: EdgeInsets.only(top: 30),
+        ),
+        Container(
+          child: Image.asset('assets/ic_plus.png'),
+          margin: EdgeInsets.only(top: 30),
+        ),
+        Container(
+          child: Image.asset('assets/ic_confluence.png'),
+          margin: EdgeInsets.only(top: 30),
+        ),
+        Container(
+          child: Text(msgWelcome, softWrap: true,),
+          margin: EdgeInsets.only(top: 30),
+        ),
+        Container(
+          margin: EdgeInsets.only(top: 30),
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(primary: Colors.white),
+            onPressed: () {},
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(msgAuthenticate,
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline2
+                      ?.copyWith(color: Constants.JIRA_COLOR)),
+            ),
           ),
         ),
       ],
