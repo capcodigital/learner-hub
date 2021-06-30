@@ -63,15 +63,18 @@ def table_data_text(table):
 
 def create_items(x):
     try:
+        list = []
         items = {}
         for index, entry in enumerate(x[1:], start=1):
             items[index] = {
-                'Name':  entry[1],
-                'Platform': entry[2],
-                'Certification': entry[3],
-                'Date': entry[4]
+                'name':  entry[1],
+                'platform': entry[2],
+                'certification': entry[3],
+                'date': entry[4]
             }
-        return items
+            dict_copy = items[index].copy()
+            list.append(dict_copy)
+        return list
     except IndexError:
         raise ConfluenceTableError
 
