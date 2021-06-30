@@ -13,7 +13,7 @@ void main() {
       certificationName: "Death Start Destruction Expert",
       date: "15 June 2021");
 
-  test('should be a sublass of CloudCertification entity', () async {
+  test('should be a subclass of CloudCertification entity', () async {
     // assert
     expect(model, isA<CloudCertification>());
   });

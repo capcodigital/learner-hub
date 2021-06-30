@@ -27,8 +27,7 @@ void main() {
   late MockNetworkInfo mockNetworkInfo;
 
   final remoteCertifications =
-      (json.decode(fixture('completed.json')) as Map<String, dynamic>)
-          .values
+      (json.decode(fixture('completed.json')) as List)
           .map((e) => CloudCertificationModel.fromJson(e))
           .toList();
 

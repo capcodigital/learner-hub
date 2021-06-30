@@ -1,14 +1,14 @@
 [
   {
-    "Name": "Luke Skywalker",
-    "Platform": "Rebel Alliance",
-    "Certification": "Death Start Destruction Expert",
-    "Date": "15 June 2021"
+    "name": "Luke Skywalker",
+    "platform": "Rebel Alliance",
+    "certification": "Death Start Destruction Expert",
+    "date": "15 June 2021"
   },
   {
-    "Name": "Obi-Wan Kenobi",
-    "Platform": "Jedi",
-    "Certification": "Master Jedi",
-    "Date": "15 June 2020"
+    "name": "Obi-Wan Kenobi",
+    "platform": "Jedi",
+    "certification": "Master Jedi",
+    "date": "15 June 2020"
   }
 ]
