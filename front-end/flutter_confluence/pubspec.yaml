@@ -70,6 +70,8 @@ flutter:
     - assets/ic_unknown.png
     - assets/ic_flutter.png
     - assets/ic_plus.png
+    - assets/ic_confluence.png
+    - assets/ic_rectangle.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
