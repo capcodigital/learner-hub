@@ -68,6 +68,8 @@ flutter:
     - assets/ic_gcp.png
     - assets/ic_hashicorp.png
     - assets/ic_unknown.png
+    - assets/ic_flutter.png
+    - assets/ic_plus.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

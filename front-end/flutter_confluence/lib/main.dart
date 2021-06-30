@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_confluence/core/constants.dart';
+import 'features/onboarding/presentation/pages/onboarding.dart';
 import 'presentation/pages/home_page.dart';
 import 'injection_container.dart' as di;
 
@@ -33,6 +34,6 @@ class MyApp extends StatelessWidget {
                 fontWeight: FontWeight.w400),
           ),
         ),
-        home: HomePage());
+        home: OnBoardingPage());
   }
 }
