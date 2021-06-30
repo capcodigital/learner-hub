@@ -56,6 +56,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                               .headline2
                               ?.copyWith(color: Colors.white)),
                       Container(
+                        margin: EdgeInsets.only(top: 6),
                         child: Column(
                           children: [
                             Row(
@@ -98,6 +99,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
             ),
             Card(
               child: Container(
+                padding: EdgeInsets.all(8.0),
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         image: AssetImage("assets/ic_rectangle.png"),
@@ -108,6 +110,10 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                 child: Text(
                   msgCardWelcome,
                   textAlign: TextAlign.center,
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline1
+                      ?.copyWith(color: Colors.white),
                 ),
               ),
             )
@@ -115,22 +121,25 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
         ),
         Container(
           child: Image.asset('assets/ic_flutter.png'),
-          margin: EdgeInsets.only(top: 30),
+          margin: EdgeInsets.only(top: 20),
         ),
         Container(
           child: Image.asset('assets/ic_plus.png'),
-          margin: EdgeInsets.only(top: 30),
+          margin: EdgeInsets.only(top: 20),
         ),
         Container(
           child: Image.asset('assets/ic_confluence.png'),
-          margin: EdgeInsets.only(top: 30),
+          margin: EdgeInsets.only(top: 26),
         ),
         Container(
-          child: Text(msgWelcome, softWrap: true,),
-          margin: EdgeInsets.only(top: 30),
+          child: Text(
+            msgWelcome,
+            softWrap: true,
+          ),
+          margin: EdgeInsets.only(top: 34),
         ),
         Container(
-          margin: EdgeInsets.only(top: 30),
+          margin: EdgeInsets.only(top: 48),
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(primary: Colors.white),
             onPressed: () {},
@@ -139,7 +148,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
               child: Text(msgAuthenticate,
                   style: Theme.of(context)
                       .textTheme
-                      .headline2
+                      .headline1
                       ?.copyWith(color: Constants.JIRA_COLOR)),
             ),
           ),
