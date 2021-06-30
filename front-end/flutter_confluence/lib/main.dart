@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_confluence/core/constants.dart';
 import 'package:flutter_confluence/presentation/bloc/cloud_certification_bloc.dart';
+
 import 'injection_container.dart';
-import 'presentation/pages/home_page.dart';
 import 'injection_container.dart' as di;
+import 'presentation/pages/home_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,14 +19,30 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
         providers: [
           BlocProvider<CloudCertificationBloc>(
-            create: (_) => sl<CloudCertificationBloc>()
-              ..add(GetInProgressCertificationsEvent()),
+            create: (_) => sl<CloudCertificationBloc>()..add(GetInProgressCertificationsEvent()),
           )
         ],
         child: MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Flutter Demo',
-            theme: ThemeData(primaryColor: Constants.JIRA_COLOR),
+            theme: ThemeData(
+              primaryColor: Constants.JIRA_COLOR,
+              fontFamily: 'Montserrat',
+              textTheme: TextTheme(
+                headline1: TextStyle(
+                    fontSize: 20.0,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600),
+                headline2: TextStyle(
+                    color: Colors.black,
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.w600),
+                headline3: TextStyle(
+                    color: Constants.BLACK_75,
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.w400),
+              ),
+            ),
             home: HomePage()));
   }
 }

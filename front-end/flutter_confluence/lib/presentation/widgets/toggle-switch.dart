@@ -9,6 +9,8 @@ class ToggleButton extends StatefulWidget {
 }
 
 class _ToggleButtonState extends State<ToggleButton> {
+  static const textSize = 16.0;
+
   final Color jiraColor = Constants.JIRA_COLOR;
   final double width = 300.0;
   final double height = 50.0;
@@ -73,14 +75,11 @@ class _ToggleButtonState extends State<ToggleButton> {
                 width: width * 0.5,
                 color: Colors.transparent,
                 alignment: Alignment.center,
-                child: Text(
-                  'In Progress',
-                  style: TextStyle(
-                    color: inProgressColor,
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                child: Text('In Progress',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline2
+                        ?.copyWith(color: inProgressColor)),
               ),
             ),
           ),
@@ -100,14 +99,11 @@ class _ToggleButtonState extends State<ToggleButton> {
                 width: width * 0.5,
                 color: Colors.transparent,
                 alignment: Alignment.center,
-                child: Text(
-                  'Completed',
-                  style: TextStyle(
-                    color: completedColor,
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                child: Text('Completed',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline2
+                        ?.copyWith(color: completedColor)),
               ),
             ),
           ),

@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_confluence/core/constants.dart';
 import 'package:flutter_confluence/domain/entities/cloud_certification.dart';
 
 class ListRow extends StatelessWidget {
   static const listRowIconSize = 60.0;
-  static const listRowIconBorderWidth = 3.0;
+  static const listRowIconBorderWidth = 1.0;
+  static const listRowIconBorderColor = Constants.JIRA_COLOR;
   static const listRowIconPadding = 16.0;
   static const listRowIconRightMargin = 23.0;
-  static const listRowUserTextSize = 16.0;
-  static const listRowInfoMarginTop = 10.0;
-  static const listRowInfoTextSize = 12.0;
-  static const listRowInfoTextColor = Color(0xBF000000);
-  static const listRowDateTextSize = 14.0;
 
   final CloudCertification item;
   ListRow({required this.item});
@@ -29,23 +26,31 @@ class ListRow extends StatelessWidget {
           children: <Widget>[
             ListTile(
               leading: Container(
-                  child: new CircleAvatar(
-                      foregroundImage:
-                          AssetImage('assets/${item.certificationIconName}'),
-                      foregroundColor: Colors.transparent,
-                      backgroundColor: Colors.transparent),
+                  child: CircleAvatar(
+                    backgroundColor: Colors.transparent,
+                    backgroundImage:
+                        AssetImage('assets/${item.certificationIconName}'),
+                  ),
                   width: listRowIconSize,
                   height: listRowIconSize,
-                  padding: EdgeInsets.all(listRowIconBorderWidth),
-                  decoration: new BoxDecoration(
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
                     shape: BoxShape.circle,
+                    border: Border.all(
+                      color: listRowIconBorderColor,
+                      width: listRowIconBorderWidth,
+                    ),
                   )),
-              title: Text(item.name),
+              title:
+                  Text(item.name, style: Theme.of(context).textTheme.headline2),
               subtitle: Row(
                 children: [
-                  Expanded(child: Text(item.certificationType)),
+                  Expanded(
+                      child: Text(item.certificationType,
+                          style: Theme.of(context).textTheme.headline3)),
                   Text(
                     item.certificationDate,
+                    style: Theme.of(context).textTheme.headline3,
                   )
                 ],
               ),

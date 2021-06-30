@@ -21,6 +21,7 @@ class CloudCertification extends Equatable {
       case Constants.AZURE:
         return Constants.IC_AZURE;
       case Constants.CLOUD_NATIVE:
+      case Constants.CNCF:
         return Constants.IC_CLOUD_NATIVE;
       case Constants.HASHICORP:
         return Constants.IC_HASHICORP;

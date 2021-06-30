@@ -9,10 +9,20 @@ import '../bloc/cloud_certification_bloc.dart';
 import '../widgets/certifications_view.dart';
 import '../widgets/toggle-switch.dart';
 
-class HomePage extends StatelessWidget {
-  static const double appTitleTextSize = 18.0;
-  static const double toggleButtonPaddingTop = 23.0;
-  static const double toggleButtonPaddingBottom = 16.0;
+class HomePage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return _HomePageState();
+  }
+}
+
+class _HomePageState extends State<HomePage> {
+  static const double togglePaddingTop = 23.0;
+  static const double togglePaddingBottom = 16.0;
+  static const double frontLayerLeftMargin = 40;
+  static const double frontLayerInitialTop = 130;
+  static const double parallaxSmoothFactor = 0.1;
+  var frontLayerTop = frontLayerInitialTop;
 
   static const double headerItemsSpacing = 23.0;
   static const double headerTopPadding = 23.0;
@@ -22,22 +32,48 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'Cloud Certifications',
-            style: TextStyle(fontSize: appTitleTextSize),
-          ),
+      appBar: AppBar(
+        title: Text(
+          'Cloud Certifications',
+          style: Theme.of(context).textTheme.headline1
         ),
-        body: Container(
+      ),
+      body: buildBody(),
+    );
+  }
+
+  Widget buildBody() {
+    return NotificationListener(
+        onNotification: (notification) {
+          if (notification is ScrollUpdateNotification) {
+            if (notification.scrollDelta != null) {
+              final delta = notification.scrollDelta!;
+              setState(() {
+                frontLayerTop += delta * parallaxSmoothFactor;
+              });
+            }
+          }
+          return true;
+        },
+        child: Container(
             constraints: BoxConstraints.expand(),
             decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage("assets/ic_home_background.png"),
+                    image: AssetImage("assets/back-layer.png"),
                     fit: BoxFit.cover)),
-            child: buildBody(context)));
+            child: Stack(
+              children: <Widget>[
+                Positioned(
+                  left: frontLayerLeftMargin,
+                  top: frontLayerTop,
+                  child: Image.asset('assets/front-layer.png'),
+                ),
+                buildBlocBody(context)
+              ],
+            )));
   }
 
-  buildBody(BuildContext context) {
+  Widget buildBlocBody(BuildContext context) {
     void doSearch(String searchTerm) {
       BlocProvider.of<CloudCertificationBloc>(context)
           .add(SearchCertificationsEvent(searchTerm));
