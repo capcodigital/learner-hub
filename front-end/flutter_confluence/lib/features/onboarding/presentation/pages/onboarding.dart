@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../../presentation/pages/home_page.dart';
 import '../../../../core/constants.dart';
 import '../bloc/on_boarding_bloc.dart';
@@ -22,9 +23,7 @@ class OnBoardingPage extends StatelessWidget {
   static const dimen_34 = 34.0;
   static const dimen_48 = 48.0;
   static const dimen_80 = 80.0;
-
   static const card_radius = 15.0;
-
   static const cardWidth = 180.0;
   static const cardHeight = 260.0;
 
@@ -37,29 +36,40 @@ class OnBoardingPage extends StatelessWidget {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.only(top: dimen_80),
-        child: buildBody(context),
+        child: buildBlocProvidedBody(context),
       ),
     );
   }
 
-  BlocProvider<OnBoardingBloc> buildBody(BuildContext context) {
+  // TODO: Remove this and keep the BlocListener
+  BlocProvider<OnBoardingBloc> buildBlocProvidedBody(BuildContext context) {
     return BlocProvider(create: (_) {
-      final bloc = sl<OnBoardingBloc>();
-      return bloc;
+      return sl<OnBoardingBloc>();
     }, child: BlocBuilder<OnBoardingBloc, OnBoardingState>(
       builder: (ctx, state) {
-        if (state is Completed) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => HomePage()),
-          );
-        }
-        return buildMainBody(ctx);
+        return buildBlocListener(ctx);
       },
     ));
   }
 
-  Widget buildMainBody(BuildContext context) {
+  BlocListener<OnBoardingBloc, OnBoardingState> buildBlocListener(
+      BuildContext ctx) {
+    return BlocListener<OnBoardingBloc, OnBoardingState>(
+      listener: (context, state) {
+        if (state is Completed) {
+          WidgetsBinding.instance?.addPostFrameCallback((_) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => HomePage()),
+            );
+          });
+        }
+      },
+      child: buildBody(ctx),
+    );
+  }
+
+  Widget buildBody(BuildContext context) {
     return Column(
       children: [
         Row(
