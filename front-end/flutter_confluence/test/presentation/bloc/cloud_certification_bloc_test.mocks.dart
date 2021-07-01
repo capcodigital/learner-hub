@@ -15,6 +15,8 @@ import 'package:flutter_confluence/domain/usecases/get_completed_certifications.
     as _i4;
 import 'package:flutter_confluence/domain/usecases/get_in_progress_certifications.dart'
     as _i9;
+import 'package:flutter_confluence/domain/usecases/search_certifications.dart'
+    as _i10;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: avoid_redundant_argument_values
@@ -73,6 +75,30 @@ class MockGetInProgressCertifications extends _i1.Mock
   _i5.Future<_i3.Either<_i6.Failure, List<_i7.CloudCertification>>> call(
           _i8.NoParams? noParams) =>
       (super.noSuchMethod(Invocation.method(#call, [noParams]),
+          returnValue: Future<
+                  _i3.Either<_i6.Failure, List<_i7.CloudCertification>>>.value(
+              _FakeEither<_i6.Failure, List<_i7.CloudCertification>>())) as _i5
+          .Future<_i3.Either<_i6.Failure, List<_i7.CloudCertification>>>);
+}
+
+/// A class which mocks [SearchCertifications].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockSearchCertifications extends _i1.Mock
+    implements _i10.SearchCertifications {
+  MockSearchCertifications() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i2.CloudCertificationRepository get repository =>
+      (super.noSuchMethod(Invocation.getter(#repository),
+              returnValue: _FakeCloudCertificationRepository())
+          as _i2.CloudCertificationRepository);
+  @override
+  _i5.Future<_i3.Either<_i6.Failure, List<_i7.CloudCertification>>> call(
+          _i10.SearchParams? searchParameters) =>
+      (super.noSuchMethod(Invocation.method(#call, [searchParameters]),
           returnValue: Future<
                   _i3.Either<_i6.Failure, List<_i7.CloudCertification>>>.value(
               _FakeEither<_i6.Failure, List<_i7.CloudCertification>>())) as _i5

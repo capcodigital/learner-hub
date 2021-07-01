@@ -23,16 +23,6 @@ class _ToggleButtonState extends State<ToggleButton> {
   Color? inProgressColor;
   Color? completedColor;
 
-  void fetchCompletedCertifications(BuildContext context) {
-    BlocProvider.of<CloudCertificationBloc>(context)
-        .add(GetCompletedCertificationsEvent());
-  }
-
-  void fetchInProgressCertifications(BuildContext context) {
-    BlocProvider.of<CloudCertificationBloc>(context)
-        .add(GetInProgressCertificationsEvent());
-  }
-
   @override
   void initState() {
     super.initState();
@@ -75,9 +65,8 @@ class _ToggleButtonState extends State<ToggleButton> {
                 xAlign = inProgressAlign;
                 inProgressColor = selectedColor;
                 completedColor = normalColor;
-                // Check if this is the correct function to call,
-                // it may be the inprogress that you need to call
-                fetchInProgressCertifications(context);
+                BlocProvider.of<CloudCertificationBloc>(context)
+                    .add(GetInProgressCertificationsEvent());
               });
             },
             child: Align(
@@ -100,7 +89,8 @@ class _ToggleButtonState extends State<ToggleButton> {
                 xAlign = completedAlign;
                 completedColor = selectedColor;
                 inProgressColor = normalColor;
-                fetchCompletedCertifications(context);
+                BlocProvider.of<CloudCertificationBloc>(context)
+                    .add(GetCompletedCertificationsEvent());
               });
             },
             child: Align(

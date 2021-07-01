@@ -39,7 +39,7 @@ void main() {
       () async {
         setUpMockHttpClient("completed.json");
         final result = await dataSource.getCompletedCertifications();
-        expect(result.length, equals(42));
+        expect(result.length, equals(40));
       },
     );
 
@@ -59,7 +59,7 @@ void main() {
       () async {
         setUpMockHttpClient("in_progress.json");
         final result = await dataSource.getInProgressCertifications();
-        expect(result.length, equals(32));
+        expect(result.length, equals(35));
       },
     );
 

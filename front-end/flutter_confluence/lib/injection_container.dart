@@ -1,4 +1,5 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter_confluence/domain/usecases/search_certifications.dart';
 import 'package:get_it/get_it.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -22,11 +23,12 @@ final sl = GetIt.instance;
 
 Future<void> init() async {
   sl.registerFactory(() =>
-      CloudCertificationBloc(completedUseCase: sl(), inProgressUseCase: sl()));
+      CloudCertificationBloc(completedUseCase: sl(), inProgressUseCase: sl(), searchUserCase: sl()));
 
   sl.registerLazySingleton(() => GetCompletedCertifications(sl()));
 
   sl.registerLazySingleton(() => GetInProgressCertifications(sl()));
+  sl.registerLazySingleton(() => SearchCertifications(sl()));
 
   sl.registerLazySingleton<CloudCertificationRepository>(
     () => CloudCertificationsRepositoryImpl(
