@@ -56,14 +56,7 @@ class OnBoardingPage extends StatelessWidget {
       BuildContext ctx) {
     return BlocListener<OnBoardingBloc, OnBoardingState>(
       listener: (context, state) {
-        if (state is Completed) {
-          WidgetsBinding.instance?.addPostFrameCallback((_) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => HomePage()),
-            );
-          });
-        }
+        if (state is Completed) Navigator.pushNamed(context, HomePage.route);
       },
       child: buildBody(ctx),
     );
@@ -146,8 +139,7 @@ class OnBoardingPage extends StatelessWidget {
                   PlatformIcon(Constants.IC_CLOUD_NATIVE),
                   Opacity(
                       opacity: 0.0,
-                      child:
-                          PlatformIcon(Constants.IC_CLOUD_NATIVE)),
+                      child: PlatformIcon(Constants.IC_CLOUD_NATIVE)),
                 ],
               ),
             ],
@@ -213,5 +205,4 @@ class OnBoardingPage extends StatelessWidget {
       margin: EdgeInsets.only(top: marginTop),
     );
   }
-
 }

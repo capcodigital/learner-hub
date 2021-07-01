@@ -34,6 +34,9 @@ class MyApp extends StatelessWidget {
                 fontWeight: FontWeight.w400),
           ),
         ),
+        routes: {
+          HomePage.route: (context) => HomePage(),
+        },
         home: OnBoardingPage());
   }
 }

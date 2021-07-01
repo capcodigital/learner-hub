@@ -7,6 +7,9 @@ import '../bloc/cloud_certification_bloc.dart';
 import '../widgets/certifications_view.dart';
 
 class HomePage extends StatefulWidget {
+
+  static const route = 'HomePage';
+
   @override
   State<StatefulWidget> createState() {
     return _HomePageState();
