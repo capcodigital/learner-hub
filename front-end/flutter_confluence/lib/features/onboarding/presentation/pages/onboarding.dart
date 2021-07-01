@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../presentation/pages/home_page.dart';
 import '../../../../core/constants.dart';
 import '../bloc/on_boarding_bloc.dart';
 import '../../../../injection_container.dart';
@@ -36,109 +37,35 @@ class OnBoardingPage extends StatelessWidget {
       return bloc;
     }, child: BlocBuilder<OnBoardingBloc, OnBoardingState>(
       builder: (ctx, state) {
-        return _buildBody(ctx);
+        if (state is Completed) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => HomePage()),
+          );
+        }
+        return buildMainBody(ctx);
       },
     ));
   }
 
-  Widget _buildBody(BuildContext context) {
+  Widget buildMainBody(BuildContext context) {
     return Column(
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Card(
-              child: Container(
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage("assets/ic_rectangle.png"),
-                        fit: BoxFit.cover)),
-                width: cardWidth,
-                height: cardHeight,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(msgTrainingTypes,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline2
-                              ?.copyWith(color: Colors.white)),
-                      Container(
-                        margin: EdgeInsets.only(top: 6.0),
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                PlatformIcon('assets/${Constants.IC_AWS}'),
-                                PlatformIcon('assets/${Constants.IC_AZURE}'),
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                PlatformIcon('assets/${Constants.IC_GCP}'),
-                                PlatformIcon(
-                                    'assets/${Constants.IC_HASHICORP}'),
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                PlatformIcon(
-                                    'assets/${Constants.IC_CLOUD_NATIVE}'),
-                                Opacity(
-                                    opacity: 0.0,
-                                    child: PlatformIcon(
-                                        'assets/${Constants.IC_CLOUD_NATIVE}')),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            Card(
-              child: Container(
-                padding: EdgeInsets.all(8.0),
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage("assets/ic_rectangle.png"),
-                        fit: BoxFit.cover)),
-                width: cardWidth,
-                alignment: Alignment.center,
-                height: cardHeight,
-                child: Text(
-                  msgCardWelcome,
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline1
-                      ?.copyWith(color: Colors.white),
-                ),
-              ),
-            )
-          ],
+          children: [buildPlatformsCard(context), buildMessageCard(context)],
         ),
         Container(
-          child: Image.asset('assets/ic_flutter.png'),
+          child: Image.asset('assets/${Constants.IC_FLUTTER}'),
           margin: EdgeInsets.only(top: 20),
         ),
         Container(
-          child: Image.asset('assets/ic_plus.png'),
+          child: Image.asset('assets/${Constants.IC_PLUS}'),
           margin: EdgeInsets.only(top: 20),
         ),
         Container(
-          child: Image.asset('assets/ic_confluence.png'),
+          child: Image.asset('assets/${Constants.IC_CONFLUENCE}'),
           margin: EdgeInsets.only(top: 26),
         ),
         Container(
@@ -165,6 +92,89 @@ class OnBoardingPage extends StatelessWidget {
               ),
             )),
       ],
+    );
+  }
+
+  Widget buildPlatformsCard(BuildContext context) {
+    return Card(
+      child: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("assets/${Constants.IC_ONBOARDING_CARD_BG}"),
+                fit: BoxFit.cover)),
+        width: cardWidth,
+        height: cardHeight,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(msgTrainingTypes,
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline2
+                      ?.copyWith(color: Colors.white)),
+              Container(
+                margin: EdgeInsets.only(top: 6.0),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        PlatformIcon('assets/${Constants.IC_AWS}'),
+                        PlatformIcon('assets/${Constants.IC_AZURE}'),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        PlatformIcon('assets/${Constants.IC_GCP}'),
+                        PlatformIcon('assets/${Constants.IC_HASHICORP}'),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        PlatformIcon('assets/${Constants.IC_CLOUD_NATIVE}'),
+                        Opacity(
+                            opacity: 0.0,
+                            child: PlatformIcon(
+                                'assets/${Constants.IC_CLOUD_NATIVE}')),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget buildMessageCard(BuildContext context) {
+    return Card(
+      child: Container(
+        padding: EdgeInsets.all(8.0),
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("assets/${Constants.IC_ONBOARDING_CARD_BG}"),
+                fit: BoxFit.cover)),
+        width: cardWidth,
+        alignment: Alignment.center,
+        height: cardHeight,
+        child: Text(
+          msgCardWelcome,
+          textAlign: TextAlign.center,
+          style: Theme.of(context)
+              .textTheme
+              .headline1
+              ?.copyWith(color: Colors.white),
+        ),
+      ),
     );
   }
 }

@@ -29,7 +29,7 @@ class OnBoardingBloc extends Bloc<OnBoardingEvent, OnBoardingState> {
   Stream<OnBoardingState> _getState(Either<Failure, void> arg) async* {
     yield arg.fold(
       (failure) => Error(message: "Error"),
-      (certifications) => Completed(),
+      (_) => Completed(),
     );
   }
 }

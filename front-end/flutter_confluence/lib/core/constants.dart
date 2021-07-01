@@ -12,6 +12,11 @@ class Constants {
   static const IC_HASHICORP = 'ic_hashicorp.png';
   static const IC_AWS = 'ic_aws.png';
   static const IC_UNKNOWN = 'ic_unknown.png';
+  static const IC_ONBOARDING_CARD_BG = 'ic_rectangle.png';
+
+  static const IC_FLUTTER = 'ic_flutter.png';
+  static const IC_PLUS = 'ic_plus.png';
+  static const IC_CONFLUENCE = 'ic_confluence.png';
 
   static const GCP = 'gcp';
   static const AZURE = 'azure';
