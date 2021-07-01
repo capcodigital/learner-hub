@@ -1,13 +1,12 @@
 part of 'cloud_certification_bloc.dart';
 
 abstract class CloudCertificationState extends Equatable {
-  @override
-  List<Object> get props => [];
-}
+  final CloudCertificationType cloudCertificationType;
 
-enum CloudCertificationType {
-  completed,
-  in_progress
+  CloudCertificationState({this.cloudCertificationType = CloudCertificationType.in_progress});
+
+  @override
+  List<Object> get props => [cloudCertificationType];
 }
 
 class Empty extends CloudCertificationState { }
@@ -15,22 +14,22 @@ class Empty extends CloudCertificationState { }
 class Loading extends CloudCertificationState { }
 
 class Loaded extends CloudCertificationState {
-  final CloudCertificationType type;
+
   final List<CloudCertification> items;
 
-  Loaded({required this.type, required this.items});
+  Loaded({required this.items, required cloudCertificationType}) : super(cloudCertificationType: cloudCertificationType);
 
   @override
-  List<Object> get props => [items, type];
+  List<Object> get props => [items, cloudCertificationType];
 }
 
 class EmptySearchResult extends CloudCertificationState {
-  final CloudCertificationType type;
+  final CloudCertificationType cloudCertificationType;
 
-  EmptySearchResult({required this.type});
+  EmptySearchResult({required this.cloudCertificationType});
 
   @override
-  List<Object> get props => [type];
+  List<Object> get props => [cloudCertificationType];
 }
 
 

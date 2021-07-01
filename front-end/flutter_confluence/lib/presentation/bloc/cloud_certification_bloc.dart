@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_confluence/domain/entities/cloud_certification_type.dart';
 import 'package:flutter_confluence/domain/usecases/search_certifications.dart';
 
 import '../../core/constants.dart';
@@ -52,37 +53,18 @@ class CloudCertificationBloc
     yield arg.fold(
       (failure) => Error(message: _mapFailureToMessage(failure)),
       (certifications) {
-        if (isSearch) {
-          if (certifications.isNotEmpty) {
-            return Loaded(items: certifications, type: dataType);
-          } else {
-            return EmptySearchResult(type: dataType);
-          }
-        }
-        else {
-          return Loaded(items: certifications, type: dataType);
-        }
+      if (isSearch && certifications.isEmpty) {
+        return EmptySearchResult(cloudCertificationType: dataType);
+      } else {
+        return Loaded(items: certifications, cloudCertificationType: dataType);
       }
-    );
+    });
   }
 
   Stream<CloudCertificationState> _getSearchState(String searchTerm) async* {
-    CloudCertificationType dataType;
-    if (state is Loaded) {
-      dataType = (state as Loaded).type;
-    } else if (state is EmptySearchResult) {
-      dataType = (state as EmptySearchResult).type;
-    }
-    else {
-      // Error! You come back from an invalid state
-      log("Incorrect state: " + state.runtimeType.toString());
-      yield Error(message: "Something went wrong");
-      return;
-    }
-
     var searchParameters = SearchParams(
         searchQuery: searchTerm,
-        dataType: dataType);
+        dataType: state.cloudCertificationType);
 
     yield Loading();
     final result = await searchUserCase(searchParameters);

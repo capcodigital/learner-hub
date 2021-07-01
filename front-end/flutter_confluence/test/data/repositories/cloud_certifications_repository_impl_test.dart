@@ -8,6 +8,7 @@ import 'package:flutter_confluence/data/datasources/cloud_certification_local_da
 import 'package:flutter_confluence/data/datasources/cloud_certification_remote_data_source.dart';
 import 'package:flutter_confluence/data/models/cloud_certification_model.dart';
 import 'package:flutter_confluence/data/repositories/cloud_certifications_repository_impl.dart';
+import 'package:flutter_confluence/domain/entities/cloud_certification_type.dart';
 import 'package:flutter_confluence/presentation/bloc/cloud_certification_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';

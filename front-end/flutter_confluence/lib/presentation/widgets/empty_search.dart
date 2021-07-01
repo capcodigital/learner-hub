@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_confluence/domain/entities/cloud_certification_type.dart';
+import 'package:flutter_confluence/presentation/bloc/cloud_certification_bloc.dart';
 
 class EmptySearch extends StatelessWidget {
-  final VoidCallback? onClearPressed;
+  final CloudCertificationType type;
+  final TextEditingController searchController;
 
-  const EmptySearch({this.onClearPressed});
+  const EmptySearch({
+    required this.type,
+    required this.searchController});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +30,20 @@ class EmptySearch extends StatelessWidget {
                 decoration: TextDecoration.underline,
               ),
             ),
-            onPressed: this.onClearPressed,
+            onPressed: () {
+              searchController.clear();
+
+              switch(type) {
+                case CloudCertificationType.completed:
+                  BlocProvider.of<CloudCertificationBloc>(context)
+                      .add(GetCompletedCertificationsEvent());
+                  break;
+                case CloudCertificationType.in_progress:
+                  BlocProvider.of<CloudCertificationBloc>(context)
+                      .add(GetInProgressCertificationsEvent());
+                  break;
+              }
+            },
             child: const Text('Clear')),
       ],
     );

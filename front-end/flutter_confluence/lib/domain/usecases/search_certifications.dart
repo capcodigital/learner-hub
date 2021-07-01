@@ -3,8 +3,8 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_confluence/core/error/failures.dart';
 import 'package:flutter_confluence/core/usecases/usecase.dart';
 import 'package:flutter_confluence/domain/entities/cloud_certification.dart';
+import 'package:flutter_confluence/domain/entities/cloud_certification_type.dart';
 import 'package:flutter_confluence/domain/repositories/cloud_certification_repository.dart';
-import 'package:flutter_confluence/presentation/bloc/cloud_certification_bloc.dart';
 
 class SearchParams extends Equatable {
   final String searchQuery;

@@ -68,23 +68,18 @@ class _HomePageState extends State<HomePage> {
                   top: frontLayerTop,
                   child: Image.asset('assets/front-layer.png'),
                 ),
-                buildBlocBody(context)
+                buildTable(context)
               ],
             )));
   }
 
-  Widget buildBlocBody(BuildContext context) {
+  Widget buildTable(BuildContext context) {
     void doSearch(String searchTerm) {
       BlocProvider.of<CloudCertificationBloc>(context)
           .add(SearchCertificationsEvent(searchTerm));
     }
 
     final searchController = TextEditingController();
-    void clearSearch() {
-      searchController.clear();
-      BlocProvider.of<CloudCertificationBloc>(context)
-          .add(SearchCertificationsEvent(""));
-    }
 
     return Column(
       children: [
@@ -120,7 +115,7 @@ class _HomePageState extends State<HomePage> {
             else if (state is Empty)
               return Text('No results');
             else if (state is EmptySearchResult)
-              return EmptySearch(onClearPressed: clearSearch);
+              return EmptySearch(type: state.cloudCertificationType, searchController: searchController);
             else if (state is Error)
               return Text('Error');
             else

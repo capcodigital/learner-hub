@@ -4,6 +4,7 @@ import 'package:flutter_confluence/core/constants.dart';
 import 'package:flutter_confluence/core/error/failures.dart';
 import 'package:flutter_confluence/core/usecases/usecase.dart';
 import 'package:flutter_confluence/data/models/cloud_certification_model.dart';
+import 'package:flutter_confluence/domain/entities/cloud_certification_type.dart';
 import 'package:flutter_confluence/domain/usecases/get_completed_certifications.dart';
 import 'package:flutter_confluence/domain/usecases/get_in_progress_certifications.dart';
 import 'package:flutter_confluence/domain/usecases/search_certifications.dart';
@@ -32,12 +33,12 @@ void main() {
 
   final orderCompleted = [
     Loading(),
-    Loaded(items: mockCompletedCerts, type: CloudCertificationType.completed),
+    Loaded(items: mockCompletedCerts, cloudCertificationType: CloudCertificationType.completed),
   ];
 
   final orderInProgress = [
     Loading(),
-    Loaded(items: mockInProgressCerts, type: CloudCertificationType.in_progress),
+    Loaded(items: mockInProgressCerts, cloudCertificationType: CloudCertificationType.in_progress),
   ];
 
   final orderServerError = [
@@ -181,16 +182,16 @@ void main() {
 
     final searchCompletedWithResults = [
       Loading(),
-      Loaded(items: mockCompletedCerts, type: CloudCertificationType.completed),
+      Loaded(items: mockCompletedCerts, cloudCertificationType: CloudCertificationType.completed),
       Loading(),
-      Loaded(items: filteredItems, type: CloudCertificationType.completed),
+      Loaded(items: filteredItems, cloudCertificationType: CloudCertificationType.completed),
     ];
 
     final searchCompletedNoResults = [
       Loading(),
-      Loaded(items: mockCompletedCerts, type: CloudCertificationType.completed),
+      Loaded(items: mockCompletedCerts, cloudCertificationType: CloudCertificationType.completed),
       Loading(),
-      EmptySearchResult(type: CloudCertificationType.completed),
+      EmptySearchResult(cloudCertificationType: CloudCertificationType.completed),
     ];
 
     setUp(() {
