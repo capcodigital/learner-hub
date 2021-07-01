@@ -51,7 +51,7 @@ Future<void> init() async {
   sl.registerLazySingleton<OnBoardingRepository>(
       () => OnBoardingRepositoryImpl(onBoardingDataSource: sl()));
   sl.registerLazySingleton<OnBoardingDataSource>(
-      () => OnBoardingDataSourceImpl(auth: sl()));
+      () => OnBoardingDataSourceImpl(auth: sl(), prefs: sl()));
 
   final sharedPreferences = await SharedPreferences.getInstance();
   sl.registerLazySingleton(() => sharedPreferences);
