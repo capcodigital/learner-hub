@@ -14,5 +14,5 @@ schedule==1.1.0
 soupsieve==2.2.1
 starlette==0.14.2
 typing-extensions==3.10.0.0
-urllib3==1.26.4
+urllib3==1.26.5
 uvicorn==0.13.4
