@@ -12,7 +12,7 @@ class OnBoardingDataSourceImpl extends OnBoardingDataSource {
   @override
   Future<bool> authenticate() async {
     return await auth.authenticate(
-        localizedReason: 'Please authenticate to show account balance',
+        localizedReason: 'Please authenticate to proceed',
         biometricOnly: true);
   }
 }

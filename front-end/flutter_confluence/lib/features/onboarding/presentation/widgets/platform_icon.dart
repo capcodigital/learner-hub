@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class PlatformIcon extends StatelessWidget {
-  final String iconPath;
+  final String iconName;
 
-  PlatformIcon(this.iconPath);
+  PlatformIcon(this.iconName);
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +12,7 @@ class PlatformIcon extends StatelessWidget {
       child: CircleAvatar(
         radius: 26,
         backgroundColor: Colors.white,
-        backgroundImage: AssetImage(iconPath),
+        backgroundImage: AssetImage('assets/$iconName'),
       ),
     );
   }

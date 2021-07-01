@@ -1,9 +1,12 @@
 import 'dart:ui';
 
+import 'package:flutter/material.dart';
+
 class Constants {
   // Colors
   static const JIRA_COLOR = const Color(0xff0052CC);
   static const BLACK_75 = const Color(0xBF000000);
+  static final black25 = Colors.black.withOpacity(0.25);
 
   // Certifications
   static const IC_GCP = 'ic_gcp.png';

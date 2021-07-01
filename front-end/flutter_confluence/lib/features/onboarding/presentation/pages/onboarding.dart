@@ -14,6 +14,17 @@ class OnBoardingPage extends StatelessWidget {
       "See all your co-workers certifications within a swipe";
   static const msgAuthenticate = "Authenticate";
 
+  static const dimen_6 = 6.0;
+  static const dimen_8 = 8.0;
+  static const dimen_16 = 16.0;
+  static const dimen_20 = 20.0;
+  static const dimen_26 = 26.0;
+  static const dimen_34 = 34.0;
+  static const dimen_48 = 48.0;
+  static const dimen_80 = 80.0;
+
+  static const card_radius = 15.0;
+
   static const cardWidth = 180.0;
   static const cardHeight = 260.0;
 
@@ -25,7 +36,7 @@ class OnBoardingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.only(top: 80),
+        padding: const EdgeInsets.only(top: dimen_80),
         child: buildBody(context),
       ),
     );
@@ -54,127 +65,143 @@ class OnBoardingPage extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: [buildPlatformsCard(context), buildMessageCard(context)],
+          children: [buildLeftCard(context), buildRightCard(context)],
         ),
-        Container(
-          child: Image.asset('assets/${Constants.IC_FLUTTER}'),
-          margin: EdgeInsets.only(top: 20),
-        ),
-        Container(
-          child: Image.asset('assets/${Constants.IC_PLUS}'),
-          margin: EdgeInsets.only(top: 20),
-        ),
-        Container(
-          child: Image.asset('assets/${Constants.IC_CONFLUENCE}'),
-          margin: EdgeInsets.only(top: 26),
-        ),
+        buildIcon(Constants.IC_FLUTTER, dimen_20),
+        buildIcon(Constants.IC_PLUS, dimen_20),
+        buildIcon(Constants.IC_CONFLUENCE, dimen_26),
         Container(
           child: Text(
             msgWelcome,
-            softWrap: true,
           ),
-          margin: EdgeInsets.only(top: 34),
+          margin: EdgeInsets.only(top: dimen_34),
         ),
-        Container(
-            margin: EdgeInsets.only(top: 48),
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(primary: Colors.white),
-              onPressed: () {
-                authenticate(context);
-              },
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Text(msgAuthenticate,
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline1
-                        ?.copyWith(color: Constants.JIRA_COLOR)),
-              ),
-            )),
+        buildAuthButton(context)
       ],
     );
   }
 
-  Widget buildPlatformsCard(BuildContext context) {
+  Widget buildCard(Widget childWidget) {
     return Card(
+      elevation: 5,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(card_radius),
+      ),
       child: Container(
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage("assets/${Constants.IC_ONBOARDING_CARD_BG}"),
-                fit: BoxFit.cover)),
-        width: cardWidth,
-        height: cardHeight,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: EdgeInsets.all(dimen_8),
+          decoration: buildShadowDecoration(),
+          width: cardWidth,
+          height: cardHeight,
+          child: childWidget),
+    );
+  }
+
+  Widget buildLeftCard(BuildContext context) {
+    return buildCard(buildLeftCardChild(context));
+  }
+
+  Widget buildLeftCardChild(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Text(msgTrainingTypes,
+            style: Theme.of(context)
+                .textTheme
+                .headline2
+                ?.copyWith(color: Colors.white)),
+        Container(
+          margin: EdgeInsets.only(top: dimen_6),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(msgTrainingTypes,
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline2
-                      ?.copyWith(color: Colors.white)),
-              Container(
-                margin: EdgeInsets.only(top: 6.0),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        PlatformIcon('assets/${Constants.IC_AWS}'),
-                        PlatformIcon('assets/${Constants.IC_AZURE}'),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        PlatformIcon('assets/${Constants.IC_GCP}'),
-                        PlatformIcon('assets/${Constants.IC_HASHICORP}'),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        PlatformIcon('assets/${Constants.IC_CLOUD_NATIVE}'),
-                        Opacity(
-                            opacity: 0.0,
-                            child: PlatformIcon(
-                                'assets/${Constants.IC_CLOUD_NATIVE}')),
-                      ],
-                    ),
-                  ],
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  PlatformIcon(Constants.IC_AWS),
+                  PlatformIcon(Constants.IC_AZURE),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  PlatformIcon(Constants.IC_GCP),
+                  PlatformIcon(Constants.IC_HASHICORP),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  PlatformIcon(Constants.IC_CLOUD_NATIVE),
+                  Opacity(
+                      opacity: 0.0,
+                      child:
+                          PlatformIcon(Constants.IC_CLOUD_NATIVE)),
+                ],
               ),
             ],
           ),
         ),
+      ],
+    );
+  }
+
+  Widget buildRightCard(BuildContext context) {
+    return buildCard(buildRightCardChild(context));
+  }
+
+  Widget buildRightCardChild(BuildContext context) {
+    return Center(
+      child: Text(
+        msgCardWelcome,
+        textAlign: TextAlign.center,
+        style: Theme.of(context)
+            .textTheme
+            .headline1
+            ?.copyWith(color: Colors.white),
       ),
     );
   }
 
-  Widget buildMessageCard(BuildContext context) {
-    return Card(
-      child: Container(
-        padding: EdgeInsets.all(8.0),
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage("assets/${Constants.IC_ONBOARDING_CARD_BG}"),
-                fit: BoxFit.cover)),
-        width: cardWidth,
-        alignment: Alignment.center,
-        height: cardHeight,
-        child: Text(
-          msgCardWelcome,
-          textAlign: TextAlign.center,
-          style: Theme.of(context)
-              .textTheme
-              .headline1
-              ?.copyWith(color: Colors.white),
+  BoxDecoration buildShadowDecoration() {
+    return BoxDecoration(
+      color: Constants.JIRA_COLOR,
+      borderRadius: BorderRadius.circular(card_radius),
+      boxShadow: [
+        BoxShadow(
+          color: Constants.black25,
+          blurRadius: 3,
+          offset: Offset(0.0, 3.0), // changes position of shadow
         ),
-      ),
+      ],
     );
   }
+
+  Widget buildAuthButton(BuildContext context) {
+    return Container(
+        margin: EdgeInsets.only(top: dimen_48),
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(primary: Colors.white),
+          onPressed: () {
+            authenticate(context);
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(dimen_16),
+            child: Text(msgAuthenticate,
+                style: Theme.of(context)
+                    .textTheme
+                    .headline1
+                    ?.copyWith(color: Constants.JIRA_COLOR)),
+          ),
+        ));
+  }
+
+  Widget buildIcon(String iconName, double marginTop) {
+    return Container(
+      child: Image.asset('assets/$iconName'),
+      margin: EdgeInsets.only(top: marginTop),
+    );
+  }
+
 }
