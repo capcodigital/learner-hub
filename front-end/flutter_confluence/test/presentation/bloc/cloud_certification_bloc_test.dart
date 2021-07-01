@@ -6,6 +6,7 @@ import 'package:flutter_confluence/core/usecases/usecase.dart';
 import 'package:flutter_confluence/data/models/cloud_certification_model.dart';
 import 'package:flutter_confluence/domain/usecases/get_completed_certifications.dart';
 import 'package:flutter_confluence/domain/usecases/get_in_progress_certifications.dart';
+import 'package:flutter_confluence/domain/usecases/search_certifications.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -15,7 +16,7 @@ import '../../fixtures/FixtureReader.dart';
 import 'cloud_certification_bloc_test.mocks.dart';
 import 'package:bloc_test/bloc_test.dart';
 
-@GenerateMocks([GetCompletedCertifications, GetInProgressCertifications])
+@GenerateMocks([GetCompletedCertifications, GetInProgressCertifications, SearchCertifications])
 void main() {
   final mockCompletedCerts =
       (json.decode(fixture('completed.json')) as Map<String, dynamic>)
@@ -31,12 +32,12 @@ void main() {
 
   final orderCompleted = [
     Loading(),
-    Loaded(items: mockCompletedCerts),
+    Loaded(items: mockCompletedCerts, type: CloudCertificationType.completed),
   ];
 
   final orderInProgress = [
     Loading(),
-    Loaded(items: mockInProgressCerts),
+    Loaded(items: mockInProgressCerts, type: CloudCertificationType.in_progress),
   ];
 
   final orderServerError = [
@@ -51,14 +52,18 @@ void main() {
 
   late MockGetCompletedCertifications mockCompletedCase;
   late MockGetInProgressCertifications mockInProgressCase;
+  late MockSearchCertifications mockSearchCase;
   late CloudCertificationBloc bloc;
 
   setUp(() {
     mockCompletedCase = MockGetCompletedCertifications();
     mockInProgressCase = MockGetInProgressCertifications();
+    mockSearchCase = MockSearchCertifications();
     bloc = CloudCertificationBloc(
         completedUseCase: mockCompletedCase,
-        inProgressUseCase: mockInProgressCase);
+        inProgressUseCase: mockInProgressCase,
+        searchUserCase: mockSearchCase
+    );
   });
 
   test('initial bloc state should be Empty', () {
@@ -166,6 +171,66 @@ void main() {
       act: (CloudCertificationBloc blo) =>
           {blo.add(GetInProgressCertificationsEvent())},
       expect: () => orderCacheError,
+    );
+  });
+
+  group('SearchCertifications', () {
+
+    final emptyList = <CloudCertificationModel>[];
+    final filteredItems = mockCompletedCerts.take(1).toList();
+
+    final searchCompletedWithResults = [
+      Loading(),
+      Loaded(items: mockCompletedCerts, type: CloudCertificationType.completed),
+      Loading(),
+      Loaded(items: filteredItems, type: CloudCertificationType.completed),
+    ];
+
+    final searchCompletedNoResults = [
+      Loading(),
+      Loaded(items: mockCompletedCerts, type: CloudCertificationType.completed),
+      Loading(),
+      EmptySearchResult(type: CloudCertificationType.completed),
+    ];
+
+    setUp(() {
+      when(mockCompletedCase(any))
+          .thenAnswer((_) async => Right(mockCompletedCerts));
+
+      when(mockInProgressCase(any))
+          .thenAnswer((_) async => Right(mockInProgressCerts));
+    });
+
+    blocTest(
+      // First load the items, then search through them
+      'should emit Loading, Loaded, Loading, EmptySearchResult',
+      build: () {
+        when(mockSearchCase(any))
+            .thenAnswer((_) async => Right(emptyList));
+        return bloc;
+      },
+      act: (CloudCertificationBloc blo) =>
+      {
+        blo.add(GetCompletedCertificationsEvent()),
+        blo.add(SearchCertificationsEvent("search"))
+      },
+      expect: () => searchCompletedNoResults,
+    );
+
+    blocTest(
+      // First load the items, then search through them
+      'should emit Loading, Loaded, Loading, Loaded',
+      build: () {
+        when(mockSearchCase(any))
+            .thenAnswer((_) async => Right(filteredItems));
+        return bloc;
+      },
+      act: (CloudCertificationBloc blo) =>
+      {
+        blo.add(GetCompletedCertificationsEvent()),
+        blo.add(SearchCertificationsEvent("search"))
+      },
+      expect: () => searchCompletedWithResults,
     );
   });
 }

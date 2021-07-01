@@ -119,8 +119,6 @@ class _HomePageState extends State<HomePage> {
               return Text('Loading...');
             else if (state is Empty)
               return Text('No results');
-            else if (state is Filtered)
-              return Expanded(child: CertificationsView(items: state.filteredItems));
             else if (state is EmptySearchResult)
               return EmptySearch(onClearPressed: clearSearch);
             else if (state is Error)

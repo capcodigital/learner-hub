@@ -2,11 +2,13 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_confluence/core/error/custom_exceptions.dart';
 import 'package:flutter_confluence/core/error/failures.dart';
 import 'package:flutter_confluence/core/network/network_info.dart';
+import 'package:flutter_confluence/core/utils/extensions.dart';
 import 'package:flutter_confluence/data/datasources/cloud_certification_local_data_source.dart';
 import 'package:flutter_confluence/data/datasources/cloud_certification_remote_data_source.dart';
 import 'package:flutter_confluence/data/models/cloud_certification_model.dart';
 import 'package:flutter_confluence/domain/entities/cloud_certification.dart';
 import 'package:flutter_confluence/domain/repositories/cloud_certification_repository.dart';
+import 'package:flutter_confluence/presentation/bloc/cloud_certification_bloc.dart';
 
 class CloudCertificationsRepositoryImpl extends CloudCertificationRepository {
   final CloudCertificationRemoteDataSource remoteDataSource;
@@ -59,6 +61,37 @@ class CloudCertificationsRepositoryImpl extends CloudCertificationRepository {
       }
     } on Exception {
       return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<CloudCertification>>> searchCertifications(
+      String searchQuery, CloudCertificationType dataType) async {
+    try {
+      var certifications = <CloudCertification>[];
+      switch (dataType) {
+        case CloudCertificationType.completed:
+          certifications = await localDataSource.getCompletedCertifications();
+          break;
+        case CloudCertificationType.in_progress:
+          certifications = await localDataSource.getInProgressCertifications();
+          break;
+      }
+      var searchTerm = searchQuery.trim();
+      if (searchTerm.isNotEmpty) {
+        var filtered = certifications
+            .where((element) =>
+        element.name.containsIgnoreCase(searchTerm) ||
+            element.certificationType.containsIgnoreCase(searchTerm) ||
+            element.platform.containsIgnoreCase(searchTerm))
+            .toList();
+        return Right(filtered);
+      }
+      else {
+        return Right(certifications);
+      }
+    } on Exception {
+      return Left(CacheFailure());
     }
   }
 }
