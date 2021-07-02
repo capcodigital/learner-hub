@@ -1,10 +1,10 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter_confluence/features/certifications/domain/usecases/search_certifications.dart';
 import 'package:get_it/get_it.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
+import 'features/certifications/domain/usecases/search_certifications.dart';
 import 'features/onboarding/data/datasources/on_boarding_data_source.dart';
 import 'features/onboarding/domain/repositories/on_boarding_repository.dart';
 import 'features/certifications/data/repositories/cloud_certifications_repository_impl.dart';

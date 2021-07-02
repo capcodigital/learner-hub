@@ -4,14 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../certifications/presentation/pages/home_page.dart';
 import '../../../../core/constants.dart';
 import '../bloc/on_boarding_bloc.dart';
-import '../../../../injection_container.dart';
 import '../widgets/platform_icon.dart';
 
 class OnBoardingPage extends StatelessWidget {
   static const msgTrainingTypes = "Training Types";
-  static const msgCardWelcome =
+  static const msgCardDescription =
       "See the name, the date, the title of certification";
-  static const msgWelcome =
+  static const msgDescription =
       "See all your co-workers certifications within a swipe";
   static const msgAuthenticate = "Authenticate";
 
@@ -46,34 +45,38 @@ class OnBoardingPage extends StatelessWidget {
   }
 
   BlocListener<OnBoardingBloc, OnBoardingState> buildBlocListener(
-      BuildContext ctx) {
+      BuildContext context) {
     return BlocListener<OnBoardingBloc, OnBoardingState>(
-      listener: (context, state) {
-        if (state is Completed) openHomePage(context);
+      listener: (ctx, state) {
+        if (state is Completed) openHomePage(ctx);
       },
-      child: buildBody(ctx),
+      child: buildBody(context),
     );
   }
 
   Widget buildBody(BuildContext context) {
     return Column(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [buildLeftCard(context), buildRightCard(context)],
-        ),
+        buildCardsRow(context),
         buildIcon(Constants.IC_FLUTTER, dimen_20),
         buildIcon(Constants.IC_PLUS, dimen_20),
         buildIcon(Constants.IC_CONFLUENCE, dimen_26),
         Container(
           child: Text(
-            msgWelcome,
+            msgDescription,
           ),
           margin: EdgeInsets.only(top: dimen_34),
         ),
         buildAuthButton(context)
       ],
+    );
+  }
+
+  Widget buildCardsRow(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [buildLeftCard(context), buildRightCard(context)],
     );
   }
 
@@ -149,7 +152,7 @@ class OnBoardingPage extends StatelessWidget {
   Widget buildRightCardChild(BuildContext context) {
     return Center(
       child: Text(
-        msgCardWelcome,
+        msgCardDescription,
         textAlign: TextAlign.center,
         style: Theme.of(context)
             .textTheme

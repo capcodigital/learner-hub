@@ -1,10 +1,9 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_confluence/features/certifications/presentation/widgets/empty_search.dart';
-import 'package:flutter_confluence/features/certifications/presentation/widgets/searchbox.dart';
 
+import '../widgets/empty_search.dart';
+import '../widgets/searchbox.dart';
 import '../bloc/cloud_certification_bloc.dart';
 import '../widgets/certifications_view.dart';
 import '../widgets/toggle-switch.dart';
@@ -20,8 +19,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  static const double togglePaddingTop = 23.0;
-  static const double togglePaddingBottom = 16.0;
   static const double frontLayerLeftMargin = 40;
   static const double frontLayerInitialTop = 130;
   static const double parallaxSmoothFactor = 0.1;
