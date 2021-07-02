@@ -10,3 +10,7 @@ abstract class OnBoardingEvent extends Equatable {
 class AuthenticationEvent extends OnBoardingEvent {
   AuthenticationEvent();
 }
+
+class CheckCachedAuthEvent extends OnBoardingEvent {
+  CheckCachedAuthEvent();
+}

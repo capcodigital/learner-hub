@@ -31,32 +31,25 @@ class OnBoardingPage extends StatelessWidget {
     BlocProvider.of<OnBoardingBloc>(context).add(AuthenticationEvent());
   }
 
+  void openHomePage(BuildContext context) {
+    Navigator.pushNamed(context, HomePage.route);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.only(top: dimen_80),
-        child: buildBlocProvidedBody(context),
+        child: buildBlocListener(context),
       ),
     );
-  }
-
-  // TODO: Remove this and keep the BlocListener
-  BlocProvider<OnBoardingBloc> buildBlocProvidedBody(BuildContext context) {
-    return BlocProvider(create: (_) {
-      return sl<OnBoardingBloc>();
-    }, child: BlocBuilder<OnBoardingBloc, OnBoardingState>(
-      builder: (ctx, state) {
-        return buildBlocListener(ctx);
-      },
-    ));
   }
 
   BlocListener<OnBoardingBloc, OnBoardingState> buildBlocListener(
       BuildContext ctx) {
     return BlocListener<OnBoardingBloc, OnBoardingState>(
       listener: (context, state) {
-        if (state is Completed) Navigator.pushNamed(context, HomePage.route);
+        if (state is Completed) openHomePage(context);
       },
       child: buildBody(ctx),
     );
@@ -84,7 +77,7 @@ class OnBoardingPage extends StatelessWidget {
     );
   }
 
-  Widget buildCard(Widget childWidget) {
+  Widget buildCard({required Widget child}) {
     return Card(
       elevation: 5,
       shape: RoundedRectangleBorder(
@@ -95,12 +88,12 @@ class OnBoardingPage extends StatelessWidget {
           decoration: buildShadowDecoration(),
           width: cardWidth,
           height: cardHeight,
-          child: childWidget),
+          child: child),
     );
   }
 
   Widget buildLeftCard(BuildContext context) {
-    return buildCard(buildLeftCardChild(context));
+    return buildCard(child: buildLeftCardChild(context));
   }
 
   Widget buildLeftCardChild(BuildContext context) {
@@ -150,7 +143,7 @@ class OnBoardingPage extends StatelessWidget {
   }
 
   Widget buildRightCard(BuildContext context) {
-    return buildCard(buildRightCardChild(context));
+    return buildCard(child: buildRightCardChild(context));
   }
 
   Widget buildRightCardChild(BuildContext context) {

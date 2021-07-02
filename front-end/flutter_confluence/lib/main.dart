@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_confluence/core/constants.dart';
+import 'features/onboarding/presentation/bloc/on_boarding_bloc.dart';
 import 'features/onboarding/presentation/pages/onboarding.dart';
 import 'features/certifications/presentation/pages/home_page.dart';
 import 'package:flutter_confluence/features/certifications/presentation/bloc/cloud_certification_bloc.dart';
@@ -21,7 +22,10 @@ class MyApp extends StatelessWidget {
         providers: [
           BlocProvider<CloudCertificationBloc>(
             create: (_) => sl<CloudCertificationBloc>()..add(GetInProgressCertificationsEvent()),
-          )
+          ),
+          BlocProvider<OnBoardingBloc>(
+            create: (_) => sl<OnBoardingBloc>(),
+          ),
         ],
         child: MaterialApp(
             debugShowCheckedModeBanner: false,
