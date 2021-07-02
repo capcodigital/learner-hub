@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../certifications/presentation/pages/home_page.dart';
@@ -21,10 +22,16 @@ class OnBoardingPage extends StatelessWidget {
   static const dimen_26 = 26.0;
   static const dimen_34 = 34.0;
   static const dimen_48 = 48.0;
+  static const dimen_68 = 68.0;
   static const dimen_80 = 80.0;
+
   static const card_radius = 15.0;
   static const cardWidth = 180.0;
   static const cardHeight = 260.0;
+  static const authBtnHeight = 60.0;
+  static const authBtnWidth = 230.0;
+  static const authBtnBorderRadius = 20.0;
+  static const authBtnBorderWidth = 1.0;
 
   void authenticate(BuildContext context) {
     BlocProvider.of<OnBoardingBloc>(context).add(AuthenticationEvent());
@@ -173,23 +180,36 @@ class OnBoardingPage extends StatelessWidget {
 
   Widget buildDescriptionText(BuildContext context) {
     return Container(
+      alignment: Alignment.center,
       child: Text(
         msgDescription,
+        style: Theme.of(context)
+            .textTheme
+            .headline2,
+        textAlign: TextAlign.center,
       ),
-      margin: EdgeInsets.only(top: dimen_34),
+      margin: EdgeInsets.only(top: dimen_34, right: dimen_68, left: dimen_68),
     );
   }
 
   Widget buildAuthButton(BuildContext context) {
     return Container(
         margin: EdgeInsets.only(top: dimen_48),
+        width: authBtnWidth,
+        height: authBtnHeight,
         child: ElevatedButton(
-          style: ElevatedButton.styleFrom(primary: Colors.white),
+          style: ElevatedButton.styleFrom(
+            shadowColor: Colors.black,
+            primary: Colors.white,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(authBtnBorderRadius),
+                side: BorderSide(
+                    width: authBtnBorderWidth, color: Constants.JIRA_COLOR)),
+          ),
           onPressed: () {
             authenticate(context);
           },
-          child: Padding(
-            padding: const EdgeInsets.all(dimen_16),
+          child: Center(
             child: Text(msgAuthenticate,
                 style: Theme.of(context)
                     .textTheme

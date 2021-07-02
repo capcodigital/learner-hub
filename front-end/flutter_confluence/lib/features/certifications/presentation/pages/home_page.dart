@@ -22,12 +22,11 @@ class _HomePageState extends State<HomePage> {
   static const double frontLayerLeftMargin = 40;
   static const double frontLayerInitialTop = 130;
   static const double parallaxSmoothFactor = 0.1;
-  var frontLayerTop = frontLayerInitialTop;
-
   static const double headerItemsSpacing = 23.0;
   static const double headerTopPadding = 23.0;
   static const double headerBottomPadding = 16.0;
   static const double searchbarHorizontalPadding = 25.0;
+  var frontLayerTop = frontLayerInitialTop;
 
   @override
   Widget build(BuildContext context) {
