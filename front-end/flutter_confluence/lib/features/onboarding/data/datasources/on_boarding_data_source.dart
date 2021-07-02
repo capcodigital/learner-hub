@@ -11,8 +11,10 @@ abstract class OnBoardingDataSource {
   Future<void> clearCachedAuth();
 }
 
-const PREF_LAST_BIOMETRIC_AUTH_TIME_MILLIS = "last_biometric_auth_time_millis";
-const ONE_DAY_IN_MILLIS = 24 * 60 * 60 * 1000;
+const prefLastBiometricAuthTimeMillis = "last_biometric_auth_time_millis";
+const oneDayMillis = 24 * 60 * 60 * 1000;
+const authReason = 'Please authenticate to proceed';
+const biometricAuthOnly = true;
 
 class OnBoardingDataSourceImpl extends OnBoardingDataSource {
   final LocalAuthentication auth;
@@ -22,33 +24,29 @@ class OnBoardingDataSourceImpl extends OnBoardingDataSource {
 
   @override
   Future<bool> authenticate() async {
-    try {
-      return await auth.authenticate(
-          localizedReason: 'Please authenticate to proceed',
-          biometricOnly: true);
-    } on PlatformException catch (e) {
-      throw e;
-    }
+    return await auth.authenticate(
+          localizedReason: authReason,
+          biometricOnly: biometricAuthOnly);
   }
 
   @override
   Future<void> saveAuthTimeStamp() {
     return prefs.setInt(
-        PREF_LAST_BIOMETRIC_AUTH_TIME_MILLIS, DateTime.now().millisecond);
+        prefLastBiometricAuthTimeMillis, DateTime.now().millisecond);
   }
 
   @override
   Future<bool> checkCachedAuth() {
     bool isAuth = false;
-    int? lastAuthTime = prefs.getInt(PREF_LAST_BIOMETRIC_AUTH_TIME_MILLIS);
+    int? lastAuthTime = prefs.getInt(prefLastBiometricAuthTimeMillis);
     if (lastAuthTime != null) {
-      isAuth = DateTime.now().millisecond - lastAuthTime < ONE_DAY_IN_MILLIS;
+      isAuth = DateTime.now().millisecond - lastAuthTime < oneDayMillis;
     }
     return Future.value(isAuth);
   }
 
   @override
   Future<void> clearCachedAuth() {
-    return prefs.remove(PREF_LAST_BIOMETRIC_AUTH_TIME_MILLIS);
+    return prefs.remove(prefLastBiometricAuthTimeMillis);
   }
 }
