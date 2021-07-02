@@ -5,6 +5,7 @@ import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
+import 'core/time/time_info.dart';
 import 'features/certifications/domain/usecases/search_certifications.dart';
 import 'features/onboarding/data/datasources/on_boarding_data_source.dart';
 import 'features/onboarding/domain/repositories/on_boarding_repository.dart';
@@ -23,8 +24,8 @@ import 'features/certifications/domain/usecases/get_in_progress_certifications.d
 final sl = GetIt.instance;
 
 Future<void> init() async {
-  sl.registerFactory(() =>
-      CloudCertificationBloc(completedUseCase: sl(), inProgressUseCase: sl(), searchUserCase: sl()));
+  sl.registerFactory(() => CloudCertificationBloc(
+      completedUseCase: sl(), inProgressUseCase: sl(), searchUserCase: sl()));
 
   sl.registerLazySingleton(() => GetCompletedCertifications(sl()));
 
@@ -48,15 +49,17 @@ Future<void> init() async {
     () => NetworkInfoImpl(sl()),
   );
 
-  sl.registerFactory(() => OnBoardingBloc(authUseCase: sl(), checkAuthUseCase: sl()));
+  sl.registerLazySingleton<TimeInfo>(() => TimeInfoImpl());
+  sl.registerFactory(
+      () => OnBoardingBloc(authUseCase: sl(), checkAuthUseCase: sl()));
   sl.registerLazySingleton<AuthenticateUseCase>(
       () => AuthenticateUseCase(sl()));
   sl.registerLazySingleton<CheckCachedAuthUseCase>(
-          () => CheckCachedAuthUseCase(sl()));
+      () => CheckCachedAuthUseCase(sl()));
   sl.registerLazySingleton<OnBoardingRepository>(
       () => OnBoardingRepositoryImpl(onBoardingDataSource: sl()));
   sl.registerLazySingleton<OnBoardingDataSource>(
-      () => OnBoardingDataSourceImpl(auth: sl(), prefs: sl()));
+      () => OnBoardingDataSourceImpl(auth: sl(), prefs: sl(), timeInfo: sl()));
 
   final sharedPreferences = await SharedPreferences.getInstance();
   sl.registerLazySingleton(() => sharedPreferences);
