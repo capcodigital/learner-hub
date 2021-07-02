@@ -9,7 +9,6 @@ import 'package:flutter_confluence/features/certifications/data/datasources/clou
 import 'package:flutter_confluence/features/certifications/data/models/cloud_certification_model.dart';
 import 'package:flutter_confluence/features/certifications/data/repositories/cloud_certifications_repository_impl.dart';
 import 'package:flutter_confluence/features/certifications/domain/entities/cloud_certification_type.dart';
-import 'package:flutter_confluence/features/certifications/presentation/bloc/cloud_certification_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
