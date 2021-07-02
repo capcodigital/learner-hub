@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_confluence/core/constants.dart';
-import 'package:flutter_confluence/presentation/bloc/cloud_certification_bloc.dart';
+import 'package:flutter_confluence/features/certifications/presentation/bloc/cloud_certification_bloc.dart';
 
 class ToggleButton extends StatefulWidget {
   @override

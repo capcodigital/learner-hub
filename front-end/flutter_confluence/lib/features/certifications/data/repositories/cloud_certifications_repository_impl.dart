@@ -3,13 +3,13 @@ import 'package:flutter_confluence/core/error/custom_exceptions.dart';
 import 'package:flutter_confluence/core/error/failures.dart';
 import 'package:flutter_confluence/core/network/network_info.dart';
 import 'package:flutter_confluence/core/utils/extensions.dart';
-import 'package:flutter_confluence/data/datasources/cloud_certification_local_data_source.dart';
-import 'package:flutter_confluence/data/datasources/cloud_certification_remote_data_source.dart';
-import 'package:flutter_confluence/data/models/cloud_certification_model.dart';
-import 'package:flutter_confluence/domain/entities/cloud_certification.dart';
-import 'package:flutter_confluence/domain/entities/cloud_certification_type.dart';
-import 'package:flutter_confluence/domain/repositories/cloud_certification_repository.dart';
-import 'package:flutter_confluence/presentation/bloc/cloud_certification_bloc.dart';
+import 'package:flutter_confluence/features/certifications/data/datasources/cloud_certification_local_data_source.dart';
+import 'package:flutter_confluence/features/certifications/data/datasources/cloud_certification_remote_data_source.dart';
+import 'package:flutter_confluence/features/certifications/data/models/cloud_certification_model.dart';
+import 'package:flutter_confluence/features/certifications/domain/entities/cloud_certification.dart';
+import 'package:flutter_confluence/features/certifications/domain/entities/cloud_certification_type.dart';
+import 'package:flutter_confluence/features/certifications/domain/repositories/cloud_certification_repository.dart';
+import 'package:flutter_confluence/features/certifications/presentation/bloc/cloud_certification_bloc.dart';
 
 class CloudCertificationsRepositoryImpl extends CloudCertificationRepository {
   final CloudCertificationRemoteDataSource remoteDataSource;

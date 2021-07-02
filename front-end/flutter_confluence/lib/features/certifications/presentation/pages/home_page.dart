@@ -2,8 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_confluence/presentation/widgets/empty_search.dart';
-import 'package:flutter_confluence/presentation/widgets/searchbox.dart';
+import 'package:flutter_confluence/features/certifications/presentation/widgets/empty_search.dart';
+import 'package:flutter_confluence/features/certifications/presentation/widgets/searchbox.dart';
 
 import '../bloc/cloud_certification_bloc.dart';
 import '../widgets/certifications_view.dart';

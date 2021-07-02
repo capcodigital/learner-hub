@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_confluence/core/error/custom_exceptions.dart';
-import 'package:flutter_confluence/data/models/cloud_certification_model.dart';
+import 'package:flutter_confluence/features/certifications/data/models/cloud_certification_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class CloudCertificationLocalDataSource {

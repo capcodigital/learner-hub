@@ -4,12 +4,12 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_confluence/domain/entities/cloud_certification_type.dart';
-import 'package:flutter_confluence/domain/usecases/search_certifications.dart';
+import 'package:flutter_confluence/features/certifications/domain/entities/cloud_certification_type.dart';
+import 'package:flutter_confluence/features/certifications/domain/usecases/search_certifications.dart';
 
-import '../../core/constants.dart';
-import '../../core/error/failures.dart';
-import '../../core/usecases/usecase.dart';
+import '../../../../../core/constants.dart';
+import '../../../../core/error/failures.dart';
+import '../../../../core/usecases/usecase.dart';
 import '../../domain/entities/cloud_certification.dart';
 import '../../domain/usecases/get_completed_certifications.dart';
 import '../../domain/usecases/get_in_progress_certifications.dart';

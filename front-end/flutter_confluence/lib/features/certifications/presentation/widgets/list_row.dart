@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_confluence/core/constants.dart';
-import 'package:flutter_confluence/domain/entities/cloud_certification.dart';
+import 'package:flutter_confluence/features/certifications/domain/entities/cloud_certification.dart';
 
 class ListRow extends StatelessWidget {
   static const listRowIconSize = 60.0;

@@ -1,4 +1,4 @@
-import 'package:flutter_confluence/domain/entities/cloud_certification.dart';
+import 'package:flutter_confluence/features/certifications/domain/entities/cloud_certification.dart';
 
 class CloudCertificationModel extends CloudCertification {
   final String name;

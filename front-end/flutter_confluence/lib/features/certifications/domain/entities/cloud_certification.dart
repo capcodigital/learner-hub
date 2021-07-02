@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import '../../core/constants.dart';
+import '../../../../core/constants.dart';
 
 class CloudCertification extends Equatable {
   final String name;

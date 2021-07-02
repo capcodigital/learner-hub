@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_confluence/domain/entities/cloud_certification.dart';
+import 'package:flutter_confluence/features/certifications/domain/entities/cloud_certification.dart';
 import 'list_row.dart';
 
 class CertificationsView extends StatelessWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_confluence/domain/entities/cloud_certification_type.dart';
-import 'package:flutter_confluence/presentation/bloc/cloud_certification_bloc.dart';
+import 'package:flutter_confluence/features/certifications/domain/entities/cloud_certification_type.dart';
+import 'package:flutter_confluence/features/certifications/presentation/bloc/cloud_certification_bloc.dart';
 
 class EmptySearch extends StatelessWidget {
   final CloudCertificationType type;
