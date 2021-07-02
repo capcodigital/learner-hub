@@ -38,9 +38,9 @@ void main() {
     expect(bloc.state, equals(Empty()));
   });
 
-  group('AuthenticationEvent', () {
+  group('AuthEvent', () {
 
-    void stabMockAuthenticateCase(bool result) {
+    void stabMockAuthCase(bool result) {
       when(mockAuthCase(any)).thenAnswer((_) async => Right(result));
     }
 
@@ -48,7 +48,7 @@ void main() {
       'Should call the Authentication use case',
       () async {
         // arrange
-        stabMockAuthenticateCase(true);
+        stabMockAuthCase(true);
         // act
         bloc.add((AuthEvent()));
         await untilCalled(mockAuthCase(any));
@@ -60,7 +60,7 @@ void main() {
     blocTest(
       'should emit Loading, Completed',
       build: () {
-        stabMockAuthenticateCase(true);
+        stabMockAuthCase(true);
         return bloc;
       },
       act: (OnBoardingBloc bloc) =>
@@ -71,7 +71,7 @@ void main() {
     blocTest(
       'should emit Loading, Error',
       build: () {
-        stabMockAuthenticateCase(false);
+        stabMockAuthCase(false);
         return bloc;
       },
       act: (OnBoardingBloc bloc) =>
@@ -81,9 +81,9 @@ void main() {
 
   });
 
-  group('CheckCachedAuthEvent', () {
+  group('CheckAuthEvent', () {
 
-    void stabMockCheckCachedAuthCase(bool result) {
+    void stabMockCheckAuthCase(bool result) {
       when(mockCheckAuthCase(any)).thenAnswer((_) async => Right(result));
     }
 
@@ -91,7 +91,7 @@ void main() {
       'Should call the CheckCachedAuth use case',
       () async {
         // arrange
-        stabMockCheckCachedAuthCase(true);
+        stabMockCheckAuthCase(true);
         // act
         bloc.add((CheckAuthEvent()));
         await untilCalled(mockCheckAuthCase(any));
@@ -103,7 +103,7 @@ void main() {
     blocTest(
       'should emit Loading, Completed',
       build: () {
-        stabMockCheckCachedAuthCase(true);
+        stabMockCheckAuthCase(true);
         return bloc;
       },
       act: (OnBoardingBloc bloc) =>
@@ -114,7 +114,7 @@ void main() {
     blocTest(
       'should emit Loading, Error',
       build: () {
-        stabMockCheckCachedAuthCase(false);
+        stabMockCheckAuthCase(false);
         return bloc;
       },
       act: (OnBoardingBloc bloc) =>
