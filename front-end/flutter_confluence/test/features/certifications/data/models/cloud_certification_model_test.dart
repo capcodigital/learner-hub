@@ -1,10 +1,10 @@
 import 'dart:convert';
 
-import 'package:flutter_confluence/data/models/cloud_certification_model.dart';
-import 'package:flutter_confluence/domain/entities/cloud_certification.dart';
+import 'package:flutter_confluence/features/certifications/data/models/cloud_certification_model.dart';
+import 'package:flutter_confluence/features/certifications/domain/entities/cloud_certification.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import '../../fixtures/FixtureReader.dart';
+import '../../../../fixtures/FixtureReader.dart';
 
 void main() {
   var model = CloudCertificationModel(

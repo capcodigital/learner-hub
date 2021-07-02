@@ -1,14 +1,14 @@
 import 'dart:convert';
 
 import 'package:flutter_confluence/core/error/custom_exceptions.dart';
-import 'package:flutter_confluence/data/datasources/cloud_certification_local_data_source.dart';
-import 'package:flutter_confluence/data/models/cloud_certification_model.dart';
+import 'package:flutter_confluence/features/certifications/data/datasources/cloud_certification_local_data_source.dart';
+import 'package:flutter_confluence/features/certifications/data/models/cloud_certification_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../fixtures/FixtureReader.dart';
+import '../../../../fixtures/FixtureReader.dart';
 import 'cloud_certification_local_data_source_test.mocks.dart';
 
 @GenerateMocks([SharedPreferences])

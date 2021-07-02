@@ -4,17 +4,17 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_confluence/core/error/custom_exceptions.dart';
 import 'package:flutter_confluence/core/error/failures.dart';
 import 'package:flutter_confluence/core/network/network_info.dart';
-import 'package:flutter_confluence/data/datasources/cloud_certification_local_data_source.dart';
-import 'package:flutter_confluence/data/datasources/cloud_certification_remote_data_source.dart';
-import 'package:flutter_confluence/data/models/cloud_certification_model.dart';
-import 'package:flutter_confluence/data/repositories/cloud_certifications_repository_impl.dart';
-import 'package:flutter_confluence/domain/entities/cloud_certification_type.dart';
-import 'package:flutter_confluence/presentation/bloc/cloud_certification_bloc.dart';
+import 'package:flutter_confluence/features/certifications/data/datasources/cloud_certification_local_data_source.dart';
+import 'package:flutter_confluence/features/certifications/data/datasources/cloud_certification_remote_data_source.dart';
+import 'package:flutter_confluence/features/certifications/data/models/cloud_certification_model.dart';
+import 'package:flutter_confluence/features/certifications/data/repositories/cloud_certifications_repository_impl.dart';
+import 'package:flutter_confluence/features/certifications/domain/entities/cloud_certification_type.dart';
+import 'package:flutter_confluence/features/certifications/presentation/bloc/cloud_certification_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import '../../fixtures/FixtureReader.dart';
+import '../../../../fixtures/FixtureReader.dart';
 import 'cloud_certifications_repository_impl_test.mocks.dart';
 
 @GenerateMocks([

@@ -1,11 +1,11 @@
 import 'package:flutter_confluence/core/error/custom_exceptions.dart';
-import 'package:flutter_confluence/data/datasources/cloud_certification_remote_data_source.dart';
+import 'package:flutter_confluence/features/certifications/data/datasources/cloud_certification_remote_data_source.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import '../../fixtures/FixtureReader.dart';
+import '../../../../fixtures/FixtureReader.dart';
 import 'cloud_certification_remote_data_source_test.mocks.dart';
 
 /*
