@@ -1,5 +1,5 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter_confluence/features/onboarding/domain/usecases/check_cached_auth_use_case.dart';
+import 'package:flutter_confluence/features/onboarding/domain/usecases/check_auth_use_case.dart';
 import 'package:get_it/get_it.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -15,7 +15,7 @@ import 'features/certifications/data/datasources/cloud_certification_local_data_
 import 'features/certifications/data/datasources/cloud_certification_remote_data_source.dart';
 import 'features/certifications/domain/repositories/cloud_certification_repository.dart';
 import 'features/onboarding/data/repositories/on_boarding_repository_impl.dart';
-import 'features/onboarding/domain/usecases/authenticate_use_case.dart';
+import 'features/onboarding/domain/usecases/auth_use_case.dart';
 import 'features/onboarding/presentation/bloc/on_boarding_bloc.dart';
 import 'features/certifications/presentation/bloc/cloud_certification_bloc.dart';
 import 'features/certifications/domain/usecases/get_completed_certifications.dart';
@@ -52,10 +52,10 @@ Future<void> init() async {
   sl.registerLazySingleton<TimeInfo>(() => TimeInfoImpl());
   sl.registerFactory(
       () => OnBoardingBloc(authUseCase: sl(), checkAuthUseCase: sl()));
-  sl.registerLazySingleton<AuthenticateUseCase>(
-      () => AuthenticateUseCase(sl()));
-  sl.registerLazySingleton<CheckCachedAuthUseCase>(
-      () => CheckCachedAuthUseCase(sl()));
+  sl.registerLazySingleton<AuthUseCase>(
+      () => AuthUseCase(sl()));
+  sl.registerLazySingleton<CheckAuthUseCase>(
+      () => CheckAuthUseCase(sl()));
   sl.registerLazySingleton<OnBoardingRepository>(
       () => OnBoardingRepositoryImpl(onBoardingDataSource: sl()));
   sl.registerLazySingleton<OnBoardingDataSource>(

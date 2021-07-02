@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
             create: (_) => sl<CloudCertificationBloc>()..add(GetInProgressCertificationsEvent()),
           ),
           BlocProvider<OnBoardingBloc>(
-            create: (_) => sl<OnBoardingBloc>()..add(CheckCachedAuthEvent()),
+            create: (_) => sl<OnBoardingBloc>()..add(CheckAuthEvent()),
           ),
         ],
         child: MaterialApp(

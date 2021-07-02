@@ -34,7 +34,7 @@ class OnBoardingPage extends StatelessWidget {
   static const authBtnBorderWidth = 1.0;
 
   void authenticate(BuildContext context) {
-    BlocProvider.of<OnBoardingBloc>(context).add(AuthenticationEvent());
+    BlocProvider.of<OnBoardingBloc>(context).add(AuthEvent());
   }
 
   void openHomePage(BuildContext context) {

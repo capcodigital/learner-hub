@@ -7,10 +7,10 @@ abstract class OnBoardingEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class AuthenticationEvent extends OnBoardingEvent {
-  AuthenticationEvent();
+class AuthEvent extends OnBoardingEvent {
+  AuthEvent();
 }
 
-class CheckCachedAuthEvent extends OnBoardingEvent {
-  CheckCachedAuthEvent();
+class CheckAuthEvent extends OnBoardingEvent {
+  CheckAuthEvent();
 }

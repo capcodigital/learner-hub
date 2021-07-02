@@ -9,9 +9,9 @@ import 'package:flutter_confluence/core/error/failures.dart' as _i6;
 import 'package:flutter_confluence/core/usecases/usecase.dart' as _i7;
 import 'package:flutter_confluence/features/onboarding/domain/repositories/on_boarding_repository.dart'
     as _i2;
-import 'package:flutter_confluence/features/onboarding/domain/usecases/authenticate_use_case.dart'
+import 'package:flutter_confluence/features/onboarding/domain/usecases/auth_use_case.dart'
     as _i4;
-import 'package:flutter_confluence/features/onboarding/domain/usecases/check_cached_auth_use_case.dart'
+import 'package:flutter_confluence/features/onboarding/domain/usecases/check_auth_use_case.dart'
     as _i8;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -29,12 +29,11 @@ class _FakeEither<L, R> extends _i1.Fake implements _i3.Either<L, R> {
   String toString() => super.toString();
 }
 
-/// A class which mocks [AuthenticateUseCase].
+/// A class which mocks [AuthUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAuthenticateUseCase extends _i1.Mock
-    implements _i4.AuthenticateUseCase {
-  MockAuthenticateUseCase() {
+class MockAuthUseCase extends _i1.Mock implements _i4.AuthUseCase {
+  MockAuthUseCase() {
     _i1.throwOnMissingStub(this);
   }
 
@@ -50,12 +49,11 @@ class MockAuthenticateUseCase extends _i1.Mock
           as _i5.Future<_i3.Either<_i6.Failure, bool>>);
 }
 
-/// A class which mocks [CheckCachedAuthUseCase].
+/// A class which mocks [CheckAuthUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockCheckCachedAuthUseCase extends _i1.Mock
-    implements _i8.CheckCachedAuthUseCase {
-  MockCheckCachedAuthUseCase() {
+class MockCheckAuthUseCase extends _i1.Mock implements _i8.CheckAuthUseCase {
+  MockCheckAuthUseCase() {
     _i1.throwOnMissingStub(this);
   }
 
