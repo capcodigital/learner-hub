@@ -1,4 +1,5 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter_confluence/features/onboarding/domain/usecases/check_cached_auth_use_case.dart';
 import 'package:get_it/get_it.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -47,9 +48,11 @@ Future<void> init() async {
     () => NetworkInfoImpl(sl()),
   );
 
-  sl.registerFactory(() => OnBoardingBloc(authUseCase: sl()));
+  sl.registerFactory(() => OnBoardingBloc(authUseCase: sl(), checkAuthUseCase: sl()));
   sl.registerLazySingleton<AuthenticateUseCase>(
       () => AuthenticateUseCase(sl()));
+  sl.registerLazySingleton<CheckCachedAuthUseCase>(
+          () => CheckCachedAuthUseCase(sl()));
   sl.registerLazySingleton<OnBoardingRepository>(
       () => OnBoardingRepositoryImpl(onBoardingDataSource: sl()));
   sl.registerLazySingleton<OnBoardingDataSource>(
