@@ -12,27 +12,18 @@ class OnBoardingRepositoryImpl extends OnBoardingRepository {
 
   @override
   Future<Either<Failure, bool>> authenticate() async {
-    try {
-      final authSuccess = await onBoardingDataSource.authenticate();
-      if (authSuccess) {
-        onBoardingDataSource.saveAuthTimeStamp();
-        return Right(true);
-      } else {
-        onBoardingDataSource.clearCachedAuth();
-        return Left(AuthFailure());
-      }
-    } on PlatformException catch (e) {
-      onBoardingDataSource.clearCachedAuth();
-      return Left(AuthFailure());
+    final authSuccess = await onBoardingDataSource.authenticate();
+    if (authSuccess) {
+      onBoardingDataSource.saveAuthTimeStamp();
+      return Right(true);
     }
+    onBoardingDataSource.clearCachedAuth();
+    return Left(AuthFailure());
   }
 
   @override
   Future<Either<Failure, bool>> checkCachedAuth() async {
     final result = await onBoardingDataSource.checkCachedAuth();
-    if (result)
-      return Right(true);
-    else
-      return Left(AuthFailure());
+    return result ? Right(true) : Left(AuthFailure());
   }
 }

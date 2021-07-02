@@ -1,3 +1,5 @@
+import 'package:dartz/dartz.dart';
+import 'package:flutter_confluence/core/error/failures.dart';
 import 'package:flutter_confluence/features/onboarding/data/datasources/on_boarding_data_source.dart';
 import 'package:flutter_confluence/features/onboarding/data/repositories/on_boarding_repository_impl.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -16,22 +18,51 @@ void main() {
     repository = OnBoardingRepositoryImpl(onBoardingDataSource: mockDataSource);
   });
 
-  group('', () {
-    setUp(() {
-
+  group('authenticate', () {
+    test('Should save timeStamp and return true on auth success', () async {
+      // arrange
+      when(mockDataSource.authenticate()).thenAnswer((_) => Future.value(true));
+      // act
+      final result = await repository.authenticate();
+      // assert
+      verify(mockDataSource.saveAuthTimeStamp()).called(1);
+      expect(result, equals(Right(true)));
     });
 
-    test(
-        '',
+    test('Should delete cached timeStamp and return false on auth failure',
         () async {
       // arrange
-
+      when(mockDataSource.authenticate())
+          .thenAnswer((_) => Future.value(false));
       // act
-
+      final result = await repository.authenticate();
       // assert
-
+      verify(mockDataSource.clearCachedAuth()).called(1);
+      expect(result, equals(Left(AuthFailure())));
     });
-
   });
 
+  group('checkCachedAuth', () {
+    test('Should ', () async {
+      // arrange
+      when(mockDataSource.checkCachedAuth()).thenAnswer((_) => Future.value(true));
+      // act
+      final result = await repository.checkCachedAuth();
+      // assert
+      verify(mockDataSource.checkCachedAuth()).called(1);
+      expect(result, equals(Right(true)));
+    });
+
+    test('Should ',
+            () async {
+          // arrange
+          when(mockDataSource.checkCachedAuth())
+              .thenAnswer((_) => Future.value(false));
+          // act
+          final result = await repository.checkCachedAuth();
+          // assert
+          verify(mockDataSource.checkCachedAuth()).called(1);
+          expect(result, equals(Left(AuthFailure())));
+        });
+  });
 }

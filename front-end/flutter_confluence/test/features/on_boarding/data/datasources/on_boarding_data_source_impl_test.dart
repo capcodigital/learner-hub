@@ -24,15 +24,16 @@ void main() {
         auth: mockAuth, prefs: mockPrefs, timeInfo: mockTimer);
   });
 
-  void mockAuthenticateCall(bool result) {
-    when(mockAuth.authenticate(
-            localizedReason: authReason, biometricOnly: biometricAuthOnly))
-        .thenAnswer((_) async {
-      return result;
-    });
-  }
-
   group('authenticate', () {
+
+    void mockAuthenticateCall(bool result) {
+      when(mockAuth.authenticate(
+          localizedReason: authReason, biometricOnly: biometricAuthOnly))
+          .thenAnswer((_) async {
+        return result;
+      });
+    }
+
     test(
       'Should return true when calling authenticate',
       () async {
