@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:flutter/services.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -19,8 +22,13 @@ class OnBoardingDataSourceImpl extends OnBoardingDataSource {
 
   @override
   Future<bool> authenticate() async {
-    return await auth.authenticate(
-        localizedReason: 'Please authenticate to proceed', biometricOnly: true);
+    try {
+      return await auth.authenticate(
+          localizedReason: 'Please authenticate to proceed',
+          biometricOnly: true);
+    } on PlatformException catch (e) {
+      throw e;
+    }
   }
 
   @override
