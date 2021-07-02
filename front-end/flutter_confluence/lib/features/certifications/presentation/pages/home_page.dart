@@ -37,6 +37,7 @@ class _HomePageState extends State<HomePage> {
           'Cloud Certifications',
           style: Theme.of(context).textTheme.headline1
         ),
+        automaticallyImplyLeading: false,
       ),
       body: buildBody(),
     );

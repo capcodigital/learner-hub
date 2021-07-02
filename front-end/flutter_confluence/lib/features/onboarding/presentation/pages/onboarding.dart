@@ -61,12 +61,7 @@ class OnBoardingPage extends StatelessWidget {
         buildIcon(Constants.IC_FLUTTER, dimen_20),
         buildIcon(Constants.IC_PLUS, dimen_20),
         buildIcon(Constants.IC_CONFLUENCE, dimen_26),
-        Container(
-          child: Text(
-            msgDescription,
-          ),
-          margin: EdgeInsets.only(top: dimen_34),
-        ),
+        buildDescriptionText(context),
         buildAuthButton(context)
       ],
     );
@@ -173,6 +168,15 @@ class OnBoardingPage extends StatelessWidget {
           offset: Offset(0.0, 3.0), // changes position of shadow
         ),
       ],
+    );
+  }
+
+  Widget buildDescriptionText(BuildContext context) {
+    return Container(
+      child: Text(
+        msgDescription,
+      ),
+      margin: EdgeInsets.only(top: dimen_34),
     );
   }
 
