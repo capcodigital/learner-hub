@@ -43,7 +43,7 @@ void main() {
   });
 
   group('checkCachedAuth', () {
-    test('Should ', () async {
+    test('Should call checkCachedAuth and return true', () async {
       // arrange
       when(mockDataSource.checkCachedAuth()).thenAnswer((_) => Future.value(true));
       // act
@@ -53,7 +53,7 @@ void main() {
       expect(result, equals(Right(true)));
     });
 
-    test('Should ',
+    test('Should call checkCachedAuth and return auth expiration failure',
             () async {
           // arrange
           when(mockDataSource.checkCachedAuth())
