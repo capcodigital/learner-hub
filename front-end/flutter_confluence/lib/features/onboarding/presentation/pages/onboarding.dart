@@ -15,6 +15,9 @@ class OnBoardingPage extends StatelessWidget {
       "See all your co-workers certifications within a swipe";
   static const msgAuthenticate = "Authenticate";
 
+  static const double frontLayerLeft = 88;
+  static const double frontLayerTop = 270;
+
   static const dimen_6 = 6.0;
   static const dimen_8 = 8.0;
   static const dimen_16 = 16.0;
@@ -43,12 +46,7 @@ class OnBoardingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.only(top: dimen_80),
-        child: buildBlocListener(context),
-      ),
-    );
+    return Scaffold(body: buildBlocListener(context));
   }
 
   BlocListener<OnBoardingBloc, OnBoardingState> buildBlocListener(
@@ -57,8 +55,29 @@ class OnBoardingPage extends StatelessWidget {
       listener: (ctx, state) {
         if (state is Completed) openHomePage(ctx);
       },
-      child: buildBody(context),
+      child: buildBackgroundedBody(context),
     );
+  }
+
+  Widget buildBackgroundedBody(BuildContext context) {
+    return Container(
+        constraints: BoxConstraints.expand(),
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("assets/back-layer.png"), fit: BoxFit.cover)),
+        child: Stack(
+          children: <Widget>[
+            Positioned(
+              left: frontLayerLeft,
+              top: frontLayerTop,
+              child: Image.asset('assets/front-layer.png'),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: dimen_80),
+              child: buildBody(context),
+            )
+          ],
+        ));
   }
 
   Widget buildBody(BuildContext context) {
@@ -183,9 +202,7 @@ class OnBoardingPage extends StatelessWidget {
       alignment: Alignment.center,
       child: Text(
         msgDescription,
-        style: Theme.of(context)
-            .textTheme
-            .headline2,
+        style: Theme.of(context).textTheme.headline2,
         textAlign: TextAlign.center,
       ),
       margin: EdgeInsets.only(top: dimen_34, right: dimen_68, left: dimen_68),

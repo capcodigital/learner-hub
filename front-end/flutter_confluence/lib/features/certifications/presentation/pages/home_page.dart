@@ -9,7 +9,6 @@ import '../widgets/certifications_view.dart';
 import '../widgets/toggle-switch.dart';
 
 class HomePage extends StatefulWidget {
-
   static const route = 'HomePage';
 
   @override
@@ -32,10 +31,8 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'Cloud Certifications',
-          style: Theme.of(context).textTheme.headline1
-        ),
+        title: Text('Cloud Certifications',
+            style: Theme.of(context).textTheme.headline1),
         automaticallyImplyLeading: false,
       ),
       body: buildBody(),
@@ -115,7 +112,9 @@ class _HomePageState extends State<HomePage> {
             else if (state is Empty)
               return Text('No results');
             else if (state is EmptySearchResult)
-              return EmptySearch(type: state.cloudCertificationType, searchController: searchController);
+              return EmptySearch(
+                  type: state.cloudCertificationType,
+                  searchController: searchController);
             else if (state is Error)
               return Text('Error');
             else
