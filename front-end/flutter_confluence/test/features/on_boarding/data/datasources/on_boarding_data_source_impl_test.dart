@@ -1,4 +1,5 @@
 import 'package:flutter_confluence/core/time/time_info.dart';
+import 'package:flutter_confluence/core/utils/date_extensions.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:mockito/annotations.dart';
@@ -25,10 +26,9 @@ void main() {
   });
 
   group('authenticate', () {
-
     void mockAuthenticateCall(bool result) {
       when(mockAuth.authenticate(
-          localizedReason: AUTH_REASON, biometricOnly: BIOMETRIC_AUTH_ONLY))
+              localizedReason: AUTH_REASON, biometricOnly: BIOMETRIC_AUTH_ONLY))
           .thenAnswer((_) async {
         return result;
       });
@@ -43,7 +43,8 @@ void main() {
         final result = await dataSource.authenticate();
         // assert
         verify(mockAuth.authenticate(
-                localizedReason: AUTH_REASON, biometricOnly: BIOMETRIC_AUTH_ONLY))
+                localizedReason: AUTH_REASON,
+                biometricOnly: BIOMETRIC_AUTH_ONLY))
             .called(1);
         expect(result, equals(true));
       },
@@ -58,7 +59,8 @@ void main() {
         final result = await dataSource.authenticate();
         // assert
         verify(mockAuth.authenticate(
-                localizedReason: AUTH_REASON, biometricOnly: BIOMETRIC_AUTH_ONLY))
+                localizedReason: AUTH_REASON,
+                biometricOnly: BIOMETRIC_AUTH_ONLY))
             .called(1);
         expect(result, equals(false));
       },
@@ -70,12 +72,14 @@ void main() {
       'Should ',
       () async {
         // arrange
+        final now = DateTime.parse("2021-01-12 21:12:01");
+        CustomizableDateTime.customTime = now;
         when(mockPrefs.setInt(any, any)).thenAnswer((_) => Future.value(true));
-        when(mockTimer.currentTimeMillis).thenReturn(100);
         // act
         await dataSource.saveAuthTimeStamp();
         // assert
-        verify(mockPrefs.setInt(PREF_LAST_BIOMETRIC_AUTH_TIME_MILLIS, 100))
+        verify(mockPrefs.setInt(PREF_LAST_BIOMETRIC_AUTH_TIME_MILLIS,
+                now.millisecondsSinceEpoch))
             .called(1);
       },
     );
@@ -86,12 +90,16 @@ void main() {
       'Should return valid cached auth',
       () async {
         // arrange
-        when(mockPrefs.getInt(any)).thenReturn(1000);
-        when(mockTimer.currentTimeMillis).thenReturn(ONE_DAY_MILLIS);
+        final now = DateTime.parse("2021-05-12 20:15:00");
+        final lastAuthDate = DateTime.parse("2021-05-12 15:35:00");
+        CustomizableDateTime.customTime = now;
+        when(mockPrefs.getInt(PREF_LAST_BIOMETRIC_AUTH_TIME_MILLIS))
+            .thenReturn(lastAuthDate.millisecondsSinceEpoch);
         // act
         final result = await dataSource.checkCachedAuth();
         // assert
-        verify(mockPrefs.getInt(PREF_LAST_BIOMETRIC_AUTH_TIME_MILLIS)).called(1);
+        verify(mockPrefs.getInt(PREF_LAST_BIOMETRIC_AUTH_TIME_MILLIS))
+            .called(1);
         expect(result, equals(true));
       },
     );
@@ -100,12 +108,16 @@ void main() {
       'Should return expired cached auth',
       () async {
         // arrange
-        when(mockPrefs.getInt(any)).thenReturn(1000);
-        when(mockTimer.currentTimeMillis).thenReturn(ONE_DAY_MILLIS + 1100);
+        final now = DateTime.parse("2021-05-16 20:15:00");
+        final lastAuthDate = DateTime.parse("2021-05-12 15:35:00");
+        CustomizableDateTime.customTime = now;
+        when(mockPrefs.getInt(PREF_LAST_BIOMETRIC_AUTH_TIME_MILLIS))
+            .thenReturn(lastAuthDate.millisecondsSinceEpoch);
         // act
         final result = await dataSource.checkCachedAuth();
         // assert
-        verify(mockPrefs.getInt(PREF_LAST_BIOMETRIC_AUTH_TIME_MILLIS)).called(1);
+        verify(mockPrefs.getInt(PREF_LAST_BIOMETRIC_AUTH_TIME_MILLIS))
+            .called(1);
         expect(result, equals(false));
       },
     );
@@ -120,7 +132,8 @@ void main() {
         // act
         await dataSource.clearCachedAuth();
         // assert
-        verify(mockPrefs.remove(PREF_LAST_BIOMETRIC_AUTH_TIME_MILLIS)).called(1);
+        verify(mockPrefs.remove(PREF_LAST_BIOMETRIC_AUTH_TIME_MILLIS))
+            .called(1);
       },
     );
   });

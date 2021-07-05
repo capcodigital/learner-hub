@@ -1,4 +1,5 @@
 import 'package:flutter_confluence/core/time/time_info.dart';
+import 'package:flutter_confluence/core/utils/date_extensions.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -19,32 +20,31 @@ class OnBoardingLocalDataSourceImpl extends OnBoardingLocalDataSource {
   final SharedPreferences prefs;
   final TimeInfo timeInfo;
 
-  OnBoardingLocalDataSourceImpl({
-    required this.auth,
-    required this.prefs,
-    required this.timeInfo});
+  OnBoardingLocalDataSourceImpl(
+      {required this.auth, required this.prefs, required this.timeInfo});
 
   @override
   Future<bool> authenticate() async {
     return await auth.authenticate(
-          localizedReason: AUTH_REASON,
-          biometricOnly: BIOMETRIC_AUTH_ONLY);
+        localizedReason: AUTH_REASON, biometricOnly: BIOMETRIC_AUTH_ONLY);
   }
 
   @override
   Future<void> saveAuthTimeStamp() {
-    return prefs.setInt(
-        PREF_LAST_BIOMETRIC_AUTH_TIME_MILLIS, timeInfo.currentTimeMillis);
+    return prefs.setInt(PREF_LAST_BIOMETRIC_AUTH_TIME_MILLIS,
+        CustomizableDateTime.current.millisecondsSinceEpoch);
   }
 
   @override
   Future<bool> checkCachedAuth() {
-    bool isAuth = false;
     int? lastAuthTime = prefs.getInt(PREF_LAST_BIOMETRIC_AUTH_TIME_MILLIS);
     if (lastAuthTime != null) {
-      isAuth = timeInfo.currentTimeMillis - lastAuthTime <= ONE_DAY_MILLIS;
+      final now = CustomizableDateTime.current;
+      final lastAuthDate = DateTime.fromMillisecondsSinceEpoch(lastAuthTime);
+      final int daysDiff = now.difference(lastAuthDate).inDays;
+      return Future.value(daysDiff <= 1);
     }
-    return Future.value(isAuth);
+    return Future.value(false);
   }
 
   @override
