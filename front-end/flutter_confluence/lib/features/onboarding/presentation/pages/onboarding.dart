@@ -59,13 +59,12 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
       BuildContext context) {
     return BlocListener<OnBoardingBloc, OnBoardingState>(
       listener: (ctx, state) {
-        if (state is Completed) {
+        if (state is Completed)
           openHomePage(ctx);
-        } else if (state is Expired) {
+        else if (state is Expired)
           setState(() {
             isCheckingCachedAuth = false;
           });
-        }
       },
       child: buildPageBody(context),
     );
@@ -74,7 +73,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
   Widget buildPageBody(BuildContext context) {
     // If user is already authenticated, Onboarding screen may still
     // be shown for a while before HomePage opens. To solve this we
-    // hide the Scaffold until cached auth check completes.
+    // show a Loading Message until cached auth check completes.
     if (isCheckingCachedAuth)
       return buildLoadingView();
     else
@@ -236,14 +235,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
         width: authBtnWidth,
         height: authBtnHeight,
         child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            shadowColor: Colors.black,
-            primary: Colors.white,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(authBtnBorderRadius),
-                side: BorderSide(
-                    width: authBtnBorderWidth, color: Constants.JIRA_COLOR)),
-          ),
+          style: buildAuthButtonStyle(),
           onPressed: () {
             authenticate(context);
           },
@@ -255,6 +247,17 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                     ?.copyWith(color: Constants.JIRA_COLOR)),
           ),
         ));
+  }
+
+  ButtonStyle buildAuthButtonStyle() {
+    return ElevatedButton.styleFrom(
+      shadowColor: Colors.black,
+      primary: Colors.white,
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(authBtnBorderRadius),
+          side: BorderSide(
+              width: authBtnBorderWidth, color: Constants.JIRA_COLOR)),
+    );
   }
 
   Widget buildPlatformIcon(String iconName) {
