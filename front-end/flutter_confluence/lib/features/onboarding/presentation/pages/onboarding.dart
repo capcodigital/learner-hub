@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../certifications/presentation/pages/home_page.dart';
 import '../../../../core/constants.dart';
 import '../bloc/on_boarding_bloc.dart';
-import '../widgets/platform_icon.dart';
 
 class OnBoardingPage extends StatelessWidget {
   static const msgTrainingTypes = "Training Types";
@@ -14,10 +13,6 @@ class OnBoardingPage extends StatelessWidget {
   static const msgDescription =
       "See all your co-workers certifications within a swipe";
   static const msgAuthenticate = "Authenticate";
-
-  static const double frontLayerLeft = 88;
-  static const double frontLayerTop = 270;
-
   static const dimen_6 = 6.0;
   static const dimen_8 = 8.0;
   static const dimen_16 = 16.0;
@@ -27,7 +22,7 @@ class OnBoardingPage extends StatelessWidget {
   static const dimen_48 = 48.0;
   static const dimen_68 = 68.0;
   static const dimen_80 = 80.0;
-
+  static const platformIconRadius = 26.0;
   static const card_radius = 15.0;
   static const cardWidth = 180.0;
   static const cardHeight = 260.0;
@@ -35,6 +30,8 @@ class OnBoardingPage extends StatelessWidget {
   static const authBtnWidth = 230.0;
   static const authBtnBorderRadius = 20.0;
   static const authBtnBorderWidth = 1.0;
+  static const frontLayerLeft = 88.0;
+  static const frontLayerTop = 270.0;
 
   void authenticate(BuildContext context) {
     BlocProvider.of<OnBoardingBloc>(context).add(AuthEvent());
@@ -84,9 +81,9 @@ class OnBoardingPage extends StatelessWidget {
     return Column(
       children: [
         buildCardsRow(context),
-        buildIcon(Constants.IC_FLUTTER, dimen_20),
-        buildIcon(Constants.IC_PLUS, dimen_20),
-        buildIcon(Constants.IC_CONFLUENCE, dimen_26),
+        buildImage(Constants.IC_FLUTTER, dimen_20),
+        buildImage(Constants.IC_PLUS, dimen_20),
+        buildImage(Constants.IC_CONFLUENCE, dimen_26),
         buildDescriptionText(context),
         buildAuthButton(context)
       ],
@@ -137,26 +134,24 @@ class OnBoardingPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  PlatformIcon(Constants.IC_AWS),
-                  PlatformIcon(Constants.IC_AZURE),
+                  buildPlatformIcon(Constants.IC_AWS),
+                  buildPlatformIcon(Constants.IC_AZURE),
                 ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  PlatformIcon(Constants.IC_GCP),
-                  PlatformIcon(Constants.IC_HASHICORP),
+                  buildPlatformIcon(Constants.IC_GCP),
+                  buildPlatformIcon(Constants.IC_HASHICORP),
                 ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  PlatformIcon(Constants.IC_CLOUD_NATIVE),
-                  Opacity(
-                      opacity: 0.0,
-                      child: PlatformIcon(Constants.IC_CLOUD_NATIVE)),
+                  buildPlatformIcon(Constants.IC_CLOUD_NATIVE),
+                  buildPlatformIconPlaceHolder()
                 ],
               ),
             ],
@@ -236,7 +231,25 @@ class OnBoardingPage extends StatelessWidget {
         ));
   }
 
-  Widget buildIcon(String iconName, double marginTop) {
+  Widget buildPlatformIcon(String iconName) {
+    return Padding(
+      padding: const EdgeInsets.all(dimen_8),
+      child: CircleAvatar(
+        radius: platformIconRadius,
+        backgroundColor: Colors.white,
+        backgroundImage: AssetImage('assets/$iconName'),
+      ),
+    );
+  }
+
+  Widget buildPlatformIconPlaceHolder() {
+    return Opacity(
+      opacity: 0.0,
+      child: buildPlatformIcon(Constants.IC_CLOUD_NATIVE),
+    );
+  }
+
+  Widget buildImage(String iconName, double marginTop) {
     return Container(
       child: Image.asset('assets/$iconName'),
       margin: EdgeInsets.only(top: marginTop),
