@@ -4,7 +4,7 @@
 
 import 'dart:async' as _i3;
 
-import 'package:flutter_confluence/features/onboarding/data/datasources/on_boarding_data_source.dart'
+import 'package:flutter_confluence/features/onboarding/data/datasources/on_boarding_local_data_source.dart'
     as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -18,7 +18,7 @@ import 'package:mockito/mockito.dart' as _i1;
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockOnBoardingDataSource extends _i1.Mock
-    implements _i2.OnBoardingDataSource {
+    implements _i2.OnBoardingLocalDataSource {
   MockOnBoardingDataSource() {
     _i1.throwOnMissingStub(this);
   }

@@ -5,13 +5,13 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:flutter_confluence/features/onboarding/data/datasources/on_boarding_data_source.dart';
+import 'package:flutter_confluence/features/onboarding/data/datasources/on_boarding_local_data_source.dart';
 
 import 'on_boarding_data_source_impl_test.mocks.dart';
 
 @GenerateMocks([SharedPreferences, LocalAuthentication, TimeInfo])
 void main() {
-  late OnBoardingDataSourceImpl dataSource;
+  late OnBoardingLocalDataSourceImpl dataSource;
   late MockSharedPreferences mockPrefs;
   late MockLocalAuthentication mockAuth;
   late MockTimeInfo mockTimer;
@@ -20,7 +20,7 @@ void main() {
     mockPrefs = MockSharedPreferences();
     mockAuth = MockLocalAuthentication();
     mockTimer = MockTimeInfo();
-    dataSource = OnBoardingDataSourceImpl(
+    dataSource = OnBoardingLocalDataSourceImpl(
         auth: mockAuth, prefs: mockPrefs, timeInfo: mockTimer);
   });
 
@@ -28,7 +28,7 @@ void main() {
 
     void mockAuthenticateCall(bool result) {
       when(mockAuth.authenticate(
-          localizedReason: authReason, biometricOnly: biometricAuthOnly))
+          localizedReason: AUTH_REASON, biometricOnly: BIOMETRIC_AUTH_ONLY))
           .thenAnswer((_) async {
         return result;
       });
@@ -43,7 +43,7 @@ void main() {
         final result = await dataSource.authenticate();
         // assert
         verify(mockAuth.authenticate(
-                localizedReason: authReason, biometricOnly: biometricAuthOnly))
+                localizedReason: AUTH_REASON, biometricOnly: BIOMETRIC_AUTH_ONLY))
             .called(1);
         expect(result, equals(true));
       },
@@ -58,7 +58,7 @@ void main() {
         final result = await dataSource.authenticate();
         // assert
         verify(mockAuth.authenticate(
-                localizedReason: authReason, biometricOnly: biometricAuthOnly))
+                localizedReason: AUTH_REASON, biometricOnly: BIOMETRIC_AUTH_ONLY))
             .called(1);
         expect(result, equals(false));
       },
@@ -75,7 +75,7 @@ void main() {
         // act
         await dataSource.saveAuthTimeStamp();
         // assert
-        verify(mockPrefs.setInt(prefLastBiometricAuthTimeMillis, 100))
+        verify(mockPrefs.setInt(PREF_LAST_BIOMETRIC_AUTH_TIME_MILLIS, 100))
             .called(1);
       },
     );
@@ -87,11 +87,11 @@ void main() {
       () async {
         // arrange
         when(mockPrefs.getInt(any)).thenReturn(1000);
-        when(mockTimer.currentTimeMillis).thenReturn(oneDayMillis);
+        when(mockTimer.currentTimeMillis).thenReturn(ONE_DAY_MILLIS);
         // act
         final result = await dataSource.checkCachedAuth();
         // assert
-        verify(mockPrefs.getInt(prefLastBiometricAuthTimeMillis)).called(1);
+        verify(mockPrefs.getInt(PREF_LAST_BIOMETRIC_AUTH_TIME_MILLIS)).called(1);
         expect(result, equals(true));
       },
     );
@@ -101,11 +101,11 @@ void main() {
       () async {
         // arrange
         when(mockPrefs.getInt(any)).thenReturn(1000);
-        when(mockTimer.currentTimeMillis).thenReturn(oneDayMillis + 1100);
+        when(mockTimer.currentTimeMillis).thenReturn(ONE_DAY_MILLIS + 1100);
         // act
         final result = await dataSource.checkCachedAuth();
         // assert
-        verify(mockPrefs.getInt(prefLastBiometricAuthTimeMillis)).called(1);
+        verify(mockPrefs.getInt(PREF_LAST_BIOMETRIC_AUTH_TIME_MILLIS)).called(1);
         expect(result, equals(false));
       },
     );
@@ -120,7 +120,7 @@ void main() {
         // act
         await dataSource.clearCachedAuth();
         // assert
-        verify(mockPrefs.remove(prefLastBiometricAuthTimeMillis)).called(1);
+        verify(mockPrefs.remove(PREF_LAST_BIOMETRIC_AUTH_TIME_MILLIS)).called(1);
       },
     );
   });

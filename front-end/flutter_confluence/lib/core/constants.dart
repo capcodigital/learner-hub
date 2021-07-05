@@ -6,7 +6,7 @@ class Constants {
   // Colors
   static const JIRA_COLOR = const Color(0xff0052CC);
   static const BLACK_75 = const Color(0xBF000000);
-  static final black25 = Colors.black.withOpacity(0.25);
+  static final BLACK_25 = Colors.black.withOpacity(0.25);
 
   // Certifications
   static const IC_GCP = 'ic_gcp.png';
@@ -36,5 +36,5 @@ class Constants {
   static const SERVER_FAILURE_MSG = "Server Failure";
   static const CACHE_FAILURE_MSG = "Cache Failure";
   static const UNKNOWN_ERROR_MSG = "Unknown Error";
-  static const biometricAuthError = "Biometric Auth Error";
+  static const BIOMETRIC_AUTH_ERROR = "Biometric Auth Error";
 }

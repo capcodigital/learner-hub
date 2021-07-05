@@ -38,7 +38,7 @@ class OnBoardingBloc extends Bloc<OnBoardingEvent, OnBoardingState> {
   Stream<OnBoardingState> getState(Either<Failure, bool> arg) async* {
     yield arg.fold(
       (failure) => failure is AuthExpirationFailure ? Expired() :
-      Error(message: Constants.biometricAuthError),
+      Error(message: Constants.BIOMETRIC_AUTH_ERROR),
       (result) => result ? Completed() : Error(message: Constants.UNKNOWN_ERROR_MSG),
     );
   }

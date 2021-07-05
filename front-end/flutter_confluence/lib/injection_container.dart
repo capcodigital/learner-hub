@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 
 import 'core/time/time_info.dart';
 import 'features/certifications/domain/usecases/search_certifications.dart';
-import 'features/onboarding/data/datasources/on_boarding_data_source.dart';
+import 'features/onboarding/data/datasources/on_boarding_local_data_source.dart';
 import 'features/onboarding/domain/repositories/on_boarding_repository.dart';
 import 'features/certifications/data/repositories/cloud_certifications_repository_impl.dart';
 import 'core/network/network_info.dart';
@@ -58,8 +58,8 @@ Future<void> init() async {
       () => CheckAuthUseCase(sl()));
   sl.registerLazySingleton<OnBoardingRepository>(
       () => OnBoardingRepositoryImpl(onBoardingDataSource: sl()));
-  sl.registerLazySingleton<OnBoardingDataSource>(
-      () => OnBoardingDataSourceImpl(auth: sl(), prefs: sl(), timeInfo: sl()));
+  sl.registerLazySingleton<OnBoardingLocalDataSource>(
+      () => OnBoardingLocalDataSourceImpl(auth: sl(), prefs: sl(), timeInfo: sl()));
 
   final sharedPreferences = await SharedPreferences.getInstance();
   sl.registerLazySingleton(() => sharedPreferences);

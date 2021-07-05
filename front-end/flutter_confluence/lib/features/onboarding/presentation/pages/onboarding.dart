@@ -209,7 +209,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
       borderRadius: BorderRadius.circular(card_radius),
       boxShadow: [
         BoxShadow(
-          color: Constants.black25,
+          color: Constants.BLACK_25,
           blurRadius: 3,
           offset: Offset(0.0, 3.0), // changes position of shadow
         ),

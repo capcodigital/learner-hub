@@ -2,11 +2,11 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/services.dart';
 
 import '../../../../core/error/failures.dart';
-import '../datasources/on_boarding_data_source.dart';
+import '../datasources/on_boarding_local_data_source.dart';
 import '../../domain/repositories/on_boarding_repository.dart';
 
 class OnBoardingRepositoryImpl extends OnBoardingRepository {
-  final OnBoardingDataSource onBoardingDataSource;
+  final OnBoardingLocalDataSource onBoardingDataSource;
 
   OnBoardingRepositoryImpl({required this.onBoardingDataSource});
 

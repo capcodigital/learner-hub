@@ -2,24 +2,24 @@ import 'package:flutter_confluence/core/time/time_info.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-abstract class OnBoardingDataSource {
+abstract class OnBoardingLocalDataSource {
   Future<bool> authenticate();
   Future<void> saveAuthTimeStamp();
   Future<bool> checkCachedAuth();
   Future<void> clearCachedAuth();
 }
 
-const prefLastBiometricAuthTimeMillis = "last_biometric_auth_time_millis";
-const oneDayMillis = 24 * 60 * 60 * 1000;
-const authReason = 'Please authenticate to proceed';
-const biometricAuthOnly = true;
+const PREF_LAST_BIOMETRIC_AUTH_TIME_MILLIS = "last_biometric_auth_time_millis";
+const ONE_DAY_MILLIS = 24 * 60 * 60 * 1000;
+const AUTH_REASON = 'Please authenticate to proceed';
+const BIOMETRIC_AUTH_ONLY = true;
 
-class OnBoardingDataSourceImpl extends OnBoardingDataSource {
+class OnBoardingLocalDataSourceImpl extends OnBoardingLocalDataSource {
   final LocalAuthentication auth;
   final SharedPreferences prefs;
   final TimeInfo timeInfo;
 
-  OnBoardingDataSourceImpl({
+  OnBoardingLocalDataSourceImpl({
     required this.auth,
     required this.prefs,
     required this.timeInfo});
@@ -27,28 +27,28 @@ class OnBoardingDataSourceImpl extends OnBoardingDataSource {
   @override
   Future<bool> authenticate() async {
     return await auth.authenticate(
-          localizedReason: authReason,
-          biometricOnly: biometricAuthOnly);
+          localizedReason: AUTH_REASON,
+          biometricOnly: BIOMETRIC_AUTH_ONLY);
   }
 
   @override
   Future<void> saveAuthTimeStamp() {
     return prefs.setInt(
-        prefLastBiometricAuthTimeMillis, timeInfo.currentTimeMillis);
+        PREF_LAST_BIOMETRIC_AUTH_TIME_MILLIS, timeInfo.currentTimeMillis);
   }
 
   @override
   Future<bool> checkCachedAuth() {
     bool isAuth = false;
-    int? lastAuthTime = prefs.getInt(prefLastBiometricAuthTimeMillis);
+    int? lastAuthTime = prefs.getInt(PREF_LAST_BIOMETRIC_AUTH_TIME_MILLIS);
     if (lastAuthTime != null) {
-      isAuth = timeInfo.currentTimeMillis - lastAuthTime <= oneDayMillis;
+      isAuth = timeInfo.currentTimeMillis - lastAuthTime <= ONE_DAY_MILLIS;
     }
     return Future.value(isAuth);
   }
 
   @override
   Future<void> clearCachedAuth() {
-    return prefs.remove(prefLastBiometricAuthTimeMillis);
+    return prefs.remove(PREF_LAST_BIOMETRIC_AUTH_TIME_MILLIS);
   }
 }
