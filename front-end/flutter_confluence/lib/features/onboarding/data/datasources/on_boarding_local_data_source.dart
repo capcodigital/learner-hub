@@ -1,4 +1,3 @@
-import 'package:flutter_confluence/core/time/time_info.dart';
 import 'package:flutter_confluence/core/utils/date_extensions.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,10 +17,9 @@ const BIOMETRIC_AUTH_ONLY = true;
 class OnBoardingLocalDataSourceImpl extends OnBoardingLocalDataSource {
   final LocalAuthentication auth;
   final SharedPreferences prefs;
-  final TimeInfo timeInfo;
 
   OnBoardingLocalDataSourceImpl(
-      {required this.auth, required this.prefs, required this.timeInfo});
+      {required this.auth, required this.prefs});
 
   @override
   Future<bool> authenticate() async {

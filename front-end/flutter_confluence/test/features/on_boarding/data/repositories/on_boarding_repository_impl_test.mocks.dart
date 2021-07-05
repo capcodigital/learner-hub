@@ -14,12 +14,12 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: prefer_const_constructors
 // ignore_for_file: unnecessary_parenthesis
 
-/// A class which mocks [OnBoardingDataSource].
+/// A class which mocks [OnBoardingLocalDataSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockOnBoardingDataSource extends _i1.Mock
+class MockOnBoardingLocalDataSource extends _i1.Mock
     implements _i2.OnBoardingLocalDataSource {
-  MockOnBoardingDataSource() {
+  MockOnBoardingLocalDataSource() {
     _i1.throwOnMissingStub(this);
   }
 

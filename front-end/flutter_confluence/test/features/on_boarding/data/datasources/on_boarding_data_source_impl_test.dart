@@ -1,4 +1,3 @@
-import 'package:flutter_confluence/core/time/time_info.dart';
 import 'package:flutter_confluence/core/utils/date_extensions.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:local_auth/local_auth.dart';
@@ -10,19 +9,17 @@ import 'package:flutter_confluence/features/onboarding/data/datasources/on_board
 
 import 'on_boarding_data_source_impl_test.mocks.dart';
 
-@GenerateMocks([SharedPreferences, LocalAuthentication, TimeInfo])
+@GenerateMocks([SharedPreferences, LocalAuthentication])
 void main() {
   late OnBoardingLocalDataSourceImpl dataSource;
   late MockSharedPreferences mockPrefs;
   late MockLocalAuthentication mockAuth;
-  late MockTimeInfo mockTimer;
 
   setUp(() {
     mockPrefs = MockSharedPreferences();
     mockAuth = MockLocalAuthentication();
-    mockTimer = MockTimeInfo();
     dataSource = OnBoardingLocalDataSourceImpl(
-        auth: mockAuth, prefs: mockPrefs, timeInfo: mockTimer);
+        auth: mockAuth, prefs: mockPrefs);
   });
 
   group('authenticate', () {

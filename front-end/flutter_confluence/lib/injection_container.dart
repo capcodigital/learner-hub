@@ -5,7 +5,6 @@ import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
-import 'core/time/time_info.dart';
 import 'features/certifications/domain/usecases/search_certifications.dart';
 import 'features/onboarding/data/datasources/on_boarding_local_data_source.dart';
 import 'features/onboarding/domain/repositories/on_boarding_repository.dart';
@@ -49,7 +48,6 @@ Future<void> init() async {
     () => NetworkInfoImpl(sl()),
   );
 
-  sl.registerLazySingleton<TimeInfo>(() => TimeInfoImpl());
   sl.registerFactory(
       () => OnBoardingBloc(authUseCase: sl(), checkAuthUseCase: sl()));
   sl.registerLazySingleton<AuthUseCase>(
@@ -59,7 +57,7 @@ Future<void> init() async {
   sl.registerLazySingleton<OnBoardingRepository>(
       () => OnBoardingRepositoryImpl(onBoardingDataSource: sl()));
   sl.registerLazySingleton<OnBoardingLocalDataSource>(
-      () => OnBoardingLocalDataSourceImpl(auth: sl(), prefs: sl(), timeInfo: sl()));
+      () => OnBoardingLocalDataSourceImpl(auth: sl(), prefs: sl()));
 
   final sharedPreferences = await SharedPreferences.getInstance();
   sl.registerLazySingleton(() => sharedPreferences);

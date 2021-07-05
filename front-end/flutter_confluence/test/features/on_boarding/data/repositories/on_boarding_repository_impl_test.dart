@@ -11,10 +11,10 @@ import 'on_boarding_repository_impl_test.mocks.dart';
 @GenerateMocks([OnBoardingLocalDataSource])
 void main() {
   late OnBoardingRepositoryImpl repository;
-  late MockOnBoardingDataSource mockDataSource;
+  late MockOnBoardingLocalDataSource mockDataSource;
 
   setUp(() {
-    mockDataSource = MockOnBoardingDataSource();
+    mockDataSource = MockOnBoardingLocalDataSource();
     repository = OnBoardingRepositoryImpl(onBoardingDataSource: mockDataSource);
   });
 

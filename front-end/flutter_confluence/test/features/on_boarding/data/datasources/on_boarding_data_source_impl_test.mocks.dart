@@ -4,7 +4,6 @@
 
 import 'dart:async' as _i3;
 
-import 'package:flutter_confluence/core/time/time_info.dart' as _i6;
 import 'package:local_auth/auth_strings.dart' as _i5;
 import 'package:local_auth/local_auth.dart' as _i4;
 import 'package:mockito/mockito.dart' as _i1;
@@ -155,18 +154,4 @@ class MockLocalAuthentication extends _i1.Mock
               returnValue:
                   Future<List<_i4.BiometricType>>.value(<_i4.BiometricType>[]))
           as _i3.Future<List<_i4.BiometricType>>);
-}
-
-/// A class which mocks [TimeInfo].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockTimeInfo extends _i1.Mock implements _i6.TimeInfo {
-  MockTimeInfo() {
-    _i1.throwOnMissingStub(this);
-  }
-
-  @override
-  int get currentTimeMillis =>
-      (super.noSuchMethod(Invocation.getter(#currentTimeMillis), returnValue: 0)
-          as int);
 }
