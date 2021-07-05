@@ -6,7 +6,14 @@ import '../../../certifications/presentation/pages/home_page.dart';
 import '../../../../core/constants.dart';
 import '../bloc/on_boarding_bloc.dart';
 
-class OnBoardingPage extends StatelessWidget {
+class OnBoardingPage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return new _OnBoardingPageState();
+  }
+}
+
+class _OnBoardingPageState extends State<OnBoardingPage> {
   static const msgTrainingTypes = "Training Types";
   static const msgCardDescription =
       "See the name, the date, the title of certification";
@@ -33,6 +40,8 @@ class OnBoardingPage extends StatelessWidget {
   static const frontLayerLeft = 88.0;
   static const frontLayerTop = 270.0;
 
+  var isCheckingCachedAuth = true;
+
   void authenticate(BuildContext context) {
     BlocProvider.of<OnBoardingBloc>(context).add(AuthEvent());
   }
@@ -50,13 +59,29 @@ class OnBoardingPage extends StatelessWidget {
       BuildContext context) {
     return BlocListener<OnBoardingBloc, OnBoardingState>(
       listener: (ctx, state) {
-        if (state is Completed) openHomePage(ctx);
+        if (state is Completed) {
+          openHomePage(ctx);
+        } else if (state is Expired) {
+          setState(() {
+            isCheckingCachedAuth = false;
+          });
+        }
       },
-      child: buildBackgroundedBody(context),
+      child: buildPageBody(context),
     );
   }
 
-  Widget buildBackgroundedBody(BuildContext context) {
+  Widget buildPageBody(BuildContext context) {
+    // If user is already authenticated, Onboarding screen may still
+    // be shown for a while before HomePage opens. To solve this we
+    // hide the Scaffold until cached auth check completes.
+    if (isCheckingCachedAuth)
+      return buildLoadingView();
+    else
+      return buildDecoratedBody(context);
+  }
+
+  Widget buildDecoratedBody(BuildContext context) {
     return Container(
         constraints: BoxConstraints.expand(),
         decoration: BoxDecoration(
@@ -151,7 +176,8 @@ class OnBoardingPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   buildPlatformIcon(Constants.IC_CLOUD_NATIVE),
-                  buildPlatformIconPlaceHolder()
+                  buildInvisibleWidget(
+                      buildPlatformIcon(Constants.IC_CLOUD_NATIVE))
                 ],
               ),
             ],
@@ -242,10 +268,10 @@ class OnBoardingPage extends StatelessWidget {
     );
   }
 
-  Widget buildPlatformIconPlaceHolder() {
+  Widget buildInvisibleWidget(Widget child) {
     return Opacity(
       opacity: 0.0,
-      child: buildPlatformIcon(Constants.IC_CLOUD_NATIVE),
+      child: child,
     );
   }
 
@@ -253,6 +279,12 @@ class OnBoardingPage extends StatelessWidget {
     return Container(
       child: Image.asset('assets/$iconName'),
       margin: EdgeInsets.only(top: marginTop),
+    );
+  }
+
+  Widget buildLoadingView() {
+    return Center(
+      child: Text("Checking user authentication..."),
     );
   }
 }

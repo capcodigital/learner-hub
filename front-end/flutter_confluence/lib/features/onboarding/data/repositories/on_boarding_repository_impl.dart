@@ -24,6 +24,6 @@ class OnBoardingRepositoryImpl extends OnBoardingRepository {
   @override
   Future<Either<Failure, bool>> checkCachedAuth() async {
     final result = await onBoardingDataSource.checkCachedAuth();
-    return result ? Right(true) : Left(AuthFailure());
+    return result ? Right(true) : Left(AuthExpirationFailure());
   }
 }

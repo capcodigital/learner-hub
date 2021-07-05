@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_confluence/core/constants.dart';
 import 'package:flutter_confluence/features/onboarding/domain/usecases/check_auth_use_case.dart';
 
 import '../../../../core/error/failures.dart';
@@ -25,19 +26,21 @@ class OnBoardingBloc extends Bloc<OnBoardingEvent, OnBoardingState> {
     if (event is AuthEvent) {
       yield Loading();
       final result = await authUseCase(NoParams());
-      yield* _getState(result);
+      yield* getState(result);
     }
     if (event is CheckAuthEvent) {
       yield Loading();
       final result = await checkAuthUseCase(NoParams());
-      yield* _getState(result);
+      yield* getState(result);
     }
   }
 
-  Stream<OnBoardingState> _getState(Either<Failure, bool> arg) async* {
+  Stream<OnBoardingState> getState(Either<Failure, bool> arg) async* {
     yield arg.fold(
-      (failure) => Error(message: "error"),
-      (result) => result ? Completed() : Error(message: 'error'),
+      (failure) => failure is AuthExpirationFailure ? Expired() :
+      Error(message: Constants.biometricAuthError),
+      (result) => result ? Completed() : Error(message: Constants.UNKNOWN_ERROR_MSG),
     );
   }
+
 }

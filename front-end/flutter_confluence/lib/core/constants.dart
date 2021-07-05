@@ -36,4 +36,5 @@ class Constants {
   static const SERVER_FAILURE_MSG = "Server Failure";
   static const CACHE_FAILURE_MSG = "Cache Failure";
   static const UNKNOWN_ERROR_MSG = "Unknown Error";
+  static const biometricAuthError = "Biometric Auth Error";
 }

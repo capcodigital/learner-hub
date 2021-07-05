@@ -13,6 +13,8 @@ class Loading extends OnBoardingState {}
 
 class Completed extends OnBoardingState {}
 
+class Expired extends OnBoardingState {}
+
 class Error extends OnBoardingState {
   final String message;
 
