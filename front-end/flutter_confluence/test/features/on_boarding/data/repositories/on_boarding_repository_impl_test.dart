@@ -62,7 +62,7 @@ void main() {
           final result = await repository.checkCachedAuth();
           // assert
           verify(mockDataSource.checkCachedAuth()).called(1);
-          expect(result, equals(Left(AuthFailure())));
+          expect(result, equals(Left(AuthExpirationFailure())));
         });
   });
 }

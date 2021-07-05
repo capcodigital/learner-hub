@@ -42,7 +42,7 @@ class OnBoardingDataSourceImpl extends OnBoardingDataSource {
     bool isAuth = false;
     int? lastAuthTime = prefs.getInt(prefLastBiometricAuthTimeMillis);
     if (lastAuthTime != null) {
-      isAuth = timeInfo.currentTimeMillis - lastAuthTime < oneDayMillis;
+      isAuth = timeInfo.currentTimeMillis - lastAuthTime <= oneDayMillis;
     }
     return Future.value(isAuth);
   }

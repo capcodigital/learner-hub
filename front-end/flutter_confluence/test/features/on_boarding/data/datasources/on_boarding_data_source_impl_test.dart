@@ -101,7 +101,7 @@ void main() {
       () async {
         // arrange
         when(mockPrefs.getInt(any)).thenReturn(1000);
-        when(mockTimer.currentTimeMillis).thenReturn(oneDayMillis + 1000);
+        when(mockTimer.currentTimeMillis).thenReturn(oneDayMillis + 1100);
         // act
         final result = await dataSource.checkCachedAuth();
         // assert

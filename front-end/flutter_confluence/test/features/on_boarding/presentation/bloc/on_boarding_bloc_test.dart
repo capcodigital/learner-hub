@@ -1,5 +1,6 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:dartz/dartz.dart';
+import 'package:flutter_confluence/core/constants.dart';
 import 'package:flutter_confluence/core/usecases/usecase.dart';
 import 'package:flutter_confluence/features/onboarding/domain/usecases/auth_use_case.dart';
 import 'package:flutter_confluence/features/onboarding/domain/usecases/check_auth_use_case.dart';
@@ -21,9 +22,9 @@ void main() {
     Completed(),
   ];
 
-  final orderFailure = [
+  final orderFailedUnknownError = [
     Loading(),
-    Error(message: 'error'),
+    Error(message: Constants.UNKNOWN_ERROR_MSG),
   ];
 
   setUp(() {
@@ -40,7 +41,7 @@ void main() {
 
   group('AuthEvent', () {
 
-    void stabMockAuthCase(bool result) {
+    void stubMockAuthCase(bool result) {
       when(mockAuthCase(any)).thenAnswer((_) async => Right(result));
     }
 
@@ -48,7 +49,7 @@ void main() {
       'Should call the Authentication use case',
       () async {
         // arrange
-        stabMockAuthCase(true);
+        stubMockAuthCase(true);
         // act
         bloc.add((AuthEvent()));
         await untilCalled(mockAuthCase(any));
@@ -60,7 +61,7 @@ void main() {
     blocTest(
       'should emit Loading, Completed',
       build: () {
-        stabMockAuthCase(true);
+        stubMockAuthCase(true);
         return bloc;
       },
       act: (OnBoardingBloc bloc) =>
@@ -71,12 +72,12 @@ void main() {
     blocTest(
       'should emit Loading, Error',
       build: () {
-        stabMockAuthCase(false);
+        stubMockAuthCase(false);
         return bloc;
       },
       act: (OnBoardingBloc bloc) =>
       {bloc.add(AuthEvent())},
-      expect: () => orderFailure,
+      expect: () => orderFailedUnknownError,
     );
 
   });
@@ -119,7 +120,7 @@ void main() {
       },
       act: (OnBoardingBloc bloc) =>
       {bloc.add(CheckAuthEvent())},
-      expect: () => orderFailure,
+      expect: () => orderFailedUnknownError,
     );
 
   });
