@@ -17,7 +17,6 @@ class OnBoardingRepositoryImpl extends OnBoardingRepository {
       onBoardingDataSource.saveAuthTimeStamp();
       return Right(true);
     }
-    onBoardingDataSource.clearCachedAuth();
     return Left(AuthFailure());
   }
 

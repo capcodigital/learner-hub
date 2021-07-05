@@ -120,18 +120,4 @@ void main() {
     );
   });
 
-  group('clearCachedAuth', () {
-    test(
-      'Should clear cached auth timestamp',
-      () async {
-        // arrange
-        when(mockPrefs.remove(any)).thenAnswer((_) => Future.value(true));
-        // act
-        await dataSource.clearCachedAuth();
-        // assert
-        verify(mockPrefs.remove(PREF_LAST_BIOMETRIC_AUTH_TIME_MILLIS))
-            .called(1);
-      },
-    );
-  });
 }

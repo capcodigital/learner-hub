@@ -6,11 +6,9 @@ abstract class OnBoardingLocalDataSource {
   Future<bool> authenticate();
   Future<void> saveAuthTimeStamp();
   Future<bool> checkCachedAuth();
-  Future<void> clearCachedAuth();
 }
 
 const PREF_LAST_BIOMETRIC_AUTH_TIME_MILLIS = "last_biometric_auth_time_millis";
-const ONE_DAY_MILLIS = 24 * 60 * 60 * 1000;
 const AUTH_REASON = 'Please authenticate to proceed';
 const BIOMETRIC_AUTH_ONLY = true;
 
@@ -45,8 +43,4 @@ class OnBoardingLocalDataSourceImpl extends OnBoardingLocalDataSource {
     return Future.value(false);
   }
 
-  @override
-  Future<void> clearCachedAuth() {
-    return prefs.remove(PREF_LAST_BIOMETRIC_AUTH_TIME_MILLIS);
-  }
 }

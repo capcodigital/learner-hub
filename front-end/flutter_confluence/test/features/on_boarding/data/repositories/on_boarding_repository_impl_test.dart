@@ -28,18 +28,6 @@ void main() {
       verify(mockDataSource.saveAuthTimeStamp()).called(1);
       expect(result, equals(Right(true)));
     });
-
-    test('Should delete cached timeStamp and return false on auth failure',
-        () async {
-      // arrange
-      when(mockDataSource.authenticate())
-          .thenAnswer((_) => Future.value(false));
-      // act
-      final result = await repository.authenticate();
-      // assert
-      verify(mockDataSource.clearCachedAuth()).called(1);
-      expect(result, equals(Left(AuthFailure())));
-    });
   });
 
   group('checkCachedAuth', () {
