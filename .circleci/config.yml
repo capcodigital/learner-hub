@@ -44,24 +44,29 @@ jobs:
           name: check flutter requirements
           command: flutter doctor -v
       - run:
+          name: Create workspace folder
+          command: mkdir -p ~/tmp/workspace
+      - run:
           name: build android app
           command: flutter -v build apk
           working_directory: ~/project/front-end/flutter_confluence
       - run:
           name: copy
-          command: cp build/app/outputs/flutter-apk/*.apk /tmp/workspace/android
+          command: |
+            mkdir mkdir -p ~/tmp/workspace/android
+            cp -r ~/project/front-end/flutter_confluence/build/app/outputs/apk/release/*.apk ~/tmp/workspace/android
           working_directory: ~/project/front-end/flutter_confluence
       - persist_to_workspace:
-          root: /tmp/workspace
+          root: /tmp/workspace/android
           paths:
-            - android
+            - .
       - run:
           name: build web app
           command: flutter -v build web
           working_directory: ~/project/front-end/flutter_confluence
       - run:
           name: copy
-          command: cp -r build/web /tmp/workspace/web
+          command: cp -r build/web ~/tmp/workspace
           working_directory: ~/project/front-end/flutter_confluence
       - persist_to_workspace:
           root: /tmp/workspace
