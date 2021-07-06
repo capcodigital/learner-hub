@@ -47,24 +47,16 @@ jobs:
           name: build android app
           command: flutter -v build apk
           working_directory: ~/project/front-end/flutter_confluence
-      - run:
-          name: copy
-          command: cp build/app/outputs/flutter-apk/app-release.apk /tmp/workspace/
-          working_directory: ~/project/front-end/flutter_confluence
       - persist_to_workspace:
-          root: /tmp/workspace
+          root: ~/project/front-end/flutter_confluence/build
           paths:
             - android
       - run:
           name: build web app
           command: flutter -v build web
           working_directory: ~/project/front-end/flutter_confluence
-      - run:
-          name: copy
-          command: cp -r build/web /tmp/workspace/web /tmp/workspace/
-          working_directory: ~/project/front-end/flutter_confluence
       - persist_to_workspace:
-          root: /tmp/workspace
+          root: ~/project/front-end/flutter_confluence/build
           paths:
             - web
 
@@ -73,7 +65,7 @@ jobs:
       - image: "google/cloud-sdk:345.0.0-slim"
     steps:
       - attach_workspace:
-          at: /tmp/workspace
+          at: ~/project/front-end/flutter_confluence/build
       - checkout
       - run:
           name: add gcp key
@@ -85,8 +77,11 @@ jobs:
           name: set the gcp project
           command: gcloud config set project ${GOOGLE_PROJECT}
       - run:
-          name: upload app to gcs
-          command: gsutil cp /tmp/workspace/app.apk gs://${GOOGLE_PROJECT}-build
+          name: upload android app to gcs
+          command: gsutil cp ~/project/front-end/flutter_confluence/build/app/outputs/apk/release/app-release.apk gs://${GOOGLE_PROJECT}-build
+      - run:
+          name: upload web app to gcs
+          command: gsutil cp -r ~/project/front-end/flutter_confluence/build/web gs://${GOOGLE_PROJECT}-build
 
 workflows:
   version: 2
