@@ -8,6 +8,8 @@ import 'package:flutter_confluence/data/datasources/cloud_certification_local_da
 import 'package:flutter_confluence/data/datasources/cloud_certification_remote_data_source.dart';
 import 'package:flutter_confluence/data/models/cloud_certification_model.dart';
 import 'package:flutter_confluence/data/repositories/cloud_certifications_repository_impl.dart';
+import 'package:flutter_confluence/domain/entities/cloud_certification_type.dart';
+import 'package:flutter_confluence/presentation/bloc/cloud_certification_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -27,8 +29,7 @@ void main() {
   late MockNetworkInfo mockNetworkInfo;
 
   final remoteCertifications =
-      (json.decode(fixture('completed.json')) as Map<String, dynamic>)
-          .values
+      (json.decode(fixture('completed.json')) as List)
           .map((e) => CloudCertificationModel.fromJson(e))
           .toList();
 
@@ -80,7 +81,7 @@ void main() {
       when(mockRemoteDataSource.getCompletedCertifications())
           .thenAnswer((_) async => remoteCertifications);
       // act
-      final certifications = await repository.getCompletedCertifications();
+      await repository.getCompletedCertifications();
       // assert
       verify(mockRemoteDataSource.getCompletedCertifications());
       verify(mockLocalDataSource
@@ -120,7 +121,7 @@ void main() {
       when(mockRemoteDataSource.getInProgressCertifications())
           .thenAnswer((_) async => remoteCertifications);
       // act
-      final certifications = await repository.getInProgressCertifications();
+      await repository.getInProgressCertifications();
       // assert
       verify(mockRemoteDataSource.getInProgressCertifications());
       verify(mockLocalDataSource
@@ -140,7 +141,7 @@ void main() {
           .thenAnswer((_) async => localCertifications);
 
       // act
-      var certifications = await repository.getCompletedCertifications();
+      await repository.getCompletedCertifications();
 
       // assert
       verifyZeroInteractions(mockRemoteDataSource);
@@ -154,7 +155,7 @@ void main() {
           .thenAnswer((_) async => localCertifications);
 
       // act
-      var certifications = await repository.getInProgressCertifications();
+      await repository.getInProgressCertifications();
 
       // assert
       verifyZeroInteractions(mockRemoteDataSource);
@@ -197,6 +198,96 @@ void main() {
       verifyZeroInteractions(mockRemoteDataSource);
       verify(mockLocalDataSource.getCompletedCertifications());
       expect(certifications, equals(Left(CacheFailure())));
+    });
+  });
+
+  group('searchTests', () {
+    test(
+        'should return a failure when search is called and cache is empty',
+            () async {
+          //arrange
+          when(mockLocalDataSource.getCompletedCertifications())
+              .thenThrow(CacheException());
+
+          // act
+          var result = await repository.searchCertifications("search term", CloudCertificationType.completed);
+
+          // assert
+          verify(mockLocalDataSource.getCompletedCertifications());
+          expect(result, equals(Left(CacheFailure())));
+        });
+
+    test(
+        'should return all data when cache is not empty and search term is empty',
+            () async {
+          //arrange
+              when(mockLocalDataSource.getCompletedCertifications())
+                  .thenAnswer((_) async => localCertifications);
+
+          // act
+          var result = await repository.searchCertifications("", CloudCertificationType.completed);
+
+          // assert
+          verify(mockLocalDataSource.getCompletedCertifications());
+          expect(result, equals(Right(localCertifications)));
+        });
+
+    test('should return empty list when cannot find data', () async {
+      //arrange
+      when(mockLocalDataSource.getCompletedCertifications()).thenAnswer((_) async => localCertifications);
+
+      // act
+      var result = await repository.searchCertifications("notfoundstring", CloudCertificationType.completed);
+
+      // assert
+      verify(mockLocalDataSource.getCompletedCertifications());
+      result.fold((failure) => throwsAssertionError, (certifications) {
+        expect(certifications.length, 0);
+      });
+    });
+
+    test('should return filtered data by certification name', () async {
+      //arrange
+      when(mockLocalDataSource.getCompletedCertifications()).thenAnswer((_) async => localCertifications);
+
+      // act
+      var result = await repository.searchCertifications("Kenobi", CloudCertificationType.completed);
+
+      // assert
+      verify(mockLocalDataSource.getCompletedCertifications());
+      result.fold((failure) => throwsAssertionError, (certifications) {
+        expect(certifications.length, 1);
+      });
+    });
+
+    test('should return filtered data by certification type', () async {
+      //arrange
+      when(mockLocalDataSource.getCompletedCertifications())
+          .thenAnswer((_) async => localCertifications);
+
+      // act
+      var result = await repository.searchCertifications("star", CloudCertificationType.completed);
+
+      // assert
+      verify(mockLocalDataSource.getCompletedCertifications());
+      result.fold((failure) => throwsAssertionError, (certifications) {
+        expect(certifications.length, 1);
+      });
+    });
+
+    test('should return filtered data by certification platform', () async {
+      //arrange
+      when(mockLocalDataSource.getCompletedCertifications())
+          .thenAnswer((_) async => localCertifications);
+
+      // act
+      var result = await repository.searchCertifications("Jedi", CloudCertificationType.completed);
+
+      // assert
+      verify(mockLocalDataSource.getCompletedCertifications());
+      result.fold((failure) => throwsAssertionError, (certifications) {
+        expect(certifications.length, 1);
+      });
     });
   });
 }

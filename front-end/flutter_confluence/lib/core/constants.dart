@@ -3,6 +3,7 @@ import 'dart:ui';
 class Constants {
   // Colors
   static const JIRA_COLOR = const Color(0xff0052CC);
+  static const BLACK_75 = const Color(0xBF000000);
 
   // Certifications
   static const IC_GCP = 'ic_gcp.png';
@@ -15,6 +16,7 @@ class Constants {
   static const GCP = 'gcp';
   static const AZURE = 'azure';
   static const CLOUD_NATIVE = 'cloud native foundation';
+  static const CNCF = 'cncf';
   static const HASHICORP = 'hashicorp';
   static const AWS = 'aws';
 
