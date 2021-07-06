@@ -7,8 +7,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-class MockCloudCertificationRepository extends Mock
-    implements CloudCertificationRepository {}
+import 'get_completed_certification_test.mocks.dart';
 
 @GenerateMocks([CloudCertificationRepository])
 void main() {
@@ -20,13 +19,15 @@ void main() {
     usecase = GetCompletedCertifications(mockCloudCertificationRepository);
   });
 
-  final tCloudCertification = CloudCertification(
-      name: 'Joshua',
-      platform: 'GCP',
-      certificationType: 'Azure',
-      certificationDate: '2021/05/26') as List<CloudCertification>;
+  final tCloudCertification = [
+    CloudCertification(
+        name: 'Joshua',
+        platform: 'GCP',
+        certificationType: 'Azure',
+        certificationDate: '2021/05/26')
+  ];
 
-  test('should add completed cloud certification objects to the repository',
+  test('should get completed cloud certifications from the repository',
       () async {
     // arrange
     when(mockCloudCertificationRepository.getCompletedCertifications())
@@ -36,5 +37,6 @@ void main() {
     // assert
     expect(result, Right(tCloudCertification));
     verify(mockCloudCertificationRepository.getCompletedCertifications());
+    verifyNoMoreInteractions(mockCloudCertificationRepository);
   });
 }

@@ -7,8 +7,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-class MockCloudCertificationRepository extends Mock
-    implements CloudCertificationRepository {}
+import 'get_completed_certification_test.mocks.dart';
 
 @GenerateMocks([CloudCertificationRepository])
 void main() {
@@ -20,13 +19,15 @@ void main() {
     usecase = GetInProgressCertifications(mockCloudCertificationRepository);
   });
 
-  final tCloudCertification = CloudCertification(
-      name: 'Jason',
-      platform: 'GCP',
-      certificationType: 'Azure',
-      certificationDate: '2022/01/25') as List<CloudCertification>;
+  final tCloudCertification = [
+    CloudCertification(
+        name: 'Jason',
+        platform: 'GCP',
+        certificationType: 'Azure',
+        certificationDate: '2022/01/25')
+  ];
 
-  test('should add in progress cloud certification objects to the repository',
+  test('should get in-progress cloud certifications from the repository',
       () async {
     // arrange
     when(mockCloudCertificationRepository.getInProgressCertifications())
@@ -36,5 +37,6 @@ void main() {
     // assert
     expect(result, Right(tCloudCertification));
     verify(mockCloudCertificationRepository.getInProgressCertifications());
+    verifyNoMoreInteractions(mockCloudCertificationRepository);
   });
 }
