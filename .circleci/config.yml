@@ -24,7 +24,7 @@ jobs:
 
   tests:
     docker:
-      - image: "cirrusci/flutter:2.2.2"
+      - image: "cirrusci/flutter:2.2.3"
     steps:
       - checkout
       - run:
@@ -37,7 +37,7 @@ jobs:
 
   build:
     docker:
-      - image: "cirrusci/flutter:2.2.2"
+      - image: "cirrusci/flutter:2.2.3"
     steps:
       - checkout
       - run:
