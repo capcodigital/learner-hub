@@ -49,7 +49,7 @@ jobs:
           working_directory: ~/project/front-end/flutter_confluence
       - run:
           name: copy
-          command: cp build/app/outputs/flutter-apk/.apk /tmp/workspace/
+          command: cp build/app/outputs/flutter-apk/app-release.apk /tmp/workspace/
           working_directory: ~/project/front-end/flutter_confluence
       - persist_to_workspace:
           root: /tmp/workspace
