@@ -54,7 +54,7 @@ jobs:
           name: copy
           command: |
             mkdir mkdir -p ~/tmp/workspace/android
-            cp -r ~/project/front-end/flutter_confluence/build/app/outputs/apk/release/*.apk ~/tmp/workspace/android
+            cp build/app/outputs/apk/release/*.apk ~/tmp/workspace/android
           working_directory: ~/project/front-end/flutter_confluence
       - persist_to_workspace:
           root: /tmp/workspace/android
