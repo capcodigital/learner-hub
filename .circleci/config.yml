@@ -49,7 +49,7 @@ jobs:
           working_directory: ~/project/front-end/flutter_confluence
       - run:
           name: copy
-          command: cp build/app/outputs/flutter-apk/*.apk /tmp/workspace/android
+          command: cp build/app/outputs/flutter-apk/.apk /tmp/workspace/
           working_directory: ~/project/front-end/flutter_confluence
       - persist_to_workspace:
           root: /tmp/workspace
@@ -61,7 +61,7 @@ jobs:
           working_directory: ~/project/front-end/flutter_confluence
       - run:
           name: copy
-          command: cp -r build/web /tmp/workspace/web
+          command: cp -r build/web /tmp/workspace/web /tmp/workspace/
           working_directory: ~/project/front-end/flutter_confluence
       - persist_to_workspace:
           root: /tmp/workspace
