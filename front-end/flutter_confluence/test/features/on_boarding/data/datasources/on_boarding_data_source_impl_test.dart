@@ -18,17 +18,29 @@ void main() {
   setUp(() {
     mockPrefs = MockSharedPreferences();
     mockAuth = MockLocalAuthentication();
-    dataSource = OnBoardingLocalDataSourceImpl(
-        auth: mockAuth, prefs: mockPrefs);
+    dataSource =
+        OnBoardingLocalDataSourceImpl(auth: mockAuth, prefs: mockPrefs);
   });
 
   group('authenticate', () {
     void mockAuthenticateCall(bool result) {
       when(mockAuth.authenticate(
-              localizedReason: AUTH_REASON, biometricOnly: BIOMETRIC_AUTH_ONLY))
+              localizedReason: AUTH_REASON,
+              biometricOnly: BIOMETRIC_AUTH_ONLY,
+              stickyAuth: true,
+              useErrorDialogs: false))
           .thenAnswer((_) async {
         return result;
       });
+    }
+
+    void verifyAuthCallDone() {
+      verify(mockAuth.authenticate(
+              localizedReason: AUTH_REASON,
+              biometricOnly: BIOMETRIC_AUTH_ONLY,
+              stickyAuth: STICKY_AUTH,
+              useErrorDialogs: USE_ERROR_DIALOGS))
+          .called(1);
     }
 
     test(
@@ -39,10 +51,7 @@ void main() {
         // act
         final result = await dataSource.authenticate();
         // assert
-        verify(mockAuth.authenticate(
-                localizedReason: AUTH_REASON,
-                biometricOnly: BIOMETRIC_AUTH_ONLY))
-            .called(1);
+        verifyAuthCallDone();
         expect(result, equals(true));
       },
     );
@@ -55,10 +64,7 @@ void main() {
         // act
         final result = await dataSource.authenticate();
         // assert
-        verify(mockAuth.authenticate(
-                localizedReason: AUTH_REASON,
-                biometricOnly: BIOMETRIC_AUTH_ONLY))
-            .called(1);
+        verifyAuthCallDone();
         expect(result, equals(false));
       },
     );
@@ -119,5 +125,4 @@ void main() {
       },
     );
   });
-
 }

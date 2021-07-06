@@ -24,7 +24,7 @@ void main() {
 
   final orderFailedUnknownError = [
     Loading(),
-    Error(message: Constants.UNKNOWN_ERROR_MSG),
+    Error(message: BIO_AUTH_DEFAULT_AUTH_FAILED),
   ];
 
   setUp(() {
@@ -59,7 +59,7 @@ void main() {
     );
 
     blocTest(
-      'should emit Loading, Completed',
+      'Should emit Loading, Completed',
       build: () {
         stubMockAuthCase(true);
         return bloc;
@@ -70,7 +70,7 @@ void main() {
     );
 
     blocTest(
-      'should emit Loading, Error',
+      'Should emit Loading, Error',
       build: () {
         stubMockAuthCase(false);
         return bloc;
@@ -102,7 +102,7 @@ void main() {
     );
 
     blocTest(
-      'should emit Loading, Completed',
+      'Should emit Loading, Completed',
       build: () {
         stabMockCheckAuthCase(true);
         return bloc;
@@ -113,7 +113,7 @@ void main() {
     );
 
     blocTest(
-      'should emit Loading, Error',
+      'Should emit Loading, Error',
       build: () {
         stabMockCheckAuthCase(false);
         return bloc;
