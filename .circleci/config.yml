@@ -44,16 +44,29 @@ jobs:
           name: check flutter requirements
           command: flutter doctor -v
       - run:
+          name: Create workspace folder
+          command: mkdir -p ~/tmp/workspace
+      - run:
           name: build android app
           command: flutter -v build apk
           working_directory: ~/project/front-end/flutter_confluence
+      - run:
+          name: copy
+          command: |
+            mkdir mkdir -p ~/tmp/workspace/android
+            cp build/app/outputs/apk/release/*.apk ~/tmp/workspace/android
+          working_directory: ~/project/front-end/flutter_confluence
       - persist_to_workspace:
-          root: ~/project/front-end/flutter_confluence/build
+          root: /tmp/workspace/android
           paths:
-            - android
+            - .
       - run:
           name: build web app
           command: flutter -v build web
+          working_directory: ~/project/front-end/flutter_confluence
+      - run:
+          name: copy
+          command: cp -r build/web ~/tmp/workspace
           working_directory: ~/project/front-end/flutter_confluence
       - persist_to_workspace:
           root: ~/project/front-end/flutter_confluence/build
@@ -65,7 +78,7 @@ jobs:
       - image: "google/cloud-sdk:345.0.0-slim"
     steps:
       - attach_workspace:
-          at: ~/project/front-end/flutter_confluence/build
+          at: /tmp/workspace
       - checkout
       - run:
           name: add gcp key
