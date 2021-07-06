@@ -47,10 +47,18 @@ jobs:
           name: build android app
           command: flutter -v build apk
           working_directory: ~/project/front-end/flutter_confluence
+      - persist_to_workspace:
+          root: ~/project/front-end/flutter_confluence/build
+          paths:
+            - android
       - run:
           name: build web app
           command: flutter -v build web
           working_directory: ~/project/front-end/flutter_confluence
+      - persist_to_workspace:
+          root: ~/project/front-end/flutter_confluence/build
+          paths:
+            - web
 
   upload:
     docker:
