@@ -8,16 +8,9 @@ import '../../../certifications/presentation/pages/home_page.dart';
 import '../../../../core/constants.dart';
 import '../bloc/on_boarding_bloc.dart';
 
-class OnBoardingPage extends StatefulWidget {
+class OnBoardingPage extends StatelessWidget {
   static const route = "OnBoardingPage";
 
-  @override
-  State<StatefulWidget> createState() {
-    return new _OnBoardingPageState();
-  }
-}
-
-class _OnBoardingPageState extends State<OnBoardingPage> {
   static const msgTrainingTypes = "Training Types";
   static const msgCardDescription =
       "See the name, the date, the title of certification";
@@ -60,34 +53,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
   }
 
   Widget buildPageBody(BuildContext context) {
-    // If user is already authenticated, Onboarding screen may still
-    // be shown for a while before HomePage opens. To solve this we
-    // show a Loading Message until cached auth check completes.
-
-    // This doesn't really belong in the onboarding page, it's better to place this
-    // inside a separate widget (maybe in the main.dart file)?
-    // This is like a pre-loader for OnBoarding.
-    return BlocBuilder(
-      bloc: BlocProvider.of<OnBoardingBloc>(context),
-      builder: (context, state) {
-        print(state);
-        if (state is AuthError) {
-          return showCustomDialog(context, state.message, () {
-            // Navigator.of(context).pop();
-            // openOnBoardingPage(context);
-          });
-        }
-        if (state is Expired) {
-          return buildDecoratedBody(context);
-        }
-        if (state is Completed) {
-          return HomePage();
-        }
-        return Center(
-          child: CircularProgressIndicator(),
-        );
-      },
-    );
+    return buildDecoratedBody(context);
   }
 
   Widget buildDecoratedBody(BuildContext context) {

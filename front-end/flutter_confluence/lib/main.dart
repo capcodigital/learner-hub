@@ -1,8 +1,8 @@
-import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'core/constants.dart';
+import 'core/utils/error_messages.dart';
 import 'features/onboarding/presentation/bloc/on_boarding_bloc.dart';
 import 'features/onboarding/presentation/pages/on_boarding.dart';
 import 'features/certifications/presentation/pages/home_page.dart';
@@ -38,32 +38,58 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [
-        BlocProvider<CloudCertificationBloc>(
-          create: (_) => sl<CloudCertificationBloc>()
-            ..add(GetInProgressCertificationsEvent()),
-        ),
-        BlocProvider<OnBoardingBloc>(
-          create: (_) => sl<OnBoardingBloc>()..add(CheckAuthEvent()),
-        ),
-      ],
-      child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Flutter Demo',
-          theme: buildAppTheme(),
-          routes: {
-            HomePage.route: (context) => HomePage(),
-            OnBoardingPage.route: (context) => OnBoardingPage(),
-          },
-          home: OnBoardingPage()),
-    );
+        providers: [
+          BlocProvider<CloudCertificationBloc>(
+            create: (_) => sl<CloudCertificationBloc>()
+              ..add(GetInProgressCertificationsEvent()),
+          ),
+          BlocProvider<OnBoardingBloc>(
+            create: (_) => sl<OnBoardingBloc>()..add(CheckAuthEvent()),
+          ),
+        ],
+        child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'Flutter Demo',
+            theme: buildAppTheme(),
+            routes: {
+              HomePage.route: (context) => HomePage(),
+              OnBoardingPage.route: (context) => OnBoardingPage(),
+            },
+            home: PreLoadWidget()));
   }
 }
 
-void openHomePage(BuildContext context) {
-  Navigator.pushNamed(context, HomePage.route);
-}
+class PreLoadWidget extends StatelessWidget {
+  void openHomePage(BuildContext context) {
+    Navigator.pushNamed(context, HomePage.route);
+  }
 
-void openOnBoardingPage(BuildContext context) {
-  Navigator.pushNamed(context, OnBoardingPage.route);
+  void openOnBoardingPage(BuildContext context) {
+    Navigator.pushNamed(context, OnBoardingPage.route);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder(
+      bloc: BlocProvider.of<OnBoardingBloc>(context),
+      builder: (context, state) {
+        print(state);
+        if (state is AuthError) {
+          final dialog = showCustomDialog(context, state.message, () {
+            openOnBoardingPage(context);
+          });
+          return Scaffold(body: dialog);
+        }
+        if (state is Expired) {
+          return OnBoardingPage();
+        }
+        if (state is Completed) {
+          return HomePage();
+        }
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
+  }
 }

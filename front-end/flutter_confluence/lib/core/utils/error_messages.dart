@@ -5,9 +5,7 @@ import 'package:flutter/material.dart';
 const authErrorDialogBtnWidth = 132.0;
 
 Widget showCustomDialog(
-    BuildContext context,
-    String message,
-    Function? okCallback) {
+    BuildContext context, String message, Function? okCallback) {
   return Container(
     child: AlertDialog(
       content: Column(
