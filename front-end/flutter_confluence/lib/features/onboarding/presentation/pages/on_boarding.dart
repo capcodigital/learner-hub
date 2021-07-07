@@ -53,7 +53,15 @@ class OnBoardingPage extends StatelessWidget {
   }
 
   Widget buildPageBody(BuildContext context) {
-    return buildDecoratedBody(context);
+    return BlocListener(
+      bloc: BlocProvider.of<OnBoardingBloc>(context),
+      listener: (context, state) {
+        if (state is AuthError) {
+          showAlertDialog(context, state.message);
+        }
+      },
+      child: buildDecoratedBody(context),
+    );
   }
 
   Widget buildDecoratedBody(BuildContext context) {

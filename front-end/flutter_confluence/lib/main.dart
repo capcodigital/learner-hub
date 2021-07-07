@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'core/constants.dart';
-import 'core/utils/error_messages.dart';
 import 'features/onboarding/presentation/bloc/on_boarding_bloc.dart';
 import 'features/onboarding/presentation/pages/on_boarding.dart';
 import 'features/certifications/presentation/pages/home_page.dart';
@@ -70,26 +69,24 @@ class PreLoadWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder(
+    return Scaffold(
+        body: BlocListener(
       bloc: BlocProvider.of<OnBoardingBloc>(context),
-      builder: (context, state) {
-        print(state);
-        if (state is AuthError) {
-          final dialog = showCustomDialog(context, state.message, () {
+      listener: (context, state) {
+        if (state is Expired) {
+          Future.delayed(Duration(milliseconds: 2000), () {
             openOnBoardingPage(context);
           });
-          return Scaffold(body: dialog);
-        }
-        if (state is Expired) {
-          return OnBoardingPage();
         }
         if (state is Completed) {
-          return HomePage();
+          Future.delayed(Duration(milliseconds: 2000), () {
+            openHomePage(context);
+          });
         }
-        return Center(
-          child: CircularProgressIndicator(),
-        );
       },
-    );
+      child: Center(
+        child: CircularProgressIndicator(),
+      ),
+    ));
   }
 }
