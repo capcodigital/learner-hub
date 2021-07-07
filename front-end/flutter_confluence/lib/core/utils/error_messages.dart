@@ -50,6 +50,3 @@ showAlertDialog(BuildContext dialogContext, String message) {
   );
 }
 
-showCustomDialog(BuildContext context, String message, Function? okCallback) {
-  ;
-}
