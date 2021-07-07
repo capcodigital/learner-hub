@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../main.dart';
 import '../../../certifications/presentation/pages/home_page.dart';
 import '../../../../core/constants.dart';
 import '../bloc/on_boarding_bloc.dart';
@@ -88,7 +89,28 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
     // if (isCheckingCachedAuth)
     //   return buildLoadingView();
     // else
-      return buildDecoratedBody(context);
+
+    // This doesn't really belong in the onboarding page, it's better to place this inside a seperate widget (maybe in the main.dart file)?
+    // This is like a preloader for Onboarding.
+    return BlocBuilder(
+      bloc: BlocProvider.of<OnBoardingBloc>(context),
+      builder: (context, state) {
+        print(state);
+        if (state is AuthError) {
+          return showCustomDialog(context, "test");
+        }
+        if (state is Expired) {
+          return buildDecoratedBody(context);
+        }
+        if (state is Completed) {
+          // Show cloud certifications (open home page)
+          return HomePage();
+        }
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
   }
 
   Widget buildDecoratedBody(BuildContext context) {
