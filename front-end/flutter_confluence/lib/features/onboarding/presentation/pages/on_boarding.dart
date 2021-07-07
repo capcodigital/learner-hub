@@ -1,3 +1,4 @@
+import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,6 +8,8 @@ import '../../../../core/constants.dart';
 import '../bloc/on_boarding_bloc.dart';
 
 class OnBoardingPage extends StatefulWidget {
+  static const route = "OnBoardingPage";
+
   @override
   State<StatefulWidget> createState() {
     return new _OnBoardingPageState();
@@ -20,6 +23,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
   static const msgDescription =
       "See all your co-workers certifications within a swipe";
   static const msgAuthenticate = "Authenticate";
+
   static const dimen_6 = 6.0;
   static const dimen_8 = 8.0;
   static const dimen_16 = 16.0;
@@ -29,6 +33,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
   static const dimen_48 = 48.0;
   static const dimen_68 = 68.0;
   static const dimen_80 = 80.0;
+
   static const platformIconRadius = 26.0;
   static const card_radius = 15.0;
   static const cardWidth = 180.0;
@@ -39,6 +44,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
   static const authBtnBorderWidth = 1.0;
   static const frontLayerLeft = 88.0;
   static const frontLayerTop = 270.0;
+  static const authErrorDialogBtnWidth = 132.0;
 
   var isCheckingCachedAuth = true;
 
@@ -59,9 +65,12 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
       BuildContext context) {
     return BlocListener<OnBoardingBloc, OnBoardingState>(
       listener: (ctx, state) {
-        if (state is Completed)
+        if (state is Error) {
+          _showDialog(context, state.message);
+        }
+        if (state is Completed) {
           openHomePage(ctx);
-        else if (state is Expired)
+        } else if (state is Expired)
           setState(() {
             isCheckingCachedAuth = false;
           });
@@ -288,6 +297,49 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
   Widget buildLoadingView() {
     return Center(
       child: Text("Checking user authentication..."),
+    );
+  }
+
+  void _showDialog(BuildContext context, String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(message),
+              Container(
+                margin: EdgeInsets.only(top: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: authErrorDialogBtnWidth,
+                      child: ElevatedButton(
+                        child: new Text("OK"),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ),
+                    Container(
+                      width: authErrorDialogBtnWidth,
+                      child: ElevatedButton(
+                        child: new Text("Settings"),
+                        onPressed: () {
+                          AppSettings.openAppSettings();
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+        );
+      },
     );
   }
 }
