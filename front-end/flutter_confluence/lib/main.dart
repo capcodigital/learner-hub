@@ -18,8 +18,6 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  static const authErrorDialogBtnWidth = 132.0;
-
   ThemeData buildAppTheme() {
     return ThemeData(
       primaryColor: Constants.JIRA_COLOR,
