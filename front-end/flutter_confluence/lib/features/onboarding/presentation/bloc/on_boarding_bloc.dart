@@ -40,26 +40,26 @@ class OnBoardingBloc extends Bloc<OnBoardingEvent, OnBoardingState> {
     yield arg.fold(
       (failure) => failure is AuthExpirationFailure ? Expired() :
       Error(message: _mapFailureToMessage(failure as AuthFailure)),
-      (result) => result ? Completed() : Error(message: BIO_AUTH_DEFAULT_AUTH_FAILED),
+      (result) => result ? Completed() : Error(message: Constants.BIO_AUTH_DEFAULT_AUTH_FAILED),
     );
   }
 
   String _mapFailureToMessage(AuthFailure failure) {
     switch (failure.code) {
       case auth_error.notEnrolled:
-        return BIO_AUTH_NOT_ENROLLED;
+        return Constants.BIO_AUTH_NOT_ENROLLED;
       case auth_error.notAvailable:
-        return BIO_AUTH_NOT_AVAILABLE;
+        return Constants.BIO_AUTH_NOT_AVAILABLE;
       case auth_error.passcodeNotSet:
-        return BIO_AUTH_PASSCODE_NOT_SET;
+        return Constants.BIO_AUTH_PASSCODE_NOT_SET;
       case auth_error.otherOperatingSystem:
-        return BIO_AUTH_OTHER_OPERATING_SYSTEM;
+        return Constants.BIO_AUTH_OTHER_OPERATING_SYSTEM;
       case auth_error.lockedOut:
-        return BIO_AUTH_LOCKED_OUT;
+        return Constants.BIO_AUTH_LOCKED_OUT;
       case auth_error.permanentlyLockedOut:
-        return BIO_AUTH_PERMANENTLY_LOCKED_OUT;
+        return Constants.BIO_AUTH_PERMANENTLY_LOCKED_OUT;
       default:
-        return BIO_AUTH_DEFAULT_AUTH_FAILED;
+        return Constants.BIO_AUTH_DEFAULT_AUTH_FAILED;
     }
   }
 
