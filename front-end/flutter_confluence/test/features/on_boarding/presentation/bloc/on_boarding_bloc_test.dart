@@ -24,7 +24,7 @@ void main() {
 
   final orderFailedUnknownError = [
     Loading(),
-    Error(message: Constants.BIO_AUTH_DEFAULT_AUTH_FAILED),
+    AuthError(message: Constants.BIO_AUTH_DEFAULT_AUTH_FAILED),
   ];
 
   setUp(() {

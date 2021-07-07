@@ -46,7 +46,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
   static const frontLayerTop = 270.0;
   static const authErrorDialogBtnWidth = 132.0;
 
-  var isCheckingCachedAuth = true;
+  //var isCheckingCachedAuth = true;
 
   void authenticate(BuildContext context) {
     BlocProvider.of<OnBoardingBloc>(context).add(AuthEvent());
@@ -58,34 +58,36 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: buildBlocListener(context));
+    // return Scaffold(body: buildBlocListener(context));
+    return Scaffold(body: buildPageBody(context));
   }
 
-  BlocListener<OnBoardingBloc, OnBoardingState> buildBlocListener(
-      BuildContext context) {
-    return BlocListener<OnBoardingBloc, OnBoardingState>(
-      listener: (ctx, state) {
-        if (state is Error) {
-          _showDialog(context, state.message);
-        }
-        if (state is Completed) {
-          openHomePage(ctx);
-        } else if (state is Expired)
-          setState(() {
-            isCheckingCachedAuth = false;
-          });
-      },
-      child: buildPageBody(context),
-    );
-  }
+  // BlocListener<OnBoardingBloc, OnBoardingState> buildBlocListener(
+  //     BuildContext context) {
+  //   return BlocListener<OnBoardingBloc, OnBoardingState>(
+  //     listener: (ctx, state) {
+  //       if (state is AuthError) {
+  //         _showDialog(context, state.message);
+  //       }
+  //       if (state is Completed) {
+  //         openHomePage(ctx);
+  //       } else if (state is Expired)
+  //         setState(() {
+  //           isCheckingCachedAuth = false;
+  //         });
+  //     },
+  //     child: buildPageBody(context),
+  //   );
+  // }
 
   Widget buildPageBody(BuildContext context) {
     // If user is already authenticated, Onboarding screen may still
     // be shown for a while before HomePage opens. To solve this we
     // show a Loading Message until cached auth check completes.
-    if (isCheckingCachedAuth)
-      return buildLoadingView();
-    else
+
+    // if (isCheckingCachedAuth)
+    //   return buildLoadingView();
+    // else
       return buildDecoratedBody(context);
   }
 
@@ -300,46 +302,46 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
     );
   }
 
-  void _showDialog(BuildContext context, String message) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(message),
-              Container(
-                margin: EdgeInsets.only(top: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: authErrorDialogBtnWidth,
-                      child: ElevatedButton(
-                        child: new Text("OK"),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                    ),
-                    Container(
-                      width: authErrorDialogBtnWidth,
-                      child: ElevatedButton(
-                        child: new Text("Settings"),
-                        onPressed: () {
-                          AppSettings.openAppSettings();
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              )
-            ],
-          ),
-        );
-      },
-    );
-  }
+  // void _showDialog(BuildContext context, String message) {
+  //   showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return AlertDialog(
+  //         content: Column(
+  //           mainAxisSize: MainAxisSize.min,
+  //           children: [
+  //             Text(message),
+  //             Container(
+  //               margin: EdgeInsets.only(top: 10),
+  //               child: Row(
+  //                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  //                 crossAxisAlignment: CrossAxisAlignment.center,
+  //                 children: [
+  //                   Container(
+  //                     width: authErrorDialogBtnWidth,
+  //                     child: ElevatedButton(
+  //                       child: new Text("OK"),
+  //                       onPressed: () {
+  //                         Navigator.of(context).pop();
+  //                       },
+  //                     ),
+  //                   ),
+  //                   Container(
+  //                     width: authErrorDialogBtnWidth,
+  //                     child: ElevatedButton(
+  //                       child: new Text("Settings"),
+  //                       onPressed: () {
+  //                         AppSettings.openAppSettings();
+  //                       },
+  //                     ),
+  //                   ),
+  //                 ],
+  //               ),
+  //             )
+  //           ],
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
 }

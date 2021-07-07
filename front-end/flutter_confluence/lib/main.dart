@@ -1,5 +1,7 @@
+import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:local_auth/auth_strings.dart';
 
 import 'core/constants.dart';
 import 'features/onboarding/presentation/bloc/on_boarding_bloc.dart';
@@ -17,6 +19,8 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
+  static const authErrorDialogBtnWidth = 132.0;
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -30,15 +34,75 @@ class MyApp extends StatelessWidget {
           ),
         ],
         child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Flutter Demo',
-          theme: buildAppTheme(),
-          routes: {
-            HomePage.route: (context) => HomePage(),
-            OnBoardingPage.route: (context) => OnBoardingPage(),
-          },
-          home: OnBoardingPage(),
-        ));
+            debugShowCheckedModeBanner: false,
+            title: 'Flutter Demo',
+            theme: buildAppTheme(),
+            routes: {
+              HomePage.route: (context) => HomePage(),
+              OnBoardingPage.route: (context) => OnBoardingPage(),
+            },
+            // home: OnBoardingPage(),
+            home: BlocListener(
+              bloc: BlocProvider.of<OnBoardingBloc>(context),
+              listener: (ctx, state) {
+                print(ctx);
+                print(state);
+                if (state is Completed) {
+                  openHomePage(ctx);
+                }
+              },
+              child: BlocBuilder(bloc: BlocProvider.of<OnBoardingBloc>(context),;
+  }
+
+  void openHomePage(BuildContext context) {
+    Navigator.pushNamed(context, HomePage.route);
+  }
+
+  void openOnBoardingPage(BuildContext context) {
+    Navigator.pushNamed(context, OnBoardingPage.route);
+  }
+
+  void _showDialog(BuildContext context, String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(message),
+              Container(
+                margin: EdgeInsets.only(top: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: authErrorDialogBtnWidth,
+                      child: ElevatedButton(
+                        child: new Text("OK"),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ),
+                    Container(
+                      width: authErrorDialogBtnWidth,
+                      child: ElevatedButton(
+                        child: new Text("Settings"),
+                        onPressed: () {
+                          AppSettings.openAppSettings();
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+        );
+      },
+    );
   }
 
   ThemeData buildAppTheme() {
