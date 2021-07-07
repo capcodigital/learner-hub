@@ -1,4 +1,3 @@
-// Place in utilities file called error_messages.dart
 import 'package:app_settings/app_settings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
