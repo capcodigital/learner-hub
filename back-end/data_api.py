@@ -3,8 +3,23 @@ from pull_clean import main as data
 from fastapi import FastAPI, HTTPException
 import pull_clean
 from functools import wraps
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+# ENABLE CORS
+origins = [
+    "http://localhost",
+    "http://localhost:51635",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 url_completed = "https://ilabs-capco.atlassian.net/wiki/rest/api/content/2122383393?expand=body.export_view.value"
 url_in_progress = "https://ilabs-capco.atlassian.net/wiki/rest/api/content/1593770009?expand=body.export_view.value"
