@@ -1,7 +1,7 @@
-import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_confluence/core/utils/error_messages.dart';
 
 import '../../../../main.dart';
 import '../../../certifications/presentation/pages/home_page.dart';
@@ -45,9 +45,6 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
   static const authBtnBorderWidth = 1.0;
   static const frontLayerLeft = 88.0;
   static const frontLayerTop = 270.0;
-  static const authErrorDialogBtnWidth = 132.0;
-
-  //var isCheckingCachedAuth = true;
 
   void authenticate(BuildContext context) {
     BlocProvider.of<OnBoardingBloc>(context).add(AuthEvent());
@@ -59,51 +56,31 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
 
   @override
   Widget build(BuildContext context) {
-    // return Scaffold(body: buildBlocListener(context));
     return Scaffold(body: buildPageBody(context));
   }
-
-  // BlocListener<OnBoardingBloc, OnBoardingState> buildBlocListener(
-  //     BuildContext context) {
-  //   return BlocListener<OnBoardingBloc, OnBoardingState>(
-  //     listener: (ctx, state) {
-  //       if (state is AuthError) {
-  //         _showDialog(context, state.message);
-  //       }
-  //       if (state is Completed) {
-  //         openHomePage(ctx);
-  //       } else if (state is Expired)
-  //         setState(() {
-  //           isCheckingCachedAuth = false;
-  //         });
-  //     },
-  //     child: buildPageBody(context),
-  //   );
-  // }
 
   Widget buildPageBody(BuildContext context) {
     // If user is already authenticated, Onboarding screen may still
     // be shown for a while before HomePage opens. To solve this we
     // show a Loading Message until cached auth check completes.
 
-    // if (isCheckingCachedAuth)
-    //   return buildLoadingView();
-    // else
-
-    // This doesn't really belong in the onboarding page, it's better to place this inside a seperate widget (maybe in the main.dart file)?
-    // This is like a preloader for Onboarding.
+    // This doesn't really belong in the onboarding page, it's better to place this
+    // inside a separate widget (maybe in the main.dart file)?
+    // This is like a pre-loader for OnBoarding.
     return BlocBuilder(
       bloc: BlocProvider.of<OnBoardingBloc>(context),
       builder: (context, state) {
         print(state);
         if (state is AuthError) {
-          return showCustomDialog(context, "test");
+          return showCustomDialog(context, state.message, () {
+            // Navigator.of(context).pop();
+            // openOnBoardingPage(context);
+          });
         }
         if (state is Expired) {
           return buildDecoratedBody(context);
         }
         if (state is Completed) {
-          // Show cloud certifications (open home page)
           return HomePage();
         }
         return Center(
@@ -137,21 +114,37 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
   Widget buildBody(BuildContext context) {
     return Column(
       children: [
-        buildCardsRow(context),
-        buildImage(Constants.IC_FLUTTER, dimen_20),
-        buildImage(Constants.IC_PLUS, dimen_20),
-        buildImage(Constants.IC_CONFLUENCE, dimen_26),
-        buildDescriptionText(context),
+        Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              buildCard(child: buildLeftCardChild(context)),
+              buildCard(child: buildRightCardChild(context)),
+            ]),
+        Container(
+          child: Image.asset('assets/${Constants.IC_FLUTTER}'),
+          margin: EdgeInsets.only(top: dimen_20),
+        ),
+        Container(
+          child: Image.asset('assets/${Constants.IC_PLUS}'),
+          margin: EdgeInsets.only(top: dimen_20),
+        ),
+        Container(
+          child: Image.asset('assets/${Constants.IC_CONFLUENCE}'),
+          margin: EdgeInsets.only(top: dimen_26),
+        ),
+        Container(
+          alignment: Alignment.center,
+          child: Text(
+            msgDescription,
+            style: Theme.of(context).textTheme.headline2,
+            textAlign: TextAlign.center,
+          ),
+          margin:
+              EdgeInsets.only(top: dimen_34, right: dimen_68, left: dimen_68),
+        ),
         buildAuthButton(context)
       ],
-    );
-  }
-
-  Widget buildCardsRow(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [buildLeftCard(context), buildRightCard(context)],
     );
   }
 
@@ -163,15 +156,21 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
       ),
       child: Container(
           padding: EdgeInsets.all(dimen_8),
-          decoration: buildShadowDecoration(),
+          decoration: BoxDecoration(
+            color: Constants.JIRA_COLOR,
+            borderRadius: BorderRadius.circular(card_radius),
+            boxShadow: [
+              BoxShadow(
+                color: Constants.BLACK_25,
+                blurRadius: 3,
+                offset: Offset(0.0, 3.0),
+              ),
+            ],
+          ),
           width: cardWidth,
           height: cardHeight,
           child: child),
     );
-  }
-
-  Widget buildLeftCard(BuildContext context) {
-    return buildCard(child: buildLeftCardChild(context));
   }
 
   Widget buildLeftCardChild(BuildContext context) {
@@ -208,8 +207,9 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   buildPlatformIcon(Constants.IC_CLOUD_NATIVE),
-                  buildInvisibleWidget(
-                      buildPlatformIcon(Constants.IC_CLOUD_NATIVE))
+                  Opacity(
+                      opacity: 0.0,
+                      child: buildPlatformIcon(Constants.IC_CLOUD_NATIVE)),
                 ],
               ),
             ],
@@ -217,10 +217,6 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
         ),
       ],
     );
-  }
-
-  Widget buildRightCard(BuildContext context) {
-    return buildCard(child: buildRightCardChild(context));
   }
 
   Widget buildRightCardChild(BuildContext context) {
@@ -236,39 +232,20 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
     );
   }
 
-  BoxDecoration buildShadowDecoration() {
-    return BoxDecoration(
-      color: Constants.JIRA_COLOR,
-      borderRadius: BorderRadius.circular(card_radius),
-      boxShadow: [
-        BoxShadow(
-          color: Constants.BLACK_25,
-          blurRadius: 3,
-          offset: Offset(0.0, 3.0), // changes position of shadow
-        ),
-      ],
-    );
-  }
-
-  Widget buildDescriptionText(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      child: Text(
-        msgDescription,
-        style: Theme.of(context).textTheme.headline2,
-        textAlign: TextAlign.center,
-      ),
-      margin: EdgeInsets.only(top: dimen_34, right: dimen_68, left: dimen_68),
-    );
-  }
-
   Widget buildAuthButton(BuildContext context) {
     return Container(
         margin: EdgeInsets.only(top: dimen_48),
         width: authBtnWidth,
         height: authBtnHeight,
         child: ElevatedButton(
-          style: buildAuthButtonStyle(),
+          style: ElevatedButton.styleFrom(
+            shadowColor: Colors.black,
+            primary: Colors.white,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(authBtnBorderRadius),
+                side: BorderSide(
+                    width: authBtnBorderWidth, color: Constants.JIRA_COLOR)),
+          ),
           onPressed: () {
             authenticate(context);
           },
@@ -282,17 +259,6 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
         ));
   }
 
-  ButtonStyle buildAuthButtonStyle() {
-    return ElevatedButton.styleFrom(
-      shadowColor: Colors.black,
-      primary: Colors.white,
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(authBtnBorderRadius),
-          side: BorderSide(
-              width: authBtnBorderWidth, color: Constants.JIRA_COLOR)),
-    );
-  }
-
   Widget buildPlatformIcon(String iconName) {
     return Padding(
       padding: const EdgeInsets.all(dimen_8),
@@ -303,67 +269,4 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
       ),
     );
   }
-
-  Widget buildInvisibleWidget(Widget child) {
-    return Opacity(
-      opacity: 0.0,
-      child: child,
-    );
-  }
-
-  Widget buildImage(String iconName, double marginTop) {
-    return Container(
-      child: Image.asset('assets/$iconName'),
-      margin: EdgeInsets.only(top: marginTop),
-    );
-  }
-
-  Widget buildLoadingView() {
-    return Center(
-      child: Text("Checking user authentication..."),
-    );
-  }
-
-  // void _showDialog(BuildContext context, String message) {
-  //   showDialog(
-  //     context: context,
-  //     builder: (BuildContext context) {
-  //       return AlertDialog(
-  //         content: Column(
-  //           mainAxisSize: MainAxisSize.min,
-  //           children: [
-  //             Text(message),
-  //             Container(
-  //               margin: EdgeInsets.only(top: 10),
-  //               child: Row(
-  //                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  //                 crossAxisAlignment: CrossAxisAlignment.center,
-  //                 children: [
-  //                   Container(
-  //                     width: authErrorDialogBtnWidth,
-  //                     child: ElevatedButton(
-  //                       child: new Text("OK"),
-  //                       onPressed: () {
-  //                         Navigator.of(context).pop();
-  //                       },
-  //                     ),
-  //                   ),
-  //                   Container(
-  //                     width: authErrorDialogBtnWidth,
-  //                     child: ElevatedButton(
-  //                       child: new Text("Settings"),
-  //                       onPressed: () {
-  //                         AppSettings.openAppSettings();
-  //                       },
-  //                     ),
-  //                   ),
-  //                 ],
-  //               ),
-  //             )
-  //           ],
-  //         ),
-  //       );
-  //     },
-  //   );
-  // }
 }
