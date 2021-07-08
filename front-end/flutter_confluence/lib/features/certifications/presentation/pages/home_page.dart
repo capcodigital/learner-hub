@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_confluence/core/error/error_page.dart';
 
 import '../widgets/empty_search.dart';
 import '../widgets/searchbox.dart';
@@ -108,7 +109,7 @@ class _HomePageState extends State<HomePage> {
             if (state is Loaded) {
               return Expanded(child: CertificationsView(items: state.items));
             } else if (state is Loading)
-              return Text('Loading...');
+              return CircularProgressIndicator();
             else if (state is Empty)
               return Text('No results');
             else if (state is EmptySearchResult)
@@ -116,9 +117,9 @@ class _HomePageState extends State<HomePage> {
                   type: state.cloudCertificationType,
                   searchController: searchController);
             else if (state is Error)
-              return Text('Error');
+              return ErrorPage(state.message);
             else
-              return Text('Unknown state');
+              return ErrorPage('Unknown state');
           },
         )
       ],
