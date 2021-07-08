@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_confluence/features/certifications/domain/entities/cloud_certification_type.dart';
+import 'package:flutter_confluence/features/certifications/presentation/bloc/cloud_certification_bloc.dart';
 
 import '../constants.dart';
 import '../dimen.dart';
@@ -9,50 +12,31 @@ class ErrorPage extends StatelessWidget {
   static const msgTitle = "Oops!";
   static const msgDescription = "Something went wrong. Please try again.";
   static const msgTryAgain = "Try Again";
-  static const errorImageMarginTop = 20.0;
-  static const titleMarginTop = 60.0;
-  static const errorMsgMarginTop = 100.0;
+  static const errorImageMarginTop = 10.0;
+  static const titleMarginTop = 30.0;
+  static const errorMsgMarginTop = 60.0;
   static const errorMsgWidth = 240.0;
-  static const tryAgainBtnMarginTop = 140.0;
+  static const tryAgainBtnMarginTop = 100.0;
 
-  String message = msgDescription;
+  final Error error;
 
-  ErrorPage(this.message);
+  ErrorPage({required this.error});
 
-  void tryAgain() {
-    // Not implemented
+  void tryAgain(BuildContext context) {
+    switch (error.certificationType) {
+      case CloudCertificationType.completed:
+        BlocProvider.of<CloudCertificationBloc>(context)
+            .add(GetCompletedCertificationsEvent());
+        break;
+      case CloudCertificationType.in_progress:
+        BlocProvider.of<CloudCertificationBloc>(context)
+            .add(GetInProgressCertificationsEvent());
+        break;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text('Cloud Certifications',
-              style: Theme.of(context).textTheme.headline1),
-          automaticallyImplyLeading: false,
-        ),
-        body: Container(
-            constraints: BoxConstraints.expand(),
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage("assets/${Constants.IC_BACK_LAYER}"),
-                    fit: BoxFit.cover)),
-            child: Stack(
-              children: <Widget>[
-                Positioned(
-                  left: Dimen.bgFrontLayerLeft,
-                  top: Dimen.bgFrontLayerTop,
-                  child: Image.asset('assets/${Constants.IC_FRONT_LAYER}'),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: Dimen.dimen_40),
-                  child: buildBody(context),
-                )
-              ],
-            )));
-  }
-
-  Widget buildBody(BuildContext context) {
     return Column(
       children: [
         Container(
@@ -65,10 +49,8 @@ class ErrorPage extends StatelessWidget {
           alignment: Alignment.center,
           child: Text(
             msgTitle,
-            style: Theme.of(context)
-                .textTheme
-                .headline2
-                ?.copyWith(fontSize: 24),
+            style:
+                Theme.of(context).textTheme.headline2?.copyWith(fontSize: 24),
             textAlign: TextAlign.center,
           ),
           margin: EdgeInsets.only(top: titleMarginTop),
@@ -77,9 +59,9 @@ class ErrorPage extends StatelessWidget {
           alignment: Alignment.center,
           width: errorMsgWidth,
           child: Text(
-            message,
-            style: Theme.of(context).textTheme.headline2
-                ?.copyWith(fontSize: 18),
+            error.message,
+            style:
+                Theme.of(context).textTheme.headline2?.copyWith(fontSize: 18),
             textAlign: TextAlign.center,
           ),
           margin: EdgeInsets.only(top: errorMsgMarginTop),
@@ -105,7 +87,7 @@ class ErrorPage extends StatelessWidget {
                     color: Constants.JIRA_COLOR)),
           ),
           onPressed: () {
-            tryAgain();
+            tryAgain(context);
           },
           child: Center(
             child: Text(msgTryAgain,

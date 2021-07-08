@@ -39,14 +39,28 @@ void main() {
     Loaded(items: mockInProgressCerts, cloudCertificationType: CloudCertificationType.in_progress),
   ];
 
-  final orderServerError = [
+  final orderInProgressServerError = [
     Loading(),
-    Error(message: Constants.SERVER_FAILURE_MSG),
+    Error(certificationType: CloudCertificationType.in_progress,
+        message: Constants.SERVER_FAILURE_MSG),
   ];
 
-  final orderCacheError = [
+  final orderCompletedServerError = [
     Loading(),
-    Error(message: Constants.CACHE_FAILURE_MSG),
+    Error(certificationType: CloudCertificationType.completed,
+        message: Constants.SERVER_FAILURE_MSG),
+  ];
+
+  final orderInProgressCacheError = [
+    Loading(),
+    Error(certificationType: CloudCertificationType.in_progress,
+        message: Constants.CACHE_FAILURE_MSG),
+  ];
+
+  final orderCompletedCacheError = [
+    Loading(),
+    Error(certificationType: CloudCertificationType.completed,
+        message: Constants.CACHE_FAILURE_MSG),
   ];
 
   late MockGetCompletedCertifications mockCompletedCase;
@@ -105,7 +119,7 @@ void main() {
       },
       act: (CloudCertificationBloc blo) =>
           {blo.add(GetCompletedCertificationsEvent())},
-      expect: () => orderServerError,
+      expect: () => orderCompletedServerError,
     );
 
     blocTest(
@@ -117,7 +131,7 @@ void main() {
       },
       act: (CloudCertificationBloc blo) =>
           {blo.add(GetCompletedCertificationsEvent())},
-      expect: () => orderCacheError,
+      expect: () => orderCompletedCacheError,
     );
   });
 
@@ -157,7 +171,7 @@ void main() {
       },
       act: (CloudCertificationBloc blo) =>
           {blo.add(GetInProgressCertificationsEvent())},
-      expect: () => orderServerError,
+      expect: () => orderInProgressServerError,
     );
 
     blocTest(
@@ -169,7 +183,7 @@ void main() {
       },
       act: (CloudCertificationBloc blo) =>
           {blo.add(GetInProgressCertificationsEvent())},
-      expect: () => orderCacheError,
+      expect: () => orderInProgressCacheError,
     );
   });
 
