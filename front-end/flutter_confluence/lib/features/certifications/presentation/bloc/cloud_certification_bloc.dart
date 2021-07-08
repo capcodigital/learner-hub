@@ -49,9 +49,10 @@ class CloudCertificationBloc
     }
   }
 
-  Stream<CloudCertificationState> _getState(Either<Failure, List<CloudCertification>> arg, CloudCertificationType dataType,{bool isSearch = false}) async* {
+  Stream<CloudCertificationState> _getState(Either<Failure, List<CloudCertification>> arg,
+      CloudCertificationType dataType, {bool isSearch = false}) async* {
     yield arg.fold(
-      (failure) => Error(message: _mapFailureToMessage(failure)),
+      (failure) => Error(certificationType: dataType, message: _mapFailureToMessage(failure)),
       (certifications) {
       if (isSearch && certifications.isEmpty) {
         return EmptySearchResult(cloudCertificationType: dataType);

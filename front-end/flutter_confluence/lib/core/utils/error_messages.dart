@@ -30,7 +30,7 @@ showAlertDialog(BuildContext dialogContext, String message) {
                 child: ElevatedButton(
                   child: Text("Settings"),
                   onPressed: () {
-                    AppSettings.openAppSettings();
+                    AppSettings.openDeviceSettings();
                   },
                 ),
               ),
