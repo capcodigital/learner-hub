@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_confluence/core/dimen.dart';
 import 'package:flutter_confluence/core/utils/error_messages.dart';
 
 import '../../../../main.dart';
@@ -18,26 +19,10 @@ class OnBoardingPage extends StatelessWidget {
       "See all your co-workers certifications within a swipe";
   static const msgAuthenticate = "Authenticate";
 
-  static const dimen_6 = 6.0;
-  static const dimen_8 = 8.0;
-  static const dimen_16 = 16.0;
-  static const dimen_20 = 20.0;
-  static const dimen_26 = 26.0;
-  static const dimen_34 = 34.0;
-  static const dimen_48 = 48.0;
-  static const dimen_68 = 68.0;
-  static const dimen_80 = 80.0;
-
   static const platformIconRadius = 26.0;
   static const card_radius = 15.0;
   static const cardWidth = 180.0;
   static const cardHeight = 260.0;
-  static const authBtnHeight = 60.0;
-  static const authBtnWidth = 230.0;
-  static const authBtnBorderRadius = 20.0;
-  static const authBtnBorderWidth = 1.0;
-  static const frontLayerLeft = 88.0;
-  static const frontLayerTop = 270.0;
 
   void authenticate(BuildContext context) {
     BlocProvider.of<OnBoardingBloc>(context).add(AuthEvent());
@@ -73,12 +58,12 @@ class OnBoardingPage extends StatelessWidget {
         child: Stack(
           children: <Widget>[
             Positioned(
-              left: frontLayerLeft,
-              top: frontLayerTop,
+              left: Dimen.bgFrontLayerLeft,
+              top: Dimen.bgFrontLayerTop,
               child: Image.asset('assets/front-layer.png'),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: dimen_80),
+              padding: const EdgeInsets.only(top: Dimen.dimen_80),
               child: buildBody(context),
             )
           ],
@@ -97,15 +82,15 @@ class OnBoardingPage extends StatelessWidget {
             ]),
         Container(
           child: Image.asset('assets/${Constants.IC_FLUTTER}'),
-          margin: EdgeInsets.only(top: dimen_20),
+          margin: EdgeInsets.only(top: Dimen.dimen_20),
         ),
         Container(
           child: Image.asset('assets/${Constants.IC_PLUS}'),
-          margin: EdgeInsets.only(top: dimen_20),
+          margin: EdgeInsets.only(top: Dimen.dimen_20),
         ),
         Container(
           child: Image.asset('assets/${Constants.IC_CONFLUENCE}'),
-          margin: EdgeInsets.only(top: dimen_26),
+          margin: EdgeInsets.only(top: Dimen.dimen_26),
         ),
         Container(
           alignment: Alignment.center,
@@ -114,8 +99,8 @@ class OnBoardingPage extends StatelessWidget {
             style: Theme.of(context).textTheme.headline2,
             textAlign: TextAlign.center,
           ),
-          margin:
-              EdgeInsets.only(top: dimen_34, right: dimen_68, left: dimen_68),
+          margin: EdgeInsets.only(
+              top: Dimen.dimen_34, right: Dimen.dimen_68, left: Dimen.dimen_68),
         ),
         buildAuthButton(context)
       ],
@@ -129,7 +114,7 @@ class OnBoardingPage extends StatelessWidget {
         borderRadius: BorderRadius.circular(card_radius),
       ),
       child: Container(
-          padding: EdgeInsets.all(dimen_8),
+          padding: EdgeInsets.all(Dimen.dimen_8),
           decoration: BoxDecoration(
             color: Constants.JIRA_COLOR,
             borderRadius: BorderRadius.circular(card_radius),
@@ -157,7 +142,7 @@ class OnBoardingPage extends StatelessWidget {
                 .headline2
                 ?.copyWith(color: Colors.white)),
         Container(
-          margin: EdgeInsets.only(top: dimen_6),
+          margin: EdgeInsets.only(top: Dimen.dimen_6),
           child: Column(
             children: [
               Row(
@@ -208,17 +193,18 @@ class OnBoardingPage extends StatelessWidget {
 
   Widget buildAuthButton(BuildContext context) {
     return Container(
-        margin: EdgeInsets.only(top: dimen_48),
-        width: authBtnWidth,
-        height: authBtnHeight,
+        margin: EdgeInsets.only(top: Dimen.dimen_48),
+        width: Dimen.mainBtnWidth,
+        height: Dimen.mainBtnHeight,
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
             shadowColor: Colors.black,
             primary: Colors.white,
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(authBtnBorderRadius),
+                borderRadius: BorderRadius.circular(Dimen.mainBtnBorderRadius),
                 side: BorderSide(
-                    width: authBtnBorderWidth, color: Constants.JIRA_COLOR)),
+                    width: Dimen.mainBtnBorderWidth,
+                    color: Constants.JIRA_COLOR)),
           ),
           onPressed: () {
             authenticate(context);
@@ -235,7 +221,7 @@ class OnBoardingPage extends StatelessWidget {
 
   Widget buildPlatformIcon(String iconName) {
     return Padding(
-      padding: const EdgeInsets.all(dimen_8),
+      padding: const EdgeInsets.all(Dimen.dimen_8),
       child: CircleAvatar(
         radius: platformIconRadius,
         backgroundColor: Colors.white,
