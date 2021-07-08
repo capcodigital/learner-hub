@@ -61,16 +61,7 @@ class CloudCertificationBloc
       }
     });
   }
-
-  // Stream<CloudCertificationState> _getMockState(Either<Failure, List<CloudCertification>> arg,
-  //     CloudCertificationType dataType, {bool isSearch = false}) async* {
-  //   yield arg.fold(
-  //           (failure) => Error(certificationType: dataType, message: _mapFailureToMessage(failure)),
-  //           (certifications) => Error(certificationType: dataType,
-  //               message: "thru ejhreer ejrht eter"),
-  //       );
-  // }
-
+  
   Stream<CloudCertificationState> _getSearchState(String searchTerm) async* {
     var searchParameters = SearchParams(
         searchQuery: searchTerm,
