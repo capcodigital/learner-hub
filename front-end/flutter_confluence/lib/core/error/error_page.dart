@@ -67,8 +67,8 @@ class ErrorPage extends StatelessWidget {
             msgTitle,
             style: Theme.of(context)
                 .textTheme
-                .headline1
-                ?.copyWith(color: Colors.black),
+                .headline2
+                ?.copyWith(fontSize: 24),
             textAlign: TextAlign.center,
           ),
           margin: EdgeInsets.only(top: titleMarginTop),
@@ -78,7 +78,8 @@ class ErrorPage extends StatelessWidget {
           width: errorMsgWidth,
           child: Text(
             message,
-            style: Theme.of(context).textTheme.headline2,
+            style: Theme.of(context).textTheme.headline2
+                ?.copyWith(fontSize: 18),
             textAlign: TextAlign.center,
           ),
           margin: EdgeInsets.only(top: errorMsgMarginTop),
