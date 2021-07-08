@@ -1,11 +1,11 @@
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_confluence/core/utils/error_messages.dart';
 
-import '../../../../main.dart';
-import '../../../certifications/presentation/pages/home_page.dart';
 import '../../../../core/constants.dart';
+import '../../../certifications/presentation/pages/home_page.dart';
 import '../bloc/on_boarding_bloc.dart';
 
 class OnBoardingPage extends StatelessWidget {
@@ -17,6 +17,7 @@ class OnBoardingPage extends StatelessWidget {
   static const msgDescription =
       "See all your co-workers certifications within a swipe";
   static const msgAuthenticate = "Authenticate";
+  static const msgAuthenticateNotSupported = "Continue";
 
   static const dimen_6 = 6.0;
   static const dimen_8 = 8.0;
@@ -224,7 +225,7 @@ class OnBoardingPage extends StatelessWidget {
             authenticate(context);
           },
           child: Center(
-            child: Text(msgAuthenticate,
+            child: Text(kIsWeb ? msgAuthenticateNotSupported : msgAuthenticate,
                 style: Theme.of(context)
                     .textTheme
                     .headline1

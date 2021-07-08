@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_confluence/core/error/custom_exceptions.dart';
 
 import '../../../../core/error/failures.dart';
 import '../datasources/on_boarding_local_data_source.dart';
@@ -21,6 +22,8 @@ class OnBoardingRepositoryImpl extends OnBoardingRepository {
     } on PlatformException catch (e) {
       print("repo: " + e.code);
       return Left(AuthFailure(e.code));
+    } on AuthNotSupportedPlatform {
+      return Right(true);
     }
     return Left(AuthFailure(AuthFailure.CODE_GENERIC_FAILURE));
   }
