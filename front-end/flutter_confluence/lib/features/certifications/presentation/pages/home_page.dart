@@ -109,7 +109,9 @@ class _HomePageState extends State<HomePage> {
             if (state is Loaded) {
               return Expanded(child: CertificationsView(items: state.items));
             } else if (state is Loading)
-              return CircularProgressIndicator();
+              return Container(
+                  margin: EdgeInsets.only(top: 60),
+                  child: CircularProgressIndicator());
             else if (state is Empty)
               return Text('No results');
             else if (state is EmptySearchResult)

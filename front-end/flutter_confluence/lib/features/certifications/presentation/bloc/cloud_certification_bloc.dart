@@ -61,7 +61,7 @@ class CloudCertificationBloc
       }
     });
   }
-  
+
   Stream<CloudCertificationState> _getSearchState(String searchTerm) async* {
     var searchParameters = SearchParams(
         searchQuery: searchTerm,
