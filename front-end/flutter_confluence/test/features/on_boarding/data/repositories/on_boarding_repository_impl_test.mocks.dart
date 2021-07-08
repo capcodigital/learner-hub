@@ -36,9 +36,4 @@ class MockOnBoardingLocalDataSource extends _i1.Mock
   _i3.Future<bool> checkCachedAuth() =>
       (super.noSuchMethod(Invocation.method(#checkCachedAuth, []),
           returnValue: Future<bool>.value(false)) as _i3.Future<bool>);
-  @override
-  _i3.Future<void> clearCachedAuth() =>
-      (super.noSuchMethod(Invocation.method(#clearCachedAuth, []),
-          returnValue: Future<void>.value(),
-          returnValueForMissingStub: Future.value()) as _i3.Future<void>);
 }
