@@ -91,20 +91,31 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.only(
                     left: searchbarHorizontalPadding,
                     right: searchbarHorizontalPadding),
-                child: IgnorePointer(
-                  ignoring: disableSearchAndToggle,
-                  child: SearchBox(
-                    controller: searchController,
-                    onSearchTermChanged: doSearch,
-                    onSearchSubmitted: doSearch,
+                child: ColorFiltered(
+                  colorFilter: ColorFilter.mode(
+                    getFilterColor(),
+                    BlendMode.modulate,
+                  ),
+                  child: IgnorePointer(
+                    ignoring: disableSearchAndToggle,
+                    child: SearchBox(
+                      controller: searchController,
+                      onSearchTermChanged: doSearch,
+                      onSearchSubmitted: doSearch,
+                    ),
                   ),
                 ),
               ),
               SizedBox(
                 height: headerItemsSpacing,
               ),
-              IgnorePointer(
-                  ignoring: disableSearchAndToggle, child: ToggleButton())
+              ColorFiltered(
+                  colorFilter: ColorFilter.mode(
+                    getFilterColor(),
+                    BlendMode.modulate,
+                  ),
+                  child: IgnorePointer(
+                      ignoring: disableSearchAndToggle, child: ToggleButton())),
             ],
           ),
         ),
@@ -140,5 +151,9 @@ class _HomePageState extends State<HomePage> {
         })
       ],
     );
+  }
+
+  Color getFilterColor() {
+    return disableSearchAndToggle ? Colors.grey : Colors.white;
   }
 }
