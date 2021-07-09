@@ -91,8 +91,8 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.only(
                     left: searchbarHorizontalPadding,
                     right: searchbarHorizontalPadding),
-                child: AbsorbPointer(
-                  absorbing: disableSearchAndToggle,
+                child: IgnorePointer(
+                  ignoring: disableSearchAndToggle,
                   child: SearchBox(
                     controller: searchController,
                     onSearchTermChanged: doSearch,
@@ -103,8 +103,8 @@ class _HomePageState extends State<HomePage> {
               SizedBox(
                 height: headerItemsSpacing,
               ),
-              AbsorbPointer(
-                  absorbing: disableSearchAndToggle, child: ToggleButton())
+              IgnorePointer(
+                  ignoring: disableSearchAndToggle, child: ToggleButton())
             ],
           ),
         ),
@@ -129,9 +129,13 @@ class _HomePageState extends State<HomePage> {
             return Text('Unknown Error');
         }, listener: (context, state) {
           if (state is Error) {
-            disableSearchAndToggle = true;
+            setState(() {
+              disableSearchAndToggle = true;
+            });
           } else {
-            disableSearchAndToggle = false;
+            setState(() {
+              disableSearchAndToggle = false;
+            });
           }
         })
       ],
