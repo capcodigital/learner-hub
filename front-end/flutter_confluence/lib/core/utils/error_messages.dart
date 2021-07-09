@@ -1,10 +1,8 @@
 import 'package:app_settings/app_settings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'dart:io';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
-const authErrorDialogBtnWidth = 132.0;
 const OK = "OK";
 const SETTINGS = "Settings";
 
