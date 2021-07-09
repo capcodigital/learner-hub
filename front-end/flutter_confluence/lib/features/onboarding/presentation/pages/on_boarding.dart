@@ -43,7 +43,7 @@ class OnBoardingPage extends StatelessWidget {
       bloc: BlocProvider.of<OnBoardingBloc>(context),
       listener: (context, state) {
         if (state is AuthError) {
-          showAlertDialog(context, state.message);
+          showErrorDialog(context, state.message);
         }
       },
       child: buildDecoratedBody(context),
