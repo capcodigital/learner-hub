@@ -1,52 +1,28 @@
 import 'package:app_settings/app_settings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
-const authErrorDialogBtnWidth = 132.0;
+const OK = "OK";
+const SETTINGS = "Settings";
 
-showAlertDialog(BuildContext dialogContext, String message) {
-  AlertDialog alert = AlertDialog(
-    content: Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Text(message),
-        Container(
-          margin: EdgeInsets.only(top: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                width: authErrorDialogBtnWidth,
-                child: ElevatedButton(
-                  child: Text("OK"),
-                  onPressed: () {
-                    Navigator.pop(dialogContext);
-                  },
-                ),
-              ),
-              Container(
-                width: authErrorDialogBtnWidth,
-                child: ElevatedButton(
-                  child: Text("Settings"),
-                  onPressed: () {
-                    AppSettings.openDeviceSettings();
-                  },
-                ),
-              ),
-            ],
+mixin CustomAlertDialog {
+  showAlertDialog(BuildContext dialogContext, String message) {
+    showPlatformDialog(
+      context: dialogContext,
+      builder: (_) => PlatformAlertDialog(
+        content: PlatformText(message),
+        actions: <Widget>[
+          PlatformDialogAction(
+            child: PlatformText(OK),
+            onPressed: () => Navigator.pop(dialogContext),
           ),
-        )
-      ],
-    ),
-  );
-
-  // show the dialog
-  showDialog(
-    context: dialogContext,
-    builder: (BuildContext context) {
-      return alert;
-    },
-  );
+          PlatformDialogAction(
+            child: PlatformText(SETTINGS),
+            onPressed: () => AppSettings.openDeviceSettings(),
+          ),
+        ],
+      ),
+    );
+  }
 }
-

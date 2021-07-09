@@ -9,7 +9,7 @@ import '../../../../core/constants.dart';
 import '../../../certifications/presentation/pages/home_page.dart';
 import '../bloc/on_boarding_bloc.dart';
 
-class OnBoardingPage extends StatelessWidget {
+class OnBoardingPage extends StatelessWidget with CustomAlertDialog  {
   static const route = "OnBoardingPage";
 
   static const msgTrainingTypes = "Training Types";
