@@ -104,36 +104,36 @@ class _HomePageState extends State<HomePage> {
                 height: headerItemsSpacing,
               ),
               AbsorbPointer(
-                  absorbing: disableSearchAndToggle,
-                  child: ToggleButton())
+                  absorbing: disableSearchAndToggle, child: ToggleButton())
             ],
           ),
         ),
         BlocConsumer<CloudCertificationBloc, CloudCertificationState>(
             builder: (context, state) {
-              log("HOME PAGE - New State received: " + state.toString());
-              if (state is Loaded) {
-                return Expanded(child: CertificationsView(items: state.items));
-              } else if (state is Loading)
-                return Container(
-                    margin: EdgeInsets.only(top: 60),
-                    child: CircularProgressIndicator());
-              else if (state is Empty)
-                return Text('No results');
-              else if (state is EmptySearchResult)
-                return EmptySearch(
-                    type: state.cloudCertificationType,
-                    searchController: searchController);
-              else if (state is Error)
-                return ErrorPage(error: state);
-              else
-                return Text('Unknown Error');
-            }, listener: (context, state) {
-          setState(() {
-            disableSearchAndToggle = state is Error;
-          });
+          log("HOME PAGE - New State received: " + state.toString());
+          if (state is Loaded) {
+            return Expanded(child: CertificationsView(items: state.items));
+          } else if (state is Loading)
+            return Container(
+                margin: EdgeInsets.only(top: 60),
+                child: CircularProgressIndicator());
+          else if (state is Empty)
+            return Text('No results');
+          else if (state is EmptySearchResult)
+            return EmptySearch(
+                type: state.cloudCertificationType,
+                searchController: searchController);
+          else if (state is Error)
+            return ErrorPage(error: state);
+          else
+            return Text('Unknown Error');
+        }, listener: (context, state) {
+          if (state is Error) {
+            disableSearchAndToggle = true;
+          } else {
+            disableSearchAndToggle = false;
+          }
         })
-
       ],
     );
   }
