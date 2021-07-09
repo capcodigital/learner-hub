@@ -31,9 +31,7 @@ class SearchBox extends StatelessWidget {
           borderRadius: BorderRadius.circular(25.0)),
       child: TextField(
         controller: controller,
-        onChanged: (text) {
-          print(text);
-        },
+        onChanged: (onSearchTermChanged),
         onSubmitted: (onSearchSubmitted),
         decoration: InputDecoration(
             border: InputBorder.none,
