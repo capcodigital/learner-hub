@@ -27,6 +27,7 @@ class _HomePageState extends State<HomePage> {
   static const double headerBottomPadding = 16.0;
   static const double searchbarHorizontalPadding = 25.0;
   var frontLayerTop = frontLayerInitialTop;
+  var disableSearchAndToggle = false;
 
   @override
   Widget build(BuildContext context) {
@@ -90,40 +91,49 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.only(
                     left: searchbarHorizontalPadding,
                     right: searchbarHorizontalPadding),
-                child: SearchBox(
-                  controller: searchController,
-                  onSearchTermChanged: doSearch,
-                  onSearchSubmitted: doSearch,
+                child: AbsorbPointer(
+                  absorbing: disableSearchAndToggle,
+                  child: SearchBox(
+                    controller: searchController,
+                    onSearchTermChanged: doSearch,
+                    onSearchSubmitted: doSearch,
+                  ),
                 ),
               ),
               SizedBox(
                 height: headerItemsSpacing,
               ),
-              ToggleButton()
+              AbsorbPointer(
+                  absorbing: disableSearchAndToggle,
+                  child: ToggleButton())
             ],
           ),
         ),
-        BlocBuilder<CloudCertificationBloc, CloudCertificationState>(
-          builder: (context, state) {
-            log("HOME PAGE - New State received: " + state.toString());
-            if (state is Loaded) {
-              return Expanded(child: CertificationsView(items: state.items));
-            } else if (state is Loading)
-              return Container(
-                  margin: EdgeInsets.only(top: 60),
-                  child: CircularProgressIndicator());
-            else if (state is Empty)
-              return Text('No results');
-            else if (state is EmptySearchResult)
-              return EmptySearch(
-                  type: state.cloudCertificationType,
-                  searchController: searchController);
-            else if (state is Error)
-              return ErrorPage(error: state);
-            else
-              return Text('Unknown Error');
-          },
-        )
+        BlocConsumer<CloudCertificationBloc, CloudCertificationState>(
+            builder: (context, state) {
+              log("HOME PAGE - New State received: " + state.toString());
+              if (state is Loaded) {
+                return Expanded(child: CertificationsView(items: state.items));
+              } else if (state is Loading)
+                return Container(
+                    margin: EdgeInsets.only(top: 60),
+                    child: CircularProgressIndicator());
+              else if (state is Empty)
+                return Text('No results');
+              else if (state is EmptySearchResult)
+                return EmptySearch(
+                    type: state.cloudCertificationType,
+                    searchController: searchController);
+              else if (state is Error)
+                return ErrorPage(error: state);
+              else
+                return Text('Unknown Error');
+            }, listener: (context, state) {
+          setState(() {
+            disableSearchAndToggle = state is Error;
+          });
+        })
+
       ],
     );
   }
