@@ -144,15 +144,9 @@ class _HomePageState extends State<HomePage> {
           else
             return Text('Unknown Error');
         }, listener: (context, state) {
-          if (state is Error) {
-            setState(() {
-              disableSearchAndToggle = true;
-            });
-          } else {
-            setState(() {
-              disableSearchAndToggle = false;
-            });
-          }
+          setState(() {
+            disableSearchAndToggle = state is Error;
+          });
         })
       ],
     );
