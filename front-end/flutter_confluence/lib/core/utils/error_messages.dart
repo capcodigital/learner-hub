@@ -11,7 +11,7 @@ mixin CustomAlertDialog {
     showPlatformDialog(
       context: dialogContext,
       builder: (_) => PlatformAlertDialog(
-        content: Text(message),
+        content: PlatformText(message),
         actions: <Widget>[
           PlatformDialogAction(
             child: PlatformText(OK),
