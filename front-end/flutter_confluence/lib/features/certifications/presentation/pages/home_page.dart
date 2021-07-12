@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_confluence/core/constants.dart';
 import 'package:flutter_confluence/core/error/error_page.dart';
 
 import '../widgets/empty_search.dart';
@@ -134,7 +135,7 @@ class _HomePageState extends State<HomePage> {
                 margin: EdgeInsets.only(top: 60),
                 child: CircularProgressIndicator());
           else if (state is Empty)
-            return Text('No results');
+            return Text(Constants.NO_RESULTS);
           else if (state is EmptySearchResult)
             return EmptySearch(
                 type: state.cloudCertificationType,
@@ -142,7 +143,7 @@ class _HomePageState extends State<HomePage> {
           else if (state is Error)
             return ErrorPage(error: state);
           else
-            return Text('Unknown Error');
+            return Text(Constants.UNKNOWN_ERROR);
         }, listener: (context, state) {
           setState(() {
             disableSearchAndToggle = state is Error;

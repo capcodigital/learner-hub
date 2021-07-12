@@ -61,4 +61,7 @@ class Constants {
       "Authentication has been disabled due to too many lock outs. "
       "Strong authentication like PIN / Pattern / Password is required to unlock";
   static const BIO_AUTH_DEFAULT_AUTH_FAILED = "Authentication failed";
+
+  static const NO_RESULTS = 'No results';
+  static const UNKNOWN_ERROR = 'Unknown Error';
 }
