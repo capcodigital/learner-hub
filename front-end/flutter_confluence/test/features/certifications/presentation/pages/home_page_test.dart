@@ -34,18 +34,41 @@ void main() {
         ),
         home: BlocProvider<CloudCertificationBloc>(
           create: (_) => mockBloc..add(GetCompletedCertificationsEvent()),
-          child: Directionality(
-            textDirection: TextDirection.ltr,
-            child: MediaQuery(data: MediaQueryData(), child: HomePage()),
-          ),
+          child: HomePage(),
         ),
       ),
     );
-    await tester.pump(Duration(seconds: 3));
 
     final errorMsgFinder = find.text(expectedMessage);
 
     // assert
     expect(errorMsgFinder, findsOneWidget);
   });
+
+  testWidgets('Home Page shows Loading Widget when bloc emits Loading',
+          (WidgetTester tester) async {
+        // arrange
+        final Loading loading = Loading();
+        when(mockBloc.state).thenAnswer((_) => loading);
+        when(mockBloc.stream).thenAnswer((_) => Stream.value(loading));
+
+        // act
+        await tester.pumpWidget(
+          MaterialApp(
+            title: 'Test',
+            theme: ThemeData(
+              primarySwatch: Colors.blue,
+            ),
+            home: BlocProvider<CloudCertificationBloc>(
+              create: (_) => mockBloc..add(GetCompletedCertificationsEvent()),
+              child: HomePage(),
+            ),
+          ),
+        );
+
+        final circleProgressFinder = find.byWidgetPredicate((widget) => widget is CircularProgressIndicator);
+
+        // assert
+        expect(circleProgressFinder, findsOneWidget);
+      });
 }

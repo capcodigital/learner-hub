@@ -37,14 +37,6 @@ class ErrorPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Without Directionality UI Test fails
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: MediaQuery(data: MediaQueryData(), child: buildWidget(context)),
-    );
-  }
-
-  Widget buildWidget(BuildContext context) {
     return Column(
       children: [
         Container(
