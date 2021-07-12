@@ -11,7 +11,7 @@ import 'on_boarding_local_data_source_impl_test.mocks.dart';
 
 @GenerateMocks([SharedPreferences, LocalAuthentication])
 void main() {
-  late OnBoardingLocalDataSourceImpl dataSource;
+  late OnBoardingLocalDataSource dataSource;
   late MockSharedPreferences mockPrefs;
   late MockLocalAuthentication mockAuth;
 
