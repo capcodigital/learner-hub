@@ -32,10 +32,10 @@ def check_pullclean_errors(original_func):
             return original_func(*args, **kwargs)
         except (pull_clean.EnvFileMissingError, pull_clean.EnvVariablesError):
             raise HTTPException(
-                status_code=500, detail='.env file missing or contains invalid data')
+                status_code=500, detail='Something went wrong. Please try again.')
         except (pull_clean.ConfluencePageContentError, pull_clean.ConfluenceTableError):
             raise HTTPException(
-                status_code=503, detail='requested data may have been moved or changed')
+                status_code=404, detail='Server cannot find requested resource')
     return decorated
 
 
