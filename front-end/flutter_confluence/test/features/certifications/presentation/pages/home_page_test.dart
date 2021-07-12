@@ -1,16 +1,22 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_confluence/core/constants.dart';
 import 'package:flutter_confluence/core/error/error_page.dart';
+import 'package:flutter_confluence/features/certifications/data/models/cloud_certification_model.dart';
+import 'package:flutter_confluence/features/certifications/domain/entities/cloud_certification.dart';
 import 'package:flutter_confluence/features/certifications/domain/entities/cloud_certification_type.dart';
 import 'package:flutter_confluence/features/certifications/presentation/bloc/cloud_certification_bloc.dart';
 import 'package:flutter_confluence/features/certifications/presentation/pages/home_page.dart';
+import 'package:flutter_confluence/features/certifications/presentation/widgets/certifications_view.dart';
 import 'package:flutter_confluence/features/certifications/presentation/widgets/searchbox.dart';
 import 'package:flutter_confluence/features/certifications/presentation/widgets/toggle-switch.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
+import '../../../../fixtures/FixtureReader.dart';
 import 'home_page_test.mocks.dart';
 
 class UnknownState extends CloudCertificationState {}
@@ -23,6 +29,41 @@ void main() {
     when(mockBloc.state).thenAnswer((_) => state);
     when(mockBloc.stream).thenAnswer((_) => Stream.value(state));
   }
+
+  testWidgets('Home Page shows Certifications List Page when bloc emits Loaded',
+      (WidgetTester tester) async {
+    // arrange
+    final mockList =
+        (json.decode(fixture('completed.json')) as List)
+            .map((e) => CloudCertificationModel.fromJson(e))
+            .toList();
+    setMockBlockState(Loaded(
+        items: mockList,
+        cloudCertificationType: CloudCertificationType.completed));
+
+    // act
+    await tester.pumpWidget(
+      // Test fails without Material App
+      MaterialApp(
+        home: BlocProvider<CloudCertificationBloc>(
+          create: (_) => mockBloc..add(GetCompletedCertificationsEvent()),
+          child: HomePage(),
+        ),
+      ),
+    );
+
+    final searchBoxFinder =
+        find.byWidgetPredicate((widget) => widget is SearchBox);
+    final toggleFinder =
+        find.byWidgetPredicate((widget) => widget is ToggleButton);
+    final certificationsFinder =
+        find.byWidgetPredicate((widget) => widget is CertificationsView);
+
+    // assert
+    expect(searchBoxFinder, findsOneWidget);
+    expect(toggleFinder, findsOneWidget);
+    expect(certificationsFinder, findsOneWidget);
+  });
 
   testWidgets('Home Page shows Error Page when bloc emits Error',
       (WidgetTester tester) async {
@@ -47,11 +88,11 @@ void main() {
 
     // TODO: Check how to verify that user cannot interact with Search & Toggle
     final searchBoxFinder =
-    find.byWidgetPredicate((widget) => widget is SearchBox);
+        find.byWidgetPredicate((widget) => widget is SearchBox);
     final toggleFinder =
-    find.byWidgetPredicate((widget) => widget is ToggleButton);
+        find.byWidgetPredicate((widget) => widget is ToggleButton);
     final errorPageFinder =
-    find.byWidgetPredicate((widget) => widget is ErrorPage);
+        find.byWidgetPredicate((widget) => widget is ErrorPage);
     // this is the error msg text inside error page
     final errorMsgFinder = find.text(expectedMessage);
 
@@ -78,7 +119,7 @@ void main() {
     );
 
     final circleProgressFinder =
-    find.byWidgetPredicate((widget) => widget is CircularProgressIndicator);
+        find.byWidgetPredicate((widget) => widget is CircularProgressIndicator);
 
     // assert
     expect(circleProgressFinder, findsOneWidget);
@@ -105,25 +146,26 @@ void main() {
     expect(errorMsgFinder, findsOneWidget);
   });
 
-  testWidgets('Home Page shows unknown error text when bloc emits unknown state',
-          (WidgetTester tester) async {
-        // arrange
+  testWidgets(
+      'Home Page shows unknown error text when bloc emits unknown state',
+      (WidgetTester tester) async {
+    // arrange
 
-        setMockBlockState(UnknownState());
+    setMockBlockState(UnknownState());
 
-        // act
-        await tester.pumpWidget(
-          MaterialApp(
-            home: BlocProvider<CloudCertificationBloc>(
-              create: (_) => mockBloc..emit(UnknownState()),
-              child: HomePage(),
-            ),
-          ),
-        );
+    // act
+    await tester.pumpWidget(
+      MaterialApp(
+        home: BlocProvider<CloudCertificationBloc>(
+          create: (_) => mockBloc..emit(UnknownState()),
+          child: HomePage(),
+        ),
+      ),
+    );
 
-        final errorMsgFinder = find.text(Constants.UNKNOWN_ERROR);
+    final errorMsgFinder = find.text(Constants.UNKNOWN_ERROR);
 
-        // assert
-        expect(errorMsgFinder, findsOneWidget);
-      });
+    // assert
+    expect(errorMsgFinder, findsOneWidget);
+  });
 }
