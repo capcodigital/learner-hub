@@ -5,6 +5,7 @@ import 'package:flutter_confluence/features/certifications/presentation/bloc/clo
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
+
   testWidgets('ErrorPage shows expected error message',
       (WidgetTester tester) async {
     // arrange
@@ -21,4 +22,5 @@ void main() {
     // assert
     expect(errorMsgFinder, findsOneWidget);
   });
+
 }
