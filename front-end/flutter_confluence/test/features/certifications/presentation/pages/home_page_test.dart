@@ -13,6 +13,8 @@ import 'package:mockito/mockito.dart';
 
 import 'home_page_test.mocks.dart';
 
+class UnknownState extends CloudCertificationState {}
+
 @GenerateMocks([CloudCertificationBloc])
 void main() {
   MockCloudCertificationBloc mockBloc = MockCloudCertificationBloc();
@@ -102,4 +104,26 @@ void main() {
     // assert
     expect(errorMsgFinder, findsOneWidget);
   });
+
+  testWidgets('Home Page shows unknown error text when bloc emits unknown state',
+          (WidgetTester tester) async {
+        // arrange
+
+        setMockBlockState(UnknownState());
+
+        // act
+        await tester.pumpWidget(
+          MaterialApp(
+            home: BlocProvider<CloudCertificationBloc>(
+              create: (_) => mockBloc..emit(UnknownState()),
+              child: HomePage(),
+            ),
+          ),
+        );
+
+        final errorMsgFinder = find.text(Constants.UNKNOWN_ERROR);
+
+        // assert
+        expect(errorMsgFinder, findsOneWidget);
+      });
 }
