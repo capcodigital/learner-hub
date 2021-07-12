@@ -40,13 +40,13 @@ class Constants {
 
   // Certifications Errors
   static const SERVER_FAILURE_MSG = "Server Failure";
+  static const SERVER_ERROR_500_599 = "Something went wrong. Please try again";
+  static const SERVER_ERROR_401 = "Client is not authenticated";
+  static const SERVER_ERROR_403 = "Client does not have access rights";
+  static const SERVER_ERROR_404 = "Server can not find requested resource";
+
   static const CACHE_FAILURE_MSG = "Cache Failure";
   static const UNKNOWN_ERROR_MSG = "Unknown Error";
-
-  static const ERROR_500_599 = "Something went wrong. Please try again";
-  static const ERROR_401 = "Client is not authenticated";
-  static const ERROR_403 = "Client does not have access rights";
-  static const ERROR_404 = "Server can not find requested resource";
 
   // Biometric Auth Error Messages
   static const BIO_AUTH_PASSCODE_NOT_SET =

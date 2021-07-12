@@ -47,17 +47,18 @@ class CloudCertificationRemoteDataSourceImpl
   ServerException serverException(int errorStatusCode) {
     String msg;
     switch (errorStatusCode) {
-      case 500 - 599:
-        msg = Constants.ERROR_500_599;
+      case 500:
+      case 599:
+        msg = Constants.SERVER_ERROR_500_599;
         break;
       case 401:
-        msg = Constants.ERROR_401;
+        msg = Constants.SERVER_ERROR_401;
         break;
       case 403:
-        msg = Constants.ERROR_403;
+        msg = Constants.SERVER_ERROR_403;
         break;
       case 404:
-        msg = Constants.ERROR_404;
+        msg = Constants.SERVER_ERROR_404;
         break;
       default:
         msg = Constants.SERVER_FAILURE_MSG;
