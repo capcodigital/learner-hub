@@ -146,6 +146,7 @@ class _HomePageState extends State<HomePage> {
         }, listener: (context, state) {
           setState(() {
             disableSearchAndToggle = state is Error;
+            if (disableSearchAndToggle) FocusScope.of(context).unfocus();
           });
         })
       ],
