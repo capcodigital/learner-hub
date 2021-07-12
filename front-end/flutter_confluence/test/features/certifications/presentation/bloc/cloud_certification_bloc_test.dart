@@ -114,7 +114,7 @@ void main() {
       'should emit, Loading, ServerError',
       build: () {
         when(mockCompletedCase(any))
-            .thenAnswer((_) async => Left(ServerFailure()));
+            .thenAnswer((_) async => Left(ServerFailure(message: Constants.SERVER_FAILURE_MSG)));
         return bloc;
       },
       act: (CloudCertificationBloc blo) =>
@@ -166,7 +166,7 @@ void main() {
       'should emit Loading, ServerError',
       build: () {
         when(mockInProgressCase(any))
-            .thenAnswer((_) async => Left(ServerFailure()));
+            .thenAnswer((_) async => Left(ServerFailure(message: Constants.SERVER_FAILURE_MSG)));
         return bloc;
       },
       act: (CloudCertificationBloc blo) =>

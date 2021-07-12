@@ -147,7 +147,7 @@ void main() {
   });
 
   testWidgets(
-      'Home Page shows unknown error text when bloc emits unknown state',
+      'Home Page shows Unknown Error Text when bloc emits Unknown State',
       (WidgetTester tester) async {
     // arrange
 
