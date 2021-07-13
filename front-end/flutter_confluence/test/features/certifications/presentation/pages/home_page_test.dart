@@ -79,10 +79,16 @@ void main() {
       ),
     );
 
+    final searchBoxFinder =
+    find.byWidgetPredicate((widget) => widget is SearchBox);
+    final toggleFinder =
+    find.byWidgetPredicate((widget) => widget is ToggleButton);
     final circleProgressFinder =
         find.byWidgetPredicate((widget) => widget is CircularProgressIndicator);
 
     // assert
+    expect(searchBoxFinder, findsOneWidget);
+    expect(toggleFinder, findsOneWidget);
     expect(circleProgressFinder, findsOneWidget);
   });
 
@@ -101,10 +107,16 @@ void main() {
       ),
     );
 
-    final errorMsgFinder = find.text(Constants.NO_RESULTS);
+    final searchBoxFinder =
+    find.byWidgetPredicate((widget) => widget is SearchBox);
+    final toggleFinder =
+    find.byWidgetPredicate((widget) => widget is ToggleButton);
+    final txtFinder = find.text(Constants.NO_RESULTS);
 
     // assert
-    expect(errorMsgFinder, findsOneWidget);
+    expect(searchBoxFinder, findsOneWidget);
+    expect(toggleFinder, findsOneWidget);
+    expect(txtFinder, findsOneWidget);
   });
 
   testWidgets(
@@ -124,9 +136,15 @@ void main() {
       ),
     );
 
+    final searchBoxFinder =
+    find.byWidgetPredicate((widget) => widget is SearchBox);
+    final toggleFinder =
+    find.byWidgetPredicate((widget) => widget is ToggleButton);
     final errorMsgFinder = find.text(Constants.UNKNOWN_ERROR);
 
     // assert
+    expect(searchBoxFinder, findsOneWidget);
+    expect(toggleFinder, findsOneWidget);
     expect(errorMsgFinder, findsOneWidget);
   });
 
