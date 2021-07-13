@@ -112,7 +112,7 @@ class _HomePageState extends State<HomePage> {
               ),
               ColorFiltered(
                   colorFilter: ColorFilter.mode(
-                    disableSearchAndToggle ? Colors.black : Colors.white,
+                    disableSearchAndToggle ? Constants.DISABLED_COLOR : Colors.white,
                     BlendMode.modulate,
                   ),
                   child: IgnorePointer(
