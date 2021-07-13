@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 
 import 'core/constants.dart';
 import 'features/onboarding/presentation/bloc/on_boarding_bloc.dart';
@@ -85,8 +86,8 @@ class PreLoadWidget extends StatelessWidget {
         }
       },
       child: Center(
-        child: CircularProgressIndicator(),
+        child: Lottie.asset('assets/lottie-animation.json',
       ),
-    ));
+    )));
   }
 }
