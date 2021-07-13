@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_confluence/core/constants.dart';
 import 'package:flutter_confluence/core/error/error_page.dart';
 import 'package:flutter_confluence/features/certifications/domain/entities/cloud_certification_type.dart';
@@ -20,11 +21,10 @@ void main() {
       textDirection: TextDirection.ltr,
       child: MediaQuery(
           data: MediaQueryData(),
-          child: ErrorPage(
-            error: error,
-          )),
+          child: ErrorPage(error: error),
+          ),
     ));
-    await tester.pump(Duration(seconds: 3));
+    await tester.pump(Duration(milliseconds: 3000));
 
     final errorMsgFinder = find.text(expectedMessage);
 

@@ -159,13 +159,13 @@ void main() {
     final errorPageFinder =
         find.byWidgetPredicate((widget) => widget is ErrorPage);
     // this is the error msg text inside error page
-    //final errorMsgFinder = find.text(expectedMessage);
+    final errorMsgFinder = find.text(expectedMessage);
 
     // assert
     expect(searchBoxFinder, findsOneWidget);
     expect(toggleFinder, findsOneWidget);
     expect(errorPageFinder, findsOneWidget);
-    //expect(errorMsgFinder, findsOneWidget);
+    expect(errorMsgFinder, findsOneWidget);
   });
 
 }

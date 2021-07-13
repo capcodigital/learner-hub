@@ -59,7 +59,7 @@ class ErrorPage extends StatelessWidget {
           alignment: Alignment.center,
           width: errorMsgWidth,
           child: Text(
-            "th dd  fddf dfd f dfdf ddf dfdf dfdfdfd dd",
+            error.message,
             style:
                 Theme.of(context).textTheme.headline2?.copyWith(fontSize: 18),
             textAlign: TextAlign.center,
