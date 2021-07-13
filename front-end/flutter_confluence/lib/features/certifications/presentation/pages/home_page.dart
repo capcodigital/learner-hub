@@ -28,13 +28,7 @@ class _HomePageState extends State<HomePage> {
   static const double searchbarHorizontalPadding = 25.0;
   var frontLayerTop = frontLayerInitialTop;
   var disableSearchAndToggle = false;
-  late TextEditingController searchController;
-
-  @override
-  void initState() {
-    super.initState();
-    searchController = TextEditingController();
-  }
+  final TextEditingController searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
