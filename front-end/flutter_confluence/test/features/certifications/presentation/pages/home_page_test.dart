@@ -30,7 +30,7 @@ void main() {
     when(mockBloc.state).thenAnswer((_) => state);
     when(mockBloc.stream).thenAnswer((_) => Stream.value(state));
   }
-  
+
   testWidgets('Home Page shows Certifications List Page when bloc emits Loaded',
       (WidgetTester tester) async {
     // arrange
@@ -45,7 +45,7 @@ void main() {
     await tester.pumpWidget(
       MaterialApp(
         home: BlocProvider<CloudCertificationBloc>(
-          create: (_) => mockBloc..add(GetCompletedCertificationsEvent()),
+          create: (_) => mockBloc,
           child: HomePage(),
         ),
       ),
@@ -73,7 +73,7 @@ void main() {
     await tester.pumpWidget(
       MaterialApp(
         home: BlocProvider<CloudCertificationBloc>(
-          create: (_) => mockBloc..add(GetCompletedCertificationsEvent()),
+          create: (_) => mockBloc,
           child: HomePage(),
         ),
       ),
@@ -101,7 +101,7 @@ void main() {
     await tester.pumpWidget(
       MaterialApp(
         home: BlocProvider<CloudCertificationBloc>(
-          create: (_) => mockBloc..emit(Empty()),
+          create: (_) => mockBloc,
           child: HomePage(),
         ),
       ),
@@ -123,14 +123,13 @@ void main() {
       'Home Page shows Unknown Error Text when bloc emits Unknown State',
       (WidgetTester tester) async {
     // arrange
-
     setMockBlockState(UnknownState());
 
     // act
     await tester.pumpWidget(
       MaterialApp(
         home: BlocProvider<CloudCertificationBloc>(
-          create: (_) => mockBloc..emit(UnknownState()),
+          create: (_) => mockBloc,
           child: HomePage(),
         ),
       ),
@@ -155,14 +154,13 @@ void main() {
     final Error error = Error(
         message: expectedMessage,
         certificationType: CloudCertificationType.completed);
-
     setMockBlockState(error);
 
     // act
     await tester.pumpWidget(
       MaterialApp(
         home: BlocProvider<CloudCertificationBloc>(
-          create: (_) => mockBloc..add(GetCompletedCertificationsEvent()),
+          create: (_) => mockBloc,
           child: HomePage(),
         ),
       ),
