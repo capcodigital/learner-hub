@@ -49,6 +49,7 @@ class CloudCertificationRemoteDataSourceImpl
             message: _mapStatusCodeToMessage(response.statusCode));
       }
     } on Exception catch (ex) {
+      if (ex is ServerException) throw ex;
       log(TAG + ex.toString());
       throw ServerException(message: Constants.SERVER_FAILURE_MSG);
     }

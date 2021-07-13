@@ -9,6 +9,7 @@ import 'package:flutter_confluence/features/certifications/domain/entities/cloud
 import 'package:flutter_confluence/features/certifications/presentation/bloc/cloud_certification_bloc.dart';
 import 'package:flutter_confluence/features/certifications/presentation/pages/home_page.dart';
 import 'package:flutter_confluence/features/certifications/presentation/widgets/certifications_view.dart';
+import 'package:flutter_confluence/features/certifications/presentation/widgets/empty_search.dart';
 import 'package:flutter_confluence/features/certifications/presentation/widgets/searchbox.dart';
 import 'package:flutter_confluence/features/certifications/presentation/widgets/toggle-switch.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -150,7 +151,7 @@ void main() {
       (WidgetTester tester) async {
     // arrange
     final expectedMessage = Constants.SERVER_FAILURE_MSG;
-    final Error error = Error(
+    final CloudCertificationState error = Error(
         message: expectedMessage,
         certificationType: CloudCertificationType.completed);
     setMockBlockState(error);
@@ -181,5 +182,35 @@ void main() {
     expect(errorPageFinder, findsOneWidget);
     expect(errorMsgFinder, findsOneWidget);
   });
+
+  testWidgets('Home Page shows EmptySearch when bloc emits EmptySearchResult',
+          (WidgetTester tester) async {
+        // arrange
+        final CloudCertificationState state = EmptySearchResult(
+            cloudCertificationType: CloudCertificationType.completed);
+        setMockBlockState(state);
+
+        // act
+        await tester.pumpWidget(
+          MaterialApp(
+            home: BlocProvider<CloudCertificationBloc>(
+              create: (_) => mockBloc,
+              child: HomePage(),
+            ),
+          ),
+        );
+
+        final searchBoxFinder =
+        find.byWidgetPredicate((widget) => widget is SearchBox);
+        final toggleFinder =
+        find.byWidgetPredicate((widget) => widget is ToggleButton);
+        final emptySearchFinder =
+        find.byWidgetPredicate((widget) => widget is EmptySearch);
+
+        // assert
+        expect(searchBoxFinder, findsOneWidget);
+        expect(toggleFinder, findsOneWidget);
+        expect(emptySearchFinder, findsOneWidget);
+      });
 
 }
