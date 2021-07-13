@@ -1,9 +1,8 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_confluence/core/constants.dart';
-import 'package:flutter_confluence/features/certifications/presentation/pages/error_page.dart';
-
+import '../../../../core/constants.dart';
+import 'error_page.dart';
 import '../widgets/empty_search.dart';
 import '../widgets/searchbox.dart';
 import '../bloc/cloud_certification_bloc.dart';
@@ -99,7 +98,7 @@ class _HomePageState extends State<HomePage> {
                     right: searchbarHorizontalPadding),
                 child: ColorFiltered(
                   colorFilter: ColorFilter.mode(
-                    getFilterColor(),
+                    Constants.getWidgetFilterColor(disableSearchAndToggle),
                     BlendMode.modulate,
                   ),
                   child: IgnorePointer(
@@ -117,7 +116,7 @@ class _HomePageState extends State<HomePage> {
               ),
               ColorFiltered(
                   colorFilter: ColorFilter.mode(
-                    getFilterColor(),
+                    Constants.getWidgetFilterColor(disableSearchAndToggle),
                     BlendMode.modulate,
                   ),
                   child: IgnorePointer(
@@ -152,9 +151,5 @@ class _HomePageState extends State<HomePage> {
         })
       ],
     );
-  }
-
-  Color getFilterColor() {
-    return disableSearchAndToggle ? Colors.grey : Colors.white;
   }
 }

@@ -72,4 +72,8 @@ class Constants {
 
   static const NO_RESULTS = 'No results';
   static const UNKNOWN_ERROR = 'Unknown Error';
+
+  static Color getWidgetFilterColor(bool disabled) {
+    return disabled ? Colors.grey.shade300 : Colors.white;
+  }
 }
