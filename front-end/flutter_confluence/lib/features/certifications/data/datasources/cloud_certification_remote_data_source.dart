@@ -40,30 +40,19 @@ class CloudCertificationRemoteDataSourceImpl
           .map((e) => CloudCertificationModel.fromJson(e))
           .toList();
     } else {
-      throw serverException(response.statusCode);
+      throw ServerException(
+          message: _mapStatusCodeToMessage(response.statusCode));
     }
   }
 
-  ServerException serverException(int errorStatusCode) {
-    String msg;
+  String _mapStatusCodeToMessage(int errorStatusCode) {
     switch (errorStatusCode) {
       case 500:
-      case 599:
-        msg = Constants.SERVER_ERROR_500_599;
-        break;
-      case 401:
-        msg = Constants.SERVER_ERROR_401;
-        break;
-      case 403:
-        msg = Constants.SERVER_ERROR_403;
-        break;
+        return Constants.SERVER_ERROR_500;
       case 404:
-        msg = Constants.SERVER_ERROR_404;
-        break;
+        return Constants.SERVER_ERROR_404;
       default:
-        msg = Constants.SERVER_FAILURE_MSG;
-        break;
+        return Constants.SERVER_FAILURE_MSG;
     }
-    return ServerException(message: msg);
   }
 }

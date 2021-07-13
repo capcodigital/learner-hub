@@ -16,7 +16,7 @@ class ErrorPage extends StatelessWidget {
   static const titleMarginTop = 30.0;
   static const errorMsgMarginTop = 60.0;
   static const errorMsgWidth = 240.0;
-  static const tryAgainBtnMarginTop = 100.0;
+  static const tryAgainBtnMarginTop = 20.0;
 
   final Error error;
 
@@ -59,7 +59,7 @@ class ErrorPage extends StatelessWidget {
           alignment: Alignment.center,
           width: errorMsgWidth,
           child: Text(
-            error.message,
+            "th dd  fddf dfd f dfdf ddf dfdf dfdfdfd dd",
             style:
                 Theme.of(context).textTheme.headline2?.copyWith(fontSize: 18),
             textAlign: TextAlign.center,

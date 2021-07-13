@@ -59,69 +59,31 @@ void main() {
     );
 
     test(
-      'should return a ServerException for 500-599 when status code is 599',
+      'should return a ServerException for 500 when status code is 500',
       () {
-        setUpMockHttpClient("completed.json", statusCode: 599);
+        setUpMockHttpClient("completed.json", statusCode: 500);
 
         expect(
             () async => await dataSource.getCompletedCertifications(),
             throwsA(predicate((e) =>
                 e is ServerException &&
-                e.message == Constants.SERVER_ERROR_500_599)));
+                e.message == Constants.SERVER_ERROR_500)));
       },
     );
 
     test(
-      'should return a ServerException for 500-599 when status code is 500',
+      'should return a ServerException for 404 when status code is 404',
           () {
-        setUpMockHttpClient("completed.json", statusCode: 500);
+        setUpMockHttpClient("completed.json", statusCode: 404);
 
         expect(
                 () async => await dataSource.getCompletedCertifications(),
             throwsA(predicate((e) =>
             e is ServerException &&
-                e.message == Constants.SERVER_ERROR_500_599)));
-      },
-    );
-
-    test(
-      'should return a ServerException with for 401',
-      () {
-        setUpMockHttpClient("completed.json", statusCode: 401);
-
-        expect(
-            () async => await dataSource.getCompletedCertifications(),
-            throwsA(predicate((e) =>
-                e is ServerException &&
-                e.message == Constants.SERVER_ERROR_401)));
-      },
-    );
-
-    test(
-      'should return a ServerException with for 403',
-      () {
-        setUpMockHttpClient("completed.json", statusCode: 403);
-
-        expect(
-            () async => await dataSource.getCompletedCertifications(),
-            throwsA(predicate((e) =>
-                e is ServerException &&
-                e.message == Constants.SERVER_ERROR_403)));
-      },
-    );
-
-    test(
-      'should return a ServerException with for 404',
-      () {
-        setUpMockHttpClient("completed.json", statusCode: 404);
-
-        expect(
-            () async => await dataSource.getCompletedCertifications(),
-            throwsA(predicate((e) =>
-                e is ServerException &&
                 e.message == Constants.SERVER_ERROR_404)));
       },
     );
+
   });
 
   group('getInProgressCertifications', () {

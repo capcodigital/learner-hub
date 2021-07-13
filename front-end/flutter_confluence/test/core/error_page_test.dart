@@ -25,6 +25,7 @@ void main() {
           )),
     ));
     await tester.pump(Duration(seconds: 3));
+
     final errorMsgFinder = find.text(expectedMessage);
 
     // assert
