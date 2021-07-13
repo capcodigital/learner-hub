@@ -92,7 +92,9 @@ class _HomePageState extends State<HomePage> {
                     right: searchbarHorizontalPadding),
                 child: ColorFiltered(
                   colorFilter: ColorFilter.mode(
-                    Constants.getWidgetFilterColor(disableSearchAndToggle),
+                    disableSearchAndToggle
+                        ? Constants.DISABLED_COLOR
+                        : Colors.white,
                     BlendMode.modulate,
                   ),
                   child: IgnorePointer(
@@ -110,7 +112,7 @@ class _HomePageState extends State<HomePage> {
               ),
               ColorFiltered(
                   colorFilter: ColorFilter.mode(
-                    Constants.getWidgetFilterColor(disableSearchAndToggle),
+                    disableSearchAndToggle ? Colors.black : Colors.white,
                     BlendMode.modulate,
                   ),
                   child: IgnorePointer(

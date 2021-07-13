@@ -7,6 +7,7 @@ class Constants {
   static const JIRA_COLOR = const Color(0xff0052CC);
   static const BLACK_75 = const Color(0xBF000000);
   static final BLACK_25 = Colors.black.withOpacity(0.25);
+  static final DISABLED_COLOR = Colors.grey.shade300;
 
   // Icons
   static const IC_FLUTTER = 'ic_flutter.png';
@@ -72,8 +73,4 @@ class Constants {
 
   static const NO_RESULTS = 'No results';
   static const UNKNOWN_ERROR = 'Unknown Error';
-
-  static Color getWidgetFilterColor(bool disabled) {
-    return disabled ? Colors.grey.shade300 : Colors.white;
-  }
 }
