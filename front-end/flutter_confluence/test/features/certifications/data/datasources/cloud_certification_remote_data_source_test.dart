@@ -46,7 +46,7 @@ void main() {
 
     test(
       'should return a generic ServerException when status code is '
-      'not 200 (success), 500, 599, 401, 403, 404',
+      'not 200 (success), 500, 404',
       () {
         setUpMockHttpClient("completed.json", statusCode: 224);
 
