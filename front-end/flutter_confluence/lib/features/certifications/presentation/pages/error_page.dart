@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_confluence/features/certifications/domain/entities/cloud_certification_type.dart';
 import 'package:flutter_confluence/features/certifications/presentation/bloc/cloud_certification_bloc.dart';
 
-import '../constants.dart';
-import '../dimen.dart';
+import '../../../../core/constants.dart';
+import '../../../../core/dimen.dart';
 
 class ErrorPage extends StatelessWidget {
   static const route = "ErrorPage";

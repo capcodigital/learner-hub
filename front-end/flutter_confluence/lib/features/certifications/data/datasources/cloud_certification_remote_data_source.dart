@@ -10,7 +10,7 @@ abstract class CloudCertificationRemoteDataSource {
 }
 
 class CloudCertificationRemoteDataSourceImpl
-    extends CloudCertificationRemoteDataSource {
+    implements CloudCertificationRemoteDataSource {
   final http.Client client;
 
   CloudCertificationRemoteDataSourceImpl({required this.client});

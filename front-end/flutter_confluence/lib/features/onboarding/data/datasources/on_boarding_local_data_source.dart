@@ -18,7 +18,7 @@ const BIOMETRIC_AUTH_ONLY = true;
 const STICKY_AUTH = true;
 const USE_ERROR_DIALOGS = false;
 
-class OnBoardingLocalDataSourceImpl extends OnBoardingLocalDataSource {
+class OnBoardingLocalDataSourceImpl implements OnBoardingLocalDataSource {
   final LocalAuthentication auth;
   final SharedPreferences prefs;
 

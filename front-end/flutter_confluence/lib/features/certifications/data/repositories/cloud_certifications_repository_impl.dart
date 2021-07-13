@@ -10,9 +10,8 @@ import 'package:flutter_confluence/features/certifications/data/models/cloud_cer
 import 'package:flutter_confluence/features/certifications/domain/entities/cloud_certification.dart';
 import 'package:flutter_confluence/features/certifications/domain/entities/cloud_certification_type.dart';
 import 'package:flutter_confluence/features/certifications/domain/repositories/cloud_certification_repository.dart';
-import 'package:flutter_confluence/features/certifications/presentation/bloc/cloud_certification_bloc.dart';
 
-class CloudCertificationsRepositoryImpl extends CloudCertificationRepository {
+class CloudCertificationsRepositoryImpl implements CloudCertificationRepository {
   final CloudCertificationRemoteDataSource remoteDataSource;
   final CloudCertificationLocalDataSource localDataSource;
   final NetworkInfo networkInfo;
