@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:flutter_confluence/core/constants.dart';
 import 'package:flutter_confluence/core/error/custom_exceptions.dart';
 import 'package:flutter_confluence/core/error/failures.dart';
 import 'package:flutter_confluence/core/network/network_info.dart';
@@ -9,9 +10,8 @@ import 'package:flutter_confluence/features/certifications/data/models/cloud_cer
 import 'package:flutter_confluence/features/certifications/domain/entities/cloud_certification.dart';
 import 'package:flutter_confluence/features/certifications/domain/entities/cloud_certification_type.dart';
 import 'package:flutter_confluence/features/certifications/domain/repositories/cloud_certification_repository.dart';
-import 'package:flutter_confluence/features/certifications/presentation/bloc/cloud_certification_bloc.dart';
 
-class CloudCertificationsRepositoryImpl extends CloudCertificationRepository {
+class CloudCertificationsRepositoryImpl implements CloudCertificationRepository {
   final CloudCertificationRemoteDataSource remoteDataSource;
   final CloudCertificationLocalDataSource localDataSource;
   final NetworkInfo networkInfo;
@@ -23,7 +23,8 @@ class CloudCertificationsRepositoryImpl extends CloudCertificationRepository {
   });
 
   @override
-  Future<Either<Failure, List<CloudCertification>>> getCompletedCertifications() async {
+  Future<Either<Failure, List<CloudCertification>>>
+      getCompletedCertifications() async {
     return await _getData(
         remoteDataSource.getCompletedCertifications,
         localDataSource.getCompletedCertifications,
@@ -31,7 +32,8 @@ class CloudCertificationsRepositoryImpl extends CloudCertificationRepository {
   }
 
   @override
-  Future<Either<Failure, List<CloudCertification>>> getInProgressCertifications() async {
+  Future<Either<Failure, List<CloudCertification>>>
+      getInProgressCertifications() async {
     return await _getData(
         remoteDataSource.getInProgressCertifications,
         localDataSource.getInProgressCertifications,
@@ -41,7 +43,8 @@ class CloudCertificationsRepositoryImpl extends CloudCertificationRepository {
   Future<Either<Failure, List<CloudCertification>>> _getData(
     Future<List<CloudCertificationModel>> Function() getRemoteData,
     Future<List<CloudCertificationModel>> Function() getLocalData,
-    Future<void> Function(List<CloudCertificationModel> certifications) saveDataIntoCache,
+    Future<void> Function(List<CloudCertificationModel> certifications)
+        saveDataIntoCache,
   ) async {
     try {
       if (await networkInfo.isConnected) {
@@ -49,8 +52,8 @@ class CloudCertificationsRepositoryImpl extends CloudCertificationRepository {
           final certifications = await getRemoteData();
           saveDataIntoCache(certifications);
           return Right(certifications);
-        } on ServerException {
-          return Left(ServerFailure());
+        } on ServerException catch (e) {
+          return Left(ServerFailure(message: e.message));
         }
       } else {
         try {
@@ -61,7 +64,7 @@ class CloudCertificationsRepositoryImpl extends CloudCertificationRepository {
         }
       }
     } on Exception {
-      return Left(ServerFailure());
+      return Left(ServerFailure(message: Constants.SERVER_FAILURE_MSG));
     }
   }
 
@@ -82,13 +85,12 @@ class CloudCertificationsRepositoryImpl extends CloudCertificationRepository {
       if (searchTerm.isNotEmpty) {
         var filtered = certifications
             .where((element) =>
-        element.name.containsIgnoreCase(searchTerm) ||
-            element.certificationType.containsIgnoreCase(searchTerm) ||
-            element.platform.containsIgnoreCase(searchTerm))
+                element.name.containsIgnoreCase(searchTerm) ||
+                element.certificationType.containsIgnoreCase(searchTerm) ||
+                element.platform.containsIgnoreCase(searchTerm))
             .toList();
         return Right(filtered);
-      }
-      else {
+      } else {
         return Right(certifications);
       }
     } on Exception {

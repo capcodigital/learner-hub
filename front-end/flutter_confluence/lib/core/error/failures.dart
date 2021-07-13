@@ -6,7 +6,10 @@ List<Object> get props => [];
 }
 
 // General failures
-class ServerFailure extends Failure {}
+class ServerFailure extends Failure {
+  final String message;
+  ServerFailure({required this.message});
+}
 
 class CacheFailure extends Failure {}
 

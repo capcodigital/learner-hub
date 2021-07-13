@@ -23,18 +23,19 @@ class CloudCertificationBloc
   final GetInProgressCertifications inProgressUseCase;
   final SearchCertifications searchUserCase;
 
-  CloudCertificationBloc({
-    required this.completedUseCase,
-    required this.inProgressUseCase,
-    required this.searchUserCase
-  }) : super(Empty());
+  CloudCertificationBloc(
+      {required this.completedUseCase,
+      required this.inProgressUseCase,
+      required this.searchUserCase})
+      : super(Empty());
 
   @override
   Stream<CloudCertificationState> mapEventToState(
     CloudCertificationEvent event,
   ) async* {
-
-    log(this.runtimeType.toString() + " - New event received: " + event.runtimeType.toString());
+    log(this.runtimeType.toString() +
+        " - New event received: " +
+        event.runtimeType.toString());
 
     if (event is GetCompletedCertificationsEvent) {
       yield Loading();
@@ -49,11 +50,14 @@ class CloudCertificationBloc
     }
   }
 
-  Stream<CloudCertificationState> _getState(Either<Failure, List<CloudCertification>> arg,
-      CloudCertificationType dataType, {bool isSearch = false}) async* {
+  Stream<CloudCertificationState> _getState(
+      Either<Failure, List<CloudCertification>> arg,
+      CloudCertificationType dataType,
+      {bool isSearch = false}) async* {
     yield arg.fold(
-      (failure) => Error(certificationType: dataType, message: _mapFailureToMessage(failure)),
-      (certifications) {
+        (failure) => Error(
+            certificationType: dataType,
+            message: _mapFailureToMessage(failure)), (certifications) {
       if (isSearch && certifications.isEmpty) {
         return EmptySearchResult(cloudCertificationType: dataType);
       } else {
@@ -64,8 +68,7 @@ class CloudCertificationBloc
 
   Stream<CloudCertificationState> _getSearchState(String searchTerm) async* {
     var searchParameters = SearchParams(
-        searchQuery: searchTerm,
-        dataType: state.cloudCertificationType);
+        searchQuery: searchTerm, dataType: state.cloudCertificationType);
 
     yield Loading();
     final result = await searchUserCase(searchParameters);
@@ -75,7 +78,7 @@ class CloudCertificationBloc
   String _mapFailureToMessage(Failure failure) {
     switch (failure.runtimeType) {
       case ServerFailure:
-        return Constants.SERVER_FAILURE_MSG;
+        return (failure as ServerFailure).message;
       case CacheFailure:
         return Constants.CACHE_FAILURE_MSG;
       default:

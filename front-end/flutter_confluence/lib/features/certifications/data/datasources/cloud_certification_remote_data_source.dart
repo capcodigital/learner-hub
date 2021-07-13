@@ -9,19 +9,22 @@ abstract class CloudCertificationRemoteDataSource {
   Future<List<CloudCertificationModel>> getInProgressCertifications();
 }
 
-class CloudCertificationRemoteDataSourceImpl extends CloudCertificationRemoteDataSource {
+class CloudCertificationRemoteDataSourceImpl
+    implements CloudCertificationRemoteDataSource {
   final http.Client client;
 
   CloudCertificationRemoteDataSourceImpl({required this.client});
 
   @override
   Future<List<CloudCertificationModel>> getCompletedCertifications() {
-    return _getDataFromUrl(Constants.BASE_API_URL + '/' + Constants.COMPLETED_URL);
+    return _getDataFromUrl(
+        Constants.BASE_API_URL + '/' + Constants.COMPLETED_URL);
   }
 
   @override
   Future<List<CloudCertificationModel>> getInProgressCertifications() {
-    return _getDataFromUrl(Constants.BASE_API_URL + '/' + Constants.IN_PROGRESS_URL);
+    return _getDataFromUrl(
+        Constants.BASE_API_URL + '/' + Constants.IN_PROGRESS_URL);
   }
 
   Future<List<CloudCertificationModel>> _getDataFromUrl(String url) async {
@@ -32,13 +35,24 @@ class CloudCertificationRemoteDataSourceImpl extends CloudCertificationRemoteDat
       },
     );
 
-    if (response.statusCode == 200) {
+    if (response.statusCode == Constants.STATUS_CODE_200) {
       return (json.decode(response.body) as List)
           .map((e) => CloudCertificationModel.fromJson(e))
           .toList();
-
     } else {
-      throw ServerException();
+      throw ServerException(
+          message: _mapStatusCodeToMessage(response.statusCode));
+    }
+  }
+
+  String _mapStatusCodeToMessage(int errorStatusCode) {
+    switch (errorStatusCode) {
+      case Constants.STATUS_CODE_500:
+        return Constants.SERVER_ERROR_500;
+      case Constants.STATUS_CODE_404:
+        return Constants.SERVER_ERROR_404;
+      default:
+        return Constants.SERVER_FAILURE_MSG;
     }
   }
 }

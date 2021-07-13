@@ -7,11 +7,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:flutter_confluence/features/onboarding/data/datasources/on_boarding_local_data_source.dart';
 
-import 'on_boarding_data_source_impl_test.mocks.dart';
+import 'on_boarding_local_data_source_impl_test.mocks.dart';
 
 @GenerateMocks([SharedPreferences, LocalAuthentication])
 void main() {
-  late OnBoardingLocalDataSourceImpl dataSource;
+  late OnBoardingLocalDataSource dataSource;
   late MockSharedPreferences mockPrefs;
   late MockLocalAuthentication mockAuth;
 

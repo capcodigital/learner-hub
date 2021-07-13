@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_confluence/features/certifications/domain/entities/cloud_certification_type.dart';
 import 'package:flutter_confluence/features/certifications/presentation/bloc/cloud_certification_bloc.dart';
 
-import '../constants.dart';
-import '../dimen.dart';
+import '../../../../core/constants.dart';
+import '../../../../core/dimen.dart';
 
 class ErrorPage extends StatelessWidget {
   static const route = "ErrorPage";
@@ -16,7 +16,7 @@ class ErrorPage extends StatelessWidget {
   static const titleMarginTop = 30.0;
   static const errorMsgMarginTop = 60.0;
   static const errorMsgWidth = 240.0;
-  static const tryAgainBtnMarginTop = 100.0;
+  static const tryAgainBtnMarginTop = 20.0;
 
   final Error error;
 

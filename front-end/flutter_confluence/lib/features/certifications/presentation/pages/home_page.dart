@@ -1,8 +1,8 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_confluence/core/error/error_page.dart';
-
+import '../../../../core/constants.dart';
+import 'error_page.dart';
 import '../widgets/empty_search.dart';
 import '../widgets/searchbox.dart';
 import '../bloc/cloud_certification_bloc.dart';
@@ -27,6 +27,8 @@ class _HomePageState extends State<HomePage> {
   static const double headerBottomPadding = 16.0;
   static const double searchbarHorizontalPadding = 25.0;
   var frontLayerTop = frontLayerInitialTop;
+  var disableSearchAndToggle = false;
+  final TextEditingController searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -77,8 +79,6 @@ class _HomePageState extends State<HomePage> {
           .add(SearchCertificationsEvent(searchTerm));
     }
 
-    final searchController = TextEditingController();
-
     return Column(
       children: [
         Padding(
@@ -90,40 +90,61 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.only(
                     left: searchbarHorizontalPadding,
                     right: searchbarHorizontalPadding),
-                child: SearchBox(
-                  controller: searchController,
-                  onSearchTermChanged: doSearch,
-                  onSearchSubmitted: doSearch,
+                child: ColorFiltered(
+                  colorFilter: ColorFilter.mode(
+                    disableSearchAndToggle
+                        ? Constants.DISABLED_COLOR
+                        : Colors.white,
+                    BlendMode.modulate,
+                  ),
+                  child: IgnorePointer(
+                    ignoring: disableSearchAndToggle,
+                    child: SearchBox(
+                      controller: searchController,
+                      onSearchTermChanged: doSearch,
+                      onSearchSubmitted: doSearch,
+                    ),
+                  ),
                 ),
               ),
               SizedBox(
                 height: headerItemsSpacing,
               ),
-              ToggleButton()
+              ColorFiltered(
+                  colorFilter: ColorFilter.mode(
+                    disableSearchAndToggle ? Colors.black : Colors.white,
+                    BlendMode.modulate,
+                  ),
+                  child: IgnorePointer(
+                      ignoring: disableSearchAndToggle, child: ToggleButton())),
             ],
           ),
         ),
-        BlocBuilder<CloudCertificationBloc, CloudCertificationState>(
-          builder: (context, state) {
-            log("HOME PAGE - New State received: " + state.toString());
-            if (state is Loaded) {
-              return Expanded(child: CertificationsView(items: state.items));
-            } else if (state is Loading)
-              return Container(
-                  margin: EdgeInsets.only(top: 60),
-                  child: CircularProgressIndicator());
-            else if (state is Empty)
-              return Text('No results');
-            else if (state is EmptySearchResult)
-              return EmptySearch(
-                  type: state.cloudCertificationType,
-                  searchController: searchController);
-            else if (state is Error)
-              return ErrorPage(error: state);
-            else
-              return Text('Unknown Error');
-          },
-        )
+        BlocConsumer<CloudCertificationBloc, CloudCertificationState>(
+            builder: (context, state) {
+          log("HOME PAGE - New State received: " + state.toString());
+          if (state is Loaded) {
+            return Expanded(child: CertificationsView(items: state.items));
+          } else if (state is Loading)
+            return Container(
+                margin: EdgeInsets.only(top: 60),
+                child: CircularProgressIndicator());
+          else if (state is Empty)
+            return Text(Constants.NO_RESULTS);
+          else if (state is EmptySearchResult)
+            return EmptySearch(
+                type: state.cloudCertificationType,
+                searchController: searchController);
+          else if (state is Error)
+            return ErrorPage(error: state);
+          else
+            return Text(Constants.UNKNOWN_ERROR);
+        }, listener: (context, state) {
+          setState(() {
+            disableSearchAndToggle = state is Error;
+            if (disableSearchAndToggle) FocusScope.of(context).unfocus();
+          });
+        })
       ],
     );
   }

@@ -7,6 +7,7 @@ class Constants {
   static const JIRA_COLOR = const Color(0xff0052CC);
   static const BLACK_75 = const Color(0xBF000000);
   static final BLACK_25 = Colors.black.withOpacity(0.25);
+  static final DISABLED_COLOR = Colors.grey.shade300;
 
   // Icons
   static const IC_FLUTTER = 'ic_flutter.png';
@@ -38,8 +39,16 @@ class Constants {
   static const COMPLETED_URL = 'completed';
   static const IN_PROGRESS_URL = 'in_progress';
 
+  // Certifications Status Codes
+  static const STATUS_CODE_200 = 200;
+  static const STATUS_CODE_500 = 500;
+  static const STATUS_CODE_404 = 404;
+
   // Certifications Errors
   static const SERVER_FAILURE_MSG = "Server Failure";
+  static const SERVER_ERROR_500 = "Something went wrong. Please try again";
+  static const SERVER_ERROR_404 = "Server can not find requested resource";
+
   static const CACHE_FAILURE_MSG = "Cache Failure";
   static const UNKNOWN_ERROR_MSG = "Unknown Error";
 
@@ -61,4 +70,7 @@ class Constants {
       "Authentication has been disabled due to too many lock outs. "
       "Strong authentication like PIN / Pattern / Password is required to unlock";
   static const BIO_AUTH_DEFAULT_AUTH_FAILED = "Authentication failed";
+
+  static const NO_RESULTS = 'No results';
+  static const UNKNOWN_ERROR = 'Unknown Error';
 }

@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_confluence/features/certifications/domain/entities/cloud_certification_type.dart';
-import 'package:flutter_confluence/features/certifications/presentation/bloc/cloud_certification_bloc.dart';
 import '../../../../core/error/failures.dart';
 import '../entities/cloud_certification.dart';
 

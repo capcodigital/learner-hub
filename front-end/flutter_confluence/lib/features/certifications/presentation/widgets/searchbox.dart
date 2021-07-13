@@ -12,11 +12,11 @@ class SearchBox extends StatelessWidget {
   static const double iconHorizontalPadding = 20.0;
   final double iconSize = 30.0;
 
-  const SearchBox({
-    this.hintText = "Search...",
-    this.onSearchTermChanged,
-    this.controller,
-    this.onSearchSubmitted});
+  const SearchBox(
+      {this.hintText = "Search...",
+      this.onSearchTermChanged,
+      this.controller,
+      this.onSearchSubmitted});
 
   @override
   Widget build(BuildContext context) {
@@ -24,15 +24,15 @@ class SearchBox extends StatelessWidget {
       height: widgetHeight,
       decoration: BoxDecoration(
           color: Colors.white,
-          boxShadow: [BoxShadow(
-              color: Colors.black45,
-              blurRadius: 10.0,
-              offset: Offset(0, 10))],
+          boxShadow: [
+            BoxShadow(
+                color: Colors.black45, blurRadius: 10.0, offset: Offset(0, 10))
+          ],
           borderRadius: BorderRadius.circular(25.0)),
       child: TextField(
         controller: controller,
-        onChanged: onSearchTermChanged,
-        onSubmitted: onSearchSubmitted,
+        onChanged: (onSearchTermChanged),
+        onSubmitted: (onSearchSubmitted),
         decoration: InputDecoration(
             border: InputBorder.none,
             // These extra borders are required to work with web
@@ -43,8 +43,7 @@ class SearchBox extends StatelessWidget {
             hintText: hintText,
             prefixIcon: Padding(
               padding: const EdgeInsets.only(
-                  left: iconHorizontalPadding,
-                  right: iconHorizontalPadding),
+                  left: iconHorizontalPadding, right: iconHorizontalPadding),
               child: Icon(
                 Icons.search,
                 size: iconSize,
