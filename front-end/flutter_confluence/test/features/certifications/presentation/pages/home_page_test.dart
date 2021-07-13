@@ -21,6 +21,7 @@ import 'home_page_test.mocks.dart';
 
 class UnknownState extends CloudCertificationState {}
 
+// Tests fail if not wrap widget in Material App
 @GenerateMocks([CloudCertificationBloc])
 void main() {
   MockCloudCertificationBloc mockBloc = MockCloudCertificationBloc();
@@ -29,7 +30,7 @@ void main() {
     when(mockBloc.state).thenAnswer((_) => state);
     when(mockBloc.stream).thenAnswer((_) => Stream.value(state));
   }
-
+  
   testWidgets('Home Page shows Certifications List Page when bloc emits Loaded',
       (WidgetTester tester) async {
     // arrange
@@ -42,7 +43,6 @@ void main() {
 
     // act
     await tester.pumpWidget(
-      // Test fails without Material App
       MaterialApp(
         home: BlocProvider<CloudCertificationBloc>(
           create: (_) => mockBloc..add(GetCompletedCertificationsEvent()),
@@ -142,7 +142,6 @@ void main() {
 
     // act
     await tester.pumpWidget(
-      // Test fails without Material App
       MaterialApp(
         home: BlocProvider<CloudCertificationBloc>(
           create: (_) => mockBloc..add(GetCompletedCertificationsEvent()),
