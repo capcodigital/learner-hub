@@ -3,8 +3,23 @@ from pull_clean import main as data
 from fastapi import FastAPI, HTTPException
 import pull_clean
 from functools import wraps
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+# ENABLE CORS
+origins = [
+    "http://localhost",
+    "http://localhost:51635",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 url_completed = "https://ilabs-capco.atlassian.net/wiki/rest/api/content/2122383393?expand=body.export_view.value"
 url_in_progress = "https://ilabs-capco.atlassian.net/wiki/rest/api/content/1593770009?expand=body.export_view.value"
@@ -17,10 +32,10 @@ def check_pullclean_errors(original_func):
             return original_func(*args, **kwargs)
         except (pull_clean.EnvFileMissingError, pull_clean.EnvVariablesError):
             raise HTTPException(
-                status_code=500, detail='.env file missing or contains invalid data')
+                status_code=500, detail='Something went wrong. Please try again.')
         except (pull_clean.ConfluencePageContentError, pull_clean.ConfluenceTableError):
             raise HTTPException(
-                status_code=503, detail='requested data may have been moved or changed')
+                status_code=404, detail='Server cannot find requested resource')
     return decorated
 
 
