@@ -60,6 +60,9 @@ class MyApp extends StatelessWidget {
 }
 
 class PreLoadWidget extends StatelessWidget {
+
+  static const STARTUP_DELAY_MILLIS = 3000;
+
   void openHomePage(BuildContext context) {
     Navigator.pushNamed(context, HomePage.route);
   }
@@ -75,12 +78,12 @@ class PreLoadWidget extends StatelessWidget {
       bloc: BlocProvider.of<OnBoardingBloc>(context),
       listener: (context, state) {
         if (state is Expired) {
-          Future.delayed(Duration(milliseconds: 2000), () {
+          Future.delayed(Duration(milliseconds: STARTUP_DELAY_MILLIS), () {
             openOnBoardingPage(context);
           });
         }
         if (state is Completed) {
-          Future.delayed(Duration(milliseconds: 2000), () {
+          Future.delayed(Duration(milliseconds: STARTUP_DELAY_MILLIS), () {
             openHomePage(context);
           });
         }
@@ -90,4 +93,5 @@ class PreLoadWidget extends StatelessWidget {
       ),
     )));
   }
+
 }
