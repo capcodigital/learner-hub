@@ -35,7 +35,7 @@ class CloudCertificationRemoteDataSourceImpl
       },
     );
 
-    if (response.statusCode == 200) {
+    if (response.statusCode == Constants.STATUS_CODE_200) {
       return (json.decode(response.body) as List)
           .map((e) => CloudCertificationModel.fromJson(e))
           .toList();
@@ -47,9 +47,9 @@ class CloudCertificationRemoteDataSourceImpl
 
   String _mapStatusCodeToMessage(int errorStatusCode) {
     switch (errorStatusCode) {
-      case 500:
+      case Constants.STATUS_CODE_500:
         return Constants.SERVER_ERROR_500;
-      case 404:
+      case Constants.STATUS_CODE_404:
         return Constants.SERVER_ERROR_404;
       default:
         return Constants.SERVER_FAILURE_MSG;

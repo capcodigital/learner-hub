@@ -38,6 +38,11 @@ class Constants {
   static const COMPLETED_URL = 'completed';
   static const IN_PROGRESS_URL = 'in_progress';
 
+  // Certifications Status Codes
+  static const STATUS_CODE_200 = 200;
+  static const STATUS_CODE_500 = 500;
+  static const STATUS_CODE_404 = 404;
+
   // Certifications Errors
   static const SERVER_FAILURE_MSG = "Server Failure";
   static const SERVER_ERROR_500 = "Something went wrong. Please try again";
