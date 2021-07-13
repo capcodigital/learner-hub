@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
 import 'package:flutter_confluence/core/constants.dart';
 import 'package:flutter_confluence/core/error/custom_exceptions.dart';
@@ -11,7 +13,9 @@ import 'package:flutter_confluence/features/certifications/domain/entities/cloud
 import 'package:flutter_confluence/features/certifications/domain/entities/cloud_certification_type.dart';
 import 'package:flutter_confluence/features/certifications/domain/repositories/cloud_certification_repository.dart';
 
-class CloudCertificationsRepositoryImpl implements CloudCertificationRepository {
+class CloudCertificationsRepositoryImpl
+    implements CloudCertificationRepository {
+  static const TAG = "CloudCertificationsRepositoryImpl:";
   final CloudCertificationRemoteDataSource remoteDataSource;
   final CloudCertificationLocalDataSource localDataSource;
   final NetworkInfo networkInfo;
@@ -53,7 +57,14 @@ class CloudCertificationsRepositoryImpl implements CloudCertificationRepository 
           saveDataIntoCache(certifications);
           return Right(certifications);
         } on ServerException catch (e) {
-          return Left(ServerFailure(message: e.message));
+          log(TAG + e.message);
+          try {
+            final localCertifications = await getLocalData();
+            return Right(localCertifications);
+          } on CacheException {
+            log(TAG + "CacheException");
+            return Left(ServerFailure(message: e.message));
+          }
         }
       } else {
         try {
@@ -64,7 +75,7 @@ class CloudCertificationsRepositoryImpl implements CloudCertificationRepository 
         }
       }
     } on Exception {
-      return Left(ServerFailure(message: Constants.SERVER_FAILURE_MSG));
+      return Left(ServerFailure(message: Constants.UNKNOWN_ERROR_MSG));
     }
   }
 
