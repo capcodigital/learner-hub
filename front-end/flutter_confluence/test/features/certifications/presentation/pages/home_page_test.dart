@@ -24,7 +24,7 @@ class UnknownState extends CloudCertificationState {}
 // Tests fail if not wrap widget in Material App
 @GenerateMocks([CloudCertificationBloc])
 void main() {
-  MockCloudCertificationBloc mockBloc = MockCloudCertificationBloc();
+  CloudCertificationBloc mockBloc = MockCloudCertificationBloc();
 
   setMockBlockState(CloudCertificationState state) {
     when(mockBloc.state).thenAnswer((_) => state);
@@ -170,21 +170,29 @@ void main() {
       ),
     );
 
-    // TODO: Check how to verify that user cannot interact with Search & Toggle
     final searchBoxFinder =
         find.byWidgetPredicate((widget) => widget is SearchBox);
     final toggleFinder =
         find.byWidgetPredicate((widget) => widget is ToggleButton);
     final errorPageFinder =
         find.byWidgetPredicate((widget) => widget is ErrorPage);
-    // this is the error msg text inside error page
     final errorMsgFinder = find.text(expectedMessage);
+    final tryAgainBtnFinder = find.byWidgetPredicate((widget) => widget is ElevatedButton);
 
     // assert
     expect(searchBoxFinder, findsOneWidget);
     expect(toggleFinder, findsOneWidget);
     expect(errorPageFinder, findsOneWidget);
     expect(errorMsgFinder, findsOneWidget);
+    expect(tryAgainBtnFinder, findsOneWidget);
+
+    // Tap on Try Again Btn to check if triggers expected BlocEvent
+    // act
+    await tester.tap(tryAgainBtnFinder);
+
+    // assert
+    verify(mockBloc..add(GetCompletedCertificationsEvent())).called(1);
+    verifyNever(mockBloc..add(GetInProgressCertificationsEvent()));
   });
 
   testWidgets('Home Page shows EmptySearch when bloc emits EmptySearchResult',

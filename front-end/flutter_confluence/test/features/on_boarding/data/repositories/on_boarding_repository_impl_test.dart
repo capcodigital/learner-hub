@@ -61,7 +61,7 @@ void main() {
           equals(Left(AuthFailure(Constants.BIO_AUTH_DEFAULT_AUTH_FAILED))));
     });
 
-    testExpectedPlatformException(String errorCode) async {
+    testPlatformException(String errorCode) async {
       // arrange
       when(mockDataSource.authenticate())
           .thenThrow(PlatformException(code: errorCode));
@@ -76,27 +76,27 @@ void main() {
     }
 
     test('Should return AuthFailure for NotEnrolled', () async {
-      testExpectedPlatformException(auth_error.notEnrolled);
+      testPlatformException(auth_error.notEnrolled);
     });
 
     test('Should return AuthFailure for NotAvailable', () async {
-      testExpectedPlatformException(auth_error.notAvailable);
+      testPlatformException(auth_error.notAvailable);
     });
 
     test('Should return AuthFailure for LockedOut', () async {
-      testExpectedPlatformException(auth_error.lockedOut);
+      testPlatformException(auth_error.lockedOut);
     });
 
     test('Should return AuthFailure for OtherOperatingSystem', () async {
-      testExpectedPlatformException(auth_error.otherOperatingSystem);
+      testPlatformException(auth_error.otherOperatingSystem);
     });
 
     test('Should return AuthFailure for PasscodeNotSet', () async {
-      testExpectedPlatformException(auth_error.passcodeNotSet);
+      testPlatformException(auth_error.passcodeNotSet);
     });
 
     test('Should return AuthFailure for PermanentlyLockedOut', () async {
-      testExpectedPlatformException(auth_error.permanentlyLockedOut);
+      testPlatformException(auth_error.permanentlyLockedOut);
     });
   });
 
