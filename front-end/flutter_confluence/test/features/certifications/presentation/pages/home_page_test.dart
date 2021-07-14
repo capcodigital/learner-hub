@@ -57,11 +57,15 @@ void main() {
         find.byWidgetPredicate((widget) => widget is ToggleButton);
     final certificationsFinder =
         find.byWidgetPredicate((widget) => widget is CertificationsView);
+    final listFinder = find.byWidgetPredicate((widget) => widget is ListView);
+    final listView = tester.widget(listFinder) as ListView;
 
     // assert
     expect(searchBoxFinder, findsOneWidget);
     expect(toggleFinder, findsOneWidget);
     expect(certificationsFinder, findsOneWidget);
+    expect(listFinder, findsOneWidget);
+    expect(listView.childrenDelegate.estimatedChildCount, mockList.length);
   });
 
   testWidgets('Home Page shows Loading Widget when bloc emits Loading',
@@ -80,9 +84,9 @@ void main() {
     );
 
     final searchBoxFinder =
-    find.byWidgetPredicate((widget) => widget is SearchBox);
+        find.byWidgetPredicate((widget) => widget is SearchBox);
     final toggleFinder =
-    find.byWidgetPredicate((widget) => widget is ToggleButton);
+        find.byWidgetPredicate((widget) => widget is ToggleButton);
     final circleProgressFinder =
         find.byWidgetPredicate((widget) => widget is CircularProgressIndicator);
 
@@ -108,9 +112,9 @@ void main() {
     );
 
     final searchBoxFinder =
-    find.byWidgetPredicate((widget) => widget is SearchBox);
+        find.byWidgetPredicate((widget) => widget is SearchBox);
     final toggleFinder =
-    find.byWidgetPredicate((widget) => widget is ToggleButton);
+        find.byWidgetPredicate((widget) => widget is ToggleButton);
     final txtFinder = find.text(Constants.NO_RESULTS);
 
     // assert
@@ -136,9 +140,9 @@ void main() {
     );
 
     final searchBoxFinder =
-    find.byWidgetPredicate((widget) => widget is SearchBox);
+        find.byWidgetPredicate((widget) => widget is SearchBox);
     final toggleFinder =
-    find.byWidgetPredicate((widget) => widget is ToggleButton);
+        find.byWidgetPredicate((widget) => widget is ToggleButton);
     final errorMsgFinder = find.text(Constants.UNKNOWN_ERROR);
 
     // assert
@@ -184,33 +188,32 @@ void main() {
   });
 
   testWidgets('Home Page shows EmptySearch when bloc emits EmptySearchResult',
-          (WidgetTester tester) async {
-        // arrange
-        final CloudCertificationState state = EmptySearchResult(
-            cloudCertificationType: CloudCertificationType.completed);
-        setMockBlockState(state);
+      (WidgetTester tester) async {
+    // arrange
+    final CloudCertificationState state = EmptySearchResult(
+        cloudCertificationType: CloudCertificationType.completed);
+    setMockBlockState(state);
 
-        // act
-        await tester.pumpWidget(
-          MaterialApp(
-            home: BlocProvider<CloudCertificationBloc>(
-              create: (_) => mockBloc,
-              child: HomePage(),
-            ),
-          ),
-        );
+    // act
+    await tester.pumpWidget(
+      MaterialApp(
+        home: BlocProvider<CloudCertificationBloc>(
+          create: (_) => mockBloc,
+          child: HomePage(),
+        ),
+      ),
+    );
 
-        final searchBoxFinder =
+    final searchBoxFinder =
         find.byWidgetPredicate((widget) => widget is SearchBox);
-        final toggleFinder =
+    final toggleFinder =
         find.byWidgetPredicate((widget) => widget is ToggleButton);
-        final emptySearchFinder =
+    final emptySearchFinder =
         find.byWidgetPredicate((widget) => widget is EmptySearch);
 
-        // assert
-        expect(searchBoxFinder, findsOneWidget);
-        expect(toggleFinder, findsOneWidget);
-        expect(emptySearchFinder, findsOneWidget);
-      });
-
+    // assert
+    expect(searchBoxFinder, findsOneWidget);
+    expect(toggleFinder, findsOneWidget);
+    expect(emptySearchFinder, findsOneWidget);
+  });
 }

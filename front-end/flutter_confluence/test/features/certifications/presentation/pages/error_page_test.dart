@@ -24,11 +24,19 @@ void main() {
           child: ErrorPage(error: error),
           ),
     ));
-    await tester.pump(Duration(milliseconds: 3000));
 
+    final errorImageFinder = find.byWidgetPredicate((widget) => widget is Image);
+    final titleMsgFinder = find.text(ErrorPage.msgTitle);
     final errorMsgFinder = find.text(expectedMessage);
+    final btnTryAgainFinder =
+    find.byWidgetPredicate((widget) => widget is ElevatedButton);
+    final txtTryAgainFinder = find.text(ErrorPage.msgTryAgain);
 
     // assert
+    expect(errorImageFinder, findsOneWidget);
+    expect(titleMsgFinder, findsOneWidget);
     expect(errorMsgFinder, findsOneWidget);
+    expect(btnTryAgainFinder, findsOneWidget);
+    expect(txtTryAgainFinder, findsOneWidget);
   });
 }

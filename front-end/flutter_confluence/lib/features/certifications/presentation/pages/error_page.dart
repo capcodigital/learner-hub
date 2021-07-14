@@ -10,7 +10,6 @@ import '../../../../core/dimen.dart';
 class ErrorPage extends StatelessWidget {
   static const route = "ErrorPage";
   static const msgTitle = "Oops!";
-  static const msgDescription = "Something went wrong. Please try again.";
   static const msgTryAgain = "Try Again";
   static const errorImageMarginTop = 10.0;
   static const titleMarginTop = 30.0;
