@@ -21,21 +21,15 @@ import 'package:mocktail/mocktail.dart' as Mocktail;
 import '../../../../fixtures/FixtureReader.dart';
 import 'home_page_test.mocks.dart';
 
-//import 'package:mocktail/mocktail.dart';
-//import 'package:test/test.dart';
-
 class UnknownState extends CloudCertificationState {}
-
-//class MockStream extends Mock implements Stream<CloudCertificationState> {}
 
 class MockCertBloc
     extends MockBloc<CloudCertificationEvent, CloudCertificationState>
     implements CloudCertificationBloc {}
 
-// Tests fail if not wrap widget in Material App
 @GenerateMocks([CloudCertificationBloc])
 void main() {
-  late CloudCertificationBloc mockBloc; // = MockCloudCertificationBloc();
+  late CloudCertificationBloc mockBloc;
 
   setUp(() {
     mockBloc = MockCloudCertificationBloc();
