@@ -60,8 +60,7 @@ class MyApp extends StatelessWidget {
 }
 
 class PreLoadWidget extends StatelessWidget {
-
-  static const STARTUP_DELAY_MILLIS = 3000;
+  static const STARTUP_DELAY_MILLIS = 2000;
 
   void openHomePage(BuildContext context) {
     Navigator.pushNamed(context, HomePage.route);
@@ -75,23 +74,28 @@ class PreLoadWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: BlocListener(
-      bloc: BlocProvider.of<OnBoardingBloc>(context),
-      listener: (context, state) {
-        if (state is Expired) {
-          Future.delayed(Duration(milliseconds: STARTUP_DELAY_MILLIS), () {
-            openOnBoardingPage(context);
-          });
-        }
-        if (state is Completed) {
-          Future.delayed(Duration(milliseconds: STARTUP_DELAY_MILLIS), () {
-            openHomePage(context);
-          });
-        }
-      },
-      child: Center(
-        child: Lottie.asset('assets/lottie-animation.json',
-      ),
-    )));
+            bloc: BlocProvider.of<OnBoardingBloc>(context),
+            listener: (context, state) {
+              if (state is Expired) {
+                Future.delayed(Duration(milliseconds: STARTUP_DELAY_MILLIS),
+                    () {
+                  openOnBoardingPage(context);
+                });
+              }
+              if (state is Completed) {
+                Future.delayed(Duration(milliseconds: STARTUP_DELAY_MILLIS),
+                    () {
+                  openHomePage(context);
+                });
+              }
+            },
+            child: Container(
+              color: Colors.white,
+              child: Center(
+                child: Lottie.asset(
+                  'assets/lottie-animation.json',
+                ),
+              ),
+            )));
   }
-
 }
