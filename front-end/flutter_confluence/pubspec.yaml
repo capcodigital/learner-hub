@@ -41,6 +41,7 @@ dependencies:
   local_auth: ^1.1.6
   flutter_platform_widgets: ^1.9.5
   lottie: ^1.1.0
+  mocktail: ^0.1.4
 
 dev_dependencies:
   flutter_test:
