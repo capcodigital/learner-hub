@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_confluence/core/constants.dart';
+import 'package:flutter_confluence/core/error/custom_exceptions.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -36,18 +37,31 @@ void main() {
       expect(result, equals(Right(true)));
     });
 
-    test('Should return AuthFailure for Generic Auth Error', () async {
+    test('Should return success for AuthNotSupportedPlatform', () async {
       // arrange
-      when(mockDataSource.authenticate()).thenAnswer((_) => Future.value(false));
+      when(mockDataSource.authenticate()).thenThrow(AuthNotSupportedPlatform());
 
       // act
       final result = await repository.authenticate();
 
       // assert
-      expect(result, equals(Left(AuthFailure(Constants.BIO_AUTH_DEFAULT_AUTH_FAILED))));
+      expect(result, equals(Right(true)));
     });
 
-    testErrorCode(String errorCode) async {
+    test('Should return AuthFailure for Default Auth Error', () async {
+      // arrange
+      when(mockDataSource.authenticate())
+          .thenAnswer((_) => Future.value(false));
+
+      // act
+      final result = await repository.authenticate();
+
+      // assert
+      expect(result,
+          equals(Left(AuthFailure(Constants.BIO_AUTH_DEFAULT_AUTH_FAILED))));
+    });
+
+    testExpectedPlatformException(String errorCode) async {
       // arrange
       when(mockDataSource.authenticate())
           .thenThrow(PlatformException(code: errorCode));
@@ -62,27 +76,27 @@ void main() {
     }
 
     test('Should return AuthFailure for NotEnrolled', () async {
-      testErrorCode(auth_error.notEnrolled);
+      testExpectedPlatformException(auth_error.notEnrolled);
     });
 
     test('Should return AuthFailure for NotAvailable', () async {
-      testErrorCode(auth_error.notAvailable);
+      testExpectedPlatformException(auth_error.notAvailable);
     });
 
     test('Should return AuthFailure for LockedOut', () async {
-      testErrorCode(auth_error.lockedOut);
+      testExpectedPlatformException(auth_error.lockedOut);
     });
 
     test('Should return AuthFailure for OtherOperatingSystem', () async {
-      testErrorCode(auth_error.otherOperatingSystem);
+      testExpectedPlatformException(auth_error.otherOperatingSystem);
     });
 
     test('Should return AuthFailure for PasscodeNotSet', () async {
-      testErrorCode(auth_error.passcodeNotSet);
+      testExpectedPlatformException(auth_error.passcodeNotSet);
     });
 
     test('Should return AuthFailure for PermanentlyLockedOut', () async {
-      testErrorCode(auth_error.permanentlyLockedOut);
+      testExpectedPlatformException(auth_error.permanentlyLockedOut);
     });
   });
 
