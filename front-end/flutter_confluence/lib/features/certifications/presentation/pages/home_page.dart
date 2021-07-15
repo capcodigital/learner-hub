@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import '../../../../core/constants.dart';
 import 'error_page.dart';
 import '../widgets/empty_search.dart';
@@ -128,7 +129,7 @@ class _HomePageState extends State<HomePage> {
           } else if (state is Loading)
             return Container(
                 margin: EdgeInsets.only(top: 60),
-                child: CircularProgressIndicator());
+                child: PlatformCircularProgressIndicator());
           else if (state is Empty)
             return Text(Constants.NO_RESULTS);
           else if (state is EmptySearchResult)

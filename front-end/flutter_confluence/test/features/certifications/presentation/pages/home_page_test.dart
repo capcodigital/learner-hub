@@ -12,6 +12,7 @@ import 'package:flutter_confluence/features/certifications/presentation/widgets/
 import 'package:flutter_confluence/features/certifications/presentation/widgets/empty_search.dart';
 import 'package:flutter_confluence/features/certifications/presentation/widgets/searchbox.dart';
 import 'package:flutter_confluence/features/certifications/presentation/widgets/toggle-switch.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -84,7 +85,7 @@ void main() {
     final toggleFinder =
     find.byWidgetPredicate((widget) => widget is ToggleButton);
     final circleProgressFinder =
-        find.byWidgetPredicate((widget) => widget is CircularProgressIndicator);
+        find.byWidgetPredicate((widget) => widget is PlatformCircularProgressIndicator);
 
     // assert
     expect(searchBoxFinder, findsOneWidget);
