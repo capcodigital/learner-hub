@@ -278,8 +278,8 @@ void main() {
         find.byWidgetPredicate((widget) => widget is SearchBox);
     final toggleFinder =
         find.byWidgetPredicate((widget) => widget is ToggleButton);
-    final toggleCompletedFinder = find.text(Constants.TXT_COMPLETED);
-    final toggleInProgressFinder = find.text(Constants.TXT_IN_PROGRESS);
+    final toggleCompletedFinder = find.text(ToggleButton.TXT_COMPLETED);
+    final toggleInProgressFinder = find.text(ToggleButton.TXT_IN_PROGRESS);
     final certificationsFinder =
         find.byWidgetPredicate((widget) => widget is CertificationsView);
     final listFinder = find.byWidgetPredicate((widget) => widget is ListView);
