@@ -97,12 +97,13 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog  {
           alignment: Alignment.center,
           child: Text(
             msgDescription,
+            // TODO: Missing maxLines was related to UI test failure
             maxLines: 2,
             style: Theme.of(context).textTheme.headline2,
             textAlign: TextAlign.center,
           ),
           margin: EdgeInsets.only(
-              // TODO: top margin 34 was causing the UI test to fail
+              // TODO: top margin 34 was related to UI test failure
               top: 10, right: Dimen.dimen_68, left: Dimen.dimen_68),
         ),
         buildAuthButton(context)
@@ -144,6 +145,7 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog  {
                 .textTheme
                 .headline2
                 ?.copyWith(color: Colors.white,
+                // TODO: Larger font causes UI test fail
                fontSize: 12
             )),
         Container(
@@ -192,6 +194,7 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog  {
             .textTheme
             .headline1
             ?.copyWith(color: Colors.white,
+            // TODO: Larger font causes UI test fail
             fontSize: 12
         ),
       ),
