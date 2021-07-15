@@ -1,14 +1,8 @@
-import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:flutter_confluence/features/certifications/presentation/widgets/searchbox.dart';
-import 'package:flutter_confluence/features/certifications/presentation/bloc/cloud_certification_bloc.dart';
-
-class MockCertificationBloc
-    extends MockBloc<CloudCertificationEvent, CloudCertificationState>
-    implements CloudCertificationBloc {}
 
 void main() {
   final String hint = "Search";
