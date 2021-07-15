@@ -75,7 +75,7 @@ class _ToggleButtonState extends State<ToggleButton> {
                 width: width * 0.5,
                 color: Colors.transparent,
                 alignment: Alignment.center,
-                child: Text('In Progress',
+                child: Text(Constants.TXT_IN_PROGRESS,
                     style: Theme.of(context)
                         .textTheme
                         .headline2
@@ -99,7 +99,7 @@ class _ToggleButtonState extends State<ToggleButton> {
                 width: width * 0.5,
                 color: Colors.transparent,
                 alignment: Alignment.center,
-                child: Text('Completed',
+                child: Text(Constants.TXT_COMPLETED,
                     style: Theme.of(context)
                         .textTheme
                         .headline2

@@ -27,7 +27,7 @@ void main() {
     // This requires Mocktail
     Mocktail.registerFallbackValue<CloudCertificationState>(Empty());
     Mocktail.registerFallbackValue<CloudCertificationEvent>(
-        GetCompletedCertificationsEvent());
+        GetInProgressCertificationsEvent());
   });
 
   testWidgets('Home Page shows Certifications ListView when bloc emits Loaded',
@@ -246,5 +246,70 @@ void main() {
     expect(certificationsFinder, findsOneWidget);
     expect(listFinder, findsOneWidget);
     expect(listView.childrenDelegate.estimatedChildCount, loaded.items.length);
+  });
+
+  // TODO: Also check tapping toggle updates certifications ListView
+  testWidgets('Tapping Toggle in Home Page triggers expected Event',
+      (WidgetTester tester) async {
+    // arrange
+    final Loaded loadedInProgress = Loaded(
+        items: getMockInProgressCertifications(),
+        cloudCertificationType: CloudCertificationType.in_progress);
+
+    final Loaded loadedCompleted = Loaded(
+        items: getMockCompletedCertifications(),
+        cloudCertificationType: CloudCertificationType.completed);
+
+    CloudCertificationBloc mockBloc = MockCertificationBloc();
+    whenListen(mockBloc, Stream.fromIterable([loadedCompleted]),
+        initialState: loadedInProgress);
+
+    // act
+    await tester.pumpWidget(
+      MaterialApp(
+        home: BlocProvider<CloudCertificationBloc>(
+          create: (_) => mockBloc,
+          child: HomePage(),
+        ),
+      ),
+    );
+
+    final searchBoxFinder =
+        find.byWidgetPredicate((widget) => widget is SearchBox);
+    final toggleFinder =
+        find.byWidgetPredicate((widget) => widget is ToggleButton);
+    final toggleCompletedFinder = find.text(Constants.TXT_COMPLETED);
+    final toggleInProgressFinder = find.text(Constants.TXT_IN_PROGRESS);
+    final certificationsFinder =
+        find.byWidgetPredicate((widget) => widget is CertificationsView);
+    final listFinder = find.byWidgetPredicate((widget) => widget is ListView);
+    final listView = tester.widget(listFinder) as ListView;
+
+    // assert
+    expect(searchBoxFinder, findsOneWidget);
+    expect(toggleFinder, findsOneWidget);
+    expect(toggleCompletedFinder, findsOneWidget);
+    expect(certificationsFinder, findsOneWidget);
+    expect(listFinder, findsOneWidget);
+    expect(listView.childrenDelegate.estimatedChildCount,
+        loadedInProgress.items.length);
+
+    // act
+    await tester.tap(toggleCompletedFinder);
+    // assert
+    Mocktail.verify(() => mockBloc.add(GetCompletedCertificationsEvent()))
+        .called(1);
+
+    // act
+    await tester.tap(toggleInProgressFinder);
+    // assert
+    Mocktail.verify(() => mockBloc.add(GetInProgressCertificationsEvent()))
+        .called(1);
+
+    // act
+    await tester.tap(toggleCompletedFinder);
+    // assert
+    Mocktail.verify(() => mockBloc.add(GetCompletedCertificationsEvent()))
+        .called(1);
   });
 }

@@ -73,4 +73,7 @@ class Constants {
 
   static const NO_RESULTS = 'No results';
   static const UNKNOWN_ERROR = 'Unknown Error';
+
+  static const TXT_COMPLETED = "Completed";
+  static const TXT_IN_PROGRESS = "In Progress";
 }
