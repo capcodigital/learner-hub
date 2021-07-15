@@ -1,33 +1,34 @@
+import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart' as Mocktail;
 
 import 'package:flutter_confluence/features/onboarding/presentation/bloc/on_boarding_bloc.dart';
 import 'package:flutter_confluence/features/onboarding/presentation/pages/on_boarding.dart';
 
-import 'on_boarding_test.mocks.dart';
-
 class UnknownState extends OnBoardingState {}
 
-@GenerateMocks([OnBoardingBloc])
+class MockOnBoardingBloc extends MockBloc<OnBoardingEvent, OnBoardingState>
+    implements OnBoardingBloc {}
+
 void main() {
   const NUM_OF_CARDS = 2;
   const NUM_OF_CIRCLE_AVATARS = 6;
   const NUM_OF_IMAGES = 4;
 
-  MockOnBoardingBloc mockBloc = MockOnBoardingBloc();
-
-  setMockBlockState(OnBoardingState state) {
-    when(mockBloc.state).thenAnswer((_) => state);
-    when(mockBloc.stream).thenAnswer((_) => Stream.value(state));
-  }
+  setUp(() {
+    // Tests fails if not call registerFallbackValue for State and Event.
+    // This requires Mocktail
+    Mocktail.registerFallbackValue<OnBoardingState>(Empty());
+    Mocktail.registerFallbackValue<OnBoardingEvent>(AuthEvent());
+  });
 
   testWidgets('OnBoarding Page should show expected widgets',
       (WidgetTester tester) async {
     // arrange
-    setMockBlockState(Empty());
+    OnBoardingBloc mockBloc = MockOnBoardingBloc();
+    whenListen(mockBloc, Stream.fromIterable([Empty()]), initialState: Empty());
 
     // act
     await tester.pumpWidget(
@@ -50,5 +51,4 @@ void main() {
     expect(imgFinder, findsNWidgets(NUM_OF_IMAGES));
     expect(btnFinder, findsOneWidget);
   });
-
 }
