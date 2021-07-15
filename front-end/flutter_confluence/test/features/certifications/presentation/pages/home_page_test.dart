@@ -1,6 +1,9 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mocktail/mocktail.dart' as Mocktail;
+import 'package:flutter_test/flutter_test.dart';
+
 import 'package:flutter_confluence/core/constants.dart';
 import 'package:flutter_confluence/features/certifications/presentation/pages/error_page.dart';
 import 'package:flutter_confluence/features/certifications/domain/entities/cloud_certification_type.dart';
@@ -10,8 +13,6 @@ import 'package:flutter_confluence/features/certifications/presentation/widgets/
 import 'package:flutter_confluence/features/certifications/presentation/widgets/empty_search.dart';
 import 'package:flutter_confluence/features/certifications/presentation/widgets/searchbox.dart';
 import 'package:flutter_confluence/features/certifications/presentation/widgets/toggle-switch.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:mocktail/mocktail.dart' as Mocktail;
 
 import '../../../../fixtures/FixtureReader.dart';
 

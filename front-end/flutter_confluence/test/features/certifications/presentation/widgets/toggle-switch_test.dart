@@ -2,15 +2,11 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_confluence/features/certifications/presentation/widgets/toggle-switch.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:flutter_confluence/core/constants.dart';
-import 'package:flutter_confluence/features/certifications/presentation/pages/error_page.dart';
-import 'package:flutter_confluence/features/certifications/domain/entities/cloud_certification_type.dart';
-import 'package:flutter_confluence/features/certifications/presentation/bloc/cloud_certification_bloc.dart';
-
 import 'package:mocktail/mocktail.dart' as Mocktail;
+
+import 'package:flutter_confluence/features/certifications/presentation/widgets/toggle-switch.dart';
+import 'package:flutter_confluence/features/certifications/presentation/bloc/cloud_certification_bloc.dart';
 
 class MockCertificationBloc
     extends MockBloc<CloudCertificationEvent, CloudCertificationState>
@@ -72,16 +68,20 @@ void main() {
     expect(txtInProgressFinder, findsOneWidget);
 
     await tester.tap(txtCompletedFinder);
-    Mocktail.verify(() => mockBloc.add(GetCompletedCertificationsEvent())).called(1);
+    Mocktail.verify(() => mockBloc.add(GetCompletedCertificationsEvent()))
+        .called(1);
 
     await tester.tap(txtInProgressFinder);
-    Mocktail.verify(() => mockBloc.add(GetInProgressCertificationsEvent())).called(1);
+    Mocktail.verify(() => mockBloc.add(GetInProgressCertificationsEvent()))
+        .called(1);
 
     await tester.tap(txtCompletedFinder);
-    Mocktail.verify(() => mockBloc.add(GetCompletedCertificationsEvent())).called(1);
+    Mocktail.verify(() => mockBloc.add(GetCompletedCertificationsEvent()))
+        .called(1);
 
     await tester.tap(txtInProgressFinder);
     await tester.tap(txtInProgressFinder);
-    Mocktail.verify(() => mockBloc.add(GetInProgressCertificationsEvent())).called(2);
+    Mocktail.verify(() => mockBloc.add(GetInProgressCertificationsEvent()))
+        .called(2);
   });
 }
