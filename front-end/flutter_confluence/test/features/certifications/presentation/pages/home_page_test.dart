@@ -163,9 +163,8 @@ void main() {
   testWidgets('Home Page shows EmptySearch when bloc emits EmptySearchResult',
       (WidgetTester tester) async {
     // arrange
-    final CloudCertificationState state = EmptySearchResult(
-        cloudCertificationType: CloudCertificationType.completed);
-    setMockBlockState(state);
+    setMockBlockState(EmptySearchResult(
+        cloudCertificationType: CloudCertificationType.completed));
 
     // act
     await tester.pumpWidget(
@@ -195,29 +194,28 @@ void main() {
       ' bloc emits Loaded and Home Page shows Certifications ListView',
       (WidgetTester tester) async {
     // arrange
-    final mockList = getMockCompletedCertifications();
-    CloudCertificationState loaded = Loaded(
-        items: mockList,
+    final Error error = Error(
+        message: Constants.SERVER_FAILURE_MSG,
         cloudCertificationType: CloudCertificationType.completed);
 
+    final Loaded loaded = Loaded(
+        items: getMockCompletedCertifications(),
+        cloudCertificationType: CloudCertificationType.completed);
 
-    final errorMsg = Constants.SERVER_FAILURE_MSG;
-    final CloudCertificationState error = Error(
-        message: errorMsg, cloudCertificationType: CloudCertificationType.completed);
-
+    // Test fails if not register default values, which requires Mocktail
     Mocktail.registerFallbackValue<CloudCertificationState>(error);
     Mocktail.registerFallbackValue<CloudCertificationEvent>(
         GetCompletedCertificationsEvent());
 
-    CloudCertificationBloc bl = MockCertBloc();
+    CloudCertificationBloc mockCCBloc = MockCertBloc();
 
-    whenListen(bl, Stream.fromIterable([error, loaded]), initialState: error);
+    whenListen(mockCCBloc, Stream.fromIterable([error, loaded]), initialState: error);
 
     // act
     await tester.pumpWidget(
       MaterialApp(
         home: BlocProvider<CloudCertificationBloc>(
-          create: (_) => bl,
+          create: (_) => mockCCBloc,
           child: HomePage(),
         ),
       ),
@@ -229,7 +227,7 @@ void main() {
         find.byWidgetPredicate((widget) => widget is ToggleButton);
     final errorPageFinder =
         find.byWidgetPredicate((widget) => widget is ErrorPage);
-    final errorMsgFinder = find.text(errorMsg);
+    final errorMsgFinder = find.text(error.message);
     final tryAgainBtnFinder =
         find.byWidgetPredicate((widget) => widget is ElevatedButton);
 
@@ -252,13 +250,13 @@ void main() {
     final listView = tester.widget(listFinder) as ListView;
 
     // assert
-    Mocktail.verify(() => bl.add(GetCompletedCertificationsEvent())).called(1);
-    Mocktail.verifyNever(() => bl.add(GetInProgressCertificationsEvent()));
+    Mocktail.verify(() => mockCCBloc.add(GetCompletedCertificationsEvent())).called(1);
+    Mocktail.verifyNever(() => mockCCBloc.add(GetInProgressCertificationsEvent()));
 
     expect(searchBoxFinder, findsOneWidget);
     expect(toggleFinder, findsOneWidget);
     expect(certificationsFinder, findsOneWidget);
     expect(listFinder, findsOneWidget);
-    expect(listView.childrenDelegate.estimatedChildCount, mockList.length);
+    expect(listView.childrenDelegate.estimatedChildCount, loaded.items.length);
   });
 }

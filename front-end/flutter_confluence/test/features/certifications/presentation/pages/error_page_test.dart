@@ -21,104 +21,100 @@ void main() {
     when(mockBloc.stream).thenAnswer((_) => Stream.value(state));
   }
 
-  testWidgets('ErrorPage shows expected widgets',
-          (WidgetTester tester) async {
-        // arrange
-        final expectedMessage = Constants.SERVER_FAILURE_MSG;
-        final Error error = Error(
-            message: expectedMessage,
-            cloudCertificationType: CloudCertificationType.completed);
+  testWidgets('ErrorPage shows expected widgets', (WidgetTester tester) async {
+    // arrange
+    final Error error = Error(
+        message: Constants.SERVER_FAILURE_MSG,
+        cloudCertificationType: CloudCertificationType.completed);
 
-        // act
-        await tester.pumpWidget(Directionality(
-          textDirection: TextDirection.ltr,
-          child: MediaQuery(
-            data: MediaQueryData(),
-            child: ErrorPage(error: error),
-          ),
-        ));
+    // act
+    await tester.pumpWidget(Directionality(
+      textDirection: TextDirection.ltr,
+      child: MediaQuery(
+        data: MediaQueryData(),
+        child: ErrorPage(error: error),
+      ),
+    ));
 
-        final errorImageFinder = find.byWidgetPredicate((
-            widget) => widget is Image);
-        final titleMsgFinder = find.text(ErrorPage.msgTitle);
-        final errorMsgFinder = find.text(expectedMessage);
-        final btnTryAgainFinder =
+    final errorImageFinder =
+        find.byWidgetPredicate((widget) => widget is Image);
+    final titleMsgFinder = find.text(ErrorPage.msgTitle);
+    final errorMsgFinder = find.text(error.message);
+    final btnTryAgainFinder =
         find.byWidgetPredicate((widget) => widget is ElevatedButton);
-        final txtTryAgainFinder = find.text(ErrorPage.msgTryAgain);
+    final txtTryAgainFinder = find.text(ErrorPage.msgTryAgain);
 
-        // assert
-        expect(errorImageFinder, findsOneWidget);
-        expect(titleMsgFinder, findsOneWidget);
-        expect(errorMsgFinder, findsOneWidget);
-        expect(btnTryAgainFinder, findsOneWidget);
-        expect(txtTryAgainFinder, findsOneWidget);
-      });
+    // assert
+    expect(errorImageFinder, findsOneWidget);
+    expect(titleMsgFinder, findsOneWidget);
+    expect(errorMsgFinder, findsOneWidget);
+    expect(btnTryAgainFinder, findsOneWidget);
+    expect(txtTryAgainFinder, findsOneWidget);
+  });
 
-  testWidgets('When tap on Try Again Btn to get Completed Certifications,'
+  testWidgets(
+      'When tap on Try Again Btn to get Completed Certifications,'
       'then Bloc emits GetCompletedCertificationsEvent',
-          (WidgetTester tester) async {
-        // arrange
-        final expectedMessage = Constants.SERVER_FAILURE_MSG;
-        final Error error = Error(
-            message: expectedMessage,
-            cloudCertificationType: CloudCertificationType.completed);
+      (WidgetTester tester) async {
+    // arrange
+    final Error error = Error(
+        message: Constants.SERVER_FAILURE_MSG,
+        cloudCertificationType: CloudCertificationType.completed);
 
-        setMockBlockState(Empty());
+    setMockBlockState(Empty());
 
-        // act
-        await tester.pumpWidget(Directionality(
-          textDirection: TextDirection.ltr,
-          child: MediaQuery(
-              data: MediaQueryData(),
-              child: BlocProvider<CloudCertificationBloc>(
-                create: (_) => mockBloc,
-                child: ErrorPage(error: error),
-              )
-          ),
-        ));
+    // act
+    await tester.pumpWidget(Directionality(
+      textDirection: TextDirection.ltr,
+      child: MediaQuery(
+          data: MediaQueryData(),
+          child: BlocProvider<CloudCertificationBloc>(
+            create: (_) => mockBloc,
+            child: ErrorPage(error: error),
+          )),
+    ));
 
-        final tryAgainFinder =
+    final tryAgainFinder =
         find.byWidgetPredicate((widget) => widget is ElevatedButton);
 
-        // assert
-        // tap on try again button to check if it triggers expected event
-        await tester.tap(tryAgainFinder);
+    // assert
+    // tap on try again button to check if it triggers expected event
+    await tester.tap(tryAgainFinder);
 
-        verify(mockBloc..add(GetCompletedCertificationsEvent())).called(1);
-        verifyNever(mockBloc..add(GetInProgressCertificationsEvent()));
-      });
+    verify(mockBloc..add(GetCompletedCertificationsEvent())).called(1);
+    verifyNever(mockBloc..add(GetInProgressCertificationsEvent()));
+  });
 
-  testWidgets('When tap on Try Again Btn to get In Progress Certifications,'
+  testWidgets(
+      'When tap on Try Again Btn to get In Progress Certifications,'
       'then Bloc emits GetInProgressCertificationsEvent',
-          (WidgetTester tester) async {
-        // arrange
-        final expectedMessage = Constants.SERVER_FAILURE_MSG;
-        final Error error = Error(
-            message: expectedMessage,
-            cloudCertificationType: CloudCertificationType.in_progress);
+      (WidgetTester tester) async {
+    // arrange
+    final Error error = Error(
+        message: Constants.SERVER_FAILURE_MSG,
+        cloudCertificationType: CloudCertificationType.in_progress);
 
-        setMockBlockState(Empty());
+    setMockBlockState(Empty());
 
-        // act
-        await tester.pumpWidget(Directionality(
-          textDirection: TextDirection.ltr,
-          child: MediaQuery(
-              data: MediaQueryData(),
-              child: BlocProvider<CloudCertificationBloc>(
-                create: (_) => mockBloc,
-                child: ErrorPage(error: error),
-              )
-          ),
-        ));
+    // act
+    await tester.pumpWidget(Directionality(
+      textDirection: TextDirection.ltr,
+      child: MediaQuery(
+          data: MediaQueryData(),
+          child: BlocProvider<CloudCertificationBloc>(
+            create: (_) => mockBloc,
+            child: ErrorPage(error: error),
+          )),
+    ));
 
-        final tryAgainFinder =
+    final tryAgainFinder =
         find.byWidgetPredicate((widget) => widget is ElevatedButton);
 
-        // assert
-        // tap on try again button to check if it triggers expected event
-        await tester.tap(tryAgainFinder);
+    // assert
+    // tap on try again button to check if it triggers expected event
+    await tester.tap(tryAgainFinder);
 
-        verify(mockBloc..add(GetInProgressCertificationsEvent())).called(1);
-        verifyNever(mockBloc..add(GetCompletedCertificationsEvent()));
-      });
+    verify(mockBloc..add(GetInProgressCertificationsEvent())).called(1);
+    verifyNever(mockBloc..add(GetCompletedCertificationsEvent()));
+  });
 }
