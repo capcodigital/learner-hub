@@ -209,7 +209,7 @@ void main() {
 
     CloudCertificationBloc mockCCBloc = MockCertBloc();
 
-    whenListen(mockCCBloc, Stream.fromIterable([error, loaded]), initialState: error);
+    whenListen(mockCCBloc, Stream.fromIterable([loaded]), initialState: error);
 
     // act
     await tester.pumpWidget(
@@ -239,7 +239,6 @@ void main() {
     expect(tryAgainBtnFinder, findsOneWidget);
 
     // act
-    // Tap on Try Again Btn to check if triggers expected BlocEvent
     await tester.tap(tryAgainBtnFinder);
 
     await tester.pump(Duration(seconds: 1));
