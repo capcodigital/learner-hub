@@ -45,9 +45,7 @@ void main() {
   testWidgets('Home Page shows Certifications List Page when bloc emits Loaded',
       (WidgetTester tester) async {
     // arrange
-    final mockList = (json.decode(fixture('completed.json')) as List)
-        .map((e) => CloudCertificationModel.fromJson(e))
-        .toList();
+    final mockList = getMockCompletedCertifications();
     setMockBlockState(Loaded(
         items: mockList,
         cloudCertificationType: CloudCertificationType.completed));
@@ -192,18 +190,19 @@ void main() {
     expect(emptySearchFinder, findsOneWidget);
   });
 
-  // TODO: Fix Test
-  /*
-  // In this test using MockBloc to try to emit Loaded after Error
-  // and check if ListView appears
-  testWidgets('Home Page shows Error Page when bloc emits Error',
+  testWidgets(
+      'Home Page shows Error Page when bloc emits Error. When click Try Again'
+      ' bloc emits Loaded and Certifications ListView appears',
       (WidgetTester tester) async {
     // arrange
+    final mockList = getMockCompletedCertifications();
+    CloudCertificationState loaded = Loaded(
+        items: mockList,
+        cloudCertificationType: CloudCertificationType.completed);
 
-    final expectedMessage = Constants.SERVER_FAILURE_MSG;
+    final errorMsg = Constants.SERVER_FAILURE_MSG;
     final CloudCertificationState error = Error(
-        message: expectedMessage,
-        certificationType: CloudCertificationType.completed);
+        message: errorMsg, certificationType: CloudCertificationType.completed);
 
     Mocktail.registerFallbackValue<CloudCertificationState>(error);
     Mocktail.registerFallbackValue<CloudCertificationEvent>(
@@ -211,7 +210,7 @@ void main() {
 
     CloudCertificationBloc bl = MockCertBloc();
 
-    whenListen(bl, Stream.fromIterable([error]), initialState: error);
+    whenListen(bl, Stream.fromIterable([error, loaded]), initialState: error);
 
     // act
     await tester.pumpWidget(
@@ -229,7 +228,7 @@ void main() {
         find.byWidgetPredicate((widget) => widget is ToggleButton);
     final errorPageFinder =
         find.byWidgetPredicate((widget) => widget is ErrorPage);
-    final errorMsgFinder = find.text(expectedMessage);
+    final errorMsgFinder = find.text(errorMsg);
     final tryAgainBtnFinder =
         find.byWidgetPredicate((widget) => widget is ElevatedButton);
 
@@ -240,32 +239,25 @@ void main() {
     expect(errorMsgFinder, findsOneWidget);
     expect(tryAgainBtnFinder, findsOneWidget);
 
-    // arrange
-    final mockList = getMockCompletedCertifications();
-    CloudCertificationState loaded = Loaded(
-        items: mockList,
-        cloudCertificationType: CloudCertificationType.completed);
-
-    Mocktail.registerFallbackValue<CloudCertificationState>(loaded);
-    whenListen(bl, Stream.fromIterable([loaded]));
-    Mocktail.when(() => mockBloc.add(GetCompletedCertificationsEvent()))
-        .thenAnswer((_) {
-          mockBloc.emit(loaded);
-        });
-
-    // Tap on Try Again Btn to check if triggers expected BlocEvent
     // act
+    // Tap on Try Again Btn to check if triggers expected BlocEvent
     await tester.tap(tryAgainBtnFinder);
 
     await tester.pump(Duration(seconds: 1));
 
     final certificationsFinder =
         find.byWidgetPredicate((widget) => widget is CertificationsView);
+    final listFinder = find.byWidgetPredicate((widget) => widget is ListView);
+    final listView = tester.widget(listFinder) as ListView;
 
     // assert
     Mocktail.verify(() => bl.add(GetCompletedCertificationsEvent())).called(1);
     Mocktail.verifyNever(() => bl.add(GetInProgressCertificationsEvent()));
 
+    expect(searchBoxFinder, findsOneWidget);
+    expect(toggleFinder, findsOneWidget);
     expect(certificationsFinder, findsOneWidget);
-  }); */
+    expect(listFinder, findsOneWidget);
+    expect(listView.childrenDelegate.estimatedChildCount, mockList.length);
+  });
 }

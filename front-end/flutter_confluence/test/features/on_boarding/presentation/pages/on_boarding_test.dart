@@ -50,4 +50,5 @@ void main() {
     expect(imgFinder, findsNWidgets(NUM_OF_IMAGES));
     expect(btnFinder, findsOneWidget);
   });
+
 }

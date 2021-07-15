@@ -10,3 +10,9 @@ List<CloudCertificationModel> getMockCompletedCertifications() {
       .map((e) => CloudCertificationModel.fromJson(e))
       .toList();
 }
+
+List<CloudCertificationModel> getMockInProgressCertifications() {
+  return (json.decode(fixture('in_progress.json')) as List)
+      .map((e) => CloudCertificationModel.fromJson(e))
+      .toList();
+}
