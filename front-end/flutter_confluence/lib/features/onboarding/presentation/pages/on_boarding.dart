@@ -102,7 +102,8 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog  {
             textAlign: TextAlign.center,
           ),
           margin: EdgeInsets.only(
-              top: 10, right: 40, left: 40),
+              // TODO: top margin 34 was causing the UI test to fail
+              top: 10, right: Dimen.dimen_68, left: Dimen.dimen_68),
         ),
         buildAuthButton(context)
       ],
