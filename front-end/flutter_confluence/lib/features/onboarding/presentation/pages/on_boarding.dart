@@ -64,13 +64,9 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog  {
               child: Image.asset('assets/front-layer.png'),
             ),
             Container(
-              margin: const EdgeInsets.only(top: 60), //const EdgeInsets.only(top: Dimen.dimen_80),
+              margin: const EdgeInsets.only(top: Dimen.dimen_60), //const EdgeInsets.only(top: Dimen.dimen_80),
               child: buildBody(context),
             )
-            // Padding(
-            //   padding: const EdgeInsets.only(top: 10), //const EdgeInsets.only(top: Dimen.dimen_80),
-            //   child: buildBody(context),
-            // )
           ],
         ));
   }
