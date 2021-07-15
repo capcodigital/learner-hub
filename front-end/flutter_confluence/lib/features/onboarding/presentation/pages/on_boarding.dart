@@ -20,10 +20,10 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog  {
   static const msgAuthenticate = "Authenticate";
   static const msgAuthenticateNotSupported = "Continue";
 
-  static const platformIconRadius = 26.0;
+  static const platformIconRadius = 20.0;
   static const card_radius = 15.0;
   static const cardWidth = 180.0;
-  static const cardHeight = 260.0;
+  static const cardHeight = 220.0;
 
   void authenticate(BuildContext context) {
     BlocProvider.of<OnBoardingBloc>(context).add(AuthEvent());
@@ -63,10 +63,14 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog  {
               top: Dimen.bgFrontLayerTop,
               child: Image.asset('assets/front-layer.png'),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: Dimen.dimen_80),
+            Container(
+              margin: const EdgeInsets.only(top: 60), //const EdgeInsets.only(top: Dimen.dimen_80),
               child: buildBody(context),
             )
+            // Padding(
+            //   padding: const EdgeInsets.only(top: 10), //const EdgeInsets.only(top: Dimen.dimen_80),
+            //   child: buildBody(context),
+            // )
           ],
         ));
   }
@@ -97,11 +101,12 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog  {
           alignment: Alignment.center,
           child: Text(
             msgDescription,
+            maxLines: 2,
             style: Theme.of(context).textTheme.headline2,
             textAlign: TextAlign.center,
           ),
           margin: EdgeInsets.only(
-              top: Dimen.dimen_34, right: Dimen.dimen_68, left: Dimen.dimen_68),
+              top: 10, right: 40, left: 40),
         ),
         buildAuthButton(context)
       ],
@@ -141,7 +146,9 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog  {
             style: Theme.of(context)
                 .textTheme
                 .headline2
-                ?.copyWith(color: Colors.white)),
+                ?.copyWith(color: Colors.white,
+               fontSize: 12
+            )),
         Container(
           margin: EdgeInsets.only(top: Dimen.dimen_6),
           child: Column(
@@ -187,7 +194,9 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog  {
         style: Theme.of(context)
             .textTheme
             .headline1
-            ?.copyWith(color: Colors.white),
+            ?.copyWith(color: Colors.white,
+            fontSize: 12
+        ),
       ),
     );
   }
