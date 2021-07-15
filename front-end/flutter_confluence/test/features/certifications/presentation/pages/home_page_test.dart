@@ -42,7 +42,7 @@ void main() {
     Mockito.when(mockBloc.stream).thenAnswer((_) => Stream.value(state));
   }
 
-  testWidgets('Home Page shows Certifications List Page when bloc emits Loaded',
+  testWidgets('Home Page shows Certifications ListView when bloc emits Loaded',
       (WidgetTester tester) async {
     // arrange
     final mockList = getMockCompletedCertifications();
@@ -192,7 +192,7 @@ void main() {
 
   testWidgets(
       'Home Page shows Error Page when bloc emits Error. When click Try Again'
-      ' bloc emits Loaded and Certifications ListView appears',
+      ' bloc emits Loaded and Home Page shows Certifications ListView',
       (WidgetTester tester) async {
     // arrange
     final mockList = getMockCompletedCertifications();
@@ -200,9 +200,10 @@ void main() {
         items: mockList,
         cloudCertificationType: CloudCertificationType.completed);
 
+
     final errorMsg = Constants.SERVER_FAILURE_MSG;
     final CloudCertificationState error = Error(
-        message: errorMsg, certificationType: CloudCertificationType.completed);
+        message: errorMsg, cloudCertificationType: CloudCertificationType.completed);
 
     Mocktail.registerFallbackValue<CloudCertificationState>(error);
     Mocktail.registerFallbackValue<CloudCertificationEvent>(

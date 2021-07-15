@@ -27,7 +27,7 @@ void main() {
         final expectedMessage = Constants.SERVER_FAILURE_MSG;
         final Error error = Error(
             message: expectedMessage,
-            certificationType: CloudCertificationType.completed);
+            cloudCertificationType: CloudCertificationType.completed);
 
         // act
         await tester.pumpWidget(Directionality(
@@ -61,7 +61,7 @@ void main() {
         final expectedMessage = Constants.SERVER_FAILURE_MSG;
         final Error error = Error(
             message: expectedMessage,
-            certificationType: CloudCertificationType.completed);
+            cloudCertificationType: CloudCertificationType.completed);
 
         setMockBlockState(Empty());
 
@@ -95,7 +95,7 @@ void main() {
         final expectedMessage = Constants.SERVER_FAILURE_MSG;
         final Error error = Error(
             message: expectedMessage,
-            certificationType: CloudCertificationType.in_progress);
+            cloudCertificationType: CloudCertificationType.in_progress);
 
         setMockBlockState(Empty());
 

@@ -22,7 +22,7 @@ class ErrorPage extends StatelessWidget {
   ErrorPage({required this.error});
 
   void tryAgain(BuildContext context) {
-    switch (error.certificationType) {
+    switch (error.cloudCertificationType) {
       case CloudCertificationType.completed:
         BlocProvider.of<CloudCertificationBloc>(context)
             .add(GetCompletedCertificationsEvent());
