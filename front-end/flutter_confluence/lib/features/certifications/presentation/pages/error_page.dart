@@ -10,7 +10,6 @@ import '../../../../core/dimen.dart';
 class ErrorPage extends StatelessWidget {
   static const route = "ErrorPage";
   static const msgTitle = "Oops!";
-  static const msgDescription = "Something went wrong. Please try again.";
   static const msgTryAgain = "Try Again";
   static const errorImageMarginTop = 10.0;
   static const titleMarginTop = 30.0;
@@ -23,7 +22,7 @@ class ErrorPage extends StatelessWidget {
   ErrorPage({required this.error});
 
   void tryAgain(BuildContext context) {
-    switch (error.certificationType) {
+    switch (error.cloudCertificationType) {
       case CloudCertificationType.completed:
         BlocProvider.of<CloudCertificationBloc>(context)
             .add(GetCompletedCertificationsEvent());

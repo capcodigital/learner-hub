@@ -4,6 +4,10 @@ import 'package:flutter_confluence/core/constants.dart';
 import 'package:flutter_confluence/features/certifications/presentation/bloc/cloud_certification_bloc.dart';
 
 class ToggleButton extends StatefulWidget {
+
+  static const TXT_COMPLETED = "Completed";
+  static const TXT_IN_PROGRESS = "In Progress";
+
   @override
   _ToggleButtonState createState() => _ToggleButtonState();
 }
@@ -75,7 +79,7 @@ class _ToggleButtonState extends State<ToggleButton> {
                 width: width * 0.5,
                 color: Colors.transparent,
                 alignment: Alignment.center,
-                child: Text('In Progress',
+                child: Text(ToggleButton.TXT_IN_PROGRESS,
                     style: Theme.of(context)
                         .textTheme
                         .headline2
@@ -99,7 +103,7 @@ class _ToggleButtonState extends State<ToggleButton> {
                 width: width * 0.5,
                 color: Colors.transparent,
                 alignment: Alignment.center,
-                child: Text('Completed',
+                child: Text(ToggleButton.TXT_COMPLETED,
                     style: Theme.of(context)
                         .textTheme
                         .headline2
