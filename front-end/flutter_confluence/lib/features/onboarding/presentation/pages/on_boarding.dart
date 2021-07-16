@@ -23,7 +23,7 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
 
   static const platformIconRadius = 24.0;
   static const card_radius = 15.0;
-  static const cardWidth = 164.0;
+  static const cardWidth = 168.0;
   static const cardHeight = 250.0;
   static const authBtnVerticalPadding = 20.0;
   static const authBtnWidth = 236.0;
@@ -88,10 +88,13 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
   Widget buildBody(BuildContext context) {
     return Column(
       children: [
-        Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-          buildCard(child: buildLeftCardChild(context)),
-          buildCard(child: buildRightCardChild(context)),
-        ]),
+        Padding(
+          padding: const EdgeInsets.only(left: 12.0, right: 12.0),
+          child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+            buildCard(child: buildLeftCardChild(context)),
+            buildCard(child: buildRightCardChild(context)),
+          ]),
+        ),
         Padding(
           child: Image.asset('assets/${Constants.IC_FLUTTER}'),
           padding: EdgeInsets.only(top: Dimen.dimen_20),
@@ -158,21 +161,21 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
                   ?.copyWith(color: Colors.white, fontSize: Dimen.dimen_14)),
         ),
         Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             buildPlatformIcon(Constants.IC_AWS),
             buildPlatformIcon(Constants.IC_AZURE),
           ],
         ),
         Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             buildPlatformIcon(Constants.IC_GCP),
             buildPlatformIcon(Constants.IC_HASHICORP),
           ],
         ),
         Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             buildPlatformIcon(Constants.IC_CLOUD_NATIVE),
             Opacity(
