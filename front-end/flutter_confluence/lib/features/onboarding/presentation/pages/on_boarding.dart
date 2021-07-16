@@ -9,7 +9,7 @@ import '../../../../core/constants.dart';
 import '../../../certifications/presentation/pages/home_page.dart';
 import '../bloc/on_boarding_bloc.dart';
 
-class OnBoardingPage extends StatelessWidget with CustomAlertDialog  {
+class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
   static const route = "OnBoardingPage";
 
   static const msgTrainingTypes = "Training Types";
@@ -22,7 +22,7 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog  {
 
   static const platformIconRadius = 20.0;
   static const card_radius = 15.0;
-  static const cardWidth = 180.0;
+  static const cardWidth = 160.0;
   static const cardHeight = 220.0;
 
   void authenticate(BuildContext context) {
@@ -52,7 +52,6 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog  {
 
   Widget buildDecoratedBody(BuildContext context) {
     return Container(
-        constraints: BoxConstraints.expand(),
         decoration: BoxDecoration(
             image: DecorationImage(
                 image: AssetImage("assets/back-layer.png"), fit: BoxFit.cover)),
@@ -63,8 +62,8 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog  {
               top: Dimen.bgFrontLayerTop,
               child: Image.asset('assets/front-layer.png'),
             ),
-            Container(
-              margin: const EdgeInsets.only(top: Dimen.dimen_60), //const EdgeInsets.only(top: Dimen.dimen_80),
+            Padding(
+              padding: EdgeInsets.only(top: 20),
               child: buildBody(context),
             )
           ],
@@ -76,35 +75,34 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog  {
       children: [
         Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               buildCard(child: buildLeftCardChild(context)),
               buildCard(child: buildRightCardChild(context)),
             ]),
-        Container(
+        Padding(
           child: Image.asset('assets/${Constants.IC_FLUTTER}'),
-          margin: EdgeInsets.only(top: Dimen.dimen_20),
+          padding: EdgeInsets.only(top: Dimen.dimen_20),
         ),
-        Container(
+        Padding(
           child: Image.asset('assets/${Constants.IC_PLUS}'),
-          margin: EdgeInsets.only(top: Dimen.dimen_20),
+          padding: EdgeInsets.only(top: Dimen.dimen_20),
         ),
-        Container(
+        Padding(
           child: Image.asset('assets/${Constants.IC_CONFLUENCE}'),
-          margin: EdgeInsets.only(top: Dimen.dimen_26),
+          padding: EdgeInsets.only(top: Dimen.dimen_26),
         ),
-        Container(
-          alignment: Alignment.center,
-          child: Text(
-            msgDescription,
-            // TODO: Missing maxLines was related to UI test failure
-            maxLines: 2,
-            style: Theme.of(context).textTheme.headline2,
-            textAlign: TextAlign.center,
-          ),
-          margin: EdgeInsets.only(
-              // TODO: top margin 34 was related to UI test failure
+        Padding(
+          padding: EdgeInsets.only(
               top: 10, right: Dimen.dimen_68, left: Dimen.dimen_68),
+          child: Center(
+            child: Text(
+              msgDescription,
+              // TODO: Missing maxLines was related to UI test failure
+              maxLines: 2,
+              style: Theme.of(context).textTheme.headline2,
+              textAlign: TextAlign.center,
+            ),
+          ),
         ),
         buildAuthButton(context)
       ],
@@ -113,7 +111,7 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog  {
 
   Widget buildCard({required Widget child}) {
     return Card(
-      elevation: 5,
+      elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(card_radius),
       ),
@@ -134,49 +132,71 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog  {
           height: cardHeight,
           child: child),
     );
+/*
+    return Container(
+      margin: EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Constants.JIRA_COLOR,
+        borderRadius: BorderRadius.circular(card_radius),
+        boxShadow: [
+          BoxShadow(
+            color: Constants.BLACK_25,
+            blurRadius: 3,
+            offset: Offset(0.0, 3.0),
+          ),
+        ],
+      ),
+      width: cardWidth,
+      height: cardHeight,
+      child: Card(
+        color: Constants.JIRA_COLOR,
+        elevation: 5,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(card_radius),
+        ),
+        child: child,
+      ),
+    );*/
   }
 
   Widget buildLeftCardChild(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(msgTrainingTypes,
-            style: Theme.of(context)
-                .textTheme
-                .headline2
-                ?.copyWith(color: Colors.white,
-                // TODO: Larger font causes UI test fail
-               fontSize: 12
-            )),
-        Container(
-          margin: EdgeInsets.only(top: Dimen.dimen_6),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  buildPlatformIcon(Constants.IC_AWS),
-                  buildPlatformIcon(Constants.IC_AZURE),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  buildPlatformIcon(Constants.IC_GCP),
-                  buildPlatformIcon(Constants.IC_HASHICORP),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  buildPlatformIcon(Constants.IC_CLOUD_NATIVE),
-                  Opacity(
-                      opacity: 0.0,
-                      child: buildPlatformIcon(Constants.IC_CLOUD_NATIVE)),
-                ],
-              ),
-            ],
-          ),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 10.0),
+          child: Text(msgTrainingTypes,
+              style: Theme.of(context).textTheme.headline2?.copyWith(
+                  color: Colors.white,
+                  // TODO: Larger font causes UI test fail
+                  fontSize: 12)),
+        ),
+        Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                buildPlatformIcon(Constants.IC_AWS),
+                buildPlatformIcon(Constants.IC_AZURE),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                buildPlatformIcon(Constants.IC_GCP),
+                buildPlatformIcon(Constants.IC_HASHICORP),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                buildPlatformIcon(Constants.IC_CLOUD_NATIVE),
+                Opacity(
+                    opacity: 0.0,
+                    child: buildPlatformIcon(Constants.IC_CLOUD_NATIVE)),
+              ],
+            ),
+          ],
         ),
       ],
     );
@@ -187,24 +207,25 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog  {
       child: Text(
         msgCardDescription,
         textAlign: TextAlign.center,
-        style: Theme.of(context)
-            .textTheme
-            .headline1
-            ?.copyWith(color: Colors.white,
+        style: Theme.of(context).textTheme.headline1?.copyWith(
+            color: Colors.white,
             // TODO: Larger font causes UI test fail
-            fontSize: 12
-        ),
+            fontSize: 12),
       ),
     );
   }
 
   Widget buildAuthButton(BuildContext context) {
-    return Container(
-        margin: EdgeInsets.only(top: Dimen.dimen_48),
-        width: Dimen.mainBtnWidth,
-        height: Dimen.mainBtnHeight,
+    return Padding(
+        padding: EdgeInsets.only(top: 10,
+           left: 60, right: 60
+        ),
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
+            padding: EdgeInsets.symmetric(
+                vertical: 20,
+                // TODO: Check why horizontal padding is not working
+                horizontal: 1),
             shadowColor: Colors.black,
             primary: Colors.white,
             shape: RoundedRectangleBorder(
