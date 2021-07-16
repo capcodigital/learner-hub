@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_confluence/core/dimen.dart';
@@ -20,10 +21,13 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
   static const msgAuthenticate = "Authenticate";
   static const msgAuthenticateNotSupported = "Continue";
 
-  static const platformIconRadius = 20.0;
+  static const platformIconRadius = 24.0;
   static const card_radius = 15.0;
-  static const cardWidth = 160.0;
-  static const cardHeight = 220.0;
+  static const cardWidth = 164.0;
+  static const cardHeight = 250.0;
+  static const authBtnVerticalPadding = 20.0;
+  // TODO: horizontal padding not working, why?
+  static const authBtnHorizontalPadding = 1.0;
 
   void authenticate(BuildContext context) {
     BlocProvider.of<OnBoardingBloc>(context).add(AuthEvent());
@@ -62,23 +66,33 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
               top: Dimen.bgFrontLayerTop,
               child: Image.asset('assets/front-layer.png'),
             ),
+            buildScrollableBody(context)
+          ],
+        ));
+  }
+
+  Widget buildScrollableBody(BuildContext context) {
+    return CustomScrollView(slivers: <Widget>[
+      SliverList(
+        delegate: SliverChildListDelegate(
+          [
             Padding(
-              padding: EdgeInsets.only(top: 20),
+              padding: EdgeInsets.only(top: Dimen.dimen_80),
               child: buildBody(context),
             )
           ],
-        ));
+        ),
+      )
+    ]);
   }
 
   Widget buildBody(BuildContext context) {
     return Column(
       children: [
-        Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              buildCard(child: buildLeftCardChild(context)),
-              buildCard(child: buildRightCardChild(context)),
-            ]),
+        Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          buildCard(child: buildLeftCardChild(context)),
+          buildCard(child: buildRightCardChild(context)),
+        ]),
         Padding(
           child: Image.asset('assets/${Constants.IC_FLUTTER}'),
           padding: EdgeInsets.only(top: Dimen.dimen_20),
@@ -89,16 +103,14 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
         ),
         Padding(
           child: Image.asset('assets/${Constants.IC_CONFLUENCE}'),
-          padding: EdgeInsets.only(top: Dimen.dimen_26),
+          padding: EdgeInsets.only(top: Dimen.dimen_14),
         ),
         Padding(
           padding: EdgeInsets.only(
-              top: 10, right: Dimen.dimen_68, left: Dimen.dimen_68),
+              top: Dimen.dimen_34, right: Dimen.dimen_68, left: Dimen.dimen_68),
           child: Center(
             child: Text(
               msgDescription,
-              // TODO: Missing maxLines was related to UI test failure
-              maxLines: 2,
               style: Theme.of(context).textTheme.headline2,
               textAlign: TextAlign.center,
             ),
@@ -132,31 +144,6 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
           height: cardHeight,
           child: child),
     );
-/*
-    return Container(
-      margin: EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: Constants.JIRA_COLOR,
-        borderRadius: BorderRadius.circular(card_radius),
-        boxShadow: [
-          BoxShadow(
-            color: Constants.BLACK_25,
-            blurRadius: 3,
-            offset: Offset(0.0, 3.0),
-          ),
-        ],
-      ),
-      width: cardWidth,
-      height: cardHeight,
-      child: Card(
-        color: Constants.JIRA_COLOR,
-        elevation: 5,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(card_radius),
-        ),
-        child: child,
-      ),
-    );*/
   }
 
   Widget buildLeftCardChild(BuildContext context) {
@@ -166,10 +153,11 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
         Padding(
           padding: const EdgeInsets.only(bottom: 10.0),
           child: Text(msgTrainingTypes,
-              style: Theme.of(context).textTheme.headline2?.copyWith(
-                  color: Colors.white,
-                  // TODO: Larger font causes UI test fail
-                  fontSize: 12)),
+              maxLines: 1,
+              style: Theme.of(context)
+                  .textTheme
+                  .headline2
+                  ?.copyWith(color: Colors.white, fontSize: 14)),
         ),
         Column(
           children: [
@@ -207,25 +195,21 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
       child: Text(
         msgCardDescription,
         textAlign: TextAlign.center,
-        style: Theme.of(context).textTheme.headline1?.copyWith(
-            color: Colors.white,
-            // TODO: Larger font causes UI test fail
-            fontSize: 12),
+        style: Theme.of(context).textTheme.headline1?.copyWith(color: Colors.white),
       ),
     );
   }
 
   Widget buildAuthButton(BuildContext context) {
     return Padding(
-        padding: EdgeInsets.only(top: 10,
-           left: 60, right: 60
-        ),
+        padding: EdgeInsets.only(
+            top: Dimen.dimen_68, left: Dimen.dimen_74, right: Dimen.dimen_74),
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
             padding: EdgeInsets.symmetric(
-                vertical: 20,
-                // TODO: Check why horizontal padding is not working
-                horizontal: 1),
+                vertical: authBtnVerticalPadding,
+                // TODO: horizontal padding not working, why?
+                horizontal: authBtnHorizontalPadding),
             shadowColor: Colors.black,
             primary: Colors.white,
             shape: RoundedRectangleBorder(
