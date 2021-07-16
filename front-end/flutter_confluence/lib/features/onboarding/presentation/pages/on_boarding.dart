@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_confluence/core/dimen.dart';
 import 'package:flutter_confluence/core/utils/error_messages.dart';
+import 'package:flutter_confluence/core/utils/media_util.dart';
 
 import '../../../../core/constants.dart';
 import '../../../certifications/presentation/pages/home_page.dart';
@@ -23,10 +24,8 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
 
   static const platformIconRadius = 24.0;
   static const card_radius = 15.0;
-  static const cardWidth = 168.0;
   static const cardHeight = 250.0;
   static const authBtnVerticalPadding = 20.0;
-  static const authBtnWidth = 236.0;
 
   void authenticate(BuildContext context) {
     BlocProvider.of<OnBoardingBloc>(context).add(AuthEvent());
@@ -76,7 +75,7 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
         delegate: SliverChildListDelegate(
           [
             Padding(
-              padding: EdgeInsets.only(top: Dimen.dimen_80),
+              padding: EdgeInsets.only(top: getHeight(context, 0.09)),
               child: buildBody(context),
             )
           ],
@@ -89,27 +88,31 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 12.0, right: 12.0),
-          child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-            buildCard(child: buildLeftCardChild(context)),
-            buildCard(child: buildRightCardChild(context)),
+          padding: EdgeInsets.only(
+              left: getWidth(context, 0.04), right: getWidth(context, 0.04)),
+          child:
+              Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+            buildCard(child: buildLeftCardChild(context), context: context),
+            buildCard(child: buildRightCardChild(context), context: context),
           ]),
         ),
         Padding(
           child: Image.asset('assets/${Constants.IC_FLUTTER}'),
-          padding: EdgeInsets.only(top: Dimen.dimen_20),
+          padding: EdgeInsets.only(top: getHeight(context, 0.03)),
         ),
         Padding(
           child: Image.asset('assets/${Constants.IC_PLUS}'),
-          padding: EdgeInsets.only(top: Dimen.dimen_20),
+          padding: EdgeInsets.only(top: getHeight(context, 0.03)),
         ),
         Padding(
           child: Image.asset('assets/${Constants.IC_CONFLUENCE}'),
-          padding: EdgeInsets.only(top: Dimen.dimen_14),
+          padding: EdgeInsets.only(top: getHeight(context, 0.02)),
         ),
         Padding(
           padding: EdgeInsets.only(
-              top: Dimen.dimen_34, right: Dimen.dimen_68, left: Dimen.dimen_68),
+              top: getHeight(context, 0.04),
+              right: getWidth(context, 0.09),
+              left: getWidth(context, 0.09)),
           child: Center(
             child: Text(
               msgDescription,
@@ -123,7 +126,7 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
     );
   }
 
-  Widget buildCard({required Widget child}) {
+  Widget buildCard({required BuildContext context, required Widget child}) {
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(card_radius),
@@ -141,8 +144,8 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
               ),
             ],
           ),
-          width: cardWidth,
-          height: cardHeight,
+          width: getWidth(context, 0.4),
+          height: cardHeight, //getHeight(context, 0.3),
           child: child),
     );
   }
@@ -202,16 +205,15 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
 
   Widget buildAuthButton(BuildContext context) {
     return Container(
-    // Using Container to restrict ElevatedButton width cause it was full screen width
-    // Horizontal padding on ElevatedButton was not working, still btn was full screen width
-    width: authBtnWidth,
+        // Using Container to restrict ElevatedButton width cause it was full screen width
+        // Horizontal padding on ElevatedButton was not working, still btn was full screen width
+        width: getWidth(context, 0.5),
         margin: EdgeInsets.only(
-            top: Dimen.dimen_68,
+          top: getHeight(context, 0.06),
         ),
-        child:ElevatedButton(
+        child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            padding: EdgeInsets.symmetric(
-                vertical: authBtnVerticalPadding),
+            padding: EdgeInsets.symmetric(vertical: authBtnVerticalPadding),
             shadowColor: Colors.black,
             primary: Colors.white,
             shape: RoundedRectangleBorder(
@@ -230,12 +232,12 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
                     .headline1
                     ?.copyWith(color: Constants.JIRA_COLOR)),
           ),
-    ));
+        ));
   }
 
   Widget buildPlatformIcon(String iconName) {
     return Padding(
-      padding: const EdgeInsets.all(Dimen.dimen_8),
+      padding: EdgeInsets.all(Dimen.dimen_8),
       child: CircleAvatar(
         radius: platformIconRadius,
         backgroundColor: Colors.white,
