@@ -33,6 +33,8 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // Fixes bottom overflow issue when show keyboard in landscape
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text('Cloud Certifications',
             style: Theme.of(context).textTheme.headline1),

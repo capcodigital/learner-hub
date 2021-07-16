@@ -4,6 +4,8 @@ import 'package:flutter_confluence/core/constants.dart';
 import 'package:flutter_confluence/core/utils/media_util.dart';
 import 'package:flutter_confluence/features/certifications/presentation/bloc/cloud_certification_bloc.dart';
 
+import 'dart:math' as math;
+
 class ToggleButton extends StatefulWidget {
   static const TXT_COMPLETED = "Completed";
   static const TXT_IN_PROGRESS = "In Progress";
@@ -14,6 +16,7 @@ class ToggleButton extends StatefulWidget {
 
 class _ToggleButtonState extends State<ToggleButton> {
   final Color jiraColor = Constants.JIRA_COLOR;
+  final double minWidth = 300.0;
   final double height = 50.0;
   final double inProgressAlign = -1;
   final double completedAlign = 1;
@@ -34,7 +37,7 @@ class _ToggleButtonState extends State<ToggleButton> {
 
   @override
   Widget build(BuildContext context) {
-    final scaledWidth = getWidth(context, 0.8);
+    final scaledWidth = math.max(getWidth(context, 0.8), minWidth);
     return Container(
       width: scaledWidth,
       height: height,
