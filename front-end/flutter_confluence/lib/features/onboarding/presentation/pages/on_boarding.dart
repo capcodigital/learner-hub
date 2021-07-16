@@ -26,8 +26,7 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
   static const cardWidth = 164.0;
   static const cardHeight = 250.0;
   static const authBtnVerticalPadding = 20.0;
-  // TODO: horizontal padding not working, why?
-  static const authBtnHorizontalPadding = 1.0;
+  static const authBtnWidth = 236.0;
 
   void authenticate(BuildContext context) {
     BlocProvider.of<OnBoardingBloc>(context).add(AuthEvent());
@@ -123,7 +122,6 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
 
   Widget buildCard({required Widget child}) {
     return Card(
-      elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(card_radius),
       ),
@@ -184,8 +182,6 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
         ),
       ],
     );
-    //   ],
-    // );
   }
 
   Widget buildRightCardChild(BuildContext context) {
@@ -202,15 +198,17 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
   }
 
   Widget buildAuthButton(BuildContext context) {
-    return Padding(
-        padding: EdgeInsets.only(
-            top: Dimen.dimen_68, left: Dimen.dimen_74, right: Dimen.dimen_74),
-        child: ElevatedButton(
+    return Container(
+    // Using Container to restrict ElevatedButton width cause it was full screen width
+    // Horizontal padding on ElevatedButton was not working, still btn was full screen width
+    width: authBtnWidth,
+        margin: EdgeInsets.only(
+            top: Dimen.dimen_68,
+        ),
+        child:ElevatedButton(
           style: ElevatedButton.styleFrom(
             padding: EdgeInsets.symmetric(
-                vertical: authBtnVerticalPadding,
-                // TODO: horizontal padding not working, why?
-                horizontal: authBtnHorizontalPadding),
+                vertical: authBtnVerticalPadding),
             shadowColor: Colors.black,
             primary: Colors.white,
             shape: RoundedRectangleBorder(
@@ -229,7 +227,7 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
                     .headline1
                     ?.copyWith(color: Constants.JIRA_COLOR)),
           ),
-        ));
+    ));
   }
 
   Widget buildPlatformIcon(String iconName) {
