@@ -138,7 +138,7 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog  {
 
   Widget buildLeftCardChild(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(msgTrainingTypes,
             style: Theme.of(context)
@@ -154,7 +154,6 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog  {
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   buildPlatformIcon(Constants.IC_AWS),
                   buildPlatformIcon(Constants.IC_AZURE),
@@ -162,7 +161,6 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog  {
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   buildPlatformIcon(Constants.IC_GCP),
                   buildPlatformIcon(Constants.IC_HASHICORP),
@@ -170,7 +168,6 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog  {
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   buildPlatformIcon(Constants.IC_CLOUD_NATIVE),
                   Opacity(
