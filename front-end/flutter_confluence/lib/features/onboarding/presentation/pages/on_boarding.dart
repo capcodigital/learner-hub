@@ -151,43 +151,41 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Padding(
-          padding: const EdgeInsets.only(bottom: 10.0),
+          padding: const EdgeInsets.only(bottom: Dimen.dimen_10),
           child: Text(msgTrainingTypes,
               maxLines: 1,
               style: Theme.of(context)
                   .textTheme
                   .headline2
-                  ?.copyWith(color: Colors.white, fontSize: 14)),
+                  ?.copyWith(color: Colors.white, fontSize: Dimen.dimen_14)),
         ),
-        Column(
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                buildPlatformIcon(Constants.IC_AWS),
-                buildPlatformIcon(Constants.IC_AZURE),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                buildPlatformIcon(Constants.IC_GCP),
-                buildPlatformIcon(Constants.IC_HASHICORP),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                buildPlatformIcon(Constants.IC_CLOUD_NATIVE),
-                Opacity(
-                    opacity: 0.0,
-                    child: buildPlatformIcon(Constants.IC_CLOUD_NATIVE)),
-              ],
-            ),
+            buildPlatformIcon(Constants.IC_AWS),
+            buildPlatformIcon(Constants.IC_AZURE),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            buildPlatformIcon(Constants.IC_GCP),
+            buildPlatformIcon(Constants.IC_HASHICORP),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            buildPlatformIcon(Constants.IC_CLOUD_NATIVE),
+            Opacity(
+                opacity: 0.0,
+                child: buildPlatformIcon(Constants.IC_CLOUD_NATIVE)),
           ],
         ),
       ],
     );
+    //   ],
+    // );
   }
 
   Widget buildRightCardChild(BuildContext context) {
@@ -195,7 +193,10 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
       child: Text(
         msgCardDescription,
         textAlign: TextAlign.center,
-        style: Theme.of(context).textTheme.headline1?.copyWith(color: Colors.white),
+        style: Theme.of(context)
+            .textTheme
+            .headline1
+            ?.copyWith(color: Colors.white),
       ),
     );
   }

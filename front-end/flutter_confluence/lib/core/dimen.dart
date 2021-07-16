@@ -3,6 +3,7 @@ class Dimen {
 
   static const dimen_6 = 6.0;
   static const dimen_8 = 8.0;
+  static const dimen_10 = 10.0;
   static const dimen_14 = 14.0;
   static const dimen_16 = 16.0;
   static const dimen_20 = 20.0;
