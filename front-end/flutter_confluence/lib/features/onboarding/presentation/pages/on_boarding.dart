@@ -153,7 +153,7 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
           ],
         ),
         width: isPortrait(context)
-            ? getWidth(context, Dimen.scale_4_10)
+            ? getWidth(context, Dimen.scale_40_100)
             : getWidth(context, Dimen.scale_22_100),
         child: AspectRatio(
           aspectRatio: isPortrait(context) ? Dimen.ratio_4_7 : Dimen.ratio_8_13,
@@ -230,7 +230,7 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
     return Container(
         // Using Container to restrict ElevatedButton width, cause it was full screen width.
         // TODO: Why? Adding horizontal padding on ElevatedButton was not working at all
-        width: getWidth(context, Dimen.scale_5_10),
+        width: getWidth(context, Dimen.scale_50_100),
         margin: EdgeInsets.only(
           top: getHeightNoAppBar(context, Dimen.scale_6_100),
         ),

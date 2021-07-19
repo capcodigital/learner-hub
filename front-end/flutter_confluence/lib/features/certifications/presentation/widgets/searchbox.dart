@@ -1,16 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_confluence/core/dimen.dart';
+import 'package:flutter_confluence/core/utils/media_util.dart';
 
 class SearchBox extends StatelessWidget {
   final String hintText;
   final ValueChanged<String>? onSearchTermChanged;
   final ValueChanged<String>? onSearchSubmitted;
-
   final TextEditingController? controller;
-
-  final double widgetHeight = 50.0;
-  static const double iconHorizontalPadding = 20.0;
-  final double iconSize = 30.0;
 
   const SearchBox(
       {this.hintText = "Search...",
@@ -21,7 +18,10 @@ class SearchBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: widgetHeight,
+      width: getWidth(context, 0.9),
+      height: isPortrait(context)
+          ? getHeight(context, 0.056)
+          : getHeight(context, 0.13),
       decoration: BoxDecoration(
           color: Colors.white,
           boxShadow: [
@@ -29,31 +29,35 @@ class SearchBox extends StatelessWidget {
                 color: Colors.black45, blurRadius: 10.0, offset: Offset(0, 10))
           ],
           borderRadius: BorderRadius.circular(25.0)),
-      child: TextField(
-        controller: controller,
-        onChanged: (onSearchTermChanged),
-        onSubmitted: (onSearchSubmitted),
-        decoration: InputDecoration(
-            border: InputBorder.none,
-            // These extra borders are required to work with web
-            focusedBorder: InputBorder.none,
-            enabledBorder: InputBorder.none,
-            errorBorder: InputBorder.none,
-            disabledBorder: InputBorder.none,
-            hintText: hintText,
-            prefixIcon: Padding(
-              padding: const EdgeInsets.only(
-                  left: iconHorizontalPadding, right: iconHorizontalPadding),
-              child: Icon(
-                Icons.search,
-                size: iconSize,
-                color: Colors.black45,
+      child: LayoutBuilder(
+          builder: (BuildContext ctx, BoxConstraints constraints) {
+            return TextField(
+              controller: controller,
+              onChanged: (onSearchTermChanged),
+              onSubmitted: (onSearchSubmitted),
+              decoration: InputDecoration(
+                  border: InputBorder.none,
+                  // These extra borders are required to work with web
+                  focusedBorder: InputBorder.none,
+                  enabledBorder: InputBorder.none,
+                  errorBorder: InputBorder.none,
+                  disabledBorder: InputBorder.none,
+                  hintText: hintText,
+                  prefixIcon: Padding(
+                    padding: EdgeInsets.only(
+                        left: constraints.maxHeight * Dimen.scale_20_100,
+                        right: constraints.maxHeight * Dimen.scale_20_100),
+                    child: Icon(
+                      Icons.search,
+                      size: constraints.maxHeight * Dimen.scale_70_100,
+                      color: Colors.black45,
+                    ),
+                  )),
+              style: TextStyle(
+                fontSize: 18.0,
               ),
-            )),
-        style: TextStyle(
-          fontSize: 18.0,
-        ),
-      ),
+            );
+          })
     );
   }
 }
