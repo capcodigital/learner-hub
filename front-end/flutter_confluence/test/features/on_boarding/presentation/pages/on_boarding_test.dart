@@ -14,7 +14,7 @@ class MockOnBoardingBloc extends MockBloc<OnBoardingEvent, OnBoardingState>
 
 void main() {
   const NUM_OF_CARDS = 2;
-  const NUM_OF_CIRCLE_AVATARS = 6;
+  const NUM_OF_CIRCLE_AVATARS = 5;
   const NUM_OF_IMAGES = 4;
 
   setUp(() {

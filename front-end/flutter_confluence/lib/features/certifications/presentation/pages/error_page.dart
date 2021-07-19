@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_confluence/core/utils/media_util.dart';
 import 'package:flutter_confluence/features/certifications/domain/entities/cloud_certification_type.dart';
 import 'package:flutter_confluence/features/certifications/presentation/bloc/cloud_certification_bloc.dart';
 
@@ -11,6 +12,7 @@ class ErrorPage extends StatelessWidget {
   static const route = "ErrorPage";
   static const msgTitle = "Oops!";
   static const msgTryAgain = "Try Again";
+
   static const errorImageMarginTop = 10.0;
   static const titleMarginTop = 30.0;
   static const errorMsgMarginTop = 60.0;
@@ -36,6 +38,17 @@ class ErrorPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return CustomScrollView(slivers: <Widget>[
+      SliverList(
+        delegate: SliverChildListDelegate(
+          [Container(
+              child: buildBody(context))],
+        ),
+      )
+    ]);
+  }
+
+  Widget buildBody(BuildContext context) {
     return Column(
       children: [
         Container(

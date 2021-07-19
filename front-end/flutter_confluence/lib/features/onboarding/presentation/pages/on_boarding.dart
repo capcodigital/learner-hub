@@ -22,8 +22,10 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
   static const msgAuthenticate = "Authenticate";
   static const msgAuthenticateNotSupported = "Continue";
 
-  static const platformIconRadius = 24.0;
+  static const platformIconScale = 0.14;
+
   static const card_radius = 15.0;
+  static const cardWidth = 160.0;
   static const cardHeight = 250.0;
   static const authBtnVerticalPadding = 20.0;
 
@@ -37,10 +39,12 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: buildPageBody(context));
+    return Scaffold(body: buildBodyWithBloc(context));
   }
 
-  Widget buildPageBody(BuildContext context) {
+  Widget buildBodyWithBloc(BuildContext context) {
+    final orien = MediaQuery.of(context).orientation;
+    print(orien.toString());
     return BlocListener(
       bloc: BlocProvider.of<OnBoardingBloc>(context),
       listener: (context, state) {
@@ -48,25 +52,33 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
           showAlertDialog(context, state.message);
         }
       },
-      child: buildDecoratedBody(context),
+      child: buildWithLayoutBuilder(context),
     );
   }
 
-  Widget buildDecoratedBody(BuildContext context) {
+  Widget buildWithLayoutBuilder(BuildContext context) {
     return Container(
+        width: getMediaWidth(context),
+        height: getMediaHeight(context),
         decoration: BoxDecoration(
             image: DecorationImage(
                 image: AssetImage("assets/back-layer.png"), fit: BoxFit.cover)),
-        child: Stack(
-          children: <Widget>[
+        child: LayoutBuilder(
+            builder: (BuildContext ctx, BoxConstraints constraints) {
+          if (constraints.maxHeight > constraints.maxWidth) {
+            print("LayoutBuilder: portrait");
+          } else {
+            print("LayoutBuilder: landscape");
+          }
+          return Stack(children: <Widget>[
             Positioned(
               left: Dimen.bgFrontLayerLeft,
               top: Dimen.bgFrontLayerTop,
               child: Image.asset('assets/front-layer.png'),
             ),
             buildScrollableBody(context)
-          ],
-        ));
+          ]);
+        }));
   }
 
   Widget buildScrollableBody(BuildContext context) {
@@ -75,7 +87,9 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
         delegate: SliverChildListDelegate(
           [
             Padding(
-              padding: EdgeInsets.only(top: getHeight(context, 0.09)),
+              padding: EdgeInsets.only(
+                top: 30, // getHeightNoAppBar(context, 0.09)
+              ),
               child: buildBody(context),
             )
           ],
@@ -89,7 +103,8 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
       children: [
         Padding(
           padding: EdgeInsets.only(
-              left: getWidth(context, 0.04), right: getWidth(context, 0.04)),
+            left: 0, //getWidth(context, 0.04), right: getWidth(context, 0.04)
+          ),
           child:
               Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
             buildCard(child: buildLeftCardChild(context), context: context),
@@ -98,21 +113,28 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
         ),
         Padding(
           child: Image.asset('assets/${Constants.IC_FLUTTER}'),
-          padding: EdgeInsets.only(top: getHeight(context, 0.03)),
+          padding: EdgeInsets.only(
+              top: 0 // getHeightNoAppBar(context, Dimen.scale_3_100)
+              ),
         ),
         Padding(
           child: Image.asset('assets/${Constants.IC_PLUS}'),
-          padding: EdgeInsets.only(top: getHeight(context, 0.03)),
+          padding: EdgeInsets.only(
+              top: 0 // getHeightNoAppBar(context, Dimen.scale_3_100)
+              ),
         ),
         Padding(
           child: Image.asset('assets/${Constants.IC_CONFLUENCE}'),
-          padding: EdgeInsets.only(top: getHeight(context, 0.02)),
+          padding: EdgeInsets.only(
+              top: 0 //getHeightNoAppBar(context, Dimen.scale_2_100)
+              ),
         ),
         Padding(
           padding: EdgeInsets.only(
-              top: getHeight(context, 0.04),
-              right: getWidth(context, 0.09),
-              left: getWidth(context, 0.09)),
+            top: 0, //getHeightNoAppBar(context, Dimen.scale_4_100),
+            right: 0, //getWidth(context, Dimen.scale_9_100),
+            left: 0, //getWidth(context, Dimen.scale_9_100)
+          ),
           child: Center(
             child: Text(
               msgDescription,
@@ -132,61 +154,73 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
         borderRadius: BorderRadius.circular(card_radius),
       ),
       child: Container(
-          padding: EdgeInsets.all(Dimen.dimen_8),
-          decoration: BoxDecoration(
-            color: Constants.JIRA_COLOR,
-            borderRadius: BorderRadius.circular(card_radius),
-            boxShadow: [
-              BoxShadow(
-                color: Constants.BLACK_25,
-                blurRadius: 3,
-                offset: Offset(0.0, 3.0),
-              ),
-            ],
-          ),
-          width: getWidth(context, 0.4),
-          height: cardHeight, //getHeight(context, 0.3),
-          child: child),
+        padding: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: Constants.JIRA_COLOR,
+          borderRadius: BorderRadius.circular(card_radius),
+          boxShadow: [
+            BoxShadow(
+              color: Constants.BLACK_25,
+              blurRadius: 3,
+              offset: Offset(0.0, 3.0),
+            ),
+          ],
+        ),
+        width: isPortrait(context)
+            ? getWidth(context, 0.4)
+            : getWidth(context, 0.4),
+        child: AspectRatio(
+          aspectRatio: isPortrait(context) ? 4 / 7 : 8 / 13,
+          child: child,
+        ),
+      ),
     );
   }
 
   Widget buildLeftCardChild(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(bottom: Dimen.dimen_10),
-          child: Text(msgTrainingTypes,
-              maxLines: 1,
-              style: Theme.of(context)
-                  .textTheme
-                  .headline2
-                  ?.copyWith(color: Colors.white, fontSize: Dimen.dimen_14)),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            buildPlatformIcon(Constants.IC_AWS),
-            buildPlatformIcon(Constants.IC_AZURE),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            buildPlatformIcon(Constants.IC_GCP),
-            buildPlatformIcon(Constants.IC_HASHICORP),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            buildPlatformIcon(Constants.IC_CLOUD_NATIVE),
-            Opacity(
-                opacity: 0.0,
-                child: buildPlatformIcon(Constants.IC_CLOUD_NATIVE)),
-          ],
-        ),
-      ],
+    return LayoutBuilder(
+        builder: (BuildContext ctx, BoxConstraints constraints) {
+          return Center(
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 0),
+                  child: Text(msgTrainingTypes,
+                      maxLines: 1,
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline2
+                          ?.copyWith(color: Colors.white, fontSize: Dimen.dimen_14)),
+                ),
+                GridView.count(
+                  physics: NeverScrollableScrollPhysics(),
+                  padding: EdgeInsets.all(12),
+                  crossAxisSpacing: 26,
+                  mainAxisSpacing: 20,
+                  crossAxisCount: 2,
+                  shrinkWrap: true,
+                  children: getPlatformIcons(constraints.maxWidth),
+                ),
+              ],
+            ),
+          );
+    });
+  }
+
+  List<Widget> getPlatformIcons(double parentWidth) {
+    List<Widget> icons = [];
+    icons.add(buildPlatformIcon(Constants.IC_AWS));
+    icons.add(buildPlatformIcon(Constants.IC_AZURE));
+    icons.add(buildPlatformIcon(Constants.IC_GCP));
+    icons.add(buildPlatformIcon(Constants.IC_HASHICORP));
+    icons.add(buildPlatformIcon(Constants.IC_CLOUD_NATIVE));
+    return icons;
+  }
+
+  Widget buildPlatformIcon(String iconName) {
+    return CircleAvatar(
+      backgroundColor: Colors.white,
+      backgroundImage: AssetImage('assets/$iconName'),
     );
   }
 
@@ -207,9 +241,9 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
     return Container(
         // Using Container to restrict ElevatedButton width cause it was full screen width
         // Horizontal padding on ElevatedButton was not working, still btn was full screen width
-        width: getWidth(context, 0.5),
+        width: getWidth(context, Dimen.scale_5_10),
         margin: EdgeInsets.only(
-          top: getHeight(context, 0.06),
+          top: 10, //getHeightNoAppBar(context, Dimen.scale_6_100),
         ),
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
@@ -233,16 +267,5 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
                     ?.copyWith(color: Constants.JIRA_COLOR)),
           ),
         ));
-  }
-
-  Widget buildPlatformIcon(String iconName) {
-    return Padding(
-      padding: EdgeInsets.all(Dimen.dimen_8),
-      child: CircleAvatar(
-        radius: platformIconRadius,
-        backgroundColor: Colors.white,
-        backgroundImage: AssetImage('assets/$iconName'),
-      ),
-    );
   }
 }

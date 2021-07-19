@@ -138,7 +138,7 @@ class _HomePageState extends State<HomePage> {
                 type: state.cloudCertificationType,
                 searchController: searchController);
           else if (state is Error)
-            return ErrorPage(error: state);
+            return Expanded(child: ErrorPage(error: state));
           else
             return Text(Constants.UNKNOWN_ERROR);
         }, listener: (context, state) {
