@@ -29,8 +29,15 @@ class Dimen {
   static const scale_2_100 = 0.02;
   static const scale_4_100 = 0.04;
   static const scale_6_100 = 0.06;
+  static const scale_7_100 = 0.07;
+  static const scale_8_100 = 0.08;
   static const scale_9_100 = 0.09;
   static const scale_5_100 = 0.05;
+  static const scale_12_100 = 0.12;
+  static const scale_13_100 = 0.13;
+  static const scale_14_100 = 0.14;
+  static const scale_15_100 = 0.15;
+  static const scale_22_100 = 0.22;
 
   static const scale_1_10 = 0.1;
   static const scale_2_10 = 0.2;
@@ -39,4 +46,6 @@ class Dimen {
   static const scale_5_10 = 0.5;
 
   static const ratio_8_11 = 8 / 11;
+  static const ratio_4_7 = 4 / 7;
+  static const ratio_8_13 = 8 / 13;
 }

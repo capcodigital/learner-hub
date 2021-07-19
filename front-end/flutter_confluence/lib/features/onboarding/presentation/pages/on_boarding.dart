@@ -22,11 +22,7 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
   static const msgAuthenticate = "Authenticate";
   static const msgAuthenticateNotSupported = "Continue";
 
-  static const platformIconScale = 0.14;
-
   static const card_radius = 15.0;
-  static const cardWidth = 160.0;
-  static const cardHeight = 250.0;
   static const authBtnVerticalPadding = 20.0;
 
   void authenticate(BuildContext context) {
@@ -43,8 +39,6 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
   }
 
   Widget buildBodyWithBloc(BuildContext context) {
-    final orien = MediaQuery.of(context).orientation;
-    print(orien.toString());
     return BlocListener(
       bloc: BlocProvider.of<OnBoardingBloc>(context),
       listener: (context, state) {
@@ -65,11 +59,6 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
                 image: AssetImage("assets/back-layer.png"), fit: BoxFit.cover)),
         child: LayoutBuilder(
             builder: (BuildContext ctx, BoxConstraints constraints) {
-          if (constraints.maxHeight > constraints.maxWidth) {
-            print("LayoutBuilder: portrait");
-          } else {
-            print("LayoutBuilder: landscape");
-          }
           return Stack(children: <Widget>[
             Positioned(
               left: Dimen.bgFrontLayerLeft,
@@ -88,8 +77,7 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
           [
             Padding(
               padding: EdgeInsets.only(
-                top: 30, // getHeightNoAppBar(context, 0.09)
-              ),
+                  top: getHeightNoAppBar(context, Dimen.scale_8_100)),
               child: buildBody(context),
             )
           ],
@@ -154,7 +142,6 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
         borderRadius: BorderRadius.circular(card_radius),
       ),
       child: Container(
-        padding: EdgeInsets.all(10),
         decoration: BoxDecoration(
           color: Constants.JIRA_COLOR,
           borderRadius: BorderRadius.circular(card_radius),
@@ -167,10 +154,10 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
           ],
         ),
         width: isPortrait(context)
-            ? getWidth(context, 0.4)
-            : getWidth(context, 0.4),
+            ? getWidth(context, Dimen.scale_4_10)
+            : getWidth(context, Dimen.scale_22_100),
         child: AspectRatio(
-          aspectRatio: isPortrait(context) ? 4 / 7 : 8 / 13,
+          aspectRatio: isPortrait(context) ? Dimen.ratio_4_7 : Dimen.ratio_8_13,
           child: child,
         ),
       ),
@@ -180,30 +167,33 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
   Widget buildLeftCardChild(BuildContext context) {
     return LayoutBuilder(
         builder: (BuildContext ctx, BoxConstraints constraints) {
-          return Center(
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 0),
-                  child: Text(msgTrainingTypes,
-                      maxLines: 1,
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline2
-                          ?.copyWith(color: Colors.white, fontSize: Dimen.dimen_14)),
-                ),
-                GridView.count(
-                  physics: NeverScrollableScrollPhysics(),
-                  padding: EdgeInsets.all(12),
-                  crossAxisSpacing: 26,
-                  mainAxisSpacing: 20,
-                  crossAxisCount: 2,
-                  shrinkWrap: true,
-                  children: getPlatformIcons(constraints.maxWidth),
-                ),
-              ],
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: EdgeInsets.only(
+                  bottom: constraints.maxHeight * Dimen.scale_2_100),
+              child: Text(msgTrainingTypes,
+                  maxLines: 1,
+                  style: Theme.of(context).textTheme.headline2?.copyWith(
+                      color: Colors.white, fontSize: Dimen.dimen_14)),
             ),
-          );
+            GridView.count(
+              physics: NeverScrollableScrollPhysics(),
+              padding: EdgeInsets.only(
+                  top: constraints.maxHeight * Dimen.scale_3_100,
+                  left: constraints.maxWidth * Dimen.scale_12_100,
+                  right: constraints.maxWidth * Dimen.scale_12_100),
+              crossAxisSpacing: constraints.maxWidth * Dimen.scale_15_100,
+              mainAxisSpacing: constraints.maxHeight * Dimen.scale_4_100,
+              crossAxisCount: 2,
+              shrinkWrap: true,
+              children: getPlatformIcons(constraints.maxWidth),
+            ),
+          ],
+        ),
+      );
     });
   }
 
@@ -239,11 +229,11 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
 
   Widget buildAuthButton(BuildContext context) {
     return Container(
-        // Using Container to restrict ElevatedButton width cause it was full screen width
-        // Horizontal padding on ElevatedButton was not working, still btn was full screen width
+        // Using Container to restrict ElevatedButton width, cause it was full screen width.
+        // TODO: Why? Adding horizontal padding on ElevatedButton was not working at all
         width: getWidth(context, Dimen.scale_5_10),
         margin: EdgeInsets.only(
-          top: 10, //getHeightNoAppBar(context, Dimen.scale_6_100),
+          top: getHeightNoAppBar(context, Dimen.scale_6_100),
         ),
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
