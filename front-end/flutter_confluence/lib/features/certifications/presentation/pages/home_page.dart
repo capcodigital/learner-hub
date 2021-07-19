@@ -23,7 +23,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   static const double frontLayerInitialTop = 130;
   static const double parallaxSmoothFactor = 0.1;
-  static const double headerItemsSpacing = 23.0;
   var frontLayerTop = frontLayerInitialTop;
   var disableSearchAndToggle = false;
   final TextEditingController searchController = TextEditingController();
@@ -92,45 +91,47 @@ class _HomePageState extends State<HomePage> {
         // Padding around Search and Toggle
         Padding(
           padding: EdgeInsets.only(
-              top: constraints.maxHeight * 0.02,
-              bottom: constraints.maxHeight * 0.04),
+            top: constraints.maxHeight * 0.02,
+            bottom: constraints.maxHeight * 0.04,
+            left: constraints.maxWidth * 0.09,
+            right: constraints.maxWidth * 0.09,
+          ),
           child: Column(
             children: [
               // Search
-              Padding(
-                padding: EdgeInsets.only(
-                    left: constraints.maxWidth * 0.09,
-                    right: constraints.maxWidth * 0.09,
-                    bottom: isPortrait(context)
-                        ? constraints.maxHeight * 0.03
-                        : constraints.maxHeight * 0.05),
-                child: ColorFiltered(
-                  colorFilter: ColorFilter.mode(
-                    disableSearchAndToggle
-                        ? Constants.DISABLED_COLOR
-                        : Colors.white,
-                    BlendMode.modulate,
-                  ),
-                  child: IgnorePointer(
-                    ignoring: disableSearchAndToggle,
-                    child: SearchBox(
-                      controller: searchController,
-                      onSearchTermChanged: doSearch,
-                      onSearchSubmitted: doSearch,
-                    ),
+              ColorFiltered(
+                colorFilter: ColorFilter.mode(
+                  disableSearchAndToggle
+                      ? Constants.DISABLED_COLOR
+                      : Colors.white,
+                  BlendMode.modulate,
+                ),
+                child: IgnorePointer(
+                  ignoring: disableSearchAndToggle,
+                  child: SearchBox(
+                    controller: searchController,
+                    onSearchTermChanged: doSearch,
+                    onSearchSubmitted: doSearch,
                   ),
                 ),
               ),
               // Toggle
-              ColorFiltered(
-                  colorFilter: ColorFilter.mode(
-                    disableSearchAndToggle
-                        ? Constants.DISABLED_COLOR
-                        : Colors.white,
-                    BlendMode.modulate,
-                  ),
-                  child: IgnorePointer(
-                      ignoring: disableSearchAndToggle, child: ToggleButton())),
+              Padding(
+                padding: EdgeInsets.only(
+                    top: isPortrait(context)
+                        ? constraints.maxHeight * 0.03
+                        : constraints.maxHeight * 0.05),
+                child: ColorFiltered(
+                    colorFilter: ColorFilter.mode(
+                      disableSearchAndToggle
+                          ? Constants.DISABLED_COLOR
+                          : Colors.white,
+                      BlendMode.modulate,
+                    ),
+                    child: IgnorePointer(
+                        ignoring: disableSearchAndToggle,
+                        child: ToggleButton())),
+              ),
             ],
           ),
         ),
