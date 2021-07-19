@@ -22,9 +22,6 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
   static const msgAuthenticate = "Authenticate";
   static const msgAuthenticateNotSupported = "Continue";
 
-  static const card_radius = 15.0;
-  static const authBtnVerticalPadding = 20.0;
-
   void authenticate(BuildContext context) {
     BlocProvider.of<OnBoardingBloc>(context).add(AuthEvent());
   }
@@ -52,8 +49,6 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
 
   Widget buildWithLayoutBuilder(BuildContext context) {
     return Container(
-        width: getMediaWidth(context),
-        height: getMediaHeight(context),
         decoration: BoxDecoration(
             image: DecorationImage(
                 image: AssetImage("assets/back-layer.png"), fit: BoxFit.cover)),
@@ -77,7 +72,8 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
           [
             Padding(
               padding: EdgeInsets.only(
-                  top: getHeightNoAppBar(context, Dimen.scale_8_100)),
+                  top: getHeightNoAppBar(context, Dimen.scale_8_100),
+                  bottom: getHeightNoAppBar(context, Dimen.scale_8_100)),
               child: buildBody(context),
             )
           ],
@@ -87,12 +83,20 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
   }
 
   Widget buildBody(BuildContext context) {
+    final firstMargin = isPortrait(context)
+        ? getHeightNoAppBar(context, Dimen.scale_2_100)
+        : getHeightNoAppBar(context, Dimen.scale_6_100);
+
+    final secondMargin = isPortrait(context)
+        ? getHeightNoAppBar(context, Dimen.scale_3_100)
+        : getHeightNoAppBar(context, Dimen.scale_3_100);
+
     return Column(
       children: [
         Padding(
           padding: EdgeInsets.only(
-            left: 0, //getWidth(context, 0.04), right: getWidth(context, 0.04)
-          ),
+              left: getWidth(context, Dimen.scale_3_100),
+              right: getWidth(context, Dimen.scale_3_100)),
           child:
               Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
             buildCard(child: buildLeftCardChild(context), context: context),
@@ -101,28 +105,21 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
         ),
         Padding(
           child: Image.asset('assets/${Constants.IC_FLUTTER}'),
-          padding: EdgeInsets.only(
-              top: 0 // getHeightNoAppBar(context, Dimen.scale_3_100)
-              ),
+          padding: EdgeInsets.only(top: firstMargin),
         ),
         Padding(
           child: Image.asset('assets/${Constants.IC_PLUS}'),
-          padding: EdgeInsets.only(
-              top: 0 // getHeightNoAppBar(context, Dimen.scale_3_100)
-              ),
+          padding: EdgeInsets.only(top: firstMargin),
         ),
         Padding(
           child: Image.asset('assets/${Constants.IC_CONFLUENCE}'),
-          padding: EdgeInsets.only(
-              top: 0 //getHeightNoAppBar(context, Dimen.scale_2_100)
-              ),
+          padding: EdgeInsets.only(top: firstMargin),
         ),
         Padding(
           padding: EdgeInsets.only(
-            top: 0, //getHeightNoAppBar(context, Dimen.scale_4_100),
-            right: 0, //getWidth(context, Dimen.scale_9_100),
-            left: 0, //getWidth(context, Dimen.scale_9_100)
-          ),
+              top: secondMargin,
+              right: getWidth(context, Dimen.scale_9_100),
+              left: getWidth(context, Dimen.scale_9_100)),
           child: Center(
             child: Text(
               msgDescription,
@@ -137,19 +134,21 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
   }
 
   Widget buildCard({required BuildContext context, required Widget child}) {
+    final borderRadius =
+        BorderRadius.circular(getWidth(context, Dimen.scale_4_100));
     return Card(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(card_radius),
+        borderRadius: borderRadius,
       ),
       child: Container(
         decoration: BoxDecoration(
           color: Constants.JIRA_COLOR,
-          borderRadius: BorderRadius.circular(card_radius),
+          borderRadius: borderRadius,
           boxShadow: [
             BoxShadow(
               color: Constants.BLACK_25,
               blurRadius: 3,
-              offset: Offset(0.0, 3.0),
+              offset: Offset(0.0, 4.0),
             ),
           ],
         ),
@@ -237,7 +236,10 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
         ),
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            padding: EdgeInsets.symmetric(vertical: authBtnVerticalPadding),
+            padding: EdgeInsets.symmetric(
+                vertical: isPortrait(context)
+                    ? getHeightNoAppBar(context, Dimen.scale_22_1000)
+                    : getHeightNoAppBar(context, Dimen.scale_43_1000)),
             shadowColor: Colors.black,
             primary: Colors.white,
             shape: RoundedRectangleBorder(
