@@ -85,16 +85,21 @@ class _HomePageState extends State<HomePage> {
       BlocProvider.of<CloudCertificationBloc>(context)
           .add(SearchCertificationsEvent(searchTerm));
     }
-
+    final verticalPadding = isPortrait(context)
+        ? constraints.maxHeight * Dimen.scale_2_100
+        : constraints.maxHeight * Dimen.scale_4_100;
+    final horizontalPadding = isPortrait(context)
+        ? constraints.maxWidth * Dimen.scale_9_100
+        : constraints.maxWidth * Dimen.scale_12_100;
     return Column(
       children: [
         // Padding around Search and Toggle
         Padding(
           padding: EdgeInsets.only(
-            top: constraints.maxHeight * Dimen.scale_2_100,
-            bottom: constraints.maxHeight * Dimen.scale_4_100,
-            left: constraints.maxWidth * Dimen.scale_9_100,
-            right: constraints.maxWidth * Dimen.scale_9_100,
+            top: verticalPadding,
+            bottom: verticalPadding,
+            left: horizontalPadding,
+            right: horizontalPadding,
           ),
           child: Column(
             children: [
