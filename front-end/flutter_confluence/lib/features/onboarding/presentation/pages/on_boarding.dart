@@ -136,7 +136,7 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
             ),
           ),
         ),
-        buildAuthButton(context)
+        buildAuthButton(context, constraints)
       ],
     );
   }
@@ -207,7 +207,8 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
     });
   }
 
-  List<Widget> getPlatformIcons(double parentWidth, BoxConstraints constraints) {
+  List<Widget> getPlatformIcons(
+      double parentWidth, BoxConstraints constraints) {
     List<Widget> icons = [];
     icons.add(buildPlatformIcon(Constants.IC_AWS, constraints));
     icons.add(buildPlatformIcon(Constants.IC_AZURE, constraints));
@@ -240,20 +241,21 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
     );
   }
 
-  Widget buildAuthButton(BuildContext context) {
+  Widget buildAuthButton(BuildContext context, BoxConstraints constraints) {
+    final btnVerticalPadding = isPortrait(context)
+        ? constraints.maxHeight * Dimen.scale_22_1000
+        : constraints.maxHeight * 0.048;
     return Container(
-        // Using Container to restrict ElevatedButton width, cause it was full screen width.
-        // TODO: Why? Adding horizontal padding on ElevatedButton was not working at all
-        width: getWidth(context, Dimen.scale_50_100),
+        // TODO: Why the following happen ?
+        // ElevatedButton full screen width if not wrap in Container.
+        // Horizontal padding on ElevatedButton not working at all.
+        width: constraints.maxWidth * Dimen.scale_50_100,
         margin: EdgeInsets.only(
-          top: getHeightNoAppBar(context, Dimen.scale_6_100),
+          top: constraints.maxHeight * Dimen.scale_6_100,
         ),
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            padding: EdgeInsets.symmetric(
-                vertical: isPortrait(context)
-                    ? getHeightNoAppBar(context, Dimen.scale_22_1000)
-                    : getHeightNoAppBar(context, Dimen.scale_43_1000)),
+            padding: EdgeInsets.symmetric(vertical: btnVerticalPadding),
             shadowColor: Colors.black,
             primary: Colors.white,
             shape: RoundedRectangleBorder(
