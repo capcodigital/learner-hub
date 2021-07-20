@@ -50,7 +50,7 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
   Widget buildWithLayoutBuilder(BuildContext context) {
     return Container(
         width: getMediaWidth(context),
-        // TODO: If we subtract status bar height, then background image not cover
+        // TODO: If we subtract status bar height, then background image not covering
         // all screen. There is a white portion on the bottom equal to status bar height
         height: getMediaHeight(context),
         decoration: BoxDecoration(
@@ -58,10 +58,16 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
                 image: AssetImage("assets/back-layer.png"), fit: BoxFit.cover)),
         child: LayoutBuilder(
             builder: (BuildContext ctx, BoxConstraints constraints) {
-          return Stack(children: <Widget>[
+              final frontLayerTop = isPortrait((context))
+                  ? constraints.maxWidth * 0.64
+                  : constraints.maxWidth * 0.12;
+              final frontLayerLeft = isPortrait((context))
+                  ? constraints.maxWidth * 0.22
+                  : constraints.maxWidth * 0.25;
+              return Stack(children: <Widget>[
             Positioned(
-              left: Dimen.bgFrontLayerLeft,
-              top: Dimen.bgFrontLayerTop,
+              left: frontLayerLeft,
+              top: frontLayerTop,
               child: Image.asset('assets/front-layer.png'),
             ),
             buildScrollableBody(context, constraints)
@@ -97,22 +103,20 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
 
     return Column(
       children: [
-        Padding(
-          padding: EdgeInsets.only(
-              left: constraints.maxWidth * Dimen.scale_3_100,
-              right: constraints.maxWidth * Dimen.scale_3_100),
-          child:
-              Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-            buildCard(
-                child: buildLeftCardChild(context),
-                context: context,
-                constraints: constraints),
-            buildCard(
-                child: buildRightCardChild(context),
-                context: context,
-                constraints: constraints),
-          ]),
-        ),
+        Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          buildCard(
+              child: buildLeftCardChild(context),
+              context: context,
+              constraints: constraints),
+          // Padding is to adjust space between Cards
+          Padding(
+              padding: EdgeInsets.only(
+                  left: constraints.maxWidth * Dimen.scale_3_100)),
+          buildCard(
+              child: buildRightCardChild(context),
+              context: context,
+              constraints: constraints),
+        ]),
         Padding(
           child: Image.asset('assets/${Constants.IC_FLUTTER}'),
           padding: EdgeInsets.only(top: topMargin),
@@ -244,32 +248,31 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
   }
 
   Widget buildAuthButton(BuildContext context, BoxConstraints constraints) {
+    final btnWidth = isPortrait(context)
+        ? constraints.maxWidth * Dimen.scale_50_100
+        : constraints.maxWidth * 0.28;
     final btnVerticalPadding = isPortrait(context)
         ? constraints.maxHeight * Dimen.scale_22_1000
         : constraints.maxHeight * 0.048;
     return Container(
         // Horizontal padding on ElevatedButton not working at all ?.
-        width: constraints.maxWidth * Dimen.scale_50_100,
+        width: btnWidth,
         margin: EdgeInsets.only(
           top: constraints.maxHeight * Dimen.scale_6_100,
         ),
         child: LayoutBuilder(
             builder: (BuildContext ctx, BoxConstraints constraints) {
-          final btnBorderRadius = isPortrait(context)
-              ? constraints.maxWidth * 0.08
-              : constraints.maxWidth * 0.05;
-          final btnBorderWidth = isPortrait(context)
-              ? constraints.maxWidth * 0.006
-              : constraints.maxWidth * 0.003;
           return ElevatedButton(
             style: ElevatedButton.styleFrom(
               padding: EdgeInsets.symmetric(vertical: btnVerticalPadding),
               shadowColor: Colors.black,
               primary: Colors.white,
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(btnBorderRadius),
+                  borderRadius:
+                      BorderRadius.circular(constraints.maxWidth * 0.08),
                   side: BorderSide(
-                      width: btnBorderWidth, color: Constants.JIRA_COLOR)),
+                      width: constraints.maxWidth * 0.006,
+                      color: Constants.JIRA_COLOR)),
             ),
             onPressed: () {
               authenticate(context);

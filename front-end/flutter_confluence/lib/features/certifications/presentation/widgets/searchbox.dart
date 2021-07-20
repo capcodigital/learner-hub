@@ -20,6 +20,7 @@ class SearchBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         width: getWidth(context, Dimen.scale_90_100),
+        // Checking for web cause SearchBox height needs adjust
         height: kIsWeb
             ? getHeight(context, 0.07)
             : (isPortrait(context)
