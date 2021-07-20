@@ -50,6 +50,8 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
   Widget buildWithLayoutBuilder(BuildContext context) {
     return Container(
         width: getMediaWidth(context),
+        // TODO: If we subtract status bar height, then background image not cover
+        // all screen. There is a white portion on the bottom equal to status bar height
         height: getMediaHeight(context),
         decoration: BoxDecoration(
             image: DecorationImage(

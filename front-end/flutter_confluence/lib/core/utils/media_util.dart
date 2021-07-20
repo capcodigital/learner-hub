@@ -1,11 +1,16 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 bool isLandscape(BuildContext context) {
-  return MediaQuery.of(context).orientation == Orientation.landscape;
+  final isLand = MediaQuery.of(context).orientation == Orientation.landscape;
+  //print("isLand: " + isLand.toString());
+  return isLand;
 }
 
 bool isPortrait(BuildContext context) {
-  return MediaQuery.of(context).orientation == Orientation.portrait;
+  final isPort = MediaQuery.of(context).orientation == Orientation.portrait;
+  //print("isPort: " + isPort.toString());
+  return isPort;
 }
 
 double getStatusBarHeight(BuildContext context) {
