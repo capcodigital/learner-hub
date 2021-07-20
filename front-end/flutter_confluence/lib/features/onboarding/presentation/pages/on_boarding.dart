@@ -148,7 +148,7 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
     final cardWidth = isPortrait(context)
         ? constraints.maxWidth * Dimen.scale_40_100
         : constraints.maxWidth * Dimen.scale_22_100;
-    final borderRadius = BorderRadius.circular(cardWidth * 0.09);
+    final borderRadius = BorderRadius.circular(cardWidth * Dimen.scale_9_100);
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: borderRadius,
@@ -199,7 +199,7 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
               mainAxisSpacing: constraints.maxHeight * Dimen.scale_4_100,
               crossAxisCount: 2,
               shrinkWrap: true,
-              children: getPlatformIcons(constraints.maxWidth),
+              children: getPlatformIcons(constraints.maxWidth, constraints),
             ),
           ],
         ),
@@ -207,20 +207,23 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
     });
   }
 
-  List<Widget> getPlatformIcons(double parentWidth) {
+  List<Widget> getPlatformIcons(double parentWidth, BoxConstraints constraints) {
     List<Widget> icons = [];
-    icons.add(buildPlatformIcon(Constants.IC_AWS));
-    icons.add(buildPlatformIcon(Constants.IC_AZURE));
-    icons.add(buildPlatformIcon(Constants.IC_GCP));
-    icons.add(buildPlatformIcon(Constants.IC_HASHICORP));
-    icons.add(buildPlatformIcon(Constants.IC_CLOUD_NATIVE));
+    icons.add(buildPlatformIcon(Constants.IC_AWS, constraints));
+    icons.add(buildPlatformIcon(Constants.IC_AZURE, constraints));
+    icons.add(buildPlatformIcon(Constants.IC_GCP, constraints));
+    icons.add(buildPlatformIcon(Constants.IC_HASHICORP, constraints));
+    icons.add(buildPlatformIcon(Constants.IC_CLOUD_NATIVE, constraints));
     return icons;
   }
 
-  Widget buildPlatformIcon(String iconName) {
-    return CircleAvatar(
-      backgroundColor: Colors.white,
-      backgroundImage: AssetImage('assets/$iconName'),
+  Widget buildPlatformIcon(String iconName, BoxConstraints constraints) {
+    return Padding(
+      padding: EdgeInsets.all(constraints.maxWidth * 0.025),
+      child: CircleAvatar(
+        backgroundColor: Colors.white,
+        backgroundImage: AssetImage('assets/$iconName'),
+      ),
     );
   }
 
