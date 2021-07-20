@@ -44,32 +44,27 @@ class ErrorPage extends StatelessWidget {
   Widget buildBody(BuildContext context) {
     return Column(
       children: [
-        Container(
-          child: Image.asset(
-            'assets/${Constants.IC_ERROR}',
-          ),
-          margin: EdgeInsets.only(top: getHeight(context, 0.002)),
+        Image.asset(
+          'assets/${Constants.IC_ERROR}',
         ),
-        Container(
-          alignment: Alignment.center,
+        Center(
           child: Text(
             msgTitle,
             style:
                 Theme.of(context).textTheme.headline2?.copyWith(fontSize: 24),
             textAlign: TextAlign.center,
           ),
-          //margin: EdgeInsets.only(top: getHeight(context, 0.05)),
         ),
         Container(
           alignment: Alignment.center,
-          width: getWidth(context, 0.8),
+          width: getWidth(context, Dimen.scale_80_100),
           child: Text(
             error.message,
             style:
                 Theme.of(context).textTheme.headline2?.copyWith(fontSize: 18),
             textAlign: TextAlign.center,
           ),
-          margin: EdgeInsets.only(top: getHeight(context, 0.05)),
+          margin: EdgeInsets.only(top: getHeight(context, Dimen.scale_5_100)),
         ),
         buildTryAgainBtn(context)
       ],
@@ -78,7 +73,7 @@ class ErrorPage extends StatelessWidget {
 
   Widget buildTryAgainBtn(BuildContext context) {
     return Container(
-        margin: EdgeInsets.only(top: getHeight(context, 0.05)),
+        margin: EdgeInsets.only(top: getHeight(context, Dimen.scale_5_100)),
         width: Dimen.mainBtnWidth,
         height: Dimen.mainBtnHeight,
         child: ElevatedButton(

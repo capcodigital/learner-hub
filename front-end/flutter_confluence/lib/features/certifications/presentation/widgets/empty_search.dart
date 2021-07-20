@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_confluence/core/dimen.dart';
 import 'package:flutter_confluence/core/utils/media_util.dart';
 import 'package:flutter_confluence/features/certifications/domain/entities/cloud_certification_type.dart';
 import 'package:flutter_confluence/features/certifications/presentation/bloc/cloud_certification_bloc.dart';
@@ -19,7 +20,8 @@ class EmptySearch extends StatelessWidget {
       children: [
         Padding(
           padding: EdgeInsets.only(
-              top: getHeight(context, 0.03), bottom: getHeight(context, 0.03)),
+              top: getHeight(context, Dimen.scale_3_100),
+              bottom: getHeight(context, Dimen.scale_3_100)),
           child: Text(TXT_NO_RESULTS, style: TextStyle(fontSize: 18)),
         ),
         TextButton(

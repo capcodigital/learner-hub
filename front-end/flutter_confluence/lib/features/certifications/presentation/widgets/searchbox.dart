@@ -18,10 +18,10 @@ class SearchBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: getWidth(context, 0.9),
+      width: getWidth(context, Dimen.scale_90_100),
       height: isPortrait(context)
-          ? getHeight(context, 0.056)
-          : getHeight(context, 0.13),
+          ? getHeight(context, Dimen.scale_56_1000)
+          : getHeight(context, Dimen.scale_13_100),
       decoration: BoxDecoration(
           color: Colors.white,
           boxShadow: [

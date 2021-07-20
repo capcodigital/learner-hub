@@ -65,8 +65,8 @@ class _HomePageState extends State<HomePage> {
             child: LayoutBuilder(
                 builder: (BuildContext ctx, BoxConstraints constraints) {
               final parallaxLayerLeft = isPortrait(ctx)
-                  ? constraints.maxWidth * 0.06
-                  : constraints.maxWidth * 0.24;
+                  ? constraints.maxWidth * Dimen.scale_6_100
+                  : constraints.maxWidth * Dimen.scale_24_100;
               return Stack(
                 children: <Widget>[
                   Positioned(
@@ -91,10 +91,10 @@ class _HomePageState extends State<HomePage> {
         // Padding around Search and Toggle
         Padding(
           padding: EdgeInsets.only(
-            top: constraints.maxHeight * 0.02,
-            bottom: constraints.maxHeight * 0.04,
-            left: constraints.maxWidth * 0.09,
-            right: constraints.maxWidth * 0.09,
+            top: constraints.maxHeight * Dimen.scale_2_100,
+            bottom: constraints.maxHeight * Dimen.scale_4_100,
+            left: constraints.maxWidth * Dimen.scale_9_100,
+            right: constraints.maxWidth * Dimen.scale_9_100,
           ),
           child: Column(
             children: [
@@ -119,8 +119,8 @@ class _HomePageState extends State<HomePage> {
               Padding(
                 padding: EdgeInsets.only(
                     top: isPortrait(context)
-                        ? constraints.maxHeight * 0.03
-                        : constraints.maxHeight * 0.05),
+                        ? constraints.maxHeight * Dimen.scale_3_100
+                        : constraints.maxHeight * Dimen.scale_5_100),
                 child: ColorFiltered(
                     colorFilter: ColorFilter.mode(
                       disableSearchAndToggle
