@@ -54,9 +54,4 @@ class Dimen {
   static const scale_30_1000 = 0.030;
   static const scale_43_1000 = 0.022;
   static const scale_56_1000 = 0.056;
-
-
-  static const ratio_8_11 = 8 / 11;
-  static const ratio_4_7 = 4 / 7;
-  static const ratio_8_13 = 8 / 13;
 }

@@ -49,6 +49,8 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
 
   Widget buildWithLayoutBuilder(BuildContext context) {
     return Container(
+        width: getMediaWidth(context),
+        height: getMediaHeight(context),
         decoration: BoxDecoration(
             image: DecorationImage(
                 image: AssetImage("assets/back-layer.png"), fit: BoxFit.cover)),
@@ -134,8 +136,10 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
   }
 
   Widget buildCard({required BuildContext context, required Widget child}) {
-    final borderRadius =
-        BorderRadius.circular(getWidth(context, Dimen.scale_4_100));
+    final cardWidth = isPortrait(context)
+        ? getWidth(context, Dimen.scale_40_100)
+        : getWidth(context, Dimen.scale_22_100);
+    final borderRadius = BorderRadius.circular(cardWidth * 0.09);
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: borderRadius,
@@ -152,11 +156,9 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
             ),
           ],
         ),
-        width: isPortrait(context)
-            ? getWidth(context, Dimen.scale_40_100)
-            : getWidth(context, Dimen.scale_22_100),
+        width: cardWidth,
         child: AspectRatio(
-          aspectRatio: isPortrait(context) ? Dimen.ratio_4_7 : Dimen.ratio_8_13,
+          aspectRatio: isPortrait(context) ? 4 / 5.5 : 8 / 11.5,
           child: child,
         ),
       ),
