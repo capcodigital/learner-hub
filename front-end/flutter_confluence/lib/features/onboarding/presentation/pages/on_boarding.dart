@@ -62,21 +62,21 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
               top: Dimen.bgFrontLayerTop,
               child: Image.asset('assets/front-layer.png'),
             ),
-            buildScrollableBody(context)
+            buildScrollableBody(context, constraints)
           ]);
         }));
   }
 
-  Widget buildScrollableBody(BuildContext context) {
+  Widget buildScrollableBody(BuildContext context, BoxConstraints constraints) {
     return CustomScrollView(slivers: <Widget>[
       SliverList(
         delegate: SliverChildListDelegate(
           [
             Padding(
               padding: EdgeInsets.only(
-                  top: getHeightNoAppBar(context, Dimen.scale_8_100),
-                  bottom: getHeightNoAppBar(context, Dimen.scale_8_100)),
-              child: buildBody(context),
+                  top: constraints.maxHeight * Dimen.scale_8_100,
+                  bottom: constraints.maxHeight * Dimen.scale_8_100),
+              child: buildBody(context, constraints),
             )
           ],
         ),
@@ -84,21 +84,21 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
     ]);
   }
 
-  Widget buildBody(BuildContext context) {
-    final firstMargin = isPortrait(context)
-        ? getHeightNoAppBar(context, Dimen.scale_2_100)
-        : getHeightNoAppBar(context, Dimen.scale_6_100);
+  Widget buildBody(BuildContext context, BoxConstraints constraints) {
+    final topMargin = isPortrait(context)
+        ? constraints.maxHeight * Dimen.scale_2_100
+        : constraints.maxHeight * Dimen.scale_6_100;
 
-    final secondMargin = isPortrait(context)
-        ? getHeightNoAppBar(context, Dimen.scale_3_100)
-        : getHeightNoAppBar(context, Dimen.scale_3_100);
+    final msgTopMargin = isPortrait(context)
+        ? constraints.maxHeight * Dimen.scale_3_100
+        : constraints.maxHeight * Dimen.scale_3_100;
 
     return Column(
       children: [
         Padding(
           padding: EdgeInsets.only(
-              left: getWidth(context, Dimen.scale_3_100),
-              right: getWidth(context, Dimen.scale_3_100)),
+              left: constraints.maxWidth * Dimen.scale_3_100,
+              right: constraints.maxWidth * Dimen.scale_3_100),
           child:
               Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
             buildCard(child: buildLeftCardChild(context), context: context),
@@ -107,21 +107,21 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
         ),
         Padding(
           child: Image.asset('assets/${Constants.IC_FLUTTER}'),
-          padding: EdgeInsets.only(top: firstMargin),
+          padding: EdgeInsets.only(top: topMargin),
         ),
         Padding(
           child: Image.asset('assets/${Constants.IC_PLUS}'),
-          padding: EdgeInsets.only(top: firstMargin),
+          padding: EdgeInsets.only(top: topMargin),
         ),
         Padding(
           child: Image.asset('assets/${Constants.IC_CONFLUENCE}'),
-          padding: EdgeInsets.only(top: firstMargin),
+          padding: EdgeInsets.only(top: topMargin),
         ),
         Padding(
           padding: EdgeInsets.only(
-              top: secondMargin,
-              right: getWidth(context, Dimen.scale_9_100),
-              left: getWidth(context, Dimen.scale_9_100)),
+              top: msgTopMargin,
+              right: constraints.maxWidth * Dimen.scale_9_100,
+              left: constraints.maxWidth * Dimen.scale_9_100),
           child: Center(
             child: Text(
               msgDescription,
