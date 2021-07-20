@@ -101,8 +101,14 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
               right: constraints.maxWidth * Dimen.scale_3_100),
           child:
               Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-            buildCard(child: buildLeftCardChild(context), context: context),
-            buildCard(child: buildRightCardChild(context), context: context),
+            buildCard(
+                child: buildLeftCardChild(context),
+                context: context,
+                constraints: constraints),
+            buildCard(
+                child: buildRightCardChild(context),
+                context: context,
+                constraints: constraints),
           ]),
         ),
         Padding(
@@ -135,10 +141,13 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
     );
   }
 
-  Widget buildCard({required BuildContext context, required Widget child}) {
+  Widget buildCard(
+      {required BuildContext context,
+      required Widget child,
+      required BoxConstraints constraints}) {
     final cardWidth = isPortrait(context)
-        ? getWidth(context, Dimen.scale_40_100)
-        : getWidth(context, Dimen.scale_22_100);
+        ? constraints.maxWidth * Dimen.scale_40_100
+        : constraints.maxWidth * Dimen.scale_22_100;
     final borderRadius = BorderRadius.circular(cardWidth * 0.09);
     return Card(
       shape: RoundedRectangleBorder(
