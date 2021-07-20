@@ -31,13 +31,13 @@ void main() {
         cloudCertificationType: CloudCertificationType.completed);
 
     // act
-    await tester.pumpWidget(Directionality(
-      textDirection: TextDirection.ltr,
-      child: MediaQuery(
-        data: MediaQueryData(),
-        child: ErrorPage(error: error),
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: ErrorPage(error: error),
+        ),
       ),
-    ));
+    );
 
     final errorImageFinder =
         find.byWidgetPredicate((widget) => widget is Image);
@@ -67,16 +67,14 @@ void main() {
     whenListen(mockBloc, Stream.fromIterable([Empty()]),
         initialState: error);
 
-    // act
-    await tester.pumpWidget(Directionality(
-      textDirection: TextDirection.ltr,
-      child: MediaQuery(
-          data: MediaQueryData(),
-          child: BlocProvider<CloudCertificationBloc>(
+    await tester.pumpWidget(
+      MaterialApp(
+          home: BlocProvider<CloudCertificationBloc>(
             create: (_) => mockBloc,
-            child: ErrorPage(error: error),
-          )),
-    ));
+            child: Scaffold(body: ErrorPage(error: error)),
+          ),
+      ),
+    );
 
     final tryAgainFinder =
         find.byWidgetPredicate((widget) => widget is ElevatedButton);
@@ -102,15 +100,14 @@ void main() {
         initialState: error);
 
     // act
-    await tester.pumpWidget(Directionality(
-      textDirection: TextDirection.ltr,
-      child: MediaQuery(
-          data: MediaQueryData(),
-          child: BlocProvider<CloudCertificationBloc>(
-            create: (_) => mockBloc,
-            child: ErrorPage(error: error),
-          )),
-    ));
+    await tester.pumpWidget(
+      MaterialApp(
+        home: BlocProvider<CloudCertificationBloc>(
+          create: (_) => mockBloc,
+          child: Scaffold(body: ErrorPage(error: error)),
+        ),
+      ),
+    );
 
     final tryAgainFinder =
         find.byWidgetPredicate((widget) => widget is ElevatedButton);

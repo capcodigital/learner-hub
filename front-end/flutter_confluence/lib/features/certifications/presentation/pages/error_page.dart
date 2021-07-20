@@ -13,12 +13,6 @@ class ErrorPage extends StatelessWidget {
   static const msgTitle = "Oops!";
   static const msgTryAgain = "Try Again";
 
-  static const errorImageMarginTop = 10.0;
-  static const titleMarginTop = 30.0;
-  static const errorMsgMarginTop = 60.0;
-  static const errorMsgWidth = 240.0;
-  static const tryAgainBtnMarginTop = 20.0;
-
   final Error error;
 
   ErrorPage({required this.error});
@@ -41,8 +35,7 @@ class ErrorPage extends StatelessWidget {
     return CustomScrollView(slivers: <Widget>[
       SliverList(
         delegate: SliverChildListDelegate(
-          [Container(
-              child: buildBody(context))],
+          [Container(child: buildBody(context))],
         ),
       )
     ]);
@@ -55,7 +48,7 @@ class ErrorPage extends StatelessWidget {
           child: Image.asset(
             'assets/${Constants.IC_ERROR}',
           ),
-          margin: EdgeInsets.only(top: errorImageMarginTop),
+          margin: EdgeInsets.only(top: getHeight(context, 0.002)),
         ),
         Container(
           alignment: Alignment.center,
@@ -65,18 +58,18 @@ class ErrorPage extends StatelessWidget {
                 Theme.of(context).textTheme.headline2?.copyWith(fontSize: 24),
             textAlign: TextAlign.center,
           ),
-          margin: EdgeInsets.only(top: titleMarginTop),
+          //margin: EdgeInsets.only(top: getHeight(context, 0.05)),
         ),
         Container(
           alignment: Alignment.center,
-          width: errorMsgWidth,
+          width: getWidth(context, 0.8),
           child: Text(
             error.message,
             style:
                 Theme.of(context).textTheme.headline2?.copyWith(fontSize: 18),
             textAlign: TextAlign.center,
           ),
-          margin: EdgeInsets.only(top: errorMsgMarginTop),
+          margin: EdgeInsets.only(top: getHeight(context, 0.05)),
         ),
         buildTryAgainBtn(context)
       ],
@@ -85,7 +78,7 @@ class ErrorPage extends StatelessWidget {
 
   Widget buildTryAgainBtn(BuildContext context) {
     return Container(
-        margin: EdgeInsets.only(top: tryAgainBtnMarginTop),
+        margin: EdgeInsets.only(top: getHeight(context, 0.05)),
         width: Dimen.mainBtnWidth,
         height: Dimen.mainBtnHeight,
         child: ElevatedButton(
