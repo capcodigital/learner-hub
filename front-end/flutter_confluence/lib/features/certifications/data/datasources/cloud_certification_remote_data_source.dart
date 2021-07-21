@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter_confluence/core/constants.dart';
 import 'package:flutter_confluence/core/error/custom_exceptions.dart';
 import 'package:flutter_confluence/features/certifications/data/models/cloud_certification_model.dart';
@@ -11,6 +13,7 @@ abstract class CloudCertificationRemoteDataSource {
 
 class CloudCertificationRemoteDataSourceImpl
     implements CloudCertificationRemoteDataSource {
+  static const TAG = "CloudCertificationRemoteDataSourceImpl:";
   final http.Client client;
 
   CloudCertificationRemoteDataSourceImpl({required this.client});
@@ -28,20 +31,26 @@ class CloudCertificationRemoteDataSourceImpl
   }
 
   Future<List<CloudCertificationModel>> _getDataFromUrl(String url) async {
-    final response = await client.get(
-      Uri.parse(url),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    );
+    try {
+      final response = await client.get(
+        Uri.parse(url),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      );
 
-    if (response.statusCode == Constants.STATUS_CODE_200) {
-      return (json.decode(response.body) as List)
-          .map((e) => CloudCertificationModel.fromJson(e))
-          .toList();
-    } else {
-      throw ServerException(
-          message: _mapStatusCodeToMessage(response.statusCode));
+      if (response.statusCode == Constants.STATUS_CODE_200) {
+        return (json.decode(response.body) as List)
+            .map((e) => CloudCertificationModel.fromJson(e))
+            .toList();
+      } else {
+        throw ServerException(
+            message: _mapStatusCodeToMessage(response.statusCode));
+      }
+    } on Exception catch (ex) {
+      if (ex is ServerException) throw ex;
+      log(TAG + ex.toString());
+      throw ServerException(message: Constants.SERVER_FAILURE_MSG);
     }
   }
 

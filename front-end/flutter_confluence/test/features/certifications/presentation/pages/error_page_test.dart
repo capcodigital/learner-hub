@@ -63,14 +63,15 @@ void main() {
         message: Constants.SERVER_FAILURE_MSG,
         cloudCertificationType: CloudCertificationType.completed);
     CloudCertificationBloc mockBloc = MockCertificationBloc();
-    whenListen(mockBloc, Stream.fromIterable([Empty()]), initialState: error);
+    whenListen(mockBloc, Stream.fromIterable([Empty()]),
+        initialState: error);
 
     await tester.pumpWidget(
       MaterialApp(
-        home: BlocProvider<CloudCertificationBloc>(
-          create: (_) => mockBloc,
-          child: Scaffold(body: ErrorPage(error: error)),
-        ),
+          home: BlocProvider<CloudCertificationBloc>(
+            create: (_) => mockBloc,
+            child: Scaffold(body: ErrorPage(error: error)),
+          ),
       ),
     );
 
