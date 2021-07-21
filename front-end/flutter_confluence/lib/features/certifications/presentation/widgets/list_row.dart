@@ -22,7 +22,7 @@ class ListRow extends StatelessWidget {
         : getWidth(context, Dimen.scale_8_100);
     final iconBorder = isPortrait(context)
         ? iconSize * Dimen.scale_25_1000
-        : iconSize * Dimen.scale_30_1000;
+        : iconSize * Dimen.scale_3_100;
     return Card(
         elevation: 0,
         color: Colors.transparent,

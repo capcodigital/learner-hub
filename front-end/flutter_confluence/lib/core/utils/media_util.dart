@@ -1,16 +1,11 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 bool isLandscape(BuildContext context) {
-  final isLand = MediaQuery.of(context).orientation == Orientation.landscape;
-  //print("isLand: " + isLand.toString());
-  return isLand;
+  return MediaQuery.of(context).orientation == Orientation.landscape;
 }
 
 bool isPortrait(BuildContext context) {
-  final isPort = MediaQuery.of(context).orientation == Orientation.portrait;
-  //print("isPort: " + isPort.toString());
-  return isPort;
+  return MediaQuery.of(context).orientation == Orientation.portrait;
 }
 
 double getStatusBarHeight(BuildContext context) {
@@ -18,48 +13,31 @@ double getStatusBarHeight(BuildContext context) {
 }
 
 double getMediaWidth(BuildContext context) {
-  final width = MediaQuery.of(context).size.width;
-  //print("getMediaWidth: " + width.toString());
-  return width;
+  return MediaQuery.of(context).size.width;
 }
 
 double getWidth(BuildContext context, double scale) {
-  final width = getMediaWidth(context) * scale;
-  //print("getWidth: " + width.toString());
-  return width;
+  return getMediaWidth(context) * scale;
 }
 
 double getMediaHeight(BuildContext context) {
-  final height = MediaQuery.of(context).size.height;
-  //print("getMediaHeight: " + height.toString());
-  return height;
+  return MediaQuery.of(context).size.height;
 }
 
 double getMeaningfulHeight(BuildContext context) {
   final statusBarHeight = getStatusBarHeight(context);
-  //print("statusBarHeight: " + statusBarHeight.toString());
-  //print("appBarHeight: " + kToolbarHeight.toString());
-  final height = getMediaHeight(context) - statusBarHeight - kToolbarHeight;
-  //print("getMeaningfulHeight: " + height.toString());
-  return height;
+  return getMediaHeight(context) - statusBarHeight - kToolbarHeight;
 }
 
 double getHeight(BuildContext context, double scale) {
-  final height = getMeaningfulHeight(context) * scale;
-  //print("getHeight: " + height.toString());
-  return height;
+  return getMeaningfulHeight(context) * scale;
 }
 
 double getMeaningfulHeightNoAppBar(BuildContext context) {
   final statusBarHeight = getStatusBarHeight(context);
-  //print("statusBarHeight: " + statusBarHeight.toString());
-  final height = getMediaHeight(context) - statusBarHeight;
-  //print("getMeaningfulHeightNoAppBar: " + height.toString());
-  return height;
+  return getMediaHeight(context) - statusBarHeight;
 }
 
 double getHeightNoAppBar(BuildContext context, double scale) {
-  final height = getMeaningfulHeightNoAppBar(context) * scale;
-  //print("getHeightNoAppBar: " + height.toString());
-  return height;
+  return getMeaningfulHeightNoAppBar(context) * scale;
 }
