@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_confluence/core/utils/media_util.dart';
 import 'package:flutter_confluence/features/certifications/domain/entities/cloud_certification_type.dart';
 import 'package:flutter_confluence/features/certifications/presentation/bloc/cloud_certification_bloc.dart';
 
@@ -10,20 +11,14 @@ import '../../../../core/dimen.dart';
 class ErrorPage extends StatelessWidget {
   static const route = "ErrorPage";
   static const msgTitle = "Oops!";
-  static const msgDescription = "Something went wrong. Please try again.";
   static const msgTryAgain = "Try Again";
-  static const errorImageMarginTop = 10.0;
-  static const titleMarginTop = 30.0;
-  static const errorMsgMarginTop = 60.0;
-  static const errorMsgWidth = 240.0;
-  static const tryAgainBtnMarginTop = 20.0;
 
   final Error error;
 
   ErrorPage({required this.error});
 
   void tryAgain(BuildContext context) {
-    switch (error.certificationType) {
+    switch (error.cloudCertificationType) {
       case CloudCertificationType.completed:
         BlocProvider.of<CloudCertificationBloc>(context)
             .add(GetCompletedCertificationsEvent());
@@ -37,34 +32,39 @@ class ErrorPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return CustomScrollView(slivers: <Widget>[
+      SliverList(
+        delegate: SliverChildListDelegate(
+          [Container(child: buildBody(context))],
+        ),
+      )
+    ]);
+  }
+
+  Widget buildBody(BuildContext context) {
     return Column(
       children: [
-        Container(
-          child: Image.asset(
-            'assets/${Constants.IC_ERROR}',
-          ),
-          margin: EdgeInsets.only(top: errorImageMarginTop),
+        Image.asset(
+          'assets/${Constants.IC_ERROR}',
         ),
-        Container(
-          alignment: Alignment.center,
+        Center(
           child: Text(
             msgTitle,
             style:
                 Theme.of(context).textTheme.headline2?.copyWith(fontSize: 24),
             textAlign: TextAlign.center,
           ),
-          margin: EdgeInsets.only(top: titleMarginTop),
         ),
         Container(
           alignment: Alignment.center,
-          width: errorMsgWidth,
+          width: getWidth(context, Dimen.scale_80_100),
           child: Text(
             error.message,
             style:
                 Theme.of(context).textTheme.headline2?.copyWith(fontSize: 18),
             textAlign: TextAlign.center,
           ),
-          margin: EdgeInsets.only(top: errorMsgMarginTop),
+          margin: EdgeInsets.only(top: getHeight(context, Dimen.scale_5_100)),
         ),
         buildTryAgainBtn(context)
       ],
@@ -73,7 +73,7 @@ class ErrorPage extends StatelessWidget {
 
   Widget buildTryAgainBtn(BuildContext context) {
     return Container(
-        margin: EdgeInsets.only(top: tryAgainBtnMarginTop),
+        margin: EdgeInsets.only(top: getHeight(context, Dimen.scale_5_100)),
         width: Dimen.mainBtnWidth,
         height: Dimen.mainBtnHeight,
         child: ElevatedButton(

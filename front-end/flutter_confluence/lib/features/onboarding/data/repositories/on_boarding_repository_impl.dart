@@ -20,7 +20,6 @@ class OnBoardingRepositoryImpl implements OnBoardingRepository {
         return Right(true);
       }
     } on PlatformException catch (e) {
-      print("repo: " + e.code);
       return Left(AuthFailure(e.code));
     } on AuthNotSupportedPlatform {
       return Right(true);

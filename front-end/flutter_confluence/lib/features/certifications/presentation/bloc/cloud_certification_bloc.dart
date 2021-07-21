@@ -56,7 +56,7 @@ class CloudCertificationBloc
       {bool isSearch = false}) async* {
     yield arg.fold(
         (failure) => Error(
-            certificationType: dataType,
+            cloudCertificationType: dataType,
             message: _mapFailureToMessage(failure)), (certifications) {
       if (isSearch && certifications.isEmpty) {
         return EmptySearchResult(cloudCertificationType: dataType);

@@ -1,15 +1,17 @@
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_confluence/core/dimen.dart';
 import 'package:flutter_confluence/core/utils/error_messages.dart';
+import 'package:flutter_confluence/core/utils/media_util.dart';
 
 import '../../../../core/constants.dart';
 import '../../../certifications/presentation/pages/home_page.dart';
 import '../bloc/on_boarding_bloc.dart';
 
-class OnBoardingPage extends StatelessWidget with CustomAlertDialog  {
+class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
   static const route = "OnBoardingPage";
 
   static const msgTrainingTypes = "Training Types";
@@ -19,11 +21,6 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog  {
       "See all your co-workers certifications within a swipe";
   static const msgAuthenticate = "Authenticate";
   static const msgAuthenticateNotSupported = "Continue";
-
-  static const platformIconRadius = 26.0;
-  static const card_radius = 15.0;
-  static const cardWidth = 180.0;
-  static const cardHeight = 260.0;
 
   void authenticate(BuildContext context) {
     BlocProvider.of<OnBoardingBloc>(context).add(AuthEvent());
@@ -35,10 +32,10 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog  {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: buildPageBody(context));
+    return Scaffold(body: buildBodyWithBloc(context));
   }
 
-  Widget buildPageBody(BuildContext context) {
+  Widget buildBodyWithBloc(BuildContext context) {
     return BlocListener(
       bloc: BlocProvider.of<OnBoardingBloc>(context),
       listener: (context, state) {
@@ -46,136 +43,196 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog  {
           showAlertDialog(context, state.message);
         }
       },
-      child: buildDecoratedBody(context),
+      child: buildWithLayoutBuilder(context),
     );
   }
 
-  Widget buildDecoratedBody(BuildContext context) {
+  Widget buildWithLayoutBuilder(BuildContext context) {
     return Container(
-        constraints: BoxConstraints.expand(),
+        width: getMediaWidth(context),
+        // TODO: If we subtract status bar height, then background image not covering
+        // all screen. There is a white portion on the bottom equal to status bar height
+        height: getMediaHeight(context),
         decoration: BoxDecoration(
             image: DecorationImage(
                 image: AssetImage("assets/back-layer.png"), fit: BoxFit.cover)),
-        child: Stack(
-          children: <Widget>[
+        child: LayoutBuilder(
+            builder: (BuildContext ctx, BoxConstraints constraints) {
+              final frontLayerTop = isPortrait((context))
+                  ? constraints.maxWidth * Dimen.scale_64_100
+                  : constraints.maxWidth * Dimen.scale_12_100;
+              final frontLayerLeft = isPortrait((context))
+                  ? constraints.maxWidth * Dimen.scale_22_100
+                  : constraints.maxWidth * Dimen.scale_25_100;
+              return Stack(children: <Widget>[
             Positioned(
-              left: Dimen.bgFrontLayerLeft,
-              top: Dimen.bgFrontLayerTop,
+              left: frontLayerLeft,
+              top: frontLayerTop,
               child: Image.asset('assets/front-layer.png'),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: Dimen.dimen_80),
-              child: buildBody(context),
-            )
-          ],
-        ));
+            buildScrollableBody(context, constraints)
+          ]);
+        }));
   }
 
-  Widget buildBody(BuildContext context) {
+  Widget buildScrollableBody(BuildContext context, BoxConstraints constraints) {
+    return CustomScrollView(slivers: <Widget>[
+      SliverList(
+        delegate: SliverChildListDelegate(
+          [
+            Padding(
+              padding: EdgeInsets.only(
+                  top: constraints.maxHeight * Dimen.scale_8_100,
+                  bottom: constraints.maxHeight * Dimen.scale_8_100),
+              child: buildBody(context, constraints),
+            )
+          ],
+        ),
+      )
+    ]);
+  }
+
+  Widget buildBody(BuildContext context, BoxConstraints constraints) {
+    final topMargin = isPortrait(context)
+        ? constraints.maxHeight * Dimen.scale_2_100
+        : constraints.maxHeight * Dimen.scale_6_100;
+
+    final msgTopMargin = isPortrait(context)
+        ? constraints.maxHeight * Dimen.scale_3_100
+        : constraints.maxHeight * Dimen.scale_3_100;
+
     return Column(
       children: [
-        Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              buildCard(child: buildLeftCardChild(context)),
-              buildCard(child: buildRightCardChild(context)),
-            ]),
-        Container(
+        Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          buildCard(
+              child: buildLeftCardChild(context),
+              context: context,
+              constraints: constraints),
+          // Padding is to adjust space between Cards
+          Padding(
+              padding: EdgeInsets.only(
+                  left: constraints.maxWidth * Dimen.scale_3_100)),
+          buildCard(
+              child: buildRightCardChild(context),
+              context: context,
+              constraints: constraints),
+        ]),
+        Padding(
           child: Image.asset('assets/${Constants.IC_FLUTTER}'),
-          margin: EdgeInsets.only(top: Dimen.dimen_20),
+          padding: EdgeInsets.only(top: topMargin),
         ),
-        Container(
+        Padding(
           child: Image.asset('assets/${Constants.IC_PLUS}'),
-          margin: EdgeInsets.only(top: Dimen.dimen_20),
+          padding: EdgeInsets.only(top: topMargin),
         ),
-        Container(
+        Padding(
           child: Image.asset('assets/${Constants.IC_CONFLUENCE}'),
-          margin: EdgeInsets.only(top: Dimen.dimen_26),
+          padding: EdgeInsets.only(top: topMargin),
         ),
-        Container(
-          alignment: Alignment.center,
-          child: Text(
-            msgDescription,
-            style: Theme.of(context).textTheme.headline2,
-            textAlign: TextAlign.center,
+        Padding(
+          padding: EdgeInsets.only(
+              top: msgTopMargin,
+              right: constraints.maxWidth * Dimen.scale_9_100,
+              left: constraints.maxWidth * Dimen.scale_9_100),
+          child: Center(
+            child: Text(
+              msgDescription,
+              style: Theme.of(context).textTheme.headline2,
+              textAlign: TextAlign.center,
+            ),
           ),
-          margin: EdgeInsets.only(
-              top: Dimen.dimen_34, right: Dimen.dimen_68, left: Dimen.dimen_68),
         ),
-        buildAuthButton(context)
+        buildAuthButton(context, constraints)
       ],
     );
   }
 
-  Widget buildCard({required Widget child}) {
+  Widget buildCard(
+      {required BuildContext context,
+      required Widget child,
+      required BoxConstraints constraints}) {
+    final cardWidth = isPortrait(context)
+        ? constraints.maxWidth * Dimen.scale_40_100
+        : constraints.maxWidth * Dimen.scale_22_100;
+    final borderRadius = BorderRadius.circular(cardWidth * Dimen.scale_9_100);
     return Card(
-      elevation: 5,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(card_radius),
+        borderRadius: borderRadius,
       ),
       child: Container(
-          padding: EdgeInsets.all(Dimen.dimen_8),
-          decoration: BoxDecoration(
-            color: Constants.JIRA_COLOR,
-            borderRadius: BorderRadius.circular(card_radius),
-            boxShadow: [
-              BoxShadow(
-                color: Constants.BLACK_25,
-                blurRadius: 3,
-                offset: Offset(0.0, 3.0),
-              ),
-            ],
-          ),
-          width: cardWidth,
-          height: cardHeight,
-          child: child),
+        decoration: BoxDecoration(
+          color: Constants.JIRA_COLOR,
+          borderRadius: borderRadius,
+          boxShadow: [
+            BoxShadow(
+              color: Constants.BLACK_25,
+              blurRadius: 3,
+              offset: Offset(0.0, 4.0),
+            ),
+          ],
+        ),
+        width: cardWidth,
+        child: AspectRatio(
+          aspectRatio: isPortrait(context)
+              ? Dimen.ratio_40_55
+              : Dimen.ratio_80_115,
+          child: child,
+        ),
+      ),
     );
   }
 
   Widget buildLeftCardChild(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Text(msgTrainingTypes,
-            style: Theme.of(context)
-                .textTheme
-                .headline2
-                ?.copyWith(color: Colors.white)),
-        Container(
-          margin: EdgeInsets.only(top: Dimen.dimen_6),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  buildPlatformIcon(Constants.IC_AWS),
-                  buildPlatformIcon(Constants.IC_AZURE),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  buildPlatformIcon(Constants.IC_GCP),
-                  buildPlatformIcon(Constants.IC_HASHICORP),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  buildPlatformIcon(Constants.IC_CLOUD_NATIVE),
-                  Opacity(
-                      opacity: 0.0,
-                      child: buildPlatformIcon(Constants.IC_CLOUD_NATIVE)),
-                ],
-              ),
-            ],
-          ),
+    return LayoutBuilder(
+        builder: (BuildContext ctx, BoxConstraints constraints) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: EdgeInsets.only(
+                  bottom: constraints.maxHeight * Dimen.scale_2_100),
+              child: Text(msgTrainingTypes,
+                  maxLines: 1,
+                  style: Theme.of(context).textTheme.headline2?.copyWith(
+                      color: Colors.white, fontSize: Dimen.dimen_14)),
+            ),
+            GridView.count(
+              physics: NeverScrollableScrollPhysics(),
+              padding: EdgeInsets.only(
+                  top: constraints.maxHeight * Dimen.scale_3_100,
+                  left: constraints.maxWidth * Dimen.scale_12_100,
+                  right: constraints.maxWidth * Dimen.scale_12_100),
+              crossAxisSpacing: constraints.maxWidth * Dimen.scale_15_100,
+              mainAxisSpacing: constraints.maxHeight * Dimen.scale_4_100,
+              crossAxisCount: 2,
+              shrinkWrap: true,
+              children: getPlatformIcons(constraints.maxWidth, constraints),
+            ),
+          ],
         ),
-      ],
+      );
+    });
+  }
+
+  List<Widget> getPlatformIcons(
+      double parentWidth, BoxConstraints constraints) {
+    List<Widget> icons = [];
+    icons.add(buildPlatformIcon(Constants.IC_AWS, constraints));
+    icons.add(buildPlatformIcon(Constants.IC_AZURE, constraints));
+    icons.add(buildPlatformIcon(Constants.IC_GCP, constraints));
+    icons.add(buildPlatformIcon(Constants.IC_HASHICORP, constraints));
+    icons.add(buildPlatformIcon(Constants.IC_CLOUD_NATIVE, constraints));
+    return icons;
+  }
+
+  Widget buildPlatformIcon(String iconName, BoxConstraints constraints) {
+    return Padding(
+      padding: EdgeInsets.all(constraints.maxWidth * Dimen.scale_25_1000),
+      child: CircleAvatar(
+        backgroundColor: Colors.white,
+        backgroundImage: AssetImage('assets/$iconName'),
+      ),
     );
   }
 
@@ -192,42 +249,45 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog  {
     );
   }
 
-  Widget buildAuthButton(BuildContext context) {
+  Widget buildAuthButton(BuildContext context, BoxConstraints constraints) {
+    final btnWidth = isPortrait(context)
+        ? constraints.maxWidth * Dimen.scale_50_100
+        : constraints.maxWidth * Dimen.scale_28_100;
+    final btnVerticalPadding = isPortrait(context)
+        ? constraints.maxHeight * Dimen.scale_22_1000
+        : constraints.maxHeight * Dimen.scale_48_1000;
     return Container(
-        margin: EdgeInsets.only(top: Dimen.dimen_48),
-        width: Dimen.mainBtnWidth,
-        height: Dimen.mainBtnHeight,
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            shadowColor: Colors.black,
-            primary: Colors.white,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(Dimen.mainBtnBorderRadius),
-                side: BorderSide(
-                    width: Dimen.mainBtnBorderWidth,
-                    color: Constants.JIRA_COLOR)),
-          ),
-          onPressed: () {
-            authenticate(context);
-          },
-          child: Center(
-            child: Text(kIsWeb ? msgAuthenticateNotSupported : msgAuthenticate,
-                style: Theme.of(context)
-                    .textTheme
-                    .headline1
-                    ?.copyWith(color: Constants.JIRA_COLOR)),
-          ),
-        ));
-  }
-
-  Widget buildPlatformIcon(String iconName) {
-    return Padding(
-      padding: const EdgeInsets.all(Dimen.dimen_8),
-      child: CircleAvatar(
-        radius: platformIconRadius,
-        backgroundColor: Colors.white,
-        backgroundImage: AssetImage('assets/$iconName'),
-      ),
-    );
+        // Horizontal padding on ElevatedButton not working at all ?.
+        width: btnWidth,
+        margin: EdgeInsets.only(
+          top: constraints.maxHeight * Dimen.scale_6_100,
+        ),
+        child: LayoutBuilder(
+            builder: (BuildContext ctx, BoxConstraints constraints) {
+          return ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              padding: EdgeInsets.symmetric(vertical: btnVerticalPadding),
+              shadowColor: Colors.black,
+              primary: Colors.white,
+              shape: RoundedRectangleBorder(
+                  borderRadius:
+                      BorderRadius.circular(constraints.maxWidth * Dimen.scale_8_100),
+                  side: BorderSide(
+                      width: constraints.maxWidth * Dimen.scale_6_1000,
+                      color: Constants.JIRA_COLOR)),
+            ),
+            onPressed: () {
+              authenticate(context);
+            },
+            child: Center(
+              child: Text(
+                  kIsWeb ? msgAuthenticateNotSupported : msgAuthenticate,
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline1
+                      ?.copyWith(color: Constants.JIRA_COLOR)),
+            ),
+          );
+        }));
   }
 }

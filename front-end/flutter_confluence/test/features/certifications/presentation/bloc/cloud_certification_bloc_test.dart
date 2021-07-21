@@ -41,25 +41,25 @@ void main() {
 
   final orderInProgressServerError = [
     Loading(),
-    Error(certificationType: CloudCertificationType.in_progress,
+    Error(cloudCertificationType: CloudCertificationType.in_progress,
         message: Constants.SERVER_FAILURE_MSG),
   ];
 
   final orderCompletedServerError = [
     Loading(),
-    Error(certificationType: CloudCertificationType.completed,
+    Error(cloudCertificationType: CloudCertificationType.completed,
         message: Constants.SERVER_FAILURE_MSG),
   ];
 
   final orderInProgressCacheError = [
     Loading(),
-    Error(certificationType: CloudCertificationType.in_progress,
+    Error(cloudCertificationType: CloudCertificationType.in_progress,
         message: Constants.CACHE_FAILURE_MSG),
   ];
 
   final orderCompletedCacheError = [
     Loading(),
-    Error(certificationType: CloudCertificationType.completed,
+    Error(cloudCertificationType: CloudCertificationType.completed,
         message: Constants.CACHE_FAILURE_MSG),
   ];
 

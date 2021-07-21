@@ -35,10 +35,10 @@ class EmptySearchResult extends CloudCertificationState {
 
 class Error extends CloudCertificationState {
   final String message;
-  final CloudCertificationType certificationType;
 
-  Error({required this.message, required this.certificationType});
+  Error({required this.message, required cloudCertificationType})
+      : super(cloudCertificationType: cloudCertificationType);
 
   @override
-  List<Object> get props => [message, certificationType];
+  List<Object> get props => [message, cloudCertificationType];
 }
