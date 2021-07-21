@@ -21,7 +21,6 @@ void main() {
   setUp(() {
     mockHttpClient = MockClient();
     dataSource = CloudCertificationRemoteDataSourceImpl(client: mockHttpClient);
-    // without this test fails with error registerFallbackValue not called
     registerFallbackValue<Uri>(Uri());
   });
 

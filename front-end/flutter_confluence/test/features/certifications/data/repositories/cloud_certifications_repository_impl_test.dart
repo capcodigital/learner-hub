@@ -24,9 +24,9 @@ class MockNetworkInfo extends Mock implements NetworkInfo {}
 
 void main() {
   late CloudCertificationsRepositoryImpl repository;
-  late MockCloudCertificationRemoteDataSource mockRemoteDataSource;
-  late MockCloudCertificationLocalDataSource mockLocalDataSource;
-  late MockNetworkInfo mockNetworkInfo;
+  late CloudCertificationRemoteDataSource mockRemoteDataSource;
+  late CloudCertificationLocalDataSource mockLocalDataSource;
+  late NetworkInfo mockNetworkInfo;
 
   final remoteCertifications = (json.decode(fixture('completed.json')) as List)
       .map((e) => CloudCertificationModel.fromJson(e))

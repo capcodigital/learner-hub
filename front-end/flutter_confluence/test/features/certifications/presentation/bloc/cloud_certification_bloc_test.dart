@@ -77,9 +77,9 @@ void main() {
         message: Constants.CACHE_FAILURE_MSG),
   ];
 
-  late MockGetCompletedCertifications mockCompletedCase;
-  late MockGetInProgressCertifications mockInProgressCase;
-  late MockSearchCertifications mockSearchCase;
+  late GetCompletedCertifications mockCompletedCase;
+  late GetInProgressCertifications mockInProgressCase;
+  late SearchCertifications mockSearchCase;
   late CloudCertificationBloc bloc;
 
   setUp(() {
