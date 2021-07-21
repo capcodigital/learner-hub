@@ -43,6 +43,7 @@ class Dimen {
   static const scale_10_100 = 0.1;
   static const scale_20_100 = 0.2;
   static const scale_30_100 = 0.3;
+  static const scale_35_100 = 0.35;
   static const scale_40_100 = 0.4;
   static const scale_50_100 = 0.5;
   static const scale_64_100 = 0.64;
