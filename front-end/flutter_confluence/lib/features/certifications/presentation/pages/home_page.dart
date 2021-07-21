@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_confluence/core/dimen.dart';
 import 'package:flutter_confluence/core/utils/media_util.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import '../../../../core/constants.dart';
 import 'error_page.dart';
 import '../widgets/empty_search.dart';
@@ -85,6 +86,7 @@ class _HomePageState extends State<HomePage> {
       BlocProvider.of<CloudCertificationBloc>(context)
           .add(SearchCertificationsEvent(searchTerm));
     }
+
     final verticalPadding = isPortrait(context)
         ? constraints.maxHeight * Dimen.scale_2_100
         : constraints.maxHeight * Dimen.scale_4_100;
@@ -149,7 +151,7 @@ class _HomePageState extends State<HomePage> {
             return Container(
                 margin: EdgeInsets.only(
                     top: constraints.maxHeight * Dimen.scale_5_100),
-                child: CircularProgressIndicator());
+                child: PlatformCircularProgressIndicator());
           else if (state is Empty)
             return Text(Constants.NO_RESULTS);
           else if (state is EmptySearchResult)

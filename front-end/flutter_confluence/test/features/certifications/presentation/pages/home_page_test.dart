@@ -13,6 +13,7 @@ import 'package:flutter_confluence/features/certifications/presentation/widgets/
 import 'package:flutter_confluence/features/certifications/presentation/widgets/empty_search.dart';
 import 'package:flutter_confluence/features/certifications/presentation/widgets/searchbox.dart';
 import 'package:flutter_confluence/features/certifications/presentation/widgets/toggle-switch.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import '../../../../fixtures/FixtureReader.dart';
 
@@ -88,8 +89,8 @@ void main() {
         find.byWidgetPredicate((widget) => widget is SearchBox);
     final toggleFinder =
         find.byWidgetPredicate((widget) => widget is ToggleButton);
-    final circleProgressFinder =
-        find.byWidgetPredicate((widget) => widget is CircularProgressIndicator);
+    final circleProgressFinder = find.byWidgetPredicate(
+        (widget) => widget is PlatformCircularProgressIndicator);
 
     // assert
     expect(searchBoxFinder, findsOneWidget);
