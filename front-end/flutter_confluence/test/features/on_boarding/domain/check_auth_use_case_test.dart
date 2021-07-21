@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_confluence/core/usecases/usecase.dart';
 import 'package:flutter_confluence/features/onboarding/domain/repositories/on_boarding_repository.dart';
-import 'package:flutter_confluence/features/onboarding/domain/usecases/auth_use_case.dart';
 import 'package:flutter_confluence/features/onboarding/domain/usecases/check_auth_use_case.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -21,9 +20,10 @@ void main() {
 
   test(
     'should call checkCachedAuth and return true',
-        () async {
+    () async {
       // arrange
-      when(mockRepository.checkCachedAuth()).thenAnswer((_) async => Right(true));
+      when(mockRepository.checkCachedAuth())
+          .thenAnswer((_) async => Right(true));
       // act
       final result = await subject(NoParams());
       // assert
@@ -35,9 +35,10 @@ void main() {
 
   test(
     'should call checkCachedAuth and return false',
-        () async {
+    () async {
       // arrange
-      when(mockRepository.checkCachedAuth()).thenAnswer((_) async => Right(false));
+      when(mockRepository.checkCachedAuth())
+          .thenAnswer((_) async => Right(false));
       // act
       final result = await subject(NoParams());
       // assert
