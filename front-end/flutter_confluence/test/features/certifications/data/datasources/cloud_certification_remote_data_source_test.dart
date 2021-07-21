@@ -3,23 +3,12 @@ import 'package:flutter_confluence/core/error/custom_exceptions.dart';
 import 'package:flutter_confluence/features/certifications/data/datasources/cloud_certification_remote_data_source.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 
 import '../../../../fixtures/FixtureReader.dart';
-import 'cloud_certification_remote_data_source_test.mocks.dart';
 
-/*
-------------------
-When using GenerateMocks(), you will need to run this command so the runner
-can generate the mocks:
+class MockClient extends Mock implements http.Client {}
 
-$pub run build_runner build
-
-More information here: - https://github.com/dart-lang/mockito/blob/master/NULL_SAFETY_README.md
-------------------
-*/
-@GenerateMocks([http.Client])
 void main() {
   const STATUS_CODE_224 = 224;
   const STATUS_CODE_357 = 357;
@@ -27,15 +16,17 @@ void main() {
   const NUM_OF_IN_PROGRESS_CERT = 35;
 
   late CloudCertificationRemoteDataSourceImpl dataSource;
-  late MockClient mockHttpClient;
+  late http.Client mockHttpClient;
 
   setUp(() {
     mockHttpClient = MockClient();
     dataSource = CloudCertificationRemoteDataSourceImpl(client: mockHttpClient);
+    // without this test fails with error registerFallbackValue not called
+    registerFallbackValue<Uri>(Uri());
   });
 
   void setUpMockHttpClient(String fixtureName, {int statusCode = Constants.STATUS_CODE_200}) {
-    when(mockHttpClient.get(any, headers: anyNamed('headers'))).thenAnswer(
+    when(() => mockHttpClient.get(any(), headers: any(named: 'headers'))).thenAnswer(
         (_) async => http.Response(fixture(fixtureName), statusCode));
   }
 
