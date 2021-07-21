@@ -36,6 +36,7 @@ class Constants {
 
   // Backend Endpoints
   static const BASE_API_URL = 'http://127.0.0.1:8000';
+  // static const BASE_API_URL = 'http://10.0.2.2:8000'; //Android localhost
   static const COMPLETED_URL = 'completed';
   static const IN_PROGRESS_URL = 'in_progress';
 

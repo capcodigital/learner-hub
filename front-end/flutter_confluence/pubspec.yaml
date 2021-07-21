@@ -40,6 +40,8 @@ dependencies:
   connectivity_plus: ^1.0.4
   local_auth: ^1.1.6
   flutter_platform_widgets: ^1.9.5
+  lottie: ^1.1.0
+  mocktail: ^0.1.4
 
 dev_dependencies:
   flutter_test:
@@ -76,6 +78,7 @@ flutter:
     - assets/ic_confluence.png
     - assets/ic_rectangle.png
     - assets/ic_error.png
+    - assets/lottie-animation.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

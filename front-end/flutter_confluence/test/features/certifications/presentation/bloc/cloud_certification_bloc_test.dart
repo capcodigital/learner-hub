@@ -17,49 +17,59 @@ import '../../../../fixtures/FixtureReader.dart';
 import 'cloud_certification_bloc_test.mocks.dart';
 import 'package:bloc_test/bloc_test.dart';
 
-@GenerateMocks([GetCompletedCertifications, GetInProgressCertifications, SearchCertifications])
+@GenerateMocks([
+  GetCompletedCertifications,
+  GetInProgressCertifications,
+  SearchCertifications
+])
 void main() {
-  final mockCompletedCerts =
-      (json.decode(fixture('completed.json')) as List)
-          .map((e) => CloudCertificationModel.fromJson(e))
-          .toList();
+  final mockCompletedCerts = (json.decode(fixture('completed.json')) as List)
+      .map((e) => CloudCertificationModel.fromJson(e))
+      .toList();
 
-  final mockInProgressCerts =
-      (json.decode(fixture('in_progress.json')) as List)
-          .map((e) => CloudCertificationModel.fromJson(e))
-          .toList();
+  final mockInProgressCerts = (json.decode(fixture('in_progress.json')) as List)
+      .map((e) => CloudCertificationModel.fromJson(e))
+      .toList();
 
   final orderCompleted = [
     Loading(),
-    Loaded(items: mockCompletedCerts, cloudCertificationType: CloudCertificationType.completed),
+    Loaded(
+        items: mockCompletedCerts,
+        cloudCertificationType: CloudCertificationType.completed),
   ];
 
   final orderInProgress = [
     Loading(),
-    Loaded(items: mockInProgressCerts, cloudCertificationType: CloudCertificationType.in_progress),
+    Loaded(
+        items: mockInProgressCerts,
+        cloudCertificationType: CloudCertificationType.in_progress),
   ];
 
   final orderInProgressServerError = [
     Loading(),
-    Error(certificationType: CloudCertificationType.in_progress,
+    Error(
+        cloudCertificationType: CloudCertificationType.in_progress,
         message: Constants.SERVER_FAILURE_MSG),
   ];
 
   final orderCompletedServerError = [
     Loading(),
-    Error(certificationType: CloudCertificationType.completed,
+    Error(
+        cloudCertificationType: CloudCertificationType.completed,
         message: Constants.SERVER_FAILURE_MSG),
   ];
 
   final orderInProgressCacheError = [
     Loading(),
-    Error(certificationType: CloudCertificationType.in_progress,
+    Error(
+        cloudCertificationType: CloudCertificationType.in_progress,
         message: Constants.CACHE_FAILURE_MSG),
   ];
 
   final orderCompletedCacheError = [
     Loading(),
-    Error(certificationType: CloudCertificationType.completed,
+    Error(
+        cloudCertificationType: CloudCertificationType.completed,
         message: Constants.CACHE_FAILURE_MSG),
   ];
 
@@ -75,8 +85,7 @@ void main() {
     bloc = CloudCertificationBloc(
         completedUseCase: mockCompletedCase,
         inProgressUseCase: mockInProgressCase,
-        searchUserCase: mockSearchCase
-    );
+        searchUserCase: mockSearchCase);
   });
 
   test('initial bloc state should be Empty', () {
@@ -113,8 +122,8 @@ void main() {
     blocTest(
       'should emit, Loading, ServerError',
       build: () {
-        when(mockCompletedCase(any))
-            .thenAnswer((_) async => Left(ServerFailure(message: Constants.SERVER_FAILURE_MSG)));
+        when(mockCompletedCase(any)).thenAnswer((_) async =>
+            Left(ServerFailure(message: Constants.SERVER_FAILURE_MSG)));
         return bloc;
       },
       act: (CloudCertificationBloc blo) =>
@@ -165,8 +174,8 @@ void main() {
     blocTest(
       'should emit Loading, ServerError',
       build: () {
-        when(mockInProgressCase(any))
-            .thenAnswer((_) async => Left(ServerFailure(message: Constants.SERVER_FAILURE_MSG)));
+        when(mockInProgressCase(any)).thenAnswer((_) async =>
+            Left(ServerFailure(message: Constants.SERVER_FAILURE_MSG)));
         return bloc;
       },
       act: (CloudCertificationBloc blo) =>
@@ -188,22 +197,28 @@ void main() {
   });
 
   group('SearchCertifications', () {
-
     final emptyList = <CloudCertificationModel>[];
     final filteredItems = mockCompletedCerts.take(1).toList();
 
     final searchCompletedWithResults = [
       Loading(),
-      Loaded(items: mockCompletedCerts, cloudCertificationType: CloudCertificationType.completed),
+      Loaded(
+          items: mockCompletedCerts,
+          cloudCertificationType: CloudCertificationType.completed),
       Loading(),
-      Loaded(items: filteredItems, cloudCertificationType: CloudCertificationType.completed),
+      Loaded(
+          items: filteredItems,
+          cloudCertificationType: CloudCertificationType.completed),
     ];
 
     final searchCompletedNoResults = [
       Loading(),
-      Loaded(items: mockCompletedCerts, cloudCertificationType: CloudCertificationType.completed),
+      Loaded(
+          items: mockCompletedCerts,
+          cloudCertificationType: CloudCertificationType.completed),
       Loading(),
-      EmptySearchResult(cloudCertificationType: CloudCertificationType.completed),
+      EmptySearchResult(
+          cloudCertificationType: CloudCertificationType.completed),
     ];
 
     setUp(() {
@@ -218,12 +233,10 @@ void main() {
       // First load the items, then search through them
       'should emit Loading, Loaded, Loading, EmptySearchResult',
       build: () {
-        when(mockSearchCase(any))
-            .thenAnswer((_) async => Right(emptyList));
+        when(mockSearchCase(any)).thenAnswer((_) async => Right(emptyList));
         return bloc;
       },
-      act: (CloudCertificationBloc blo) =>
-      {
+      act: (CloudCertificationBloc blo) => {
         blo.add(GetCompletedCertificationsEvent()),
         blo.add(SearchCertificationsEvent("search"))
       },
@@ -234,12 +247,10 @@ void main() {
       // First load the items, then search through them
       'should emit Loading, Loaded, Loading, Loaded',
       build: () {
-        when(mockSearchCase(any))
-            .thenAnswer((_) async => Right(filteredItems));
+        when(mockSearchCase(any)).thenAnswer((_) async => Right(filteredItems));
         return bloc;
       },
-      act: (CloudCertificationBloc blo) =>
-      {
+      act: (CloudCertificationBloc blo) => {
         blo.add(GetCompletedCertificationsEvent()),
         blo.add(SearchCertificationsEvent("search"))
       },
