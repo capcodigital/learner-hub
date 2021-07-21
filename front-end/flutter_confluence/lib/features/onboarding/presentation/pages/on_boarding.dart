@@ -59,11 +59,11 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
         child: LayoutBuilder(
             builder: (BuildContext ctx, BoxConstraints constraints) {
               final frontLayerTop = isPortrait((context))
-                  ? constraints.maxWidth * 0.64
-                  : constraints.maxWidth * 0.12;
+                  ? constraints.maxWidth * Dimen.scale_64_100
+                  : constraints.maxWidth * Dimen.scale_12_100;
               final frontLayerLeft = isPortrait((context))
-                  ? constraints.maxWidth * 0.22
-                  : constraints.maxWidth * 0.25;
+                  ? constraints.maxWidth * Dimen.scale_22_100
+                  : constraints.maxWidth * Dimen.scale_25_100;
               return Stack(children: <Widget>[
             Positioned(
               left: frontLayerLeft,
@@ -173,7 +173,9 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
         ),
         width: cardWidth,
         child: AspectRatio(
-          aspectRatio: isPortrait(context) ? 4 / 5.5 : 8 / 11.5,
+          aspectRatio: isPortrait(context)
+              ? Dimen.ratio_40_55
+              : Dimen.ratio_80_115,
           child: child,
         ),
       ),
@@ -226,7 +228,7 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
 
   Widget buildPlatformIcon(String iconName, BoxConstraints constraints) {
     return Padding(
-      padding: EdgeInsets.all(constraints.maxWidth * 0.025),
+      padding: EdgeInsets.all(constraints.maxWidth * Dimen.scale_25_1000),
       child: CircleAvatar(
         backgroundColor: Colors.white,
         backgroundImage: AssetImage('assets/$iconName'),
@@ -250,10 +252,10 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
   Widget buildAuthButton(BuildContext context, BoxConstraints constraints) {
     final btnWidth = isPortrait(context)
         ? constraints.maxWidth * Dimen.scale_50_100
-        : constraints.maxWidth * 0.28;
+        : constraints.maxWidth * Dimen.scale_28_100;
     final btnVerticalPadding = isPortrait(context)
         ? constraints.maxHeight * Dimen.scale_22_1000
-        : constraints.maxHeight * 0.048;
+        : constraints.maxHeight * Dimen.scale_48_1000;
     return Container(
         // Horizontal padding on ElevatedButton not working at all ?.
         width: btnWidth,
@@ -269,9 +271,9 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
               primary: Colors.white,
               shape: RoundedRectangleBorder(
                   borderRadius:
-                      BorderRadius.circular(constraints.maxWidth * 0.08),
+                      BorderRadius.circular(constraints.maxWidth * Dimen.scale_8_100),
                   side: BorderSide(
-                      width: constraints.maxWidth * 0.006,
+                      width: constraints.maxWidth * Dimen.scale_6_1000,
                       color: Constants.JIRA_COLOR)),
             ),
             onPressed: () {
