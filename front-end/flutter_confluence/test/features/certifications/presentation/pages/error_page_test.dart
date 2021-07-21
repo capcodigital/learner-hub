@@ -15,7 +15,6 @@ class MockCertificationBloc
     implements CloudCertificationBloc {}
 
 void main() {
-
   setUp(() {
     // Tests fails if not call registerFallbackValue for State and Event.
     // This requires Mocktail
@@ -64,15 +63,14 @@ void main() {
         message: Constants.SERVER_FAILURE_MSG,
         cloudCertificationType: CloudCertificationType.completed);
     CloudCertificationBloc mockBloc = MockCertificationBloc();
-    whenListen(mockBloc, Stream.fromIterable([Empty()]),
-        initialState: error);
+    whenListen(mockBloc, Stream.fromIterable([Empty()]), initialState: error);
 
     await tester.pumpWidget(
       MaterialApp(
-          home: BlocProvider<CloudCertificationBloc>(
-            create: (_) => mockBloc,
-            child: Scaffold(body: ErrorPage(error: error)),
-          ),
+        home: BlocProvider<CloudCertificationBloc>(
+          create: (_) => mockBloc,
+          child: Scaffold(body: ErrorPage(error: error)),
+        ),
       ),
     );
 
@@ -83,8 +81,10 @@ void main() {
     // tap on try again button to check if it triggers expected event
     await tester.tap(tryAgainFinder);
 
-    Mocktail.verify(() => mockBloc..add(GetCompletedCertificationsEvent())).called(1);
-    Mocktail.verifyNever(() => mockBloc..add(GetInProgressCertificationsEvent()));
+    Mocktail.verify(() => mockBloc..add(GetCompletedCertificationsEvent()))
+        .called(1);
+    Mocktail.verifyNever(
+        () => mockBloc..add(GetInProgressCertificationsEvent()));
   });
 
   testWidgets(
@@ -96,8 +96,7 @@ void main() {
         message: Constants.SERVER_FAILURE_MSG,
         cloudCertificationType: CloudCertificationType.in_progress);
     CloudCertificationBloc mockBloc = MockCertificationBloc();
-    whenListen(mockBloc, Stream.fromIterable([Empty()]),
-        initialState: error);
+    whenListen(mockBloc, Stream.fromIterable([Empty()]), initialState: error);
 
     // act
     await tester.pumpWidget(
@@ -116,7 +115,9 @@ void main() {
     // tap on try again button to check if it triggers expected event
     await tester.tap(tryAgainFinder);
 
-    Mocktail.verify(() => mockBloc..add(GetInProgressCertificationsEvent())).called(1);
-    Mocktail.verifyNever(() => mockBloc..add(GetCompletedCertificationsEvent()));
+    Mocktail.verify(() => mockBloc..add(GetInProgressCertificationsEvent()))
+        .called(1);
+    Mocktail.verifyNever(
+        () => mockBloc..add(GetCompletedCertificationsEvent()));
   });
 }
