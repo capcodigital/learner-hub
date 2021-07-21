@@ -34,7 +34,6 @@ class ListRow extends StatelessWidget {
           children: <Widget>[
             ListTile(
               leading: Container(
-                  // padding: EdgeInsets.all(10),
                   child: CircleAvatar(
                     backgroundColor: Colors.transparent,
                     backgroundImage:

@@ -58,13 +58,13 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
                 image: AssetImage("assets/back-layer.png"), fit: BoxFit.cover)),
         child: LayoutBuilder(
             builder: (BuildContext ctx, BoxConstraints constraints) {
-              final frontLayerTop = isPortrait((context))
-                  ? constraints.maxWidth * Dimen.scale_64_100
-                  : constraints.maxWidth * Dimen.scale_12_100;
-              final frontLayerLeft = isPortrait((context))
-                  ? constraints.maxWidth * Dimen.scale_22_100
-                  : constraints.maxWidth * Dimen.scale_25_100;
-              return Stack(children: <Widget>[
+          final frontLayerTop = isPortrait((context))
+              ? constraints.maxWidth * Dimen.scale_64_100
+              : constraints.maxWidth * Dimen.scale_12_100;
+          final frontLayerLeft = isPortrait((context))
+              ? constraints.maxWidth * Dimen.scale_22_100
+              : constraints.maxWidth * Dimen.scale_35_100;
+          return Stack(children: <Widget>[
             Positioned(
               left: frontLayerLeft,
               top: frontLayerTop,
@@ -173,9 +173,8 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
         ),
         width: cardWidth,
         child: AspectRatio(
-          aspectRatio: isPortrait(context)
-              ? Dimen.ratio_40_55
-              : Dimen.ratio_80_115,
+          aspectRatio:
+              isPortrait(context) ? Dimen.ratio_40_55 : Dimen.ratio_80_115,
           child: child,
         ),
       ),
@@ -270,8 +269,8 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
               shadowColor: Colors.black,
               primary: Colors.white,
               shape: RoundedRectangleBorder(
-                  borderRadius:
-                      BorderRadius.circular(constraints.maxWidth * Dimen.scale_8_100),
+                  borderRadius: BorderRadius.circular(
+                      constraints.maxWidth * Dimen.scale_8_100),
                   side: BorderSide(
                       width: constraints.maxWidth * Dimen.scale_6_1000,
                       color: Constants.JIRA_COLOR)),
