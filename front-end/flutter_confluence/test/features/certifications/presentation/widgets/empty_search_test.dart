@@ -4,8 +4,6 @@ import 'package:flutter_confluence/features/certifications/domain/entities/cloud
 import 'package:flutter_confluence/features/certifications/presentation/widgets/empty_search.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:flutter_confluence/features/certifications/presentation/widgets/searchbox.dart';
-
 void main() {
   final TextEditingController controller = TextEditingController();
 

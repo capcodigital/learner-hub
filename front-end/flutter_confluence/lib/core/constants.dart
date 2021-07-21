@@ -35,6 +35,8 @@ class Constants {
   static const AWS = 'aws';
 
   // Backend Endpoints
+  // api url android emulator = 'http://10.0.2.2:8000';
+  // api url = 'http://127.0.0.1:8000';
   static const BASE_API_URL = 'http://127.0.0.1:8000';
   static const COMPLETED_URL = 'completed';
   static const IN_PROGRESS_URL = 'in_progress';
