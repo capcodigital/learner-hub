@@ -67,7 +67,7 @@ class _HomePageState extends State<HomePage> {
                 builder: (BuildContext ctx, BoxConstraints constraints) {
               final parallaxLayerLeft = isPortrait(ctx)
                   ? constraints.maxWidth * Dimen.scale_6_100
-                  : constraints.maxWidth * Dimen.scale_24_100;
+                  : constraints.maxWidth * Dimen.scale_35_100;
               return Stack(
                 children: <Widget>[
                   Positioned(
