@@ -12,7 +12,7 @@ class MockSharedPreferences extends Mock implements SharedPreferences {}
 
 void main() {
   late CloudCertificationLocalDataSourceImpl dataSource;
-  late SharedPreferences mockSharedPreferences;
+  late MockSharedPreferences mockSharedPreferences;
 
   setUp(() {
     mockSharedPreferences = MockSharedPreferences();

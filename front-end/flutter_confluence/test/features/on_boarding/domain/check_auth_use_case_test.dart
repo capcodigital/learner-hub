@@ -9,7 +9,7 @@ class MockOnBoardingRepository extends Mock implements OnBoardingRepository {}
 
 void main() {
   late CheckAuthUseCase subject;
-  late OnBoardingRepository mockRepository;
+  late MockOnBoardingRepository mockRepository;
 
   setUp(() {
     mockRepository = MockOnBoardingRepository();

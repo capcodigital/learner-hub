@@ -16,7 +16,7 @@ void main() {
   const NUM_OF_IN_PROGRESS_CERT = 35;
 
   late CloudCertificationRemoteDataSourceImpl dataSource;
-  late http.Client mockHttpClient;
+  late MockClient mockHttpClient;
 
   setUp(() {
     mockHttpClient = MockClient();

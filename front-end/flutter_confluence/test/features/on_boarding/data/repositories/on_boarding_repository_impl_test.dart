@@ -15,7 +15,7 @@ class MockOnBoardingLocalDataSource extends Mock
 
 void main() {
   late OnBoardingRepository repository;
-  late OnBoardingLocalDataSource mockDataSource;
+  late MockOnBoardingLocalDataSource mockDataSource;
 
   setUp(() {
     mockDataSource = MockOnBoardingLocalDataSource();

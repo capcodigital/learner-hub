@@ -11,7 +11,7 @@ class MockCloudCertificationRepository extends Mock
 
 void main() {
   late GetCompletedCertifications usecase;
-  late CloudCertificationRepository mockCloudCertificationRepository;
+  late MockCloudCertificationRepository mockCloudCertificationRepository;
 
   setUp(() {
     mockCloudCertificationRepository = MockCloudCertificationRepository();
