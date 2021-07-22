@@ -8,20 +8,24 @@ import 'package:flutter_confluence/features/certifications/domain/entities/cloud
 import 'package:flutter_confluence/features/certifications/domain/usecases/get_completed_certifications.dart';
 import 'package:flutter_confluence/features/certifications/domain/usecases/get_in_progress_certifications.dart';
 import 'package:flutter_confluence/features/certifications/domain/usecases/search_certifications.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
-import 'package:dartz/dartz.dart';
 import 'package:flutter_confluence/features/certifications/presentation/bloc/cloud_certification_bloc.dart';
-import '../../../../fixtures/FixtureReader.dart';
-import 'cloud_certification_bloc_test.mocks.dart';
-import 'package:bloc_test/bloc_test.dart';
 
-@GenerateMocks([
-  GetCompletedCertifications,
-  GetInProgressCertifications,
-  SearchCertifications
-])
+import 'package:mocktail/mocktail.dart';
+import 'package:bloc_test/bloc_test.dart';
+import 'package:flutter_test/flutter_test.dart';
+
+import 'package:dartz/dartz.dart';
+
+import '../../../../fixtures/FixtureReader.dart';
+
+class MockGetCompletedCertifications extends Mock
+    implements GetCompletedCertifications {}
+
+class MockGetInProgressCertifications extends Mock
+    implements GetInProgressCertifications {}
+
+class MockSearchCertifications extends Mock implements SearchCertifications {}
+
 void main() {
   final mockCompletedCerts = (json.decode(fixture('completed.json')) as List)
       .map((e) => CloudCertificationModel.fromJson(e))
@@ -79,6 +83,9 @@ void main() {
   late CloudCertificationBloc bloc;
 
   setUp(() {
+    registerFallbackValue(NoParams());
+    registerFallbackValue(SearchParams(searchQuery: '', dataType: CloudCertificationType.completed, ));
+
     mockCompletedCase = MockGetCompletedCertifications();
     mockInProgressCase = MockGetInProgressCertifications();
     mockSearchCase = MockSearchCertifications();
@@ -97,20 +104,20 @@ void main() {
       'should get list of completed certifications',
       () async {
         // arrange
-        when(mockCompletedCase(any))
+        when(() => mockCompletedCase(any()))
             .thenAnswer((_) async => Right(mockCompletedCerts));
         // act
         bloc.add(GetCompletedCertificationsEvent());
-        await untilCalled(mockCompletedCase(any));
+        await untilCalled(() => mockCompletedCase(any()));
         // assert
-        verify(mockCompletedCase(NoParams()));
+        verify(() => mockCompletedCase(NoParams()));
       },
     );
 
     blocTest(
       'should emit Loading, Loaded',
       build: () {
-        when(mockCompletedCase(any))
+        when(() => mockCompletedCase(any()))
             .thenAnswer((_) async => Right(mockCompletedCerts));
         return bloc;
       },
@@ -122,7 +129,7 @@ void main() {
     blocTest(
       'should emit, Loading, ServerError',
       build: () {
-        when(mockCompletedCase(any)).thenAnswer((_) async =>
+        when(() => mockCompletedCase(any())).thenAnswer((_) async =>
             Left(ServerFailure(message: Constants.SERVER_FAILURE_MSG)));
         return bloc;
       },
@@ -134,7 +141,7 @@ void main() {
     blocTest(
       'should emit Loading, CacheError',
       build: () {
-        when(mockCompletedCase(any))
+        when(() => mockCompletedCase(any()))
             .thenAnswer((_) async => Left(CacheFailure()));
         return bloc;
       },
@@ -149,20 +156,20 @@ void main() {
       'should get list of in progress certifications',
       () async {
         // arrange
-        when(mockInProgressCase(any))
+        when(() => mockInProgressCase(any()))
             .thenAnswer((_) async => Right(mockInProgressCerts));
         // act
         bloc.add(GetInProgressCertificationsEvent());
-        await untilCalled(mockInProgressCase(any));
+        await untilCalled(() => mockInProgressCase(any()));
         // assert
-        verify(mockInProgressCase(NoParams()));
+        verify(() => mockInProgressCase(NoParams()));
       },
     );
 
     blocTest(
       'should emit Loading, Loaded',
       build: () {
-        when(mockInProgressCase(any))
+        when(() => mockInProgressCase(any()))
             .thenAnswer((_) async => Right(mockInProgressCerts));
         return bloc;
       },
@@ -174,7 +181,7 @@ void main() {
     blocTest(
       'should emit Loading, ServerError',
       build: () {
-        when(mockInProgressCase(any)).thenAnswer((_) async =>
+        when(() => mockInProgressCase(any())).thenAnswer((_) async =>
             Left(ServerFailure(message: Constants.SERVER_FAILURE_MSG)));
         return bloc;
       },
@@ -186,7 +193,7 @@ void main() {
     blocTest(
       'should emit Loading, CacheError',
       build: () {
-        when(mockInProgressCase(any))
+        when(() => mockInProgressCase(any()))
             .thenAnswer((_) async => Left(CacheFailure()));
         return bloc;
       },
@@ -222,10 +229,10 @@ void main() {
     ];
 
     setUp(() {
-      when(mockCompletedCase(any))
+      when(() => mockCompletedCase(any()))
           .thenAnswer((_) async => Right(mockCompletedCerts));
 
-      when(mockInProgressCase(any))
+      when(() => mockInProgressCase(any()))
           .thenAnswer((_) async => Right(mockInProgressCerts));
     });
 
@@ -233,7 +240,8 @@ void main() {
       // First load the items, then search through them
       'should emit Loading, Loaded, Loading, EmptySearchResult',
       build: () {
-        when(mockSearchCase(any)).thenAnswer((_) async => Right(emptyList));
+        when(() => mockSearchCase(any()))
+            .thenAnswer((_) async => Right(emptyList));
         return bloc;
       },
       act: (CloudCertificationBloc blo) => {
@@ -247,7 +255,8 @@ void main() {
       // First load the items, then search through them
       'should emit Loading, Loaded, Loading, Loaded',
       build: () {
-        when(mockSearchCase(any)).thenAnswer((_) async => Right(filteredItems));
+        when(() => mockSearchCase(any()))
+            .thenAnswer((_) async => Right(filteredItems));
         return bloc;
       },
       act: (CloudCertificationBloc blo) => {

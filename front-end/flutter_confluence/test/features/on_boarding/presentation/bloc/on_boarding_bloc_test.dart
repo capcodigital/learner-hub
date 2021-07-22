@@ -6,12 +6,12 @@ import 'package:flutter_confluence/features/onboarding/domain/usecases/auth_use_
 import 'package:flutter_confluence/features/onboarding/domain/usecases/check_auth_use_case.dart';
 import 'package:flutter_confluence/features/onboarding/presentation/bloc/on_boarding_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 
-import 'on_boarding_bloc_test.mocks.dart';
+class MockAuthUseCase extends Mock implements AuthUseCase {}
 
-@GenerateMocks([AuthUseCase, CheckAuthUseCase])
+class MockCheckAuthUseCase extends Mock implements CheckAuthUseCase {}
+
 void main() {
   late MockAuthUseCase mockAuthCase;
   late MockCheckAuthUseCase mockCheckAuthCase;
@@ -28,11 +28,11 @@ void main() {
   ];
 
   setUp(() {
+    registerFallbackValue<NoParams>(NoParams());
     mockAuthCase = MockAuthUseCase();
     mockCheckAuthCase = MockCheckAuthUseCase();
     bloc = OnBoardingBloc(
-        authUseCase: mockAuthCase,
-        checkAuthUseCase: mockCheckAuthCase);
+        authUseCase: mockAuthCase, checkAuthUseCase: mockCheckAuthCase);
   });
 
   test('initial bloc state should be Empty', () {
@@ -40,9 +40,8 @@ void main() {
   });
 
   group('AuthEvent', () {
-
     void stubMockAuthCase(bool result) {
-      when(mockAuthCase(any)).thenAnswer((_) async => Right(result));
+      when(() => mockAuthCase(any())).thenAnswer((_) async => Right(result));
     }
 
     test(
@@ -52,9 +51,9 @@ void main() {
         stubMockAuthCase(true);
         // act
         bloc.add((AuthEvent()));
-        await untilCalled(mockAuthCase(any));
+        await untilCalled(() => mockAuthCase(any()));
         // assert
-        verify(mockAuthCase(NoParams()));
+        verify(() => mockAuthCase(NoParams()));
       },
     );
 
@@ -64,8 +63,7 @@ void main() {
         stubMockAuthCase(true);
         return bloc;
       },
-      act: (OnBoardingBloc bloc) =>
-      {bloc.add(AuthEvent())},
+      act: (OnBoardingBloc bloc) => {bloc.add(AuthEvent())},
       expect: () => orderCompleted,
     );
 
@@ -75,17 +73,15 @@ void main() {
         stubMockAuthCase(false);
         return bloc;
       },
-      act: (OnBoardingBloc bloc) =>
-      {bloc.add(AuthEvent())},
+      act: (OnBoardingBloc bloc) => {bloc.add(AuthEvent())},
       expect: () => orderFailedUnknownError,
     );
-
   });
 
   group('CheckAuthEvent', () {
-
     void stabMockCheckAuthCase(bool result) {
-      when(mockCheckAuthCase(any)).thenAnswer((_) async => Right(result));
+      when(() => mockCheckAuthCase(any()))
+          .thenAnswer((_) async => Right(result));
     }
 
     test(
@@ -95,9 +91,9 @@ void main() {
         stabMockCheckAuthCase(true);
         // act
         bloc.add((CheckAuthEvent()));
-        await untilCalled(mockCheckAuthCase(any));
+        await untilCalled(() => mockCheckAuthCase(any()));
         // assert
-        verify(mockCheckAuthCase(NoParams()));
+        verify(() => mockCheckAuthCase(NoParams()));
       },
     );
 
@@ -107,8 +103,7 @@ void main() {
         stabMockCheckAuthCase(true);
         return bloc;
       },
-      act: (OnBoardingBloc bloc) =>
-      {bloc.add(CheckAuthEvent())},
+      act: (OnBoardingBloc bloc) => {bloc.add(CheckAuthEvent())},
       expect: () => orderCompleted,
     );
 
@@ -118,10 +113,8 @@ void main() {
         stabMockCheckAuthCase(false);
         return bloc;
       },
-      act: (OnBoardingBloc bloc) =>
-      {bloc.add(CheckAuthEvent())},
+      act: (OnBoardingBloc bloc) => {bloc.add(CheckAuthEvent())},
       expect: () => orderFailedUnknownError,
     );
-
   });
 }
