@@ -6,6 +6,8 @@ import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
+import 'bio_auth_local_dao.dart';
+
 abstract class OnBoardingLocalDataSource {
   Future<bool> authenticate();
   Future<void> saveAuthTimeStamp();
@@ -20,37 +22,36 @@ const USE_ERROR_DIALOGS = false;
 
 class OnBoardingLocalDataSourceImpl implements OnBoardingLocalDataSource {
   final LocalAuthentication auth;
-  final SharedPreferences prefs;
+  final BioAuthLocalDao dao;
 
   // Note that Platform.is is not supported for Flutter web. So we need to use the kIsWeb constant
   final bool _isSupportedPlatform = !kIsWeb;
 
-  OnBoardingLocalDataSourceImpl({required this.auth, required this.prefs});
+  OnBoardingLocalDataSourceImpl({required this.auth, required this.dao});
 
   @override
   Future<bool> authenticate() async {
-      if (_isSupportedPlatform) {
-        return await auth.authenticate(
-            localizedReason: AUTH_REASON,
-            biometricOnly: BIOMETRIC_AUTH_ONLY,
-            stickyAuth: STICKY_AUTH,
-            useErrorDialogs: USE_ERROR_DIALOGS);
-      }
-      else {
-        log("Auth is not supported for this platform");
-        throw AuthNotSupportedPlatform();
-      }
+    if (_isSupportedPlatform) {
+      return await auth.authenticate(
+          localizedReason: AUTH_REASON,
+          biometricOnly: BIOMETRIC_AUTH_ONLY,
+          stickyAuth: STICKY_AUTH,
+          useErrorDialogs: USE_ERROR_DIALOGS);
+    } else {
+      log("Auth is not supported for this platform");
+      throw AuthNotSupportedPlatform();
+    }
   }
 
   @override
   Future<void> saveAuthTimeStamp() {
-    return prefs.setInt(PREF_LAST_BIOMETRIC_AUTH_TIME_MILLIS,
-        CustomizableDateTime.current.millisecondsSinceEpoch);
+    return Future.value(dao.saveLatestBioAuthTime(
+        CustomizableDateTime.current.millisecondsSinceEpoch));
   }
 
   @override
   Future<bool> checkCachedAuth() {
-    int? lastAuthTime = prefs.getInt(PREF_LAST_BIOMETRIC_AUTH_TIME_MILLIS);
+    int? lastAuthTime = dao.getLatestBioAuthTime();
     if (lastAuthTime != null) {
       final now = CustomizableDateTime.current;
       final lastAuthDate = DateTime.fromMillisecondsSinceEpoch(lastAuthTime);

@@ -1,48 +1,42 @@
 import 'package:flutter_confluence/core/utils/date_extensions.dart';
+import 'package:flutter_confluence/features/onboarding/data/datasources/bio_auth_local_dao.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:local_auth/local_auth.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:mocktail/mocktail.dart';
-
 import 'package:flutter_confluence/features/onboarding/data/datasources/on_boarding_local_data_source.dart';
 
-class MockSharedPreferences extends Mock
-    implements SharedPreferences {}
+class MockBioAuthLocalDao extends Mock implements BioAuthLocalDao {}
 
-class MockLocalAuthentication extends Mock
-    implements LocalAuthentication {}
+class MockLocalAuthentication extends Mock implements LocalAuthentication {}
 
 void main() {
   late OnBoardingLocalDataSource dataSource;
-  late MockSharedPreferences mockPrefs;
+  late MockBioAuthLocalDao mockDao;
   late MockLocalAuthentication mockAuth;
 
   setUp(() {
-    mockPrefs = MockSharedPreferences();
+    mockDao = MockBioAuthLocalDao();
     mockAuth = MockLocalAuthentication();
-    dataSource =
-        OnBoardingLocalDataSourceImpl(auth: mockAuth, prefs: mockPrefs);
+    dataSource = OnBoardingLocalDataSourceImpl(auth: mockAuth, dao: mockDao);
   });
 
   group('authenticate', () {
     void mockAuthenticateCall(bool result) {
       when(() => mockAuth.authenticate(
-              localizedReason: AUTH_REASON,
-              biometricOnly: BIOMETRIC_AUTH_ONLY,
-              stickyAuth: true,
-              useErrorDialogs: false))
-          .thenAnswer((_) async {
+          localizedReason: AUTH_REASON,
+          biometricOnly: BIOMETRIC_AUTH_ONLY,
+          stickyAuth: true,
+          useErrorDialogs: false)).thenAnswer((_) async {
         return result;
       });
     }
 
     void verifyAuthCallDone() {
       verify(() => mockAuth.authenticate(
-              localizedReason: AUTH_REASON,
-              biometricOnly: BIOMETRIC_AUTH_ONLY,
-              stickyAuth: STICKY_AUTH,
-              useErrorDialogs: USE_ERROR_DIALOGS))
-          .called(1);
+          localizedReason: AUTH_REASON,
+          biometricOnly: BIOMETRIC_AUTH_ONLY,
+          stickyAuth: STICKY_AUTH,
+          useErrorDialogs: USE_ERROR_DIALOGS)).called(1);
     }
 
     test(
@@ -79,12 +73,12 @@ void main() {
         // arrange
         final now = DateTime.parse("2021-01-12 21:12:01");
         CustomizableDateTime.customTime = now;
-        when(() => mockPrefs.setInt(any(), any())).thenAnswer((_) => Future.value(true));
+        when(() => mockDao.saveLatestBioAuthTime(any()))
+            .thenAnswer((_) => Future.value(true));
         // act
         await dataSource.saveAuthTimeStamp();
         // assert
-        verify(() => mockPrefs.setInt(PREF_LAST_BIOMETRIC_AUTH_TIME_MILLIS,
-                now.millisecondsSinceEpoch))
+        verify(() => mockDao.saveLatestBioAuthTime(now.millisecondsSinceEpoch))
             .called(1);
       },
     );
@@ -98,13 +92,12 @@ void main() {
         final now = DateTime.parse("2021-05-12 20:15:00");
         final lastAuthDate = DateTime.parse("2021-05-12 15:35:00");
         CustomizableDateTime.customTime = now;
-        when(() => mockPrefs.getInt(PREF_LAST_BIOMETRIC_AUTH_TIME_MILLIS))
+        when(() => mockDao.getLatestBioAuthTime())
             .thenReturn(lastAuthDate.millisecondsSinceEpoch);
         // act
         final result = await dataSource.checkCachedAuth();
         // assert
-        verify(() => mockPrefs.getInt(PREF_LAST_BIOMETRIC_AUTH_TIME_MILLIS))
-            .called(1);
+        verify(() => mockDao.getLatestBioAuthTime()).called(1);
         expect(result, equals(true));
       },
     );
@@ -116,13 +109,12 @@ void main() {
         final now = DateTime.parse("2021-05-16 20:15:00");
         final lastAuthDate = DateTime.parse("2021-05-12 15:35:00");
         CustomizableDateTime.customTime = now;
-        when(() => mockPrefs.getInt(PREF_LAST_BIOMETRIC_AUTH_TIME_MILLIS))
+        when(() => mockDao.getLatestBioAuthTime())
             .thenReturn(lastAuthDate.millisecondsSinceEpoch);
         // act
         final result = await dataSource.checkCachedAuth();
         // assert
-        verify(() => mockPrefs.getInt(PREF_LAST_BIOMETRIC_AUTH_TIME_MILLIS))
-            .called(1);
+        verify(() => mockDao.getLatestBioAuthTime()).called(1);
         expect(result, equals(false));
       },
     );

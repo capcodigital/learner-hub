@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 
 import 'features/certifications/data/datasources/local_certification_dao.dart';
 import 'features/certifications/domain/usecases/search_certifications.dart';
+import 'features/onboarding/data/datasources/bio_auth_local_dao.dart';
 import 'features/onboarding/data/datasources/on_boarding_local_data_source.dart';
 import 'features/onboarding/domain/repositories/on_boarding_repository.dart';
 import 'features/certifications/data/repositories/cloud_certifications_repository_impl.dart';
@@ -26,11 +27,11 @@ final sl = GetIt.instance;
 Future<void> init() async {
   sl.registerFactory(() => CloudCertificationBloc(
       completedUseCase: sl(), inProgressUseCase: sl(), searchUserCase: sl()));
-
   sl.registerLazySingleton(() => GetCompletedCertifications(sl()));
-
   sl.registerLazySingleton(() => GetInProgressCertifications(sl()));
   sl.registerLazySingleton(() => SearchCertifications(sl()));
+  sl.registerLazySingleton(() => LocalCertificationDao());
+  sl.registerLazySingleton(() => BioAuthLocalDao());
 
   sl.registerLazySingleton<CloudCertificationRepository>(
     () => CloudCertificationsRepositoryImpl(
@@ -41,7 +42,6 @@ Future<void> init() async {
     () => CloudCertificationRemoteDataSourceImpl(client: sl()),
   );
 
-  sl.registerLazySingleton(() => LocalCertificationDao());
   sl.registerLazySingleton<CloudCertificationLocalDataSource>(
     () => CloudCertificationLocalDataSourceImpl(dao: sl()),
   );
@@ -57,7 +57,7 @@ Future<void> init() async {
   sl.registerLazySingleton<OnBoardingRepository>(
       () => OnBoardingRepositoryImpl(onBoardingDataSource: sl()));
   sl.registerLazySingleton<OnBoardingLocalDataSource>(
-      () => OnBoardingLocalDataSourceImpl(auth: sl(), prefs: sl()));
+      () => OnBoardingLocalDataSourceImpl(auth: sl(), dao: sl()));
 
   final sharedPreferences = await SharedPreferences.getInstance();
   sl.registerLazySingleton(() => sharedPreferences);
