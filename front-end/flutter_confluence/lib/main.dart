@@ -20,8 +20,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   Hive.registerAdapter(CloudCertificationModelAdapter());
-  await Hive.openBox<CloudCertificationModel>(CertificationLocalDao.COMPLETED_CERTIFICATIONS);
-  await Hive.openBox<CloudCertificationModel>(CertificationLocalDao.IN_PROGRESS_CERTIFICATIONS);
   await Hive.openBox<int?>(BioAuthLocalDao.BOX_BIO_AUTH_TIME);
   await di.init();
   runApp(MyApp());

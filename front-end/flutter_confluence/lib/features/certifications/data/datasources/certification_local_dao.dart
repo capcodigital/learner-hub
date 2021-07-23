@@ -14,29 +14,43 @@ class CertificationLocalDao {
   static Box<CloudCertificationModel> getBoxInProgress() =>
       getBox(IN_PROGRESS_CERTIFICATIONS);
 
-  List<CloudCertificationModel> getCompleted() {
-    return getBoxCompleted().values.toList().cast<CloudCertificationModel>();
+  Future<List<CloudCertificationModel>> getCompleted() async {
+    final box = await Hive.openBox<CloudCertificationModel>(
+        CertificationLocalDao.COMPLETED_CERTIFICATIONS);
+    final values =
+        getBoxCompleted().values.toList().cast<CloudCertificationModel>();
+    box.close();
+    return values;
   }
 
-  List<CloudCertificationModel> getInProgress() {
-    return getBoxInProgress().values.toList().cast<CloudCertificationModel>();
+  Future<List<CloudCertificationModel>> getInProgress() async {
+    final box = await Hive.openBox<CloudCertificationModel>(
+        CertificationLocalDao.IN_PROGRESS_CERTIFICATIONS);
+    final values =
+        getBoxInProgress().values.toList().cast<CloudCertificationModel>();
+    box.close();
+    return values;
   }
 
-  saveCompleted(List<CloudCertificationModel> models) {
-    Box<CloudCertificationModel> box = getBoxCompleted();
+  saveCompleted(List<CloudCertificationModel> models) async {
+    final box = await Hive.openBox<CloudCertificationModel>(
+        CertificationLocalDao.COMPLETED_CERTIFICATIONS);
     box.clear();
     for (CloudCertificationModel model in models) {
       box.add(model);
     }
+    box.close();
     print("saveCompleted: " + models.join(", "));
   }
 
-  saveInProgress(List<CloudCertificationModel> models) {
-    Box<CloudCertificationModel> box = getBoxInProgress();
+  saveInProgress(List<CloudCertificationModel> models) async {
+    final box = await Hive.openBox<CloudCertificationModel>(
+        CertificationLocalDao.IN_PROGRESS_CERTIFICATIONS);
     box.clear();
     for (CloudCertificationModel model in models) {
       box.add(model);
     }
+    box.close();
     print("saveInProgress: " + models.join(", "));
   }
 }

@@ -21,17 +21,21 @@ class CloudCertificationLocalDataSourceImpl
   CloudCertificationLocalDataSourceImpl({required this.dao});
 
   @override
-  Future<List<CloudCertificationModel>> getCompletedCertifications() {
-    final items = dao.getCompleted();
-    if (items.isEmpty) throw CacheException();
-    return Future.value(items);
+  Future<List<CloudCertificationModel>> getCompletedCertifications() async {
+    final items = await dao.getCompleted();
+    if (items.isNotEmpty)
+      return items;
+    else
+      throw CacheException();
   }
 
   @override
-  Future<List<CloudCertificationModel>> getInProgressCertifications() {
-    final items = dao.getInProgress();
-    if (items.isEmpty) throw CacheException();
-    return Future.value(items);
+  Future<List<CloudCertificationModel>> getInProgressCertifications() async {
+    final items = await dao.getInProgress();
+    if (items.isNotEmpty)
+      return items;
+    else
+      throw CacheException();
   }
 
   @override

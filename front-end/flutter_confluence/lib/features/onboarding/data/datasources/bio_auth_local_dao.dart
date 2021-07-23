@@ -11,7 +11,9 @@ class BioAuthLocalDao {
   }
 
   saveLatestBioAuthTime(int latestBioAuthTime) {
+    Hive.openBox<int?>(BioAuthLocalDao.BOX_BIO_AUTH_TIME);
     Box<int?> box = getBoxBioAuthTime();
     box.put(LATEST_BIO_AUTH_TIME_MILLIS, latestBioAuthTime);
+    box.close();
   }
 }
