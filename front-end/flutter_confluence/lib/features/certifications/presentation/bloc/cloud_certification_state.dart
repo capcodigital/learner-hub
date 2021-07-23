@@ -24,16 +24,6 @@ class Loaded extends CloudCertificationState {
   List<Object> get props => [items, cloudCertificationType];
 }
 
-class LoadedSearch extends CloudCertificationState {
-  final List<CloudCertification> items;
-
-  LoadedSearch({required this.items, required cloudCertificationType})
-      : super(cloudCertificationType: cloudCertificationType);
-
-  @override
-  List<Object> get props => [items, cloudCertificationType];
-}
-
 class EmptySearchResult extends CloudCertificationState {
   final CloudCertificationType cloudCertificationType;
 

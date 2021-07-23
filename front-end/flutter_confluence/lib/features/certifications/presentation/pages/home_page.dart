@@ -32,16 +32,6 @@ class _HomePageState extends State<HomePage> {
   var disableSearchAndToggle = false;
   final TextEditingController searchController = TextEditingController();
 
-  late Box<CloudCertificationModel> boxCompleted;
-  late Box<CloudCertificationModel> boxInProgress;
-
-  @override
-  void initState() {
-    super.initState();
-    boxCompleted = CertificationLocalDao.getBoxCompleted();
-    boxInProgress = CertificationLocalDao.getBoxInProgress();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -161,15 +151,7 @@ class _HomePageState extends State<HomePage> {
           log("HOME PAGE - New State received: " +
               state.runtimeType.toString());
           if (state is Loaded) {
-            if (state.cloudCertificationType ==
-                CloudCertificationType.completed)
-              return listViewWithBox(boxCompleted);
-            else
-              return listViewWithBox(boxInProgress);
-          } else if (state is LoadedSearch) {
-            return Expanded(
-              child: CertificationsView(items: state.items),
-            );
+            return Expanded(child: CertificationsView(items: state.items));
           } else if (state is Loading)
             return Container(
                 margin: EdgeInsets.only(
@@ -192,21 +174,6 @@ class _HomePageState extends State<HomePage> {
           });
         })
       ],
-    );
-  }
-
-  Widget listViewWithBox(Box<CloudCertificationModel> box) {
-    return ValueListenableBuilder(
-      valueListenable: box.listenable(),
-      builder: (context, Box<CloudCertificationModel> box, _) {
-        List<CloudCertificationModel> items =
-            box.values.toList().cast<CloudCertificationModel>();
-        print("items: " + items.join(", "));
-        return Expanded(
-          child: CertificationsView(
-              items: items),
-        );
-      },
     );
   }
 }
