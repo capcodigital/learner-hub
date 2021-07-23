@@ -1,3 +1,4 @@
+import 'package:flutter_confluence/features/certifications/data/models/local_certification.dart';
 import 'package:flutter_confluence/features/certifications/domain/entities/cloud_certification.dart';
 
 class CloudCertificationModel extends CloudCertification {
@@ -24,6 +25,16 @@ class CloudCertificationModel extends CloudCertification {
       certificationName: json['certification'],
       date: json['date'],
     );
+
+  }
+
+  factory CloudCertificationModel.from(LocalCertification item) {
+    return CloudCertificationModel(
+      name: item.name,
+      platform: item.platform,
+      certificationName: item.certificationName,
+      date: item.date,
+    );
   }
 
   Map<String, dynamic> toJson() {
@@ -37,4 +48,13 @@ class CloudCertificationModel extends CloudCertification {
 
   @override
   List<Object?> get props => [name, platform, certificationName, date];
+
+  static List<CloudCertificationModel> toCloudCertificationModels(
+      List<LocalCertification> items) {
+    final List<CloudCertificationModel> list = List.empty(growable: true);
+    for (LocalCertification item in items) {
+      list.add(CloudCertificationModel.from(item));
+    }
+    return list;
+  }
 }

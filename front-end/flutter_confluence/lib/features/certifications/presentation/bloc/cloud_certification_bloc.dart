@@ -72,7 +72,7 @@ class CloudCertificationBloc
 
     yield Loading();
     final result = await searchUserCase(searchParameters);
-    yield* _getState(result, searchParameters.dataType, isSearch: true);
+    yield* _getState_2(result, searchParameters.dataType, isSearch: true);
   }
 
   String _mapFailureToMessage(Failure failure) {
@@ -85,4 +85,21 @@ class CloudCertificationBloc
         return Constants.UNKNOWN_ERROR_MSG;
     }
   }
+
+  Stream<CloudCertificationState> _getState_2(
+      Either<Failure, List<CloudCertification>> arg,
+      CloudCertificationType dataType,
+      {bool isSearch = false}) async* {
+    yield arg.fold(
+            (failure) => Error(
+            cloudCertificationType: dataType,
+            message: _mapFailureToMessage(failure)), (certifications) {
+      if (isSearch && certifications.isEmpty) {
+        return EmptySearchResult(cloudCertificationType: dataType);
+      } else {
+        return LoadedSearch(items: certifications, cloudCertificationType: dataType);
+      }
+    });
+  }
+
 }
