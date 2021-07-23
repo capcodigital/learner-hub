@@ -144,7 +144,7 @@ class _HomePageState extends State<HomePage> {
         ),
         BlocConsumer<CloudCertificationBloc, CloudCertificationState>(
             builder: (context, state) {
-          log("HOME PAGE - New State received: " + state.toString());
+          log("HOME PAGE - New State received: " + state.runtimeType.toString());
           if (state is Loaded) {
             return Expanded(child: CertificationsView(items: state.items));
           } else if (state is Loading)

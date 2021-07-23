@@ -5,6 +5,7 @@ import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
+import 'features/certifications/data/datasources/local_certification_dao.dart';
 import 'features/certifications/domain/usecases/search_certifications.dart';
 import 'features/onboarding/data/datasources/on_boarding_local_data_source.dart';
 import 'features/onboarding/domain/repositories/on_boarding_repository.dart';
@@ -40,8 +41,9 @@ Future<void> init() async {
     () => CloudCertificationRemoteDataSourceImpl(client: sl()),
   );
 
+  sl.registerLazySingleton(() => LocalCertificationDao());
   sl.registerLazySingleton<CloudCertificationLocalDataSource>(
-    () => CloudCertificationLocalDataSourceImpl(sharedPreferences: sl()),
+    () => CloudCertificationLocalDataSourceImpl(dao: sl()),
   );
 
   sl.registerLazySingleton<NetworkInfo>(
@@ -50,10 +52,8 @@ Future<void> init() async {
 
   sl.registerFactory(
       () => OnBoardingBloc(authUseCase: sl(), checkAuthUseCase: sl()));
-  sl.registerLazySingleton<AuthUseCase>(
-      () => AuthUseCase(sl()));
-  sl.registerLazySingleton<CheckAuthUseCase>(
-      () => CheckAuthUseCase(sl()));
+  sl.registerLazySingleton<AuthUseCase>(() => AuthUseCase(sl()));
+  sl.registerLazySingleton<CheckAuthUseCase>(() => CheckAuthUseCase(sl()));
   sl.registerLazySingleton<OnBoardingRepository>(
       () => OnBoardingRepositoryImpl(onBoardingDataSource: sl()));
   sl.registerLazySingleton<OnBoardingLocalDataSource>(

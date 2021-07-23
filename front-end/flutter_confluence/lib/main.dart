@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 import 'core/constants.dart';
+import 'features/certifications/data/datasources/local_certification_dao.dart';
+import 'features/certifications/data/models/local_certification.dart';
 import 'features/onboarding/presentation/bloc/on_boarding_bloc.dart';
 import 'features/onboarding/presentation/pages/on_boarding.dart';
 import 'features/certifications/presentation/pages/home_page.dart';
@@ -13,6 +17,10 @@ import 'injection_container.dart' as di;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  Hive.registerAdapter(LocalCertificationAdapter());
+  await Hive.openBox<LocalCertification>(LocalCertificationDao.COMPLETED_CERTIFICATIONS);
+  await Hive.openBox<LocalCertification>(LocalCertificationDao.IN_PROGRESS_CERTIFICATIONS);
   await di.init();
   runApp(MyApp());
 }

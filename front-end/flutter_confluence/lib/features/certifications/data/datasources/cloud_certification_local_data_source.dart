@@ -1,8 +1,5 @@
-import 'dart:convert';
-
-import 'package:flutter_confluence/core/error/custom_exceptions.dart';
+import 'package:flutter_confluence/features/certifications/data/datasources/local_certification_dao.dart';
 import 'package:flutter_confluence/features/certifications/data/models/cloud_certification_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class CloudCertificationLocalDataSource {
   Future<List<CloudCertificationModel>> getCompletedCertifications();
@@ -19,53 +16,30 @@ const IN_PROGRESS_CERTIFICATIONS_KEY = 'CACHED_IN_PROGRESS';
 
 class CloudCertificationLocalDataSourceImpl
     implements CloudCertificationLocalDataSource {
-  final SharedPreferences sharedPreferences;
-
-  CloudCertificationLocalDataSourceImpl({required this.sharedPreferences});
+  final LocalCertificationDao dao;
+  CloudCertificationLocalDataSourceImpl({required this.dao});
 
   @override
   Future<List<CloudCertificationModel>> getCompletedCertifications() {
-    final jsonString =
-        sharedPreferences.getString(COMPLETED_CERTIFICATIONS_KEY);
-    if (jsonString != null) {
-      var certifications = (json.decode(jsonString) as List)
-          .map((e) => CloudCertificationModel.fromJson(e))
-          .toList();
-      return Future.value(certifications);
-    } else {
-      throw CacheException();
-    }
+    final items = dao.getCompleted();
+    return Future.value(items);
   }
 
   @override
   Future<List<CloudCertificationModel>> getInProgressCertifications() {
-    final jsonString =
-        sharedPreferences.getString(IN_PROGRESS_CERTIFICATIONS_KEY);
-    if (jsonString != null) {
-      var certifications = (json.decode(jsonString) as List)
-          .map((e) => CloudCertificationModel.fromJson(e))
-          .toList();
-      return Future.value(certifications);
-    } else {
-      throw CacheException();
-    }
+    final items = dao.getInProgress();
+    return Future.value(items);
   }
 
   @override
   Future<void> saveCompletedCertifications(
       List<CloudCertificationModel> certifications) {
-    return sharedPreferences.setString(
-      COMPLETED_CERTIFICATIONS_KEY,
-      json.encode(certifications),
-    );
+    return Future.value(dao.cacheCompleted(certifications));
   }
 
   @override
   Future<void> saveInProgressCertifications(
       List<CloudCertificationModel> certifications) {
-    return sharedPreferences.setString(
-      IN_PROGRESS_CERTIFICATIONS_KEY,
-      json.encode(certifications),
-    );
+    return Future.value(dao.cacheInProgress(certifications));
   }
 }
