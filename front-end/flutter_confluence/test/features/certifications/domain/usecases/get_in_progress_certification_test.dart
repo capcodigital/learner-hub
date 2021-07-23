@@ -3,13 +3,12 @@ import 'package:flutter_confluence/core/usecases/usecase.dart';
 import 'package:flutter_confluence/features/certifications/domain/entities/cloud_certification.dart';
 import 'package:flutter_confluence/features/certifications/domain/repositories/cloud_certification_repository.dart';
 import 'package:flutter_confluence/features/certifications/domain/usecases/get_in_progress_certifications.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
 
-import 'get_completed_certification_test.mocks.dart';
+class MockCloudCertificationRepository extends Mock
+    implements CloudCertificationRepository {}
 
-@GenerateMocks([CloudCertificationRepository])
 void main() {
   late GetInProgressCertifications usecase;
   late MockCloudCertificationRepository mockCloudCertificationRepository;
@@ -30,13 +29,13 @@ void main() {
   test('should get in-progress cloud certifications from the repository',
       () async {
     // arrange
-    when(mockCloudCertificationRepository.getInProgressCertifications())
+    when(() => mockCloudCertificationRepository.getInProgressCertifications())
         .thenAnswer((_) async => Right(tCloudCertification));
     // act
     final result = await usecase(NoParams());
     // assert
     expect(result, Right(tCloudCertification));
-    verify(mockCloudCertificationRepository.getInProgressCertifications());
+    verify(() => mockCloudCertificationRepository.getInProgressCertifications());
     verifyNoMoreInteractions(mockCloudCertificationRepository);
   });
 }

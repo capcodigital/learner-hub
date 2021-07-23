@@ -27,7 +27,7 @@ void main() {
   testWidgets('OnBoarding Page should show expected widgets',
       (WidgetTester tester) async {
     // arrange
-    OnBoardingBloc mockBloc = MockOnBoardingBloc();
+    MockOnBoardingBloc mockBloc = MockOnBoardingBloc();
     whenListen(mockBloc, Stream.fromIterable([Empty()]), initialState: Empty());
 
     // act
