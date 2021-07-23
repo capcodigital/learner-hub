@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter_confluence/core/error/custom_exceptions.dart';
 import 'package:flutter_confluence/features/certifications/data/datasources/certification_local_dao.dart';
 import 'package:flutter_confluence/features/certifications/data/datasources/cloud_certification_local_data_source.dart';
 import 'package:flutter_confluence/features/certifications/data/models/cloud_certification_model.dart';
@@ -26,11 +27,9 @@ void main() {
 
     test(
         'should return a list of completed certifications from '
-            'LocalCertificationDao when there is one in te cache',
-        () async {
+        'LocalCertificationDao when there is one in te cache', () async {
       // arrange
-      when(() => mockDao.getCompleted())
-          .thenReturn(expectedResult);
+      when(() => mockDao.getCompleted()).thenReturn(expectedResult);
       // act
       final result = await dataSource.getCompletedCertifications();
       // assert
@@ -38,28 +37,25 @@ void main() {
       expect(result, equals(expectedResult));
     });
 
-    // TODO: Fix following Test
-/*
     test(
       'should throw a CacheException when there is not a cached value',
       () {
-        when(() => mockDao.getCompleted())
-            .thenReturn(null);
+        when(() => mockDao.getCompleted()).thenReturn(List.empty());
         expect(() async => await dataSource.getCompletedCertifications(),
             throwsA(TypeMatcher<CacheException>()));
       },
-    ); */
+    );
 
     test(
       'should call LocalCertificationDao to cache completed certifications',
       () async {
         // arrange
-        when(() => mockDao.cacheCompleted(any()))
+        when(() => mockDao.saveCompleted(any()))
             .thenAnswer((_) => Future.value(true));
         // act
         dataSource.saveCompletedCertifications(expectedResult);
         // assert
-        verify(() => mockDao.cacheCompleted(expectedResult)).called(1);
+        verify(() => mockDao.saveCompleted(expectedResult)).called(1);
       },
     );
   });
@@ -72,11 +68,9 @@ void main() {
 
     test(
         'should return a list of in progress certifications from '
-            'LocalCertificationDao when there is one in the cache',
-        () async {
+        'LocalCertificationDao when there is one in the cache', () async {
       // arrange
-      when(() => mockDao.getInProgress())
-          .thenReturn(expectedResult);
+      when(() => mockDao.getInProgress()).thenReturn(expectedResult);
       // act
       final result = await dataSource.getInProgressCertifications();
       // assert

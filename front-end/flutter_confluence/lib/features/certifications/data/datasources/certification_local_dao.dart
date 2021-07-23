@@ -16,16 +16,18 @@ class CertificationLocalDao {
     return toCloudCertificationModels(items);
   }
 
-  cacheCompleted(List<CloudCertificationModel> models) {
+  saveCompleted(List<CloudCertificationModel> models) {
     Box<LocalCertification> box = getBoxCompleted();
+    box.clear();
     for (CloudCertificationModel model in models) {
       final local = toLocalCertification(model);
       box.add(local);
     }
   }
 
-  cacheInProgress(List<CloudCertificationModel> models) {
+  saveInProgress(List<CloudCertificationModel> models) {
     Box<LocalCertification> box = getBoxInProgress();
+    box.clear();
     for (CloudCertificationModel model in models) {
       box.add(toLocalCertification(model));
     }
@@ -67,14 +69,5 @@ class CertificationLocalDao {
       ..platform = model.platform
       ..certificationName = model.certificationName
       ..date = model.date;
-  }
-
-  static List<LocalCertification> toLocalCertifications(
-      List<CloudCertificationModel> models) {
-    final List<LocalCertification> list = List.empty(growable: true);
-    for (CloudCertificationModel model in models) {
-      list.add(toLocalCertification(model));
-    }
-    return list;
   }
 }
