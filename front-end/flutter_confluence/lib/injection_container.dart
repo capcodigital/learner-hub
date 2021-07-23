@@ -2,7 +2,6 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter_confluence/features/onboarding/domain/usecases/check_auth_use_case.dart';
 import 'package:get_it/get_it.dart';
 import 'package:local_auth/local_auth.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 import 'features/certifications/data/datasources/certification_local_dao.dart';
@@ -59,8 +58,6 @@ Future<void> init() async {
   sl.registerLazySingleton<OnBoardingLocalDataSource>(
       () => OnBoardingLocalDataSourceImpl(auth: sl(), dao: sl()));
 
-  final sharedPreferences = await SharedPreferences.getInstance();
-  sl.registerLazySingleton(() => sharedPreferences);
   sl.registerLazySingleton(() => http.Client());
   sl.registerLazySingleton(() => Connectivity());
   sl.registerLazySingleton(() => LocalAuthentication());
