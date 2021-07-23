@@ -86,6 +86,7 @@ class CloudCertificationBloc
     }
   }
 
+  // TODO: Remove / refactor, used only for the search
   Stream<CloudCertificationState> _getState_2(
       Either<Failure, List<CloudCertification>> arg,
       CloudCertificationType dataType,

@@ -74,7 +74,4 @@ class Constants {
 
   static const NO_RESULTS = 'No results';
   static const UNKNOWN_ERROR = 'Unknown Error';
-
-  static const BOX_COMPLETED_CERTIFICATIONS = 'completed_certifications';
-  static const BOX_IN_PROGRESS_CERTIFICATIONS = 'in_progress_certifications';
 }

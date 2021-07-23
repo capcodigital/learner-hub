@@ -203,6 +203,7 @@ class _HomePageState extends State<HomePage> {
       builder: (context, Box<LocalCertification> box, _) {
         List<LocalCertification> items =
             box.values.toList().cast<LocalCertification>();
+        print("" + items.join(", "));
         return Expanded(
           child: CertificationsView(
               items: CloudCertificationModel.toCloudCertificationModels(items)),
