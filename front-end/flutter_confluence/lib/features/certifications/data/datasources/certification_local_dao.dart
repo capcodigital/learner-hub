@@ -2,19 +2,17 @@ import 'package:flutter_confluence/features/certifications/data/models/cloud_cer
 import 'package:flutter_confluence/features/certifications/data/models/local_certification.dart';
 import 'package:hive/hive.dart';
 
-class LocalCertificationDao {
+class CertificationLocalDao {
   static const COMPLETED_CERTIFICATIONS = 'completed_certifications';
   static const IN_PROGRESS_CERTIFICATIONS = 'in_progress_certifications';
 
   List<CloudCertificationModel> getCompleted() {
     final items = getLocalCertifications(getBoxCompleted());
-    print(items[0].name);
     return toCloudCertificationModels(items);
   }
 
   List<CloudCertificationModel> getInProgress() {
     final items = getLocalCertifications(getBoxInProgress());
-    print(items[0].name);
     return toCloudCertificationModels(items);
   }
 
@@ -79,5 +77,4 @@ class LocalCertificationDao {
     }
     return list;
   }
-
 }

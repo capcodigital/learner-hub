@@ -5,7 +5,7 @@ import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
-import 'features/certifications/data/datasources/local_certification_dao.dart';
+import 'features/certifications/data/datasources/certification_local_dao.dart';
 import 'features/certifications/domain/usecases/search_certifications.dart';
 import 'features/onboarding/data/datasources/bio_auth_local_dao.dart';
 import 'features/onboarding/data/datasources/on_boarding_local_data_source.dart';
@@ -30,7 +30,7 @@ Future<void> init() async {
   sl.registerLazySingleton(() => GetCompletedCertifications(sl()));
   sl.registerLazySingleton(() => GetInProgressCertifications(sl()));
   sl.registerLazySingleton(() => SearchCertifications(sl()));
-  sl.registerLazySingleton(() => LocalCertificationDao());
+  sl.registerLazySingleton(() => CertificationLocalDao());
   sl.registerLazySingleton(() => BioAuthLocalDao());
 
   sl.registerLazySingleton<CloudCertificationRepository>(

@@ -6,7 +6,7 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'core/constants.dart';
-import 'features/certifications/data/datasources/local_certification_dao.dart';
+import 'features/certifications/data/datasources/certification_local_dao.dart';
 import 'features/certifications/data/models/local_certification.dart';
 import 'features/onboarding/presentation/bloc/on_boarding_bloc.dart';
 import 'features/onboarding/presentation/pages/on_boarding.dart';
@@ -20,8 +20,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   Hive.registerAdapter(LocalCertificationAdapter());
-  await Hive.openBox<LocalCertification>(LocalCertificationDao.COMPLETED_CERTIFICATIONS);
-  await Hive.openBox<LocalCertification>(LocalCertificationDao.IN_PROGRESS_CERTIFICATIONS);
+  await Hive.openBox<LocalCertification>(CertificationLocalDao.COMPLETED_CERTIFICATIONS);
+  await Hive.openBox<LocalCertification>(CertificationLocalDao.IN_PROGRESS_CERTIFICATIONS);
   await Hive.openBox<int?>(BioAuthLocalDao.BOX_BIO_AUTH_TIME);
   await di.init();
   runApp(MyApp());

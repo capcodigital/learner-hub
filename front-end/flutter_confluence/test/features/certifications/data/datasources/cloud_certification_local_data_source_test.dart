@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:flutter_confluence/features/certifications/data/datasources/local_certification_dao.dart';
+import 'package:flutter_confluence/features/certifications/data/datasources/certification_local_dao.dart';
 import 'package:flutter_confluence/features/certifications/data/datasources/cloud_certification_local_data_source.dart';
 import 'package:flutter_confluence/features/certifications/data/models/cloud_certification_model.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -7,7 +7,7 @@ import 'package:mocktail/mocktail.dart';
 
 import '../../../../fixtures/FixtureReader.dart';
 
-class MockCertificationsDao extends Mock implements LocalCertificationDao {}
+class MockCertificationsDao extends Mock implements CertificationLocalDao {}
 
 void main() {
   late CloudCertificationLocalDataSourceImpl dataSource;

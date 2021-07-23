@@ -1,4 +1,4 @@
-import 'package:flutter_confluence/features/certifications/data/datasources/local_certification_dao.dart';
+import 'package:flutter_confluence/features/certifications/data/datasources/certification_local_dao.dart';
 import 'package:flutter_confluence/features/certifications/data/models/cloud_certification_model.dart';
 
 abstract class CloudCertificationLocalDataSource {
@@ -16,7 +16,7 @@ const IN_PROGRESS_CERTIFICATIONS_KEY = 'CACHED_IN_PROGRESS';
 
 class CloudCertificationLocalDataSourceImpl
     implements CloudCertificationLocalDataSource {
-  final LocalCertificationDao dao;
+  final CertificationLocalDao dao;
   CloudCertificationLocalDataSourceImpl({required this.dao});
 
   @override
