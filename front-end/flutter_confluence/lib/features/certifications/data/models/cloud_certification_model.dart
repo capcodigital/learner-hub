@@ -1,10 +1,17 @@
-import 'package:flutter_confluence/features/certifications/data/models/local_certification.dart';
 import 'package:flutter_confluence/features/certifications/domain/entities/cloud_certification.dart';
+import 'package:hive/hive.dart';
 
-class CloudCertificationModel extends CloudCertification {
+part 'cloud_certification_model.g.dart';
+
+@HiveType(typeId: 1)
+class CloudCertificationModel extends CloudCertification with HiveObjectMixin {
+  @HiveField(0)
   final String name;
+  @HiveField(1)
   final String platform;
+  @HiveField(2)
   final String certificationName;
+  @HiveField(3)
   final String date;
 
   CloudCertificationModel({
@@ -28,15 +35,6 @@ class CloudCertificationModel extends CloudCertification {
 
   }
 
-  factory CloudCertificationModel.from(LocalCertification item) {
-    return CloudCertificationModel(
-      name: item.name,
-      platform: item.platform,
-      certificationName: item.certificationName,
-      date: item.date,
-    );
-  }
-
   Map<String, dynamic> toJson() {
     return {
       'name': this.name,
@@ -48,13 +46,4 @@ class CloudCertificationModel extends CloudCertification {
 
   @override
   List<Object?> get props => [name, platform, certificationName, date];
-
-  static List<CloudCertificationModel> toCloudCertificationModels(
-      List<LocalCertification> items) {
-    final List<CloudCertificationModel> list = List.empty(growable: true);
-    for (LocalCertification item in items) {
-      list.add(CloudCertificationModel.from(item));
-    }
-    return list;
-  }
 }

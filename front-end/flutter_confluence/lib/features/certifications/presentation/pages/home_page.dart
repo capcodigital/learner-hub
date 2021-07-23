@@ -5,9 +5,7 @@ import 'package:flutter_confluence/core/dimen.dart';
 import 'package:flutter_confluence/core/utils/media_util.dart';
 import 'package:flutter_confluence/features/certifications/data/datasources/certification_local_dao.dart';
 import 'package:flutter_confluence/features/certifications/data/models/cloud_certification_model.dart';
-import 'package:flutter_confluence/features/certifications/data/models/local_certification.dart';
 import 'package:flutter_confluence/features/certifications/domain/entities/cloud_certification_type.dart';
-import 'package:flutter_confluence/features/certifications/presentation/widgets/list_row.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import '../../../../core/constants.dart';
@@ -34,8 +32,8 @@ class _HomePageState extends State<HomePage> {
   var disableSearchAndToggle = false;
   final TextEditingController searchController = TextEditingController();
 
-  late Box<LocalCertification> boxCompleted;
-  late Box<LocalCertification> boxInProgress;
+  late Box<CloudCertificationModel> boxCompleted;
+  late Box<CloudCertificationModel> boxInProgress;
 
   @override
   void initState() {
@@ -197,16 +195,16 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget listViewWithBox(Box<LocalCertification> box) {
+  Widget listViewWithBox(Box<CloudCertificationModel> box) {
     return ValueListenableBuilder(
       valueListenable: box.listenable(),
-      builder: (context, Box<LocalCertification> box, _) {
-        List<LocalCertification> items =
-            box.values.toList().cast<LocalCertification>();
-        print("" + items.join(", "));
+      builder: (context, Box<CloudCertificationModel> box, _) {
+        List<CloudCertificationModel> items =
+            box.values.toList().cast<CloudCertificationModel>();
+        print("items: " + items.join(", "));
         return Expanded(
           child: CertificationsView(
-              items: CloudCertificationModel.toCloudCertificationModels(items)),
+              items: items),
         );
       },
     );
