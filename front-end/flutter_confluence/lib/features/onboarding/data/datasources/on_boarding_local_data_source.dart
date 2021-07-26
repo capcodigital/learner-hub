@@ -1,12 +1,12 @@
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:flutter_confluence/core/error/custom_exceptions.dart';
 import 'package:flutter_confluence/core/utils/date_extensions.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:platform/platform.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
-import 'dart:io' show Platform;
+
 
 abstract class OnBoardingLocalDataSource {
   Future<bool> authenticate();
@@ -23,11 +23,12 @@ const USE_ERROR_DIALOGS = false;
 class OnBoardingLocalDataSourceImpl implements OnBoardingLocalDataSource {
   final LocalAuthentication auth;
   final SharedPreferences prefs;
+  final Platform platform;
 
   // Note that Platform.is is not supported for Flutter web. So we need to use the kIsWeb constant
-  final bool _isSupportedPlatform = !kIsWeb && (Platform.isIOS || Platform.isAndroid);
+  bool get _isSupportedPlatform { return !kIsWeb && (platform.isAndroid || platform.isIOS); }
 
-  OnBoardingLocalDataSourceImpl({required this.auth, required this.prefs});
+  OnBoardingLocalDataSourceImpl({required this.auth, required this.prefs, required this.platform});
 
   @override
   Future<bool> authenticate() async {
