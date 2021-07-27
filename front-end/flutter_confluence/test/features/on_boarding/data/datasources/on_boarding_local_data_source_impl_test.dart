@@ -1,11 +1,10 @@
+import 'package:flutter_confluence/core/device.dart';
 import 'package:flutter_confluence/core/utils/date_extensions.dart';
+import 'package:flutter_confluence/features/onboarding/data/datasources/on_boarding_local_data_source.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:local_auth/local_auth.dart';
-import 'package:platform/platform.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:mocktail/mocktail.dart';
-
-import 'package:flutter_confluence/features/onboarding/data/datasources/on_boarding_local_data_source.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MockSharedPreferences extends Mock
     implements SharedPreferences {}
@@ -13,25 +12,26 @@ class MockSharedPreferences extends Mock
 class MockLocalAuthentication extends Mock
     implements LocalAuthentication {}
 
-class MockPlatform extends Mock
-    implements Platform {}
+class MockDevice extends Mock
+    implements Device {}
 
 void main() {
   late OnBoardingLocalDataSource dataSource;
   late MockSharedPreferences mockPrefs;
   late MockLocalAuthentication mockAuth;
-  MockPlatform mockPlatform = MockPlatform(); // Not sure why this throws an error when is marked as late
+  late MockDevice mockDevice;
 
   setUp(() {
     mockPrefs = MockSharedPreferences();
     mockAuth = MockLocalAuthentication();
-    dataSource = OnBoardingLocalDataSourceImpl(auth: mockAuth, prefs: mockPrefs, platform: mockPlatform);
+    mockDevice = MockDevice();
+    dataSource = OnBoardingLocalDataSourceImpl(auth: mockAuth, prefs: mockPrefs, device: mockDevice);
   });
 
   group('authenticate', () {
-    
-    when(() => mockPlatform.isIOS).thenReturn(true);
-    when(() => mockPlatform.isAndroid).thenReturn(true);
+    setUp(() {
+      when(() => mockDevice.isMobile).thenReturn(true);
+    });
 
     void mockAuthenticateCall(bool result) {
       when(() => mockAuth.authenticate(

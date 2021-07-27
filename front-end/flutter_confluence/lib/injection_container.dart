@@ -1,4 +1,5 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter_confluence/core/device.dart';
 import 'package:flutter_confluence/features/onboarding/domain/usecases/check_auth_use_case.dart';
 import 'package:get_it/get_it.dart';
 import 'package:local_auth/local_auth.dart';
@@ -58,7 +59,7 @@ Future<void> init() async {
   sl.registerLazySingleton<OnBoardingRepository>(
       () => OnBoardingRepositoryImpl(onBoardingDataSource: sl()));
   sl.registerLazySingleton<OnBoardingLocalDataSource>(
-      () => OnBoardingLocalDataSourceImpl(auth: sl(), prefs: sl(), platform: sl()));
+      () => OnBoardingLocalDataSourceImpl(auth: sl(), prefs: sl(), device: sl()));
 
   final sharedPreferences = await SharedPreferences.getInstance();
   sl.registerLazySingleton(() => sharedPreferences);
@@ -66,4 +67,5 @@ Future<void> init() async {
   sl.registerLazySingleton(() => Connectivity());
   sl.registerLazySingleton(() => LocalAuthentication());
   sl.registerLazySingleton<Platform>(() => LocalPlatform());
+  sl.registerLazySingleton<Device>(() => DeviceImpl(platform: sl()));
 }
