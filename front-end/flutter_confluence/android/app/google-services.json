@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "604039122390",
+    "project_id": "io-capco-flutter-dev",
+    "storage_bucket": "io-capco-flutter-dev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:604039122390:android:1f9937d31a1fc6f713e877",
+        "android_client_info": {
+          "package_name": "com.example.flutter_confluence"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "604039122390-mucp45npjghes0kvfjori8uaq9edeb50.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrQ6RDr3dZMf9u7NdM_WrRn6QOryiT-xM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "604039122390-mucp45npjghes0kvfjori8uaq9edeb50.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "604039122390-uvdu31s3jgriprek0dq4cs0cdukfpf2l.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.flutterConfluence"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
