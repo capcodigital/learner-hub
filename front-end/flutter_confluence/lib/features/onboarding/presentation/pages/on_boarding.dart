@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'dart:io' show Platform;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
@@ -21,6 +22,8 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
       "See all your co-workers certifications within a swipe";
   static const msgAuthenticate = "Authenticate";
   static const msgAuthenticateNotSupported = "Continue";
+
+  bool get isAuthSupported => !kIsWeb && (Platform.isIOS || Platform.isAndroid);
 
   void authenticate(BuildContext context) {
     BlocProvider.of<OnBoardingBloc>(context).add(AuthEvent());
@@ -280,7 +283,7 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
             },
             child: Center(
               child: Text(
-                  kIsWeb ? msgAuthenticateNotSupported : msgAuthenticate,
+                  !isAuthSupported ? msgAuthenticateNotSupported : msgAuthenticate,
                   style: Theme.of(context)
                       .textTheme
                       .headline1
