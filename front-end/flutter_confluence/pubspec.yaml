@@ -42,6 +42,8 @@ dependencies:
   flutter_platform_widgets: ^1.9.5
   lottie: ^1.1.0
   mocktail: ^0.1.4
+  platform: ^3.0.0
+  firebase_core: "^1.4.0"
 
 dev_dependencies:
   flutter_test:

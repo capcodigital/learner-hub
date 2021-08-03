@@ -135,6 +135,23 @@ jobs:
           command: firebase deploy --token $FIREBASE_TOKEN
           working_directory: ~/project/front-end/flutter_confluence
 
+  deploy:
+    docker:
+      - image: "cirrusci/flutter:2.2.3"
+    steps:
+      - checkout
+      - run:
+          name: Build web app
+          command: flutter build web
+          working_directory: ~/project/front-end/flutter_confluence
+      - run:
+          name: Install Firebase Tools
+          command: curl -sL firebase.tools | bash
+      - run:
+          name: Deploy website to Firebase
+          command: firebase deploy --token $FIREBASE_TOKEN
+          working_directory: ~/project/front-end/flutter_confluence
+
 workflows:
   version: 2
   commit:
