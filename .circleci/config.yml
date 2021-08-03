@@ -72,6 +72,14 @@ jobs:
           root: ~/tmp/workspace
           paths:
             - web
+      - run:
+          name: copy backend
+          command: cp -r . ~/tmp/workspace
+          working_directory: ~/project/back-end
+      - persist_to_workspace:
+          root: ~/tmp/workspace
+          paths:
+            - backend
 
   upload:
     docker:
@@ -95,6 +103,13 @@ jobs:
       - run:
           name: upload web app to gcs
           command: gsutil cp -r ~/tmp/workspace/web gs://${GOOGLE_PROJECT}-build
+      - run:
+          name: upload backend server
+          command: gcloud app deploy ~/tmp/workspace/backend/app.yaml
+
+
+
+
 
   deploy:
     docker:
