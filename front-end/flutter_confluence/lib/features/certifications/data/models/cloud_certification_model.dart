@@ -1,9 +1,17 @@
 import 'package:flutter_confluence/features/certifications/domain/entities/cloud_certification.dart';
+import 'package:hive/hive.dart';
 
-class CloudCertificationModel extends CloudCertification {
+part 'cloud_certification_model.g.dart';
+
+@HiveType(typeId: 1)
+class CloudCertificationModel extends CloudCertification with HiveObjectMixin {
+  @HiveField(0)
   final String name;
+  @HiveField(1)
   final String platform;
+  @HiveField(2)
   final String certificationName;
+  @HiveField(3)
   final String date;
 
   CloudCertificationModel({

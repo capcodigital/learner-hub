@@ -2,18 +2,21 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
-
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'core/constants.dart';
+import 'features/certifications/data/models/cloud_certification_model.dart';
 import 'features/onboarding/presentation/bloc/on_boarding_bloc.dart';
 import 'features/onboarding/presentation/pages/on_boarding.dart';
 import 'features/certifications/presentation/pages/home_page.dart';
 import 'features/certifications/presentation/bloc/cloud_certification_bloc.dart';
-
 import 'injection_container.dart';
 import 'injection_container.dart' as di;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  Hive.registerAdapter(CloudCertificationModelAdapter());
   await Firebase.initializeApp();
   await di.init();
   runApp(MyApp());

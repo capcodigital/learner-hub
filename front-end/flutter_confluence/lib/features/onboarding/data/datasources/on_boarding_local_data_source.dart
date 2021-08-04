@@ -4,7 +4,9 @@ import 'package:flutter_confluence/core/device.dart';
 import 'package:flutter_confluence/core/error/custom_exceptions.dart';
 import 'package:flutter_confluence/core/utils/date_extensions.dart';
 import 'package:local_auth/local_auth.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
+
+import 'bio_auth_hive_helper.dart';
 
 abstract class OnBoardingLocalDataSource {
   Future<bool> authenticate();
@@ -20,13 +22,13 @@ const USE_ERROR_DIALOGS = false;
 
 class OnBoardingLocalDataSourceImpl implements OnBoardingLocalDataSource {
   final LocalAuthentication auth;
-  final SharedPreferences prefs;
+  final BioAuthHiveHelper authHiveHelper;
   final Device device;
 
   // Note that Platform.is is not supported for Flutter web. So we need to use the kIsWeb constant
   bool get _isSupportedPlatform { return device.isMobile; }
 
-  OnBoardingLocalDataSourceImpl({required this.auth, required this.prefs, required this.device});
+  OnBoardingLocalDataSourceImpl({required this.auth, required this.authHiveHelper, required this.device});
 
   @override
   Future<bool> authenticate() async {
@@ -45,13 +47,12 @@ class OnBoardingLocalDataSourceImpl implements OnBoardingLocalDataSource {
 
   @override
   Future<void> saveAuthTimeStamp() {
-    return prefs.setInt(PREF_LAST_BIOMETRIC_AUTH_TIME_MILLIS,
-        CustomizableDateTime.current.millisecondsSinceEpoch);
+    return authHiveHelper.save(CustomizableDateTime.current.millisecondsSinceEpoch);
   }
 
   @override
-  Future<bool> checkCachedAuth() {
-    int? lastAuthTime = prefs.getInt(PREF_LAST_BIOMETRIC_AUTH_TIME_MILLIS);
+  Future<bool> checkCachedAuth() async {
+    int? lastAuthTime = await authHiveHelper.getLatestBioAuthTime();
     if (lastAuthTime != null) {
       final now = CustomizableDateTime.current;
       final lastAuthDate = DateTime.fromMillisecondsSinceEpoch(lastAuthTime);

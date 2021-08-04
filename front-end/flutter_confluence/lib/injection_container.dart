@@ -4,10 +4,11 @@ import 'package:flutter_confluence/features/onboarding/domain/usecases/check_aut
 import 'package:get_it/get_it.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:platform/platform.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
+import 'features/certifications/data/datasources/certification_hive_helper.dart';
 import 'features/certifications/domain/usecases/search_certifications.dart';
+import 'features/onboarding/data/datasources/bio_auth_hive_helper.dart';
 import 'features/onboarding/data/datasources/on_boarding_local_data_source.dart';
 import 'features/onboarding/domain/repositories/on_boarding_repository.dart';
 import 'features/certifications/data/repositories/cloud_certifications_repository_impl.dart';
@@ -27,11 +28,11 @@ final sl = GetIt.instance;
 Future<void> init() async {
   sl.registerFactory(() => CloudCertificationBloc(
       completedUseCase: sl(), inProgressUseCase: sl(), searchUserCase: sl()));
-
   sl.registerLazySingleton(() => GetCompletedCertifications(sl()));
-
   sl.registerLazySingleton(() => GetInProgressCertifications(sl()));
   sl.registerLazySingleton(() => SearchCertifications(sl()));
+  sl.registerLazySingleton(() => CertificationHiveHelper());
+  sl.registerLazySingleton(() => BioAuthHiveHelper());
 
   sl.registerLazySingleton<CloudCertificationRepository>(
     () => CloudCertificationsRepositoryImpl(
@@ -43,7 +44,7 @@ Future<void> init() async {
   );
 
   sl.registerLazySingleton<CloudCertificationLocalDataSource>(
-    () => CloudCertificationLocalDataSourceImpl(sharedPreferences: sl()),
+    () => CloudCertificationLocalDataSourceImpl(hiveHelper: sl()),
   );
 
   sl.registerLazySingleton<NetworkInfo>(
@@ -52,17 +53,13 @@ Future<void> init() async {
 
   sl.registerFactory(
       () => OnBoardingBloc(authUseCase: sl(), checkAuthUseCase: sl()));
-  sl.registerLazySingleton<AuthUseCase>(
-      () => AuthUseCase(sl()));
-  sl.registerLazySingleton<CheckAuthUseCase>(
-      () => CheckAuthUseCase(sl()));
+  sl.registerLazySingleton<AuthUseCase>(() => AuthUseCase(sl()));
+  sl.registerLazySingleton<CheckAuthUseCase>(() => CheckAuthUseCase(sl()));
   sl.registerLazySingleton<OnBoardingRepository>(
       () => OnBoardingRepositoryImpl(onBoardingDataSource: sl()));
   sl.registerLazySingleton<OnBoardingLocalDataSource>(
-      () => OnBoardingLocalDataSourceImpl(auth: sl(), prefs: sl(), device: sl()));
+      () => OnBoardingLocalDataSourceImpl(auth: sl(), authHiveHelper: sl(), device:sl()));
 
-  final sharedPreferences = await SharedPreferences.getInstance();
-  sl.registerLazySingleton(() => sharedPreferences);
   sl.registerLazySingleton(() => http.Client());
   sl.registerLazySingleton(() => Connectivity());
   sl.registerLazySingleton(() => LocalAuthentication());
