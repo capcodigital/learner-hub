@@ -6,14 +6,14 @@ class CertificationHiveHelper {
   static const BOX_IN_PROGRESS_CERTIFICATIONS = 'in_progress_certifications';
 
   Future<List<CloudCertificationModel>> getCompleted() async {
-    return getCachedCertifications(BOX_COMPLETED_CERTIFICATIONS);
+    return _getCachedCertifications(BOX_COMPLETED_CERTIFICATIONS);
   }
 
   Future<List<CloudCertificationModel>> getInProgress() async {
-    return getCachedCertifications(BOX_IN_PROGRESS_CERTIFICATIONS);
+    return _getCachedCertifications(BOX_IN_PROGRESS_CERTIFICATIONS);
   }
 
-  Future<List<CloudCertificationModel>> getCachedCertifications(
+  Future<List<CloudCertificationModel>> _getCachedCertifications(
       String boxName) async {
     final box = await Hive.openBox<CloudCertificationModel>(boxName);
     final values = box.values.toList().cast<CloudCertificationModel>();
@@ -22,14 +22,14 @@ class CertificationHiveHelper {
   }
 
   saveCompleted(List<CloudCertificationModel> models) async {
-    save(BOX_COMPLETED_CERTIFICATIONS, models);
+    _save(BOX_COMPLETED_CERTIFICATIONS, models);
   }
 
   saveInProgress(List<CloudCertificationModel> models) async {
-    save(BOX_IN_PROGRESS_CERTIFICATIONS, models);
+    _save(BOX_IN_PROGRESS_CERTIFICATIONS, models);
   }
 
-  save(String boxName, List<CloudCertificationModel> models) async {
+  _save(String boxName, List<CloudCertificationModel> models) async {
     final box = await Hive.openBox<CloudCertificationModel>(boxName);
     box.clear();
     for (CloudCertificationModel model in models) {
