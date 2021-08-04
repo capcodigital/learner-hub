@@ -29,7 +29,8 @@ void main() {
         'should return a list of completed certifications from '
         'LocalCertificationDao when there is one in te cache', () async {
       // arrange
-      when(() => mockDao.getCompleted()).thenReturn(expectedResult);
+      when(() => mockDao.getCompleted())
+          .thenAnswer((_) => Future.value(expectedResult));
       // act
       final result = await dataSource.getCompletedCertifications();
       // assert
@@ -40,7 +41,8 @@ void main() {
     test(
       'should throw a CacheException when there is not a cached value',
       () {
-        when(() => mockDao.getCompleted()).thenReturn(List.empty());
+        when(() => mockDao.getCompleted())
+            .thenAnswer((_) => Future.value(List.empty()));
         expect(() async => await dataSource.getCompletedCertifications(),
             throwsA(TypeMatcher<CacheException>()));
       },
@@ -70,7 +72,8 @@ void main() {
         'should return a list of in progress certifications from '
         'LocalCertificationDao when there is one in the cache', () async {
       // arrange
-      when(() => mockDao.getInProgress()).thenReturn(expectedResult);
+      when(() => mockDao.getInProgress())
+          .thenAnswer((_) => Future.value(expectedResult));
       // act
       final result = await dataSource.getInProgressCertifications();
       // assert
