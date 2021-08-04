@@ -1,2 +1,5 @@
 runtime: python39
 entrypoint: uvicorn data_api:app --port 80
+network:
+  forwarded_ports:
+    - 80/tcp
