@@ -3,11 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_confluence/core/dimen.dart';
 import 'package:flutter_confluence/core/utils/media_util.dart';
-import 'package:flutter_confluence/features/certifications/data/datasources/certification_hive_helper.dart';
-import 'package:flutter_confluence/features/certifications/data/models/cloud_certification_model.dart';
-import 'package:flutter_confluence/features/certifications/domain/entities/cloud_certification_type.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import '../../../../core/constants.dart';
 import 'error_page.dart';
 import '../widgets/empty_search.dart';
@@ -148,7 +144,7 @@ class _HomePageState extends State<HomePage> {
         ),
         BlocConsumer<CloudCertificationBloc, CloudCertificationState>(
             builder: (context, state) {
-          log("HOME PAGE - New State received: " + state.runtimeType.toString());
+          log("HOME PAGE - New State received: " + state.toString());
           if (state is Loaded) {
             return Expanded(child: CertificationsView(items: state.items));
           } else if (state is Loading)
