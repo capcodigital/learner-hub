@@ -5,7 +5,7 @@ import 'package:flutter_confluence/core/utils/date_extensions.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
-import 'bio_auth_local_dao.dart';
+import 'bio_auth_hive_helper.dart';
 
 abstract class OnBoardingLocalDataSource {
   Future<bool> authenticate();
@@ -21,12 +21,12 @@ const USE_ERROR_DIALOGS = false;
 
 class OnBoardingLocalDataSourceImpl implements OnBoardingLocalDataSource {
   final LocalAuthentication auth;
-  final BioAuthLocalDao dao;
+  final BioAuthHiveHelper authHiveHelper;
 
   // Note that Platform.is is not supported for Flutter web. So we need to use the kIsWeb constant
   final bool _isSupportedPlatform = !kIsWeb;
 
-  OnBoardingLocalDataSourceImpl({required this.auth, required this.dao});
+  OnBoardingLocalDataSourceImpl({required this.auth, required this.authHiveHelper});
 
   @override
   Future<bool> authenticate() async {
@@ -44,13 +44,12 @@ class OnBoardingLocalDataSourceImpl implements OnBoardingLocalDataSource {
 
   @override
   Future<void> saveAuthTimeStamp() {
-    return Future.value(dao.saveLatestBioAuthTime(
-        CustomizableDateTime.current.millisecondsSinceEpoch));
+    return authHiveHelper.save(CustomizableDateTime.current.millisecondsSinceEpoch);
   }
 
   @override
-  Future<bool> checkCachedAuth() {
-    int? lastAuthTime = dao.getLatestBioAuthTime();
+  Future<bool> checkCachedAuth() async {
+    int? lastAuthTime = await authHiveHelper.getLatestBioAuthTime();
     if (lastAuthTime != null) {
       final now = CustomizableDateTime.current;
       final lastAuthDate = DateTime.fromMillisecondsSinceEpoch(lastAuthTime);

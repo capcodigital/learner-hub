@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_confluence/features/onboarding/data/datasources/bio_auth_local_dao.dart';
+import 'package:flutter_confluence/features/onboarding/data/datasources/bio_auth_hive_helper.dart';
 import 'package:lottie/lottie.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -20,7 +20,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   Hive.registerAdapter(CloudCertificationModelAdapter());
-  await Hive.openBox<int?>(BioAuthLocalDao.BOX_BIO_AUTH_TIME);
+  await Hive.openBox<int?>(BioAuthHiveHelper.BOX_BIO_AUTH_TIME);
   await di.init();
   runApp(MyApp());
 }

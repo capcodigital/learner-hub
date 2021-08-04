@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 
 import 'features/certifications/data/datasources/certification_hive_helper.dart';
 import 'features/certifications/domain/usecases/search_certifications.dart';
-import 'features/onboarding/data/datasources/bio_auth_local_dao.dart';
+import 'features/onboarding/data/datasources/bio_auth_hive_helper.dart';
 import 'features/onboarding/data/datasources/on_boarding_local_data_source.dart';
 import 'features/onboarding/domain/repositories/on_boarding_repository.dart';
 import 'features/certifications/data/repositories/cloud_certifications_repository_impl.dart';
@@ -30,7 +30,7 @@ Future<void> init() async {
   sl.registerLazySingleton(() => GetInProgressCertifications(sl()));
   sl.registerLazySingleton(() => SearchCertifications(sl()));
   sl.registerLazySingleton(() => CertificationHiveHelper());
-  sl.registerLazySingleton(() => BioAuthLocalDao());
+  sl.registerLazySingleton(() => BioAuthHiveHelper());
 
   sl.registerLazySingleton<CloudCertificationRepository>(
     () => CloudCertificationsRepositoryImpl(
@@ -56,7 +56,7 @@ Future<void> init() async {
   sl.registerLazySingleton<OnBoardingRepository>(
       () => OnBoardingRepositoryImpl(onBoardingDataSource: sl()));
   sl.registerLazySingleton<OnBoardingLocalDataSource>(
-      () => OnBoardingLocalDataSourceImpl(auth: sl(), dao: sl()));
+      () => OnBoardingLocalDataSourceImpl(auth: sl(), authHiveHelper: sl()));
 
   sl.registerLazySingleton(() => http.Client());
   sl.registerLazySingleton(() => Connectivity());
