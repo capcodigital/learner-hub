@@ -27,7 +27,7 @@ void main() {
 
     test(
         'should return a list of completed certifications from '
-        'LocalCertificationDao when there is one in te cache', () async {
+        'cache when there is one in te cache', () async {
       // arrange
       when(() => mockHiveHelper.getCompleted())
           .thenAnswer((_) => Future.value(expectedResult));
@@ -49,7 +49,7 @@ void main() {
     );
 
     test(
-      'should call LocalCertificationDao to cache completed certifications',
+      'should call hiveHelper to cache completed certifications',
       () async {
         // arrange
         when(() => mockHiveHelper.saveCompleted(any()))
@@ -70,7 +70,7 @@ void main() {
 
     test(
         'should return a list of in progress certifications from '
-        'LocalCertificationDao when there is one in the cache', () async {
+        'cache when there is one in the cache', () async {
       // arrange
       when(() => mockHiveHelper.getInProgress())
           .thenAnswer((_) => Future.value(expectedResult));
