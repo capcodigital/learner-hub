@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_confluence/core/dimen.dart';
 import 'package:flutter_confluence/core/utils/media_util.dart';
-import 'package:flutter_confluence/features/certifications/data/datasources/certification_local_dao.dart';
+import 'package:flutter_confluence/features/certifications/data/datasources/certification_hive_helper.dart';
 import 'package:flutter_confluence/features/certifications/data/models/cloud_certification_model.dart';
 import 'package:flutter_confluence/features/certifications/domain/entities/cloud_certification_type.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';

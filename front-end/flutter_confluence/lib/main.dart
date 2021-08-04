@@ -6,7 +6,7 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'core/constants.dart';
-import 'features/certifications/data/datasources/certification_local_dao.dart';
+import 'features/certifications/data/datasources/certification_hive_helper.dart';
 import 'features/certifications/data/models/cloud_certification_model.dart';
 import 'features/onboarding/presentation/bloc/on_boarding_bloc.dart';
 import 'features/onboarding/presentation/pages/on_boarding.dart';
