@@ -32,7 +32,6 @@ class CloudCertificationModel extends CloudCertification with HiveObjectMixin {
       certificationName: json['certification'],
       date: json['date'],
     );
-
   }
 
   Map<String, dynamic> toJson() {

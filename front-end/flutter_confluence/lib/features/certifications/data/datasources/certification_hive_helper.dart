@@ -18,7 +18,6 @@ class CertificationHiveHelper {
     final box = await Hive.openBox<CloudCertificationModel>(boxName);
     final values = box.values.toList().cast<CloudCertificationModel>();
     box.close();
-    print(boxName + values.join(", "));
     return values;
   }
 
