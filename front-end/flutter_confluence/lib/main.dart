@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_confluence/features/onboarding/data/datasources/bio_auth_hive_helper.dart';
 import 'package:lottie/lottie.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-
 import 'core/constants.dart';
-import 'features/certifications/data/datasources/certification_hive_helper.dart';
 import 'features/certifications/data/models/cloud_certification_model.dart';
 import 'features/onboarding/presentation/bloc/on_boarding_bloc.dart';
 import 'features/onboarding/presentation/pages/on_boarding.dart';
 import 'features/certifications/presentation/pages/home_page.dart';
 import 'features/certifications/presentation/bloc/cloud_certification_bloc.dart';
-
 import 'injection_container.dart';
 import 'injection_container.dart' as di;
 
@@ -20,7 +16,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   Hive.registerAdapter(CloudCertificationModelAdapter());
-  await Hive.openBox<int?>(BioAuthHiveHelper.BOX_BIO_AUTH_TIME);
   await di.init();
   runApp(MyApp());
 }
