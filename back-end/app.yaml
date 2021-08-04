@@ -1,2 +1,2 @@
 runtime: python39
-entrypoint: gunicorn -w 4 -k uvicorn.workers.UvicornWorker data_api:app
+entrypoint: gunicorn data_api:app
