@@ -1,5 +1,7 @@
+import 'package:flutter_confluence/core/device.dart';
 import 'package:flutter_confluence/core/utils/date_extensions.dart';
 import 'package:flutter_confluence/features/onboarding/data/datasources/bio_auth_hive_helper.dart';
+import 'package:flutter_confluence/features/onboarding/data/datasources/on_boarding_local_data_source.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:mocktail/mocktail.dart';
@@ -9,35 +11,45 @@ class MockBioAuthHiveHelper extends Mock implements BioAuthHiveHelper {}
 
 class MockLocalAuthentication extends Mock implements LocalAuthentication {}
 
+class MockDevice extends Mock implements Device {}
+
 void main() {
   late OnBoardingLocalDataSource dataSource;
   late MockBioAuthHiveHelper mockHiveHelper;
   late MockLocalAuthentication mockAuth;
+  late MockDevice mockDevice;
 
   setUp(() {
     mockHiveHelper = MockBioAuthHiveHelper();
     mockAuth = MockLocalAuthentication();
+    mockDevice = MockDevice();
     dataSource = OnBoardingLocalDataSourceImpl(
-        auth: mockAuth, authHiveHelper: mockHiveHelper);
+        auth: mockAuth, authHiveHelper: mockHiveHelper, device: mockDevice);
   });
 
   group('authenticate', () {
+    setUp(() {
+      when(() => mockDevice.isMobile).thenReturn(true);
+    });
+
     void mockAuthenticateCall(bool result) {
       when(() => mockAuth.authenticate(
-          localizedReason: AUTH_REASON,
-          biometricOnly: BIOMETRIC_AUTH_ONLY,
-          stickyAuth: true,
-          useErrorDialogs: false)).thenAnswer((_) async {
+              localizedReason: AUTH_REASON,
+              biometricOnly: BIOMETRIC_AUTH_ONLY,
+              stickyAuth: true,
+              useErrorDialogs: false))
+          .thenAnswer((_) async {
         return result;
       });
     }
 
     void verifyAuthCallDone() {
       verify(() => mockAuth.authenticate(
-          localizedReason: AUTH_REASON,
-          biometricOnly: BIOMETRIC_AUTH_ONLY,
-          stickyAuth: STICKY_AUTH,
-          useErrorDialogs: USE_ERROR_DIALOGS)).called(1);
+              localizedReason: AUTH_REASON,
+              biometricOnly: BIOMETRIC_AUTH_ONLY,
+              stickyAuth: STICKY_AUTH,
+              useErrorDialogs: USE_ERROR_DIALOGS))
+          .called(1);
     }
 
     test(

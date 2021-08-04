@@ -53,7 +53,7 @@ jobs:
       - run:
           name: copy
           command: |
-            mkdir mkdir -p ~/tmp/workspace/android
+            mkdir -p ~/tmp/workspace/android
             cp build/app/outputs/apk/release/*.apk ~/tmp/workspace/android
           working_directory: ~/project/front-end/flutter_confluence
       - persist_to_workspace:
@@ -72,6 +72,20 @@ jobs:
           root: ~/tmp/workspace
           paths:
             - web
+      - run:
+          name: Create .env file
+          command: |
+            echo "API_TOKEN='${CONFLUENCE_API_TOKEN}'" >> .env
+            echo "USERNAME='${CONFLUENCE_USERNAME}'" >> .env
+          working_directory: ~/project/back-end
+      - run:
+          name: copy backend
+          command: cp -r back-end ~/tmp/workspace/backend
+          working_directory: ~/project
+      - persist_to_workspace:
+          root: ~/tmp/workspace
+          paths:
+            - backend
 
   upload:
     docker:
@@ -95,6 +109,29 @@ jobs:
       - run:
           name: upload web app to gcs
           command: gsutil cp -r ~/tmp/workspace/web gs://${GOOGLE_PROJECT}-build
+      - run:
+          name: upload backend to gcs
+          command: gsutil cp -r ~/tmp/workspace/backend gs://${GOOGLE_PROJECT}-build
+      - run:
+          name: upload backend server
+          command: gcloud app deploy ~/tmp/workspace/backend/app.yaml
+
+  deploy:
+    docker:
+      - image: "cirrusci/flutter:2.2.3"
+    steps:
+      - checkout
+      - run:
+          name: Build web app
+          command: flutter build web
+          working_directory: ~/project/front-end/flutter_confluence
+      - run:
+          name: Install Firebase Tools
+          command: curl -sL firebase.tools | bash
+      - run:
+          name: Deploy website to Firebase
+          command: firebase deploy --token $FIREBASE_TOKEN
+          working_directory: ~/project/front-end/flutter_confluence
 
 workflows:
   version: 2
@@ -119,6 +156,13 @@ workflows:
           requires:
             - build
             - infra
+          filters:
+            branches:
+              only:
+                - main
+      - deploy:
+          requires:
+            - build
           filters:
             branches:
               only:
