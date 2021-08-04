@@ -110,6 +110,9 @@ jobs:
           name: upload web app to gcs
           command: gsutil cp -r ~/tmp/workspace/web gs://${GOOGLE_PROJECT}-build
       - run:
+          name: upload backend to gcs
+          command: gsutil cp -r ~/tmp/workspace/backend gs://${GOOGLE_PROJECT}-build
+      - run:
           name: upload backend server
           command: gcloud app deploy ~/tmp/workspace/backend/app.yaml
 
