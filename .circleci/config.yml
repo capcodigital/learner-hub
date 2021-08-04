@@ -73,6 +73,12 @@ jobs:
           paths:
             - web
       - run:
+          name: Create .env file
+          command: |
+            echo "API_TOKEN='${CONFLUENCE_API_TOKEN}'" >> .env
+            echo "USERNAME='${CONFLUENCE_USERNAME}'" >> .env
+          working_directory: ~/project/back-end
+      - run:
           name: copy backend
           command: cp -r back-end ~/tmp/workspace/backend
           working_directory: ~/project
