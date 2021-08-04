@@ -114,7 +114,8 @@ jobs:
           command: gsutil cp -r ~/tmp/workspace/backend gs://${GOOGLE_PROJECT}-build
       - run:
           name: upload backend server
-          command: gcloud app deploy ~/tmp/workspace/backend/app.yaml
+          command: gcloud app deploy
+          working_directory: ~/tmp/workspace/backend
 
   deploy:
     docker:
