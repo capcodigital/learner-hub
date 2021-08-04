@@ -104,7 +104,7 @@ class CloudCertificationsRepositoryImpl
       } else {
         return Right(certifications);
       }
-    } on Exception catch (e) {
+    } on Exception {
       return Left(CacheFailure());
     }
   }
