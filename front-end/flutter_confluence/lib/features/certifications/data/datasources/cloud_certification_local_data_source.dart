@@ -1,8 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter_confluence/core/error/custom_exceptions.dart';
+import 'package:flutter_confluence/features/certifications/data/datasources/certification_hive_helper.dart';
 import 'package:flutter_confluence/features/certifications/data/models/cloud_certification_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class CloudCertificationLocalDataSource {
   Future<List<CloudCertificationModel>> getCompletedCertifications();
@@ -19,53 +17,36 @@ const IN_PROGRESS_CERTIFICATIONS_KEY = 'CACHED_IN_PROGRESS';
 
 class CloudCertificationLocalDataSourceImpl
     implements CloudCertificationLocalDataSource {
-  final SharedPreferences sharedPreferences;
-
-  CloudCertificationLocalDataSourceImpl({required this.sharedPreferences});
+  final CertificationHiveHelper hiveHelper;
+  CloudCertificationLocalDataSourceImpl({required this.hiveHelper});
 
   @override
-  Future<List<CloudCertificationModel>> getCompletedCertifications() {
-    final jsonString =
-        sharedPreferences.getString(COMPLETED_CERTIFICATIONS_KEY);
-    if (jsonString != null) {
-      var certifications = (json.decode(jsonString) as List)
-          .map((e) => CloudCertificationModel.fromJson(e))
-          .toList();
-      return Future.value(certifications);
-    } else {
+  Future<List<CloudCertificationModel>> getCompletedCertifications() async {
+    final items = await hiveHelper.getCompleted();
+    if (items.isNotEmpty)
+      return items;
+    else
       throw CacheException();
-    }
   }
 
   @override
-  Future<List<CloudCertificationModel>> getInProgressCertifications() {
-    final jsonString =
-        sharedPreferences.getString(IN_PROGRESS_CERTIFICATIONS_KEY);
-    if (jsonString != null) {
-      var certifications = (json.decode(jsonString) as List)
-          .map((e) => CloudCertificationModel.fromJson(e))
-          .toList();
-      return Future.value(certifications);
-    } else {
+  Future<List<CloudCertificationModel>> getInProgressCertifications() async {
+    final items = await hiveHelper.getInProgress();
+    if (items.isNotEmpty)
+      return items;
+    else
       throw CacheException();
-    }
   }
 
   @override
   Future<void> saveCompletedCertifications(
       List<CloudCertificationModel> certifications) {
-    return sharedPreferences.setString(
-      COMPLETED_CERTIFICATIONS_KEY,
-      json.encode(certifications),
-    );
+    return Future.value(hiveHelper.saveCompleted(certifications));
   }
 
   @override
   Future<void> saveInProgressCertifications(
       List<CloudCertificationModel> certifications) {
-    return sharedPreferences.setString(
-      IN_PROGRESS_CERTIFICATIONS_KEY,
-      json.encode(certifications),
-    );
+    return Future.value(hiveHelper.saveInProgress(certifications));
   }
 }
