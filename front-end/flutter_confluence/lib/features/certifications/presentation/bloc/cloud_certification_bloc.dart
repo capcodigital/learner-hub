@@ -85,5 +85,4 @@ class CloudCertificationBloc
         return Constants.UNKNOWN_ERROR_MSG;
     }
   }
-
 }
