@@ -1,5 +1,5 @@
 import 'package:flutter_confluence/core/device.dart';
-import 'package:flutter_confluence/core/utils/date_extensions.dart';
+import 'package:flutter_confluence/core/utils/extensions/date_extensions.dart';
 import 'package:flutter_confluence/features/onboarding/data/datasources/bio_auth_hive_helper.dart';
 import 'package:flutter_confluence/features/onboarding/data/datasources/on_boarding_local_data_source.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -34,22 +34,20 @@ void main() {
 
     void mockAuthenticateCall(bool result) {
       when(() => mockAuth.authenticate(
-              localizedReason: AUTH_REASON,
-              biometricOnly: BIOMETRIC_AUTH_ONLY,
-              stickyAuth: true,
-              useErrorDialogs: false))
-          .thenAnswer((_) async {
+          localizedReason: AUTH_REASON,
+          biometricOnly: BIOMETRIC_AUTH_ONLY,
+          stickyAuth: true,
+          useErrorDialogs: false)).thenAnswer((_) async {
         return result;
       });
     }
 
     void verifyAuthCallDone() {
       verify(() => mockAuth.authenticate(
-              localizedReason: AUTH_REASON,
-              biometricOnly: BIOMETRIC_AUTH_ONLY,
-              stickyAuth: STICKY_AUTH,
-              useErrorDialogs: USE_ERROR_DIALOGS))
-          .called(1);
+          localizedReason: AUTH_REASON,
+          biometricOnly: BIOMETRIC_AUTH_ONLY,
+          stickyAuth: STICKY_AUTH,
+          useErrorDialogs: USE_ERROR_DIALOGS)).called(1);
     }
 
     test(
