@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_confluence/core/components/app_drawer.dart';
+import 'package:flutter_confluence/core/components/custom_appbar.dart';
 import 'package:lottie/lottie.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -59,7 +60,12 @@ class MyApp extends StatelessWidget {
             title: 'Flutter Demo',
             theme: buildAppTheme(),
             routes: {
-              HomePage.route: (context) => HomePage(),
+              HomePage.route: (context) => HomePage(
+                    appBar: CustomAppBar(
+                      icon: Icons.menu,
+                      text: 'Cloud Certification',
+                    ),
+                  ),
               OnBoardingPage.route: (context) => OnBoardingPage(),
             },
             home: PreLoadWidget()));

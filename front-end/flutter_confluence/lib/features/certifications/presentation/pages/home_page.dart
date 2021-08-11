@@ -14,6 +14,9 @@ import '../widgets/toggle-switch.dart';
 
 class HomePage extends StatefulWidget {
   static const route = 'HomePage';
+  final PreferredSizeWidget appBar;
+
+  const HomePage({Key? key, required this.appBar}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -33,11 +36,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       // Fixes bottom overflow error when show keyboard in landscape
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        title: Text('Cloud Certifications',
-            style: Theme.of(context).textTheme.headline1),
-        automaticallyImplyLeading: false,
-      ),
+      appBar: widget.appBar,
       body: buildBody(),
     );
   }

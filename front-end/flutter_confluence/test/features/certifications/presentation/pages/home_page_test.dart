@@ -1,6 +1,7 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_confluence/core/components/custom_appbar.dart';
 import 'package:mocktail/mocktail.dart' as Mocktail;
 import 'package:flutter_test/flutter_test.dart';
 
@@ -46,7 +47,12 @@ void main() {
       MaterialApp(
         home: BlocProvider<CloudCertificationBloc>(
           create: (_) => mockBloc,
-          child: HomePage(),
+          child: HomePage(
+            appBar: CustomAppBar(
+              icon: Icons.menu,
+              text: 'Cloud Certification',
+            ),
+          ),
         ),
       ),
     );
@@ -80,7 +86,12 @@ void main() {
       MaterialApp(
         home: BlocProvider<CloudCertificationBloc>(
           create: (_) => mockBloc,
-          child: HomePage(),
+          child: HomePage(
+            appBar: CustomAppBar(
+              icon: Icons.menu,
+              text: 'Cloud Certification',
+            ),
+          ),
         ),
       ),
     );
@@ -109,7 +120,12 @@ void main() {
       MaterialApp(
         home: BlocProvider<CloudCertificationBloc>(
           create: (_) => mockBloc,
-          child: HomePage(),
+          child: HomePage(
+            appBar: CustomAppBar(
+              icon: Icons.menu,
+              text: 'Cloud Certification',
+            ),
+          ),
         ),
       ),
     );
@@ -139,7 +155,12 @@ void main() {
       MaterialApp(
         home: BlocProvider<CloudCertificationBloc>(
           create: (_) => mockBloc,
-          child: HomePage(),
+          child: HomePage(
+            appBar: CustomAppBar(
+              icon: Icons.menu,
+              text: 'Cloud Certification',
+            ),
+          ),
         ),
       ),
     );
@@ -169,7 +190,12 @@ void main() {
       MaterialApp(
         home: BlocProvider<CloudCertificationBloc>(
           create: (_) => mockBloc,
-          child: HomePage(),
+          child: HomePage(
+            appBar: CustomAppBar(
+              icon: Icons.menu,
+              text: 'Cloud Certification',
+            ),
+          ),
         ),
       ),
     );
@@ -206,7 +232,12 @@ void main() {
       MaterialApp(
         home: BlocProvider<CloudCertificationBloc>(
           create: (_) => mockBloc,
-          child: HomePage(),
+          child: HomePage(
+            appBar: CustomAppBar(
+              icon: Icons.menu,
+              text: 'Cloud Certification',
+            ),
+          ),
         ),
       ),
     );
@@ -271,7 +302,12 @@ void main() {
       MaterialApp(
         home: BlocProvider<CloudCertificationBloc>(
           create: (_) => mockBloc,
-          child: HomePage(),
+          child: HomePage(
+            appBar: CustomAppBar(
+              icon: Icons.menu,
+              text: 'Cloud Certification',
+            ),
+          ),
         ),
       ),
     );
