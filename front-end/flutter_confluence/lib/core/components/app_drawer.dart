@@ -29,7 +29,51 @@ class _AppDrawerState extends State<AppDrawer>
   @override
   Widget build(BuildContext context) {
     return Stack(
-      children: [widget.child],
+      children: [CustomDrawer(), widget.child],
+    );
+  }
+}
+
+class CustomDrawer extends StatelessWidget {
+  const CustomDrawer({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.purple,
+      child: SafeArea(
+        child: Theme(
+          data: ThemeData(brightness: Brightness.dark),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  'Flutter Confluence',
+                  style: TextStyle(fontSize: 30, color: Colors.white),
+                ),
+              ),
+              ListTile(
+                leading: Icon(Icons.home),
+                title: Text('Item 1'),
+              ),
+              ListTile(
+                leading: Icon(Icons.info),
+                title: Text('Item 2'),
+              ),
+              ListTile(
+                leading: Icon(Icons.settings),
+                title: Text('Item 3'),
+              ),
+              ListTile(
+                leading: Icon(Icons.lock),
+                title: Text('Item 4'),
+              )
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

@@ -5,6 +5,7 @@ import 'package:flutter_confluence/core/components/app_drawer.dart';
 import 'package:lottie/lottie.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'core/components/preloader.dart';
 import 'core/constants.dart';
 import 'features/certifications/data/models/cloud_certification_model.dart';
 import 'features/onboarding/presentation/bloc/on_boarding_bloc.dart';
@@ -61,49 +62,6 @@ class MyApp extends StatelessWidget {
               HomePage.route: (context) => HomePage(),
               OnBoardingPage.route: (context) => OnBoardingPage(),
             },
-            home: AppDrawer(
-              child: PreLoadWidget(),
-            )));
-  }
-}
-
-class PreLoadWidget extends StatelessWidget {
-  static const STARTUP_DELAY_MILLIS = 2000;
-
-  void openHomePage(BuildContext context) {
-    Navigator.pushNamed(context, HomePage.route);
-  }
-
-  void openOnBoardingPage(BuildContext context) {
-    Navigator.pushNamed(context, OnBoardingPage.route);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        body: BlocListener(
-            bloc: BlocProvider.of<OnBoardingBloc>(context),
-            listener: (context, state) {
-              if (state is Expired) {
-                Future.delayed(Duration(milliseconds: STARTUP_DELAY_MILLIS),
-                    () {
-                  openOnBoardingPage(context);
-                });
-              }
-              if (state is Completed) {
-                Future.delayed(Duration(milliseconds: STARTUP_DELAY_MILLIS),
-                    () {
-                  openHomePage(context);
-                });
-              }
-            },
-            child: Container(
-              color: Colors.white,
-              child: Center(
-                child: Lottie.asset(
-                  'assets/lottie-animation.json',
-                ),
-              ),
-            )));
+            home: PreLoadWidget()));
   }
 }
