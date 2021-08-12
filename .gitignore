@@ -1,1 +1,6 @@
 .gcloud.json
+
+# FIREBASE
+
+# Local simulator logs
+*.log
