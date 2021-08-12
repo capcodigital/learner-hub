@@ -1,6 +1,7 @@
 import * as functions from "firebase-functions";
 import express, { Request, Response } from "express";
 import { validateFirebaseIdToken } from "./auth-middleware";
+import { getUrl } from "./url-provider";
 
 
 const app = express();
