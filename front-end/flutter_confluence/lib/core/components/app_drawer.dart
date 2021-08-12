@@ -73,7 +73,11 @@ class CustomDrawer extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Container(
-        color: Colors.black,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+          image: AssetImage("assets/background.png"),
+          fit: BoxFit.cover,
+        )),
         child: SafeArea(
           child: Theme(
             data: ThemeData(brightness: Brightness.dark),
@@ -81,12 +85,12 @@ class CustomDrawer extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Text(
-                    'Flutter Confluence',
-                    style: TextStyle(fontSize: 30, color: Colors.white),
-                  ),
-                ),
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(
+                      'Menu',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 30, color: Colors.white),
+                    )),
                 MenuButton(
                   title: 'Item 1',
                   icon: Icons.home,
