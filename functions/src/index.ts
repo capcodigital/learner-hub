@@ -3,7 +3,7 @@ import express, { Request, Response } from "express";
 import { validateFirebaseIdToken } from "./auth-middleware";
 
 
-const app = express();
+export const app = express();
 app.use(validateFirebaseIdToken);
 
 app.get("/hello", (req: Request, res: Response) => {
