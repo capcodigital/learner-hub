@@ -70,38 +70,41 @@ class CustomDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Colors.black,
-      child: SafeArea(
-        child: Theme(
-          data: ThemeData(brightness: Brightness.dark),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                padding: const EdgeInsets.all(16.0),
-                child: Text(
-                  'Flutter Confluence',
-                  style: TextStyle(fontSize: 30, color: Colors.white),
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body: Container(
+        color: Colors.black,
+        child: SafeArea(
+          child: Theme(
+            data: ThemeData(brightness: Brightness.dark),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(
+                    'Flutter Confluence',
+                    style: TextStyle(fontSize: 30, color: Colors.white),
+                  ),
                 ),
-              ),
-              MenuButton(
-                title: 'Item 1',
-                icon: Icons.home,
-              ),
-              MenuButton(
-                title: 'Item 2',
-                icon: Icons.info,
-              ),
-              MenuButton(
-                title: 'Item 3',
-                icon: Icons.settings,
-              ),
-              MenuButton(
-                title: 'Item 4',
-                icon: Icons.lock,
-              ),
-            ],
+                MenuButton(
+                  title: 'Item 1',
+                  icon: Icons.home,
+                ),
+                MenuButton(
+                  title: 'Item 2',
+                  icon: Icons.info,
+                ),
+                MenuButton(
+                  title: 'Item 3',
+                  icon: Icons.settings,
+                ),
+                MenuButton(
+                  title: 'Item 4',
+                  icon: Icons.lock,
+                ),
+              ],
+            ),
           ),
         ),
       ),
