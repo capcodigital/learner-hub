@@ -2,27 +2,56 @@ import * as functions from "firebase-functions";
 import * as admin from 'firebase-admin';
 import * as axios from 'axios';
 
-// Generic function to return certifications from a url
+// Generic function to return certifications as json from a url
 // and save them to a collection.
 export async function getFromUrl(
     url: string,
     collectionToUpdate: string,
     response: functions.Response) {
-    var items = "[]";
     await axios.default.get<Certification[]>(url)
         .then(function (resp) {
             console.log(resp);
             save(collectionToUpdate, resp.data);
-            items = JSON.stringify(resp.data);
+            var items = JSON.stringify(resp.data);
+            response.setHeader('Content-Type', 'application/json');
             response.statusCode = 200;
+            response.send(items);
         })
         .catch(function (error) {
             console.log(error);
-            items = "[]";
-        })
-        .then(function () {
-            response.send(items);
+            response.statusCode = 500;
+            response.send("error occurred");
         });
+}
+
+// Generic function to return certifications from firestore as json
+export async function getCollection(
+    collectionName: string,
+    response: functions.Response
+) {
+    try {
+        const snapshot = await admin.firestore().collection(collectionName).get();
+        var items = Array<Certification>();
+        if (!snapshot.empty) {
+            // TODO: Save items as array directly, didn't find a way up to now
+            snapshot.forEach(doc => {
+                var item = doc.data();
+                items.push({
+                    "name": item.name,
+                    "platform": item.platform,
+                    "certification": item.certification,
+                    "date": item.date
+                });
+            });
+            response.setHeader('Content-Type', 'application/json');
+            response.statusCode = 200;
+            response.send(JSON.stringify(items));
+        }
+    } catch (exception) {
+        console.log(exception)
+        response.statusCode = 500;
+        response.send("error occurred");
+    }
 }
 
 // Saves a list of certifications in a Firestore collection
@@ -38,27 +67,4 @@ async function save(
             date: item.date
         });
     }
-}
-
-// Retrieves a collection of certifications from Firestore and returns them as json
-export async function getCollection(
-    collectionName: string,
-    response: functions.Response
-) {
-    const snapshot = await admin.firestore().collection(collectionName).get();
-    var items = Array<Certification>();
-    if (!snapshot.empty) {
-        // TODO: Save items as array directly, didn't find a way up to now
-        snapshot.forEach(doc => {
-            var item = doc.data();
-            items.push({
-                "name": item.name,
-                "platform": item.platform,
-                "certification": item.certification,
-                "date": item.date
-            });
-        });
-    }
-    response.statusCode = 200;
-    response.send(JSON.stringify(items));
 }
