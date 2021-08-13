@@ -23,6 +23,9 @@ app.get("/hello", (req: Request, res: Response) => {
 // with value `Bearer <Firebase ID Token>`.
 exports.app = functions.https.onRequest(app);
 
+// TODO: Update logic below when we integrate catalog
+// Below is example of calling the generic functions
+
 // Retrieves the certifications from remote url, saves them and returns them as json
 exports.getFromConfluence = functions.https.onRequest(async (req, res) => {
     getFromUrl('https://io-capco-flutter-dev.nw.r.appspot.com/completed', "certifications", res);
