@@ -38,10 +38,12 @@ export async function getCollection(
             snapshot.forEach(doc => {
                 var item = doc.data();
                 items.push({
-                    "name": item.name,
-                    "platform": item.platform,
-                    "certification": item.certification,
-                    "date": item.date
+                    name: filter(item.name),
+                    platform: filter(item.platform),
+                    certification: filter(item.certification),
+                    category: filter(item.category),
+                    subcategory: filter(item.subcategory),
+                    date: filter(item.date)
                 });
             });
             response.setHeader('Content-Type', 'application/json');
@@ -62,10 +64,16 @@ async function save(
     for (var i = 0; i < items.length; i++) {
         var item = items[i];
         await admin.firestore().collection(collectionName).add({
-            name: item.name,
-            platform: item.platform,
-            certification: item.certification,
-            date: item.date
+            name: filter(item.name),
+            platform: filter(item.platform),
+            certification: filter(item.certification),
+            category: filter(item.category),
+            subcategory: filter(item.subcategory),
+            date: filter(item.date)
         });
     }
+}
+
+function filter(text: string): string {
+    return text != null ? text : "";
 }
