@@ -1,6 +1,7 @@
 import * as functions from "firebase-functions";
 import * as admin from 'firebase-admin';
 import * as axios from 'axios';
+import { logger } from "firebase-functions/lib";
 
 // Generic function to return certifications as json from a url
 // and save them to a collection.
@@ -10,7 +11,7 @@ export async function getFromUrl(
     response: functions.Response) {
     await axios.default.get<Certification[]>(url)
         .then(function (resp) {
-            console.log(resp);
+            logger.log(resp);
             save(collectionToUpdate, resp.data);
             var items = JSON.stringify(resp.data);
             response.setHeader('Content-Type', 'application/json');
@@ -18,9 +19,9 @@ export async function getFromUrl(
             response.send(items);
         })
         .catch(function (error) {
-            console.log(error);
+            logger.log(error);
             response.statusCode = 500;
-            response.send("error occurred");
+            response.send(JSON.stringify("error occurred"));
         });
 }
 
@@ -48,9 +49,9 @@ export async function getCollection(
             response.send(JSON.stringify(items));
         }
     } catch (exception) {
-        console.log(exception)
+        logger.log(exception)
         response.statusCode = 500;
-        response.send("error occurred");
+        response.send(JSON.stringify("error occurred"));
     }
 }
 
