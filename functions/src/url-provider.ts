@@ -1,4 +1,4 @@
- import  data from './catalog.json';
+import  data from './catalog.json';
 
 type CatalogUrl = {
     id: number;
@@ -7,7 +7,6 @@ type CatalogUrl = {
     subcategory: String;
     url:String;
 };
-
 
 export const  getUrl = (id: number) : String => {
     const catalogFilter: CatalogUrl[] = data.filter((c: CatalogUrl) => c.id == id);
