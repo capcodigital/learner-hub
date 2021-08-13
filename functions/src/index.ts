@@ -1,7 +1,7 @@
 import * as functions from "firebase-functions";
 import express, { Request, Response } from "express";
 import { validateFirebaseIdToken } from "./auth-middleware";
-import { getUrl } from "./url-provider";
+ import { getUrl } from "./url-provider";
 
 
 export const app = express();
@@ -17,6 +17,13 @@ app.get("/hello", (req: Request, res: Response) => {
         }
     );
 });
+
+app.get("/catalog/:id", (req: Request, res: Response) => {
+      const id = <any>req.params.id;
+      const url = getUrl(id);
+     res.send(url);
+});
+
 
 // This HTTPS endpoint can only be accessed by your Firebase Users.
 // Requests need to be authorized by providing an `Authorization` HTTP header

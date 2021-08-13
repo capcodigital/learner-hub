@@ -1,10 +1,4 @@
-import catalog from './catalog.json';
-import { logger } from "firebase-functions/lib";
-import { Request, Response } from "express";
-
-
-const catalogUrls = (<CatalogUrl[]>catalog);
-// read from Json , later we will read from Firebase storage
+ import  data from './catalog.json';
 
 type CatalogUrl = {
     id: number;
@@ -14,10 +8,10 @@ type CatalogUrl = {
     url:String;
 };
 
-function getCatalogUrl (catalogUrl: CatalogUrl) {
-    return catalogUrl.url;
-};
 
-export const  getUrl = (request: Request, response: Response) : String => {
-
+export const  getUrl = (id: number) : String => {
+    const catalogFilter: CatalogUrl[] = data.filter((c: CatalogUrl) => c.id == id);
+    console.log(catalogFilter);
+    var url = (catalogFilter.length > 0) ? ( catalogFilter[0].url) :("") ;
+    return url;
 }
