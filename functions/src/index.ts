@@ -9,7 +9,7 @@ app.use(validateFirebaseIdToken);
 app.get("/hello", (req: Request, res: Response) => {
     // Sample code to test the auth middleware
     const tokenId = !req.headers.authorization || req.headers.authorization.split("Bearer ")[1];
-    res.send(
+    res.status(200).send(
         {
             token: tokenId,
             user: req.user?.name,
