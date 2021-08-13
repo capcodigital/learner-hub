@@ -4,7 +4,7 @@ import { validateFirebaseIdToken } from "./auth-middleware";
 import { getUrl } from "./url-provider";
 
 
-const app = express();
+export const app = express();
 app.use(validateFirebaseIdToken);
 
 app.get("/hello", (req: Request, res: Response) => {
