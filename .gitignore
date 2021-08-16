@@ -4,3 +4,6 @@
 
 # Local simulator logs
 *.log
+
+# Android Studio idea directory
+.idea/
