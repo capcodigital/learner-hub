@@ -51,6 +51,7 @@ void main() {
             appBar: CustomAppBar(
               icon: Icons.menu,
               text: 'Cloud Certification',
+              color: Constants.JIRA_COLOR,
             ),
           ),
         ),
@@ -90,6 +91,7 @@ void main() {
             appBar: CustomAppBar(
               icon: Icons.menu,
               text: 'Cloud Certification',
+              color: Constants.JIRA_COLOR,
             ),
           ),
         ),
@@ -122,9 +124,9 @@ void main() {
           create: (_) => mockBloc,
           child: HomePage(
             appBar: CustomAppBar(
-              icon: Icons.menu,
-              text: 'Cloud Certification',
-            ),
+                icon: Icons.menu,
+                text: 'Cloud Certification',
+                color: Constants.JIRA_COLOR),
           ),
         ),
       ),
@@ -157,9 +159,9 @@ void main() {
           create: (_) => mockBloc,
           child: HomePage(
             appBar: CustomAppBar(
-              icon: Icons.menu,
-              text: 'Cloud Certification',
-            ),
+                icon: Icons.menu,
+                text: 'Cloud Certification',
+                color: Constants.JIRA_COLOR),
           ),
         ),
       ),
@@ -192,9 +194,9 @@ void main() {
           create: (_) => mockBloc,
           child: HomePage(
             appBar: CustomAppBar(
-              icon: Icons.menu,
-              text: 'Cloud Certification',
-            ),
+                icon: Icons.menu,
+                text: 'Cloud Certification',
+                color: Constants.JIRA_COLOR),
           ),
         ),
       ),
@@ -234,9 +236,9 @@ void main() {
           create: (_) => mockBloc,
           child: HomePage(
             appBar: CustomAppBar(
-              icon: Icons.menu,
-              text: 'Cloud Certification',
-            ),
+                icon: Icons.menu,
+                text: 'Cloud Certification',
+                color: Constants.JIRA_COLOR),
           ),
         ),
       ),
@@ -304,9 +306,9 @@ void main() {
           create: (_) => mockBloc,
           child: HomePage(
             appBar: CustomAppBar(
-              icon: Icons.menu,
-              text: 'Cloud Certification',
-            ),
+                icon: Icons.menu,
+                text: 'Cloud Certification',
+                color: Constants.JIRA_COLOR),
           ),
         ),
       ),

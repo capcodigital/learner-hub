@@ -40,6 +40,7 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
             appBar: CustomAppBar(
               icon: Icons.menu,
               text: 'Cloud Certifications',
+              color: Constants.JIRA_COLOR,
             ),
           )),
         ));
