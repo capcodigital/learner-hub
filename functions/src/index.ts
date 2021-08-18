@@ -3,7 +3,7 @@ import express, { Request, Response } from "express";
 //import { validateFirebaseIdToken } from "./auth-middleware";
 import { getUrl } from "./certifications";
 import { getById } from "./certifications";
-import { getFromFirestoreAll, getFromFirestoreByCategory, getFromUrl } from "./generic_funs";
+import { getFromFirestoreAll, getFromFirestoreByCategory, getFromConfuence } from "./generic_funs";
 
 export const app = express();
 //app.use(validateFirebaseIdToken);
@@ -31,9 +31,9 @@ app.get("/inprogress", async (req: Request, res: Response) => {
     const contentId = catalogEntry.contentId.toString();
     const category = catalogEntry.category.toString();
     const subcategory = catalogEntry.subcategory.toString();
-    getFromUrl(
+    getFromConfuence(
         "haris.mexis@capco.com",
-        "user token here",
+        "token",
         formatUrl(contentId),
         category,
         subcategory,

@@ -8,7 +8,7 @@ const { JSDOM } = jsdom;
 
 const TABLE_CERTIFICATIONS = "certifications"
 
-export async function getFromUrl(
+export async function getFromConfuence(
     username: string,
     token: string,
     url: string,
