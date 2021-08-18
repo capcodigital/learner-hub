@@ -33,7 +33,7 @@ app.get("/inprogress", async (req: Request, res: Response) => {
     const subcategory = catalogEntry.subcategory.toString();
     getFromUrl(
         "haris.mexis@capco.com",
-        "token here",
+        "user token here",
         formatUrl(contentId),
         res,
         category,
@@ -45,8 +45,8 @@ app.get("/all", async (req: Request, res: Response) => {
     getFromFirestoreAll(res);
 });
 
-// Example of retrieving certifications from firestore by category (Cloud)
-app.get("/category", async (req: Request, res: Response) => {
+// Example of retrieving certifications from firestore by category (cloud)
+app.get("/cloud", async (req: Request, res: Response) => {
     getFromFirestoreByCategory("Cloud", res);
 });
 
