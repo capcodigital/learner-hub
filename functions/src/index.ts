@@ -25,26 +25,29 @@ app.get("/catalog/:id", (req: Request, res: Response) => {
     res.send(url);
 });
 
+// Endpoint to return certifications from Firestore by category
+// /certs?cetegory=nameofcategory
+// eg. http://localhost:5001/io-capco-flutter-dev/us-central1/app/certs?category=Cloud
+app.get("/certs", async (req: Request, res: Response) => {
+    var category = req.query["category"] as string;
+    getFromFirestoreByCategory(category.toLowerCase(), res);
+});
+
+// Endpoint to retrieve all certifications from firestore
+app.get("/all", async (req: Request, res: Response) => {
+    getFromFirestoreAll(res);
+});
+
 // Example of retrieving certifications from confluence and save then to firestore 
 app.get("/example", async (req: Request, res: Response) => {
     const catalogEntry = getById(2);
     getFromConfuence(
         "haris.mexis@capco.com",
-        "token here",
+        "2Yxpj3vyhdaAmrQsM1u9CBFA",
         catalogEntry.contentUrl,
         catalogEntry.category,
         catalogEntry.subcategory,
         res);
-});
-
-// Example of retrieving all certifications from firestore
-app.get("/all", async (req: Request, res: Response) => {
-    getFromFirestoreAll(res);
-});
-
-// Example of retrieving certifications from firestore by category (cloud)
-app.get("/cloud", async (req: Request, res: Response) => {
-    getFromFirestoreByCategory("Cloud", res);
 });
 
 // This HTTPS endpoint can only be accessed by your Firebase Users.
