@@ -27,7 +27,12 @@ app.get("/catalog/:id", (req: Request, res: Response) => {
 
 app.get("/inprogress", async (req: Request, res: Response) => {
     const contentId = getContentId(2);
-    getFromUrl(formatUrl(contentId), res);
+    // Example of calling getFromUrl with credentials
+    getFromUrl(
+        "haris.mexis@capco.com",
+        "user token goes here",
+        formatUrl(contentId),
+        res);
 });
 
 function formatUrl(contentId: string) {
