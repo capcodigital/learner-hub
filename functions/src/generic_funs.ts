@@ -7,6 +7,8 @@ import * as jsdom from "jsdom";
 const { JSDOM } = jsdom;
 import { Certification } from "./certification";
 
+const TABLE_CERTIFICATIONS = "certifications"
+
 export async function getFromUrl(
     username: string,
     token: string,
@@ -28,26 +30,8 @@ async function getFromUrlAuthorised(
     })
         .then(function (resp) {
             var html = resp.data.body.export_view.value;
-            var parser = new JSDOM(html);
-            var tableRows = parser.window.document.querySelectorAll("table tr");
-            var items = Array<Certification>();
-            for (var i = 1; i < tableRows.length; i++) {
-                var name = tableRows[i].querySelector('td:nth-child(2)')?.textContent as string;
-                var platform = tableRows[i].querySelector('td:nth-child(3)')?.textContent as string;
-                var certification = tableRows[i].querySelector('td:nth-child(4)')?.textContent as string;
-                var date = tableRows[i].querySelector('td:nth-child(5)')?.textContent as string;
-                //var type = tableRows[i].querySelector('td:nth-child(6)')?.textContent as string;
-                var cert: Certification = {
-                    'name': name,
-                    'platform': platform,
-                    'certification': certification,
-                    'category': "",
-                    'subcategory': "",
-                    'date': date,
-                };
-                items.push(cert);
-            }
-            save("certifications", items);
+            var items = getCertificationsFromHtml(html);
+            save(items);
             response.setHeader('Content-Type', 'application/json');
             response.statusCode = 200;
             response.send(JSON.stringify(items));
@@ -59,13 +43,38 @@ async function getFromUrlAuthorised(
         });
 }
 
+function getCertificationsFromHtml(html: string): Array<Certification> {
+    var items = Array<Certification>();
+    var parser = new JSDOM(html);
+    var tableRows = parser.window.document.querySelectorAll("table tr");
+    for (var i = 1; i < tableRows.length; i++) {
+        var cert = tableRowToCertification(tableRows[i]);
+        items.push(cert);
+    }
+    return items;
+}
+
+function tableRowToCertification(row: Element): Certification {
+    var name = row.querySelector('td:nth-child(2)')?.textContent as string;
+    var platform = row.querySelector('td:nth-child(3)')?.textContent as string;
+    var certification = row.querySelector('td:nth-child(4)')?.textContent as string;
+    var date = row.querySelector('td:nth-child(5)')?.textContent as string;
+    var cert: Certification = {
+        'name': name,
+        'platform': platform,
+        'certification': certification,
+        'category': "",
+        'subcategory': "",
+        'date': date,
+    };
+    return cert;
+}
+
 // Saves a list of certifications in a Firestore collection
-export async function save(
-    collectionName: string,
-    items: Array<Certification>) {
+export async function save(items: Array<Certification>) {
     for (var i = 0; i < items.length; i++) {
         var item = items[i];
-        await admin.firestore().collection(collectionName).add({
+        await admin.firestore().collection(TABLE_CERTIFICATIONS).add({
             name: filter(item.name),
             platform: filter(item.platform),
             certification: filter(item.certification),
@@ -76,17 +85,12 @@ export async function save(
     }
 }
 
-function filter(text: string): string {
-    return text != null ? text : "";
-}
-
 // Generic function to return certifications from firestore as json
-export async function getCollection(
-    collectionName: string,
+export async function getFromFirestore(
     response: functions.Response
 ) {
     try {
-        const snapshot = await admin.firestore().collection(collectionName).get();
+        const snapshot = await admin.firestore().collection(TABLE_CERTIFICATIONS).get();
         var items = Array<Certification>();
         if (!snapshot.empty) {
             // TODO: Save items as array directly, didn't find a way up to now
@@ -110,4 +114,8 @@ export async function getCollection(
         response.statusCode = 500;
         response.send(JSON.stringify("error occurred"));
     }
+}
+
+function filter(text: string): string {
+    return text != null ? text : "";
 }

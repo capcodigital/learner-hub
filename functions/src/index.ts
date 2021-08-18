@@ -30,7 +30,7 @@ app.get("/inprogress", async (req: Request, res: Response) => {
     // Example of calling getFromUrl with credentials
     getFromUrl(
         "haris.mexis@capco.com",
-        "user token goes here",
+        "token here",
         formatUrl(contentId),
         res);
 });
