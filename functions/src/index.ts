@@ -26,14 +26,14 @@ app.get("/catalog/:id", (req: Request, res: Response) => {
 });
 
 // Example of retrieving certifications from confluence and save then to firestore 
-app.get("/inprogress", async (req: Request, res: Response) => {
+app.get("/cloud_inprogress", async (req: Request, res: Response) => {
     const catalogEntry = getById(2); // cloud inprogress entry from catalog
     const contentId = catalogEntry.contentId.toString();
     const category = catalogEntry.category.toString();
     const subcategory = catalogEntry.subcategory.toString();
     getFromConfuence(
         "haris.mexis@capco.com",
-        "token",
+        "2Yxpj3vyhdaAmrQsM1u9CBFA",
         formatUrl(contentId),
         category,
         subcategory,
