@@ -4,6 +4,7 @@ interface Certification {
     certification: string,
     category: string,
     subcategory: string,
-    date: string,
-    userId: string
+    date: string
+    description: string,
+    rating: string
 }

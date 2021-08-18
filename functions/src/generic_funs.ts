@@ -76,13 +76,14 @@ function tableRowToCertification(row: Element): Certification {
     var certification = row.querySelector('td:nth-child(4)')?.textContent as string;
     var date = row.querySelector('td:nth-child(5)')?.textContent as string;
     var cert: Certification = {
-        'name': name,
-        'platform': platform,
-        'certification': certification,
+        'name': name?.trim(),
+        'platform': platform?.trim(),
+        'certification': certification?.trim(),
         'category': "", // This will be assigned afterwards
         'subcategory': "", // This will be assigned afterwards
-        'date': date,
-        'userId': "", // This will be assigned afterwards
+        'date': date?.trim(),
+        'description': "", // This will be assigned afterwards
+        'rating': "" // This will be assigned afterwards
     };
     return cert;
 }
@@ -97,7 +98,9 @@ export async function save(items: Array<Certification>) {
             certification: filter(item.certification),
             category: filter(item.category),
             subcategory: filter(item.subcategory),
-            date: filter(item.date)
+            date: filter(item.date),
+            description: filter(item.description),
+            rating: filter(item.rating),
         });
     }
 }
@@ -155,7 +158,8 @@ async function getFromFirestoreAllAsList() {
                     category: filter(item.category),
                     subcategory: filter(item.subcategory),
                     date: filter(item.date),
-                    userId: filter(item.userId)
+                    description: filter(item.description),
+                    rating: filter(item.rating)
                 });
             });
         }
@@ -184,7 +188,8 @@ async function getFromFirestoreByCategoryAsList(category: String) {
                     category: filter(item.category),
                     subcategory: filter(item.subcategory),
                     date: filter(item.date),
-                    userId: filter(item.userId)
+                    description: filter(item.description),
+                    rating: filter(item.rating),
                 });
             });
         }

@@ -33,7 +33,7 @@ app.get("/inprogress", async (req: Request, res: Response) => {
     const subcategory = catalogEntry.subcategory.toString();
     getFromUrl(
         "haris.mexis@capco.com",
-        "user token",
+        "2Yxpj3vyhdaAmrQsM1u9CBFA",
         formatUrl(contentId),
         res,
         category,
