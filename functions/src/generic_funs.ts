@@ -5,7 +5,6 @@ import * as axios from 'axios';
 import { logger } from "firebase-functions/lib";
 import * as jsdom from "jsdom";
 const { JSDOM } = jsdom;
-import { Certification } from "./certification";
 
 const TABLE_CERTIFICATIONS = "certifications"
 
@@ -13,24 +12,29 @@ export async function getFromUrl(
     username: string,
     token: string,
     url: string,
-    response: functions.Response) {
+    response: functions.Response,
+    category: string,
+    subcategory: string) {
     var auth: axios.AxiosBasicCredentials = {
         username: username,
         password: token
     }
-    getFromUrlAuthorised(auth, url, response);
+    getFromUrlAuthorised(auth, url, response, category, subcategory);
 }
 
 async function getFromUrlAuthorised(
     creds: axios.AxiosBasicCredentials,
     url: string,
-    response: functions.Response) {
+    response: functions.Response,
+    category: string,
+    subcategory: string) {
     await axios.default.get<ConfluenceResponse>(url, {
         auth: creds
     })
         .then(function (resp) {
             var html = resp.data.body.export_view.value;
             var items = getCertificationsFromHtml(html);
+            addCategories(items, category, subcategory);
             save(items);
             response.setHeader('Content-Type', 'application/json');
             response.statusCode = 200;
@@ -54,6 +58,18 @@ function getCertificationsFromHtml(html: string): Array<Certification> {
     return items;
 }
 
+function addCategories(
+    items: Array<Certification>,
+    category: string,
+    subcategory: string
+): Array<Certification> {
+    for (var i = 0; i < items.length; i++) {
+        items[i].category = category;
+        items[i].subcategory = subcategory;
+    }
+    return items;
+}
+
 function tableRowToCertification(row: Element): Certification {
     var name = row.querySelector('td:nth-child(2)')?.textContent as string;
     var platform = row.querySelector('td:nth-child(3)')?.textContent as string;
@@ -63,9 +79,10 @@ function tableRowToCertification(row: Element): Certification {
         'name': name,
         'platform': platform,
         'certification': certification,
-        'category': "",
-        'subcategory': "",
+        'category': "", // This will be assigned afterwards
+        'subcategory': "", // This will be assigned afterwards
         'date': date,
+        'userId': "", // This will be assigned afterwards
     };
     return cert;
 }
@@ -85,34 +102,96 @@ export async function save(items: Array<Certification>) {
     }
 }
 
-// Generic function to return certifications from firestore as json
-export async function getFromFirestore(
-    response: functions.Response
+// TODO: Probably remove this method, no need
+// Sends response with all certifications from firestore as json
+export async function getFromFirestoreAll(
+    res: functions.Response
 ) {
     try {
-        const snapshot = await admin.firestore().collection(TABLE_CERTIFICATIONS).get();
-        var items = Array<Certification>();
+        var items = await getFromFirestoreAllAsList();
+        res.setHeader('Content-Type', 'application/json');
+        res.statusCode = 200;
+        res.send(JSON.stringify(items));
+    } catch (exception) {
+        logger.log(exception)
+        res.statusCode = 500;
+        res.send(JSON.stringify("error occurred"));
+    }
+}
+
+// Sends response with certifications from firestore by category as json
+export async function getFromFirestoreByCategory(
+    category: String,
+    res: functions.Response) {
+    try {
+        var items = await getFromFirestoreByCategoryAsList(category);
+        res.setHeader('Content-Type', 'application/json');
+        res.statusCode = 200;
+        res.send(JSON.stringify(items));
+
+    } catch (exception) {
+        logger.log(exception)
+        res.statusCode = 500;
+        res.send(JSON.stringify("error occurred"));
+    }
+}
+
+// TODO: Probably remove this method, no need
+// Returns all certifications from firestore as list
+async function getFromFirestoreAllAsList() {
+    try {
+        const snapshot = await admin.firestore()
+            .collection(TABLE_CERTIFICATIONS)
+            .get();
+        const results = Array<Certification>();
         if (!snapshot.empty) {
-            // TODO: Save items as array directly, didn't find a way up to now
-            snapshot.forEach(doc => {
+            snapshot.forEach((doc: { data: () => any }) => {
                 var item = doc.data();
-                items.push({
+                logger.log(item);
+                results.push({
                     name: filter(item.name),
                     platform: filter(item.platform),
                     certification: filter(item.certification),
                     category: filter(item.category),
                     subcategory: filter(item.subcategory),
-                    date: filter(item.date)
+                    date: filter(item.date),
+                    userId: filter(item.userId)
                 });
             });
-            response.setHeader('Content-Type', 'application/json');
-            response.statusCode = 200;
-            response.send(JSON.stringify(items));
         }
-    } catch (exception) {
-        logger.log(exception)
-        response.statusCode = 500;
-        response.send(JSON.stringify("error occurred"));
+        return results;
+    } catch (e) {
+        logger.log(e)
+        throw e;
+    }
+}
+
+// Returns certifications from firestore by category as list
+async function getFromFirestoreByCategoryAsList(category: String) {
+    try {
+        const snapshot = await admin.firestore()
+            .collection(TABLE_CERTIFICATIONS)
+            .where("category", "==", category)
+            .get();
+        const results = Array<Certification>();
+        if (!snapshot.empty) {
+            snapshot.forEach((doc: { data: () => any }) => {
+                var item = doc.data();
+                results.push({
+                    name: filter(item.name),
+                    platform: filter(item.platform),
+                    certification: filter(item.certification),
+                    category: filter(item.category),
+                    subcategory: filter(item.subcategory),
+                    date: filter(item.date),
+                    userId: filter(item.userId)
+                });
+            });
+        }
+        return results;
+    } catch (e) {
+        logger.log(e)
+        throw e;
     }
 }
 

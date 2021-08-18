@@ -16,9 +16,7 @@ export const getUrl = (id: number): String => {
     return url;
 }
 
-export const getContentId = (id: number): string => {
+export const getById = (id: number): Certification => {
     const certFilter: Certification[] = data.filter((c: Certification) => c.id == id);
-    console.log(certFilter);
-    var contId = (certFilter.length > 0) ? (certFilter[0].contentId) : ("");
-    return contId.toString();
+    return certFilter[0];
 }

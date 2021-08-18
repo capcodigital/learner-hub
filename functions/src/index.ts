@@ -2,8 +2,8 @@ import * as functions from "firebase-functions";
 import express, { Request, Response } from "express";
 //import { validateFirebaseIdToken } from "./auth-middleware";
 import { getUrl } from "./certifications";
-import { getContentId } from "./certifications";
-import { getFromUrl } from "./generic_funs";
+import { getById } from "./certifications";
+import { getFromFirestoreAll, getFromFirestoreByCategory, getFromUrl } from "./generic_funs";
 
 export const app = express();
 //app.use(validateFirebaseIdToken);
@@ -25,14 +25,29 @@ app.get("/catalog/:id", (req: Request, res: Response) => {
     res.send(url);
 });
 
+// Example of retrieving certifications from confluence and save then to firestore 
 app.get("/inprogress", async (req: Request, res: Response) => {
-    const contentId = getContentId(2);
-    // Example of calling getFromUrl with credentials
+    const catalogEntry = getById(2); // cloud inprogress entry from catalog
+    const contentId = catalogEntry.contentId.toString();
+    const category = catalogEntry.category.toString();
+    const subcategory = catalogEntry.subcategory.toString();
     getFromUrl(
         "haris.mexis@capco.com",
-        "token here",
+        "2Yxpj3vyhdaAmrQsM1u9CBFA",
         formatUrl(contentId),
-        res);
+        res,
+        category,
+        subcategory);
+});
+
+// Example of retrieving all certifications from firestore
+app.get("/all", async (req: Request, res: Response) => {
+    getFromFirestoreAll(res);
+});
+
+// Example of retrieving Cloud certifications from firestore
+app.get("/category", async (req: Request, res: Response) => {
+    getFromFirestoreByCategory("Cloud", res);
 });
 
 function formatUrl(contentId: string) {
