@@ -30,7 +30,7 @@ app.get("/example", async (req: Request, res: Response) => {
     const catalogEntry = getById(2);
     getFromConfuence(
         "haris.mexis@capco.com",
-        "2Yxpj3vyhdaAmrQsM1u9CBFA",
+        "token here",
         catalogEntry.contentUrl,
         catalogEntry.category,
         catalogEntry.subcategory,
