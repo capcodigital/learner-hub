@@ -30,21 +30,19 @@ async function getFromUrlAuthorised(
     subcategory: string) {
     await axios.default.get<ConfluenceResponse>(url, {
         auth: creds
-    })
-        .then(function (resp) {
-            var html = resp.data.body.export_view.value;
-            var items = getCertificationsFromHtml(html);
-            addCategories(items, category, subcategory);
-            save(items);
-            response.setHeader('Content-Type', 'application/json');
-            response.statusCode = 200;
-            response.send(JSON.stringify(items));
-        })
-        .catch(function (error) {
-            logger.log(error);
-            response.statusCode = 500;
-            response.send(JSON.stringify("error occurred"));
-        });
+    }).then(function (resp) {
+        var html = resp.data.body.export_view.value;
+        var items = getCertificationsFromHtml(html);
+        addCategories(items, category, subcategory);
+        save(items);
+        response.setHeader('Content-Type', 'application/json');
+        response.statusCode = 200;
+        response.send(JSON.stringify(items));
+    }).catch(function (error) {
+        logger.log(error);
+        response.statusCode = 500;
+        response.send(JSON.stringify("error occurred"));
+    });
 }
 
 function getCertificationsFromHtml(html: string): Array<Certification> {
@@ -131,7 +129,6 @@ export async function getFromFirestoreByCategory(
         res.setHeader('Content-Type', 'application/json');
         res.statusCode = 200;
         res.send(JSON.stringify(items));
-
     } catch (exception) {
         logger.log(exception)
         res.statusCode = 500;
