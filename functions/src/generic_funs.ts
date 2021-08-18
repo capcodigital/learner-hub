@@ -43,7 +43,8 @@ export async function getCollection(
                     certification: filter(item.certification),
                     category: filter(item.category),
                     subcategory: filter(item.subcategory),
-                    date: filter(item.date)
+                    date: filter(item.date),
+                    userId: filter(item.userId)
                 });
             });
             response.setHeader('Content-Type', 'application/json');
@@ -69,11 +70,42 @@ async function save(
             certification: filter(item.certification),
             category: filter(item.category),
             subcategory: filter(item.subcategory),
-            date: filter(item.date)
+            date: filter(item.date),
+            userId: filter(item.userId)
         });
     }
 }
 
 function filter(text: string): string {
     return text != null ? text : "";
+}
+
+export async function getUserCertifications(userId: String) {
+    try {
+        logger.log("GETTING USER CERTIFICATIONS");
+        const snapshot = await admin.firestore()
+            .collection("certifications")
+            .where("userId", "==", userId)
+            .get();
+
+        const myCertifications = Array<Certification>();
+        snapshot.forEach((doc: { data: () => any; }) => {
+            var item = doc.data();
+            logger.log(item);
+            myCertifications.push({
+                name: filter(item.name),
+                platform: filter(item.platform),
+                certification: filter(item.certification),
+                category: filter(item.category),
+                subcategory: filter(item.subcategory),
+                date: filter(item.date),
+                userId: filter(item.userId)
+            });
+        });
+
+        return myCertifications;
+    } catch (exception) {
+        logger.log(exception)
+        throw exception;
+    }
 }

@@ -2,27 +2,39 @@ import * as functions from "firebase-functions";
 import express, { Request, Response } from "express";
 import { validateFirebaseIdToken } from "./auth-middleware";
 import { getUrl } from "./certifications";
-import { getFromUrl } from "./generic_funs";
-import { getCollection } from "./generic_funs";
+import { getFromUrl, getCollection, getUserCertifications } from "./generic_funs";
 
 export const app = express();
 app.use(validateFirebaseIdToken);
-
-app.get("/hello", (req: Request, res: Response) => {
-    // Sample code to test the auth middleware
-    const tokenId = !req.headers.authorization || req.headers.authorization.split("Bearer ")[1];
-    res.status(200).send(
-        {
-            token: tokenId,
-            user: req.user?.name,
-        }
-    );
-});
 
 app.get("/catalog/:id", (req: Request, res: Response) => {
     const id = <any>req.params.id;
     const url = getUrl(id);
     res.send(url);
+});
+
+app.get("/me", (req: Request, res: Response) => {
+    // Sample code to test the auth middleware
+    res.status(200).send(
+        {
+            user: req.user,
+        }
+    );
+});
+
+app.get("/me/certifications", async (req: Request, res: Response) => {
+    try {
+        const userId = req.user?.uid;
+        if (userId != undefined) {
+            const myCertifications = await getUserCertifications(userId);
+            res.status(200).send(myCertifications);
+        }
+        else {
+            res.status(400).send({ message: "Invalid user" });
+        }
+    } catch (exception) {
+        res.status(500).send({ error: exception });
+    }
 });
 
 // This HTTPS endpoint can only be accessed by your Firebase Users.
