@@ -26,17 +26,14 @@ app.get("/catalog/:id", (req: Request, res: Response) => {
 });
 
 // Example of retrieving certifications from confluence and save then to firestore 
-app.get("/cloud_inprogress", async (req: Request, res: Response) => {
-    const catalogEntry = getById(2); // cloud inprogress entry from catalog
-    const contentId = catalogEntry.contentId.toString();
-    const category = catalogEntry.category.toString();
-    const subcategory = catalogEntry.subcategory.toString();
+app.get("/example", async (req: Request, res: Response) => {
+    const catalogEntry = getById(2);
     getFromConfuence(
         "haris.mexis@capco.com",
         "2Yxpj3vyhdaAmrQsM1u9CBFA",
-        formatUrl(contentId),
-        category,
-        subcategory,
+        catalogEntry.contentUrl,
+        catalogEntry.category,
+        catalogEntry.subcategory,
         res);
 });
 
@@ -49,10 +46,6 @@ app.get("/all", async (req: Request, res: Response) => {
 app.get("/cloud", async (req: Request, res: Response) => {
     getFromFirestoreByCategory("Cloud", res);
 });
-
-function formatUrl(contentId: string) {
-    return "https://ilabs-capco.atlassian.net/wiki/rest/api/content/" + contentId + "?expand=body.export_view.value";
-}
 
 // This HTTPS endpoint can only be accessed by your Firebase Users.
 // Requests need to be authorized by providing an `Authorization` HTTP header

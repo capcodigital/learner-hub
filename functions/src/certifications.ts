@@ -2,14 +2,14 @@ import data from '../test/catalog.json';
 
 type Certification = {
     id: number;
-    name: String;
-    category: String;
-    subcategory: String;
-    url: String;
-    contentId: String;
+    name: string;
+    category: string;
+    subcategory: string;
+    url: string;
+    contentUrl: string;
 };
 
-export const getUrl = (id: number): String => {
+export const getUrl = (id: number): string => {
     const certFilter: Certification[] = data.filter((c: Certification) => c.id == id);
     console.log(certFilter);
     var url = (certFilter.length > 0) ? (certFilter[0].url) : ("");

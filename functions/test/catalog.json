@@ -5,7 +5,7 @@
     "category": "Security",
     "subcategory": "NA",
     "url": "https://ilabs-capco.atlassian.net/wiki/spaces/BPG/pages/2468773934/Security+Udemy+Training",
-    "contentId": "2468773934"
+    "contentUrl": "https://ilabs-capco.atlassian.net/wiki/rest/api/content/2468773934?expand=body.export_view.value"
   },
   {
     "id": 2,
@@ -13,7 +13,7 @@
     "category": "Cloud",
     "subcategory": "In Progress",
     "url": "https://ilabs-capco.atlassian.net/wiki/spaces/BPG/pages/1593770009/Cloud+Certification+-+In+Progress",
-    "contentId": "1593770009"
+    "contentUrl": "https://ilabs-capco.atlassian.net/wiki/rest/api/content/1593770009?expand=body.export_view.value"
   },
   {
     "id": 3,
@@ -21,7 +21,7 @@
     "category": "Cloud",
     "subcategory": "Completed",
     "url": "https://ilabs-capco.atlassian.net/wiki/spaces/BPG/pages/2122383393/Cloud+Certification+-+Completed",
-    "contentId": "2122383393"
+    "contentUrl": "https://ilabs-capco.atlassian.net/wiki/rest/api/content/2122383393?expand=body.export_view.value"
   },
   {
     "id": 4,
@@ -29,7 +29,7 @@
     "category": "Blockchain",
     "subcategory": "NA",
     "url": "https://ilabs-capco.atlassian.net/wiki/spaces/BPG/pages/1667497985/Corda+Developer+Certification",
-    "contentId": "1667497985"
+    "contentUrl": "https://ilabs-capco.atlassian.net/wiki/rest/api/content/1667497985?expand=body.export_view.value"
   },
   {
     "id": 5,
@@ -37,7 +37,7 @@
     "category": "Mobile",
     "subcategory": "Mobile",
     "url": "https://ilabs-capco.atlassian.net/wiki/spaces/BPG/pages/751337495/Associate+Android+Certification",
-    "contentId": "751337495"
+    "contentUrl": "https://ilabs-capco.atlassian.net/wiki/rest/api/content/751337495?expand=body.export_view.value"
   },
   {
     "id": 6,
@@ -45,7 +45,7 @@
     "category": "Mobile",
     "subcategory": "Security",
     "url": "https://ilabs-capco.atlassian.net/wiki/spaces/BPG/pages/751075345/Mobile+Device+Security+Certification",
-    "contentId": "751075345"
+    "contentUrl": "https://ilabs-capco.atlassian.net/wiki/rest/api/content/751075345?expand=body.export_view.value"
   },
   {
     "id": 7,
@@ -53,7 +53,7 @@
     "category": "Database",
     "subcategory": "NA",
     "url": "https://ilabs-capco.atlassian.net/wiki/spaces/BPG/pages/2511864031/Neo4j+Certified+Professional",
-    "contentId": "2511864031"
+    "contentUrl": "https://ilabs-capco.atlassian.net/wiki/rest/api/content/2511864031?expand=body.export_view.value"
   },
   {
     "id": 8,
@@ -61,6 +61,6 @@
     "category": "API",
     "subcategory": "NA",
     "url": "https://ilabs-capco.atlassian.net/wiki/spaces/BPG/pages/2732752917/API+Security+Certification",
-    "contentId": "2732752917"
+    "contentUrl": "https://ilabs-capco.atlassian.net/wiki/rest/api/content/2732752917?expand=body.export_view.value"
   }
 ]
