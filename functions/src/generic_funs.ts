@@ -7,20 +7,6 @@ import * as jsdom from "jsdom";
 const { JSDOM } = jsdom;
 import { Certification } from "./certification";
 
-// export async function getFromUrlFinal(
-//     url: string,
-//     response: functions.Response) {
-//     // var auth: axios.AxiosBasicCredentials = {
-//     //     username: "haris.mexis@capco.com",
-//     //     password: "2Yxpj3vyhdaAmrQsM1u9CBFA"
-//     // }
-//     getFromUrl(
-//         "haris.mexis@capco.com",
-//         "2Yxpj3vyhdaAmrQsM1u9CBFA",
-//         url,
-//         response);
-// }
-
 export async function getFromUrl(
     username: string,
     token: string,
