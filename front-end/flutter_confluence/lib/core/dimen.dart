@@ -6,6 +6,7 @@ class Dimen {
   static const dimen_16 = 16.0;
   static const dimen_20 = 20.0;
   static const dimen_26 = 26.0;
+  static const dimen_32 = 32.0;
   static const dimen_34 = 34.0;
   static const dimen_40 = 40.0;
   static const dimen_48 = 48.0;
@@ -50,6 +51,7 @@ class Dimen {
   static const scale_70_100 = 0.7;
   static const scale_80_100 = 0.8;
   static const scale_90_100 = 0.9;
+  static const scale_95_100 = 0.95;
 
   static const scale_6_1000 = 0.006;
   static const scale_2_1000 = 0.002;
