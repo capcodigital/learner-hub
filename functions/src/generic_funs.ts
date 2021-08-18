@@ -123,9 +123,10 @@ export async function getFromFirestoreAll(
 // Sends response with certifications from firestore by category as json
 export async function getFromFirestoreByCategory(
     category: String,
+    subcategory: String,
     res: functions.Response) {
     try {
-        var items = await getFromFirestoreByCategoryAsList(category);
+        var items = await getFromFirestoreByCategoryAsList2(category, subcategory);
         res.setHeader('Content-Type', 'application/json');
         res.statusCode = 200;
         res.send(JSON.stringify(items));
@@ -168,11 +169,45 @@ async function getFromFirestoreAllAsList() {
 }
 
 // Returns certifications from firestore by category as list
-async function getFromFirestoreByCategoryAsList(category: String) {
+export async function getFromFirestoreByCategoryAsList(category: String) {
     try {
         const snapshot = await admin.firestore()
             .collection(TABLE_CERTIFICATIONS)
             .where("category", "==", category)
+            .get();
+        const results = Array<Certification>();
+        if (!snapshot.empty) {
+            snapshot.forEach((doc: { data: () => any }) => {
+                var item = doc.data();
+                results.push({
+                    name: filter(item.name),
+                    platform: filter(item.platform),
+                    certification: filter(item.certification),
+                    category: filter(item.category),
+                    subcategory: filter(item.subcategory),
+                    date: filter(item.date),
+                    description: filter(item.description),
+                    rating: filter(item.rating),
+                });
+            });
+        }
+        return results;
+    } catch (e) {
+        logger.log(e)
+        throw e;
+    }
+}
+
+// Returns certifications from firestore by category & subcategory as list
+async function getFromFirestoreByCategoryAsList2(
+    category: String,
+    subcategory: String
+) {
+    try {
+        const snapshot = await admin.firestore()
+            .collection(TABLE_CERTIFICATIONS)
+            .where("category", "==", category)
+            .where("subcategory", "==", subcategory)
             .get();
         const results = Array<Certification>();
         if (!snapshot.empty) {

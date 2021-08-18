@@ -25,12 +25,15 @@ app.get("/catalog/:id", (req: Request, res: Response) => {
     res.send(url);
 });
 
-// Endpoint to return certifications from Firestore by category
-// /certs?cetegory=nameofcategory
-// eg. http://localhost:5001/io-capco-flutter-dev/us-central1/app/certs?category=Cloud
+// Endpoint to return certifications from Firestore by category & subcategory
+
 app.get("/certs", async (req: Request, res: Response) => {
     var category = req.query["category"] as string;
-    getFromFirestoreByCategory(category.toLowerCase(), res);
+    var subcategory = req.query["subcategory"] as string;
+    getFromFirestoreByCategory(
+        category.toLowerCase(),
+        subcategory.toLowerCase(),
+        res);
 });
 
 // Endpoint to retrieve all certifications from firestore
