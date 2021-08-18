@@ -3,7 +3,7 @@ import express, { Request, Response } from "express";
 //import { validateFirebaseIdToken } from "./auth-middleware";
 import { getUrl } from "./certifications";
 import { getContentId } from "./certifications";
-import { getFromUrl2 } from "./generic_funs";
+import { getFromUrl } from "./generic_funs";
 
 export const app = express();
 //app.use(validateFirebaseIdToken);
@@ -27,7 +27,7 @@ app.get("/catalog/:id", (req: Request, res: Response) => {
 
 app.get("/inprogress", async (req: Request, res: Response) => {
     const contentId = getContentId(2);
-    getFromUrl2(formatUrl(contentId), res);
+    getFromUrl(formatUrl(contentId), res);
 });
 
 function formatUrl(contentId: string) {
