@@ -35,9 +35,9 @@ app.get("/inprogress", async (req: Request, res: Response) => {
         "haris.mexis@capco.com",
         "user token here",
         formatUrl(contentId),
-        res,
         category,
-        subcategory);
+        subcategory,
+        res);
 });
 
 // Example of retrieving all certifications from firestore

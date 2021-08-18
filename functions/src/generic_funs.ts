@@ -12,22 +12,22 @@ export async function getFromUrl(
     username: string,
     token: string,
     url: string,
-    response: functions.Response,
     category: string,
-    subcategory: string) {
+    subcategory: string,
+    res: functions.Response) {
     var auth: axios.AxiosBasicCredentials = {
         username: username,
         password: token
     }
-    getFromUrlAuthorised(auth, url, response, category, subcategory);
+    getFromUrlAuthorised(auth, url, category, subcategory, res);
 }
 
 async function getFromUrlAuthorised(
     creds: axios.AxiosBasicCredentials,
     url: string,
-    response: functions.Response,
     category: string,
-    subcategory: string) {
+    subcategory: string,
+    res: functions.Response) {
     await axios.default.get<ConfluenceResponse>(url, {
         auth: creds
     }).then(function (resp) {
@@ -35,13 +35,13 @@ async function getFromUrlAuthorised(
         var items = getCertificationsFromHtml(html);
         addCategories(items, category, subcategory);
         save(items);
-        response.setHeader('Content-Type', 'application/json');
-        response.statusCode = 200;
-        response.send(JSON.stringify(items));
+        res.setHeader('Content-Type', 'application/json');
+        res.statusCode = 200;
+        res.send(JSON.stringify(items));
     }).catch(function (error) {
         logger.log(error);
-        response.statusCode = 500;
-        response.send(JSON.stringify("error occurred"));
+        res.statusCode = 500;
+        res.send(JSON.stringify("error occurred"));
     });
 }
 
@@ -113,8 +113,8 @@ export async function getFromFirestoreAll(
         res.setHeader('Content-Type', 'application/json');
         res.statusCode = 200;
         res.send(JSON.stringify(items));
-    } catch (exception) {
-        logger.log(exception)
+    } catch (e) {
+        logger.log(e)
         res.statusCode = 500;
         res.send(JSON.stringify("error occurred"));
     }
@@ -129,8 +129,8 @@ export async function getFromFirestoreByCategory(
         res.setHeader('Content-Type', 'application/json');
         res.statusCode = 200;
         res.send(JSON.stringify(items));
-    } catch (exception) {
-        logger.log(exception)
+    } catch (e) {
+        logger.log(e)
         res.statusCode = 500;
         res.send(JSON.stringify("error occurred"));
     }
