@@ -4,13 +4,18 @@ import 'package:flutter_confluence/core/components/app_drawer.dart';
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String text;
   final IconData icon;
+  final Color color;
   const CustomAppBar(
-      {Key? key, required String this.text, required IconData this.icon})
+      {Key? key,
+      required String this.text,
+      required IconData this.icon,
+      required this.color})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      backgroundColor: color,
       leading: Builder(
         builder: (appBarContext) {
           return IconButton(
