@@ -1,3 +1,4 @@
+/* eslint-disable require-jsdoc */
 import * as functions from "firebase-functions";
 import * as admin from 'firebase-admin';
 import * as axios from 'axios';
@@ -76,4 +77,33 @@ async function save(
 
 function filter(text: string): string {
     return text != null ? text : "";
+}
+
+export async function getUserCertifications(username: string) {
+    try {
+        logger.log("GETTING USER CERTIFICATIONS");
+        const snapshot = await admin.firestore()
+            .collection("certifications")
+            .where("name", "==", username)
+            .get();
+
+        const myCertifications = Array<Certification>();
+        snapshot.forEach((doc: { data: () => any; }) => {
+            var item = doc.data();
+            logger.log(item);
+            myCertifications.push({
+                name: filter(item.name),
+                platform: filter(item.platform),
+                certification: filter(item.certification),
+                category: filter(item.category),
+                subcategory: filter(item.subcategory),
+                date: filter(item.date)
+            });
+        });
+
+        return myCertifications;
+    } catch (exception) {
+        logger.log(exception)
+        throw exception;
+    }
 }
