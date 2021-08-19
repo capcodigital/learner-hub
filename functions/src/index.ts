@@ -3,7 +3,7 @@ import express, { Request, Response } from "express";
 //import { validateFirebaseIdToken } from "./auth-middleware";
 import { getUrl } from "./certifications";
 import { getById } from "./certifications";
-import { getFromFirestoreAll, getFromFirestoreByCategory, getFromConfuence } from "./generic_funs";
+import { getFromFirestoreByCategory, getFromConfuence } from "./generic_funs";
 
 export const app = express();
 //app.use(validateFirebaseIdToken);
@@ -25,25 +25,22 @@ app.get("/catalog/:id", (req: Request, res: Response) => {
     res.send(url);
 });
 
-// Endpoint to return certifications from Firestore by category & subcategory
-// eg. http://localhost:5001/io-capco-flutter-dev/us-central1/app/certs?category=cloud&subcategory=in%20progress
-app.get("/certs", async (req: Request, res: Response) => {
+// Endpoint to return certifications from Firestore filtered by category & subcategory
+// Missing parameters are ignored
+// eg. http://localhost:5001/io-capco-flutter-dev/us-central1/app/certifications?category=cloud&subcategory=in%20progress
+// eg. http://localhost:5001/io-capco-flutter-dev/us-central1/app/certifications?category=cloud
+app.get("/certifications", async (req: Request, res: Response) => {
     var category = req.query["category"] as string;
     var subcategory = req.query["subcategory"] as string;
     getFromFirestoreByCategory(
-        category.toLowerCase(),
-        subcategory.toLowerCase(),
+        category?.toLowerCase(),
+        subcategory?.toLowerCase(),
         res);
-});
-
-// Endpoint to retrieve all certifications from firestore
-app.get("/all", async (req: Request, res: Response) => {
-    getFromFirestoreAll(res);
 });
 
 // Example of retrieving certifications from confluence and save then to firestore 
 app.get("/example", async (req: Request, res: Response) => {
-    const catalogEntry = getById(2);
+    const catalogEntry = getById(3);
     getFromConfuence(
         "haris.mexis@capco.com",
         "token here",

@@ -45,17 +45,6 @@ async function getFromUrlAuthorised(
     });
 }
 
-function getCertificationsFromHtml(html: string): Array<Certification> {
-    var items = Array<Certification>();
-    var parser = new JSDOM(html);
-    var tableRows = parser.window.document.querySelectorAll("table tr");
-    for (var i = 1; i < tableRows.length; i++) {
-        var cert = tableRowToCertification(tableRows[i]);
-        items.push(cert);
-    }
-    return items;
-}
-
 function addCategories(
     items: Array<Certification>,
     category: string,
@@ -64,6 +53,17 @@ function addCategories(
     for (var i = 0; i < items.length; i++) {
         items[i].category = category;
         items[i].subcategory = subcategory;
+    }
+    return items;
+}
+
+function getCertificationsFromHtml(html: string): Array<Certification> {
+    var items = Array<Certification>();
+    var parser = new JSDOM(html);
+    var tableRows = parser.window.document.querySelectorAll("table tr");
+    for (var i = 1; i < tableRows.length; i++) {
+        var cert = tableRowToCertification(tableRows[i]);
+        items.push(cert);
     }
     return items;
 }
@@ -103,24 +103,7 @@ export async function save(items: Array<Certification>) {
     }
 }
 
-// TODO: Probably remove this method, no need
-// Sends response with all certifications from firestore as json
-export async function getFromFirestoreAll(
-    res: functions.Response
-) {
-    try {
-        var items = await getFromFirestoreAllAsList();
-        res.setHeader('Content-Type', 'application/json');
-        res.statusCode = 200;
-        res.send(JSON.stringify(items));
-    } catch (e) {
-        logger.log(e)
-        res.statusCode = 500;
-        res.send(JSON.stringify("error occurred"));
-    }
-}
-
-// Sends response with certifications from firestore by category as json
+// Sends response with certifications from firestore by category & subcategory as json
 export async function getFromFirestoreByCategory(
     category: string,
     subcategory: string,
@@ -137,18 +120,17 @@ export async function getFromFirestoreByCategory(
     }
 }
 
-// TODO: Probably remove this method, no need
-// Returns all certifications from firestore as list
-async function getFromFirestoreAllAsList() {
+// Returns certifications from firestore by category & subcategory as list
+async function getFromFirestoreByCategoryAsList(
+    category: string,
+    subcategory: string
+) {
     try {
-        const snapshot = await admin.firestore()
-            .collection(TABLE_CERTIFICATIONS)
-            .get();
+        var snapshot = await getFirestoreSnapshotByCategory(category, subcategory);
         const results = Array<Certification>();
         if (!snapshot.empty) {
             snapshot.forEach((doc: { data: () => any }) => {
                 var item = doc.data();
-                logger.log(item);
                 results.push({
                     name: filter(item.name),
                     platform: filter(item.platform),
@@ -157,7 +139,7 @@ async function getFromFirestoreAllAsList() {
                     subcategory: filter(item.subcategory),
                     date: filter(item.date),
                     description: filter(item.description),
-                    rating: filter(item.rating)
+                    rating: filter(item.rating),
                 });
             });
         }
@@ -168,8 +150,8 @@ async function getFromFirestoreAllAsList() {
     }
 }
 
-// Returns certifications from firestore by category & subcategory as list
-async function getFromFirestoreByCategoryAsList(
+// Returns a snapshot of certifications from firestore by category & subcategory
+async function getFirestoreSnapshotByCategory(
     category: string,
     subcategory: string
 ) {
@@ -196,23 +178,7 @@ async function getFromFirestoreByCategoryAsList(
                 .collection(TABLE_CERTIFICATIONS)
                 .get();
         }
-        const results = Array<Certification>();
-        if (!snapshot.empty) {
-            snapshot.forEach((doc: { data: () => any }) => {
-                var item = doc.data();
-                results.push({
-                    name: filter(item.name),
-                    platform: filter(item.platform),
-                    certification: filter(item.certification),
-                    category: filter(item.category),
-                    subcategory: filter(item.subcategory),
-                    date: filter(item.date),
-                    description: filter(item.description),
-                    rating: filter(item.rating),
-                });
-            });
-        }
-        return results;
+        return snapshot;
     } catch (e) {
         logger.log(e)
         throw e;
