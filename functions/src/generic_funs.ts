@@ -170,8 +170,8 @@ async function getFromFirestoreAllAsList() {
 
 // Returns certifications from firestore by category & subcategory as list
 async function getFromFirestoreByCategoryAsList(
-    category: String,
-    subcategory: String
+    category: string,
+    subcategory: string
 ) {
     try {
         const snapshot = await admin.firestore()
