@@ -122,8 +122,8 @@ export async function getFromFirestoreAll(
 
 // Sends response with certifications from firestore by category as json
 export async function getFromFirestoreByCategory(
-    category: String,
-    subcategory: String,
+    category: string,
+    subcategory: string,
     res: functions.Response) {
     try {
         var items = await getFromFirestoreByCategoryAsList(category, subcategory);
