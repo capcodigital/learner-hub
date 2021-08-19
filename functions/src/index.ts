@@ -25,24 +25,16 @@ app.get("/me", (req: Request, res: Response) => {
 
 app.get("/me/certifications", async (req: Request, res: Response) => {
     try {
-        const userEmail = req.user?.email;
-        if (userEmail != undefined) {
-            const user = await admin.auth().getUserByEmail(userEmail);
-            if (user !== null) {
-                const userName = user.displayName;
-                if (userName != undefined) {
-                    const myCertifications = await getUserCertifications(userName);
-                    res.status(200).send(myCertifications);
-                }
-                else {
-                    res.status(400).send({ message: "User name cannot be empty" });
-                }
-            }
-            else {
-                res.status(400).send({ message: "Invalid user" });
-            }
+        const userName = req.user?.name;
+        if (userName != undefined) {
+            const myCertifications = await getUserCertifications(userName);
+            res.status(200).send(myCertifications);
         }
-    } catch (exception) {
+        else {
+            res.status(400).send({ message: "User name cannot be empty" });
+        }
+    }
+    catch (exception) {
         res.status(500).send({ error: exception });
     }
 });
