@@ -1,3 +1,4 @@
+/* eslint-disable require-jsdoc */
 import * as functions from "firebase-functions";
 import * as admin from 'firebase-admin';
 admin.initializeApp();
@@ -28,7 +29,7 @@ async function getFromUrlsAuthorised(
     creds: axios.AxiosBasicCredentials,
     entries: Array<CatalogEntry>,
     res: functions.Response) {
-    // prepare array of requests 
+    // prepare array of requests
     var reqs = Array<Promise<axios.AxiosResponse<ConfluenceResponse>>>();
     for (var i = 0; i < entries.length; i++) {
         var req = axios.default.get<ConfluenceResponse>(entries[i].contentUrl, {
@@ -208,4 +209,33 @@ async function getFirestoreSnapshotByCategory(
 
 function filter(text: string): string {
     return text != null ? text : "";
+}
+
+export async function getUserCertifications(username: string) {
+    try {
+        logger.log("GETTING USER CERTIFICATIONS");
+        const snapshot = await admin.firestore()
+            .collection("certifications")
+            .where("name", "==", username)
+            .get();
+
+        const myCertifications = Array<Certification>();
+        snapshot.forEach((doc: { data: () => any; }) => {
+            var item = doc.data();
+            logger.log(item);
+            myCertifications.push({
+                name: filter(item.name),
+                platform: filter(item.platform),
+                certification: filter(item.certification),
+                category: filter(item.category),
+                subcategory: filter(item.subcategory),
+                date: filter(item.date)
+            });
+        });
+
+        return myCertifications;
+    } catch (exception) {
+        logger.log(exception)
+        throw exception;
+    }
 }

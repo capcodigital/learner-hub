@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_confluence/core/components/app_drawer.dart';
 import 'package:flutter_confluence/core/components/custom_appbar.dart';
+import 'package:flutter_confluence/core/constants.dart';
 import 'package:flutter_confluence/features/certifications/presentation/pages/home_page.dart';
 import 'package:flutter_confluence/features/onboarding/presentation/bloc/on_boarding_bloc.dart';
 import 'package:flutter_confluence/features/onboarding/presentation/pages/on_boarding.dart';
@@ -18,6 +19,7 @@ class PreLoadWidget extends StatelessWidget {
               child: HomePage(
             appBar: CustomAppBar(
               icon: Icons.menu,
+              color: Constants.JIRA_COLOR,
               text: 'Cloud Certifications',
             ),
           )),

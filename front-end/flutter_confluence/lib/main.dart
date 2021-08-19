@@ -64,6 +64,7 @@ class MyApp extends StatelessWidget {
                     appBar: CustomAppBar(
                       icon: Icons.menu,
                       text: 'Cloud Certification',
+                      color: Constants.JIRA_COLOR,
                     ),
                   ),
               OnBoardingPage.route: (context) => OnBoardingPage(),
