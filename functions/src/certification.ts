@@ -5,5 +5,4 @@ interface Certification {
     category: string;
     subcategory: string;
     date: string;
-    userId: string;
 }

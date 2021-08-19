@@ -1,3 +1,4 @@
+/* eslint-disable require-jsdoc */
 import * as functions from "firebase-functions";
 import * as admin from 'firebase-admin';
 import * as axios from 'axios';
@@ -43,8 +44,7 @@ export async function getCollection(
                     certification: filter(item.certification),
                     category: filter(item.category),
                     subcategory: filter(item.subcategory),
-                    date: filter(item.date),
-                    userId: filter(item.userId)
+                    date: filter(item.date)
                 });
             });
             response.setHeader('Content-Type', 'application/json');
@@ -70,8 +70,7 @@ async function save(
             certification: filter(item.certification),
             category: filter(item.category),
             subcategory: filter(item.subcategory),
-            date: filter(item.date),
-            userId: filter(item.userId)
+            date: filter(item.date)
         });
     }
 }
@@ -80,12 +79,12 @@ function filter(text: string): string {
     return text != null ? text : "";
 }
 
-export async function getUserCertifications(userId: String) {
+export async function getUserCertifications(username: string) {
     try {
         logger.log("GETTING USER CERTIFICATIONS");
         const snapshot = await admin.firestore()
             .collection("certifications")
-            .where("userId", "==", userId)
+            .where("name", "==", username)
             .get();
 
         const myCertifications = Array<Certification>();
@@ -98,8 +97,7 @@ export async function getUserCertifications(userId: String) {
                 certification: filter(item.certification),
                 category: filter(item.category),
                 subcategory: filter(item.subcategory),
-                date: filter(item.date),
-                userId: filter(item.userId)
+                date: filter(item.date)
             });
         });
 
