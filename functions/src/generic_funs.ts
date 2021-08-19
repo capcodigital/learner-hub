@@ -229,7 +229,9 @@ export async function getUserCertifications(username: string) {
                 certification: filter(item.certification),
                 category: filter(item.category),
                 subcategory: filter(item.subcategory),
-                date: filter(item.date)
+                date: filter(item.date),
+                description: filter(item.description),
+                rating: filter(item.rating),
             });
         });
 
