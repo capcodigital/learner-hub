@@ -26,10 +26,8 @@ app.get("/me", (req: Request, res: Response) => {
 app.get("/me/certifications", async (req: Request, res: Response) => {
     try {
         const userEmail = req.user?.email;
-        console.log(userEmail);
         if (userEmail != undefined) {
             const user = await admin.auth().getUserByEmail(userEmail);
-            console.log(user);
             if (user !== null) {
                 const userName = user.displayName;
                 if (userName != undefined) {
