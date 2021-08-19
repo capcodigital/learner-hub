@@ -10,7 +10,7 @@ const { JSDOM } = jsdom;
 
 const TABLE_CERTIFICATIONS = "certifications"
 
-export async function getFromConfluenceMultiple(
+export async function getFromConfluence(
     username: string,
     token: string,
     catalogEntries: Array<CatalogEntry>,
@@ -64,41 +64,6 @@ async function getFromUrlsAuthorised(
             res.statusCode = 500;
             res.send(JSON.stringify("error occurred"));
         })
-}
-
-// Gets the certifications for a given catalog entry from confluence,
-// saves them to Firestore and returns them all as json
-export async function getFromConfluence(
-    username: string,
-    token: string,
-    entry: CatalogEntry,
-    res: functions.Response) {
-    var auth: axios.AxiosBasicCredentials = {
-        username: username,
-        password: token
-    }
-    getFromUrlAuthorised(auth, entry, res);
-}
-
-async function getFromUrlAuthorised(
-    creds: axios.AxiosBasicCredentials,
-    entry: CatalogEntry,
-    res: functions.Response) {
-    await axios.default.get<ConfluenceResponse>(entry.contentUrl, {
-        auth: creds
-    }).then(function (resp) {
-        var html = resp.data.body.export_view.value;
-        var items = getCertificationsFromHtml(html);
-        addCategories(items, entry.category, entry.subcategory);
-        save(items);
-        res.setHeader('Content-Type', 'application/json');
-        res.statusCode = 200;
-        res.send(JSON.stringify(items));
-    }).catch(function (error) {
-        logger.log(error);
-        res.statusCode = 500;
-        res.send(JSON.stringify("error occurred"));
-    });
 }
 
 function addCategories(

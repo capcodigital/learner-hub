@@ -3,7 +3,7 @@ import express, { Request, Response } from "express";
 //import { validateFirebaseIdToken } from "./auth-middleware";
 import { CatalogEntry, getUrl } from "./certifications";
 import { getById } from "./certifications";
-import { getFromFirestoreByCategory, getFromConfluenceMultiple } from "./generic_funs";
+import { getFromFirestoreByCategory, getFromConfluence } from "./generic_funs";
 
 export const app = express();
 //app.use(validateFirebaseIdToken);
@@ -44,7 +44,7 @@ app.get("/all", async (req: Request, res: Response) => {
     // add cloud catalog entries
     entries.push(getById(2))
     entries.push(getById(3))
-    getFromConfluenceMultiple(
+    getFromConfluence(
         "haris.mexis@capco.com",
         "2Yxpj3vyhdaAmrQsM1u9CBFA",
         entries,
