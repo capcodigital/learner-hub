@@ -174,11 +174,28 @@ async function getFromFirestoreByCategoryAsList(
     subcategory: string
 ) {
     try {
-        const snapshot = await admin.firestore()
-            .collection(TABLE_CERTIFICATIONS)
-            .where("category", "==", category)
-            .where("subcategory", "==", subcategory)
-            .get();
+        var snapshot = null;
+        if (category != null && subcategory != null) {
+            snapshot = await admin.firestore()
+                .collection(TABLE_CERTIFICATIONS)
+                .where("category", "==", category)
+                .where("subcategory", "==", subcategory)
+                .get();
+        } else if (category != null) {
+            snapshot = await admin.firestore()
+                .collection(TABLE_CERTIFICATIONS)
+                .where("category", "==", category)
+                .get();
+        } else if (subcategory != null) {
+            snapshot = await admin.firestore()
+                .collection(TABLE_CERTIFICATIONS)
+                .where("subcategory", "==", subcategory)
+                .get();
+        } else {
+            snapshot = await admin.firestore()
+                .collection(TABLE_CERTIFICATIONS)
+                .get();
+        }
         const results = Array<Certification>();
         if (!snapshot.empty) {
             snapshot.forEach((doc: { data: () => any }) => {
