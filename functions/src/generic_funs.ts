@@ -8,7 +8,7 @@ const { JSDOM } = jsdom;
 
 const TABLE_CERTIFICATIONS = "certifications"
 
-export async function getFromConfuence(
+export async function getFromConfluence(
     username: string,
     token: string,
     url: string,
@@ -62,8 +62,7 @@ function getCertificationsFromHtml(html: string): Array<Certification> {
     var parser = new JSDOM(html);
     var tableRows = parser.window.document.querySelectorAll("table tr");
     for (var i = 1; i < tableRows.length; i++) {
-        var cert = tableRowToCertification(tableRows[i]);
-        items.push(cert);
+        items.push(tableRowToCertification(tableRows[i]));
     }
     return items;
 }

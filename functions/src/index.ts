@@ -3,7 +3,7 @@ import express, { Request, Response } from "express";
 //import { validateFirebaseIdToken } from "./auth-middleware";
 import { getUrl } from "./certifications";
 import { getById } from "./certifications";
-import { getFromFirestoreByCategory, getFromConfuence } from "./generic_funs";
+import { getFromFirestoreByCategory, getFromConfluence } from "./generic_funs";
 
 export const app = express();
 //app.use(validateFirebaseIdToken);
@@ -41,7 +41,7 @@ app.get("/certifications", async (req: Request, res: Response) => {
 // Example of retrieving certifications from confluence and save then to firestore 
 app.get("/example", async (req: Request, res: Response) => {
     const catalogEntry = getById(3);
-    getFromConfuence(
+    getFromConfluence(
         "haris.mexis@capco.com",
         "token here",
         catalogEntry.contentUrl,
