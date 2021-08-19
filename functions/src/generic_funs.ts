@@ -4,36 +4,93 @@ admin.initializeApp();
 import * as axios from 'axios';
 import { logger } from "firebase-functions/lib";
 import * as jsdom from "jsdom";
+import { CatalogEntry } from "./certifications";
+
 const { JSDOM } = jsdom;
 
 const TABLE_CERTIFICATIONS = "certifications"
 
-export async function getFromConfluence(
+export async function getFromConfluenceMultiple(
     username: string,
     token: string,
-    url: string,
-    category: string,
-    subcategory: string,
+    catalogEntries: Array<CatalogEntry>,
     res: functions.Response) {
     var auth: axios.AxiosBasicCredentials = {
         username: username,
         password: token
     }
-    getFromUrlAuthorised(auth, url, category, subcategory, res);
+    getFromUrlsAuthorised(auth, catalogEntries, res);
+}
+
+// Gets the certifications for the given catalog entries from confluence,
+// saves them to Firestore and returns them all as json
+async function getFromUrlsAuthorised(
+    creds: axios.AxiosBasicCredentials,
+    entries: Array<CatalogEntry>,
+    res: functions.Response) {
+    // prepare array of requests 
+    var reqs = Array<Promise<axios.AxiosResponse<ConfluenceResponse>>>();
+    for (var i = 0; i < entries.length; i++) {
+        var req = axios.default.get<ConfluenceResponse>(entries[i].contentUrl, {
+            auth: creds
+        });
+        reqs.push(req);
+    }
+    // execute all requests
+    await axios.default
+        .all(reqs)
+        .then(axios.default.spread((...resp) => {
+            var allItems = Array<Certification>();
+            for (var i = 0; i < resp.length; i++) {
+                var re = resp[i] as axios.AxiosResponse;
+                var items = Array<Certification>();
+                var html = re.data.body.export_view.value;
+                var items = getCertificationsFromHtml(html);
+                logger.log(items.length);
+                addCategories(
+                    items,
+                    entries[i].category,
+                    entries[i].subcategory);
+                for (var j = 0; j < items.length; j++) {
+                    allItems.push(items[j]);
+                }
+            }
+            save(allItems);
+            logger.log(allItems.length);
+            res.setHeader('Content-Type', 'application/json');
+            res.statusCode = 200;
+            res.send(JSON.stringify(allItems));
+        })).catch(errors => {
+            logger.log(errors);
+            res.statusCode = 500;
+            res.send(JSON.stringify("error occurred"));
+        })
+}
+
+// Gets the certifications for a given catalog entry from confluence,
+// saves them to Firestore and returns them all as json
+export async function getFromConfluence(
+    username: string,
+    token: string,
+    entry: CatalogEntry,
+    res: functions.Response) {
+    var auth: axios.AxiosBasicCredentials = {
+        username: username,
+        password: token
+    }
+    getFromUrlAuthorised(auth, entry, res);
 }
 
 async function getFromUrlAuthorised(
     creds: axios.AxiosBasicCredentials,
-    url: string,
-    category: string,
-    subcategory: string,
+    entry: CatalogEntry,
     res: functions.Response) {
-    await axios.default.get<ConfluenceResponse>(url, {
+    await axios.default.get<ConfluenceResponse>(entry.contentUrl, {
         auth: creds
     }).then(function (resp) {
         var html = resp.data.body.export_view.value;
         var items = getCertificationsFromHtml(html);
-        addCategories(items, category, subcategory);
+        addCategories(items, entry.category, entry.subcategory);
         save(items);
         res.setHeader('Content-Type', 'application/json');
         res.statusCode = 200;
@@ -86,7 +143,7 @@ function tableRowToCertification(row: Element): Certification {
 }
 
 // Saves a list of certifications in a Firestore collection
-export async function save(items: Array<Certification>) {
+async function save(items: Array<Certification>) {
     for (var i = 0; i < items.length; i++) {
         var item = items[i];
         await admin.firestore().collection(TABLE_CERTIFICATIONS).add({
@@ -177,6 +234,7 @@ async function getFirestoreSnapshotByCategory(
                 .collection(TABLE_CERTIFICATIONS)
                 .get();
         }
+        logger.log(snapshot.size);
         return snapshot;
     } catch (e) {
         logger.log(e)

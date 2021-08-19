@@ -1,6 +1,6 @@
 import data from '../test/catalog.json';
 
-type Certification = {
+export type CatalogEntry = {
     id: number;
     name: string;
     category: string;
@@ -10,13 +10,13 @@ type Certification = {
 };
 
 export const getUrl = (id: number): string => {
-    const certFilter: Certification[] = data.filter((c: Certification) => c.id == id);
+    const certFilter: CatalogEntry[] = data.filter((c: CatalogEntry) => c.id == id);
     console.log(certFilter);
     var url = (certFilter.length > 0) ? (certFilter[0].url) : ("");
     return url;
 }
 
-export const getById = (id: number): Certification => {
-    const certFilter: Certification[] = data.filter((c: Certification) => c.id == id);
+export const getById = (id: number): CatalogEntry => {
+    const certFilter: CatalogEntry[] = data.filter((c: CatalogEntry) => c.id == id);
     return certFilter[0];
 }
