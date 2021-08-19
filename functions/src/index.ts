@@ -38,27 +38,17 @@ app.get("/certifications", async (req: Request, res: Response) => {
         res);
 });
 
-// Endpoint to get certifications from Confluence, save them to Firestore and return them 
-// as json
+// Gets the certifications from Confluence, saves them to Firestore and returns them as json
 app.get("/all", async (req: Request, res: Response) => {
     var entries = Array<CatalogEntry>();
-
-    // add cloud
+    // add cloud catalog entries
     entries.push(getById(2))
     entries.push(getById(3))
-
-    // execute requests
     getFromConfluenceMultiple(
         "haris.mexis@capco.com",
         "2Yxpj3vyhdaAmrQsM1u9CBFA",
         entries,
         res);
-
-    // getFromConfluence(
-    //     "haris.mexis@capco.com",
-    //     "token here",
-    //     getById(2),
-    //     res);
 });
 
 // This HTTPS endpoint can only be accessed by your Firebase Users.

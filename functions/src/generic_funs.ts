@@ -39,28 +39,27 @@ async function getFromUrlsAuthorised(
     // execute all requests
     await axios.default
         .all(reqs)
-        .then(axios.default.spread((...resp) => {
+        .then(function (resps) {
             var allItems = Array<Certification>();
-            for (var i = 0; i < resp.length; i++) {
-                var re = resp[i] as axios.AxiosResponse;
+            for (var i = 0; i < resps.length; i++) {
                 var items = Array<Certification>();
-                var html = re.data.body.export_view.value;
+                var html = resps[i].data.body.export_view.value;
                 var items = getCertificationsFromHtml(html);
                 logger.log(items.length);
                 addCategories(
                     items,
                     entries[i].category,
                     entries[i].subcategory);
+                save(items);
                 for (var j = 0; j < items.length; j++) {
                     allItems.push(items[j]);
                 }
             }
-            save(allItems);
             logger.log(allItems.length);
             res.setHeader('Content-Type', 'application/json');
             res.statusCode = 200;
             res.send(JSON.stringify(allItems));
-        })).catch(errors => {
+        }).catch(errors => {
             logger.log(errors);
             res.statusCode = 500;
             res.send(JSON.stringify("error occurred"));
