@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 class Constants {
   // Colors
   static const JIRA_COLOR = const Color(0xff0052CC);
+  static const ACCENT_COLOR = const Color(0xffE6236D);
   static const BLACK_75 = const Color(0xBF000000);
   static final BLACK_25 = Colors.black.withOpacity(0.25);
   static final DISABLED_COLOR = Colors.grey.shade300;

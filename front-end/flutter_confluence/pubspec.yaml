@@ -120,3 +120,22 @@ flutter:
           weight: 400
         - asset: fonts/Montserrat-SemiBold.ttf
           weight: 600
+    - family: Lato
+      fonts:
+        - asset: fonts/Lato-Regular.ttf
+          style: normal
+          weight: 400
+        - asset: fonts/Lato-Bold.ttf
+          style: normal
+          weight: 700
+    - family: FuturaPT
+      fonts:
+        - asset: fonts/FuturaPTBookOblique.otf
+          style: italic
+          weight: 400
+        - asset: fonts/FuturaPTDemiOblique.otf
+          style: italic
+          weight: 600
+        - asset: fonts/FuturaPTExtraBold.otf
+          style: normal
+          weight: 800
