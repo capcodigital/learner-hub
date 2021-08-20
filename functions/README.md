@@ -1,6 +1,6 @@
 ## Data Structure
 
-Our data is structured in such as way that we have 3 collections that will sit within our database.
+Our data is structured in such as way that we have 3 collections that will sit within our [Firestore](https://firebase.google.com/docs/firestore) database. These are the only colllections that our application will be using. In addition to keeping our data in Firestore, we'll also be using [Hive](https://docs.hivedb.dev/) to persist parts of the data for caching.
 
  * Certifications
  * Users
@@ -17,7 +17,7 @@ Our Certifications collection is a standardised format that will hold all our da
 
 ### Users
 
-Our Users collection is our documents of users who have been authenticated with [Firebase Auth](https://firebase.google.com/docs/auth). They are added onto [Firestore](https://firebase.google.com/docs/firestore) by explicitly setting the document name to the user UID that Firebase Auth has given to the user. This can then be retrieved via a GET request with `.doc(user.uid)`. Similar to the Certifications, the properties within the Users collection can be updated with a PUT request.
+Our Users collection is our documents of users who have been authenticated with [Firebase Auth](https://firebase.google.com/docs/auth). They are added onto Firestore by explicitly setting the document name to the user UID that Firebase Auth has given to the user. This can then be retrieved via a GET request with `.doc(user.uid)`. Similar to the Certifications, the properties within the Users collection can be updated with a PUT request.
 
 ### Skills
 
