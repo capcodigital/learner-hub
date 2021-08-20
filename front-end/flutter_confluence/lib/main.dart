@@ -39,6 +39,37 @@ class MyApp extends StatelessWidget {
             color: Constants.BLACK_75,
             fontSize: 12.0,
             fontWeight: FontWeight.w400),
+        // NEW STYLES FOR THE NEW UI
+        bodyText1: TextStyle(
+          color: Colors.white,
+          fontFamily: 'Lato',
+          fontWeight: FontWeight.w400,
+          fontSize: 16.0
+        ),
+        button: TextStyle(
+            color: Colors.white,
+            fontFamily: 'Lato',
+            fontWeight: FontWeight.w700,
+            fontSize: 18.0
+        ),
+        headline6: TextStyle(
+            color: Colors.white,
+            fontFamily: 'FuturaPT',
+            fontWeight: FontWeight.w800,
+            fontSize: 22.0
+        ),
+        subtitle1: TextStyle(
+            color: Colors.black,
+            fontFamily: 'FuturaPT',
+            fontWeight: FontWeight.w400,
+            fontSize: 18.0
+        ),
+        subtitle2: TextStyle(
+            color: Constants.ACCENT_COLOR,
+            fontFamily: 'FuturaPT',
+            fontWeight: FontWeight.w600,
+            fontSize: 18.0
+        ),
       ),
     );
   }
