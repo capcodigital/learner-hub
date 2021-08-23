@@ -64,7 +64,7 @@ app.get("/certifications", async (req: Request, res: Response) => {
 });
 
 // Gets the certifications from Confluence, saves them to Firestore and returns them as json
-app.get("/all", async (req: Request, res: Response) => {
+app.get("/certifications/all", async (req: Request, res: Response) => {
     var entries = Array<CatalogEntry>();
     // add cloud catalog entries
     entries.push(getById(2))

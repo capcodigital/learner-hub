@@ -44,16 +44,13 @@ async function getFromUrlsAuthorised(
             for (var i = 0; i < resps.length; i++) {
                 var items = Array<Certification>();
                 var html = resps[i].data.body.export_view.value;
-                var items = getCertificationsFromHtml(html);
-                logger.log(items.length);
-                addCategories(
-                    items,
+                var items = getCertificationsFromHtml(
+                    html,
                     entries[i].category,
                     entries[i].subcategory);
+                logger.log(items.length);
                 save(items);
-                for (var j = 0; j < items.length; j++) {
-                    allItems.push(items[j]);
-                }
+                allItems.push.apply(allItems, items);
             }
             logger.log(allItems.length);
             res.setHeader('Content-Type', 'application/json');
@@ -66,24 +63,19 @@ async function getFromUrlsAuthorised(
         })
 }
 
-function addCategories(
-    items: Array<Certification>,
+function getCertificationsFromHtml(
+    html: string,
     category: string,
-    subcategory: string
+    subcategory: string,
 ): Array<Certification> {
-    for (var i = 0; i < items.length; i++) {
-        items[i].category = category;
-        items[i].subcategory = subcategory;
-    }
-    return items;
-}
-
-function getCertificationsFromHtml(html: string): Array<Certification> {
     var items = Array<Certification>();
     var parser = new JSDOM(html);
     var tableRows = parser.window.document.querySelectorAll("table tr");
     for (var i = 1; i < tableRows.length; i++) {
-        items.push(tableRowToCertification(tableRows[i]));
+        var cert = tableRowToCertification(tableRows[i]);
+        cert.category = category;
+        cert.subcategory = subcategory;
+        items.push(cert);
     }
     return items;
 }
