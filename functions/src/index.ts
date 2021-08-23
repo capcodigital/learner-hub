@@ -1,8 +1,8 @@
 import * as functions from "firebase-functions";
 import express, { Request, Response } from "express";
 import { validateFirebaseIdToken } from "./auth-middleware";
-import { CatalogEntry, getUrl } from "./certifications";
-import { getById } from "./certifications";
+import { CatalogEntry, getUrl } from "./certifications/certifications";
+import { getById } from "./certifications/certifications";
 import { getFromFirestoreByCategory, getFromConfluence, getFromFirestoreByPlatform } from "./generic_funs";
 import { getUserCertifications } from "./generic_funs";
 
@@ -55,7 +55,7 @@ app.get("/certifications", async (req: Request, res: Response) => {
             res);
     } else {
         // If there is no platform, filter by category & subcategory.
-        // If there's no category & subcategory, it will return all
+        // If there's no category & subcategory, it will return
         var category = req.query["category"] as string;
         var subcategory = req.query["subcategory"] as string;
         getFromFirestoreByCategory(
@@ -73,7 +73,7 @@ app.get("/all", async (req: Request, res: Response) => {
     entries.push(getById(3))
     getFromConfluence(
         "haris.mexis@capco.com",
-        "token here",
+        "user token",
         entries,
         res);
 });
