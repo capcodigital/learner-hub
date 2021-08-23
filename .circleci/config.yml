@@ -131,8 +131,12 @@ jobs:
           command: curl -sL firebase.tools | bash
       - run:
           name: Deploy website to Firebase
-          command: firebase deploy --token $FIREBASE_TOKEN
+          command: firebase deploy --only hosting --token $FIREBASE_TOKEN
           working_directory: ~/project/front-end/flutter_confluence
+      - run:
+          name: Deploy Firebase functions
+          command: firebase deploy --only functions --token $FIREBASE_TOKEN
+          working_directory: ~/project/functions
 
 workflows:
   version: 2
