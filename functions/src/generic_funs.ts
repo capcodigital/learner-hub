@@ -88,6 +88,10 @@ function getCertificationsFromHtml(html: string): Array<Certification> {
     return items;
 }
 
+// This method works for parsing the tables of the cloud certifications only.
+// For the rest of certifications the tables are different so we need to create
+// new method(s). Alternative is to have a common structure in the tables
+// if possible, so we can use the same method for all.
 function tableRowToCertification(row: Element): Certification {
     var name = row.querySelector('td:nth-child(2)')?.textContent as string;
     var platform = row.querySelector('td:nth-child(3)')?.textContent as string;
