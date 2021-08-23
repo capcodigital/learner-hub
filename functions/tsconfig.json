@@ -6,9 +6,22 @@
     "outDir": "lib",
     "sourceMap": true,
     "strict": true,
-    "target": "es2017"
+    "target": "es2017",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "types": [
+      "node"
+    ],
+    "typeRoots": [
+      "./src/types",
+      "./node_modules/@types"
+    ]
   },
   "compileOnSave": true,
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts"
+  ],
   "include": [
     "src"
   ]

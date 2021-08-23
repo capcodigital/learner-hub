@@ -82,6 +82,8 @@ flutter:
     - assets/ic_rectangle.png
     - assets/ic_error.png
     - assets/lottie-animation.json
+    - assets/background.png
+    - assets/capco_logo.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
@@ -119,3 +121,22 @@ flutter:
           weight: 400
         - asset: fonts/Montserrat-SemiBold.ttf
           weight: 600
+    - family: Lato
+      fonts:
+        - asset: fonts/Lato-Regular.ttf
+          style: normal
+          weight: 400
+        - asset: fonts/Lato-Bold.ttf
+          style: normal
+          weight: 700
+    - family: FuturaPT
+      fonts:
+        - asset: fonts/FuturaPTBookOblique.otf
+          style: italic
+          weight: 400
+        - asset: fonts/FuturaPTDemiOblique.otf
+          style: italic
+          weight: 600
+        - asset: fonts/FuturaPTExtraBold.otf
+          style: normal
+          weight: 800

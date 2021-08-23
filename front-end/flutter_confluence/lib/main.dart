@@ -1,9 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_confluence/core/components/app_drawer.dart';
+import 'package:flutter_confluence/core/components/custom_appbar.dart';
 import 'package:lottie/lottie.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'core/components/preloader.dart';
 import 'core/constants.dart';
 import 'features/certifications/data/models/cloud_certification_model.dart';
 import 'features/onboarding/presentation/bloc/on_boarding_bloc.dart';
@@ -36,6 +39,37 @@ class MyApp extends StatelessWidget {
             color: Constants.BLACK_75,
             fontSize: 12.0,
             fontWeight: FontWeight.w400),
+        // NEW STYLES FOR THE NEW UI
+        bodyText1: TextStyle(
+          color: Colors.white,
+          fontFamily: 'Lato',
+          fontWeight: FontWeight.w400,
+          fontSize: 16.0
+        ),
+        button: TextStyle(
+            color: Colors.white,
+            fontFamily: 'Lato',
+            fontWeight: FontWeight.w700,
+            fontSize: 18.0
+        ),
+        headline6: TextStyle(
+            color: Colors.white,
+            fontFamily: 'FuturaPT',
+            fontWeight: FontWeight.w800,
+            fontSize: 22.0
+        ),
+        subtitle1: TextStyle(
+            color: Colors.black,
+            fontFamily: 'FuturaPT',
+            fontWeight: FontWeight.w400,
+            fontSize: 18.0
+        ),
+        subtitle2: TextStyle(
+            color: Constants.ACCENT_COLOR,
+            fontFamily: 'FuturaPT',
+            fontWeight: FontWeight.w600,
+            fontSize: 18.0
+        ),
       ),
     );
   }
@@ -57,50 +91,15 @@ class MyApp extends StatelessWidget {
             title: 'Flutter Demo',
             theme: buildAppTheme(),
             routes: {
-              HomePage.route: (context) => HomePage(),
+              HomePage.route: (context) => HomePage(
+                    appBar: CustomAppBar(
+                      icon: Icons.menu,
+                      text: 'Cloud Certification',
+                      color: Constants.JIRA_COLOR,
+                    ),
+                  ),
               OnBoardingPage.route: (context) => OnBoardingPage(),
             },
             home: PreLoadWidget()));
-  }
-}
-
-class PreLoadWidget extends StatelessWidget {
-  static const STARTUP_DELAY_MILLIS = 2000;
-
-  void openHomePage(BuildContext context) {
-    Navigator.pushNamed(context, HomePage.route);
-  }
-
-  void openOnBoardingPage(BuildContext context) {
-    Navigator.pushNamed(context, OnBoardingPage.route);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        body: BlocListener(
-            bloc: BlocProvider.of<OnBoardingBloc>(context),
-            listener: (context, state) {
-              if (state is Expired) {
-                Future.delayed(Duration(milliseconds: STARTUP_DELAY_MILLIS),
-                    () {
-                  openOnBoardingPage(context);
-                });
-              }
-              if (state is Completed) {
-                Future.delayed(Duration(milliseconds: STARTUP_DELAY_MILLIS),
-                    () {
-                  openHomePage(context);
-                });
-              }
-            },
-            child: Container(
-              color: Colors.white,
-              child: Center(
-                child: Lottie.asset(
-                  'assets/lottie-animation.json',
-                ),
-              ),
-            )));
   }
 }

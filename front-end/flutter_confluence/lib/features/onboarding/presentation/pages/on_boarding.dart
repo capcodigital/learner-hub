@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_confluence/core/components/app_drawer.dart';
+import 'package:flutter_confluence/core/components/custom_appbar.dart';
 import 'package:flutter_confluence/core/dimen.dart';
 import 'package:flutter_confluence/core/utils/error_messages.dart';
 import 'package:flutter_confluence/core/utils/media_util.dart';
@@ -30,7 +32,18 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
   }
 
   void openHomePage(BuildContext context) {
-    Navigator.pushNamed(context, HomePage.route);
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => AppDrawer(
+              child: HomePage(
+            appBar: CustomAppBar(
+              icon: Icons.menu,
+              text: 'Cloud Certifications',
+              color: Constants.JIRA_COLOR,
+            ),
+          )),
+        ));
   }
 
   @override
@@ -44,6 +57,8 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
       listener: (context, state) {
         if (state is AuthError) {
           showAlertDialog(context, state.message);
+        } else if (state is Completed) {
+          openHomePage(context);
         }
       },
       child: buildWithLayoutBuilder(context),
@@ -283,7 +298,9 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
             },
             child: Center(
               child: Text(
-                  !isAuthSupported ? msgAuthenticateNotSupported : msgAuthenticate,
+                  !isAuthSupported
+                      ? msgAuthenticateNotSupported
+                      : msgAuthenticate,
                   style: Theme.of(context)
                       .textTheme
                       .headline1

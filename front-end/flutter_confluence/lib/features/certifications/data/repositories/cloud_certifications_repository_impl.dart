@@ -5,7 +5,7 @@ import 'package:flutter_confluence/core/constants.dart';
 import 'package:flutter_confluence/core/error/custom_exceptions.dart';
 import 'package:flutter_confluence/core/error/failures.dart';
 import 'package:flutter_confluence/core/network/network_info.dart';
-import 'package:flutter_confluence/core/utils/extensions.dart';
+import 'package:flutter_confluence/core/utils/extensions/extensions.dart';
 import 'package:flutter_confluence/features/certifications/data/datasources/cloud_certification_local_data_source.dart';
 import 'package:flutter_confluence/features/certifications/data/datasources/cloud_certification_remote_data_source.dart';
 import 'package:flutter_confluence/features/certifications/data/models/cloud_certification_model.dart';
