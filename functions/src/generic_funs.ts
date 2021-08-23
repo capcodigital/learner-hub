@@ -116,7 +116,7 @@ async function save(items: Array<Certification>) {
         var item = items[i];
         await admin.firestore().collection(TABLE_CERTIFICATIONS).add({
             name: filter(item.name),
-            platform: filter(item.platform),
+            platform: filter(item.platform.toLowerCase()),
             certification: filter(item.certification),
             category: filter(item.category).toLowerCase(),
             subcategory: filter(item.subcategory).toLowerCase(),
@@ -124,6 +124,22 @@ async function save(items: Array<Certification>) {
             description: filter(item.description),
             rating: filter(item.rating),
         });
+    }
+}
+
+// Sends response with certifications from firestore by platform as json
+export async function getFromFirestoreByPlatform(
+    platform: string,
+    res: functions.Response) {
+    try {
+        var items = await getFromFirestoreByPlatformAsList(platform);
+        res.setHeader('Content-Type', 'application/json');
+        res.statusCode = 200;
+        res.send(JSON.stringify(items));
+    } catch (e) {
+        logger.log(e)
+        res.statusCode = 500;
+        res.send(JSON.stringify(e.message));
     }
 }
 
@@ -141,6 +157,36 @@ export async function getFromFirestoreByCategory(
         logger.log(e)
         res.statusCode = 500;
         res.send(JSON.stringify(e.message));
+    }
+}
+
+// Returns certifications from firestore by category & subcategory as list
+async function getFromFirestoreByPlatformAsList(platform: string) {
+    try {
+        var snapshot = await admin.firestore()
+            .collection(TABLE_CERTIFICATIONS)
+            .where("platform", "==", platform)
+            .get();
+        const results = Array<Certification>();
+        if (!snapshot.empty) {
+            snapshot.forEach((doc: { data: () => any }) => {
+                var item = doc.data();
+                results.push({
+                    name: filter(item.name),
+                    platform: filter(item.platform),
+                    certification: filter(item.certification),
+                    category: filter(item.category),
+                    subcategory: filter(item.subcategory),
+                    date: filter(item.date),
+                    description: filter(item.description),
+                    rating: filter(item.rating),
+                });
+            });
+        }
+        return results;
+    } catch (e) {
+        logger.log(e)
+        throw e;
     }
 }
 

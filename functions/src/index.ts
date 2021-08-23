@@ -3,7 +3,7 @@ import express, { Request, Response } from "express";
 import { validateFirebaseIdToken } from "./auth-middleware";
 import { CatalogEntry, getUrl } from "./certifications";
 import { getById } from "./certifications";
-import { getFromFirestoreByCategory, getFromConfluence } from "./generic_funs";
+import { getFromFirestoreByCategory, getFromConfluence, getFromFirestoreByPlatform } from "./generic_funs";
 import { getUserCertifications } from "./generic_funs";
 
 export const app = express();
@@ -40,17 +40,29 @@ app.get("/me/certifications", async (req: Request, res: Response) => {
     }
 });
 
-// Endpoint to return certifications from Firestore filtered by category & subcategory
+// Endpoint to return certifications from Firestore filtered either by category & subcategory
+// or by platform.
 // Missing parameters are ignored
 // eg. http://localhost:5001/io-capco-flutter-dev/us-central1/app/certifications?category=cloud&subcategory=in%20progress
 // eg. http://localhost:5001/io-capco-flutter-dev/us-central1/app/certifications?category=cloud
+// eg. http://localhost:5001/io-capco-flutter-dev/us-central1/app/certifications?platform=aws
 app.get("/certifications", async (req: Request, res: Response) => {
-    var category = req.query["category"] as string;
-    var subcategory = req.query["subcategory"] as string;
-    getFromFirestoreByCategory(
-        category?.toLowerCase(),
-        subcategory?.toLowerCase(),
-        res);
+    var platform = req.query["platform"] as string;
+    // If there's platform param, filter by platform
+    if (platform != null && platform.trim().length > 0) {
+        getFromFirestoreByPlatform(
+            platform?.toLowerCase(),
+            res);
+    } else {
+        // If there is no platform, filter by category & subcategory.
+        // If there's no category & subcategory, it will return all
+        var category = req.query["category"] as string;
+        var subcategory = req.query["subcategory"] as string;
+        getFromFirestoreByCategory(
+            category?.toLowerCase(),
+            subcategory?.toLowerCase(),
+            res);
+    }
 });
 
 // Gets the certifications from Confluence, saves them to Firestore and returns them as json
