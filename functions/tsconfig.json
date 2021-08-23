@@ -9,13 +9,22 @@
     "target": "es2017",
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "types": [ "jest"],
-    "typeRoots": ["./types", "./node_modules/@types"]
-
+    "types": [
+      "node"
+    ],
+    "typeRoots": [
+      "./src/types",
+      "./node_modules/@types"
+    ]
   },
   "compileOnSave": true,
-  "exclude": ["node_modules", "**/*.spec.ts", "**/*.test.ts"],
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts",
+    "**/*.test.ts"
+  ],
   "include": [
-    "src"
+    "src",
+    "test",
   ]
 }

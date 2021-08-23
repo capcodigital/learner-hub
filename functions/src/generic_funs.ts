@@ -1,6 +1,7 @@
 /* eslint-disable require-jsdoc */
 import * as functions from "firebase-functions";
 import * as admin from 'firebase-admin';
+admin.initializeApp();
 import * as axios from 'axios';
 import { logger } from "firebase-functions/lib";
 import * as jsdom from "jsdom";
@@ -136,7 +137,7 @@ export async function getFromFirestoreByCategory(
     } catch (e) {
         logger.log(e)
         res.statusCode = 500;
-        res.send(JSON.stringify("error occurred"));
+        res.send(JSON.stringify(e.message));
     }
 }
 

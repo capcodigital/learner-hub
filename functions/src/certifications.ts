@@ -1,4 +1,4 @@
-import data from '../test/catalog.json';
+import data from './catalog.json';
 
 export type CatalogEntry = {
     id: number;
