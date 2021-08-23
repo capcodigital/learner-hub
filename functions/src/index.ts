@@ -1,9 +1,10 @@
 import * as functions from "firebase-functions";
-import admin from "firebase-admin";
 import express, { Request, Response } from "express";
 import { validateFirebaseIdToken } from "./auth-middleware";
-import { getUrl } from "./certifications";
-import { getFromUrl, getCollection, getUserCertifications } from "./generic_funs";
+import { CatalogEntry, getUrl } from "./certifications/catalog_entry";
+import { getById } from "./certifications/catalog_entry";
+import { getFromFirestoreByCategory, getFromConfluence, getFromFirestoreByPlatform } from "./generic_funs";
+import { getUserCertifications } from "./generic_funs";
 
 export const app = express();
 app.use(validateFirebaseIdToken);
@@ -39,20 +40,43 @@ app.get("/me/certifications", async (req: Request, res: Response) => {
     }
 });
 
+// Endpoint to return certifications from Firestore filtered either by category & subcategory
+// or by platform.
+// Missing parameters are ignored
+// eg. http://localhost:5001/io-capco-flutter-dev/us-central1/app/certifications?category=cloud&subcategory=in%20progress
+// eg. http://localhost:5001/io-capco-flutter-dev/us-central1/app/certifications?category=cloud
+// eg. http://localhost:5001/io-capco-flutter-dev/us-central1/app/certifications?platform=aws
+app.get("/certifications", async (req: Request, res: Response) => {
+    var platform = req.query["platform"] as string;
+    // If there's platform param, filter by platform
+    if (platform != null)
+        getFromFirestoreByPlatform(platform?.toLowerCase(), res);
+    else {
+        // If there is no platform, filter by category & subcategory.
+        // If there's no category & subcategory, will return all
+        var category = req.query["category"] as string;
+        var subcategory = req.query["subcategory"] as string;
+        getFromFirestoreByCategory(
+            category?.toLowerCase(),
+            subcategory?.toLowerCase(),
+            res);
+    }
+});
+
+// Gets the certifications from Confluence, saves them to Firestore and returns them as json
+app.get("/certifications/all", async (req: Request, res: Response) => {
+    var entries = Array<CatalogEntry>();
+    // add cloud catalog entries
+    entries.push(getById(2))
+    entries.push(getById(3))
+    getFromConfluence(
+        "haris.mexis@capco.com",
+        "user token",
+        entries,
+        res);
+});
+
 // This HTTPS endpoint can only be accessed by your Firebase Users.
 // Requests need to be authorized by providing an `Authorization` HTTP header
 // with value `Bearer <Firebase ID Token>`.
 exports.app = functions.https.onRequest(app);
-
-// TODO: Update logic below when we integrate catalog
-// Below is example of calling the generic functions
-
-// Retrieves the certifications from remote url, saves them and returns them as json
-exports.getFromConfluence = functions.https.onRequest(async (req, res) => {
-    getFromUrl('https://io-capco-flutter-dev.nw.r.appspot.com/completed', "certifications", res);
-});
-
-// Retrieves the certifications from firestore and returns them as json
-exports.getFromFirestore = functions.https.onRequest(async (req, res) => {
-    getCollection('certifications', res);
-});
