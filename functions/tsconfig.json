@@ -20,11 +20,9 @@
   "compileOnSave": true,
   "exclude": [
     "node_modules",
-    "**/*.spec.ts",
-    "**/*.test.ts"
+    "**/*.spec.ts"
   ],
   "include": [
-    "src",
-    "test",
+    "src"
   ]
 }

@@ -73,7 +73,7 @@ app.get("/all", async (req: Request, res: Response) => {
     entries.push(getById(3))
     getFromConfluence(
         "haris.mexis@capco.com",
-        "user token",
+        "token here",
         entries,
         res);
 });
