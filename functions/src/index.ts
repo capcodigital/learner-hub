@@ -1,8 +1,8 @@
 import * as functions from "firebase-functions";
 import express, { Request, Response } from "express";
 import { validateFirebaseIdToken } from "./auth-middleware";
-import { CatalogEntry, getUrl } from "./certifications/certifications";
-import { getById } from "./certifications/certifications";
+import { CatalogEntry, getUrl } from "./certifications/catalog_entry";
+import { getById } from "./certifications/catalog_entry";
 import { getFromFirestoreByCategory, getFromConfluence, getFromFirestoreByPlatform } from "./generic_funs";
 import { getUserCertifications } from "./generic_funs";
 

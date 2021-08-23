@@ -1,11 +1,10 @@
 /* eslint-disable require-jsdoc */
 import * as functions from "firebase-functions";
 import * as admin from 'firebase-admin';
-//admin.initializeApp();
 import * as axios from 'axios';
 import { logger } from "firebase-functions/lib";
 import * as jsdom from "jsdom";
-import { CatalogEntry } from "./certifications/certifications";
+import { CatalogEntry } from "./certifications/catalog_entry";
 
 const { JSDOM } = jsdom;
 
