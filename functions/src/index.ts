@@ -49,13 +49,11 @@ app.get("/me/certifications", async (req: Request, res: Response) => {
 app.get("/certifications", async (req: Request, res: Response) => {
     var platform = req.query["platform"] as string;
     // If there's platform param, filter by platform
-    if (platform != null && platform.trim().length > 0) {
-        getFromFirestoreByPlatform(
-            platform?.toLowerCase(),
-            res);
-    } else {
+    if (platform != null)
+        getFromFirestoreByPlatform(platform?.toLowerCase(), res);
+    else {
         // If there is no platform, filter by category & subcategory.
-        // If there's no category & subcategory, it will return
+        // If there's no category & subcategory, will return all
         var category = req.query["category"] as string;
         var subcategory = req.query["subcategory"] as string;
         getFromFirestoreByCategory(
