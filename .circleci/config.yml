@@ -134,18 +134,18 @@ jobs:
           command: firebase deploy --only hosting --token $FIREBASE_TOKEN
           working_directory: ~/project/front-end/flutter_confluence
 
-    deploy functions:
-      docker:
-        - image: "cimg/node:14.0.0"
-      steps:
-        - checkout
-        - run:
-            name: Install Firebase Tools
-            command: npm install --save-dev firebase-tools
-        - run:
-            name: Deploy Firebase functions
-            command: firebase deploy --only functions --token $FIREBASE_TOKEN
-            working_directory: ~/project/functions
+  deploy functions:
+    docker:
+      - image: "cimg/node:14.0.0"
+    steps:
+      - checkout
+      - run:
+          name: Install Firebase Tools
+          command: npm install --save-dev firebase-tools
+      - run:
+          name: Deploy Firebase functions
+          command: firebase deploy --only functions --token $FIREBASE_TOKEN
+          working_directory: ~/project/functions
 
 workflows:
   version: 2
