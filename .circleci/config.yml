@@ -141,7 +141,7 @@ jobs:
       - checkout
       - run:
           name: Install Firebase Tools
-          command: npm install --save-dev firebase-tools
+          command: npm install
           working_directory: ~/project/functions
       - run:
           name: Deploy Firebase functions
