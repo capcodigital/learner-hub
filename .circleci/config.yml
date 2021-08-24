@@ -144,6 +144,10 @@ jobs:
           command: curl -sL firebase.tools | upgrade=true bash
           working_directory: ~/project/functions
       - run:
+          name: Install Dependencies
+          command: npm install
+          working_directory: ~/project/functions
+      - run:
           name: Deploy Firebase functions
           command: firebase deploy --only functions --token $FIREBASE_TOKEN --non-interactive
           working_directory: ~/project/functions
