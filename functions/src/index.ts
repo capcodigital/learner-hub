@@ -1,6 +1,6 @@
 import * as functions from "firebase-functions";
 import express, { Request, Response } from "express";
-//import { validateFirebaseIdToken } from "./auth-middleware";
+import { validateFirebaseIdToken } from "./auth-middleware";
 import { CatalogEntry, getUrl } from "./certifications/catalog_entry";
 import { getById } from "./certifications/catalog_entry";
 import {
@@ -15,7 +15,7 @@ import {
 import { getUserCertifications } from "./firestore_funs";
 
 export const app = express();
-//app.use(validateFirebaseIdToken);
+app.use(validateFirebaseIdToken);
 
 app.get("/catalog/:id", (req: Request, res: Response) => {
     const id = <any>req.params.id;
@@ -79,7 +79,7 @@ app.get("/certifications/all", async (req: Request, res: Response) => {
     entries.push(getById(3))
     getFromConfluence(
         "haris.mexis@capco.com",
-        "2Yxpj3vyhdaAmrQsM1u9CBFA",
+        "user token",
         entries,
         res);
 });

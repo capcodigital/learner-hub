@@ -1,6 +1,7 @@
 /* eslint-disable require-jsdoc */
 import * as admin from 'firebase-admin';
-admin.initializeApp();
+// If skip firebase auth for quick test, then following line is needed
+// admin.initializeApp();
 import { logger } from "firebase-functions/lib";
 
 const TABLE_CERTIFICATIONS = "certifications"
