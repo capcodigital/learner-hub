@@ -12,7 +12,7 @@ import {
     putDescription,
     putRating
 } from "./generic_funs";
-import { getUserCertifications } from "./generic_funs";
+import { getUserCertifications } from "./firestore_funs";
 
 export const app = express();
 //app.use(validateFirebaseIdToken);
