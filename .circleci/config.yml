@@ -142,6 +142,7 @@ jobs:
       - run:
           name: Install Firebase Tools
           command: npm install --save-dev firebase-tools
+          working_directory: ~/project/functions
       - run:
           name: Deploy Firebase functions
           command: firebase deploy --only functions --token $FIREBASE_TOKEN
@@ -187,4 +188,5 @@ workflows:
           filters:
             branches:
               only:
+                - develop
                 - main
