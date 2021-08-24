@@ -2,7 +2,7 @@
 import * as functions from "firebase-functions";
 import * as admin from 'firebase-admin';
 import * as axios from 'axios';
-import { logger } from "firebase-functions/lib";
+import { logger } from "firebase-functions";
 import * as jsdom from "jsdom";
 import { CatalogEntry } from "./certifications/catalog_entry";
 

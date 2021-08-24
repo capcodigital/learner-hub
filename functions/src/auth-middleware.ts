@@ -2,7 +2,7 @@
 /* eslint-disable max-len */
 import admin from "firebase-admin";
 import { Request, Response, NextFunction } from "express";
-import { logger } from "firebase-functions/lib";
+import { logger } from "firebase-functions";
 
 admin.initializeApp();
 
