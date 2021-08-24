@@ -1,16 +1,24 @@
 /* eslint-disable require-jsdoc */
 import * as admin from 'firebase-admin';
 // If skip firebase auth for quick test, then following line is needed
-// admin.initializeApp();
+admin.initializeApp();
 import { logger } from "firebase-functions/lib";
 
 const TABLE_CERTIFICATIONS = "certifications"
 
 // Saves a list of certifications in a Firestore collection
 export async function save(items: Array<Certification>) {
+    var batch = admin.firestore().batch();
+    var collection = admin.firestore().collection(TABLE_CERTIFICATIONS);
+    var snapshot = await collection.get();
+    // delete all items
+    snapshot.docs.forEach((doc) => {
+        batch.delete(doc.ref);
+    });
+    // write new data
     for (var i = 0; i < items.length; i++) {
         var item = items[i];
-        await admin.firestore().collection(TABLE_CERTIFICATIONS).add({
+        var itemToSave = {
             username: filter(item.username),
             platform: filter(item.platform.toLowerCase()),
             title: filter(item.title),
@@ -19,8 +27,11 @@ export async function save(items: Array<Certification>) {
             date: filter(item.date),
             description: filter(item.description),
             rating: filter(item.rating),
-        });
+        };
+        batch.create(collection.doc(), itemToSave)
     }
+    // execute operations
+    await batch.commit();
 }
 
 // Returns certifications from firestore by category & subcategory as list
