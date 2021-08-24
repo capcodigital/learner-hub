@@ -1,7 +1,7 @@
 {
   "name": "functions",
   "scripts": {
-    "build": "tsc --skipLibCheck",
+    "build": "tsc",
     "serve": "npm run build && firebase emulators:start",
     "shell": "npm run build && firebase functions:shell",
     "start": "npm run shell",
@@ -22,6 +22,7 @@
   },
   "devDependencies": {
     "@types/jsdom": "^16.2.13",
+    "firebase-tools": "^9.16.5",
     "typescript": "^3.9.10"
   },
   "private": true
