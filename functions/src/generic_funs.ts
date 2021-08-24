@@ -1,6 +1,7 @@
 /* eslint-disable require-jsdoc */
 import * as functions from "firebase-functions";
 import * as admin from 'firebase-admin';
+admin.initializeApp();
 import * as axios from 'axios';
 import { logger } from "firebase-functions/lib";
 import * as jsdom from "jsdom";
@@ -282,3 +283,78 @@ export async function getUserCertifications(username: string) {
         throw exception;
     }
 }
+
+// -------
+
+// Updates the description of certifications of a given title in firestore
+export async function describe(
+    title: string,
+    desc: string
+) {
+    const col = admin.firestore().collection(TABLE_CERTIFICATIONS)
+    await col.where('description', '==', desc)
+        .get()
+        .then(snapshots => {
+            if (snapshots.size > 0) {
+                snapshots.forEach(item => {
+                    col.doc(item.id).update({ desc: desc })
+                })
+            }
+        })
+}
+
+// Updates the rating of a given certification's id in firestore
+export async function rate(
+    certId: string,
+    rating: string
+) {
+    const col = admin.firestore().collection(TABLE_CERTIFICATIONS)
+    await col.where('id', '==', certId)
+        .get()
+        .then(snapshots => {
+            if (snapshots.size > 0) {
+                snapshots.forEach(item => {
+                    col.doc(item.id).update({ rating: rating })
+                })
+            }
+        })
+}
+
+// Executes PUT request to add description to a certification
+export async function putDescription(
+    url: string,
+    certTitle: string,
+    description: string,
+    res: functions.Response) {
+    const fullUrl = url + "?title=" + certTitle
+    await axios.default.put(fullUrl,
+        { desc: description })
+        .then(function (resp) {
+            res.statusCode = 200;
+            res.send(resp.data);
+        }).catch((e) => {
+            logger.log(e);
+            res.statusCode = 500;
+            res.send("error");
+        });
+}
+
+// Executes PUT request to add rating to a certification
+export async function putRating(
+    url: string,
+    certId: string,
+    rating: string,
+    res: functions.Response) {
+    const fullUrl = url + "?id=" + certId;
+    await axios.default.put(fullUrl,
+        { rating: rating })
+        .then(function (resp) {
+            res.statusCode = 200;
+            res.send(resp.data);
+        }).catch((e) => {
+            logger.log(e);
+            res.statusCode = 500;
+            res.send("error");
+        });
+}
+
