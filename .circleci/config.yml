@@ -117,7 +117,7 @@ jobs:
           command: gcloud app deploy
           working_directory: ~/tmp/workspace/backend
 
-  deploy web:
+  deploy_web:
     docker:
       - image: "cirrusci/flutter:2.2.3"
     steps:
@@ -134,7 +134,7 @@ jobs:
           command: firebase deploy --only hosting --token $FIREBASE_TOKEN
           working_directory: ~/project/front-end/flutter_confluence
 
-  deploy functions:
+  deploy_functions:
     docker:
       - image: "cimg/node:14.0.0"
     steps:
@@ -175,14 +175,14 @@ workflows:
             branches:
               only:
                 - main
-      - deploy web:
+      - deploy_web:
           requires:
             - build
           filters:
             branches:
               only:
                 - main
-      - deploy functions:
+      - deploy_functions:
           requires:
             - tests
           filters:
