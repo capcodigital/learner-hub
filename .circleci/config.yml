@@ -128,10 +128,10 @@ jobs:
           working_directory: ~/project/front-end/flutter_confluence
       - run:
           name: Install Firebase Tools
-          command: curl -sL firebase.tools | bash
+          command: curl -sL firebase.tools | upgrade=true bash
       - run:
           name: Deploy website to Firebase
-          command: firebase deploy --only hosting --token $FIREBASE_TOKEN
+          command: firebase deploy --only hosting --token $FIREBASE_TOKEN --non-interactive
           working_directory: ~/project/front-end/flutter_confluence
 
   deploy_functions:
@@ -141,11 +141,11 @@ jobs:
       - checkout
       - run:
           name: Install Firebase Tools
-          command: curl -sL firebase.tools | bash
+          command: curl -sL firebase.tools | upgrade=true bash
           working_directory: ~/project/functions
       - run:
           name: Deploy Firebase functions
-          command: firebase deploy --only functions --token $FIREBASE_TOKEN
+          command: firebase deploy --only functions --token $FIREBASE_TOKEN --non-interactive
           working_directory: ~/project/functions
 
 workflows:
