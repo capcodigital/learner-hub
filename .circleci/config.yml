@@ -135,7 +135,9 @@ jobs:
           working_directory: ~/project/front-end/flutter_confluence
       - run:
           name: Deploy Firebase functions
-          command: firebase deploy --only functions --token $FIREBASE_TOKEN
+          command: |
+            npm install
+            firebase deploy --only functions --token $FIREBASE_TOKEN
           working_directory: ~/project/functions
 
 workflows:
