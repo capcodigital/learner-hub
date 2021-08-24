@@ -184,7 +184,7 @@ workflows:
                 - main
       - deploy functions:
           requires:
-            - build
+            - tests
           filters:
             branches:
               only:
