@@ -142,6 +142,7 @@ jobs:
       - run:
           name: Install Firebase Tools
           command: npm install -g firebase-tools --verbose
+          no_output_timeout: 30m
           working_directory: ~/project/functions
       - run:
           name: Deploy Firebase functions
