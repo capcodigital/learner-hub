@@ -1,7 +1,7 @@
 interface Certification {
-    name: string,
+    username: string,
     platform: string,
-    certification: string,
+    title: string,
     category: string,
     subcategory: string,
     date: string

@@ -3,7 +3,15 @@ import express, { Request, Response } from "express";
 //import { validateFirebaseIdToken } from "./auth-middleware";
 import { CatalogEntry, getUrl } from "./certifications/catalog_entry";
 import { getById } from "./certifications/catalog_entry";
-import { getFromFirestoreByCategory, getFromConfluence, getFromFirestoreByPlatform, putDescription, putRating, describe, rate } from "./generic_funs";
+import {
+    getFromFirestoreByCategory,
+    getFromConfluence,
+    getFromFirestoreByPlatform,
+    describe,
+    rate,
+    putDescription,
+    putRating
+} from "./generic_funs";
 import { getUserCertifications } from "./generic_funs";
 
 export const app = express();
@@ -76,18 +84,16 @@ app.get("/certifications/all", async (req: Request, res: Response) => {
         res);
 });
 
-app.put("/certifications/update/describe/:title", async (req: Request, res: Response) => {
+app.put("/certifications/update/describe", async (req: Request, res: Response) => {
     var title = req.query["title"] as string;
-    var desc = JSON.stringify(req.body);
-    describe(title, desc);
-    res.send(title + '<br />' + desc);
+    var desc = req.body["desc"] as string;
+    describe(title, desc, res);
 });
 
-app.put("/certifications/update/rate/:id", async (req: Request, res: Response) => {
+app.put("/certifications/update/rate", async (req: Request, res: Response) => {
     var certId = req.query["id"] as string;
-    var rating = JSON.stringify(req.body);
-    rate(certId, rating);
-    res.send(certId + '<br />' + rating);
+    var rating = req.body["rating"] as string;
+    rate(certId, rating, res);
 });
 
 // Testing endpoint to execute describe put request
@@ -95,16 +101,17 @@ app.get("/putdesc", async (req: Request, res: Response) => {
     putDescription(
         "http://localhost:5001/io-capco-flutter-dev/us-central1/app/certifications/update/describe",
         "Associate Cloud Engineer", // cert title
-        "'This is a great certification that will teach you many useful things'", // description
+        "This is a great certification that will teach you many useful things", // description
         res
     );
 });
 
 // Testing endpoint to execute rate put request
 app.get("/putrate", async (req: Request, res: Response) => {
+    var certId = req.query["id"] as string;
     putRating(
         "http://localhost:5001/io-capco-flutter-dev/us-central1/app/certifications/update/rate",
-        "0uyL9txUFQJEgjvme1sg", // cert id in firestore
+        certId, // cert id in firestore
         "Easy", // rating
         res
     );

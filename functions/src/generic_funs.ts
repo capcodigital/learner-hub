@@ -86,14 +86,14 @@ function getCertificationsFromHtml(
 // new method(s). Alternative is to have a common structure in the tables
 // if possible, so we can use the same method for all.
 function tableRowToCertification(row: Element): Certification {
-    var name = row.querySelector('td:nth-child(2)')?.textContent as string;
+    var username = row.querySelector('td:nth-child(2)')?.textContent as string;
     var platform = row.querySelector('td:nth-child(3)')?.textContent as string;
-    var certification = row.querySelector('td:nth-child(4)')?.textContent as string;
+    var title = row.querySelector('td:nth-child(4)')?.textContent as string;
     var date = row.querySelector('td:nth-child(5)')?.textContent as string;
     var cert: Certification = {
-        'name': name?.trim(),
+        'username': username?.trim(),
         'platform': platform?.trim(),
-        'certification': certification?.trim(),
+        'title': title?.trim(),
         'category': "", // This will be assigned afterwards
         'subcategory': "", // This will be assigned afterwards
         'date': date?.trim(),
@@ -108,9 +108,9 @@ async function save(items: Array<Certification>) {
     for (var i = 0; i < items.length; i++) {
         var item = items[i];
         await admin.firestore().collection(TABLE_CERTIFICATIONS).add({
-            name: filter(item.name),
+            username: filter(item.username),
             platform: filter(item.platform.toLowerCase()),
-            certification: filter(item.certification),
+            title: filter(item.title),
             category: filter(item.category).toLowerCase(),
             subcategory: filter(item.subcategory).toLowerCase(),
             date: filter(item.date),
@@ -165,9 +165,9 @@ async function getFromFirestoreByPlatformAsList(platform: string) {
             snapshot.forEach((doc: { data: () => any }) => {
                 var item = doc.data();
                 results.push({
-                    name: filter(item.name),
+                    username: filter(item.username),
                     platform: filter(item.platform),
-                    certification: filter(item.certification),
+                    title: filter(item.title),
                     category: filter(item.category),
                     subcategory: filter(item.subcategory),
                     date: filter(item.date),
@@ -195,9 +195,9 @@ async function getFromFirestoreByCategoryAsList(
             snapshot.forEach((doc: { data: () => any }) => {
                 var item = doc.data();
                 results.push({
-                    name: filter(item.name),
+                    username: filter(item.username),
                     platform: filter(item.platform),
-                    certification: filter(item.certification),
+                    title: filter(item.title),
                     category: filter(item.category),
                     subcategory: filter(item.subcategory),
                     date: filter(item.date),
@@ -266,9 +266,9 @@ export async function getUserCertifications(username: string) {
             var item = doc.data();
             logger.log(item);
             myCertifications.push({
-                name: filter(item.name),
+                username: filter(item.username),
                 platform: filter(item.platform),
-                certification: filter(item.certification),
+                title: filter(item.title),
                 category: filter(item.category),
                 subcategory: filter(item.subcategory),
                 date: filter(item.date),
@@ -284,40 +284,64 @@ export async function getUserCertifications(username: string) {
     }
 }
 
-// -------
+// Updates the description of certifications of a given title in firestore
+// and returns a response
+export async function describe(
+    title: string,
+    desc: string,
+    res: functions.Response
+) {
+    try {
+        updateDescription(title, desc);
+        res.statusCode = 200;
+        res.send(JSON.stringify("success"));
+    } catch (e) {
+        res.statusCode = 500;
+        res.send(JSON.stringify(e));
+    }
+}
 
 // Updates the description of certifications of a given title in firestore
-export async function describe(
+async function updateDescription(
     title: string,
     desc: string
 ) {
     const col = admin.firestore().collection(TABLE_CERTIFICATIONS)
-    await col.where('description', '==', desc)
+    await col.where('title', '==', title)
         .get()
-        .then(snapshots => {
-            if (snapshots.size > 0) {
-                snapshots.forEach(item => {
-                    col.doc(item.id).update({ desc: desc })
+        .then(snapshot => {
+            if (snapshot.size > 0) {
+                snapshot.forEach(item => {
+                    col.doc(item.id).update({ description: desc })
                 })
             }
         })
 }
 
-// Updates the rating of a given certification's id in firestore
+// Updates the rating of certifications of a given id in firestore
+// and returns a response
 export async function rate(
+    certId: string,
+    rating: string,
+    res: functions.Response
+) {
+    try {
+        updateRating(certId, rating);
+        res.statusCode = 200;
+        res.send(JSON.stringify("success"));
+    } catch (e) {
+        res.statusCode = 500;
+        res.send(JSON.stringify(e));
+    }
+}
+
+// Updates the rating of a given certification in firestore
+async function updateRating(
     certId: string,
     rating: string
 ) {
-    const col = admin.firestore().collection(TABLE_CERTIFICATIONS)
-    await col.where('id', '==', certId)
-        .get()
-        .then(snapshots => {
-            if (snapshots.size > 0) {
-                snapshots.forEach(item => {
-                    col.doc(item.id).update({ rating: rating })
-                })
-            }
-        })
+    await admin.firestore().collection(TABLE_CERTIFICATIONS)
+        .doc(certId).update({ rating: rating })
 }
 
 // Executes PUT request to add description to a certification
@@ -326,14 +350,14 @@ export async function putDescription(
     certTitle: string,
     description: string,
     res: functions.Response) {
-    const fullUrl = url + "?title=" + certTitle
+    const fullUrl = url + "?title=" + certTitle;
     await axios.default.put(fullUrl,
         { desc: description })
         .then(function (resp) {
             res.statusCode = 200;
             res.send(resp.data);
         }).catch((e) => {
-            logger.log(e);
+            console.log(e);
             res.statusCode = 500;
             res.send("error");
         });
