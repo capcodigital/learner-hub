@@ -34,6 +34,17 @@ export async function save(items: Array<Certification>) {
     await batch.commit();
 }
 
+// Returns an array of certifications from a firestore snapshot
+async function getResultsFromSnapshot(snapshot: FirebaseFirestore.QuerySnapshot) {
+    const results = Array<Certification>();
+    if (!snapshot.empty) {
+        snapshot.forEach((doc: { data: () => any }) => {
+            results.push(doc.data());
+        });
+    }
+    return results;
+}
+
 // Returns certifications from firestore by category & subcategory as list
 export async function getFromFirestoreByPlatformAsList(platform: string) {
     try {
@@ -41,13 +52,7 @@ export async function getFromFirestoreByPlatformAsList(platform: string) {
             .collection(TABLE_CERTIFICATIONS)
             .where("platform", "==", platform)
             .get();
-        const results = Array<Certification>();
-        if (!snapshot.empty) {
-            snapshot.forEach((doc: { data: () => any }) => {
-                results.push(doc.data());
-            });
-        }
-        return results;
+        return getResultsFromSnapshot(snapshot);
     } catch (e) {
         logger.log(e)
         throw e;
@@ -61,17 +66,51 @@ export async function getFromFirestoreByCategoryAsList(
 ) {
     try {
         var snapshot = await getFirestoreSnapshotByCategory(category, subcategory);
-        const results = Array<Certification>();
-        if (!snapshot.empty) {
-            snapshot.forEach((doc: { data: () => any }) => {
-                results.push(doc.data());
-            });
-        }
-        return results;
+        return getResultsFromSnapshot(snapshot);
     } catch (e) {
         logger.log(e)
         throw e;
     }
+}
+
+export async function getUserCertifications(username: string) {
+    try {
+        logger.log("GETTING USER CERTIFICATIONS");
+        const snapshot = await admin.firestore()
+            .collection("certifications")
+            .where("name", "==", username)
+            .get();
+        return getResultsFromSnapshot(snapshot);
+    } catch (exception) {
+        logger.log(exception)
+        throw exception;
+    }
+}
+
+// Updates the description of certifications of a given title in firestore
+export async function updateDescription(
+    title: string,
+    desc: string
+) {
+    const col = admin.firestore().collection(TABLE_CERTIFICATIONS)
+    await col.where('title', '==', title)
+        .get()
+        .then(snapshot => {
+            if (!snapshot.empty) {
+                snapshot.forEach(item => {
+                    col.doc(item.id).update({ description: desc })
+                })
+            }
+        })
+}
+
+// Updates the rating of a given certification in firestore
+export async function updateRating(
+    certId: string,
+    rating: string
+) {
+    await admin.firestore().collection(TABLE_CERTIFICATIONS)
+        .doc(certId).update({ rating: rating })
 }
 
 // Returns a snapshot of certifications from firestore by category & subcategory
@@ -108,52 +147,6 @@ async function getFirestoreSnapshotByCategory(
         logger.log(e)
         throw e;
     }
-}
-
-export async function getUserCertifications(username: string) {
-    try {
-        logger.log("GETTING USER CERTIFICATIONS");
-        const snapshot = await admin.firestore()
-            .collection("certifications")
-            .where("name", "==", username)
-            .get();
-
-        const myCertifications = Array<Certification>();
-        snapshot.forEach((doc: { data: () => any; }) => {
-            myCertifications.push(doc.data());
-        });
-
-        return myCertifications;
-    } catch (exception) {
-        logger.log(exception)
-        throw exception;
-    }
-}
-
-// Updates the description of certifications of a given title in firestore
-export async function updateDescription(
-    title: string,
-    desc: string
-) {
-    const col = admin.firestore().collection(TABLE_CERTIFICATIONS)
-    await col.where('title', '==', title)
-        .get()
-        .then(snapshot => {
-            if (!snapshot.empty) {
-                snapshot.forEach(item => {
-                    col.doc(item.id).update({ description: desc })
-                })
-            }
-        })
-}
-
-// Updates the rating of a given certification in firestore
-export async function updateRating(
-    certId: string,
-    rating: string
-) {
-    await admin.firestore().collection(TABLE_CERTIFICATIONS)
-        .doc(certId).update({ rating: rating })
 }
 
 function filter(text: string): string {
