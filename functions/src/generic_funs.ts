@@ -17,18 +17,18 @@ const { JSDOM } = jsdom;
 export async function getFromConfluence(
     username: string,
     token: string,
-    catalogEntries: Array<CatalogEntry>,
+    entries: Array<CatalogEntry>,
     res: functions.Response) {
     var auth: axios.AxiosBasicCredentials = {
         username: username,
         password: token
     }
-    getFromUrlsAuthorised(auth, catalogEntries, res);
+    getFromConfluenceAuthorised(auth, entries, res);
 }
 
 // Gets the certifications for the given catalog entries from confluence,
 // saves them to Firestore and returns them all as json
-async function getFromUrlsAuthorised(
+async function getFromConfluenceAuthorised(
     creds: axios.AxiosBasicCredentials,
     entries: Array<CatalogEntry>,
     res: functions.Response) {

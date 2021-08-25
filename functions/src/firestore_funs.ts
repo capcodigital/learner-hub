@@ -35,7 +35,7 @@ export async function save(items: Array<Certification>) {
 }
 
 // Returns certifications from firestore by category & subcategory as list
-export async function getFromFirestoreByPlatformAsList(platform: string) {
+export async function getFromFirestoreByPlatformAsList(platform: string): Promise<Certification[]> {
     try {
         var snapshot = await admin.firestore()
             .collection(TABLE_CERTIFICATIONS)
@@ -52,7 +52,7 @@ export async function getFromFirestoreByPlatformAsList(platform: string) {
 export async function getFromFirestoreByCategoryAsList(
     category: string,
     subcategory: string
-) {
+): Promise<Certification[]> {
     try {
         var snapshot = await getFirestoreSnapshotByCategory(category, subcategory);
         return getResultsFromSnapshot(snapshot);
@@ -62,7 +62,7 @@ export async function getFromFirestoreByCategoryAsList(
     }
 }
 
-export async function getUserCertifications(username: string) {
+export async function getUserCertifications(username: string): Promise<Certification[]> {
     try {
         logger.log("GETTING USER CERTIFICATIONS");
         const snapshot = await admin.firestore()
@@ -106,7 +106,7 @@ export async function updateRating(
 async function getFirestoreSnapshotByCategory(
     category: string,
     subcategory: string
-) {
+): Promise<FirebaseFirestore.QuerySnapshot> {
     try {
         var snapshot = null;
         if (category != null && subcategory != null) {
@@ -139,7 +139,8 @@ async function getFirestoreSnapshotByCategory(
 }
 
 // Returns an array of certifications from a firestore snapshot
-async function getResultsFromSnapshot(snapshot: FirebaseFirestore.QuerySnapshot) {
+async function getResultsFromSnapshot(snapshot: FirebaseFirestore.QuerySnapshot):
+    Promise<Certification[]> {
     const results = Array<Certification>();
     if (!snapshot.empty) {
         snapshot.forEach((doc: { data: () => any }) => {
