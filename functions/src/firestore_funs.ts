@@ -34,17 +34,6 @@ export async function save(items: Array<Certification>) {
     await batch.commit();
 }
 
-// Returns an array of certifications from a firestore snapshot
-async function getResultsFromSnapshot(snapshot: FirebaseFirestore.QuerySnapshot) {
-    const results = Array<Certification>();
-    if (!snapshot.empty) {
-        snapshot.forEach((doc: { data: () => any }) => {
-            results.push(doc.data());
-        });
-    }
-    return results;
-}
-
 // Returns certifications from firestore by category & subcategory as list
 export async function getFromFirestoreByPlatformAsList(platform: string) {
     try {
@@ -147,6 +136,17 @@ async function getFirestoreSnapshotByCategory(
         logger.log(e)
         throw e;
     }
+}
+
+// Returns an array of certifications from a firestore snapshot
+async function getResultsFromSnapshot(snapshot: FirebaseFirestore.QuerySnapshot) {
+    const results = Array<Certification>();
+    if (!snapshot.empty) {
+        snapshot.forEach((doc: { data: () => any }) => {
+            results.push(doc.data());
+        });
+    }
+    return results;
 }
 
 function filter(text: string): string {
