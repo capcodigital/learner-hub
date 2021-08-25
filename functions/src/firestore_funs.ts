@@ -1,7 +1,7 @@
 /* eslint-disable require-jsdoc */
 import * as admin from 'firebase-admin';
 // If skip firebase auth for quick test, then following line is needed
-admin.initializeApp();
+// admin.initializeApp();
 import { logger } from "firebase-functions/lib";
 
 const TABLE_CERTIFICATIONS = "certifications"
@@ -15,7 +15,7 @@ export async function save(items: Array<Certification>) {
     snapshot.docs.forEach((doc) => {
         batch.delete(doc.ref);
     });
-    // write new data, for null values we save ""
+    // write new data, for null values save ""
     for (var i = 0; i < items.length; i++) {
         var item = items[i];
         var itemToSave = {
@@ -44,8 +44,7 @@ export async function getFromFirestoreByPlatformAsList(platform: string) {
         const results = Array<Certification>();
         if (!snapshot.empty) {
             snapshot.forEach((doc: { data: () => any }) => {
-                var item = doc.data();
-                results.push(item);
+                results.push(doc.data());
             });
         }
         return results;
@@ -65,8 +64,7 @@ export async function getFromFirestoreByCategoryAsList(
         const results = Array<Certification>();
         if (!snapshot.empty) {
             snapshot.forEach((doc: { data: () => any }) => {
-                var item = doc.data();
-                results.push(item);
+                results.push(doc.data());
             });
         }
         return results;
@@ -122,9 +120,7 @@ export async function getUserCertifications(username: string) {
 
         const myCertifications = Array<Certification>();
         snapshot.forEach((doc: { data: () => any; }) => {
-            var item = doc.data();
-            logger.log(item);
-            myCertifications.push(item);
+            myCertifications.push(doc.data());
         });
 
         return myCertifications;
