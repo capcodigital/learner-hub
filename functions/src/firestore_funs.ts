@@ -45,16 +45,7 @@ export async function getFromFirestoreByPlatformAsList(platform: string) {
         if (!snapshot.empty) {
             snapshot.forEach((doc: { data: () => any }) => {
                 var item = doc.data();
-                results.push({
-                    username: item.username,
-                    platform: item.platform,
-                    title: item.title,
-                    category: item.category,
-                    subcategory: item.subcategory,
-                    date: item.date,
-                    description: item.description,
-                    rating: item.rating,
-                });
+                results.push(item);
             });
         }
         return results;
@@ -75,16 +66,7 @@ export async function getFromFirestoreByCategoryAsList(
         if (!snapshot.empty) {
             snapshot.forEach((doc: { data: () => any }) => {
                 var item = doc.data();
-                results.push({
-                    username: item.username,
-                    platform: item.platform,
-                    title: item.title,
-                    category: item.category,
-                    subcategory: item.subcategory,
-                    date: item.date,
-                    description: item.description,
-                    rating: item.rating,
-                });
+                results.push(item);
             });
         }
         return results;
@@ -142,16 +124,7 @@ export async function getUserCertifications(username: string) {
         snapshot.forEach((doc: { data: () => any; }) => {
             var item = doc.data();
             logger.log(item);
-            myCertifications.push({
-                username: item.username,
-                platform: item.platform,
-                title: item.title,
-                category: item.category,
-                subcategory: item.subcategory,
-                date: item.date,
-                description: item.description,
-                rating: item.rating,
-            });
+            myCertifications.push(item);
         });
 
         return myCertifications;
