@@ -17,9 +17,9 @@ const { JSDOM } = jsdom;
 export async function getFromConfluence(
     username: string,
     token: string,
-    entries: Array<CatalogEntry>,
+    entries: CatalogEntry[],
     res: functions.Response) {
-    var auth: axios.AxiosBasicCredentials = {
+    const auth: axios.AxiosBasicCredentials = {
         username: username,
         password: token
     }
@@ -30,17 +30,15 @@ export async function getFromConfluence(
 // saves them to Firestore and returns them all as json
 async function getFromConfluenceAuthorised(
     creds: axios.AxiosBasicCredentials,
-    entries: Array<CatalogEntry>,
+    entries: CatalogEntry[],
     res: functions.Response) {
-    // prepare array of requests
     var reqs = Array<Promise<axios.AxiosResponse<ConfluenceResponse>>>();
-    for (var i = 0; i < entries.length; i++) {
-        var req = axios.default.get<ConfluenceResponse>(entries[i].contentUrl, {
+    entries.forEach(entry => {
+        const req = axios.default.get<ConfluenceResponse>(entry.contentUrl, {
             auth: creds
         });
         reqs.push(req);
-    }
-    // execute all requests
+    });
     await axios.default
         .all(reqs)
         .then(function (resps) {
@@ -73,14 +71,14 @@ function getCertificationsFromHtml(
     subcategory: string,
 ): Array<Certification> {
     var items = Array<Certification>();
-    var parser = new JSDOM(html);
+    const parser = new JSDOM(html);
     var tableRows = parser.window.document.querySelectorAll("table tr");
-    for (var i = 1; i < tableRows.length; i++) {
-        var cert = tableRowToCertification(tableRows[i]);
+    tableRows.forEach(row => {
+        var cert = tableRowToCertification(row);
         cert.category = category;
         cert.subcategory = subcategory;
         items.push(cert);
-    }
+    });
     return items;
 }
 
@@ -89,11 +87,11 @@ function getCertificationsFromHtml(
 // new method(s). Alternative is to have a common structure in the tables
 // if possible, so we can use the same method for all.
 function tableRowToCertification(row: Element): Certification {
-    var username = row.querySelector('td:nth-child(2)')?.textContent as string;
-    var platform = row.querySelector('td:nth-child(3)')?.textContent as string;
-    var title = row.querySelector('td:nth-child(4)')?.textContent as string;
-    var date = row.querySelector('td:nth-child(5)')?.textContent as string;
-    var cert: Certification = {
+    const username = row.querySelector('td:nth-child(2)')?.textContent as string;
+    const platform = row.querySelector('td:nth-child(3)')?.textContent as string;
+    const title = row.querySelector('td:nth-child(4)')?.textContent as string;
+    const date = row.querySelector('td:nth-child(5)')?.textContent as string;
+    const cert: Certification = {
         'username': username?.trim(),
         'platform': platform?.trim(),
         'title': title?.trim(),
@@ -111,7 +109,7 @@ export async function getFromFirestoreByPlatform(
     platform: string,
     res: functions.Response) {
     try {
-        var items = await getFromFirestoreByPlatformAsList(platform);
+        const items = await getFromFirestoreByPlatformAsList(platform);
         res.setHeader('Content-Type', 'application/json');
         res.statusCode = 200;
         res.send(JSON.stringify(items));
@@ -128,7 +126,7 @@ export async function getFromFirestoreByCategory(
     subcategory: string,
     res: functions.Response) {
     try {
-        var items = await getFromFirestoreByCategoryAsList(category, subcategory);
+        const items = await getFromFirestoreByCategoryAsList(category, subcategory);
         res.setHeader('Content-Type', 'application/json');
         res.statusCode = 200;
         res.send(JSON.stringify(items));

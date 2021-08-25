@@ -8,17 +8,14 @@ const TABLE_CERTIFICATIONS = "certifications"
 
 // Saves a list of certifications in a Firestore collection
 export async function save(items: Array<Certification>) {
-    var batch = admin.firestore().batch();
-    var collection = admin.firestore().collection(TABLE_CERTIFICATIONS);
-    var snapshot = await collection.get();
-    // delete all items
+    const batch = admin.firestore().batch();
+    const collection = admin.firestore().collection(TABLE_CERTIFICATIONS);
+    const snapshot = await collection.get();
     snapshot.docs.forEach((doc) => {
         batch.delete(doc.ref);
     });
-    // write new data, for null values save ""
-    for (var i = 0; i < items.length; i++) {
-        var item = items[i];
-        var itemToSave = {
+    items.forEach((item) => {
+        const itemToSave = {
             username: filter(item.username),
             platform: filter(item.platform).toLowerCase(),
             title: filter(item.title),
@@ -29,15 +26,14 @@ export async function save(items: Array<Certification>) {
             rating: filter(item.rating),
         };
         batch.create(collection.doc(), itemToSave)
-    }
-    // execute operations
+    });
     await batch.commit();
 }
 
 // Returns certifications from firestore by category & subcategory as list
 export async function getFromFirestoreByPlatformAsList(platform: string): Promise<Certification[]> {
     try {
-        var snapshot = await admin.firestore()
+        const snapshot = await admin.firestore()
             .collection(TABLE_CERTIFICATIONS)
             .where("platform", "==", platform)
             .get();
@@ -54,7 +50,7 @@ export async function getFromFirestoreByCategoryAsList(
     subcategory: string
 ): Promise<Certification[]> {
     try {
-        var snapshot = await getSnapshotForCategory(category, subcategory);
+        const snapshot = await getSnapshotForCategory(category, subcategory);
         return toResults(snapshot);
     } catch (e) {
         logger.log(e)
