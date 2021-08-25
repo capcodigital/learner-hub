@@ -139,7 +139,7 @@ export async function updateDescription(
     await col.where('title', '==', title)
         .get()
         .then(snapshot => {
-            if (snapshot.size > 0) {
+            if (!snapshot.empty) {
                 snapshot.forEach(item => {
                     col.doc(item.id).update({ description: desc })
                 })
