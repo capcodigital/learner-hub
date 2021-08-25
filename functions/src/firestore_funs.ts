@@ -41,7 +41,7 @@ export async function getFromFirestoreByPlatformAsList(platform: string): Promis
             .collection(TABLE_CERTIFICATIONS)
             .where("platform", "==", platform)
             .get();
-        return getResultsFromSnapshot(snapshot);
+        return toResults(snapshot);
     } catch (e) {
         logger.log(e)
         throw e;
@@ -54,8 +54,8 @@ export async function getFromFirestoreByCategoryAsList(
     subcategory: string
 ): Promise<Certification[]> {
     try {
-        var snapshot = await getFirestoreSnapshotByCategory(category, subcategory);
-        return getResultsFromSnapshot(snapshot);
+        var snapshot = await getSnapshotForCategory(category, subcategory);
+        return toResults(snapshot);
     } catch (e) {
         logger.log(e)
         throw e;
@@ -69,7 +69,7 @@ export async function getUserCertifications(username: string): Promise<Certifica
             .collection("certifications")
             .where("name", "==", username)
             .get();
-        return getResultsFromSnapshot(snapshot);
+        return toResults(snapshot);
     } catch (exception) {
         logger.log(exception)
         throw exception;
@@ -103,7 +103,7 @@ export async function updateRating(
 }
 
 // Returns a snapshot of certifications from firestore by category & subcategory
-async function getFirestoreSnapshotByCategory(
+async function getSnapshotForCategory(
     category: string,
     subcategory: string
 ): Promise<FirebaseFirestore.QuerySnapshot> {
@@ -139,7 +139,7 @@ async function getFirestoreSnapshotByCategory(
 }
 
 // Returns an array of certifications from a firestore snapshot
-async function getResultsFromSnapshot(snapshot: FirebaseFirestore.QuerySnapshot):
+async function toResults(snapshot: FirebaseFirestore.QuerySnapshot):
     Promise<Certification[]> {
     const results = Array<Certification>();
     if (!snapshot.empty) {
