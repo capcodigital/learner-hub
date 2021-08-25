@@ -1,0 +1,47 @@
+version: 2
+
+jobs:
+  tests:
+    docker:
+      - image: "cirrusci/flutter:2.2.3"
+    steps:
+      - checkout
+      - run:
+          name: check flutter requirements
+          command: flutter doctor -v
+      - run:
+          name: run tests
+          command: flutter test
+          working_directory: ~/project/front-end/flutter_confluence
+
+  deploy_functions:
+    docker:
+      - image: "cimg/node:14.0.0"
+    steps:
+      - checkout
+      - run:
+          name: Install Firebase Tools
+          command: curl -sL firebase.tools | upgrade=true bash
+          working_directory: ~/project/functions
+      - run:
+          name: Install Dependencies
+          command: npm install
+          working_directory: ~/project/functions
+      - run:
+          name: Deploy Firebase functions
+          command: firebase deploy --only functions --token $FIREBASE_TOKEN --non-interactive
+          working_directory: ~/project/functions
+
+workflows:
+  version: 2
+  commit:
+    jobs:
+      - tests
+      - deploy_functions:
+          requires:
+            - tests
+          filters:
+            branches:
+              only:
+                - develop
+                - main
