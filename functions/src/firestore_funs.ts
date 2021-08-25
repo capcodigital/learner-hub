@@ -15,12 +15,12 @@ export async function save(items: Array<Certification>) {
     snapshot.docs.forEach((doc) => {
         batch.delete(doc.ref);
     });
-    // write new data
+    // write new data, for null values we save ""
     for (var i = 0; i < items.length; i++) {
         var item = items[i];
         var itemToSave = {
             username: filter(item.username),
-            platform: filter(item.platform.toLowerCase()),
+            platform: filter(item.platform).toLowerCase(),
             title: filter(item.title),
             category: filter(item.category).toLowerCase(),
             subcategory: filter(item.subcategory).toLowerCase(),
@@ -46,14 +46,14 @@ export async function getFromFirestoreByPlatformAsList(platform: string) {
             snapshot.forEach((doc: { data: () => any }) => {
                 var item = doc.data();
                 results.push({
-                    username: filter(item.username),
-                    platform: filter(item.platform),
-                    title: filter(item.title),
-                    category: filter(item.category),
-                    subcategory: filter(item.subcategory),
-                    date: filter(item.date),
-                    description: filter(item.description),
-                    rating: filter(item.rating),
+                    username: item.username,
+                    platform: item.platform,
+                    title: item.title,
+                    category: item.category,
+                    subcategory: item.subcategory,
+                    date: item.date,
+                    description: item.description,
+                    rating: item.rating,
                 });
             });
         }
@@ -76,14 +76,14 @@ export async function getFromFirestoreByCategoryAsList(
             snapshot.forEach((doc: { data: () => any }) => {
                 var item = doc.data();
                 results.push({
-                    username: filter(item.username),
-                    platform: filter(item.platform),
-                    title: filter(item.title),
-                    category: filter(item.category),
-                    subcategory: filter(item.subcategory),
-                    date: filter(item.date),
-                    description: filter(item.description),
-                    rating: filter(item.rating),
+                    username: item.username,
+                    platform: item.platform,
+                    title: item.title,
+                    category: item.category,
+                    subcategory: item.subcategory,
+                    date: item.date,
+                    description: item.description,
+                    rating: item.rating,
                 });
             });
         }
@@ -143,14 +143,14 @@ export async function getUserCertifications(username: string) {
             var item = doc.data();
             logger.log(item);
             myCertifications.push({
-                username: filter(item.username),
-                platform: filter(item.platform),
-                title: filter(item.title),
-                category: filter(item.category),
-                subcategory: filter(item.subcategory),
-                date: filter(item.date),
-                description: filter(item.description),
-                rating: filter(item.rating),
+                username: item.username,
+                platform: item.platform,
+                title: item.title,
+                category: item.category,
+                subcategory: item.subcategory,
+                date: item.date,
+                description: item.description,
+                rating: item.rating,
             });
         });
 
