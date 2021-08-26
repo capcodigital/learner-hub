@@ -46,7 +46,7 @@ async function getFromConfluenceAuthorised(
             for (var i = 0; i < resps.length; i++) {
                 var items = Array<Certification>();
                 var html = resps[i].data.body.export_view.value;
-                var items = getCertificationsFromHtml(
+                var items = createCertificationArray(
                     html,
                     entries[i].category,
                     entries[i].subcategory);
@@ -65,7 +65,7 @@ async function getFromConfluenceAuthorised(
         })
 }
 
-function getCertificationsFromHtml(
+function createCertificationArray(
     html: string,
     category: string,
     subcategory: string,
@@ -74,10 +74,7 @@ function getCertificationsFromHtml(
     const parser = new JSDOM(html);
     var tableRows = parser.window.document.querySelectorAll("table tr");
     tableRows.forEach(row => {
-        var cert = tableRowToCertification(row);
-        cert.category = category;
-        cert.subcategory = subcategory;
-        items.push(cert);
+        items.push(toCertification(row, category, subcategory));
     });
     return items;
 }
@@ -86,22 +83,24 @@ function getCertificationsFromHtml(
 // For the rest of certifications the tables are different so we need to create
 // new method(s). Alternative is to have a common structure in the tables
 // if possible, so we can use the same method for all.
-function tableRowToCertification(row: Element): Certification {
+function toCertification(
+    row: Element,
+    category: string,
+    subcategory: string): Certification {
     const username = row.querySelector('td:nth-child(2)')?.textContent as string;
     const platform = row.querySelector('td:nth-child(3)')?.textContent as string;
     const title = row.querySelector('td:nth-child(4)')?.textContent as string;
     const date = row.querySelector('td:nth-child(5)')?.textContent as string;
-    const cert: Certification = {
-        'username': username?.trim(),
-        'platform': platform?.trim(),
-        'title': title?.trim(),
-        'category': "", // This will be assigned afterwards
-        'subcategory': "", // This will be assigned afterwards
-        'date': date?.trim(),
-        'description': "", // This will be assigned afterwards
-        'rating': "" // This will be assigned afterwards
+    return {
+        'username': filter(username?.trim()),
+        'platform': filter(platform?.trim()).toLowerCase(),
+        'title': filter(title?.trim()),
+        'category': category.toLowerCase(),
+        'subcategory': subcategory.toLowerCase(),
+        'date': filter(date?.trim()),
+        'description': "", // will be updated by our request
+        'rating': "" // will be updated by client request
     };
-    return cert;
 }
 
 // Sends response with certifications from firestore by platform as json
@@ -209,3 +208,6 @@ export async function putRating(
         });
 }
 
+function filter(text: string): string {
+    return text != null ? text : "";
+}

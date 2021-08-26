@@ -6,32 +6,44 @@ import { logger } from "firebase-functions/lib";
 
 const TABLE_CERTIFICATIONS = "certifications"
 
-// Saves a list of certifications in a Firestore collection
 export async function save(items: Array<Certification>) {
-    const batch = admin.firestore().batch();
-    const collection = admin.firestore().collection(TABLE_CERTIFICATIONS);
-    const snapshot = await collection.get();
-    snapshot.docs.forEach((doc) => {
-        batch.delete(doc.ref);
-    });
+    const db = admin.firestore();
+    const collection = db.collection(TABLE_CERTIFICATIONS);
     items.forEach((item) => {
-        const itemToSave = {
-            username: filter(item.username),
-            platform: filter(item.platform).toLowerCase(),
-            title: filter(item.title),
-            category: filter(item.category).toLowerCase(),
-            subcategory: filter(item.subcategory).toLowerCase(),
-            date: filter(item.date),
-            description: filter(item.description),
-            rating: filter(item.rating),
-        };
-        batch.create(collection.doc(), itemToSave)
+        collection
+            .where("username", "==", filter(item.username))
+            .where("title", "==", filter(item.title))
+            .get()
+            .then(async (snap) => {
+                if (snap.empty) {
+                    // If item not exist, create it
+                    collection.doc().create({
+                        username: item.username,
+                        platform: item.platform,
+                        title: item.title,
+                        category: item.category,
+                        subcategory: item.subcategory,
+                        date: item.date,
+                        description: item.description,
+                        rating: item.rating,
+                    });
+                } else {
+                    // If item exists, udpate fields
+                    snap.forEach(it => {
+                        collection.doc(it.id).update({
+                            platform: item.platform,
+                            category: item.category,
+                            subcategory: item.subcategory,
+                            date: item.date,
+                        })
+                    })
+                }
+            });
     });
-    await batch.commit();
 }
 
-// Returns certifications from firestore by category & subcategory as list
-export async function getFromFirestoreByPlatformAsList(platform: string): Promise<Certification[]> {
+export async function getFromFirestoreByPlatformAsList(platform: string
+): Promise<Certification[]> {
     try {
         const snapshot = await admin.firestore()
             .collection(TABLE_CERTIFICATIONS)
@@ -44,7 +56,6 @@ export async function getFromFirestoreByPlatformAsList(platform: string): Promis
     }
 }
 
-// Returns certifications from firestore by category & subcategory as list
 export async function getFromFirestoreByCategoryAsList(
     category: string,
     subcategory: string
@@ -72,7 +83,6 @@ export async function getUserCertifications(username: string): Promise<Certifica
     }
 }
 
-// Updates the description of certifications of a given title in firestore
 export async function updateDescription(
     title: string,
     desc: string
@@ -89,7 +99,6 @@ export async function updateDescription(
         })
 }
 
-// Updates the rating of a given certification in firestore
 export async function updateRating(
     certId: string,
     rating: string
@@ -98,7 +107,6 @@ export async function updateRating(
         .doc(certId).update({ rating: rating })
 }
 
-// Returns a snapshot of certifications from firestore by category & subcategory
 async function getSnapshotForCategory(
     category: string,
     subcategory: string
@@ -134,7 +142,6 @@ async function getSnapshotForCategory(
     }
 }
 
-// Returns an array of certifications from a firestore snapshot
 async function toResults(snapshot: FirebaseFirestore.QuerySnapshot):
     Promise<Certification[]> {
     const results = Array<Certification>();
