@@ -13,6 +13,7 @@ import {
 } from "./firestore_funs";
 
 const { JSDOM } = jsdom;
+const UNRATED: number = 0
 
 export async function getFromConfluence(
     username: string,
@@ -98,8 +99,8 @@ function toCertification(
         'category': category.toLowerCase(),
         'subcategory': subcategory.toLowerCase(),
         'date': filter(date?.trim()),
-        'description': "", // will be updated by our request
-        'rating': "" // will be updated by client request
+        'description': "",
+        'rating': UNRATED
     };
 }
 
@@ -157,7 +158,7 @@ export async function describe(
 // and returns a response
 export async function rate(
     certId: string,
-    rating: string,
+    rating: number,
     res: functions.Response
 ) {
     try {
@@ -193,7 +194,7 @@ export async function putDescription(
 export async function putRating(
     url: string,
     certId: string,
-    rating: string,
+    rating: number,
     res: functions.Response) {
     const fullUrl = url + "?id=" + certId;
     await axios.default.put(fullUrl,

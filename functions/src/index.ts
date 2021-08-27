@@ -79,7 +79,7 @@ app.get("/certifications/all", async (req: Request, res: Response) => {
     entries.push(getById(3))
     getFromConfluence(
         "haris.mexis@capco.com",
-        "user token",
+        "token here",
         entries,
         res);
 });
@@ -92,7 +92,7 @@ app.put("/certifications/update/describe", async (req: Request, res: Response) =
 
 app.put("/certifications/update/rate", async (req: Request, res: Response) => {
     var certId = req.query["id"] as string;
-    var rating = req.body["rating"] as string;
+    var rating = req.body["rating"] as number;
     rate(certId, rating, res);
 });
 
@@ -112,7 +112,7 @@ app.get("/putrate", async (req: Request, res: Response) => {
     putRating(
         "http://localhost:5001/io-capco-flutter-dev/us-central1/app/certifications/update/rate",
         certId, // cert id in firestore
-        "Easy", // rating
+        4, // rating
         res
     );
 });

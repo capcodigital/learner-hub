@@ -6,5 +6,5 @@ interface Certification {
     subcategory: string,
     date: string
     description: string,
-    rating: string
+    rating: number
 }

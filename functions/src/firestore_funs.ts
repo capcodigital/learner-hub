@@ -101,7 +101,7 @@ export async function updateDescription(
 
 export async function updateRating(
     certId: string,
-    rating: string
+    rating: number
 ) {
     await admin.firestore().collection(TABLE_CERTIFICATIONS)
         .doc(certId).update({ rating: rating })
