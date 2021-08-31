@@ -5,6 +5,7 @@ import { CatalogEntry, getUrl } from "./certifications/catalog_entry";
 import { getById } from "./certifications/catalog_entry";
 import { getFromFirestoreByCategory, getFromConfluence, getFromFirestoreByPlatform } from "./generic_funs";
 import { getUserCertifications } from "./generic_funs";
+import { syncAllCertifications } from "./certifications/syncCertifications";
 
 export const app = express();
 app.use(validateFirebaseIdToken);
@@ -74,6 +75,14 @@ app.get("/certifications/all", async (req: Request, res: Response) => {
         "user token",
         entries,
         res);
+});
+
+// Gets all the certifications types from Confluence, saves them to Firestore and returns them as json
+app.get("/seed", async (req: Request, res: Response) => {
+    functions.logger.log("Executing SEED. Only run this during development");
+
+    const data = await syncAllCertifications();
+    res.status(200).send(data);
 });
 
 // This HTTPS endpoint can only be accessed by your Firebase Users.
