@@ -3,8 +3,16 @@ import express, { Request, Response } from "express";
 import { validateFirebaseIdToken } from "./auth-middleware";
 import { CatalogEntry, getUrl } from "./certifications/catalog_entry";
 import { getById } from "./certifications/catalog_entry";
-import { getFromFirestoreByCategory, getFromConfluence, getFromFirestoreByPlatform } from "./generic_funs";
-import { getUserCertifications } from "./generic_funs";
+import {
+    getFromFirestoreByCategory,
+    getFromConfluence,
+    getFromFirestoreByPlatform,
+    describe,
+    rate,
+    putDescription,
+    putRating
+} from "./generic_funs";
+import { getUserCertifications } from "./firestore_funs";
 
 export const app = express();
 app.use(validateFirebaseIdToken);
@@ -71,9 +79,42 @@ app.get("/certifications/all", async (req: Request, res: Response) => {
     entries.push(getById(3))
     getFromConfluence(
         "haris.mexis@capco.com",
-        "user token",
+        "token here",
         entries,
         res);
+});
+
+app.put("/certifications/update/describe", async (req: Request, res: Response) => {
+    var title = req.query["title"] as string;
+    var desc = req.body["desc"] as string;
+    describe(title, desc, res);
+});
+
+app.put("/certifications/update/rate", async (req: Request, res: Response) => {
+    var certId = req.query["id"] as string;
+    var rating = req.body["rating"] as number;
+    rate(certId, rating, res);
+});
+
+// Testing endpoint to execute describe put request
+app.get("/putdesc", async (req: Request, res: Response) => {
+    putDescription(
+        "http://localhost:5001/io-capco-flutter-dev/us-central1/app/certifications/update/describe",
+        "Associate Cloud Engineer", // cert title
+        "This is a great certification that will teach you many useful things", // description
+        res
+    );
+});
+
+// Testing endpoint to execute rate put request
+app.get("/putrate", async (req: Request, res: Response) => {
+    var certId = req.query["id"] as string;
+    putRating(
+        "http://localhost:5001/io-capco-flutter-dev/us-central1/app/certifications/update/rate",
+        certId, // cert id in firestore
+        4, // rating
+        res
+    );
 });
 
 // This HTTPS endpoint can only be accessed by your Firebase Users.
