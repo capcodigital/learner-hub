@@ -1,3 +1,4 @@
+import { logger } from "firebase-functions/v1";
 import { JSDOM } from "jsdom";
 import { CatalogEntry } from "../catalog_entry";
 
@@ -12,6 +13,7 @@ export function extractCloudCertifications(html: string, certData: CatalogEntry)
         cert.subcategory = certData.subcategory;
         items.push(cert);
     }
+    logger.log(`Extracted ${items.length}/${tableRows.length - 1} Cloud certifications - ${certData.subcategory}`);
     return items;
 }
 

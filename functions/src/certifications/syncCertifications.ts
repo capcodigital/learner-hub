@@ -4,22 +4,18 @@ import { logger } from "firebase-functions/v1";
 import { CatalogEntry, getById } from "./catalog_entry";
 import { extractSecurityCertifications } from "./htmlHelpers/api_security";
 import { extractCloudCertifications } from "./htmlHelpers/cloud_training";
+import { extractNeo4jCertifications } from "./htmlHelpers/neo4j";
 
 const TABLE_CERTIFICATIONS = "certifications"
 
 export async function syncAllCertifications(): Promise<Certification[]> {
     // Define the items to sync and the HTML parser used to extract the certifications from the HTML
-    var dataSources = [{
-        id: 2,
-        htmlParser: (html: string, certData: CatalogEntry) => extractCloudCertifications(html, certData),
-    },
-    {
-        id: 3,
-        htmlParser: (html: string, certData: CatalogEntry) => extractCloudCertifications(html, certData),
-    }, {
-        id: 8,
-        htmlParser: (html: string, certData: CatalogEntry): Array<Certification> => extractSecurityCertifications(html, certData),
-    }];
+    var dataSources = [
+        { id: 2, htmlParser: (html: string, certData: CatalogEntry): Array<Certification> => extractCloudCertifications(html, certData) },
+        { id: 3, htmlParser: (html: string, certData: CatalogEntry): Array<Certification> => extractCloudCertifications(html, certData) },
+        { id: 7, htmlParser: (html: string, certData: CatalogEntry): Array<Certification> => extractNeo4jCertifications(html, certData) },
+        { id: 8, htmlParser: (html: string, certData: CatalogEntry): Array<Certification> => extractSecurityCertifications(html, certData) }
+    ];
 
     // Create the promises to run in parallel all the data
     const promises = dataSources.map(async source => {
@@ -36,7 +32,7 @@ export async function syncAllCertifications(): Promise<Certification[]> {
 
     // Wait for all the data to be downloaded
     const certifications = await Promise.all(promises);
-    logger.log(`Extracted ${certifications.length} certifications types`);
+    logger.log(`Processed ${certifications.length} certifications types`);
 
     // Flatten array of arrays. Since flatMap is not supported, just reduce as alternative
     const allCertifications = certifications.reduce((acc, x) => acc.concat(x), []);
