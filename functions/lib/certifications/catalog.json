@@ -62,5 +62,13 @@
         "subcategory": "NA",
         "url": "https://ilabs-capco.atlassian.net/wiki/spaces/BPG/pages/2732752917/API+Security+Certification",
         "contentUrl": "https://ilabs-capco.atlassian.net/wiki/rest/api/content/2732752917?expand=body.export_view.value"
+    },
+    {
+        "id": 9,
+        "name": "HashiCorp Security Automation Certification",
+        "category": "Security",
+        "subcategory": "Secrets management",
+        "url": "https://ilabs-capco.atlassian.net/wiki/spaces/BPG/pages/2730590254/vault",
+        "contentUrl": "https://ilabs-capco.atlassian.net/wiki/rest/api/content/2730590254?expand=body.export_view.value"
     }
 ]

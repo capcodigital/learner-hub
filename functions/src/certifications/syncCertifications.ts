@@ -6,6 +6,7 @@ import { extractSecurityCertifications } from "./htmlHelpers/api_security";
 import { extractCloudCertifications } from "./htmlHelpers/cloud_training";
 import { extractCordaCertifications } from "./htmlHelpers/corda";
 import { extractNeo4jCertifications } from "./htmlHelpers/neo4j";
+import { extractVaultCertifications } from "./htmlHelpers/vault";
 
 const TABLE_CERTIFICATIONS = "certifications"
 
@@ -16,7 +17,8 @@ export async function syncAllCertifications(): Promise<Certification[]> {
         { id: 3, htmlParser: (html: string, certData: CatalogEntry): Array<Certification> => extractCloudCertifications(html, certData) },
         { id: 4, htmlParser: (html: string, certData: CatalogEntry): Array<Certification> => extractCordaCertifications(html, certData) },
         { id: 7, htmlParser: (html: string, certData: CatalogEntry): Array<Certification> => extractNeo4jCertifications(html, certData) },
-        { id: 8, htmlParser: (html: string, certData: CatalogEntry): Array<Certification> => extractSecurityCertifications(html, certData) }
+        { id: 8, htmlParser: (html: string, certData: CatalogEntry): Array<Certification> => extractSecurityCertifications(html, certData) },
+        { id: 9, htmlParser: (html: string, certData: CatalogEntry): Array<Certification> => extractVaultCertifications(html, certData) }
     ];
 
     // Create the promises to run in parallel all the data
