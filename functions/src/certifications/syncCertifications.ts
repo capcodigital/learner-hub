@@ -6,6 +6,7 @@ import { extractSecurityCertifications } from "./htmlHelpers/api_security";
 import { extractCloudCertifications } from "./htmlHelpers/cloud_training";
 import { extractCordaCertifications } from "./htmlHelpers/corda";
 import { extractNeo4jCertifications } from "./htmlHelpers/neo4j";
+import { extractUdemySecurityCourses } from "./htmlHelpers/udemy-security-courses";
 import { extractVaultCertifications } from "./htmlHelpers/vault";
 
 const TABLE_CERTIFICATIONS = "certifications"
@@ -13,6 +14,7 @@ const TABLE_CERTIFICATIONS = "certifications"
 export async function syncAllCertifications(): Promise<Certification[]> {
     // Define the items to sync and the HTML parser used to extract the certifications from the HTML
     var dataSources = [
+        { id: 1, htmlParser: (html: string, certData: CatalogEntry): Array<Certification> => extractUdemySecurityCourses(html, certData) },
         { id: 2, htmlParser: (html: string, certData: CatalogEntry): Array<Certification> => extractCloudCertifications(html, certData) },
         { id: 3, htmlParser: (html: string, certData: CatalogEntry): Array<Certification> => extractCloudCertifications(html, certData) },
         { id: 4, htmlParser: (html: string, certData: CatalogEntry): Array<Certification> => extractCordaCertifications(html, certData) },
@@ -36,13 +38,14 @@ export async function syncAllCertifications(): Promise<Certification[]> {
 
     // Wait for all the data to be downloaded
     const certifications = await Promise.all(promises);
-    logger.log(`Processed ${certifications.length} certifications types`);
 
     // Flatten array of arrays. Since flatMap is not supported, just reduce as alternative
     const allCertifications = certifications.reduce((acc, x) => acc.concat(x), []);
 
     // Save all certifications in the DB
     await save(allCertifications);
+
+    logger.log(`Processed a total of ${allCertifications.length} certifications in ${certifications.length} certifications types`);
 
     return allCertifications;
 }
