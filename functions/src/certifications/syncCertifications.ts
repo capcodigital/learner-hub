@@ -4,6 +4,7 @@ import { logger } from "firebase-functions/v1";
 import { CatalogEntry, getById } from "./catalog_entry";
 import { extractSecurityCertifications } from "./htmlHelpers/api_security";
 import { extractCloudCertifications } from "./htmlHelpers/cloud_training";
+import { extractCordaCertifications } from "./htmlHelpers/corda";
 import { extractNeo4jCertifications } from "./htmlHelpers/neo4j";
 
 const TABLE_CERTIFICATIONS = "certifications"
@@ -13,6 +14,7 @@ export async function syncAllCertifications(): Promise<Certification[]> {
     var dataSources = [
         { id: 2, htmlParser: (html: string, certData: CatalogEntry): Array<Certification> => extractCloudCertifications(html, certData) },
         { id: 3, htmlParser: (html: string, certData: CatalogEntry): Array<Certification> => extractCloudCertifications(html, certData) },
+        { id: 4, htmlParser: (html: string, certData: CatalogEntry): Array<Certification> => extractCordaCertifications(html, certData) },
         { id: 7, htmlParser: (html: string, certData: CatalogEntry): Array<Certification> => extractNeo4jCertifications(html, certData) },
         { id: 8, htmlParser: (html: string, certData: CatalogEntry): Array<Certification> => extractSecurityCertifications(html, certData) }
     ];
