@@ -6,7 +6,12 @@ import { getById } from "./certifications/catalog_entry";
 import { getFromFirestoreByCategory, getFromConfluence, getFromFirestoreByPlatform } from "./generic_funs";
 import { getUserCertifications } from "./generic_funs";
 import { syncAllCertifications } from "./certifications/syncCertifications";
+import { initializeApp } from "firebase-admin";
 
+// Initialize Firebase 
+initializeApp();
+
+// Initialize and configure the Express sercer
 export const app = express();
 app.use(validateFirebaseIdToken);
 
