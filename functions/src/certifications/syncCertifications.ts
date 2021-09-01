@@ -1,6 +1,6 @@
 import axios from "axios";
-import { firestore } from "firebase-admin";
 import { logger } from "firebase-functions/v1";
+import { save } from "../firestore_funs";
 import { CatalogEntry, getById } from "./catalog_entry";
 import { extractSecurityCertifications } from "./htmlHelpers/api_security";
 import { extractCloudCertifications } from "./htmlHelpers/cloud_training";
@@ -8,8 +8,6 @@ import { extractCordaCertifications } from "./htmlHelpers/corda";
 import { extractNeo4jCertifications } from "./htmlHelpers/neo4j";
 import { extractUdemySecurityCourses } from "./htmlHelpers/udemy-security-courses";
 import { extractVaultCertifications } from "./htmlHelpers/vault";
-
-const TABLE_CERTIFICATIONS = "certifications"
 
 export async function syncAllCertifications(): Promise<Certification[]> {
     // Define the items to sync and the HTML parser used to extract the certifications from the HTML
@@ -65,26 +63,4 @@ async function getHtmlContent(url: string): Promise<string> {
         logger.log(error);
         throw error;
     }
-}
-
-// TODO: Extract this save logic to a repository
-// Saves a list of certifications in a Firestore collection
-async function save(items: Array<Certification>) {
-    for (var i = 0; i < items.length; i++) {
-        var item = items[i];
-        await firestore().collection(TABLE_CERTIFICATIONS).add({
-            name: filter(item.name),
-            platform: filter(item.platform.toLowerCase()),
-            certification: filter(item.certification),
-            category: filter(item.category).toLowerCase(),
-            subcategory: filter(item.subcategory).toLowerCase(),
-            date: filter(item.date),
-            description: filter(item.description),
-            rating: filter(item.rating),
-        });
-    }
-}
-
-function filter(text: string): string {
-    return text != null ? text : "";
 }

@@ -21,14 +21,14 @@ export function extractVaultCertifications(html: string, certData: CatalogEntry)
         const name = row.querySelector("td:nth-child(1)")?.textContent as string;
         const date = row.querySelector("td:nth-child(2)")?.textContent as string;
         entries.push({
-            'name': name,
+            'username': name,
             'platform': "",
-            'certification': "HashiCorp Security Automation Certification",
+            'title': "HashiCorp Security Automation Certification",
             'category': certData.category,
             'subcategory': certData.subcategory,
             'date': date?.trim(),
             'description': "",
-            'rating': ""
+            'rating': 0
         });
     });
     logger.log(`Extracted ${entries.length}/${items.length} Vault Associate certifications`);

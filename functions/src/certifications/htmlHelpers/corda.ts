@@ -21,14 +21,14 @@ export function extractCordaCertifications(html: string, certData: CatalogEntry)
         const name = row.querySelector("td:nth-child(1)")?.textContent as string;
         const date = row.querySelector("td:nth-child(3)")?.textContent as string;
         entries.push({
-            'name': name,
+            'username': name,
             'platform': "",
-            'certification': "R3 Corda",
+            'title': "R3 Corda",
             'category': certData.category,
             'subcategory': certData.subcategory,
             'date': date?.trim(),
             'description': "",
-            'rating': ""
+            'rating': 0
         });
     });
     logger.log(`Extracted ${entries.length}/${items.length} R3 Corda certifications`);

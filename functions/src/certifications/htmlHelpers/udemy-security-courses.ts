@@ -23,14 +23,14 @@ export function extractUdemySecurityCourses(html: string, certData: CatalogEntry
         const course = row.querySelector("td:nth-child(3)")?.textContent as string;
         const date = row.querySelector("td:nth-child(4)")?.textContent as string;
         entries.push({
-            'name': name.trim(),
+            'username': name.trim(),
             'platform': "",
-            'certification': course.trim(),
+            'title': course.trim(),
             'category': certData.category,
             'subcategory': certData.subcategory,
             'date': date?.trim(),
             'description': "",
-            'rating': ""
+            'rating': 0
         });
     });
     logger.log(`Extracted ${entries.length}/${items.length} Udemy Security courses`);

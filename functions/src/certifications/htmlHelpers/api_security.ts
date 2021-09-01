@@ -21,14 +21,14 @@ export function extractSecurityCertifications(html: string, certData: CatalogEnt
         const name = row.querySelector("td:nth-child(1)")?.textContent as string;
         const date = row.querySelector("td:nth-child(2)")?.textContent as string;
         entries.push({
-            'name': name,
+            'username': name.trim(),
             'platform': "",
-            'certification': "API Security Architect",
+            'title': "API Security Architect",
             'category': certData.category,
             'subcategory': certData.subcategory,
             'date': date?.trim(),
             'description': "",
-            'rating': ""
+            'rating': 0
         });
     });
     logger.log(`Extracted ${entries.length}/${items.length} API Security certifications`);

@@ -13,7 +13,14 @@ import {
     putRating
 } from "./generic_funs";
 import { getUserCertifications } from "./firestore_funs";
+import { syncAllCertifications } from "./certifications/syncCertifications";
+import { initializeApp } from "firebase-admin";
 
+
+// Initialize Firebase app
+initializeApp();
+
+// Initialize and configure Express server
 export const app = express();
 app.use(validateFirebaseIdToken);
 
@@ -115,6 +122,13 @@ app.get("/putrate", async (req: Request, res: Response) => {
         4, // rating
         res
     );
+});
+
+app.get("/seed", async (req: Request, res: Response) => {
+    functions.logger.log("Executing SEED. Only run this during development");
+
+    const data = await syncAllCertifications();
+    res.status(200).send(data);
 });
 
 // This HTTPS endpoint can only be accessed by your Firebase Users.
