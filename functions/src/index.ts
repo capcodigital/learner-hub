@@ -80,15 +80,14 @@ app.get("/certifications", async (req: Request, res: Response) => {
 
 // Gets the certifications from Confluence, saves them to Firestore and returns them as json
 app.get("/certifications/all", async (req: Request, res: Response) => {
-    var entries = Array<CatalogEntry>();
-    // add cloud catalog entries
-    entries.push(getById(2))
-    entries.push(getById(3))
-    getFromConfluence(
-        "haris.mexis@capco.com",
-        "token here",
-        entries,
-        res);
+    try {
+        const data = await syncAllCertifications();
+        res.status(200).send(data);
+    }
+    catch (error) {
+        functions.logger.log(`Error when syncing all certifications: ${error}`);
+        res.status(500).send();
+    }
 });
 
 app.put("/certifications/update/describe", async (req: Request, res: Response) => {
