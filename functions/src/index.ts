@@ -130,6 +130,15 @@ app.get("/seed", async (req: Request, res: Response) => {
     res.status(200).send(data);
 });
 
+// Users:
+app.get("/users/all", async (req: Request, res: Response) => {
+
+});
+
+app.get("/users/update", async (req: Request, res: Response) => {
+
+});
+
 // This HTTPS endpoint can only be accessed by your Firebase Users.
 // Requests need to be authorized by providing an `Authorization` HTTP header
 // with value `Bearer <Firebase ID Token>`.
