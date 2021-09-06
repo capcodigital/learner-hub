@@ -1,11 +1,9 @@
 import * as functions from "firebase-functions";
 import express, { Request, Response } from "express";
 import { validateFirebaseIdToken } from "./auth-middleware";
-import { CatalogEntry, getUrl } from "./certifications/catalog_entry";
-import { getById } from "./certifications/catalog_entry";
+import { getUrl } from "./certifications/catalog_entry";
 import {
     getFromFirestoreByCategory,
-    getFromConfluence,
     getFromFirestoreByPlatform,
     describe,
     rate,
@@ -15,7 +13,6 @@ import {
 import { getUserCertifications } from "./firestore_funs";
 import { syncAllCertifications } from "./certifications/syncCertifications";
 import { initializeApp } from "firebase-admin";
-
 
 // Initialize Firebase app
 initializeApp();
@@ -130,12 +127,13 @@ app.get("/seed", async (req: Request, res: Response) => {
     res.status(200).send(data);
 });
 
-// Users:
+// Returns all users from Firestore
 app.get("/users/all", async (req: Request, res: Response) => {
 
 });
 
-app.get("/users/update", async (req: Request, res: Response) => {
+// Updates a user property in Firestore
+app.put("/users/update", async (req: Request, res: Response) => {
 
 });
 

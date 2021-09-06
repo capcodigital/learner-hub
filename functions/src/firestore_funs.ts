@@ -49,7 +49,7 @@ export async function getFromFirestoreByPlatformAsList(platform: string
             .collection(TABLE_CERTIFICATIONS)
             .where("platform", "==", platform)
             .get();
-        return toResults(snapshot);
+        return toCertifications(snapshot);
     } catch (e) {
         logger.log(e)
         throw e;
@@ -62,7 +62,7 @@ export async function getFromFirestoreByCategoryAsList(
 ): Promise<Certification[]> {
     try {
         const snapshot = await getSnapshotForCategory(category, subcategory);
-        return toResults(snapshot);
+        return toCertifications(snapshot);
     } catch (e) {
         logger.log(e)
         throw e;
@@ -76,7 +76,7 @@ export async function getUserCertifications(username: string): Promise<Certifica
             .collection("certifications")
             .where("name", "==", username)
             .get();
-        return toResults(snapshot);
+        return toCertifications(snapshot);
     } catch (exception) {
         logger.log(exception)
         throw exception;
@@ -105,6 +105,17 @@ export async function updateRating(
 ) {
     await admin.firestore().collection(TABLE_CERTIFICATIONS)
         .doc(certId).update({ rating: rating })
+}
+
+export async function getAllUsers(): Promise<User[]> {
+    try {
+        const snapshot = await admin.firestore()
+            .collection("users").get();
+        return toUsers(snapshot);
+    } catch (exception) {
+        logger.log(exception)
+        throw exception;
+    }
 }
 
 async function getSnapshotForCategory(
@@ -142,7 +153,7 @@ async function getSnapshotForCategory(
     }
 }
 
-async function toResults(snapshot: FirebaseFirestore.QuerySnapshot):
+async function toCertifications(snapshot: FirebaseFirestore.QuerySnapshot):
     Promise<Certification[]> {
     const results = Array<Certification>();
     if (!snapshot.empty) {
@@ -151,6 +162,17 @@ async function toResults(snapshot: FirebaseFirestore.QuerySnapshot):
         });
     }
     return results;
+}
+
+async function toUsers(snapshot: FirebaseFirestore.QuerySnapshot):
+    Promise<User[]> {
+    const users = Array<User>();
+    if (!snapshot.empty) {
+        snapshot.forEach((doc: { data: () => any }) => {
+            users.push(doc.data());
+        });
+    }
+    return users;
 }
 
 function filter(text: string): string {
