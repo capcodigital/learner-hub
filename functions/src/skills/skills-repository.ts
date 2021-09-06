@@ -3,27 +3,6 @@ import { logger } from "firebase-functions/v1";
 
 const SKILLS_COLLECTION = "skills"
 
-export async function getAll(): Promise<Skills[]> {
-    const dbCollection = firestore().collection(SKILLS_COLLECTION);
-
-    try {
-        const querySnapshot = await dbCollection
-            .get();
-
-        const items = Array<Skills>();
-        querySnapshot.forEach((doc) => {
-            const item = doc.data();
-            console.log(item);
-            items.push(item as Skills);
-        });
-
-        return items;
-    }
-    catch (error) {
-        throw "Is not possible to get the data";
-    }
-}
-
 export async function getSkillsForUser(userId: string): Promise<Skills[]> {
     const dbCollection = firestore().collection(SKILLS_COLLECTION);
 

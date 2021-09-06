@@ -1,19 +1,5 @@
 import { logger } from "firebase-functions/v1";
-import { getAll, getSkillsForUser, upsert } from "./skills-repository";
-
-// TODO: Not used at the moment. Only for debug/testing
-export async function getAllSkills(): Promise<Skills[]> {
-    logger.log('Getting all the skills');
-
-    try {
-        const items = await getAll();
-        return items;
-    }
-    catch (error) {
-        logger.log(`It's not possible to get the user skills: ${error}`);
-        throw "Is not possible to get the data";
-    }
-}
+import { getSkillsForUser, upsert } from "./skills-repository";
 
 export async function getUserSkills(userId: string): Promise<Skills[]> {
     logger.log('Getting all the user skills');
