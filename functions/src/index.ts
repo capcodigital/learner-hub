@@ -1,11 +1,9 @@
 import * as functions from "firebase-functions";
 import express, { Request, Response } from "express";
 import { validateFirebaseIdToken } from "./auth-middleware";
-import { CatalogEntry, getUrl } from "./certifications/catalog_entry";
-import { getById } from "./certifications/catalog_entry";
+import { getUrl } from "./certifications/catalog_entry";
 import {
     getFromFirestoreByCategory,
-    getFromConfluence,
     getFromFirestoreByPlatform,
     describe,
     rate,
@@ -14,7 +12,8 @@ import {
 } from "./generic_funs";
 import { getUserCertifications } from "./firestore_funs";
 import { syncAllCertifications } from "./certifications/syncCertifications";
-import { initializeApp } from "firebase-admin";
+import { initializeApp, auth } from "firebase-admin";
+import { saveSkills, getUserSkills } from "./skills/skills-controller";
 
 
 // Initialize Firebase app
@@ -123,14 +122,117 @@ app.get("/putrate", async (req: Request, res: Response) => {
     );
 });
 
-app.get("/seed", async (req: Request, res: Response) => {
-    functions.logger.log("Executing SEED. Only run this during development");
 
-    const data = await syncAllCertifications();
-    res.status(200).send(data);
+app.get("/skills/all", async (req: Request, res: Response) => {
+    // Get userId from the query string
+    const userId = req.query["userId"] as string;
+    if (!userId) {
+        res.status(400).send("Bad request");
+    }
+    else {
+        try {
+            const skills = await getUserSkills(userId);
+            res.status(200).send(skills);
+        }
+        catch (error) {
+            res.status(500).send({ error: error })
+        }
+    }
 });
+
+app.post("/skills", async (req: Request, res: Response) => {
+    // Get userId from the query string
+    functions.logger.log(`Payload for skill enfpoint: ${JSON.stringify(req.body)}`);
+
+    const payload = req.body as SkillsPayload;
+
+    //  Check if the payload request is well formed
+    if (!payload || (payload.primarySkills == null && payload.secondarySkills == null)) {
+        res.status(400).send("Bad request");
+    }
+    else {
+        try {
+            const userId = req.user?.uid;
+            if (!userId) {
+                functions.logger.log("User not authenticated or missing uid");
+                res.status(401).send();
+            }
+            else {
+                try {
+                    const primary = payload.primarySkills;
+                    const secondary = payload.secondarySkills;
+
+                    await saveSkills(userId, primary, secondary);
+                    res.status(201).send();
+                }
+                catch (error) {
+                    functions.logger.log(error);
+                    res.status(500).send();
+                }
+            }
+        }
+        catch (error) {
+            functions.logger.log(error);
+            res.status(500).send()
+        }
+    }
+});
+
+app.put("/skills", async (req: Request, res: Response) => {
+    // Get userId from the query string
+    const payload = req.body;
+    if (payload) {
+        try {
+            const userId = req.user?.uid;
+            if (!userId) {
+                functions.logger.log("User not authenticated or missing uid");
+                res.status(401).send();
+            }
+            else {
+                try {
+                    const primary = payload.primarySkills;
+                    const secondary = payload.secondarySkills;
+
+                    await saveSkills(userId, primary, secondary);
+                    res.status(201).send();
+                }
+                catch (error) {
+                    functions.logger.log(error);
+                    res.status(500).send();
+                }
+            }
+        }
+        catch (error) {
+            functions.logger.log(error);
+            res.status(500).send()
+        }
+    }
+    else {
+        res.status(400).send("Bad request");
+    }
+});
+
+
 
 // This HTTPS endpoint can only be accessed by your Firebase Users.
 // Requests need to be authorized by providing an `Authorization` HTTP header
 // with value `Bearer <Firebase ID Token>`.
 exports.app = functions.https.onRequest(app);
+exports.seed = functions.https.onRequest(async (req: Request, res: Response) => {
+    functions.logger.log("Executing SEED. Only run this during development");
+
+    // Create test user
+    const user = await auth().createUser({
+        email: "test@capco.com",
+        emailVerified: true,
+        password: "123456",
+        displayName: "Luke Skywalker",
+        disabled: false,
+    });
+
+    res.status(200).send({
+        seedData: {
+            user: user
+        }
+    });
+});
