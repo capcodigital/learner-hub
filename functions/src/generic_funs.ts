@@ -116,7 +116,7 @@ export async function getFromFirestoreByPlatform(
     } catch (e) {
         logger.log(e)
         res.statusCode = 500;
-        res.send(JSON.stringify(e.message));
+        res.send(JSON.stringify(e));
     }
 }
 
@@ -133,7 +133,7 @@ export async function getFromFirestoreByCategory(
     } catch (e) {
         logger.log(e)
         res.statusCode = 500;
-        res.send(JSON.stringify(e.message));
+        res.send(JSON.stringify(e));
     }
 }
 

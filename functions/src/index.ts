@@ -10,7 +10,14 @@ import {
     putDescription,
     putRating
 } from "./generic_funs";
-import { getUserCertifications } from "./firestore_funs";
+import {
+    getUserCertifications,
+} from "./firestore_funs";
+import {
+    putUser,
+    addUser
+    // getUsers
+} from "./users/users";
 import { syncAllCertifications } from "./certifications/syncCertifications";
 import { initializeApp } from "firebase-admin";
 
@@ -127,14 +134,47 @@ app.get("/seed", async (req: Request, res: Response) => {
     res.status(200).send(data);
 });
 
+// Updates a user property in Firestore
+app.put("/users/update", async (req: Request, res: Response) => {
+
+});
+
+// Testing endpoint to execute PUT request for update user in firestore
+app.get("/putuser", async (req: Request, res: Response) => {
+    const property = {
+        email: "blu.blo@bla.com",
+        passwordHash: "sdf4554",
+        firstName: "Nick",
+        surname: "Jones",
+        jobTitle: "Developer",
+        bio: "Born in USA",
+        confluenceConnected: false,
+    }
+    putUser(
+        "http://localhost:5001/io-capco-flutter-dev/us-central1/app/users/update",
+        12,
+        property,
+        res);
+});
+
 // Returns all users from Firestore
 app.get("/users/all", async (req: Request, res: Response) => {
 
 });
 
-// Updates a user property in Firestore
-app.put("/users/update", async (req: Request, res: Response) => {
-
+// Testing endpoint to execute POST request for adding user to firestore
+app.get("/adduser", async (req: Request, res: Response) => {
+    const user = {
+        id: 12,
+        email: "blu.blo@bla.com",
+        passwordHash: "sdf4554",
+        firstName: "Nick",
+        surname: "Jones",
+        jobTitle: "Developer",
+        bio: "Born in USA",
+        confluenceConnected: false,
+    }
+    addUser(user, res);
 });
 
 // This HTTPS endpoint can only be accessed by your Firebase Users.
