@@ -144,7 +144,7 @@ app.post("/skills", async (req: Request, res: Response) => {
     // Get userId from the query string
     functions.logger.log(`Payload for skill enfpoint: ${JSON.stringify(req.body)}`);
 
-    const payload = req.body as SkillsPayload;
+    const payload = req.body;
 
     //  Check if the payload request is well formed
     if (!payload || (payload.primarySkills == null && payload.secondarySkills == null)) {
