@@ -49,8 +49,7 @@ app.get("/me/certifications", async (req: Request, res: Response) => {
 });
 
 // Endpoint to return certifications from Firestore filtered either by category & subcategory
-// or by platform.
-// Missing parameters are ignored
+// or by platform. Missing parameters are ignored
 // eg. http://localhost:5001/io-capco-flutter-dev/us-central1/app/certifications?category=cloud&subcategory=in%20progress
 // eg. http://localhost:5001/io-capco-flutter-dev/us-central1/app/certifications?category=cloud
 // eg. http://localhost:5001/io-capco-flutter-dev/us-central1/app/certifications?platform=aws
