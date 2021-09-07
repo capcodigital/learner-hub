@@ -2,24 +2,11 @@ import * as functions from "firebase-functions";
 import express, { Request, Response } from "express";
 import { validateFirebaseIdToken } from "./auth-middleware";
 import { getUrl } from "./certifications/catalog_entry";
-import {
-    getFromFirestoreByCategory,
-    getFromFirestoreByPlatform,
-    describe,
-    rate,
-    putDescription,
-    putRating
-} from "./generic_funs";
+import * as gfuns from "./generic_funs";
 import {
     getUserCertifications,
 } from "./firestore_funs";
-import {
-    registerUser,
-    postUser,
-    putUser,
-    updateUser
-    // getUsers
-} from "./users/users";
+import * as ufuns from "./users/users";
 import { syncAllCertifications } from "./certifications/syncCertifications";
 import { initializeApp } from "firebase-admin";
 
@@ -71,13 +58,13 @@ app.get("/certifications", async (req: Request, res: Response) => {
     var platform = req.query["platform"] as string;
     // If there's platform param, filter by platform
     if (platform != null)
-        getFromFirestoreByPlatform(platform?.toLowerCase(), res);
+        gfuns.getFromFirestoreByPlatform(platform?.toLowerCase(), res);
     else {
         // If there is no platform, filter by category & subcategory.
         // If there's no category & subcategory, will return all
         var category = req.query["category"] as string;
         var subcategory = req.query["subcategory"] as string;
-        getFromFirestoreByCategory(
+        gfuns.getFromFirestoreByCategory(
             category?.toLowerCase(),
             subcategory?.toLowerCase(),
             res);
@@ -99,18 +86,18 @@ app.get("/certifications/all", async (req: Request, res: Response) => {
 app.put("/certifications/update/describe", async (req: Request, res: Response) => {
     var title = req.query["title"] as string;
     var desc = req.body["desc"] as string;
-    describe(title, desc, res);
+    gfuns.describe(title, desc, res);
 });
 
 app.put("/certifications/update/rate", async (req: Request, res: Response) => {
     var certId = req.query["id"] as string;
     var rating = req.body["rating"] as number;
-    rate(certId, rating, res);
+    gfuns.rate(certId, rating, res);
 });
 
 // Testing endpoint to execute describe put request
 app.get("/putdesc", async (req: Request, res: Response) => {
-    putDescription(
+    gfuns.putDescription(
         "http://localhost:5001/io-capco-flutter-dev/us-central1/app/certifications/update/describe",
         "Associate Cloud Engineer", // cert title
         "This is a great certification that will teach you many useful things", // description
@@ -121,7 +108,7 @@ app.get("/putdesc", async (req: Request, res: Response) => {
 // Testing endpoint to execute rate put request
 app.get("/putrate", async (req: Request, res: Response) => {
     var certId = req.query["id"] as string;
-    putRating(
+    gfuns.putRating(
         "http://localhost:5001/io-capco-flutter-dev/us-central1/app/certifications/update/rate",
         certId, // cert id in firestore
         4, // rating
@@ -141,7 +128,7 @@ export const register = express();
 // Endpoint to SIGNUP a user (add in firebase auth & firestore users collection)
 register.post("/users/signup", async (req: Request, res: Response) => {
     var props = req.body["properties"];
-    if (props != null) registerUser(props, res);
+    if (props != null) ufuns.registerUser(props, res);
     else res.send(JSON.stringify("Error"));
 });
 
@@ -158,7 +145,7 @@ register.get("/testsignup", async (req: Request, res: Response) => {
         bio: "He has 10 years of experience."
     }
     // Call singup endpoint passing user properties
-    postUser(
+    ufuns.postUser(
         "http://localhost:5001/io-capco-flutter-dev/us-central1/register/users/signup",
         properties,
         res
@@ -169,17 +156,21 @@ register.get("/testsignup", async (req: Request, res: Response) => {
 register.put("/users/update", async (req: Request, res: Response) => {
     const userId = req.query["userId"] as string;
     const property = req.body["property"] as any;
-    updateUser(userId, property, res);
+    ufuns.updateUser(userId, property, res);
 });
 
 // Testing endpoint to execute PUT request for update user in firestore
 register.get("/putuser", async (req: Request, res: Response) => {
     const userId = req.query["userId"] as string;
+    // const property = {
+    //     key: "jobTitle",
+    //     value: "Senior Developer"
+    // }
     const property = {
-        key: "jobTitle",
-        value: "Senior Developer"
+        key: "confluenceConnected",
+        value: true
     }
-    putUser(
+    ufuns.putUser(
         "http://localhost:5001/io-capco-flutter-dev/us-central1/register/users/update",
         userId,
         property,

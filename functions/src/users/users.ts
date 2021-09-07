@@ -3,11 +3,7 @@ import * as functions from "firebase-functions";
 import * as axios from 'axios';
 import { logger } from "firebase-functions";
 import * as admin from 'firebase-admin';
-import {
-    insertUser,
-    editUser,
-    getAllUsers
-} from "./users_repository";
+import * as userRepo from "./users_repository";
 
 // Used for testing
 // Executes POST request to our BE to signup a user.
@@ -82,7 +78,7 @@ export async function registerUser(
             confluenceConnected: false,
         }
         // Add user in firestore
-        insertUser(user);
+        userRepo.insertUser(user);
         res.statusCode = 200;
         res.send(JSON.stringify("success"));
     }).catch(function (e) {
@@ -98,7 +94,7 @@ export async function updateUser(
     property: any,
     res: functions.Response) {
     try {
-        editUser(userId, property);
+        userRepo.editUser(userId, property);
         res.statusCode = 200;
         res.send(JSON.stringify("success"));
     } catch (e) {
@@ -110,7 +106,7 @@ export async function updateUser(
 
 export async function getUsers(res: functions.Response) {
     try {
-        const items = await getAllUsers();
+        const items = await userRepo.getAllUsers();
         res.setHeader('Content-Type', 'application/json');
         res.statusCode = 200;
         res.send(JSON.stringify(items));

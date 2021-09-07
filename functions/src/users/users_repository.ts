@@ -43,14 +43,9 @@ export function editUser(
 }
 
 export async function getAllUsers(): Promise<User[]> {
-    try {
-        const snapshot = await admin.firestore()
-            .collection(TABLE_USERS).get();
-        return toUsers(snapshot);
-    } catch (exception) {
-        logger.log(exception)
-        throw exception;
-    }
+    const snapshot = await admin.firestore()
+        .collection(TABLE_USERS).get();
+    return toUsers(snapshot);
 }
 
 async function toUsers(snapshot: FirebaseFirestore.QuerySnapshot):
