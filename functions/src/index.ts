@@ -160,26 +160,29 @@ register.put("/users/update", async (req: Request, res: Response) => {
 
 // Testing endpoint to execute PUT request for update user in firestore
 register.get("/putuser", async (req: Request, res: Response) => {
-    const userId = req.query["userId"] as string;
+    const uid = req.query["uid"] as string;
+
     // const property = {
     //     key: "jobTitle",
     //     value: "Senior Developer"
     // }
+
     const property = {
         key: "confluenceConnected",
         value: true
     }
+
     ufuns.putUser(
         "http://localhost:5001/io-capco-flutter-dev/us-central1/register/users/update",
-        userId,
+        uid,
         property,
         res);
 });
 
-// // Returns all users from Firestore
-// usersApp.get("/users/all", async (req: Request, res: Response) => {
-
-// });
+// Returns all users from firestore
+register.get("/users/all", async (req: Request, res: Response) => {
+    return ufuns.getUsers(res);
+});
 
 // This HTTPS endpoint can only be accessed by your Firebase Users.
 // Requests need to be authorized by providing an `Authorization` HTTP header

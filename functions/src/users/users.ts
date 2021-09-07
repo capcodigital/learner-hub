@@ -30,10 +30,10 @@ export async function postUser(
 // { jobTitle: "Senior Manager" }
 export async function putUser(
     url: string,
-    userId: string,
+    uid: string,
     property: any,
     res: functions.Response) {
-    const fullUrl = url + "?userId=" + userId;
+    const fullUrl = url + "?uid=" + uid;
     await axios.default.put(fullUrl,
         { property: property })
         .then(function (resp) {
@@ -89,7 +89,7 @@ export async function registerUser(
 }
 
 // Updates user in firestore and returns a response
-export async function updateUser(
+export function updateUser(
     userId: string,
     property: any,
     res: functions.Response) {

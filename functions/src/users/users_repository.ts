@@ -37,23 +37,42 @@ export function editUser(
     logger.log(value);
     const db = admin.firestore();
     const collection = db.collection(TABLE_USERS);
-    collection.doc(uid).update({
-        [key]: value
-    })
+    // following not working ?
+    // collection.doc(uid).update({
+    //     [key]: value
+    // })
+    collection
+        .get()
+        .then(async (snap) => {
+            snap.forEach(it => {
+                collection.doc(it.id).update({
+                    [key]: value
+                });
+            });
+        });
+
 }
 
-export async function getAllUsers(): Promise<User[]> {
+export async function getAllUsers(): Promise<any[]> {
     const snapshot = await admin.firestore()
         .collection(TABLE_USERS).get();
     return toUsers(snapshot);
 }
 
 async function toUsers(snapshot: FirebaseFirestore.QuerySnapshot):
-    Promise<User[]> {
-    const users = Array<User>();
+    Promise<any[]> {
+    const users = Array<any>();
     if (!snapshot.empty) {
         snapshot.forEach((doc: { data: () => any }) => {
-            users.push(doc.data());
+            var item = doc.data() as User
+            users.push({
+                email: item.email,
+                firstName: item.firstName,
+                surname: item.surname,
+                jobTitle: item.jobTitle,
+                bio: item.bio,
+                confluenceConnected: item.confluenceConnected
+            });
         });
     }
     return users;
