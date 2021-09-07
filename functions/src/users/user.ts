@@ -1,11 +1,12 @@
 interface User {
-    id: number,
+    id: string,
     email: string,
+    password: string,
     passwordHash: string,
     firstName: string,
     surname: string,
     jobTitle: string,
     bio: string,
-    confluenceConnected: Boolean,
+    confluenceConnected: Boolean
     // skills: Skills
 }

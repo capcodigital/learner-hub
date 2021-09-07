@@ -2,39 +2,30 @@
 import * as functions from "firebase-functions";
 import * as axios from 'axios';
 import { logger } from "firebase-functions";
+import * as admin from 'firebase-admin';
 import {
     insertUser,
     editUser,
     getAllUsers
-} from "../firestore_funs";
+} from "./users_repository";
 
-// // TO REMOVE
-// export async function postUser(
-//     url: string,
-//     props: any,
-//     res: functions.Response) {
-//     const fullUrl = url;
-//     const user = {
-//         id: props['id'],
-//         email: props['email'],
-//         passwordHash: props['passwordHash'],
-//         firstName: props['firstName'],
-//         surname: props['surname'],
-//         jobTitle: props['jobTitle'],
-//         bio: props['bio'],
-//         confluenceConnected: props['confluenceConnected'],
-//     };
-//     await axios.default.post(fullUrl,
-//         { user: user })
-//         .then(function (response) {
-//             res.statusCode = 200;
-//             res.send(response.data);
-//         }).catch((e) => {
-//             logger.log(e);
-//             res.statusCode = 500;
-//             res.send("error");
-//         });
-// }
+// Executes POST request to a url to signup a user.
+// Takes a user properties array as argument
+export async function postUser(
+    url: string,
+    properties: any,
+    res: functions.Response) {
+    await axios.default.post(url,
+        { properties: properties })
+        .then(function (response) {
+            res.statusCode = 200;
+            res.send(response.data);
+        }).catch((e) => {
+            logger.log(e);
+            res.statusCode = 500;
+            res.send(JSON.stringify("Error"));
+        });
+}
 
 // PUT request to update-user endpoint
 export async function putUser(
@@ -51,7 +42,7 @@ export async function putUser(
         }).catch((e) => {
             logger.log(e);
             res.statusCode = 500;
-            res.send("error");
+            res.send(JSON.stringify("Error"));
         });
 }
 
@@ -64,9 +55,48 @@ export async function addUser(
         res.statusCode = 200;
         res.send(JSON.stringify("success"));
     } catch (e) {
+        logger.log(e);
         res.statusCode = 500;
-        res.send(JSON.stringify(e));
+        res.send(JSON.stringify("Error"));
     }
+}
+
+export async function signupUser(
+    properties: any,
+    res: functions.Response
+) {
+    const email = properties["email"] as string;
+    const password = properties["password"] as string;
+    const firstName = properties["firstName"] as string;
+    const surname = properties["surname"] as string;
+    const jobTitle = properties["jobTitle"] as string;
+    const bio = properties["bio"] as string;
+
+    admin.auth().createUser({
+        email: email,
+        emailVerified: false,
+        password: password,
+        displayName: firstName,
+        disabled: false,
+    }).then(function (userRecord) {
+        logger.log("Successfully created new user:", userRecord.uid);
+        const user: User = {
+            id: userRecord.uid,
+            email: email,
+            password: password,
+            passwordHash: "",
+            firstName: firstName,
+            surname: surname,
+            jobTitle: jobTitle,
+            bio: bio,
+            confluenceConnected: false,
+        }
+        addUser(user, res);
+    }).catch(function (e) {
+        logger.log(e);
+        res.statusCode = 500;
+        res.send(JSON.stringify("Error creating user"));
+    });
 }
 
 // Updates user in firestore and returns a response
@@ -79,8 +109,9 @@ export async function updateUser(
         res.statusCode = 200;
         res.send(JSON.stringify("success"));
     } catch (e) {
+        logger.log(e);
         res.statusCode = 500;
-        res.send(JSON.stringify(e));
+        res.send(JSON.stringify("Error updating user"));
     }
 }
 
@@ -93,6 +124,6 @@ export async function getUsers(res: functions.Response) {
     } catch (e) {
         logger.log(e)
         res.statusCode = 500;
-        res.send(JSON.stringify("error"));
+        res.send(JSON.stringify("Error getting all users"));
     }
 }

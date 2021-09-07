@@ -14,8 +14,9 @@ import {
     getUserCertifications,
 } from "./firestore_funs";
 import {
+    signupUser,
+    postUser,
     putUser,
-    addUser
     // getUsers
 } from "./users/users";
 import { syncAllCertifications } from "./certifications/syncCertifications";
@@ -134,13 +135,41 @@ app.get("/seed", async (req: Request, res: Response) => {
     res.status(200).send(data);
 });
 
+export const testUsers = express();
+
+// Endpoint to SIGNUP a user (add them in firebase auth and in firestore users collection)
+testUsers.post("/users/signup", async (req: Request, res: Response) => {
+    var properties = req.body["properties"];
+    if (properties != null) signupUser(properties, res);
+    else res.send(JSON.stringify("Error"));
+});
+
+// Testing endpoint to execute POST request to our "/users/signup" endpoint
+testUsers.get("/testsignup", async (req: Request, res: Response) => {
+    const properties = {
+        "email": "jack.jones@dom.com",
+        "password": "234jjjhkl3433",
+        "firstName": "Jack",
+        "surname": "Jones",
+        "jobTitle": "Developer",
+        "bio": "He has 10 years of experience."
+    }
+
+    // Call our singup endpoint passing user properties
+    postUser(
+        "http://localhost:5001/io-capco-flutter-dev/us-central1/testUsers/users/signup",
+        properties,
+        res
+    );
+});
+
 // Updates a user property in Firestore
-app.put("/users/update", async (req: Request, res: Response) => {
+testUsers.put("/users/update", async (req: Request, res: Response) => {
 
 });
 
 // Testing endpoint to execute PUT request for update user in firestore
-app.get("/putuser", async (req: Request, res: Response) => {
+testUsers.get("/putuser", async (req: Request, res: Response) => {
     const property = {
         email: "blu.blo@bla.com",
         passwordHash: "sdf4554",
@@ -158,26 +187,13 @@ app.get("/putuser", async (req: Request, res: Response) => {
 });
 
 // Returns all users from Firestore
-app.get("/users/all", async (req: Request, res: Response) => {
+testUsers.get("/users/all", async (req: Request, res: Response) => {
 
-});
-
-// Testing endpoint to execute POST request for adding user to firestore
-app.get("/adduser", async (req: Request, res: Response) => {
-    const user = {
-        id: 12,
-        email: "blu.blo@bla.com",
-        passwordHash: "sdf4554",
-        firstName: "Nick",
-        surname: "Jones",
-        jobTitle: "Developer",
-        bio: "Born in USA",
-        confluenceConnected: false,
-    }
-    addUser(user, res);
 });
 
 // This HTTPS endpoint can only be accessed by your Firebase Users.
 // Requests need to be authorized by providing an `Authorization` HTTP header
 // with value `Bearer <Firebase ID Token>`.
 exports.app = functions.https.onRequest(app);
+
+exports.signup = functions.https.onRequest(testUsers);
