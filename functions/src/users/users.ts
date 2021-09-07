@@ -9,7 +9,8 @@ import {
     getAllUsers
 } from "./users_repository";
 
-// Executes POST request to a url to signup a user.
+// Used for testing
+// Executes POST request to our BE to signup a user.
 // Takes a user properties array as argument
 export async function postUser(
     url: string,
@@ -27,15 +28,18 @@ export async function postUser(
         });
 }
 
-// PUT request to update-user endpoint
+// Used for testing
+// Executes PUT request to update a user.
+// Takes as parameter the userId and as body the property to update eg.
+// { jobTitle: "Senior Manager" }
 export async function putUser(
     url: string,
-    userId: number,
-    prop: any,
+    userId: string,
+    property: any,
     res: functions.Response) {
     const fullUrl = url + "?id=" + userId;
     await axios.default.put(fullUrl,
-        { property: prop })
+        { property: property })
         .then(function (resp) {
             res.statusCode = 200;
             res.send(resp.data);
@@ -46,22 +50,9 @@ export async function putUser(
         });
 }
 
-// Adds user in firestore and returns a response
-export async function addUser(
-    user: User,
-    res: functions.Response) {
-    try {
-        insertUser(user);
-        res.statusCode = 200;
-        res.send(JSON.stringify("success"));
-    } catch (e) {
-        logger.log(e);
-        res.statusCode = 500;
-        res.send(JSON.stringify("Error"));
-    }
-}
-
-export async function signupUser(
+// Creates user in firebase auth and adds them to firestore 
+// Users collection
+export async function registerUser(
     properties: any,
     res: functions.Response
 ) {
@@ -71,27 +62,29 @@ export async function signupUser(
     const surname = properties["surname"] as string;
     const jobTitle = properties["jobTitle"] as string;
     const bio = properties["bio"] as string;
-
+    // Add user in firebase auth
     admin.auth().createUser({
         email: email,
         emailVerified: false,
         password: password,
         displayName: firstName,
         disabled: false,
-    }).then(function (userRecord) {
-        logger.log("Successfully created new user:", userRecord.uid);
+    }).then(function (record) {
+        logger.log("User created successfully:", record.uid);
         const user: User = {
-            id: userRecord.uid,
+            uid: record.uid,
             email: email,
             password: password,
-            passwordHash: "",
             firstName: firstName,
             surname: surname,
             jobTitle: jobTitle,
             bio: bio,
             confluenceConnected: false,
         }
-        addUser(user, res);
+        // Add user in firestore
+        insertUser(user);
+        res.statusCode = 200;
+        res.send(JSON.stringify("success"));
     }).catch(function (e) {
         logger.log(e);
         res.statusCode = 500;
@@ -101,11 +94,11 @@ export async function signupUser(
 
 // Updates user in firestore and returns a response
 export async function updateUser(
-    id: number,
+    userId: string,
     property: any,
     res: functions.Response) {
     try {
-        editUser(id, property);
+        editUser(userId, property);
         res.statusCode = 200;
         res.send(JSON.stringify("success"));
     } catch (e) {

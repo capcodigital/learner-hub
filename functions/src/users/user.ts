@@ -1,8 +1,7 @@
 interface User {
-    id: string,
+    uid: string,
     email: string,
     password: string,
-    passwordHash: string,
     firstName: string,
     surname: string,
     jobTitle: string,
