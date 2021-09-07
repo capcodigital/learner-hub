@@ -10,7 +10,7 @@ export async function insertUser(user: User) {
     collection.where("uid", "==", user.uid).get()
         .then(async (snap) => {
             if (snap.empty) {
-                collection.doc(user.uid.toString()).create({
+                collection.doc(user.uid).create({
                     uid: user.uid,
                     email: user.email,
                     password: user.password,
@@ -18,7 +18,8 @@ export async function insertUser(user: User) {
                     surname: user.surname,
                     jobTitle: user.jobTitle,
                     bio: user.bio,
-                    confluenceConnected: user.confluenceConnected
+                    confluenceConnected: user.confluenceConnected,
+                    skills: user.skills
                 });
             } else {
                 throw Error("User already exists");

@@ -7,5 +7,5 @@ interface User {
     jobTitle: string,
     bio: string,
     confluenceConnected: Boolean
-    // skills: Skills
+    skills: Skills
 }

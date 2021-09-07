@@ -67,6 +67,11 @@ export async function registerUser(
         disabled: false,
     }).then(function (record) {
         logger.log("User created successfully:", record.uid);
+        const skills: Skills = {
+            userId: record.uid,
+            primarySkills: [],
+            secondarySkills: []
+        }
         const user: User = {
             uid: record.uid,
             email: email,
@@ -76,6 +81,7 @@ export async function registerUser(
             jobTitle: jobTitle,
             bio: bio,
             confluenceConnected: false,
+            skills: skills
         }
         // Add user in firestore
         userRepo.insertUser(user);
