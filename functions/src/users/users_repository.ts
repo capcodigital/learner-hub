@@ -50,7 +50,6 @@ export function editUser(
                 });
             });
         });
-
 }
 
 export async function getAllUsers(): Promise<any[]> {

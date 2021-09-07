@@ -13,6 +13,8 @@ import { initializeApp } from "firebase-admin";
 // Initialize Firebase app
 initializeApp();
 
+export const register = express();
+
 // Initialize and configure Express server
 export const app = express();
 app.use(validateFirebaseIdToken);
@@ -122,8 +124,6 @@ app.get("/seed", async (req: Request, res: Response) => {
     res.status(200).send(data);
 });
 
-export const register = express();
-
 // Endpoint to SIGNUP a user (add in firebase auth & firestore users collection)
 register.post("/users/signup", async (req: Request, res: Response) => {
     var props = req.body["properties"];
@@ -133,7 +133,7 @@ register.post("/users/signup", async (req: Request, res: Response) => {
 
 // Testing endpoint to execute POST request to our "/users/signup" endpoint,
 // to signup a user for testing
-register.get("/testsignup", async (req: Request, res: Response) => {
+register.get("/test.signup", async (req: Request, res: Response) => {
     // Properties of user to register
     const properties = {
         email: "jack.jones@dom.com",
@@ -152,14 +152,14 @@ register.get("/testsignup", async (req: Request, res: Response) => {
 });
 
 // Updates a user property in Firestore
-register.put("/users/update", async (req: Request, res: Response) => {
+app.put("/users/update", async (req: Request, res: Response) => {
     const userId = req.query["userId"] as string;
     const property = req.body["property"] as any;
     ufuns.updateUser(userId, property, res);
 });
 
 // Testing endpoint to execute PUT request for update user in firestore
-register.get("/putuser", async (req: Request, res: Response) => {
+app.get("/test.update.user", async (req: Request, res: Response) => {
     const uid = req.query["uid"] as string;
 
     // const property = {
@@ -173,14 +173,14 @@ register.get("/putuser", async (req: Request, res: Response) => {
     }
 
     ufuns.putUser(
-        "http://localhost:5001/io-capco-flutter-dev/us-central1/register/users/update",
+        "http://localhost:5001/io-capco-flutter-dev/us-central1/app/users/update",
         uid,
         property,
         res);
 });
 
 // Returns all users from firestore
-register.get("/users/all", async (req: Request, res: Response) => {
+app.get("/users/all", async (req: Request, res: Response) => {
     return ufuns.getUsers(res);
 });
 
