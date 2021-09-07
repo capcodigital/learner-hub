@@ -135,7 +135,8 @@ app.get("/skills/all", async (req: Request, res: Response) => {
             res.status(200).send(skills);
         }
         catch (error) {
-            res.status(500).send({ error: error })
+            functions.logger.log(error);
+            res.status(500).send("Internal Server Error");
         }
     }
 });
@@ -155,7 +156,7 @@ app.post("/skills", async (req: Request, res: Response) => {
             const userId = req.user?.uid;
             if (!userId) {
                 functions.logger.log("User not authenticated or missing uid");
-                res.status(401).send();
+                res.status(401).send("Unauthorized");
             }
             else {
                 try {
@@ -163,17 +164,17 @@ app.post("/skills", async (req: Request, res: Response) => {
                     const secondary = payload.secondarySkills;
 
                     await saveSkills(userId, primary, secondary);
-                    res.status(201).send();
+                    res.status(201).send("Created");
                 }
                 catch (error) {
                     functions.logger.log(error);
-                    res.status(500).send();
+                    res.status(500).send("Internal Server Error");
                 }
             }
         }
         catch (error) {
             functions.logger.log(error);
-            res.status(500).send()
+            res.status(500).send("Internal Server Error")
         }
     }
 });
@@ -186,7 +187,7 @@ app.put("/skills", async (req: Request, res: Response) => {
             const userId = req.user?.uid;
             if (!userId) {
                 functions.logger.log("User not authenticated or missing uid");
-                res.status(401).send();
+                res.status(401).send("Unauthorized");
             }
             else {
                 try {
@@ -194,17 +195,17 @@ app.put("/skills", async (req: Request, res: Response) => {
                     const secondary = payload.secondarySkills;
 
                     await saveSkills(userId, primary, secondary);
-                    res.status(201).send();
+                    res.status(204).send("No Content");
                 }
                 catch (error) {
                     functions.logger.log(error);
-                    res.status(500).send();
+                    res.status(500).send("Internal Server Error");
                 }
             }
         }
         catch (error) {
             functions.logger.log(error);
-            res.status(500).send()
+            res.status(500).send("Internal Server Error")
         }
     }
     else {
