@@ -171,16 +171,10 @@ testUsers.put("/users/update", async (req: Request, res: Response) => {
 // Testing endpoint to execute PUT request for update user in firestore
 testUsers.get("/putuser", async (req: Request, res: Response) => {
     const property = {
-        email: "blu.blo@bla.com",
-        passwordHash: "sdf4554",
-        firstName: "Nick",
-        surname: "Jones",
-        jobTitle: "Developer",
-        bio: "Born in USA",
-        confluenceConnected: false,
+        jobTitle: "Senior Developer"
     }
     putUser(
-        "http://localhost:5001/io-capco-flutter-dev/us-central1/app/users/update",
+        "http://localhost:5001/io-capco-flutter-dev/us-central1/testUsers/users/update",
         12,
         property,
         res);
