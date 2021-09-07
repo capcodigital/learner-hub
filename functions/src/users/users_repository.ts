@@ -2,7 +2,7 @@
 import * as admin from 'firebase-admin';
 import { logger } from 'firebase-functions/v1';
 
-const TABLE_USERS = "users"
+const TABLE_USERS = "Users"
 
 export async function insertUser(user: User) {
     const db = admin.firestore();
@@ -10,34 +10,36 @@ export async function insertUser(user: User) {
     collection.where("uid", "==", user.uid).get()
         .then(async (snap) => {
             if (snap.empty) {
-                collection.doc(user.uid.toString()).create({ user });
+                collection.doc(user.uid.toString()).create({
+                    uid: user.uid,
+                    email: user.email,
+                    password: user.password,
+                    firstName: user.firstName,
+                    surname: user.surname,
+                    jobTitle: user.jobTitle,
+                    bio: user.bio,
+                    confluenceConnected: user.confluenceConnected
+                });
             } else {
                 throw Error("User already exists");
             }
         });
 }
 
-export async function editUser(
-    userId: string,
+export function editUser(
+    uid: string,
     property: any
 ) {
-    //const propName = property["name"];
-    const propValue = property["value"];
+    logger.log(uid);
+    const key = property["key"];
+    const value = property["value"];
+    logger.log(key);
+    logger.log(value);
     const db = admin.firestore();
     const collection = db.collection(TABLE_USERS);
-    collection.where("id", "==", userId).get()
-        .then(async (snap) => {
-            if (snap.empty) {
-                throw Error("User not found!");
-            } else if (snap.size > 1) {
-                throw Error("More that 1 Users found!");
-            } else
-                snap.forEach(it => {
-                    collection.doc(it.id).update({
-                        'propName': propValue
-                    })
-                })
-        });
+    collection.doc(uid).update({
+        [key]: value
+    })
 }
 
 export async function getAllUsers(): Promise<User[]> {

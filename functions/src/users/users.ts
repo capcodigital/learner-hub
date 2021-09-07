@@ -37,7 +37,7 @@ export async function putUser(
     userId: string,
     property: any,
     res: functions.Response) {
-    const fullUrl = url + "?id=" + userId;
+    const fullUrl = url + "?userId=" + userId;
     await axios.default.put(fullUrl,
         { property: property })
         .then(function (resp) {

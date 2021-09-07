@@ -16,8 +16,8 @@ import {
 import {
     registerUser,
     postUser,
-    //putUser,
-    //updateUser
+    putUser,
+    updateUser
     // getUsers
 } from "./users/users";
 import { syncAllCertifications } from "./certifications/syncCertifications";
@@ -165,25 +165,26 @@ register.get("/testsignup", async (req: Request, res: Response) => {
     );
 });
 
-// // Updates a user property in Firestore
-// usersApp.put("/users/update", async (req: Request, res: Response) => {
-//     const userId = req.query["id"] as string;
-//     const property = req.body["property"] as any;
-//     updateUser(userId, property, res);
-// });
+// Updates a user property in Firestore
+register.put("/users/update", async (req: Request, res: Response) => {
+    const userId = req.query["userId"] as string;
+    const property = req.body["property"] as any;
+    updateUser(userId, property, res);
+});
 
-// // Testing endpoint to execute PUT request for update user in firestore
-// usersApp.get("/putuser", async (req: Request, res: Response) => {
-//     const property = {
-//         name: "jobTitle",
-//         value: "Senior Developer"
-//     }
-//     putUser(
-//         "http://localhost:5001/io-capco-flutter-dev/us-central1/usersEnd/users/update",
-//         "12", // user's id
-//         property,
-//         res);
-// });
+// Testing endpoint to execute PUT request for update user in firestore
+register.get("/putuser", async (req: Request, res: Response) => {
+    const userId = req.query["userId"] as string;
+    const property = {
+        key: "jobTitle",
+        value: "Senior Developer"
+    }
+    putUser(
+        "http://localhost:5001/io-capco-flutter-dev/us-central1/register/users/update",
+        userId,
+        property,
+        res);
+});
 
 // // Returns all users from Firestore
 // usersApp.get("/users/all", async (req: Request, res: Response) => {
