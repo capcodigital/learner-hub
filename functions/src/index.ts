@@ -238,9 +238,9 @@ register.get("/test.signup", async (req: Request, res: Response) => {
 
 // Updates a user property in Firestore
 app.put("/users/update", async (req: Request, res: Response) => {
-    const userId = req.query["userId"] as string;
+    const uid = req.query["uid"] as string;
     const property = req.body["property"] as any;
-    ufuns.updateUser(userId, property, res);
+    ufuns.updateUser(uid, property, res);
 });
 
 // Testing endpoint to execute PUT request for update user in firestore
