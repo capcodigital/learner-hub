@@ -37,10 +37,6 @@ export function editUser(
     logger.log(value);
     const db = admin.firestore();
     const collection = db.collection(TABLE_USERS);
-    // following not working ?
-    // collection.doc(uid).update({
-    //     [key]: value
-    // })
     collection
         .get()
         .then(async (snap) => {
