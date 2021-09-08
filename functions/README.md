@@ -2,14 +2,13 @@
 
 Our data is structured in such as way that we have 3 collections that will sit within our [Firestore](https://firebase.google.com/docs/firestore) database. These are the only collections that our application will be using. In addition to keeping our data in Firestore, we'll also be using [Hive](https://docs.hivedb.dev/) to persist parts of the data for caching.
 
- * Certifications
- * Users
- * Skills
+- Certifications
+- Users
+- Skills
 
 <p align="center">
     <img src="images/data_structure_diagram.png" alt="Data Structure" width="820" height="960">
   </a>
-
 
 ### Certifications
 
@@ -22,3 +21,67 @@ Our Users collection is our documents of users who have been authenticated with 
 ### Skills
 
 The Skills collection is the collection that relates the primary and secondary skills of the User using a user id. These are the skills that are attached to the user via a POST request during the onboarding flow and again can be updated with a PUT request.
+
+# Functions documentation
+
+## Gereral overview of a function
+
+Each firebase function has an HTPP trigger at the moment. It uses an Express server to be enhance the capabilties of the standard functions (like allowing us to use middleware).
+
+At the time of writting this document, all the endpoints are secured. The user needs to pass a access token in the authorization header
+
+```
+Authorization: Bearer <token>
+```
+
+The auth flow relies in the [Firebase Authentication](https://firebase.google.com/docs/auth), so the token required to send to the funcitons is the one returned by the Firebase auth client.
+
+The function should control only thr HTTP logic (extract parameters and request body, check auth, return HTTP responses).
+
+Then, a "controller" should be called to execute the business logic. If the logic requires to read/write data in the DB, then this would be responsability of a "repository" layer.
+
+At the moment, we use [Firestore](https://firebase.google.com/docs/firestore) as cloud database.
+
+![gerenal overview diagram](images/overview.png)
+
+## User endpoints
+
+| Endpoint         | /users/signup  |
+| ---------------- | -------------- |
+| Method           | POST           |
+| Requires auth    | No             |
+| Query Parameters | N/A            |
+| Body             | Body Model     |
+| Response         | Response Model |
+
+### Body model
+
+| name      | type   |
+| --------- | ------ |
+| email     | string |
+| firstName | string |
+| surname   | string |
+| jobtitle  | string |
+| bio       | string |
+| Response  | string |
+
+### Response model
+
+// TODO: We need to define the standar responses as per [BENCH-761](https://ilabs-capco.atlassian.net/browse/BENCH-761)
+
+| name    | type   |
+| ------- | ------ |
+| message | string |
+
+### Example
+
+```
+POST /users/signup
+{
+  email: "luke.skywalker@capco.com",
+  firstName: "Luke",
+  surname: "Skywalker",
+  jobTitle: "Master jedi",
+  bio: "Trained by Joda in the planet Dagobah"
+}
+```
