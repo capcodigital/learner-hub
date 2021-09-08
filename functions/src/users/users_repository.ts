@@ -13,7 +13,6 @@ export async function insertUser(user: User) {
                 collection.doc(user.uid).create({
                     uid: user.uid,
                     email: user.email,
-                    password: user.password,
                     firstName: user.firstName,
                     surname: user.surname,
                     jobTitle: user.jobTitle,

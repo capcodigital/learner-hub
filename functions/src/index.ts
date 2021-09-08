@@ -247,11 +247,13 @@ app.put("/users/update", async (req: Request, res: Response) => {
 app.get("/test.update.user", async (req: Request, res: Response) => {
     const uid = req.query["uid"] as string;
 
+    // Example of updating a string property
     // const property = {
     //     key: "jobTitle",
     //     value: "Senior Developer"
     // }
 
+    // Example of updating a boolean property
     const property = {
         key: "confluenceConnected",
         value: true

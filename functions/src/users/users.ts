@@ -63,19 +63,17 @@ export async function registerUser(
         email: email,
         emailVerified: false,
         password: password,
-        displayName: firstName,
+        displayName: firstName + " " + surname,
         disabled: false,
     }).then(function (record) {
-        logger.log("User created successfully:", record.uid);
-        const skills: Skills = {
-            userId: record.uid,
+        logger.log("User created:", record.uid);
+        const skills = {
             primarySkills: [],
             secondarySkills: []
         }
         const user: User = {
             uid: record.uid,
             email: email,
-            password: password,
             firstName: firstName,
             surname: surname,
             jobTitle: jobTitle,
@@ -86,7 +84,7 @@ export async function registerUser(
         // Add user in firestore
         userRepo.insertUser(user);
         res.statusCode = 200;
-        res.send(JSON.stringify("success"));
+        res.send(JSON.stringify("User created"));
     }).catch(function (e) {
         logger.log(e);
         res.statusCode = 500;
@@ -102,7 +100,7 @@ export function updateUser(
     try {
         userRepo.editUser(userId, property);
         res.statusCode = 200;
-        res.send(JSON.stringify("success"));
+        res.send(JSON.stringify("User updated"));
     } catch (e) {
         logger.log(e);
         res.statusCode = 500;
@@ -119,6 +117,6 @@ export async function getUsers(res: functions.Response) {
     } catch (e) {
         logger.log(e)
         res.statusCode = 500;
-        res.send(JSON.stringify("Error getting all users"));
+        res.send(JSON.stringify("Error getting users"));
     }
 }
