@@ -1,42 +1,45 @@
 /* eslint-disable require-jsdoc */
 import * as functions from "firebase-functions";
-import * as admin from 'firebase-admin';
 import * as axios from 'axios';
 import { logger } from "firebase-functions";
 import * as jsdom from "jsdom";
 import { CatalogEntry } from "./certifications/catalog_entry";
+import {
+    save,
+    getFromFirestoreByPlatformAsList,
+    getFromFirestoreByCategoryAsList,
+    updateDescription,
+    updateRating
+} from "./firestore_funs";
 
 const { JSDOM } = jsdom;
-
-const TABLE_CERTIFICATIONS = "certifications"
+const UNRATED: number = 0
 
 export async function getFromConfluence(
     username: string,
     token: string,
-    catalogEntries: Array<CatalogEntry>,
+    entries: CatalogEntry[],
     res: functions.Response) {
-    var auth: axios.AxiosBasicCredentials = {
+    const auth: axios.AxiosBasicCredentials = {
         username: username,
         password: token
     }
-    getFromUrlsAuthorised(auth, catalogEntries, res);
+    getFromConfluenceAuthorised(auth, entries, res);
 }
 
 // Gets the certifications for the given catalog entries from confluence,
 // saves them to Firestore and returns them all as json
-async function getFromUrlsAuthorised(
+async function getFromConfluenceAuthorised(
     creds: axios.AxiosBasicCredentials,
-    entries: Array<CatalogEntry>,
+    entries: CatalogEntry[],
     res: functions.Response) {
-    // prepare array of requests
     var reqs = Array<Promise<axios.AxiosResponse<ConfluenceResponse>>>();
-    for (var i = 0; i < entries.length; i++) {
-        var req = axios.default.get<ConfluenceResponse>(entries[i].contentUrl, {
+    entries.forEach(entry => {
+        const req = axios.default.get<ConfluenceResponse>(entry.contentUrl, {
             auth: creds
         });
         reqs.push(req);
-    }
-    // execute all requests
+    });
     await axios.default
         .all(reqs)
         .then(function (resps) {
@@ -44,7 +47,7 @@ async function getFromUrlsAuthorised(
             for (var i = 0; i < resps.length; i++) {
                 var items = Array<Certification>();
                 var html = resps[i].data.body.export_view.value;
-                var items = getCertificationsFromHtml(
+                var items = createCertificationArray(
                     html,
                     entries[i].category,
                     entries[i].subcategory);
@@ -63,20 +66,17 @@ async function getFromUrlsAuthorised(
         })
 }
 
-function getCertificationsFromHtml(
+function createCertificationArray(
     html: string,
     category: string,
     subcategory: string,
 ): Array<Certification> {
     var items = Array<Certification>();
-    var parser = new JSDOM(html);
+    const parser = new JSDOM(html);
     var tableRows = parser.window.document.querySelectorAll("table tr");
-    for (var i = 1; i < tableRows.length; i++) {
-        var cert = tableRowToCertification(tableRows[i]);
-        cert.category = category;
-        cert.subcategory = subcategory;
-        items.push(cert);
-    }
+    tableRows.forEach(row => {
+        items.push(toCertification(row, category, subcategory));
+    });
     return items;
 }
 
@@ -84,39 +84,24 @@ function getCertificationsFromHtml(
 // For the rest of certifications the tables are different so we need to create
 // new method(s). Alternative is to have a common structure in the tables
 // if possible, so we can use the same method for all.
-function tableRowToCertification(row: Element): Certification {
-    var name = row.querySelector('td:nth-child(2)')?.textContent as string;
-    var platform = row.querySelector('td:nth-child(3)')?.textContent as string;
-    var certification = row.querySelector('td:nth-child(4)')?.textContent as string;
-    var date = row.querySelector('td:nth-child(5)')?.textContent as string;
-    var cert: Certification = {
-        'name': name?.trim(),
-        'platform': platform?.trim(),
-        'certification': certification?.trim(),
-        'category': "", // This will be assigned afterwards
-        'subcategory': "", // This will be assigned afterwards
-        'date': date?.trim(),
-        'description': "", // This will be assigned afterwards
-        'rating': "" // This will be assigned afterwards
+function toCertification(
+    row: Element,
+    category: string,
+    subcategory: string): Certification {
+    const username = row.querySelector('td:nth-child(2)')?.textContent as string;
+    const platform = row.querySelector('td:nth-child(3)')?.textContent as string;
+    const title = row.querySelector('td:nth-child(4)')?.textContent as string;
+    const date = row.querySelector('td:nth-child(5)')?.textContent as string;
+    return {
+        'username': filter(username?.trim()),
+        'platform': filter(platform?.trim()).toLowerCase(),
+        'title': filter(title?.trim()),
+        'category': category.toLowerCase(),
+        'subcategory': subcategory.toLowerCase(),
+        'date': filter(date?.trim()),
+        'description': "",
+        'rating': UNRATED
     };
-    return cert;
-}
-
-// Saves a list of certifications in a Firestore collection
-async function save(items: Array<Certification>) {
-    for (var i = 0; i < items.length; i++) {
-        var item = items[i];
-        await admin.firestore().collection(TABLE_CERTIFICATIONS).add({
-            name: filter(item.name),
-            platform: filter(item.platform.toLowerCase()),
-            certification: filter(item.certification),
-            category: filter(item.category).toLowerCase(),
-            subcategory: filter(item.subcategory).toLowerCase(),
-            date: filter(item.date),
-            description: filter(item.description),
-            rating: filter(item.rating),
-        });
-    }
 }
 
 // Sends response with certifications from firestore by platform as json
@@ -124,7 +109,7 @@ export async function getFromFirestoreByPlatform(
     platform: string,
     res: functions.Response) {
     try {
-        var items = await getFromFirestoreByPlatformAsList(platform);
+        const items = await getFromFirestoreByPlatformAsList(platform);
         res.setHeader('Content-Type', 'application/json');
         res.statusCode = 200;
         res.send(JSON.stringify(items));
@@ -141,7 +126,7 @@ export async function getFromFirestoreByCategory(
     subcategory: string,
     res: functions.Response) {
     try {
-        var items = await getFromFirestoreByCategoryAsList(category, subcategory);
+        const items = await getFromFirestoreByCategoryAsList(category, subcategory);
         res.setHeader('Content-Type', 'application/json');
         res.statusCode = 200;
         res.send(JSON.stringify(items));
@@ -152,133 +137,78 @@ export async function getFromFirestoreByCategory(
     }
 }
 
-// Returns certifications from firestore by category & subcategory as list
-async function getFromFirestoreByPlatformAsList(platform: string) {
+// Updates the description of certifications of a given title in firestore
+// and returns a response
+export async function describe(
+    title: string,
+    desc: string,
+    res: functions.Response
+) {
     try {
-        var snapshot = await admin.firestore()
-            .collection(TABLE_CERTIFICATIONS)
-            .where("platform", "==", platform)
-            .get();
-        const results = Array<Certification>();
-        if (!snapshot.empty) {
-            snapshot.forEach((doc: { data: () => any }) => {
-                var item = doc.data();
-                results.push({
-                    name: filter(item.name),
-                    platform: filter(item.platform),
-                    certification: filter(item.certification),
-                    category: filter(item.category),
-                    subcategory: filter(item.subcategory),
-                    date: filter(item.date),
-                    description: filter(item.description),
-                    rating: filter(item.rating),
-                });
-            });
-        }
-        return results;
+        updateDescription(title, desc);
+        res.statusCode = 200;
+        res.send(JSON.stringify("success"));
     } catch (e) {
-        logger.log(e)
-        throw e;
+        res.statusCode = 500;
+        res.send(JSON.stringify(e));
     }
 }
 
-// Returns certifications from firestore by category & subcategory as list
-async function getFromFirestoreByCategoryAsList(
-    category: string,
-    subcategory: string
+// Updates the rating of certifications of a given id in firestore
+// and returns a response
+export async function rate(
+    certId: string,
+    rating: number,
+    res: functions.Response
 ) {
     try {
-        var snapshot = await getFirestoreSnapshotByCategory(category, subcategory);
-        const results = Array<Certification>();
-        if (!snapshot.empty) {
-            snapshot.forEach((doc: { data: () => any }) => {
-                var item = doc.data();
-                results.push({
-                    name: filter(item.name),
-                    platform: filter(item.platform),
-                    certification: filter(item.certification),
-                    category: filter(item.category),
-                    subcategory: filter(item.subcategory),
-                    date: filter(item.date),
-                    description: filter(item.description),
-                    rating: filter(item.rating),
-                });
-            });
-        }
-        return results;
+        updateRating(certId, rating);
+        res.statusCode = 200;
+        res.send(JSON.stringify("success"));
     } catch (e) {
-        logger.log(e)
-        throw e;
+        res.statusCode = 500;
+        res.send(JSON.stringify(e));
     }
 }
 
-// Returns a snapshot of certifications from firestore by category & subcategory
-async function getFirestoreSnapshotByCategory(
-    category: string,
-    subcategory: string
-) {
-    try {
-        var snapshot = null;
-        if (category != null && subcategory != null) {
-            snapshot = await admin.firestore()
-                .collection(TABLE_CERTIFICATIONS)
-                .where("category", "==", category)
-                .where("subcategory", "==", subcategory)
-                .get();
-        } else if (category != null) {
-            snapshot = await admin.firestore()
-                .collection(TABLE_CERTIFICATIONS)
-                .where("category", "==", category)
-                .get();
-        } else if (subcategory != null) {
-            snapshot = await admin.firestore()
-                .collection(TABLE_CERTIFICATIONS)
-                .where("subcategory", "==", subcategory)
-                .get();
-        } else {
-            snapshot = await admin.firestore()
-                .collection(TABLE_CERTIFICATIONS)
-                .get();
-        }
-        logger.log(snapshot.size);
-        return snapshot;
-    } catch (e) {
-        logger.log(e)
-        throw e;
-    }
+// Executes PUT request to add description to a certification
+export async function putDescription(
+    url: string,
+    certTitle: string,
+    description: string,
+    res: functions.Response) {
+    const fullUrl = url + "?title=" + certTitle;
+    await axios.default.put(fullUrl,
+        { desc: description })
+        .then(function (resp) {
+            res.statusCode = 200;
+            res.send(resp.data);
+        }).catch((e) => {
+            console.log(e);
+            res.statusCode = 500;
+            res.send("error");
+        });
+}
+
+// Executes PUT request to add rating to a certification
+export async function putRating(
+    url: string,
+    certId: string,
+    rating: number,
+    res: functions.Response) {
+    const fullUrl = url + "?id=" + certId;
+    await axios.default.put(fullUrl,
+        { rating: rating })
+        .then(function (resp) {
+            res.statusCode = 200;
+            res.send(resp.data);
+        }).catch((e) => {
+            logger.log(e);
+            res.statusCode = 500;
+            res.send("error");
+        });
 }
 
 function filter(text: string): string {
     return text != null ? text : "";
-}
-
-export async function getUserCertifications(username: string) {
-    try {
-        logger.log("GETTING USER CERTIFICATIONS");
-        const snapshot = await admin.firestore()
-            .collection("certifications")
-            .where("name", "==", username)
-            .get();
-
-        const myCertifications = Array<Certification>();
-        snapshot.forEach((doc: { data: () => any; }) => {
-            var item = doc.data();
-            logger.log(item);
-            myCertifications.push({
-                name: filter(item.name),
-                platform: filter(item.platform),
-                certification: filter(item.certification),
-                category: filter(item.category),
-                subcategory: filter(item.subcategory),
-                date: filter(item.date),
-                description: filter(item.description),
-                rating: filter(item.rating),
-            });
-        });
-
-        return myCertifications;
-    } catch (exception) {
-        logger.log(exception)
-        throw exception;
-    }
 }

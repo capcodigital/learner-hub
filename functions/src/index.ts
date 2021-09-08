@@ -1,11 +1,25 @@
 import * as functions from "firebase-functions";
 import express, { Request, Response } from "express";
 import { validateFirebaseIdToken } from "./auth-middleware";
-import { CatalogEntry, getUrl } from "./certifications/catalog_entry";
-import { getById } from "./certifications/catalog_entry";
-import { getFromFirestoreByCategory, getFromConfluence, getFromFirestoreByPlatform } from "./generic_funs";
-import { getUserCertifications } from "./generic_funs";
+import { getUrl } from "./certifications/catalog_entry";
+import {
+    getFromFirestoreByCategory,
+    getFromFirestoreByPlatform,
+    describe,
+    rate,
+    putDescription,
+    putRating
+} from "./generic_funs";
+import { getUserCertifications } from "./firestore_funs";
+import { syncAllCertifications } from "./certifications/syncCertifications";
+import { initializeApp, auth } from "firebase-admin";
+import { saveSkills, getUserSkills } from "./skills/skills-controller";
 
+
+// Initialize Firebase app
+initializeApp();
+
+// Initialize and configure Express server
 export const app = express();
 app.use(validateFirebaseIdToken);
 
@@ -65,18 +79,161 @@ app.get("/certifications", async (req: Request, res: Response) => {
 
 // Gets the certifications from Confluence, saves them to Firestore and returns them as json
 app.get("/certifications/all", async (req: Request, res: Response) => {
-    var entries = Array<CatalogEntry>();
-    // add cloud catalog entries
-    entries.push(getById(2))
-    entries.push(getById(3))
-    getFromConfluence(
-        "haris.mexis@capco.com",
-        "user token",
-        entries,
-        res);
+    try {
+        const data = await syncAllCertifications();
+        res.status(200).send(data);
+    }
+    catch (error) {
+        functions.logger.log(`Error when syncing all certifications: ${error}`);
+        res.status(500).send();
+    }
 });
+
+app.put("/certifications/update/describe", async (req: Request, res: Response) => {
+    var title = req.query["title"] as string;
+    var desc = req.body["desc"] as string;
+    describe(title, desc, res);
+});
+
+app.put("/certifications/update/rate", async (req: Request, res: Response) => {
+    var certId = req.query["id"] as string;
+    var rating = req.body["rating"] as number;
+    rate(certId, rating, res);
+});
+
+// Testing endpoint to execute describe put request
+app.get("/putdesc", async (req: Request, res: Response) => {
+    putDescription(
+        "http://localhost:5001/io-capco-flutter-dev/us-central1/app/certifications/update/describe",
+        "Associate Cloud Engineer", // cert title
+        "This is a great certification that will teach you many useful things", // description
+        res
+    );
+});
+
+// Testing endpoint to execute rate put request
+app.get("/putrate", async (req: Request, res: Response) => {
+    var certId = req.query["id"] as string;
+    putRating(
+        "http://localhost:5001/io-capco-flutter-dev/us-central1/app/certifications/update/rate",
+        certId, // cert id in firestore
+        4, // rating
+        res
+    );
+});
+
+
+app.get("/skills/all", async (req: Request, res: Response) => {
+    // Get userId from the query string
+    const userId = req.query["userId"] as string;
+    if (!userId) {
+        res.status(400).send("Bad request");
+    }
+    else {
+        try {
+            const skills = await getUserSkills(userId);
+            res.status(200).send(skills);
+        }
+        catch (error) {
+            functions.logger.log(error);
+            res.status(500).send("Internal Server Error");
+        }
+    }
+});
+
+app.post("/skills", async (req: Request, res: Response) => {
+    // Get userId from the query string
+    functions.logger.log(`Payload for skill enfpoint: ${JSON.stringify(req.body)}`);
+
+    const payload = req.body;
+
+    //  Check if the payload request is well formed
+    if (!payload || (payload.primarySkills == null && payload.secondarySkills == null)) {
+        res.status(400).send("Bad request");
+    }
+    else {
+        try {
+            const userId = req.user?.uid;
+            if (!userId) {
+                functions.logger.log("User not authenticated or missing uid");
+                res.status(401).send("Unauthorized");
+            }
+            else {
+                try {
+                    const primary = payload.primarySkills;
+                    const secondary = payload.secondarySkills;
+
+                    await saveSkills(userId, primary, secondary);
+                    res.status(201).send("Created");
+                }
+                catch (error) {
+                    functions.logger.log(error);
+                    res.status(500).send("Internal Server Error");
+                }
+            }
+        }
+        catch (error) {
+            functions.logger.log(error);
+            res.status(500).send("Internal Server Error")
+        }
+    }
+});
+
+app.put("/skills", async (req: Request, res: Response) => {
+    // Get userId from the query string
+    const payload = req.body;
+    if (payload) {
+        try {
+            const userId = req.user?.uid;
+            if (!userId) {
+                functions.logger.log("User not authenticated or missing uid");
+                res.status(401).send("Unauthorized");
+            }
+            else {
+                try {
+                    const primary = payload.primarySkills;
+                    const secondary = payload.secondarySkills;
+
+                    await saveSkills(userId, primary, secondary);
+                    res.status(204).send("No Content");
+                }
+                catch (error) {
+                    functions.logger.log(error);
+                    res.status(500).send("Internal Server Error");
+                }
+            }
+        }
+        catch (error) {
+            functions.logger.log(error);
+            res.status(500).send("Internal Server Error")
+        }
+    }
+    else {
+        res.status(400).send("Bad request");
+    }
+});
+
+
 
 // This HTTPS endpoint can only be accessed by your Firebase Users.
 // Requests need to be authorized by providing an `Authorization` HTTP header
 // with value `Bearer <Firebase ID Token>`.
 exports.app = functions.https.onRequest(app);
+exports.seed = functions.https.onRequest(async (req: Request, res: Response) => {
+    functions.logger.log("Executing SEED. Only run this during development");
+
+    // Create test user
+    const user = await auth().createUser({
+        email: "test@capco.com",
+        emailVerified: true,
+        password: "123456",
+        displayName: "Luke Skywalker",
+        disabled: false,
+    });
+
+    res.status(200).send({
+        seedData: {
+            user: user
+        }
+    });
+});

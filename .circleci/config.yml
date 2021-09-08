@@ -43,5 +43,4 @@ workflows:
           filters:
             branches:
               only:
-                - develop
                 - main
