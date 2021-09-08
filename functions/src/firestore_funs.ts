@@ -49,7 +49,7 @@ export async function getFromFirestoreByPlatformAsList(platform: string
             .collection(TABLE_CERTIFICATIONS)
             .where("platform", "==", platform)
             .get();
-        return toResults(snapshot);
+        return toCertifications(snapshot);
     } catch (e) {
         logger.log(e)
         throw e;
@@ -62,7 +62,7 @@ export async function getFromFirestoreByCategoryAsList(
 ): Promise<Certification[]> {
     try {
         const snapshot = await getSnapshotForCategory(category, subcategory);
-        return toResults(snapshot);
+        return toCertifications(snapshot);
     } catch (e) {
         logger.log(e)
         throw e;
@@ -76,7 +76,7 @@ export async function getUserCertifications(username: string): Promise<Certifica
             .collection("certifications")
             .where("name", "==", username)
             .get();
-        return toResults(snapshot);
+        return toCertifications(snapshot);
     } catch (exception) {
         logger.log(exception)
         throw exception;
@@ -142,7 +142,7 @@ async function getSnapshotForCategory(
     }
 }
 
-async function toResults(snapshot: FirebaseFirestore.QuerySnapshot):
+async function toCertifications(snapshot: FirebaseFirestore.QuerySnapshot):
     Promise<Certification[]> {
     const results = Array<Certification>();
     if (!snapshot.empty) {
