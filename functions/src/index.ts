@@ -6,7 +6,7 @@ import * as gfuns from "./generic_funs";
 import {
     getUserCertifications,
 } from "./firestore_funs";
-import * as ufuns from "./users/users";
+import * as userFunctions from "./users/users";
 import { syncAllCertifications } from "./certifications/syncCertifications";
 import { initializeApp, auth } from "firebase-admin";
 import { saveSkills, getUserSkills } from "./skills/skills-controller";
@@ -212,7 +212,7 @@ app.put("/skills", async (req: Request, res: Response) => {
 // Endpoint to SIGNUP a user (add in firebase auth & firestore users collection)
 register.post("/users/signup", async (req: Request, res: Response) => {
     var props = req.body["properties"];
-    if (props != null) ufuns.registerUser(props, res);
+    if (props != null) userFunctions.registerUser(props, res);
     else res.send(JSON.stringify("Error"));
 });
 
@@ -229,7 +229,7 @@ register.get("/test.signup", async (req: Request, res: Response) => {
         bio: "He has 10 years of experience."
     }
     // Call singup endpoint passing user properties
-    ufuns.postUser(
+    userFunctions.postUser(
         "http://localhost:5001/io-capco-flutter-dev/us-central1/register/users/signup",
         properties,
         res
@@ -240,7 +240,7 @@ register.get("/test.signup", async (req: Request, res: Response) => {
 app.put("/users/update", async (req: Request, res: Response) => {
     const uid = req.query["uid"] as string;
     const property = req.body["property"] as any;
-    ufuns.updateUser(uid, property, res);
+    userFunctions.updateUser(uid, property, res);
 });
 
 // Testing endpoint to execute PUT request for update user in firestore
@@ -259,7 +259,7 @@ app.get("/test.update.user", async (req: Request, res: Response) => {
         value: true
     }
 
-    ufuns.putUser(
+    userFunctions.putUser(
         "http://localhost:5001/io-capco-flutter-dev/us-central1/app/users/update",
         uid,
         property,
@@ -268,7 +268,7 @@ app.get("/test.update.user", async (req: Request, res: Response) => {
 
 // Returns all users from firestore
 app.get("/users/all", async (req: Request, res: Response) => {
-    return ufuns.getUsers(res);
+    return userFunctions.getUsers(res);
 });
 
 // This HTTPS endpoint can only be accessed by your Firebase Users.
