@@ -67,7 +67,7 @@ export async function registerUser(
         disabled: false,
     }).then(function (record) {
         logger.log("User created:", record.uid);
-        const skills = {
+        const skills: UserSkills = {
             primarySkills: [],
             secondarySkills: []
         }
