@@ -1,50 +1,8 @@
 /* eslint-disable require-jsdoc */
 import * as functions from "firebase-functions";
-import * as axios from 'axios';
 import { logger } from "firebase-functions";
 import * as admin from 'firebase-admin';
 import * as userRepo from "./users_repository";
-
-// Used for testing
-// Executes POST request to our BE to signup a user.
-// Takes a user properties array as argument
-export async function postUser(
-    url: string,
-    properties: any,
-    res: functions.Response) {
-    await axios.default.post(url,
-        { properties: properties })
-        .then(function (response) {
-            res.statusCode = 200;
-            res.send(response.data);
-        }).catch((e) => {
-            logger.log(e);
-            res.statusCode = 500;
-            res.send(JSON.stringify("Error"));
-        });
-}
-
-// Used for testing
-// Executes PUT request to update a user.
-// Takes as parameter the userId and as body the property to update eg.
-// { jobTitle: "Senior Manager" }
-export async function putUser(
-    url: string,
-    uid: string,
-    property: any,
-    res: functions.Response) {
-    const fullUrl = url + "?uid=" + uid;
-    await axios.default.put(fullUrl,
-        { property: property })
-        .then(function (resp) {
-            res.statusCode = 200;
-            res.send(resp.data);
-        }).catch((e) => {
-            logger.log(e);
-            res.statusCode = 500;
-            res.send(JSON.stringify("Error"));
-        });
-}
 
 // Creates user in firebase auth and adds them to firestore 
 // Users collection
@@ -72,7 +30,6 @@ export async function registerUser(
             secondarySkills: []
         }
         const user: User = {
-            uid: record.uid,
             email: email,
             firstName: firstName,
             surname: surname,
@@ -82,7 +39,7 @@ export async function registerUser(
             skills: skills
         }
         // Add user in firestore
-        userRepo.insertUser(user);
+        userRepo.insertUser(record.uid, user);
         res.statusCode = 200;
         res.send(JSON.stringify("User created"));
     }).catch(function (e) {
@@ -93,7 +50,7 @@ export async function registerUser(
 }
 
 // Updates user in firestore and returns a response
-export function updateUser(
+export async function updateUser(
     userId: string,
     property: any,
     res: functions.Response) {

@@ -216,54 +216,11 @@ register.post("/users/signup", async (req: Request, res: Response) => {
     else res.send(JSON.stringify("Error"));
 });
 
-// Testing endpoint to execute POST request to our "/users/signup" endpoint,
-// to signup a user for testing
-register.get("/test.signup", async (req: Request, res: Response) => {
-    // Properties of user to register
-    const properties = {
-        email: "jack.jones@dom.com",
-        password: "234jjjhkl3433",
-        firstName: "Jack",
-        surname: "Jones",
-        jobTitle: "Developer",
-        bio: "He has 10 years of experience."
-    }
-    // Call singup endpoint passing user properties
-    userFunctions.postUser(
-        "http://localhost:5001/io-capco-flutter-dev/us-central1/register/users/signup",
-        properties,
-        res
-    );
-});
-
 // Updates a user property in Firestore
 app.put("/users/update", async (req: Request, res: Response) => {
     const uid = req.query["uid"] as string;
     const property = req.body["property"] as any;
     userFunctions.updateUser(uid, property, res);
-});
-
-// Testing endpoint to execute PUT request for update user in firestore
-app.get("/test.update.user", async (req: Request, res: Response) => {
-    const uid = req.query["uid"] as string;
-
-    // Example of updating a string property
-    // const property = {
-    //     key: "jobTitle",
-    //     value: "Senior Developer"
-    // }
-
-    // Example of updating a boolean property
-    const property = {
-        key: "confluenceConnected",
-        value: true
-    }
-
-    userFunctions.putUser(
-        "http://localhost:5001/io-capco-flutter-dev/us-central1/app/users/update",
-        uid,
-        property,
-        res);
 });
 
 // Returns all users from firestore
