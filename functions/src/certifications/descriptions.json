@@ -1,11 +1,11 @@
 {
-  "catgory": {
+  "category": {
     "cloud": {
       "platform": [
         {
           "aws": [
             {
-              "title": "cloud practicioner",
+              "title": "cloud practitioner",
               "description": "Certified Cloud Practitioners have a good base understanding of basic IT services and their uses within the AWS Cloud platform. They are capable and have a good understanding of the core AWS services as well as use cases, pricing models, security concepts and how the cloud as a whole impacts businesses."
             },
             {
