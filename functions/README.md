@@ -30,10 +30,6 @@ Each firebase function has an HTPP trigger at the moment. It uses an Express ser
 
 At the time of writting this document, all the endpoints are secured. The user needs to pass a access token in the authorization header
 
-```
-Authorization: Bearer <token>
-```
-
 The auth flow relies in the [Firebase Authentication](https://firebase.google.com/docs/auth), so the token required to send to the funcitons is the one returned by the Firebase auth client.
 
 The function should control only thr HTTP logic (extract parameters and request body, check auth, return HTTP responses).
@@ -43,6 +39,20 @@ Then, a "controller" should be called to execute the business logic. If the logi
 At the moment, we use [Firestore](https://firebase.google.com/docs/firestore) as cloud database.
 
 ![gerenal overview diagram](images/overview.png)
+
+# Authorization
+
+Instead of implementing our custom auth mechanism, we delegate this to [Firebase Auth](https://firebase.google.com/docs/auth).
+
+In order to make an aunthenticated call to the function, the client will need to get the token first from the Firebase Auth. Once the client has the `access_token`, then it will need to pass it to the function call
+
+```
+Authorization: Bearer <token>
+```
+
+If the token is not valid, the function will return an `HTTP 401 - Unauthorized` response
+
+![auth flow](images/auth-flow.png)
 
 ## User endpoints
 
@@ -72,6 +82,14 @@ At the moment, we use [Firestore](https://firebase.google.com/docs/firestore) as
 | name    | type   |
 | ------- | ------ |
 | message | string |
+
+### Response Codes
+
+| Code | Message               | Notes                               |
+| ---- | --------------------- | ----------------------------------- |
+| 200  | OK                    | N/A                                 |
+| 401  | Unauthorized          | Please check auth section           |
+| 500  | Internal Server Error | Something went wrong in the server. |
 
 ### Example
 
