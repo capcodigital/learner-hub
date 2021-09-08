@@ -2,11 +2,11 @@ import * as functions from "firebase-functions";
 import express, { Request, Response } from "express";
 import { validateFirebaseIdToken } from "./auth-middleware";
 import { getUrl } from "./certifications/catalog_entry";
-import * as gfuns from "./generic_funs";
+import * as genericFuncs from "./generic_funs";
 import {
     getUserCertifications,
 } from "./firestore_funs";
-import * as userFunctions from "./users/users";
+import * as userFuncs from "./users/users";
 import { syncAllCertifications } from "./certifications/syncCertifications";
 import { initializeApp, auth } from "firebase-admin";
 import { saveSkills, getUserSkills } from "./skills/skills-controller";
@@ -60,13 +60,13 @@ app.get("/certifications", async (req: Request, res: Response) => {
     var platform = req.query["platform"] as string;
     // If there's platform param, filter by platform
     if (platform != null)
-        gfuns.getFromFirestoreByPlatform(platform?.toLowerCase(), res);
+        genericFuncs.getFromFirestoreByPlatform(platform?.toLowerCase(), res);
     else {
         // If there is no platform, filter by category & subcategory.
         // If there's no category & subcategory, will return all
         var category = req.query["category"] as string;
         var subcategory = req.query["subcategory"] as string;
-        gfuns.getFromFirestoreByCategory(
+        genericFuncs.getFromFirestoreByCategory(
             category?.toLowerCase(),
             subcategory?.toLowerCase(),
             res);
@@ -88,18 +88,18 @@ app.get("/certifications/all", async (req: Request, res: Response) => {
 app.put("/certifications/update/describe", async (req: Request, res: Response) => {
     var title = req.query["title"] as string;
     var desc = req.body["desc"] as string;
-    gfuns.describe(title, desc, res);
+    genericFuncs.describe(title, desc, res);
 });
 
 app.put("/certifications/update/rate", async (req: Request, res: Response) => {
     var certId = req.query["id"] as string;
     var rating = req.body["rating"] as number;
-    gfuns.rate(certId, rating, res);
+    genericFuncs.rate(certId, rating, res);
 });
 
 // Testing endpoint to execute describe put request
 app.get("/putdesc", async (req: Request, res: Response) => {
-    gfuns.putDescription(
+    genericFuncs.putDescription(
         "http://localhost:5001/io-capco-flutter-dev/us-central1/app/certifications/update/describe",
         "Associate Cloud Engineer", // cert title
         "This is a great certification that will teach you many useful things", // description
@@ -110,7 +110,7 @@ app.get("/putdesc", async (req: Request, res: Response) => {
 // Testing endpoint to execute rate put request
 app.get("/putrate", async (req: Request, res: Response) => {
     var certId = req.query["id"] as string;
-    gfuns.putRating(
+    genericFuncs.putRating(
         "http://localhost:5001/io-capco-flutter-dev/us-central1/app/certifications/update/rate",
         certId, // cert id in firestore
         4, // rating
@@ -212,7 +212,7 @@ app.put("/skills", async (req: Request, res: Response) => {
 // Endpoint to SIGNUP a user (add in firebase auth & firestore users collection)
 register.post("/users/signup", async (req: Request, res: Response) => {
     var props = req.body["properties"];
-    if (props != null) userFunctions.registerUser(props, res);
+    if (props != null) userFuncs.registerUser(props, res);
     else res.send(JSON.stringify("Error"));
 });
 
@@ -220,12 +220,12 @@ register.post("/users/signup", async (req: Request, res: Response) => {
 app.put("/users/update", async (req: Request, res: Response) => {
     const uid = req.query["uid"] as string;
     const property = req.body["property"] as any;
-    userFunctions.updateUser(uid, property, res);
+    userFuncs.updateUser(uid, property, res);
 });
 
 // Returns all users from firestore
 app.get("/users/all", async (req: Request, res: Response) => {
-    return userFunctions.getUsers(res);
+    return userFuncs.getUsers(res);
 });
 
 // This HTTPS endpoint can only be accessed by your Firebase Users.
