@@ -34,7 +34,7 @@ export async function getFromFirestoreByCategory(
     } catch (e) {
         logger.log(e)
         res.statusCode = 500;
-        res.send(jsend.error("Error occurred"));
+        res.send(jsend.error());
     }
 }
 
@@ -48,10 +48,10 @@ export async function describe(
     try {
         await certRepo.updateDescription(title, desc);
         res.statusCode = 200;
-        res.send(jsend.success());
+        res.send(jsend.success("Certification described successfully"));
     } catch (e) {
         res.statusCode = 500;
-        res.send(jsend.error("Error adding description"));
+        res.send(jsend.error());
     }
 }
 
@@ -65,10 +65,10 @@ export async function rate(
     try {
         await certRepo.updateRating(certId, rating);
         res.statusCode = 200;
-        res.send(jsend.success());
+        res.send(jsend.success("Certification rated successfully"));
     } catch (e) {
         res.statusCode = 500;
-        res.send(jsend.error("Error adding rating"));
+        res.send(jsend.error());
     }
 }
 
@@ -83,11 +83,11 @@ export async function putDescription(
         { desc: description })
         .then(function (resp) {
             res.statusCode = 200;
-            res.send(resp.data);
+            res.send(jsend.success(resp.statusText));
         }).catch((e) => {
             console.log(e);
             res.statusCode = 500;
-            res.send(jsend.error("Error adding description"));
+            res.send(jsend.error());
         });
 }
 
@@ -102,10 +102,10 @@ export async function putRating(
         { rating: rating })
         .then(function (resp) {
             res.statusCode = 200;
-            res.send(jsend.success());
+            res.send(jsend.success(resp.statusText));
         }).catch((e) => {
             logger.log(e);
             res.statusCode = 500;
-            res.send(jsend.error("Error adding rating"));
+            res.send(jsend.error());
         });
 }

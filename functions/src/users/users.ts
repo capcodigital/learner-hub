@@ -42,11 +42,11 @@ export async function registerUser(
         // Add user in firestore
         userRepo.insertUser(record.uid, user);
         res.statusCode = 200;
-        res.send(jsend.success());
+        res.send(jsend.success("User added successfully"));
     }).catch(function (e) {
         logger.log(e);
         res.statusCode = 500;
-        res.send(jsend.error("Error signing up user"));
+        res.send(jsend.error());
     });
 }
 
@@ -58,11 +58,11 @@ export async function updateUser(
     try {
         userRepo.editUser(userId, property);
         res.statusCode = 200;
-        res.send(jsend.success());
+        res.send(jsend.success("User updated successfully"));
     } catch (e) {
         logger.log(e);
         res.statusCode = 500;
-        res.send(jsend.error("Error updating user"));
+        res.send(jsend.error());
     }
 }
 
@@ -75,6 +75,6 @@ export async function getUsers(res: functions.Response) {
     } catch (error) {
         logger.log(error)
         res.statusCode = 500;
-        res.send(jsend.error("Error getting users"));
+        res.send(jsend.error());
     }
 }

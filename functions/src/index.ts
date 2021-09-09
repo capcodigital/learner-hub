@@ -80,7 +80,7 @@ app.get("/certifications/all", async (req: Request, res: Response) => {
     }
     catch (error) {
         functions.logger.log(`Error when syncing all certifications: ${error}`);
-        res.status(500).send(jsend.error("Error when syncing all certifications"));
+        res.status(500).send(jsend.error());
     }
 });
 
@@ -109,7 +109,7 @@ app.get("/skills/all", async (req: Request, res: Response) => {
         }
         catch (error) {
             functions.logger.log(error);
-            res.status(500).send(jsend.error("Internal Server Error"));
+            res.status(500).send(jsend.error());
         }
     }
 });
@@ -137,17 +137,17 @@ app.post("/skills", async (req: Request, res: Response) => {
                     const secondary = payload.secondarySkills;
 
                     await saveSkills(userId, primary, secondary);
-                    res.status(201).send(jsend.success());
+                    res.status(201).send(jsend.success("Skills updated successfully"));
                 }
                 catch (error) {
                     functions.logger.log(error);
-                    res.status(500).send(jsend.error("Internal Server Error"));
+                    res.status(500).send(jsend.error());
                 }
             }
         }
         catch (error) {
             functions.logger.log(error);
-            res.status(500).send(jsend.error("Internal Server Error"));
+            res.status(500).send(jsend.error());
         }
     }
 });
@@ -168,17 +168,17 @@ app.put("/skills", async (req: Request, res: Response) => {
                     const secondary = payload.secondarySkills;
 
                     await saveSkills(userId, primary, secondary);
-                    res.status(204).send(jsend.success());
+                    res.status(204).send(jsend.success("Skills updated successfully"));
                 }
                 catch (error) {
                     functions.logger.log(error);
-                    res.status(500).send(jsend.error("Internal Server Error"));
+                    res.status(500).send(jsend.error());
                 }
             }
         }
         catch (error) {
             functions.logger.log(error);
-            res.status(500).send(jsend.error("Internal Server Error"));
+            res.status(500).send(jsend.error());
         }
     }
     else {

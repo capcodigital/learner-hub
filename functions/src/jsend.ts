@@ -21,9 +21,10 @@ export function successGetItems(title: string, values: any[]) {
     return JSON.stringify(json);
 }
 
-export function success() {
+export function success(msg: string) {
     const json = {
         status: "success",
+        message: msg,
         "data": null
     };
     return JSON.stringify(json);
@@ -40,7 +41,7 @@ export function fail(title: string, values: any) {
 }
 
 export function error(
-    msg: string = "Error",
+    msg: string = "Internal server error",
     statusCode: number = 500
 ) {
     const json = {
