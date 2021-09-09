@@ -71,7 +71,7 @@ export async function getUsers(res: functions.Response) {
         const items = await userRepo.getAllUsers();
         res.setHeader('Content-Type', 'application/json');
         res.statusCode = 200;
-        res.send(jsend.successGetItems("users", items));
+        res.send(jsend.successGetUsers(items));
     } catch (error) {
         logger.log(error)
         res.statusCode = 500;

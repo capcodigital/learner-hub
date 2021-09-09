@@ -2,14 +2,13 @@ import * as functions from "firebase-functions";
 import express, { Request, Response } from "express";
 //import { validateFirebaseIdToken } from "./auth-middleware";
 import { getUrl } from "./certifications/catalog_entry";
-import * as genericFuncs from "./generic_funs";
-import {
-    getUserCertifications,
-} from "./firestore_funs";
+import * as genericFuncs from "./certifications/certifications";
+import { getUserCertifications } from "./certifications/certifications_repository";
 import * as userFuncs from "./users/users";
 import { syncAllCertifications } from "./certifications/syncCertifications";
 import { initializeApp, auth } from "firebase-admin";
 import { saveSkills, getUserSkills } from "./skills/skills-controller";
+import * as jsend from "./jsend";
 
 // Initialize Firebase app
 initializeApp();
@@ -40,14 +39,14 @@ app.get("/me/certifications", async (req: Request, res: Response) => {
         const userName = req.user?.name;
         if (userName != undefined) {
             const myCertifications = await getUserCertifications(userName);
-            res.status(200).send(myCertifications);
+            res.status(200).send(jsend.successGetCertifs(myCertifications));
         }
         else {
-            res.status(400).send({ message: "User name cannot be empty" });
+            res.status(400).send(jsend.error("User name cannot be empty", 400))
         }
     }
     catch (exception) {
-        res.status(500).send({ error: exception });
+        res.status(500).send(jsend.error("Error", 500));
     }
 });
 
@@ -77,11 +76,12 @@ app.get("/certifications", async (req: Request, res: Response) => {
 app.get("/certifications/all", async (req: Request, res: Response) => {
     try {
         const data = await syncAllCertifications();
+        //res.status(200).send(jsend.successGetCertifs(data))
         res.status(200).send(data);
     }
     catch (error) {
         functions.logger.log(`Error when syncing all certifications: ${error}`);
-        res.status(500).send();
+        res.status(500).send(jsend.error("Error when syncing all certifications"));
     }
 });
 
@@ -118,21 +118,20 @@ app.get("/putrate", async (req: Request, res: Response) => {
     );
 });
 
-
 app.get("/skills/all", async (req: Request, res: Response) => {
     // Get userId from the query string
     const userId = req.query["userId"] as string;
     if (!userId) {
-        res.status(400).send("Bad request");
+        res.status(400).send(jsend.error("Bad request", 400));
     }
     else {
         try {
             const skills = await getUserSkills(userId);
-            res.status(200).send(skills);
+            res.status(200).send(jsend.successGetSkills(skills));
         }
         catch (error) {
             functions.logger.log(error);
-            res.status(500).send("Internal Server Error");
+            res.status(500).send(jsend.error("Internal Server Error"));
         }
     }
 });
@@ -145,14 +144,14 @@ app.post("/skills", async (req: Request, res: Response) => {
 
     //  Check if the payload request is well formed
     if (!payload || (payload.primarySkills == null && payload.secondarySkills == null)) {
-        res.status(400).send("Bad request");
+        res.status(400).send(jsend.error("Bad request", 400));
     }
     else {
         try {
             const userId = req.user?.uid;
             if (!userId) {
                 functions.logger.log("User not authenticated or missing uid");
-                res.status(401).send("Unauthorized");
+                res.status(401).send(jsend.error("Unauthorized", 401));
             }
             else {
                 try {
@@ -160,17 +159,17 @@ app.post("/skills", async (req: Request, res: Response) => {
                     const secondary = payload.secondarySkills;
 
                     await saveSkills(userId, primary, secondary);
-                    res.status(201).send("Created");
+                    res.status(201).send(jsend.success());
                 }
                 catch (error) {
                     functions.logger.log(error);
-                    res.status(500).send("Internal Server Error");
+                    res.status(500).send(jsend.error("Internal Server Error"));
                 }
             }
         }
         catch (error) {
             functions.logger.log(error);
-            res.status(500).send("Internal Server Error")
+            res.status(500).send(jsend.error("Internal Server Error"));
         }
     }
 });
@@ -183,7 +182,7 @@ app.put("/skills", async (req: Request, res: Response) => {
             const userId = req.user?.uid;
             if (!userId) {
                 functions.logger.log("User not authenticated or missing uid");
-                res.status(401).send("Unauthorized");
+                res.status(401).send(jsend.error("Unauthorized", 401));
             }
             else {
                 try {
@@ -191,21 +190,21 @@ app.put("/skills", async (req: Request, res: Response) => {
                     const secondary = payload.secondarySkills;
 
                     await saveSkills(userId, primary, secondary);
-                    res.status(204).send("No Content");
+                    res.status(204).send(jsend.success());
                 }
                 catch (error) {
                     functions.logger.log(error);
-                    res.status(500).send("Internal Server Error");
+                    res.status(500).send(jsend.error("Internal Server Error"));
                 }
             }
         }
         catch (error) {
             functions.logger.log(error);
-            res.status(500).send("Internal Server Error")
+            res.status(500).send(jsend.error("Internal Server Error"));
         }
     }
     else {
-        res.status(400).send("Bad request");
+        res.status(400).send(jsend.error("Bad request"));
     }
 });
 
@@ -213,7 +212,7 @@ app.put("/skills", async (req: Request, res: Response) => {
 register.post("/users/signup", async (req: Request, res: Response) => {
     var props = req.body["properties"];
     if (props != null) userFuncs.registerUser(props, res);
-    else res.send(JSON.stringify("Error"));
+    else res.status(400).send(jsend.error("Bad Request", 400));
 });
 
 // Updates a user property in Firestore

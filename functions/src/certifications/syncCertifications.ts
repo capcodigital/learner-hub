@@ -1,6 +1,6 @@
 import axios from "axios";
 import { logger } from "firebase-functions/v1";
-import { save } from "../firestore_funs";
+import { save } from "./certifications_repository";
 import { CatalogEntry, getById } from "./catalog_entry";
 import { extractSecurityCertifications } from "./htmlHelpers/api_security";
 import { extractCloudCertifications } from "./htmlHelpers/cloud_training";
