@@ -46,7 +46,7 @@ export async function describe(
     res: functions.Response
 ) {
     try {
-        certRepo.updateDescription(title, desc);
+        await certRepo.updateDescription(title, desc);
         res.statusCode = 200;
         res.send(jsend.success());
     } catch (e) {

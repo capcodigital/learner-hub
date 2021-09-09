@@ -93,6 +93,8 @@ export async function updateDescription(
                 snapshot.forEach(item => {
                     col.doc(item.id).update({ description: desc })
                 })
+            } else {
+                throw Error("Certification not found");
             }
         })
 }
