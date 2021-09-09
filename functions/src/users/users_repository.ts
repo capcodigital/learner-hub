@@ -25,7 +25,6 @@ export async function insertUser(
     }
 }
 
-
 export async function editUser(
     uid: string,
     property: any

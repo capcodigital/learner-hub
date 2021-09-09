@@ -1,6 +1,6 @@
 import * as functions from "firebase-functions";
 import express, { Request, Response } from "express";
-import { validateFirebaseIdToken } from "./auth-middleware";
+//import { validateFirebaseIdToken } from "./auth-middleware";
 import { getUrl } from "./certifications/catalog_entry";
 import * as genericFuncs from "./generic_funs";
 import {
@@ -18,7 +18,7 @@ export const register = express();
 
 // Initialize and configure Express server
 export const app = express();
-app.use(validateFirebaseIdToken);
+//app.use(validateFirebaseIdToken);
 
 app.get("/catalog/:id", (req: Request, res: Response) => {
     const id = <any>req.params.id;
