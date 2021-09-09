@@ -1,7 +1,7 @@
 /* eslint-disable require-jsdoc */
 import * as admin from 'firebase-admin';
 
-const TABLE_USERS = "Users"
+const TABLE_USERS = "Users";
 
 export async function insertUser(
     docId: string,

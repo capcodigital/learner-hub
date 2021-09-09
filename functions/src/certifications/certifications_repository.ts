@@ -2,7 +2,7 @@
 import * as admin from 'firebase-admin';
 import { logger } from 'firebase-functions/v1';
 
-const TABLE_CERTIFICATIONS = "certifications"
+const TABLE_CERTIFICATIONS = "Certifications";
 
 export async function save(items: Array<Certification>) {
     const db = admin.firestore();
