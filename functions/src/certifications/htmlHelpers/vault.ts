@@ -1,6 +1,7 @@
 import { logger } from "firebase-functions/v1";
 import { JSDOM } from "jsdom";
 import { CatalogEntry } from "../catalog_entry";
+import { filter } from "../../txtutil";
 
 export function extractVaultCertifications(html: string, certData: CatalogEntry): Array<Certification> {
     const parser = new JSDOM(html);
@@ -21,12 +22,12 @@ export function extractVaultCertifications(html: string, certData: CatalogEntry)
         const name = row.querySelector("td:nth-child(1)")?.textContent as string;
         const date = row.querySelector("td:nth-child(2)")?.textContent as string;
         entries.push({
-            'username': name,
+            'username': filter(name),
             'platform': "",
             'title': "HashiCorp Security Automation Certification",
-            'category': certData.category,
-            'subcategory': certData.subcategory,
-            'date': date?.trim(),
+            'category': filter(certData?.category),
+            'subcategory': filter(certData?.subcategory),
+            'date': filter(date?.trim()),
             'description': "",
             'rating': 0
         });

@@ -12,7 +12,6 @@ import * as jsend from "./jsend";
 
 // Initialize Firebase app
 admin.initializeApp();
-admin.firestore().settings({ ignoreUndefinedProperties: true });
 
 export const register = express();
 

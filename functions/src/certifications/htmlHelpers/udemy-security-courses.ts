@@ -1,6 +1,7 @@
 import { logger } from "firebase-functions/v1";
 import { JSDOM } from "jsdom";
 import { CatalogEntry } from "../catalog_entry";
+import { filter } from "../../txtutil";
 
 export function extractUdemySecurityCourses(html: string, certData: CatalogEntry): Array<Certification> {
     const parser = new JSDOM(html);
@@ -23,12 +24,12 @@ export function extractUdemySecurityCourses(html: string, certData: CatalogEntry
         const course = row.querySelector("td:nth-child(3)")?.textContent as string;
         const date = row.querySelector("td:nth-child(4)")?.textContent as string;
         entries.push({
-            'username': name.trim(),
+            'username': filter(name?.trim()),
             'platform': "",
-            'title': course.trim(),
-            'category': certData.category,
-            'subcategory': certData.subcategory,
-            'date': date?.trim(),
+            'title': filter(course?.trim()),
+            'category': filter(certData?.category),
+            'subcategory': filter(certData?.subcategory),
+            'date': filter(date?.trim()),
             'description': "",
             'rating': 0
         });

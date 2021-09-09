@@ -94,7 +94,7 @@ export async function updateDescription(
                     col.doc(item.id).update({ description: desc })
                 })
             } else {
-                throw Error("Certification not found");
+                throw Error("Item does not exist");
             }
         })
 }
@@ -103,8 +103,13 @@ export async function updateRating(
     certId: string,
     rating: number
 ) {
-    await admin.firestore().collection(TABLE_CERTIFICATIONS)
-        .doc(certId).update({ rating: rating })
+    const doc = admin.firestore().collection(TABLE_CERTIFICATIONS).doc(certId);
+    const docRef = await doc.get();
+    if (docRef.exists) {
+        await doc.update({ rating: rating })
+    } else {
+        throw Error("Item does not exist");
+    }
 }
 
 async function getSnapshotForCategory(

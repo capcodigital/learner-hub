@@ -63,7 +63,7 @@ export async function rate(
     res: functions.Response
 ) {
     try {
-        certRepo.updateRating(certId, rating);
+        await certRepo.updateRating(certId, rating);
         res.statusCode = 200;
         res.send(jsend.success());
     } catch (e) {

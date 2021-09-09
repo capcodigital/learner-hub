@@ -1,6 +1,7 @@
 import { logger } from "firebase-functions/v1";
 import { JSDOM } from "jsdom";
 import { CatalogEntry } from "../catalog_entry";
+import { filter } from "../../txtutil";
 
 export function extractCloudCertifications(html: string, certData: CatalogEntry): Array<Certification> {
     var items = Array<Certification>();
@@ -26,12 +27,12 @@ function toCertification(
     const title = row.querySelector('td:nth-child(4)')?.textContent as string;
     const date = row.querySelector('td:nth-child(5)')?.textContent as string;
     return {
-        'username': username?.trim(),
-        'platform': platform?.trim().toLowerCase(),
-        'title': title?.trim(),
-        'category': category.toLowerCase(),
-        'subcategory': subcategory.toLowerCase(),
-        'date': date?.trim(),
+        'username': filter(username?.trim()),
+        'platform': filter(platform?.trim().toLowerCase()),
+        'title': filter(title?.trim()),
+        'category': filter(category?.toLowerCase()),
+        'subcategory': filter(subcategory?.toLowerCase()),
+        'date': filter(date?.trim()),
         'description': "",
         'rating': 0
     };
