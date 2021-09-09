@@ -1,6 +1,6 @@
 import * as functions from "firebase-functions";
 import express, { Request, Response } from "express";
-//import { validateFirebaseIdToken } from "./auth-middleware";
+import { validateFirebaseIdToken } from "./auth-middleware";
 import { getUrl } from "./certifications/catalog_entry";
 import * as genericFuncs from "./certifications/certifications";
 import { getUserCertifications } from "./certifications/certifications_repository";
@@ -17,7 +17,7 @@ export const register = express();
 
 // Initialize and configure Express server
 export const app = express();
-//app.use(validateFirebaseIdToken);
+app.use(validateFirebaseIdToken);
 
 app.get("/catalog/:id", (req: Request, res: Response) => {
     const id = <any>req.params.id;
@@ -76,8 +76,8 @@ app.get("/certifications", async (req: Request, res: Response) => {
 app.get("/certifications/all", async (req: Request, res: Response) => {
     try {
         const data = await syncAllCertifications();
-        //res.status(200).send(jsend.successGetCertifs(data))
-        res.status(200).send(data);
+        res.status(200).send(jsend.successGetCertifs(data))
+        // res.status(200).send(data);
     }
     catch (error) {
         functions.logger.log(`Error when syncing all certifications: ${error}`);
@@ -95,27 +95,6 @@ app.put("/certifications/update/rate", async (req: Request, res: Response) => {
     var certId = req.query["id"] as string;
     var rating = req.body["rating"] as number;
     genericFuncs.rate(certId, rating, res);
-});
-
-// Testing endpoint to execute describe put request
-app.get("/putdesc", async (req: Request, res: Response) => {
-    genericFuncs.putDescription(
-        "http://localhost:5001/io-capco-flutter-dev/us-central1/app/certifications/update/describe",
-        "Associate Cloud Engineer", // cert title
-        "This is a great certification that will teach you many useful things", // description
-        res
-    );
-});
-
-// Testing endpoint to execute rate put request
-app.get("/putrate", async (req: Request, res: Response) => {
-    var certId = req.query["id"] as string;
-    genericFuncs.putRating(
-        "http://localhost:5001/io-capco-flutter-dev/us-central1/app/certifications/update/rate",
-        certId, // cert id in firestore
-        4, // rating
-        res
-    );
 });
 
 app.get("/skills/all", async (req: Request, res: Response) => {
