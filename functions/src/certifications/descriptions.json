@@ -91,39 +91,62 @@
           ]
         },
         {
-            "azure": [
+          "azure": [
             {
-                "title": "azure fundamentals",
-                "description": "Being Microsoft Certified in the Azure Fundamentals means having a basic understanding of cloud concepts as well as core Azure services. They have the capability of describing and explaining the core solutions and management tools on Azure as well as general security and network security features. They also have a good base level knowledge on Azure cost management and Service Level Agreements."
+              "title": "azure fundamentals",
+              "description": "Being Microsoft Certified in the Azure Fundamentals means having a basic understanding of cloud concepts as well as core Azure services. They have the capability of describing and explaining the core solutions and management tools on Azure as well as general security and network security features. They also have a good base level knowledge on Azure cost management and Service Level Agreements."
             },
             {
-                "title": "associate developer",
-                "description": "Microsoft Certified Azure Associate Developers have the ability to develop Azure compute solutions along with Azure storage. They are able to implement basic Azure security measures and can monitor, troubleshoot and optimise most Azure solutions."
+              "title": "associate developer",
+              "description": "Microsoft Certified Azure Associate Developers have the ability to develop Azure compute solutions along with Azure storage. They are able to implement basic Azure security measures and can monitor, troubleshoot and optimise most Azure solutions."
             },
             {
-                "title": "devops engineer expert",
-                "description": "Microsoft Certified Azure DevOps Experts can develop an instrumentation strategy, a Site Reliability Engineering strategy as well as a security and compliance plan. They are capable of managing source control along with defining and implementing continuous integration and a continuous delivery and release management system."
+              "title": "devops engineer expert",
+              "description": "Microsoft Certified Azure DevOps Experts can develop an instrumentation strategy, a Site Reliability Engineering strategy as well as a security and compliance plan. They are capable of managing source control along with defining and implementing continuous integration and a continuous delivery and release management system."
             },
             {
-                "title": "security engineer associate",
-                "description": "Microsoft Certified Azure Security Engineering Associates are capable of managing identities and the access granted. They can implement basic platform protection and manage the security operations and assist in keep data and applications secure."
+              "title": "security engineer associate",
+              "description": "Microsoft Certified Azure Security Engineering Associates are capable of managing identities and the access granted. They can implement basic platform protection and manage the security operations and assist in keep data and applications secure."
             },
             {
-                "title": "solutions architect expert",
-                "description": "Microsoft Certified Azure Solutions Architect Experts implement, and monitor, Azure infrastructure as well as implementing management solutions, security solutions and application solutions along with managing data platforms. They are also fully capable of designing monitoring solutions, identity and security, data storage, business continuity and the overall infrastructure."
+              "title": "solutions architect expert",
+              "description": "Microsoft Certified Azure Solutions Architect Experts implement, and monitor, Azure infrastructure as well as implementing management solutions, security solutions and application solutions along with managing data platforms. They are also fully capable of designing monitoring solutions, identity and security, data storage, business continuity and the overall infrastructure."
             },
             {
-                "title": "ai fundamentals",
-                "description": "Being Microsoft Certified in Azure AI Fundamentals means being able to describe AI workloads and considerations as well as the fundamental principles of machine learning on Azure. They have a base level understanding of the features of computer vision workloads on Azure along with Natural Language Processing workloads on Azure. They also understand the features of conversational AI within Azure."
+              "title": "ai fundamentals",
+              "description": "Being Microsoft Certified in Azure AI Fundamentals means being able to describe AI workloads and considerations as well as the fundamental principles of machine learning on Azure. They have a base level understanding of the features of computer vision workloads on Azure along with Natural Language Processing workloads on Azure. They also understand the features of conversational AI within Azure."
             },
             {
-                "title": "data fundamentals",
-                "description": "Being Microsoft Certified in Azure Data Fundamentals means being Abel to describe in detail core data concepts and how to work with relational and non-relational data on Azure as well as having a good understanding of analytical workloads on Azure."
+              "title": "data fundamentals",
+              "description": "Being Microsoft Certified in Azure Data Fundamentals means being Abel to describe in detail core data concepts and how to work with relational and non-relational data on Azure as well as having a good understanding of analytical workloads on Azure."
             }
-            ]
+          ]
+        },
+        {
+          "cncf": [
+            {
+              "title": "certified kubernetes application developer",
+              "description": "A Certified Kubernetes Application Developer is capable of defining application resources and use the core primitives in order to build, monitor and troubleshoot scalable applications and tools within Kubernetes. They have a basic understanding on container runtimes and microservice architecture. These developers are comfortable in their usage of OCI-Compliant Container Runtime (eg. Docker, cry-o etc.), cloud native application concepts and architectures and typically are relatively proficient in one or more programming languages."
+            },
+            {
+              "title": "certified kubernetes administrator",
+              "description": "A Certified Kubernetes Administrator is capable of managing more complex Kubernetes instances. They have the ability to do both installation as well as configuration and management of production-grade Kubernetes clusters. They have a deep understanding of key concepts such as Kubernetes networking, storage, security, maintenance, application lifecycle, troubleshooting, logging and monitoring, API object primitives and they are proficient at establishing use-cases for end users."
+            }
+          ]
+        },
+        {
+          "isc2": [
+            {
+              "title": "certified cloud security professional",
+              "description": "Certified Cloud Security Professionals have a deep knowledge and proficient abilities in cloud security design, implementation, architecture, operation, controls and compliance with regulatory frameworks. CCSPs effectively apply their information and security expertise to cloud computing environments and can demonstrate immense competence in cloud security architecture, design, operation and service orchestration. They are competent in multiple cloud domains including Cloud Concepts, Architecture, Design, Data Security, Platform and Infrastructure Security, Application Security, Security Operations as well as the legal implications along with the risks and compliance regulations."
+            },
+            {
+              "title": "certififed information systems security professional",
+              "description": "Certified Information Systems Security Professionals are responsible for the security of data that is being stored on a computer system and all that that general idea entails. They are capable of keeping private and confidential data as such and non-public. They research, develop, implement, asses and review companies' information security systems. They inform clients of possible threats, assist in selecting and installing necessary software and ensure the security policies are extensive enough and being correctly carried out. They can easily describe problems relating to, but not limited to, architecture, identity control and safeguarding said information systems."
+            }
+          ]
         }
       ]
     }
   }
 }
-
