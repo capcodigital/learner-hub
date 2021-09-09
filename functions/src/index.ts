@@ -6,12 +6,13 @@ import * as genericFuncs from "./certifications/certifications";
 import { getUserCertifications } from "./certifications/certifications_repository";
 import * as userFuncs from "./users/users";
 import { syncAllCertifications } from "./certifications/syncCertifications";
-import { initializeApp, auth } from "firebase-admin";
+import * as admin from "firebase-admin";
 import { saveSkills, getUserSkills } from "./skills/skills-controller";
 import * as jsend from "./jsend";
 
 // Initialize Firebase app
-initializeApp();
+admin.initializeApp();
+admin.firestore().settings({ ignoreUndefinedProperties: true });
 
 export const register = express();
 
@@ -76,8 +77,7 @@ app.get("/certifications", async (req: Request, res: Response) => {
 app.get("/certifications/all", async (req: Request, res: Response) => {
     try {
         const data = await syncAllCertifications();
-        res.status(200).send(jsend.successGetCertifs(data))
-        // res.status(200).send(data);
+        res.status(200).send(jsend.successGetCertifs(data));
     }
     catch (error) {
         functions.logger.log(`Error when syncing all certifications: ${error}`);
@@ -214,7 +214,7 @@ exports.seed = functions.https.onRequest(async (req: Request, res: Response) => 
     functions.logger.log("Executing SEED. Only run this during development");
 
     // Create test user
-    const user = await auth().createUser({
+    const user = await admin.auth().createUser({
         email: "test@capco.com",
         emailVerified: true,
         password: "123456",
