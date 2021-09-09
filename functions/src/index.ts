@@ -47,7 +47,7 @@ app.get("/me/certifications", async (req: Request, res: Response) => {
         }
     }
     catch (exception) {
-        res.status(500).send(jsend.error("Error", 500));
+        res.status(500).send(jsend.error("Error"));
     }
 });
 
