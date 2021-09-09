@@ -84,7 +84,7 @@ If the token is not valid, the function will return an `HTTP 401 - Unauthorized`
 
 ### Response model
 
-// TODO: We need to define the standar responses as per [BENCH-761](https://ilabs-capco.atlassian.net/browse/BENCH-761)
+// TODO: We need to define the standar responses as per [BENCH-760](https://ilabs-capco.atlassian.net/browse/BENCH-760)
 
 | name    | type   |
 | ------- | ------ |
@@ -113,12 +113,6 @@ POST /users/signup
 
 # Database documentation
 
-### User collection
-
-### Certifications Collection
-
-### Notes Collection
-
 ### Diagram
 
-![auth flow](documentation/database.png)
+![database diagram](documentation/database.png)
