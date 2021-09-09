@@ -14,7 +14,7 @@ Then, a "controller" should be called to execute the business logic. If the logi
 
 At the moment, we use [Firestore](https://firebase.google.com/docs/firestore) as cloud database.
 
-![gerenal overview diagram](documentation/overview.png)
+![general overview diagram](documentation/overview.png)
 
 ## Transitional Phase
 
@@ -84,7 +84,7 @@ If the token is not valid, the function will return an `HTTP 401 - Unauthorized`
 
 ### Response model
 
-// TODO: We need to define the standar responses as per [BENCH-760](https://ilabs-capco.atlassian.net/browse/BENCH-760)
+// Standardising a response model will be done as per [BENCH-760](https://ilabs-capco.atlassian.net/browse/BENCH-760)
 
 | name    | type   |
 | ------- | ------ |
@@ -97,6 +97,8 @@ If the token is not valid, the function will return an `HTTP 401 - Unauthorized`
 | 200  | OK                    | N/A                                 |
 | 401  | Unauthorized          | Please check auth section           |
 | 500  | Internal Server Error | Something went wrong in the server. |
+
+More response codes to be added in future.
 
 ### Example
 
