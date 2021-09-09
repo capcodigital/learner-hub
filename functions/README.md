@@ -73,7 +73,6 @@ If the token is not valid, the function will return an `HTTP 401 - Unauthorized`
 | surname   | string |
 | jobtitle  | string |
 | bio       | string |
-| Response  | string |
 
 ### Response model
 
