@@ -103,3 +103,15 @@ POST /users/signup
   bio: "Trained by Joda in the planet Dagobah"
 }
 ```
+
+# Database documentation
+
+### User collection
+
+### Certifications Collection
+
+### Notes Collection
+
+### Diagram
+
+![auth flow](images/database.png)
