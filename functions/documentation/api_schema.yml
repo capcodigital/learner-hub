@@ -9,27 +9,70 @@ servers:
     description: Production URL
 paths:
   /user:
-    get:
+    post:
       tags:
-        - user
-      parameters:
-        - name: id
-          description: ID of the user
-          schema:
-            type: integer
-            format: int32
-          in: query
-          required: true
+        - Users
+      summary: Registers a user
+      description: Registers the user in the DB and links it with Firebase Auth
+      operationId: 'registerUser'
+      security:
+        - JWTAuth: []
+      requestBody:
+        description: A JSON object containing user information required to register
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - lastName
+                - email
+                - jobTitle
+                - bio
+                - skills
+              properties:
+                name:
+                  type: string
+                lastName:
+                  type: integer
+                email:
+                  type: string
+                  format: email
+                jobtitle:
+                  type: string
+                bio:
+                  type: string
+                skills:
+                  $ref: '#/components/schemas/Skills'
+            example:
+              name: Luke
+              lastName: Skywalker
+              email: luke.skywalker@capco.com
+              jobtTitle: Master Jedi
+              bio: Trained by Joda in planet Dagobah
+              skills: {primarySkills: ["Control the force"], secondarySkills: ["Lightsaber", "Mind control"]}
+              
       responses:
-        '200':
+        '201':
+          description: Created
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
-          description: 'Sample response: Details about a user by ID'
-      operationId: listUser
-      summary: 'Sample endpoint: Returns details about a particular user'
-      
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+              example:
+                status: error
+                error: User already registered
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
   /certifications:
     get:
       tags: 
@@ -129,7 +172,6 @@ components:
         - email
         - jobTitle
         - bio
-        - isConfluenceConnected
         - skills
       properties:
         id:
@@ -145,9 +187,7 @@ components:
         jobtitle:
           type: string
         bio:
-          type: integer
-        isConfluenceConnected:
-          type: boolean
+          type: string
         skills:
           $ref: '#/components/schemas/Skills'
     Todo:
@@ -207,6 +247,30 @@ components:
         rating:
           type: integer
           nullable: true
+    Response:
+      type: object
+      required:
+        - status
+        - data
+        - error
+      properties:
+        status:
+          type: string
+          enum:
+            - success
+            - fail
+            - error
+          description: >
+            Response status:
+              * `success` - All went well, and (usually) some data was returned.
+              * `fail` - There was a problem with the data submitted, or some pre-condition of the API call wasn't satisfied
+              * `error` - An error occurred in processing the request, i.e. an exception was thrown
+        data:
+          type: object
+          nullable: true
+        error:
+          type: string
+          nullable: true
   securitySchemes:
     JWTAuth:
       type: http
@@ -215,15 +279,37 @@ components:
       description: |-
         Example: 
         > Authorization: Bearer <token>
-      x-last-modified: 1631264080940
   headers: {}
   responses:
       BadRequestError:
         description: Bad Request
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Response'
+            example:
+              status: error
+              error: Bad Request
       UnauthorizedError:
         description: Access token is missing or invalid
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Response'
+            example:
+              status: error
+              error: Unauthorized
       InternalServerError:
         description: Internal Server Error
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Response'
+            example:
+              status: error
+              error: Internal Server Error
+
+  requestBodies: {}
   parameters: {}
 security:
   - JWTAuth: []
