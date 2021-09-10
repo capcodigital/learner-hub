@@ -11,16 +11,6 @@ export async function save(items: Array<Certification>) {
         // If item is missing username or title, it cannot be 
         // uniquely identified. So we just save it. 
         if (item.username == undefined || item.title == undefined) {
-            // collection.doc().create({
-            //     username: null,
-            //     platform: filter(item.platform),
-            //     title: null,
-            //     category: filter(item.category),
-            //     subcategory: filter(item.subcategory),
-            //     date: filter(item.date),
-            //     description: filter(item.description),
-            //     rating: item.rating,
-            // });
             addItem(collection, item);
         } else {
             // Item has username & title, so it can be uniquely identified.
@@ -31,17 +21,6 @@ export async function save(items: Array<Certification>) {
                 .get()
                 .then(async (snap) => {
                     if (snap.empty) {
-                        // If item does not exist, create it
-                        // collection.doc().create({
-                        //     username: item.username,
-                        //     platform: filter(item.platform),
-                        //     title: item.title,
-                        //     category: filter(item.category),
-                        //     subcategory: filter(item.subcategory),
-                        //     date: filter(item.date),
-                        //     description: filter(item.description),
-                        //     rating: item.rating,
-                        // });
                         addItem(collection, item);
                     } else {
                         // If item exists, udpate fields
