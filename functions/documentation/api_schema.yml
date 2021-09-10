@@ -1,0 +1,230 @@
+openapi: 3.0.0
+info:
+  title: Flutter API
+  version: 1.0.0
+servers:
+  - url: http://localhost:5001/io-capco-flutter-dev/us-central1/app
+    description: localhost
+  - url: https://us-central1-io-capco-flutter-dev.cloudfunctions.net/app
+    description: Production URL
+paths:
+  /user:
+    get:
+      tags:
+        - user
+      parameters:
+        - name: id
+          description: ID of the user
+          schema:
+            type: integer
+            format: int32
+          in: query
+          required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: 'Sample response: Details about a user by ID'
+      operationId: listUser
+      summary: 'Sample endpoint: Returns details about a particular user'
+      
+  /certifications:
+    get:
+      tags: 
+        - Certifications
+      summary: 'Returns a list of available certifications'
+      operationId: 'getAllCertifications'
+      security:
+        - JWTAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Certification'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+          
+  /certifications/{id}:
+    get:
+      tags: 
+        - Certifications
+      summary: "Find certification by ID"
+      description: "Returns a single certification"
+      operationId: "getCertificationById"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "ID of certification to return"
+          required: true
+          schema:
+            type: "string"
+            format: "uuid"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Certification"
+        "400":
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        "404":
+          description: "Certification not found"
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - JWTAuth: []
+components:
+  schemas:
+    Certification:
+      type: object
+      required:
+        - id
+        - category
+        - platform
+        - title
+        - description
+      properties:
+        id:
+          type: string
+          format: uuid
+        category:
+          type: string
+        platform:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+    Skills:
+      type: object
+      required:
+        - primarySkills,
+        - secondarySkills
+      properties:
+        primarySkills:
+          type: array
+          items:
+            type: string
+        secondarySkills:
+          type: array
+          items:
+            type: string
+    User:
+      type: object
+      required:
+        - id
+        - name
+        - lastName
+        - email
+        - jobTitle
+        - bio
+        - isConfluenceConnected
+        - skills
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        lastName:
+          type: integer
+        email:
+          type: string
+          format: email
+        jobtitle:
+          type: string
+        bio:
+          type: integer
+        isConfluenceConnected:
+          type: boolean
+        skills:
+          $ref: '#/components/schemas/Skills'
+    Todo:
+      type: object
+      required:
+        - id
+        - userId
+        - title
+        - content
+        - isCompleted
+      properties:
+        id:
+          type: string
+          format: uuid
+        userId:
+          type: string
+          format: uuid
+        title:
+          type: integer
+        content:
+          type: string
+        isCompleted:
+          type: boolean
+    UserCertification:
+      type: object
+      required:
+        - id
+        - userId
+        - certificationId
+        - isCompleted
+        - startDate
+        - completionDate
+        - expireDate
+        - rating
+      properties:
+        id:
+          type: string
+          format: uuid
+        userId:
+          type: string
+          format: uuid
+        certificationId:
+          type: string
+          format: uuid
+        isCompleted:
+          type: boolean
+        startDate:
+          type: string
+          format: date
+          nullable: true
+        completionDate:
+          type: boolean
+          nullable: true
+        expireDate:
+          type: boolean
+          nullable: true
+        rating:
+          type: integer
+          nullable: true
+  securitySchemes:
+    JWTAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: |-
+        Example: 
+        > Authorization: Bearer <token>
+      x-last-modified: 1631264080940
+  headers: {}
+  responses:
+      BadRequestError:
+        description: Bad Request
+      UnauthorizedError:
+        description: Access token is missing or invalid
+      InternalServerError:
+        description: Internal Server Error
+  parameters: {}
+security:
+  - JWTAuth: []
+tags: []
