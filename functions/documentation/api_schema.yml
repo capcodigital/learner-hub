@@ -9,6 +9,39 @@ servers:
     description: Production URL
 paths:
   /user:
+    get:
+      tags: 
+        - Users
+      summary: 'Returns the currenlty logged in user information'
+      operationId: 'getUserDetails'
+      security:
+        - JWTAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+              example: {
+                status: "success",
+                data: {
+                  name: Luke,
+                  lastName: Skywalker,
+                  email: luke.skywalker@capco.com,
+                  jobtTitle: Master Jedi,
+                  bio: Trained by Joda in planet Dagobah,
+                  skills: {
+                    primarySkills: ["Control the force"], 
+                    secondarySkills: ["Lightsaber", "Mind control"]}
+                }
+              }
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     post:
       tags:
         - Users
