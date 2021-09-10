@@ -90,15 +90,17 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Certification'
-              example: 
-                [{
-                  "id": "MjFGNkFbwq0mC6WjB0Q",
-                  "category": "Cloud",
-                  "platform": "AWS",
-                  "title": "AWS Certified Solutions Architect Associate",
-                  "description": "AWS Certified Solutions Architect – Associate is intended for anyone with one or more years of hands-on experience designing available, cost-efficient, fault-tolerant, and scalable distributed systems on AWS",
-                  "link": "https://aws.amazon.com/certification/certified-solutions-architect-associate"
+              example: {
+                status: "success",
+                data: [{
+                  id: "MjFGNkFbwq0mC6WjB0Q",
+                  category: "Cloud",
+                  platform: "AWS",
+                  title: "AWS Certified Solutions Architect Associate",
+                  description: "AWS Certified Solutions Architect – Associate is intended for anyone with one or more years of hands-on experience designing available, cost-efficient, fault-tolerant, and scalable distributed systems on AWS",
+                  link: "https://aws.amazon.com/certification/certified-solutions-architect-associate"
                 }]
+              }
         '401':
           $ref: '#/components/responses/UnauthorizedError'
         '500':
@@ -126,15 +128,17 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Certification"
-              example: 
-                {
-                  "id": "MjFGNkFbwq0mC6WjB0Q",
-                  "category": "Cloud",
-                  "platform": "AWS",
-                  "title": "AWS Certified Solutions Architect Associate",
-                  "description": "AWS Certified Solutions Architect – Associate is intended for anyone with one or more years of hands-on experience designing available, cost-efficient, fault-tolerant, and scalable distributed systems on AWS",
-                  "link": "https://aws.amazon.com/certification/certified-solutions-architect-associate"
+              example: {
+                status: "success",
+                data: {
+                  id: "MjFGNkFbwq0mC6WjB0Q",
+                  category: "Cloud",
+                  platform: "AWS",
+                  title: "AWS Certified Solutions Architect Associate",
+                  description: "AWS Certified Solutions Architect – Associate is intended for anyone with one or more years of hands-on experience designing available, cost-efficient, fault-tolerant, and scalable distributed systems on AWS",
+                  link: "https://aws.amazon.com/certification/certified-solutions-architect-associate"
                 }
+              }
         "400":
           $ref: '#/components/responses/BadRequestError'
         '401':
