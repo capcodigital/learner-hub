@@ -136,7 +136,8 @@ paths:
                   platform: "AWS",
                   title: "AWS Certified Solutions Architect Associate",
                   description: "AWS Certified Solutions Architect – Associate is intended for anyone with one or more years of hands-on experience designing available, cost-efficient, fault-tolerant, and scalable distributed systems on AWS",
-                  link: "https://aws.amazon.com/certification/certified-solutions-architect-associate"
+                  link: "https://aws.amazon.com/certification/certified-solutions-architect-associate",
+                  image: "https://d1.awsstatic.com/training-and-certification/Certification%20Badges/AWS-Certified_Solutions-Architect_Associate_badge_512x512.139edbefd4d7e9a16213032f592bdd8ca769dced.png"
                 }]
               }
         '401':
@@ -174,7 +175,7 @@ paths:
                   platform: "AWS",
                   title: "AWS Certified Solutions Architect Associate",
                   description: "AWS Certified Solutions Architect – Associate is intended for anyone with one or more years of hands-on experience designing available, cost-efficient, fault-tolerant, and scalable distributed systems on AWS",
-                  link: "https://aws.amazon.com/certification/certified-solutions-architect-associate"
+                  image: "https://d1.awsstatic.com/training-and-certification/Certification%20Badges/AWS-Certified_Solutions-Architect_Associate_badge_512x512.139edbefd4d7e9a16213032f592bdd8ca769dced.png"
                 }
               }
         "400":
@@ -210,6 +211,10 @@ components:
         description:
           type: string
         link:
+          type: string
+          format: uri
+          nullable: true
+        image:
           type: string
           format: uri
           nullable: true
