@@ -38,41 +38,32 @@ export async function getFromFirestoreByCategory(
     }
 }
 
-// Updates the description of certifications of a given title in firestore
-// and returns a response
-export async function describe(
+// Updates a certification in firestore
+export async function updateInFirestore(
     title: string,
-    desc: string,
+    id: string,
+    properties: any,
     res: functions.Response
 ) {
     try {
-        await certRepo.updateDescription(title, desc);
+        const desc = properties["description"];
+        const rating = properties["rating"];
+        if (title != null && desc != null) {
+            await certRepo.updateDescription(title, desc);
+        }
+        if (id != null && rating != null) {
+            await certRepo.updateRating(id, rating);
+        }
         res.statusCode = 200;
-        res.send(jsend.success("Certification described successfully"));
+        res.send(jsend.success("Certification updated successfully"));
     } catch (e) {
         res.statusCode = 500;
-        res.send(jsend.error());
-    }
-}
-
-// Updates the rating of certifications of a given id in firestore
-// and returns a response
-export async function rate(
-    certId: string,
-    rating: number,
-    res: functions.Response
-) {
-    try {
-        await certRepo.updateRating(certId, rating);
-        res.statusCode = 200;
-        res.send(jsend.success("Certification rated successfully"));
-    } catch (e) {
-        res.statusCode = 500;
-        res.send(jsend.error());
+        res.send(jsend.error("Failed to update certification in Firestore!"));
     }
 }
 
 // Executes PUT request to add description to a certification
+// Will be used only by us. 
 export async function putDescription(
     url: string,
     certTitle: string,
@@ -80,31 +71,12 @@ export async function putDescription(
     res: functions.Response) {
     const fullUrl = url + "?title=" + certTitle;
     await axios.default.put(fullUrl,
-        { desc: description })
+        { description: description })
         .then(function (resp) {
             res.statusCode = 200;
             res.send(jsend.success(resp.statusText));
         }).catch((e) => {
             console.log(e);
-            res.statusCode = 500;
-            res.send(jsend.error());
-        });
-}
-
-// Executes PUT request to add rating to a certification
-export async function putRating(
-    url: string,
-    certId: string,
-    rating: number,
-    res: functions.Response) {
-    const fullUrl = url + "?id=" + certId;
-    await axios.default.put(fullUrl,
-        { rating: rating })
-        .then(function (resp) {
-            res.statusCode = 200;
-            res.send(jsend.success(resp.statusText));
-        }).catch((e) => {
-            logger.log(e);
             res.statusCode = 500;
             res.send(jsend.error());
         });

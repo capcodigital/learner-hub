@@ -8,35 +8,70 @@ export async function save(items: Array<Certification>) {
     const db = admin.firestore();
     const collection = db.collection(TABLE_CERTIFICATIONS);
     items.forEach((item) => {
-        collection
-            .where("username", "==", filter(item.username))
-            .where("title", "==", filter(item.title))
-            .get()
-            .then(async (snap) => {
-                if (snap.empty) {
-                    // If item not exist, create it
-                    collection.doc().create({
-                        username: item.username,
-                        platform: item.platform,
-                        title: item.title,
-                        category: item.category,
-                        subcategory: item.subcategory,
-                        date: item.date,
-                        description: item.description,
-                        rating: item.rating,
-                    });
-                } else {
-                    // If item exists, udpate fields
-                    snap.forEach(it => {
-                        collection.doc(it.id).update({
-                            platform: item.platform,
-                            category: item.category,
-                            subcategory: item.subcategory,
-                            date: item.date,
+        // If item is missing username or title, it cannot be 
+        // uniquely identified. So we just save it. 
+        if (item.username == undefined || item.title == undefined) {
+            // collection.doc().create({
+            //     username: null,
+            //     platform: filter(item.platform),
+            //     title: null,
+            //     category: filter(item.category),
+            //     subcategory: filter(item.subcategory),
+            //     date: filter(item.date),
+            //     description: filter(item.description),
+            //     rating: item.rating,
+            // });
+            addItem(collection, item);
+        } else {
+            // Item has username & title, so it can be uniquely identified.
+            // We will first check if it already exists.
+            collection
+                .where("username", "==", item.username)
+                .where("title", "==", item.title)
+                .get()
+                .then(async (snap) => {
+                    if (snap.empty) {
+                        // If item does not exist, create it
+                        // collection.doc().create({
+                        //     username: item.username,
+                        //     platform: filter(item.platform),
+                        //     title: item.title,
+                        //     category: filter(item.category),
+                        //     subcategory: filter(item.subcategory),
+                        //     date: filter(item.date),
+                        //     description: filter(item.description),
+                        //     rating: item.rating,
+                        // });
+                        addItem(collection, item);
+                    } else {
+                        // If item exists, udpate fields
+                        snap.forEach(it => {
+                            collection.doc(it.id).update({
+                                platform: filter(item.platform),
+                                category: filter(item.category),
+                                subcategory: filter(item.subcategory),
+                                date: filter(item.date),
+                            })
                         })
-                    })
-                }
-            });
+                    }
+                });
+        }
+    });
+}
+
+function addItem(
+    collection: FirebaseFirestore.CollectionReference,
+    item: Certification
+) {
+    collection.doc().create({
+        username: filter(item.username),
+        platform: filter(item.platform),
+        title: filter(item.title),
+        category: filter(item.category),
+        subcategory: filter(item.subcategory),
+        date: filter(item.date),
+        description: filter(item.description),
+        rating: item.rating,
     });
 }
 
@@ -100,10 +135,10 @@ export async function updateDescription(
 }
 
 export async function updateRating(
-    certId: string,
+    id: string,
     rating: number
 ) {
-    const doc = admin.firestore().collection(TABLE_CERTIFICATIONS).doc(certId);
+    const doc = admin.firestore().collection(TABLE_CERTIFICATIONS).doc(id);
     const docRef = await doc.get();
     if (docRef.exists) {
         await doc.update({ rating: rating })
@@ -158,6 +193,8 @@ async function toCertifications(snapshot: FirebaseFirestore.QuerySnapshot):
     return results;
 }
 
-function filter(text: string): string {
-    return text != null ? text : "";
+function filter(text?: string) {
+    // if a value is undefined or empty we always save it as
+    // null in firestore
+    return (text != undefined && text != "") ? text : null;
 }

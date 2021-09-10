@@ -2,7 +2,7 @@ import * as functions from "firebase-functions";
 import express, { Request, Response } from "express";
 import { validateFirebaseIdToken } from "./auth-middleware";
 import { getUrl } from "./certifications/catalog_entry";
-import * as genericFuncs from "./certifications/certifications";
+import * as certifFuncs from "./certifications/certifications";
 import { getUserCertifications } from "./certifications/certifications_repository";
 import * as userFuncs from "./users/users";
 import { syncAllCertifications } from "./certifications/syncCertifications";
@@ -59,13 +59,13 @@ app.get("/certifications", async (req: Request, res: Response) => {
     var platform = req.query["platform"] as string;
     // If there's platform param, filter by platform
     if (platform != null)
-        genericFuncs.getFromFirestoreByPlatform(platform?.toLowerCase(), res);
+        certifFuncs.getFromFirestoreByPlatform(platform?.toLowerCase(), res);
     else {
         // If there is no platform, filter by category & subcategory.
         // If there's no category & subcategory, will return all
         var category = req.query["category"] as string;
         var subcategory = req.query["subcategory"] as string;
-        genericFuncs.getFromFirestoreByCategory(
+        certifFuncs.getFromFirestoreByCategory(
             category?.toLowerCase(),
             subcategory?.toLowerCase(),
             res);
@@ -84,16 +84,11 @@ app.get("/certifications/all", async (req: Request, res: Response) => {
     }
 });
 
-app.put("/certifications/update/describe", async (req: Request, res: Response) => {
-    var title = req.query["title"] as string;
-    var desc = req.body["desc"] as string;
-    genericFuncs.describe(title, desc, res);
-});
-
-app.put("/certifications/update/rate", async (req: Request, res: Response) => {
-    var certId = req.query["id"] as string;
-    var rating = req.body["rating"] as number;
-    genericFuncs.rate(certId, rating, res);
+app.put("/certifications/update", async (req: Request, res: Response) => {
+    const title = req.query.title as string;
+    const id = req.query.id as string;
+    const props = req.body as any;
+    certifFuncs.updateInFirestore(title, id, props, res);
 });
 
 app.get("/skills/all", async (req: Request, res: Response) => {

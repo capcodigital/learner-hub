@@ -1,7 +1,6 @@
 import { logger } from "firebase-functions/v1";
 import { JSDOM } from "jsdom";
 import { CatalogEntry } from "../catalog_entry";
-import { filter } from "../../txtutil";
 
 export function extractNeo4jCertifications(html: string, certData: CatalogEntry): Array<Certification> {
     const parser = new JSDOM(html);
@@ -22,12 +21,12 @@ export function extractNeo4jCertifications(html: string, certData: CatalogEntry)
         const name = row.querySelector("td:nth-child(1)")?.textContent as string;
         const date = row.querySelector("td:nth-child(3)")?.textContent as string;
         entries.push({
-            'username': filter(name),
+            'username': name,
             'platform': "",
             'title': "Neo4j",
-            'category': filter(certData?.category),
-            'subcategory': filter(certData?.subcategory),
-            'date': filter(date?.trim()),
+            'category': certData.category,
+            'subcategory': certData.subcategory,
+            'date': date?.trim(),
             'description': "",
             'rating': 0
         });
