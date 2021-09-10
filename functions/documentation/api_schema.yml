@@ -58,7 +58,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
+                $ref: '#/components/schemas/Response'
+              example:
+                status: success
+                data: 
+                  message: User registered
+                
         '401':
           $ref: '#/components/responses/UnauthorizedError'
         '409':
