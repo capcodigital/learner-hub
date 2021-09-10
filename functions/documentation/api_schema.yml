@@ -90,6 +90,15 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Certification'
+              example: 
+                [{
+                  "id": "MjFGNkFbwq0mC6WjB0Q",
+                  "category": "Cloud",
+                  "platform": "AWS",
+                  "title": "AWS Certified Solutions Architect Associate",
+                  "description": "AWS Certified Solutions Architect – Associate is intended for anyone with one or more years of hands-on experience designing available, cost-efficient, fault-tolerant, and scalable distributed systems on AWS",
+                  "link": "https://aws.amazon.com/certification/certified-solutions-architect-associate"
+                }]
         '401':
           $ref: '#/components/responses/UnauthorizedError'
         '500':
@@ -117,6 +126,15 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Certification"
+              example: 
+                {
+                  "id": "MjFGNkFbwq0mC6WjB0Q",
+                  "category": "Cloud",
+                  "platform": "AWS",
+                  "title": "AWS Certified Solutions Architect Associate",
+                  "description": "AWS Certified Solutions Architect – Associate is intended for anyone with one or more years of hands-on experience designing available, cost-efficient, fault-tolerant, and scalable distributed systems on AWS",
+                  "link": "https://aws.amazon.com/certification/certified-solutions-architect-associate"
+                }
         "400":
           $ref: '#/components/responses/BadRequestError'
         '401':
@@ -149,11 +167,12 @@ components:
           type: string
         description:
           type: string
+        link:
+          type: string
+          format: uri
+          nullable: true
     Skills:
       type: object
-      required:
-        - primarySkills,
-        - secondarySkills
       properties:
         primarySkills:
           type: array
@@ -170,8 +189,6 @@ components:
         - name
         - lastName
         - email
-        - jobTitle
-        - bio
         - skills
       properties:
         id:
@@ -197,7 +214,6 @@ components:
         - userId
         - title
         - content
-        - isCompleted
       properties:
         id:
           type: string
@@ -217,11 +233,6 @@ components:
         - id
         - userId
         - certificationId
-        - isCompleted
-        - startDate
-        - completionDate
-        - expireDate
-        - rating
       properties:
         id:
           type: string
@@ -251,8 +262,6 @@ components:
       type: object
       required:
         - status
-        - data
-        - error
       properties:
         status:
           type: string
