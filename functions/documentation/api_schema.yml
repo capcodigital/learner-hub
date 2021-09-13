@@ -882,7 +882,7 @@ components:
               type: string
               format: date 
               nullable: true
-            expirytionDate:
+            expiryDate:
               type: string
               format: date 
               nullable: true
