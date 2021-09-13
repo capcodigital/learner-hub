@@ -330,13 +330,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/UserCertification"
+                $ref: "#/components/schemas/UserCertificationsResponse"
               example: {
                 status: success,
                 data: {
                   id: MjTC160LVKBigw_Oy6O,
                   userId: MjTC3imhub3n1ARhp8H,
-                  certificationId: MjTC6JkXWEwzCwKNCLi,
+                  certificationSumay: {
+                    id: "MjFGNkFbwq0mC6WjB0Q",
+                    category: "Cloud",
+                    platform: "AWS",
+                    title: "AWS Certified Solutions Architect Associate",
+                    description: "AWS Certified Solutions Architect – Associate is intended for anyone with one or more years of hands-on experience designing available, cost-efficient, fault-tolerant, and scalable distributed systems on AWS",
+                    link: "https://aws.amazon.com/certification/certified-solutions-architect-associate",
+                    image: "https://d1.awsstatic.com/training-and-certification/Certification%20Badges/AWS-Certified_Solutions-Architect_Associate_badge_512x512.139edbefd4d7e9a16213032f592bdd8ca769dced.png"
+                  },
                   isCompleted: true,
                   startDate: '2021-09-13',
                   completionDate: '2021-12-13',
@@ -828,6 +836,59 @@ components:
         data:
           type: object
           nullable: true
+        error:
+          type: string
+          nullable: true
+    UserCertificationsResponse:
+      type: object
+      required:
+        - status
+        - data
+      properties:
+        status:
+          type: string
+          enum:
+            - success
+            - fail
+            - error
+          description: >
+            Response status:
+              * `success` - All went well, and (usually) some data was returned.
+              * `fail` - There was a problem with the data submitted, or some pre-condition of the API call wasn't satisfied
+              * `error` - An error occurred in processing the request, i.e. an exception was thrown
+        data:
+          type: object
+          nullable: true
+          required:
+            - id
+            - userId
+            - certificationSummary
+          properties:
+            id:
+              type: string
+              format: uuid
+            userId:
+              type: string
+              format: uuid
+            certificationSummary:
+              $ref: '#/components/schemas/Certification'
+            isCompleted:
+              type: boolean
+              nullable: true
+            startDate:
+              type: string
+              format: date
+            completionDate:
+              type: string
+              format: date 
+              nullable: true
+            expirytionDate:
+              type: string
+              format: date 
+              nullable: true
+            rating:
+              type: integer
+              nullable: true
         error:
           type: string
           nullable: true
