@@ -191,6 +191,72 @@ paths:
           $ref: '#/components/responses/UnauthorizedError'
         '500':
           $ref: '#/components/responses/InternalServerError'
+    post:
+      tags:
+        - Certifications Summary
+      summary: Adds a new certification to the database
+      description: Registers the user in the DB and links it with Firebase Auth
+      operationId: 'addCertification'
+      security:
+        - JWTAuth: []
+      requestBody:
+        description: A JSON object containing information required to create a certification
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - category
+                - platform
+                - title
+                - description
+              properties:
+                category:
+                  type: string
+                platform:
+                  type: string
+                title:
+                  type: string
+                description:
+                  type: string
+                link:
+                  type: string
+                  format: uri
+                  nullable: true
+                image:
+                  type: string
+                  format: uri
+                  nullable: true
+            example:
+              category: Cloud
+              platform: AWS
+              title: AWS Certified Solutions Architect Associate
+              description: AWS Certified Solutions Architect – Associate is intended for anyone with one or more years of hands-on experience designing available, cost-efficient, fault-tolerant, and scalable distributed systems on AWS
+              link: https://aws.amazon.com/certification/certified-solutions-architect-associate
+              image: https://d1.awsstatic.com/training-and-certification/Certification%20Badges/AWS-Certified_Solutions-Architect_Associate_badge_512x512.139edbefd4d7e9a16213032f592bdd8ca769dced.png
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Certification'
+              example: {
+                status: "success",
+                data: {
+                  id: "MjFGNkFbwq0mC6WjB0Q",
+                  category: "Cloud",
+                  platform: "AWS",
+                  title: "AWS Certified Solutions Architect Associate",
+                  description: "AWS Certified Solutions Architect – Associate is intended for anyone with one or more years of hands-on experience designing available, cost-efficient, fault-tolerant, and scalable distributed systems on AWS",
+                  link: "https://aws.amazon.com/certification/certified-solutions-architect-associate",
+                  image: "https://d1.awsstatic.com/training-and-certification/Certification%20Badges/AWS-Certified_Solutions-Architect_Associate_badge_512x512.139edbefd4d7e9a16213032f592bdd8ca769dced.png"
+                }
+              }
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
   /certificationSummary/{id}:
     get:
       tags: 
