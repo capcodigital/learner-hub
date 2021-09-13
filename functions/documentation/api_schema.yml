@@ -200,13 +200,13 @@ paths:
       tags: 
         - User Certifications
       summary: "Find certification by user"
-      description: "Returns the user certifications"
+      description: "Returns the user certifications for the current logged user. When passed a parameter, returns the certification for the requested userId"
       operationId: "getUserCertifications"
       parameters:
         - name: userId
           in: query
-          description: "ID of certification to return"
-          required: true
+          description: "Returns the certifications for this given user"
+          required: false
           schema:
             type: "string"
             format: "uuid"
@@ -247,7 +247,6 @@ paths:
                 error: User not found
         '500':
           $ref: '#/components/responses/InternalServerError'
-      
     post:
       tags: 
           - User Certifications
@@ -462,7 +461,6 @@ paths:
           $ref: '#/components/responses/UnauthorizedError'
         '500':
           $ref: '#/components/responses/InternalServerError'
-    
     post:
       tags: 
           - TODOs
@@ -536,7 +534,6 @@ paths:
                 error: Todo item not found
         '500':
           $ref: '#/components/responses/InternalServerError'    
-    
     delete:
       tags: 
           - TODOs
@@ -580,7 +577,7 @@ paths:
                 error: Todo item not found
         '500':
           $ref: '#/components/responses/InternalServerError'  
-    
+          
 components:
   schemas:
     Certification:
