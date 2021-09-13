@@ -263,7 +263,18 @@ paths:
             content:
               application/json:
                 schema:
-                  $ref: "#/components/schemas/Todo"
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/Todo"
+                example:
+                  status: success
+                  data: [{
+                      id: "MjTKV4R_v71KpMzk1f",
+                      userId: "MjTK_9W0U1Nz_5REqPl",
+                      title: "Book the certification exam",
+                      content: "It needs to be booked from the oficial website and then claim the expenses back",
+                      isCompleted: true
+                    }]
         '400':
           $ref: '#/components/responses/BadRequestError'
         '401':
@@ -284,7 +295,11 @@ paths:
             content:
               application/json:
                 schema:
-                  $ref: "#/components/schemas/Todo"
+                  $ref: "#/components/schemas/Response"
+                example:
+                  status: success
+                  data:
+                    message: "Todo Created"
         '400':
           $ref: '#/components/responses/BadRequestError'
         '401':
@@ -314,6 +329,15 @@ paths:
               application/json:
                 schema:
                   $ref: "#/components/schemas/Todo"
+                example:
+                  status: success
+                  data: {
+                      id: "MjTKV4R_v71KpMzk1f",
+                      userId: "MjTK_9W0U1Nz_5REqPl",
+                      title: "Book the certification exam",
+                      content: "It needs to be booked from the oficial website and then claim the expenses back",
+                      isCompleted: true
+                    }
         '400':
           $ref: '#/components/responses/BadRequestError'
         '401':
@@ -353,7 +377,11 @@ paths:
             content:
               application/json:
                 schema:
-                  $ref: "#/components/schemas/Todo"
+                  $ref: "#/components/schemas/Response"
+                example:
+                  status: success
+                  data: 
+                    message: Item deleted
         '400':
           $ref: '#/components/responses/BadRequestError'
         '401':
@@ -371,7 +399,6 @@ paths:
                 error: Todo item not found
         '500':
           $ref: '#/components/responses/InternalServerError'  
-    
     
 components:
   schemas:
