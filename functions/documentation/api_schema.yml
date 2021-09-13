@@ -248,7 +248,190 @@ paths:
                 error: User not found
         '500':
           $ref: '#/components/responses/InternalServerError'
-
+      
+    post:
+      tags: 
+          - User Certifications
+      summary: 'Creates a new certification item for the current user'
+      operationId: 'createUserCertification'
+      security:
+        - JWTAuth: []
+      requestBody:
+        description: A JSON object containing information required to create a certification
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - certificationId
+              properties:
+                certificationId:
+                  type: string
+                  format: uuid
+                isCompleted:
+                  type: boolean
+                  nullable: true
+                startDate:
+                  type: string
+                  format: date
+                  nullable: true
+                completionDate:
+                  type: string
+                  format: date
+                  nullable: true
+                expireDate:
+                  type: string
+                  format: date
+                  nullable: true
+                rating:
+                  type: integer
+                  nullable: true
+      responses:
+        '201':
+            description: "Created"
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/Response"
+                example:
+                  status: success
+                  data: {
+                    id: "MjTC160LVKBigw_Oy6O",
+                    userId: "MjTC3imhub3n1ARhp8H",
+                    certificationId: "MjTC6JkXWEwzCwKNCLi",
+                    isCompleted: true,
+                    startDate: "2021-09-13",
+                    completionDate: "2021-12-13",
+                    expireDate: "2023-12-13",
+                    rating: 4
+                  }
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'  
+    
+          
+  /certifications/{id}:
+    put:
+      tags: 
+          - User Certifications
+      summary: 'Updates the user certification item'
+      operationId: 'updateUserCertification'
+      security:
+        - JWTAuth: []
+      parameters:
+        - name: id
+          in: path
+          description: "ID of certification to update"
+          required: true
+          schema:
+            type: "string"
+            format: "uuid"
+      requestBody:
+        description: A JSON object containing information required to update a certification
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                isCompleted:
+                  type: boolean
+                  nullable: true
+                startDate:
+                  type: string
+                  format: date
+                  nullable: true
+                completionDate:
+                  type: string
+                  format: date
+                  nullable: true
+                expireDate:
+                  type: string
+                  format: date
+                  nullable: true
+                rating:
+                  type: integer
+                  nullable: true
+      responses:
+        '200':
+            description: "OK"
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/UserCertification"
+                example: 
+                  status: success,
+                  data: 
+                    id: MjTC160LVKBigw_Oy6O
+                    userId: MjTC3imhub3n1ARhp8H
+                    certificationId: MjTC6JkXWEwzCwKNCLi
+                    isCompleted: true
+                    startDate: '2021-09-13'
+                    completionDate: '2021-12-13'
+                    expireDate: '2023-12-13'
+                    rating: 1
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+        '404':
+          description: Item not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+              example:
+                status: error
+                error: User certification not found
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    delete:
+      tags: 
+          - User Certifications
+      summary: 'Deletes the user certification item'
+      operationId: 'deteleUserCertification'
+      security:
+        - JWTAuth: []
+      parameters:
+        - name: id
+          in: path
+          description: "ID of user certification item to delete"
+          required: true
+          schema:
+            type: "string"
+            format: "uuid"
+      responses:
+        '200':
+            description: "OK"
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/Response"
+                example:
+                  status: success
+                  data: 
+                    message: Item deleted
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+        '404':
+          description: Item not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+              example:
+                status: error
+                error: User Certification item not found
+        '500':
+          $ref: '#/components/responses/InternalServerError'
   /todos:
     get:
       tags: 
