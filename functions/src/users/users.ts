@@ -3,6 +3,7 @@ import * as functions from "firebase-functions";
 import { logger } from "firebase-functions";
 import * as admin from 'firebase-admin';
 import * as userRepo from "./users_repository";
+import * as jsend from "../jsend";
 
 // Creates user in firebase auth and adds them to firestore 
 // Users collection
@@ -41,11 +42,11 @@ export async function registerUser(
         // Add user in firestore
         userRepo.insertUser(record.uid, user);
         res.statusCode = 200;
-        res.send(JSON.stringify("User created"));
+        res.send(jsend.success("User added successfully"));
     }).catch(function (e) {
         logger.log(e);
-        res.statusCode = 500;
-        res.send(JSON.stringify("Error creating user"));
+        res.statusCode = 409;
+        res.send(jsend.error("User already exists"));
     });
 }
 
@@ -57,11 +58,11 @@ export async function updateUser(
     try {
         userRepo.editUser(userId, property);
         res.statusCode = 200;
-        res.send(JSON.stringify("User updated"));
+        res.send(jsend.success("User updated successfully"));
     } catch (e) {
         logger.log(e);
-        res.statusCode = 500;
-        res.send(JSON.stringify("Error updating user"));
+        res.statusCode = 404;
+        res.send(jsend.error("User does not exist", 404));
     }
 }
 
@@ -70,10 +71,10 @@ export async function getUsers(res: functions.Response) {
         const items = await userRepo.getAllUsers();
         res.setHeader('Content-Type', 'application/json');
         res.statusCode = 200;
-        res.send(JSON.stringify(items));
-    } catch (e) {
-        logger.log(e)
+        res.send(jsend.successGetUsers(items));
+    } catch (error) {
+        logger.log(error)
         res.statusCode = 500;
-        res.send(JSON.stringify("Error getting users"));
+        res.send(jsend.error());
     }
 }

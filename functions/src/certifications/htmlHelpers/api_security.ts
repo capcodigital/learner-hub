@@ -21,7 +21,7 @@ export function extractSecurityCertifications(html: string, certData: CatalogEnt
         const name = row.querySelector("td:nth-child(1)")?.textContent as string;
         const date = row.querySelector("td:nth-child(2)")?.textContent as string;
         entries.push({
-            'username': name.trim(),
+            'username': name?.trim(),
             'platform': "",
             'title': "API Security Architect",
             'category': certData.category,

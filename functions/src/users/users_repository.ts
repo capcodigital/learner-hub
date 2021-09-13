@@ -1,7 +1,7 @@
 /* eslint-disable require-jsdoc */
 import * as admin from 'firebase-admin';
 
-const TABLE_USERS = "Users"
+const TABLE_USERS = "Users";
 
 export async function insertUser(
     docId: string,
@@ -24,7 +24,6 @@ export async function insertUser(
         throw Error("User already exists!");
     }
 }
-
 
 export async function editUser(
     uid: string,

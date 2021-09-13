@@ -29,8 +29,8 @@ function toCertification(
         'username': username?.trim(),
         'platform': platform?.trim().toLowerCase(),
         'title': title?.trim(),
-        'category': category.toLowerCase(),
-        'subcategory': subcategory.toLowerCase(),
+        'category': category?.toLowerCase(),
+        'subcategory': subcategory?.toLowerCase(),
         'date': date?.trim(),
         'description': "",
         'rating': 0
