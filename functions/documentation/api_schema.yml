@@ -110,6 +110,53 @@ paths:
                 error: User already registered
         '500':
           $ref: '#/components/responses/InternalServerError'
+    put:
+      tags: 
+          - Users
+      summary: 'Updates the user information'
+      operationId: 'updateUser'
+      security:
+        - JWTAuth: []
+      requestBody:
+        description: A JSON object containing information required to update the user
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                lastName:
+                  type: integer
+                email:
+                  type: string
+                  format: email
+                jobtitle:
+                  type: string
+                bio:
+                  type: string
+                skills:
+                  $ref: '#/components/schemas/Skills'
+      responses:
+        '200':
+            description: "OK"
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/User"
+                example: 
+                  name: Luke
+                  lastName: Skywalker
+                  email: luke.skywalker@capco.com
+                  jobtTitle: Master Jedi
+                  bio: Trained by Joda in planet Dagobah
+                  skills: {primarySkills: ["Control the force"], secondarySkills: ["Lightsaber", "Mind control"]}
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
 
   /certificationSummary:
     get:
@@ -200,13 +247,13 @@ paths:
       tags: 
         - User Certifications
       summary: "Find certification by user"
-      description: "Returns the user certifications for the current logged user. When passed a parameter, returns the certification for the requested userId"
+      description: "Returns the user certifications. When passed a parameter, returns the certification for the requested userId"
       operationId: "getUserCertifications"
       parameters:
         - name: userId
           in: query
           description: "Returns the certifications for this given user"
-          required: false
+          required: true
           schema:
             type: "string"
             format: "uuid"
