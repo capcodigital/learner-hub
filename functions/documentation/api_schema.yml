@@ -111,10 +111,10 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
 
-  /certificationOverview:
+  /certificationSummary:
     get:
       tags: 
-        - Certifications Info
+        - Certifications Summary
       summary: 'Returns a list of available certifications'
       operationId: 'getAllCertifications'
       security:
@@ -144,11 +144,10 @@ paths:
           $ref: '#/components/responses/UnauthorizedError'
         '500':
           $ref: '#/components/responses/InternalServerError'
-          
-  /certificationOverview/{id}:
+  /certificationSummary/{id}:
     get:
       tags: 
-        - Certifications Info
+        - Certifications Summary
       summary: "Find certification by ID"
       description: "Returns a single certification"
       operationId: "getCertificationById"
@@ -311,8 +310,6 @@ paths:
           $ref: '#/components/responses/UnauthorizedError'
         '500':
           $ref: '#/components/responses/InternalServerError'  
-    
-          
   /certifications/{id}:
     put:
       tags: 
@@ -432,6 +429,7 @@ paths:
                 error: User Certification item not found
         '500':
           $ref: '#/components/responses/InternalServerError'
+  
   /todos:
     get:
       tags: 
