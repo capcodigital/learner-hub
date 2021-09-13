@@ -161,7 +161,7 @@ paths:
             type: "string"
             format: "uuid"
       responses:
-        "200":
+        '200':
           description: "OK"
           content:
             application/json:
@@ -178,11 +178,11 @@ paths:
                   image: "https://d1.awsstatic.com/training-and-certification/Certification%20Badges/AWS-Certified_Solutions-Architect_Associate_badge_512x512.139edbefd4d7e9a16213032f592bdd8ca769dced.png"
                 }
               }
-        "400":
+        '400':
           $ref: '#/components/responses/BadRequestError'
         '401':
           $ref: '#/components/responses/UnauthorizedError'
-        "404":
+        '404':
           description: Certification not found
           content:
             application/json:
@@ -211,8 +211,10 @@ paths:
           schema:
             type: "string"
             format: "uuid"
+      security:
+        - JWTAuth: []      
       responses:
-        "200":
+        '200':
           description: "OK"
           content:
             application/json:
@@ -231,11 +233,11 @@ paths:
                   rating: 3
                 }
               }
-        "400":
+        '400':
           $ref: '#/components/responses/BadRequestError'
         '401':
           $ref: '#/components/responses/UnauthorizedError'
-        "404":
+        '404':
           description: User not found
           content:
             application/json:
@@ -246,8 +248,131 @@ paths:
                 error: User not found
         '500':
           $ref: '#/components/responses/InternalServerError'
+
+  /todos:
+    get:
+      tags: 
+          - TODOs
+      summary: 'Gets the current user TODO items'
+      operationId: 'getAllUserTODOItems'
       security:
         - JWTAuth: []
+      responses:
+        '200':
+            description: "OK"
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/Todo"
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    
+    post:
+      tags: 
+          - TODOs
+      summary: 'Creates a new TODO item for the current user'
+      operationId: 'createTODOItems'
+      security:
+        - JWTAuth: []
+      responses:
+        '201':
+            description: "Created"
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/Todo"
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'  
+  /todos/{id}:  
+    put:
+      tags: 
+          - TODOs
+      summary: 'Updates the TODO item'
+      operationId: 'updateTODOItem'
+      security:
+        - JWTAuth: []
+      parameters:
+        - name: id
+          in: path
+          description: "ID of item to update"
+          required: true
+          schema:
+            type: "string"
+            format: "uuid"
+      responses:
+        '200':
+            description: "OK"
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/Todo"
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+        '404':
+          description: Item not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+              example:
+                status: error
+                error: Todo item not found
+        '500':
+          $ref: '#/components/responses/InternalServerError'    
+    
+    delete:
+      tags: 
+          - TODOs
+      summary: 'Deletes the TODO item'
+      operationId: 'deteleTODOItem'
+      security:
+        - JWTAuth: []
+      parameters:
+        - name: id
+          in: path
+          description: "ID of item to delete"
+          required: true
+          schema:
+            type: "string"
+            format: "uuid"
+      responses:
+        '200':
+            description: "OK"
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/Todo"
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+        '404':
+          description: Item not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+              example:
+                status: error
+                error: Todo item not found
+        '500':
+          $ref: '#/components/responses/InternalServerError'  
+    
+    
 components:
   schemas:
     Certification:
@@ -329,7 +454,7 @@ components:
           type: string
           format: uuid
         title:
-          type: integer
+          type: string
         content:
           type: string
         isCompleted:
@@ -417,6 +542,15 @@ components:
             example:
               status: error
               error: Unauthorized
+      ForbiddenError:
+        description: Forbidden
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Response'
+            example:
+              status: error
+              error: Forbidden
       InternalServerError:
         description: Internal Server Error
         content:
@@ -426,8 +560,6 @@ components:
             example:
               status: error
               error: Internal Server Error
-
-  requestBodies: {}
   parameters: {}
 security:
   - JWTAuth: []
