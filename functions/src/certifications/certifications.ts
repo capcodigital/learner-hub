@@ -17,7 +17,7 @@ export async function getFromFirestoreByPlatform(
     } catch (e) {
         logger.log(e)
         res.statusCode = 500;
-        res.send(jsend.error("Error occurred"));
+        res.send(jsend.error());
     }
 }
 
@@ -46,8 +46,12 @@ export async function updateInFirestore(
     res: functions.Response
 ) {
     try {
+        logger.log(title);
+        logger.log(id);
         const desc = properties["description"];
+        logger.log(desc);
         const rating = properties["rating"];
+        logger.log(rating);
         if (title != null && desc != null) {
             await certRepo.updateDescription(title, desc);
         }
@@ -57,8 +61,8 @@ export async function updateInFirestore(
         res.statusCode = 200;
         res.send(jsend.success("Certification updated successfully"));
     } catch (e) {
-        res.statusCode = 500;
-        res.send(jsend.error("Failed to update certification in Firestore!"));
+        res.statusCode = 404;
+        res.send(jsend.error("Certification not found", 404));
     }
 }
 

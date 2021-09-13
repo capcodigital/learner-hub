@@ -45,8 +45,8 @@ export async function registerUser(
         res.send(jsend.success("User added successfully"));
     }).catch(function (e) {
         logger.log(e);
-        res.statusCode = 500;
-        res.send(jsend.error());
+        res.statusCode = 409;
+        res.send(jsend.error("User already exists"));
     });
 }
 
@@ -61,8 +61,8 @@ export async function updateUser(
         res.send(jsend.success("User updated successfully"));
     } catch (e) {
         logger.log(e);
-        res.statusCode = 500;
-        res.send(jsend.error());
+        res.statusCode = 404;
+        res.send(jsend.error("User does not exist", 404));
     }
 }
 

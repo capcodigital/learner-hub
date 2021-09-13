@@ -136,13 +136,13 @@ app.post("/skills", async (req: Request, res: Response) => {
                 }
                 catch (error) {
                     functions.logger.log(error);
-                    res.status(500).send(jsend.error());
+                    res.status(500).send(jsend.error("Error updating skills"));
                 }
             }
         }
         catch (error) {
             functions.logger.log(error);
-            res.status(500).send(jsend.error());
+            res.status(500).send(jsend.error("Error updating skills"));
         }
     }
 });
@@ -167,13 +167,13 @@ app.put("/skills", async (req: Request, res: Response) => {
                 }
                 catch (error) {
                     functions.logger.log(error);
-                    res.status(500).send(jsend.error());
+                    res.status(500).send(jsend.error("Error updating skills"));
                 }
             }
         }
         catch (error) {
             functions.logger.log(error);
-            res.status(500).send(jsend.error());
+            res.status(500).send(jsend.error("Error updating skills"));
         }
     }
     else {
