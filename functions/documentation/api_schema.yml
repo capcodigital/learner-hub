@@ -67,7 +67,7 @@ paths:
                 name:
                   type: string
                 lastName:
-                  type: integer
+                  type: string
                 email:
                   type: string
                   format: email
@@ -127,7 +127,7 @@ paths:
                 name:
                   type: string
                 lastName:
-                  type: integer
+                  type: string
                 email:
                   type: string
                   format: email
@@ -195,7 +195,6 @@ paths:
       tags:
         - Certifications Summary
       summary: Adds a new certification to the database
-      description: Registers the user in the DB and links it with Firebase Auth
       operationId: 'addCertification'
       security:
         - JWTAuth: []
@@ -341,7 +340,7 @@ paths:
                   isCompleted: true,
                   startDate: '2021-09-13',
                   completionDate: '2021-12-13',
-                  expireDate: '2023-12-13',
+                  expiryDate: '2023-12-13',
                   rating: 3
                 }
               }
@@ -390,7 +389,7 @@ paths:
                   type: string
                   format: date
                   nullable: true
-                expireDate:
+                expiryDate:
                   type: string
                   format: date
                   nullable: true
@@ -413,7 +412,7 @@ paths:
                     isCompleted: true,
                     startDate: "2021-09-13",
                     completionDate: "2021-12-13",
-                    expireDate: "2023-12-13",
+                    expiryDate: "2023-12-13",
                     rating: 4
                   }
         '400':
@@ -456,7 +455,7 @@ paths:
                   type: string
                   format: date
                   nullable: true
-                expireDate:
+                expiryDate:
                   type: string
                   format: date
                   nullable: true
@@ -479,7 +478,7 @@ paths:
                     isCompleted: true
                     startDate: '2021-09-13'
                     completionDate: '2021-12-13'
-                    expireDate: '2023-12-13'
+                    expiryDate: '2023-12-13'
                     rating: 1
         '400':
           $ref: '#/components/responses/BadRequestError'
@@ -747,7 +746,7 @@ components:
         name:
           type: string
         lastName:
-          type: integer
+          type: string
         email:
           type: string
           format: email
@@ -803,7 +802,7 @@ components:
           type: string
           format: date
           nullable: true
-        expireDate:
+        expiryDate:
           type: string
           format: date
           nullable: true
