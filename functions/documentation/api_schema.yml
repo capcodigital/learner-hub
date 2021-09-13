@@ -111,10 +111,10 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
 
-  /certifications:
+  /certificationOverview:
     get:
       tags: 
-        - Certifications
+        - Certifications Info
       summary: 'Returns a list of available certifications'
       operationId: 'getAllCertifications'
       security:
@@ -145,10 +145,10 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
           
-  /certifications/{id}:
+  /certificationOverview/{id}:
     get:
       tags: 
-        - Certifications
+        - Certifications Info
       summary: "Find certification by ID"
       description: "Returns a single certification"
       operationId: "getCertificationById"
@@ -183,7 +183,67 @@ paths:
         '401':
           $ref: '#/components/responses/UnauthorizedError'
         "404":
-          description: "Certification not found"
+          description: Certification not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+              example:
+                status: error
+                error: Certification not found
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - JWTAuth: []
+  
+  /certifications:
+    get:
+      tags: 
+        - User Certifications
+      summary: "Find certification by user"
+      description: "Returns the user certifications"
+      operationId: "getUserCertifications"
+      parameters:
+        - name: userId
+          in: query
+          description: "ID of certification to return"
+          required: true
+          schema:
+            type: "string"
+            format: "uuid"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserCertification"
+              example: {
+                status: success,
+                data: {
+                  id: MjTC160LVKBigw_Oy6O,
+                  userId: MjTC3imhub3n1ARhp8H,
+                  certificationId: MjTC6JkXWEwzCwKNCLi,
+                  isCompleted: true,
+                  startDate: '2021-09-13',
+                  completionDate: '2021-12-13',
+                  expireDate: '2023-12-13',
+                  rating: 3
+                }
+              }
+        "400":
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        "404":
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+              example:
+                status: error
+                error: User not found
         '500':
           $ref: '#/components/responses/InternalServerError'
       security:
@@ -297,10 +357,12 @@ components:
           format: date
           nullable: true
         completionDate:
-          type: boolean
+          type: string
+          format: date
           nullable: true
         expireDate:
-          type: boolean
+          type: string
+          format: date
           nullable: true
         rating:
           type: integer
