@@ -336,7 +336,7 @@ paths:
                 data: {
                   id: MjTC160LVKBigw_Oy6O,
                   userId: MjTC3imhub3n1ARhp8H,
-                  certificationSumay: {
+                  certificationSummary: {
                     id: "MjFGNkFbwq0mC6WjB0Q",
                     category: "Cloud",
                     platform: "AWS",
