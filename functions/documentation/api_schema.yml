@@ -3,9 +3,9 @@ info:
   title: Flutter API
   version: 1.0.0
 servers:
-  - url: http://localhost:5001/io-capco-flutter-dev/us-central1/app
+  - url: http://localhost:5001/io-capco-flutter-dev/europe-west2/app
     description: localhost
-  - url: https://us-central1-io-capco-flutter-dev.cloudfunctions.net/app
+  - url: https://europe-west2-io-capco-flutter-dev.cloudfunctions.net/app
     description: Production URL
 paths:
   /user:
