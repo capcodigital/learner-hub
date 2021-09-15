@@ -7,47 +7,69 @@
             "aws": [
               {
                 "title": "cloud practitioner",
-                "description": "Certified Cloud Practitioners have a good base understanding of basic IT services and their uses within the AWS Cloud platform. They are capable and have a good understanding of the core AWS services as well as use cases, pricing models, security concepts and how the cloud as a whole impacts businesses."
+                "description": "Certified Cloud Practitioners have a good base understanding of basic IT services and their uses within the AWS Cloud platform. They are capable and have a good understanding of the core AWS services as well as use cases, pricing models, security concepts and how the cloud as a whole impacts businesses.",
+                "link": "https://aws.amazon.com/certification/certified-cloud-practitioner/",
+                "image": "https://d1.awsstatic.com/training-and-certification/Certification%20Badges/AWS-Certified_Cloud-Practitioner_512x512.bc006f14f986fa4f3ca238b0b62be458ce1fb5ce.png"
               },
               {
                 "title": "associate developer",
-                "description": "Certified Associate Developers have a very good understanding of core AWS services, use cases as well as basic understanding of the AWS architecture best practices. They have a decent proficiency in developing, deploying and debugging cloud-based applications using AWS and writing code for server less applications. With a good amount of knowledge on AWS services and said services key features and how to use them. They y are able to apply their basic understanding of cloud-native applications to write code as well as author, maintain and debug code modules on AWS."
+                "description": "Certified Associate Developers have a very good understanding of core AWS services, use cases as well as basic understanding of the AWS architecture best practices. They have a decent proficiency in developing, deploying and debugging cloud-based applications using AWS and writing code for server less applications. With a good amount of knowledge on AWS services and said services key features and how to use them. They y are able to apply their basic understanding of cloud-native applications to write code as well as author, maintain and debug code modules on AWS.",
+                "link": "https://aws.amazon.com/certification/certified-developer-associate/",
+                "image": "https://d1.awsstatic.com/training-and-certification/Certification%20Badges/AWS-Certified_Developer_Associate_badge_512x512.616df8fd6c6a4298d013b7787e0bbbf93f9e2760.png"
               },
               {
                 "title": "associate solutions architect",
-                "description": "Certified Associate Solutions Architects have a very good understanding of the AWS technologies including but not limited to using compute, networking, storage and databases along with the AWS deployment and management services. They are capable of deploying, managing and operating workloads on AWS whilst utilising the security products in order to remain compliant with requirements. They are very familiar with the AWS CLI and Management Console. They have an ability to identify which AWS Services meet certain technical requirements and define equivalent requirements for AWS-based Applications."
+                "description": "Certified Associate Solutions Architects have a very good understanding of the AWS technologies including but not limited to using compute, networking, storage and databases along with the AWS deployment and management services. They are capable of deploying, managing and operating workloads on AWS whilst utilising the security products in order to remain compliant with requirements. They are very familiar with the AWS CLI and Management Console. They have an ability to identify which AWS Services meet certain technical requirements and define equivalent requirements for AWS-based Applications.",
+                "link": "https://aws.amazon.com/certification/certified-solutions-architect-associate/",
+                "image": "https://d1.awsstatic.com/training-and-certification/Certification%20Badges/AWS-Certified_Solutions-Architect_Associate_badge_512x512.139edbefd4d7e9a16213032f592bdd8ca769dced.png"
               },
               {
                 "title": "associate sysops administrator",
-                "description": "Certified Associate SysOps Administrators have an effective understanding of the AWS technologies specifically in the use cases of system administrators for cloud operations. They have a good understanding of deployment, management and operation of workloads on AWS along with the security infrastructures required. They are comfortable using the AWS Management Console as well as the CLI. Along with all of this they manage to have a base level knowledge on the best practices for AWS Frameworks and networking Architecture."
+                "description": "Certified Associate SysOps Administrators have an effective understanding of the AWS technologies specifically in the use cases of system administrators for cloud operations. They have a good understanding of deployment, management and operation of workloads on AWS along with the security infrastructures required. They are comfortable using the AWS Management Console as well as the CLI. Along with all of this they manage to have a base level knowledge on the best practices for AWS Frameworks and networking Architecture.",
+                "link": "https://aws.amazon.com/certification/certified-sysops-admin-associate/",
+                "image": "https://d1.awsstatic.com/training-and-certification/Certification%20Badges/AWS-Certified_Sysops-Administrator_Associate_512x512.7ee4f9e7f4046349a3bfe27dcb1a54a340e04623.png"
               },
               {
                 "title": "professional devops engineer",
-                "description": "Certified Professional DevOps Engineers are fully capable of implementing and managing continuous delivery systems and methods on AWS along with automating the security controls, governance processes and any other compliance validating required. They also have a deep understanding of the metrics and logging systems for AWS and are able to define and deploy monitors for said data. They are also capable of designing, managing and maintaining tools to operate all of these operational processes."
+                "description": "Certified Professional DevOps Engineers are fully capable of implementing and managing continuous delivery systems and methods on AWS along with automating the security controls, governance processes and any other compliance validating required. They also have a deep understanding of the metrics and logging systems for AWS and are able to define and deploy monitors for said data. They are also capable of designing, managing and maintaining tools to operate all of these operational processes.",
+                "link": "https://aws.amazon.com/certification/certified-devops-engineer-professional/",
+                "image": "https://d1.awsstatic.com/training-and-certification/Certification%20Badges/AWS-Certified_Devops-Engineer_Professional_badge_512x512.ae0626c6bc4c9cfcfe910ab418e8a5481bdcc3e1.png"
               },
               {
                 "title": "professional solutions architect",
-                "description": "Certified Professional Solutions Architects have a proficient ability in designing and deploying scalable, highly available, fault-tolerant and reliable applications on the AWS platform. They have a deeper understanding of the services on offer by AWS and can use this knowledge in order to select the appropriate services to design/deploy an application based on requirements. They are also able to migrate complex and multi-tier applications as well and design and deploy enterprise-wide scalable operations all on AWS."
+                "description": "Certified Professional Solutions Architects have a proficient ability in designing and deploying scalable, highly available, fault-tolerant and reliable applications on the AWS platform. They have a deeper understanding of the services on offer by AWS and can use this knowledge in order to select the appropriate services to design/deploy an application based on requirements. They are also able to migrate complex and multi-tier applications as well and design and deploy enterprise-wide scalable operations all on AWS.",
+                "link": "https://aws.amazon.com/certification/certified-solutions-architect-professional/",
+                "image": "https://d1.awsstatic.com/training-and-certification/Certification%20Badges/AWS-Certified_%20Certified_Solutions-Architect_Professional_badge_512x512.ab5b14ee31132a77715a338f6d6c0b43eefdc8a6.png"
               },
               {
                 "title": "advanced networking",
-                "description": "Certified Specialists in Advanced Networking design, develop and deploy cloud-based solutions using AWS through implementing core AWS services according to the architectural best practices. They are capable of designing and maintaining network architecture for all AWS services through leveraging tools to automate the AWS networking tasks."
+                "description": "Certified Specialists in Advanced Networking design, develop and deploy cloud-based solutions using AWS through implementing core AWS services according to the architectural best practices. They are capable of designing and maintaining network architecture for all AWS services through leveraging tools to automate the AWS networking tasks.",
+                "link": "https://aws.amazon.com/certification/certified-advanced-networking-specialty/",
+                "image": "https://d1.awsstatic.com/training-and-certification/Certification%20Badges/AWS-Certified_Advanced-Networking_Specialty_badge_512x512.ac4b81f689c2dd6c7a8dc9599ff49a050682089e.png"
               },
               {
                 "title": "data analytics",
-                "description": "Certified Specialists in Data Analytics are proficient in defining appropriate AWS Data Analytics services and have a deeper understanding of how they integrate with one another. They can also very effectively explain how AWS data analytics services fit within the data life cycle of t collection, storage, processing and visualisation."
+                "description": "Certified Specialists in Data Analytics are proficient in defining appropriate AWS Data Analytics services and have a deeper understanding of how they integrate with one another. They can also very effectively explain how AWS data analytics services fit within the data life cycle of t collection, storage, processing and visualisation.",
+                "link": "https://aws.amazon.com/certification/certified-data-analytics-specialty/",
+                "image": "https://d1.awsstatic.com/training-and-certification/Certification%20Badges/AWS-Certified_Data_Analytics_Specialty_badge_512x512.1ac7ce0a18ced455f146b8133a3d5374c98f23c7.png"
               },
               {
                 "title": "database",
-                "description": "Certified Specialists in Databases understand fully the different and key features of AWS database services. They are able to analyse the needs and requirements in order to recommend and design project appropriate database solutions utilising the AWS services."
+                "description": "Certified Specialists in Databases understand fully the different and key features of AWS database services. They are able to analyse the needs and requirements in order to recommend and design project appropriate database solutions utilising the AWS services.",
+                "link": "https://aws.amazon.com/certification/certified-database-specialty/",
+                "image": "https://d1.awsstatic.com/training-and-certification/Certification%20Badges/AWS-Certified_Database_Specialty_badge_512x512.026086365e38f26f96087a467f8592369b0f1041.png"
               },
               {
                 "title": "machine learning",
-                "description": "Certified Specialists in Machine Learning can select and justify the appropriate Machine Learning approach for a given problem and identify which AWS services would be most appropriate in order to implement said Machine Learning solutions. They are also capable of designing and implementing scalable, cost-optimised, reliable and secure Machine Learning solutions."
+                "description": "Certified Specialists in Machine Learning can select and justify the appropriate Machine Learning approach for a given problem and identify which AWS services would be most appropriate in order to implement said Machine Learning solutions. They are also capable of designing and implementing scalable, cost-optimised, reliable and secure Machine Learning solutions.",
+                "link": "https://aws.amazon.com/certification/certified-machine-learning-specialty/",
+                "image": "https://d1.awsstatic.com/training-and-certification/Certification%20Badges/AWS-Certified_Machine_Learning_Specialty_badge_512x512.faab741792f1b5195d2dfbf8ae5abd0d9024af7e.png"
               },
               {
                 "title": "security",
-                "description": "Certified Specialists in Security have a deep understanding of specialised data classifications and protection mechanisms within AWS as well as of data encryption methods and the AWS mechanisms used to implement them. They bring a good knowledge base on secure internet protocols and have a functioning working knowledge of the AWS security services and what features said services provide to the production environment. They have the ability to make tradeoff decisions with regards to cost, security and complexity of deployment given the requirements and have a phenomenal understanding of security operations and risk."
+                "description": "Certified Specialists in Security have a deep understanding of specialised data classifications and protection mechanisms within AWS as well as of data encryption methods and the AWS mechanisms used to implement them. They bring a good knowledge base on secure internet protocols and have a functioning working knowledge of the AWS security services and what features said services provide to the production environment. They have the ability to make tradeoff decisions with regards to cost, security and complexity of deployment given the requirements and have a phenomenal understanding of security operations and risk.",
+                "link": "https://aws.amazon.com/certification/certified-security-specialty/",
+                "image": "https://d1.awsstatic.com/training-and-certification/Certification%20Badges/AWS-Certified_Security_Specialty_badge_512x512.d02d4830322517ad8d0823ddf0b9b7182b2b7172.png"
               }
             ]
           },
