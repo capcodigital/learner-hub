@@ -180,11 +180,15 @@
               {
                 "title": "certified kubernetes application developer",
                 "description": "A Certified Kubernetes Application Developer is capable of defining application resources and use the core primitives in order to build, monitor and troubleshoot scalable applications and tools within Kubernetes. They have a basic understanding on container runtimes and microservice architecture. These developers are comfortable in their usage of OCI-Compliant Container Runtime (eg. Docker, cry-o etc.), cloud native application concepts and architectures and typically are relatively proficient in one or more programming languages."
-              },
+                ,
+                "link": "https://www.cncf.io/certification/ckad/",
+                "image": "https://www.cncf.io/wp-content/uploads/2020/08/kubernetes-ckad-color-276x270.png"},
               {
                 "title": "certified kubernetes administrator",
                 "description": "A Certified Kubernetes Administrator is capable of managing more complex Kubernetes instances. They have the ability to do both installation as well as configuration and management of production-grade Kubernetes clusters. They have a deep understanding of key concepts such as Kubernetes networking, storage, security, maintenance, application lifecycle, troubleshooting, logging and monitoring, API object primitives and they are proficient at establishing use-cases for end users."
-              }
+                ,
+                "link": "https://www.cncf.io/certification/cka/",
+                "image": "https://www.cncf.io/wp-content/uploads/2020/08/logo_cka_whitetext-2-250x250.png"}
             ]
           },
           {
