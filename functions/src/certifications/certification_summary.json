@@ -111,15 +111,21 @@
             "hashicorp": [
               {
                 "title": "associate terraform engineer",
-                "description": "Terraform Associate Engineers are Cloud Engineers whom have gained specialised knowledge in operations, IT or development. They are capable of utilising and are knowledgable on the basic concepts and skills associated with HashiCorp Terraform. They are competent in the use of Terraform for production and understand which enterprise specific features exist and what can and cannot be accomplished using the open source offering."
+                "description": "Terraform Associate Engineers are Cloud Engineers whom have gained specialised knowledge in operations, IT or development. They are capable of utilising and are knowledgable on the basic concepts and skills associated with HashiCorp Terraform. They are competent in the use of Terraform for production and understand which enterprise specific features exist and what can and cannot be accomplished using the open source offering.",
+                "link": "https://www.hashicorp.com/certification/terraform-associate",
+                "image": "https://www.datocms-assets.com/2885/1586800192-terraformassociateweb.png"
               },
               {
                 "title": "vault associate engineer",
-                "description": "Vault Associate Engineers are Cloud Engineers whom have gain specialised knowledge in security, development or operations. They are capable of utilising and are knowledgable on the basic concepts, skills and use cases associated with HashiCorp Vault. They are competent in the use of Vault for production and understand which enterprise specific features exist and what can and cannot be accomplished using the open source offering."
+                "description": "Vault Associate Engineers are Cloud Engineers whom have gain specialised knowledge in security, development or operations. They are capable of utilising and are knowledgable on the basic concepts, skills and use cases associated with HashiCorp Vault. They are competent in the use of Vault for production and understand which enterprise specific features exist and what can and cannot be accomplished using the open source offering.",
+                "link": "https://www.hashicorp.com/certification/vault-associate",
+                "image": "https://www.datocms-assets.com/2885/1586800187-vaultassociateweb.png"
               },
               {
                 "title": "consul associate engineer",
-                "description": "Consul Associate Engineers are Site Reliability Engineers, Solutions Architects, DevOps professionals as well as a Cloud Engineers who are capable of utilising and are knowledgable on the basic concepts and skills in order to build, secure and maintain HashiCorp Consul. They are competent in the use of Consul for production and understand which enterprise specific features exist and what can and cannot be accomplished using the open source offering."
+                "description": "Consul Associate Engineers are Site Reliability Engineers, Solutions Architects, DevOps professionals as well as a Cloud Engineers who are capable of utilising and are knowledgable on the basic concepts and skills in order to build, secure and maintain HashiCorp Consul. They are competent in the use of Consul for production and understand which enterprise specific features exist and what can and cannot be accomplished using the open source offering.",
+                "link": "https://www.hashicorp.com/certification/consul-associate",
+                "image": "https://www.datocms-assets.com/2885/1586800202-consulassociateweb.png"
               }
             ]
           },
