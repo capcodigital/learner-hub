@@ -77,23 +77,33 @@
             "gcp": [
               {
                 "title": "associate cloud engineer",
-                "description": "Associate Cloud Engineers deploy applications, monitors operations, and manages enterprise solutions. With the ability to effectively use the Google Cloud Console and CLI to perform common platform-based tasks in order to maintain one or more deployed solutions on the Google Cloud or a Google-managed platform."
+                "description": "Associate Cloud Engineers deploy applications, monitors operations, and manages enterprise solutions. With the ability to effectively use the Google Cloud Console and CLI to perform common platform-based tasks in order to maintain one or more deployed solutions on the Google Cloud or a Google-managed platform.",
+                "link": "https://cloud.google.com/certification/cloud-engineer",
+                "image": "https://images.credential.net/badge/tiny/j3if65ta_badge.png"
               },
               {
                 "title": "professional cloud architect",
-                "description": "Professional Cloud Architects assist organisations to take a greater advantage of Google Cloud technologies with their in-depth understanding of both cloud architecture and Google Cloud as a whole. They are easily capable of designing, developing and managing a robust, secure, scalable and dynamic cloud solutions to drive company and client objectives."
+                "description": "Professional Cloud Architects assist organisations to take a greater advantage of Google Cloud technologies with their in-depth understanding of both cloud architecture and Google Cloud as a whole. They are easily capable of designing, developing and managing a robust, secure, scalable and dynamic cloud solutions to drive company and client objectives.",
+                "link": "https://cloud.google.com/certification/cloud-architect",
+                "image": "https://images.credential.net/badge/tiny/ql49a9qe_badge.png"
               },
               {
-                "title": "professional security engineer",
-                "description": "Professional Security Engineers allow organisations to design and deploy secure workloads and infrastructure on Google Cloud. Utilising their knowledge of both security best practices and industry requirements they can leverage Google security technologies for their projects. Proficient in all aspects of cloud Security such as identity and access management , defining organisational policies, configuration of network security defences and collection and analysing Google Cloud logs."
+                "title": "professional cloud security engineer",
+                "description": "Professional Cloud Security Engineers allow organisations to design and deploy secure workloads and infrastructure on Google Cloud. Utilising their knowledge of both security best practices and industry requirements they can leverage Google security technologies for their projects. Proficient in all aspects of cloud Security such as identity and access management , defining organisational policies, configuration of network security defences and collection and analysing Google Cloud logs.",
+                "link": "https://cloud.google.com/certification/cloud-security-engineer",
+                "image": "https://images.credential.net/badge/tiny/j6plm80f_badge.png"
               },
               {
                 "title": "professional cloud network engineer",
-                "description": "Professional Cloud Network Engineers implement and manage network architectures on Google Cloud either working on networking or cloud teams with the architects who design the cloud infrastructure. They use the Google Cloud Console and/or CLI, leveraging their experience with network services, container networking, hybrid and multi-cloud connectivity, implementing VPC's and security for established architectures."
+                "description": "Professional Cloud Network Engineers implement and manage network architectures on Google Cloud either working on networking or cloud teams with the architects who design the cloud infrastructure. They use the Google Cloud Console and/or CLI, leveraging their experience with network services, container networking, hybrid and multi-cloud connectivity, implementing VPC's and security for established architectures.",
+                "link": "https://cloud.google.com/certification/cloud-network-engineer",
+                "image": "https://images.credential.net/badge/tiny/qog5f4lm_badge.png"
               },
               {
                 "title": "professional data engineer",
-                "description": "Professional Data Engineers allow for data-driven decision making through collecting, transforming and publishing data. They are able to design, build, operationalise, secure and monitor data processing systems with a great emphasis placed on, but not limited to, security, compliance, scalability, efficiency, reliability and fidelity. They are also capable of leveraging, deploying and training pre-existing machine learning models."
+                "description": "Professional Data Engineers allow for data-driven decision making through collecting, transforming and publishing data. They are able to design, build, operationalise, secure and monitor data processing systems with a great emphasis placed on, but not limited to, security, compliance, scalability, efficiency, reliability and fidelity. They are also capable of leveraging, deploying and training pre-existing machine learning models.",
+                "link": "https://cloud.google.com/certification/data-engineer",
+                "image": "https://images.credential.net/badge/tiny/u3rax8gi_badge.png"
               }
             ]
           },
