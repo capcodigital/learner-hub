@@ -79,7 +79,7 @@ export async function putDescription(
         { description: description })
         .then(function (resp) {
             res.statusCode = 200;
-            res.send(jsend.success(resp.data));
+            res.send(jsend.success(resp.statusText));
         }).catch((e) => {
             console.log(e);
             res.statusCode = 500;
