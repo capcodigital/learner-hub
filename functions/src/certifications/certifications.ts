@@ -4,7 +4,7 @@ import * as axios from 'axios';
 import { logger } from "firebase-functions";
 import * as jsend from "../jsend";
 import * as certRepo from "./certifications_repository";
-import * as csparser from "./certification_summary_parser";
+import * as parser from "./certification_summary_parser";
 
 // Sends response with certifications from firestore by platform as json
 export async function getFromFirestoreByPlatform(
@@ -74,7 +74,7 @@ export async function putDescription(
     title: string,
     res: functions.Response) {
     const fullUrl = url + "?title=" + title;
-    const description = csparser.getDescription(title);
+    const description = parser.getDescription(title);
     await axios.default.put(fullUrl,
         { description: description })
         .then(function (resp) {
