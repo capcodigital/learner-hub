@@ -1,5 +1,5 @@
 {
-  "category": {
+  "category": [{
     "cloud": {
       "platform": [
         {
@@ -148,5 +148,45 @@
         }
       ]
     }
-  }
+  },
+  {"security": {
+    "platform": [
+      {"udemy":[
+        {            
+          "title": "learn oauth 2.0 - get started as an api security expert",
+          "description": "Completing this course grants you a multitude of abilities surrounding OAuth. Some of these abilities include the capability of using OAuth in order to access Google, PayPal, LinkedIn and Facebook amongst other large APIs utilised throughout the industry. They are aware of how to use and apply this OAuth knowledge in Mobile Applications as well as within Cloud Solutions on the client side in order to protect your APIs and Cloud Solutions. They also have a good understanding surrounding OAuth including the best practices and OAuth specific terminology and how to choose the correct OAuth Flow for the specific use-case."
+        },            {
+          "title": "the complete cyber security course : network security",
+          "description": "Certified Cloud Practitioners have a good base understanding of basic IT services and their uses within the AWS Cloud platform. They are capable and have a good understanding of the core AWS services as well as use cases, pricing models, security concepts and how the cloud as a whole impacts businesses."
+        },
+        {
+            "title": "apache kafka series - kafka security | ssl sasl kerberos acl",
+            "description": "Completing this course grants you multiple abilities and a wide array of knowledge on SSL encryption specifically within Kafka. They are able to setup and use SASL Kerberos authentication in Kafka and configure the Kafka clients to make them work in a more streamlined method within the security systems. They also know how to create and use ACLs in Kafka and how to configure Zookeeper security."
+        },
+        {
+            "title": "the beginners 2021 cyber security awareness training course",
+            "description": "Engineers whom complete this course will have been trained in gaining an understanding in the multiple ways that hackers can socially engineer you, whether through email, text, calls, browsing etc. This course grants the knowledge on what emotions these hackers like to trigger and how they trick various victims into giving them access. They will be able to stop these attacks dead in their tracks by spotting red flags within these various forms of potential attack. They are well versed in how to securely use Windows, MacOS, iPhones, Androids along with multiple other operating systems. They are very aware as to what security software is effective. They also are able to securely configure your internet browser and how to manage the confidentiality of emails, business files, computers and mobile devices."
+        },
+        {
+            "title": "learn ethical hacking from scratch",
+            "description": "This course offers engineers a very hands on approach to learning the ins and outs of the basics of ethical hacking. They gain the ability to hack and secure Wi-Fi and wired networks and how to use a multitude of hacking tools. They have gained an understanding on how to hack secure systems using client-side and social engineering. They are well versed in how websites work and are capable of discovering vulnerabilities of many areas such as websites and servers. They have learnt effective network hacking ad penetrations testing along with the Kali Linux operating system. They have gained a good knowledge base on many hacking subjects such as running attacks on networks without knowing the key, controlling Wi-Fi connections without knowing the password, creating fake Wi-Fi networks, cracking WEP/WPA/WPA2 encryptions, Man In The Middle attacks, ARP spoofing, ARP poisoning amongst many others. They can sniff network traffic, redirect DNS requests, discover open ports, hack systems through backdooring downloads, analyse malware and so much more. This course will give you a phenomenal ground to grow from in your quest to become a White Hat Hacker."
+        },
+        {
+            "title": "ssl/tls fundamentals",
+            "description": "Completing this course grants you knowledge on Symmetric and Assymetric encryptions and how certificates are issued and managed. They know how to configure a website with a. Certificate and how said certificate interacts with the client device. They can configure a Linux OpenSSL PKI environment. They are capable of securing files and folders with EFS and configuring a TLS VPN. They also have an understanding in how TLS supersedes SSL and how to acquire a web server certificate and code-signing certificates."
+        },
+        {
+            "title": "cryptography beginners guide with openssl",
+            "description": "This course offers a very basic introduction into cryptography, encryption and hashing techniques. They are knowledgable on how and when encryption is used and cipher algorithm operations. They have an understanding of symmetric keys and how to generate and apply them within OpenSSL. This course grants the ability to be highly capable in the use of hash functions and when they are used for confidentiality or integrity and how to hash multiple different file types. They also learn about public key cryptography and the theoretical ideology surrounding public and private keys. They can also create certificate signing requests and self sign requests which gives them a decent base level understanding of digital signatures."
+        }
+      ]},{"api academy":[
+        
+{
+    "title": "api academy - api security architecture",
+    "description": "Completing this course grants a fairly vast and varied amount of knowledge surrounding API security. They will be able to identify and explain in detail security risks of APIs and identify typical areas of API vulnerability. They understand the purpose of OAuth 2.0, as a formwork for authentication, as well as the challenges of implementing such a system. They also know how OpenID Connect functions as an authentication layer, how it complements Oath 2.0 and what the specifications are of the current OpenID Connect protocol suite. This course also grants the ability to explain how JSON Web Tokens work and the advantages of stateless tokens and be able to summarise common threat models used against OAuth 2.0 and ways in order to mitigate and overcome these threats."
+}
+      ]}
+    ]
+  }}
+]
 }
