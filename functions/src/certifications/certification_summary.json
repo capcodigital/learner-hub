@@ -263,7 +263,9 @@
             "api academy": [
               {
                 "title": "api academy - api security architecture",
-                "description": "Completing this course grants a fairly vast and varied amount of knowledge surrounding API security. They will be able to identify and explain in detail security risks of APIs and identify typical areas of API vulnerability. They understand the purpose of OAuth 2.0, as a formwork for authentication, as well as the challenges of implementing such a system. They also know how OpenID Connect functions as an authentication layer, how it complements Oath 2.0 and what the specifications are of the current OpenID Connect protocol suite. This course also grants the ability to explain how JSON Web Tokens work and the advantages of stateless tokens and be able to summarise common threat models used against OAuth 2.0 and ways in order to mitigate and overcome these threats."
+                "description": "Completing this course grants a fairly vast and varied amount of knowledge surrounding API security. They will be able to identify and explain in detail security risks of APIs and identify typical areas of API vulnerability. They understand the purpose of OAuth 2.0, as a formwork for authentication, as well as the challenges of implementing such a system. They also know how OpenID Connect functions as an authentication layer, how it complements Oath 2.0 and what the specifications are of the current OpenID Connect protocol suite. This course also grants the ability to explain how JSON Web Tokens work and the advantages of stateless tokens and be able to summarise common threat models used against OAuth 2.0 and ways in order to mitigate and overcome these threats.",
+                "link": "https://secureservercdn.net/198.71.233.35/e3z.729.myftpupload.com/wp-content/uploads/2020/04/certification-header3-badge2.png",
+                "image": "https://apiacademy.learnupon.com/"
               }
             ]
           }
@@ -277,7 +279,9 @@
             "corda": [
               {
                 "title": "corda developer certification",
-                "description": "Being Corda Certified demonstrates that you have technical expertise and the necessary skills to develop applications on both Corda and Corda Enterprise. They also understand the security, network design and other key aspects of Corda’s architecture. They have the knowledge to be able to assist enterprises in building interoperable blockchain networks allowing the luxury of carrying out business transactions over a private and secure network. A certified Corda developer is one who uses Corda's blockchain-inspired distribution and ledger platform in order to guide the industries across finance through the automation and  management of financial agreements by eliminating errors and friction."
+                "description": "Being Corda Certified demonstrates that you have technical expertise and the necessary skills to develop applications on both Corda and Corda Enterprise. They also understand the security, network design and other key aspects of Corda’s architecture. They have the knowledge to be able to assist enterprises in building interoperable blockchain networks allowing the luxury of carrying out business transactions over a private and secure network. A certified Corda developer is one who uses Corda's blockchain-inspired distribution and ledger platform in order to guide the industries across finance through the automation and  management of financial agreements by eliminating errors and friction.",
+                "link": "https://r3certification.com/collections/frontpage/products/corda-standard-certification-test",
+                "image": "https://cdn.shopify.com/s/files/1/2642/8160/products/corda-logo_favicon_720x.png"
               }
             ]
           }
@@ -291,7 +295,9 @@
             "android": [
               {
                 "title": "associate android certification",
-                "decription": "This certification grants engineers the ability to construct apps that take advantage of the Android OS's in built features from messaging to multitasking, connectivity and media service and many more in order to design and build full-featured apps that are primarily for mobile devices. They also have a good understanding of User Interface design and how to create applications that are clean and effective in their use of the Android UI. They are able to leverage the Android framework in order to perform/schedule data storage and retrieval within a mobile environment. Finally they also understand both debugging and testing within Android Studio and utilise this knowledge to create more reliable and robust applications."
+                "decription": "This certification grants engineers the ability to construct apps that take advantage of the Android OS's in built features from messaging to multitasking, connectivity and media service and many more in order to design and build full-featured apps that are primarily for mobile devices. They also have a good understanding of User Interface design and how to create applications that are clean and effective in their use of the Android UI. They are able to leverage the Android framework in order to perform/schedule data storage and retrieval within a mobile environment. Finally they also understand both debugging and testing within Android Studio and utilise this knowledge to create more reliable and robust applications.",
+                "link": "https://developers.google.com/certification/associate-android-developer",
+                "image": "https://developers-dot-devsite-v2-prod.appspot.com/certification/directory/images/badges/associate_android_developer.png"
               }
             ]
           }
