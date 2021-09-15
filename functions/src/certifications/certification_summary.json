@@ -179,27 +179,31 @@
             "cncf": [
               {
                 "title": "certified kubernetes application developer",
-                "description": "A Certified Kubernetes Application Developer is capable of defining application resources and use the core primitives in order to build, monitor and troubleshoot scalable applications and tools within Kubernetes. They have a basic understanding on container runtimes and microservice architecture. These developers are comfortable in their usage of OCI-Compliant Container Runtime (eg. Docker, cry-o etc.), cloud native application concepts and architectures and typically are relatively proficient in one or more programming languages."
-                ,
+                "description": "A Certified Kubernetes Application Developer is capable of defining application resources and use the core primitives in order to build, monitor and troubleshoot scalable applications and tools within Kubernetes. They have a basic understanding on container runtimes and microservice architecture. These developers are comfortable in their usage of OCI-Compliant Container Runtime (eg. Docker, cry-o etc.), cloud native application concepts and architectures and typically are relatively proficient in one or more programming languages.",
                 "link": "https://www.cncf.io/certification/ckad/",
-                "image": "https://www.cncf.io/wp-content/uploads/2020/08/kubernetes-ckad-color-276x270.png"},
+                "image": "https://www.cncf.io/wp-content/uploads/2020/08/kubernetes-ckad-color-276x270.png"
+              },
               {
                 "title": "certified kubernetes administrator",
-                "description": "A Certified Kubernetes Administrator is capable of managing more complex Kubernetes instances. They have the ability to do both installation as well as configuration and management of production-grade Kubernetes clusters. They have a deep understanding of key concepts such as Kubernetes networking, storage, security, maintenance, application lifecycle, troubleshooting, logging and monitoring, API object primitives and they are proficient at establishing use-cases for end users."
-                ,
+                "description": "A Certified Kubernetes Administrator is capable of managing more complex Kubernetes instances. They have the ability to do both installation as well as configuration and management of production-grade Kubernetes clusters. They have a deep understanding of key concepts such as Kubernetes networking, storage, security, maintenance, application lifecycle, troubleshooting, logging and monitoring, API object primitives and they are proficient at establishing use-cases for end users.",
                 "link": "https://www.cncf.io/certification/cka/",
-                "image": "https://www.cncf.io/wp-content/uploads/2020/08/logo_cka_whitetext-2-250x250.png"}
+                "image": "https://www.cncf.io/wp-content/uploads/2020/08/logo_cka_whitetext-2-250x250.png"
+              }
             ]
           },
           {
             "isc2": [
               {
                 "title": "certified cloud security professional",
-                "description": "Certified Cloud Security Professionals have a deep knowledge and proficient abilities in cloud security design, implementation, architecture, operation, controls and compliance with regulatory frameworks. CCSPs effectively apply their information and security expertise to cloud computing environments and can demonstrate immense competence in cloud security architecture, design, operation and service orchestration. They are competent in multiple cloud domains including Cloud Concepts, Architecture, Design, Data Security, Platform and Infrastructure Security, Application Security, Security Operations as well as the legal implications along with the risks and compliance regulations."
+                "description": "Certified Cloud Security Professionals have a deep knowledge and proficient abilities in cloud security design, implementation, architecture, operation, controls and compliance with regulatory frameworks. CCSPs effectively apply their information and security expertise to cloud computing environments and can demonstrate immense competence in cloud security architecture, design, operation and service orchestration. They are competent in multiple cloud domains including Cloud Concepts, Architecture, Design, Data Security, Platform and Infrastructure Security, Application Security, Security Operations as well as the legal implications along with the risks and compliance regulations.",
+                "link": "https://www.isc2.org/Certifications/CCSP?filter=featured&searchRoot=CE0E426099F245E0971E6C8028700E8A",
+                "image": "https://www.isc2.org/-/media/isc2/isc2-icons/0-current-square-cert-logos/ccsp---square.ash"
               },
               {
                 "title": "certififed information systems security professional",
-                "description": "Certified Information Systems Security Professionals are responsible for the security of data that is being stored on a computer system and all that that general idea entails. They are capable of keeping private and confidential data as such and non-public. They research, develop, implement, asses and review companies' information security systems. They inform clients of possible threats, assist in selecting and installing necessary software and ensure the security policies are extensive enough and being correctly carried out. They can easily describe problems relating to, but not limited to, architecture, identity control and safeguarding said information systems."
+                "description": "Certified Information Systems Security Professionals are responsible for the security of data that is being stored on a computer system and all that that general idea entails. They are capable of keeping private and confidential data as such and non-public. They research, develop, implement, asses and review companies' information security systems. They inform clients of possible threats, assist in selecting and installing necessary software and ensure the security policies are extensive enough and being correctly carried out. They can easily describe problems relating to, but not limited to, architecture, identity control and safeguarding said information systems.",
+                "link": "https://www.isc2.org/Certifications/CISSP-Concentrations",
+                "image": "https://www.isc2.org/-/media/ISC2/Logos/81-Sponsors-2/logo-isc2-all-iss.ashx?h=105&w=187&la=en&hash=AA3C8CB5D26E54F98E1C31B078C6C50CA3286ED4"
               }
             ]
           }
