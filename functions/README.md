@@ -62,56 +62,10 @@ If the token is not valid, the function will return an `HTTP 401 - Unauthorized`
 
 ![auth flow](documentation/auth-flow.png)
 
-## User endpoints
+# API documentation
 
-| Endpoint         | /users/signup  |
-| ---------------- | -------------- |
-| Method           | POST           |
-| Requires auth    | No             |
-| Query Parameters | N/A            |
-| Body             | Body Model     |
-| Response         | Response Model |
-
-### Body model
-
-| name      | type   |
-| --------- | ------ |
-| email     | string |
-| firstName | string |
-| surname   | string |
-| jobtitle  | string |
-| bio       | string |
-
-### Response model
-
-// Standardising a response model will be done as per [BENCH-760](https://ilabs-capco.atlassian.net/browse/BENCH-760)
-
-| name    | type   |
-| ------- | ------ |
-| message | string |
-
-### Response Codes
-
-| Code | Message               | Notes                               |
-| ---- | --------------------- | ----------------------------------- |
-| 200  | OK                    | N/A                                 |
-| 401  | Unauthorized          | Please check auth section           |
-| 500  | Internal Server Error | Something went wrong in the server. |
-
-More response codes to be added in future.
-
-### Example
-
-```
-POST /users/signup
-{
-  email: "luke.skywalker@capco.com",
-  firstName: "Luke",
-  surname: "Skywalker",
-  jobTitle: "Master jedi",
-  bio: "Trained by Joda in the planet Dagobah"
-}
-```
+Please find the API documentation using OpenAPI 3.0 [here](documentation/api_schema.yml)
+You can open the file using Postman or https://editor.swagger.io/ to explore the API documentation.
 
 # Database documentation
 

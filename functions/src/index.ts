@@ -211,24 +211,10 @@ app.get("/users/all", async (req: Request, res: Response) => {
 // This HTTPS endpoint can only be accessed by your Firebase Users.
 // Requests need to be authorized by providing an `Authorization` HTTP header
 // with value `Bearer <Firebase ID Token>`.
-exports.app = functions.https.onRequest(app);
-exports.seed = functions.https.onRequest(async (req: Request, res: Response) => {
-    functions.logger.log("Executing SEED. Only run this during development");
+exports.app = functions
+    .region('europe-west2') // London
+    .https.onRequest(app);
 
-    // Create test user
-    const user = await admin.auth().createUser({
-        email: "test@capco.com",
-        emailVerified: true,
-        password: "123456",
-        displayName: "Luke Skywalker",
-        disabled: false,
-    });
-
-    res.status(200).send({
-        seedData: {
-            user: user
-        }
-    });
-});
-
-exports.register = functions.https.onRequest(register);
+exports.register = functions
+    .region('europe-west2') // London
+    .https.onRequest(register);
