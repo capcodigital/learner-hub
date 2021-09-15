@@ -52,8 +52,8 @@ async function getHtmlContent(url: string): Promise<string> {
     try {
         var response = await axios.get<ConfluenceResponse>(url, {
             auth: {
-                username: "haris.mexis@capco.com",
-                password: "2Yxpj3vyhdaAmrQsM1u9CBFA"
+                username: "email",
+                password: "token"
             }
         });
 
