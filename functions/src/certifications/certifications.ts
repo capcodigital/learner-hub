@@ -74,10 +74,9 @@ export async function putDescription(
     title: string,
     res: functions.Response) {
     const fullUrl = url + "?title=" + title;
-    const des = csparser.getDescription(title);
-    logger.log(des);
+    const description = csparser.getDescription(title);
     await axios.default.put(fullUrl,
-        { description: des })
+        { description: description })
         .then(function (resp) {
             res.statusCode = 200;
             res.send(jsend.success(resp.data));
