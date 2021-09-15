@@ -161,7 +161,7 @@
               },
               {
                 "title": "the complete cyber security course : network security",
-                "description": "Certified Cloud Practitioners have a good base understanding of basic IT services and their uses within the AWS Cloud platform. They are capable and have a good understanding of the core AWS services as well as use cases, pricing models, security concepts and how the cloud as a whole impacts businesses."
+                "description": "This course allows Cloud Practitioners to have a good base understanding of basic IT services and their uses within the AWS Cloud platform. They are capable and have a good understanding of the core AWS services as well as use cases, pricing models, security concepts and how the cloud as a whole impacts businesses."
               },
               {
                 "title": "apache kafka series - kafka security | ssl sasl kerberos acl",
@@ -210,13 +210,19 @@
         ]
       }
     },
-    {"mobile": {
-      "platform" :[
-        {"android":[
-          {"title": "associate android certification",
-          "decription": "This certification grants engineers the ability to construct apps that take advantage of the Android OS's in built features from messaging to multitasking, connectivity and media service and many more in order to design and build full-featured apps that are primarily for mobile devices. They also have a good understanding of User Interface design and how to create applications that are clean and effective in their use of the Android UI. They are able to leverage the Android framework in order to perform/schedule data storage and retrieval within a mobile environment. Finally they also understand both debugging and testing within Android Studio and utilise this knowledge to create more reliable and robust applications."}
-        ]}
-      ]
-    }}
+    {
+      "mobile": {
+        "platform": [
+          {
+            "android": [
+              {
+                "title": "associate android certification",
+                "decription": "This certification grants engineers the ability to construct apps that take advantage of the Android OS's in built features from messaging to multitasking, connectivity and media service and many more in order to design and build full-featured apps that are primarily for mobile devices. They also have a good understanding of User Interface design and how to create applications that are clean and effective in their use of the Android UI. They are able to leverage the Android framework in order to perform/schedule data storage and retrieval within a mobile environment. Finally they also understand both debugging and testing within Android Studio and utilise this knowledge to create more reliable and robust applications."
+              }
+            ]
+          }
+        ]
+      }
+    }
   ]
 }
