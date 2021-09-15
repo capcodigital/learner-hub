@@ -4,7 +4,7 @@ import * as axios from 'axios';
 import { logger } from "firebase-functions";
 import * as jsend from "../jsend";
 import * as certRepo from "./certifications_repository";
-import descriptions from "./descriptions.json";
+import * as csparser from "./certification_summary_parser";
 
 // Sends response with certifications from firestore by platform as json
 export async function getFromFirestoreByPlatform(
@@ -71,10 +71,10 @@ export async function updateInFirestore(
 // Will be used only by us. 
 export async function putDescription(
     url: string,
-    certTitle: string,
+    title: string,
     res: functions.Response) {
-    const fullUrl = url + "?title=" + certTitle;
-    const des = findDescription(certTitle);
+    const fullUrl = url + "?title=" + title;
+    const des = csparser.getDescription(title);
     logger.log(des);
     await axios.default.put(fullUrl,
         { description: des })
@@ -88,74 +88,5 @@ export async function putDescription(
         });
 }
 
-function findDescription(title: string): string | null {
-    const category = descriptions.category;
 
-    const cloud = category[0]["cloud"];
-    const cloudPlatforms = cloud!!.platform;
-    for (var i = 0; i < cloudPlatforms.length; i++) {
-        const platform = cloudPlatforms[i];
-
-        const aws = platform['aws'];
-        const gcp = platform['gcp'];
-        const hashicorp = platform['hashicorp'];
-        const azure = platform['azure'];
-        const cncf = platform['cncf'];
-        const isc2 = platform['isc2'];
-
-        if (aws != null) {
-            var des = findInList(title, aws);
-            if (des != null) return des;
-        }
-        else if (gcp != null) {
-            const des = findInList(title, gcp);
-            if (des != null) return des;
-        }
-        else if (hashicorp != null) {
-            const des = findInList(title, hashicorp);
-            if (des != null) return des;
-        }
-        else if (azure != null) {
-            const des = findInList(title, azure);
-            if (des != null) return des;
-        }
-        else if (cncf != null) {
-            const des = findInList(title, cncf);
-            if (des != null) return des;
-        }
-        else if (isc2 != null) {
-            const des = findInList(title, isc2);
-            if (des != null) return des;
-        }
-    }
-
-    const security = category[1]["security"];
-    const securityPlatforms = security!!.platform;
-    for (var i = 0; i < securityPlatforms.length; i++) {
-        const platform = securityPlatforms[i];
-
-        const udemy = platform.udemy;
-        const api_academy = platform["api academy"];
-
-        if (udemy != null) {
-            var des = findInList(title, udemy);
-            if (des != null) return des;
-        }
-        else if (api_academy != null) {
-            const des = findInList(title, api_academy);
-            if (des != null) return des;
-        }
-    }
-
-    return null;
-}
-
-function findInList(
-    title: string,
-    items: Certificate[]
-): string | null {
-    const result = items.filter(item => item.title.toLowerCase() == title.toLowerCase());
-    if (result.length > 1) throw Error("More than 1 Certificates with same title!");
-    return result.length == 1 ? result[0].description : null;
-}
 
