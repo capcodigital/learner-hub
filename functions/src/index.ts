@@ -94,8 +94,8 @@ app.put("/certifications/update", async (req: Request, res: Response) => {
 // Testing endpoint for calling putDescription(), will be removed
 app.get("/certifications/describe", async (req: Request, res: Response) => {
     certifFuncs.putDescription(
-        "http://localhost:5001/io-capco-flutter-dev/us-central1/app/certifications/update",
-        "Associate Cloud Engineer",
+        "http://localhost:5001/io-capco-flutter-dev/europe-west2/app/certifications/update",
+        "SSL/TLS Fundamentals",
         res);
 });
 

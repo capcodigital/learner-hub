@@ -47,12 +47,12 @@ export async function updateInFirestore(
     res: functions.Response
 ) {
     try {
-        //logger.log(title);
-        //logger.log(id);
+        logger.log(title);
+        logger.log(id);
         const desc = properties["description"];
-        //logger.log(desc);
+        logger.log(desc);
         const rating = properties["rating"];
-        //logger.log(rating);
+        logger.log(rating);
         if (title != null && desc != null) {
             await certRepo.updateDescription(title, desc);
         }
@@ -80,7 +80,7 @@ export async function putDescription(
         { description: des })
         .then(function (resp) {
             res.statusCode = 200;
-            res.send(jsend.success(resp.statusText));
+            res.send(jsend.success(resp.data));
         }).catch((e) => {
             console.log(e);
             res.statusCode = 500;
