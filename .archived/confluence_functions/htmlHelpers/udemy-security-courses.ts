@@ -1,11 +1,11 @@
-import { logger } from "firebase-functions/v1";
-import { JSDOM } from "jsdom";
+// import { logger } from "firebase-functions/v1";
+// import { JSDOM } from "jsdom";
 import { CatalogEntry } from "../catalog_entry";
 import { Certification } from "../certification";
 
 export function extractUdemySecurityCourses(html: string, certData: CatalogEntry): Array<Certification> {
-    const parser = new JSDOM(html);
-    const tables = parser.window.document.querySelectorAll("table");
+    //const parser = new JSDOM(html);
+    const tables = []//parser.window.document.querySelectorAll("table");
 
     if (tables.length != 1) {
         throw "Invalid format. Please review the HTML matches the expected format";
@@ -34,6 +34,6 @@ export function extractUdemySecurityCourses(html: string, certData: CatalogEntry
             'rating': 0
         });
     });
-    logger.log(`Extracted ${entries.length}/${items.length} Udemy Security courses`);
+    // logger.log(`Extracted ${entries.length}/${items.length} Udemy Security courses`);
     return entries;
 }

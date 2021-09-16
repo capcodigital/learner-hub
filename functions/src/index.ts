@@ -1,11 +1,9 @@
 import * as functions from "firebase-functions";
 import express, { Request, Response } from "express";
 import { validateFirebaseIdToken } from "./auth-middleware";
-import { getUrl } from "./certifications/catalog_entry";
 import * as certifFuncs from "./certifications/certifications";
 import { getUserCertifications } from "./certifications/certifications_repository";
 import * as userFuncs from "./users/users";
-//import { syncAllCertifications } from "./certifications/syncCertifications";
 import * as admin from "firebase-admin";
 import { saveSkills, getUserSkills } from "./skills/skills-controller";
 import * as jsend from "./jsend";
@@ -18,12 +16,6 @@ export const register = express();
 // Initialize and configure Express server
 export const app = express();
 app.use(validateFirebaseIdToken);
-
-app.get("/catalog/:id", (req: Request, res: Response) => {
-    const id = <any>req.params.id;
-    const url = getUrl(id);
-    res.send(url);
-});
 
 app.get("/me", (req: Request, res: Response) => {
     // Sample code to test the auth middleware
@@ -72,16 +64,9 @@ app.get("/certifications", async (req: Request, res: Response) => {
     }
 });
 
-// Gets the certifications from Confluence, saves them to Firestore and returns them as json
+// Returns all certifications from Firestore and returns them as json
 app.get("/certifications/all", async (req: Request, res: Response) => {
-    // try {
-    //     const data = await syncAllCertifications();
-    //     res.status(200).send(jsend.successGetCertifs(data));
-    // }
-    // catch (error) {
-    //     functions.logger.log(`Error when syncing all certifications: ${error}`);
-    //     res.status(500).send(jsend.error());
-    // }
+    certifFuncs.getAllFromFirestore(res);
 });
 
 app.put("/certifications/update", async (req: Request, res: Response) => {

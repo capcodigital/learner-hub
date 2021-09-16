@@ -1,16 +1,16 @@
-import { logger } from "firebase-functions/v1";
-import { JSDOM } from "jsdom";
+// import { logger } from "firebase-functions/v1";
+// import { JSDOM } from "jsdom";
 import { CatalogEntry } from "../catalog_entry";
 import { Certification } from "../certification";
 
 export function extractCloudCertifications(html: string, certData: CatalogEntry): Array<Certification> {
     var items = Array<Certification>();
-    const parser = new JSDOM(html);
-    var tableRows = parser.window.document.querySelectorAll("table tr");
+    //const parser = new JSDOM(html);
+    var tableRows = [] // parser.window.document.querySelectorAll("table tr");
     tableRows.forEach(row => {
         items.push(toCertification(row, certData.category, certData.subcategory));
     });
-    logger.log(`Extracted ${items.length}/${tableRows.length - 1} Cloud certifications - ${certData.subcategory}`);
+    //logger.log(`Extracted ${items.length}/${tableRows.length - 1} Cloud certifications - ${certData.subcategory}`);
     return items;
 }
 

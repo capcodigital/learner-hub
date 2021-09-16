@@ -69,8 +69,8 @@ export async function getFromFirestoreByPlatformAsList(platform: string
 }
 
 export async function getFromFirestoreByCategoryAsList(
-    category: string,
-    subcategory: string
+    category: string | null,
+    subcategory: string | null
 ): Promise<Certification[]> {
     try {
         const snapshot = await getSnapshotForCategory(category, subcategory);
@@ -127,8 +127,8 @@ export async function updateRating(
 }
 
 async function getSnapshotForCategory(
-    category: string,
-    subcategory: string
+    category: string | null,
+    subcategory: string | null
 ): Promise<FirebaseFirestore.QuerySnapshot> {
     try {
         var snapshot = null;

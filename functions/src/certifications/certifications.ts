@@ -24,8 +24,8 @@ export async function getFromFirestoreByPlatform(
 
 // Sends response with certifications from firestore by category & subcategory as json
 export async function getFromFirestoreByCategory(
-    category: string,
-    subcategory: string,
+    category: string | null,
+    subcategory: string | null,
     res: functions.Response) {
     try {
         const items = await certRepo.getFromFirestoreByCategoryAsList(category, subcategory);
@@ -37,6 +37,12 @@ export async function getFromFirestoreByCategory(
         res.statusCode = 500;
         res.send(jsend.error());
     }
+}
+
+// Sends response with all certifications from firestore as json
+export async function getAllFromFirestore(
+    res: functions.Response) {
+    return getFromFirestoreByCategory(null, null, res);
 }
 
 // Updates a certification in firestore
