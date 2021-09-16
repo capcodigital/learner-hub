@@ -5,7 +5,7 @@ import { getUrl } from "./certifications/catalog_entry";
 import * as certifFuncs from "./certifications/certifications";
 import { getUserCertifications } from "./certifications/certifications_repository";
 import * as userFuncs from "./users/users";
-import { syncAllCertifications } from "./certifications/syncCertifications";
+//import { syncAllCertifications } from "./certifications/syncCertifications";
 import * as admin from "firebase-admin";
 import { saveSkills, getUserSkills } from "./skills/skills-controller";
 import * as jsend from "./jsend";
@@ -74,14 +74,14 @@ app.get("/certifications", async (req: Request, res: Response) => {
 
 // Gets the certifications from Confluence, saves them to Firestore and returns them as json
 app.get("/certifications/all", async (req: Request, res: Response) => {
-    try {
-        const data = await syncAllCertifications();
-        res.status(200).send(jsend.successGetCertifs(data));
-    }
-    catch (error) {
-        functions.logger.log(`Error when syncing all certifications: ${error}`);
-        res.status(500).send(jsend.error());
-    }
+    // try {
+    //     const data = await syncAllCertifications();
+    //     res.status(200).send(jsend.successGetCertifs(data));
+    // }
+    // catch (error) {
+    //     functions.logger.log(`Error when syncing all certifications: ${error}`);
+    //     res.status(500).send(jsend.error());
+    // }
 });
 
 app.put("/certifications/update", async (req: Request, res: Response) => {
