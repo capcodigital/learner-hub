@@ -1,8 +1,7 @@
 /* eslint-disable require-jsdoc */
 import * as admin from 'firebase-admin';
-//import { logger } from 'firebase-functions/v1';
 
-const TABLE_CERTIFICATION_SUMMARIES = "CertificationSummaries";
+const TABLE_CERTIFICATION_SUMMARIES = "Certification Summaries";
 
 export async function getAlCertificationSummaries(): Promise<CertificationSummary[]> {
     const snapshot = await admin.firestore()
