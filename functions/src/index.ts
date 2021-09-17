@@ -1,6 +1,6 @@
 import * as functions from "firebase-functions";
 import express, { Request, Response } from "express";
-// import { validateFirebaseIdToken } from "./auth-middleware";
+import { validateFirebaseIdToken } from "./auth-middleware";
 import * as certifFuncs from "./certifications/certifications";
 import * as certSummaryFuncs from "./certification_summaries/certification_summary_funcs";
 import { getUserCertifications } from "./certifications/certifications_repository";
@@ -16,7 +16,7 @@ export const register = express();
 
 // Initialize and configure Express server
 export const app = express();
-// app.use(validateFirebaseIdToken);
+app.use(validateFirebaseIdToken);
 
 app.get("/me", (req: Request, res: Response) => {
     // Sample code to test the auth middleware
@@ -81,12 +81,18 @@ app.put("/certifications/update", async (req: Request, res: Response) => {
 
 // CERTIFICATION SUMMARY ENDPOINTS
 
-// Returns all certifications from Firestore and returns them as json
+// Returns all certification summaries from firestore as json
 app.get("/certificationSummary", async (req: Request, res: Response) => {
     certSummaryFuncs.getAllCertificationSummaries(res);
 });
 
-// Returns all certifications from Firestore and returns them as json
+// Returns a certifications by id
+app.get("/certificationSummary/:id", async (req: Request, res: Response) => {
+    const id = req.params.id as string;
+    certSummaryFuncs.getCertificationSummary(id, res);
+});
+
+// Adds a certification summary to firestore
 app.post("/certificationSummary", async (req: Request, res: Response) => {
     const summary = req.body as any;
     certSummaryFuncs.addCertificationSummary(summary, res);

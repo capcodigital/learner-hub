@@ -8,49 +8,56 @@ export async function getAlCertificationSummaries(): Promise<CertificationSummar
     const snapshot = await admin.firestore()
         .collection(TABLE_CERTIFICATION_SUMMARIES)
         .get();
-    return toCertificationSummaries(snapshot);
+    return toSummaries(snapshot);
 }
 
-export async function saveSummary(item: CertificationSummary) {
+export async function getCertificationSummary(id: string): Promise<CertificationSummary> {
+    const collection = admin.firestore().collection(TABLE_CERTIFICATION_SUMMARIES);
+    const doc = collection.doc(id);
+    const docRef = await doc.get();
+    if (!docRef.exists) throw Error("Certification Summary does not exist");
+    else return docRef.data() as CertificationSummary
+}
+
+export async function saveSummary(summary: any) {
     const db = admin.firestore();
     const collection = db.collection(TABLE_CERTIFICATION_SUMMARIES);
-    collection
-        .where("title", "==", item.title)
+    collection.where("title", "==", summary.title)
         .get()
         .then(async (snap) => {
             if (snap.empty) {
-                addCertificationSummary(collection, item);
-            } else {
-                // If item exists, udpate fields
+                addSummary(collection, summary);
+            }
+            else {
                 snap.forEach(it => {
                     collection.doc(it.id).update({
-                        platform: filter(item.platform),
-                        category: filter(item.category),
-                        //subcategory: filter(item.subcategory),
-                        //date: filter(item.date),
+                        category: filter(summary["category"]),
+                        platform: filter(summary["platform"]),
+                        title: filter(summary["title"]),
+                        description: filter(summary["description"]),
+                        link: filter(summary["link"]),
+                        image: filter(summary["image"])
                     })
                 })
             }
         });
 }
 
-function addCertificationSummary(
+function addSummary(
     collection: FirebaseFirestore.CollectionReference,
-    item: CertificationSummary
+    summary: any
 ) {
     collection.doc().create({
-        //username: filter(item.username),
-        platform: filter(item.platform),
-        title: filter(item.title),
-        category: filter(item.category),
-        //subcategory: filter(item.subcategory),
-        //date: filter(item.date),
-        description: filter(item.description),
-        //rating: item.rating,
+        category: filter(summary["category"]),
+        platform: filter(summary["platform"]),
+        title: filter(summary["title"]),
+        description: filter(summary["description"]),
+        link: filter(summary["link"]),
+        image: filter(summary["image"])
     });
 }
 
-async function toCertificationSummaries(snapshot: FirebaseFirestore.QuerySnapshot):
+async function toSummaries(snapshot: FirebaseFirestore.QuerySnapshot):
     Promise<CertificationSummary[]> {
     const results = Array<CertificationSummary>();
     if (!snapshot.empty) {

@@ -2,14 +2,29 @@
 import * as functions from "firebase-functions";
 import { logger } from "firebase-functions";
 import * as jsend from "../jsend";
-import * as certRepo from "./certification_summary_repository";
+import * as summaryRepo from "./certification_summary_repository";
 
 export async function getAllCertificationSummaries(res: functions.Response) {
     try {
-        const items = await certRepo.getAlCertificationSummaries();
+        const items = await summaryRepo.getAlCertificationSummaries();
         res.setHeader('Content-Type', 'application/json');
         res.statusCode = 200;
-        res.send(jsend.successGetCertifs(items));
+        res.send(jsend.successGetSummaries(items));
+    } catch (e) {
+        logger.log(e)
+        res.statusCode = 500;
+        res.send(jsend.error());
+    }
+}
+
+export async function getCertificationSummary(
+    id: string,
+    res: functions.Response) {
+    try {
+        const summary = await summaryRepo.getCertificationSummary(id);
+        res.setHeader('Content-Type', 'application/json');
+        res.statusCode = 200;
+        res.send(jsend.successGetSummaries([summary]));
     } catch (e) {
         logger.log(e)
         res.statusCode = 500;
@@ -21,10 +36,10 @@ export async function addCertificationSummary(
     summary: any,
     res: functions.Response) {
     try {
-        const items = await certRepo.getAlCertificationSummaries();
+        summaryRepo.saveSummary(summary);
         res.setHeader('Content-Type', 'application/json');
         res.statusCode = 200;
-        res.send(jsend.successGetCertifs(items));
+        res.send(jsend.success("Certification summary added successfuly"));
     } catch (e) {
         logger.log(e)
         res.statusCode = 500;

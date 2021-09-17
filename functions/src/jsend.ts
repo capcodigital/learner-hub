@@ -1,3 +1,6 @@
+export function successGetSummaries(values: any[]) {
+    return successGetItems("certification summaries", values);
+}
 
 export function successGetCertifs(values: any[]) {
     return successGetItems("certifications", values);
