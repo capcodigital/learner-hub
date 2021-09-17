@@ -1,7 +1,8 @@
 import * as functions from "firebase-functions";
 import express, { Request, Response } from "express";
-import { validateFirebaseIdToken } from "./auth-middleware";
+// import { validateFirebaseIdToken } from "./auth-middleware";
 import * as certifFuncs from "./certifications/certifications";
+import * as certSummaryFuncs from "./certification_summaries/certification_summary_funcs";
 import { getUserCertifications } from "./certifications/certifications_repository";
 import * as userFuncs from "./users/users";
 import * as admin from "firebase-admin";
@@ -15,7 +16,7 @@ export const register = express();
 
 // Initialize and configure Express server
 export const app = express();
-app.use(validateFirebaseIdToken);
+// app.use(validateFirebaseIdToken);
 
 app.get("/me", (req: Request, res: Response) => {
     // Sample code to test the auth middleware
@@ -25,6 +26,8 @@ app.get("/me", (req: Request, res: Response) => {
         }
     );
 });
+
+// CERTIFICATION ENDPOINTS
 
 app.get("/me/certifications", async (req: Request, res: Response) => {
     try {
@@ -75,6 +78,21 @@ app.put("/certifications/update", async (req: Request, res: Response) => {
     const props = req.body as any;
     certifFuncs.updateInFirestore(title, id, props, res);
 });
+
+// CERTIFICATION SUMMARY ENDPOINTS
+
+// Returns all certifications from Firestore and returns them as json
+app.get("/certificationSummary", async (req: Request, res: Response) => {
+    certSummaryFuncs.getAllCertificationSummaries(res);
+});
+
+// Returns all certifications from Firestore and returns them as json
+app.post("/certificationSummary", async (req: Request, res: Response) => {
+    const summary = req.body as any;
+    certSummaryFuncs.addCertificationSummary(summary, res);
+});
+
+// SKILL ENDPOINTS
 
 app.get("/skills/all", async (req: Request, res: Response) => {
     // Get userId from the query string
@@ -165,6 +183,8 @@ app.put("/skills", async (req: Request, res: Response) => {
         res.status(400).send(jsend.error("Bad request"));
     }
 });
+
+// USER ENDPOINTS
 
 // Endpoint to SIGNUP a user (add in firebase auth & firestore users collection)
 register.post("/users/signup", async (req: Request, res: Response) => {

@@ -4,7 +4,7 @@ import * as axios from 'axios';
 import { logger } from "firebase-functions";
 import * as jsend from "../jsend";
 import * as certRepo from "./certifications_repository";
-import * as parser from "./certification_summary_parser";
+import * as parser from "../certification_summaries/certification_summary_parser";
 
 // Sends response with certifications from firestore by platform as json
 export async function getFromFirestoreByPlatform(
