@@ -29,14 +29,7 @@ export async function saveSummary(summary: any) {
             }
             else {
                 snap.forEach(it => {
-                    collection.doc(it.id).update({
-                        category: filter(summary["category"]),
-                        platform: filter(summary["platform"]),
-                        title: filter(summary["title"]),
-                        description: filter(summary["description"]),
-                        link: filter(summary["link"]),
-                        image: filter(summary["image"])
-                    })
+                    collection.doc(it.id).update(toFirestoreItem(summary))
                 })
             }
         });
@@ -46,14 +39,18 @@ function addSummary(
     collection: FirebaseFirestore.CollectionReference,
     summary: any
 ) {
-    collection.doc().create({
+    collection.doc().create(toFirestoreItem(summary));
+}
+
+function toFirestoreItem(summary: any) {
+    return {
         category: filter(summary["category"]),
         platform: filter(summary["platform"]),
         title: filter(summary["title"]),
         description: filter(summary["description"]),
         link: filter(summary["link"]),
         image: filter(summary["image"])
-    });
+    }
 }
 
 async function toSummaries(snapshot: FirebaseFirestore.QuerySnapshot):
