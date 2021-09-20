@@ -19,6 +19,8 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(CloudCertificationModelAdapter());
   await Firebase.initializeApp();
+  // Initialize Local Auth Emulator if necessary
+  // await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
   await di.init();
   runApp(MyApp());
 }

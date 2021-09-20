@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_confluence/core/auth/auth_failures.dart';
 import 'package:flutter_confluence/core/constants.dart';
 import 'package:flutter_confluence/features/onboarding/domain/usecases/check_auth_use_case.dart';
 
@@ -45,7 +46,7 @@ class OnBoardingBloc extends Bloc<OnBoardingEvent, OnBoardingState> {
   }
 
   String _mapFailureToMessage(AuthFailure failure) {
-    switch (failure.code) {
+    switch (failure.reason) {
       case auth_error.notEnrolled:
         return Constants.BIO_AUTH_NOT_ENROLLED;
       case auth_error.notAvailable:

@@ -1,4 +1,6 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_confluence/core/auth/auth_manager.dart';
 import 'package:flutter_confluence/core/device.dart';
 import 'package:flutter_confluence/features/onboarding/domain/usecases/check_auth_use_case.dart';
 import 'package:get_it/get_it.dart';
@@ -6,6 +8,7 @@ import 'package:local_auth/local_auth.dart';
 import 'package:platform/platform.dart';
 import 'package:http/http.dart' as http;
 
+import 'core/auth/firebase_auth_manager.dart';
 import 'features/certifications/data/datasources/certification_hive_helper.dart';
 import 'features/certifications/domain/usecases/search_certifications.dart';
 import 'features/onboarding/data/datasources/bio_auth_hive_helper.dart';
@@ -33,6 +36,10 @@ Future<void> init() async {
   sl.registerLazySingleton(() => SearchCertifications(sl()));
   sl.registerLazySingleton(() => CertificationHiveHelper());
   sl.registerLazySingleton(() => BioAuthHiveHelper());
+
+
+  sl.registerLazySingleton(() => FirebaseAuth.instance);
+  sl.registerLazySingleton<AuthManager>(() => FirebaseAuthManager(auth: sl()));
 
   sl.registerLazySingleton<CloudCertificationRepository>(
     () => CloudCertificationsRepositoryImpl(

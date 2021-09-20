@@ -5,7 +5,6 @@ import 'package:flutter_confluence/features/onboarding/data/datasources/on_board
 import 'package:flutter_test/flutter_test.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:flutter_confluence/features/onboarding/data/datasources/on_boarding_local_data_source.dart';
 
 class MockBioAuthHiveHelper extends Mock implements BioAuthHiveHelper {}
 

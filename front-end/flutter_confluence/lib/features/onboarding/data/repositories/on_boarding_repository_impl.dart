@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_confluence/core/auth/auth_failures.dart';
 import 'package:flutter_confluence/core/error/custom_exceptions.dart';
 
 import '../../../../core/error/failures.dart';
