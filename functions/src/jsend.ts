@@ -1,5 +1,5 @@
 export function successGetSummaries(values: any[]) {
-    return successGetItems("certification summaries", values);
+    return successGetItems("certificationSummaries", values);
 }
 
 export function successGetCertifs(values: any[]) {

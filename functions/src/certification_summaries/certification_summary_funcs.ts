@@ -11,7 +11,7 @@ export async function getAllCertificationSummaries(res: functions.Response) {
         res.statusCode = 200;
         res.send(jsend.successGetSummaries(items));
     } catch (e) {
-        logger.log(e)
+        logger.log(e);
         res.statusCode = 500;
         res.send(jsend.error());
     }
@@ -26,9 +26,9 @@ export async function getCertificationSummary(
         res.statusCode = 200;
         res.send(jsend.successGetSummaries([summary]));
     } catch (e) {
-        logger.log(e)
-        res.statusCode = 500;
-        res.send(jsend.error());
+        logger.log(e);
+        res.statusCode = 404;
+        res.send(jsend.error("Certification does not exist"));
     }
 }
 
@@ -38,10 +38,10 @@ export async function addCertificationSummary(
     try {
         summaryRepo.saveSummary(summary as CertificationSummary);
         res.setHeader('Content-Type', 'application/json');
-        res.statusCode = 200;
+        res.statusCode = 201;
         res.send(jsend.success("Certification summary added successfuly"));
     } catch (e) {
-        logger.log(e)
+        logger.log(e);
         res.statusCode = 500;
         res.send(jsend.error());
     }
