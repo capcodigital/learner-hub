@@ -2,13 +2,12 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:mocktail/mocktail.dart' as Mocktail;
-
 import 'package:flutter_confluence/core/constants.dart';
-import 'package:flutter_confluence/features/certifications/presentation/pages/error_page.dart';
 import 'package:flutter_confluence/features/certifications/domain/entities/cloud_certification_type.dart';
 import 'package:flutter_confluence/features/certifications/presentation/bloc/cloud_certification_bloc.dart';
+import 'package:flutter_confluence/features/certifications/presentation/pages/error_page.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart' as Mocktail;
 
 class MockCertificationBloc
     extends MockBloc<CloudCertificationEvent, CloudCertificationState>
@@ -62,7 +61,7 @@ void main() {
     final Error error = Error(
         message: Constants.SERVER_FAILURE_MSG,
         cloudCertificationType: CloudCertificationType.completed);
-    CloudCertificationBloc mockBloc = MockCertificationBloc();
+    final CloudCertificationBloc mockBloc = MockCertificationBloc();
     whenListen(mockBloc, Stream.fromIterable([Empty()]),
         initialState: error);
 
@@ -96,7 +95,7 @@ void main() {
     final Error error = Error(
         message: Constants.SERVER_FAILURE_MSG,
         cloudCertificationType: CloudCertificationType.in_progress);
-    CloudCertificationBloc mockBloc = MockCertificationBloc();
+    final CloudCertificationBloc mockBloc = MockCertificationBloc();
     whenListen(mockBloc, Stream.fromIterable([Empty()]), initialState: error);
 
     // act

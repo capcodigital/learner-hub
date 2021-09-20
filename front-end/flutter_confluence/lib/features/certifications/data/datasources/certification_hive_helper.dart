@@ -32,7 +32,7 @@ class CertificationHiveHelper {
   _save(String boxName, List<CloudCertificationModel> models) async {
     final box = await Hive.openBox<CloudCertificationModel>(boxName);
     box.clear();
-    for (CloudCertificationModel model in models) {
+    for (final CloudCertificationModel model in models) {
       box.add(model);
     }
     box.close();

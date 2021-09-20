@@ -1,5 +1,6 @@
-import 'package:flutter/foundation.dart' show kIsWeb;
 import 'dart:io' show Platform;
+
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
@@ -15,15 +16,15 @@ import '../../../certifications/presentation/pages/home_page.dart';
 import '../bloc/on_boarding_bloc.dart';
 
 class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
-  static const route = "OnBoardingPage";
+  static const route = 'OnBoardingPage';
 
-  static const msgTrainingTypes = "Training Types";
+  static const msgTrainingTypes = 'Training Types';
   static const msgCardDescription =
-      "See the name, the date, the title of certification";
+      'See the name, the date, the title of certification';
   static const msgDescription =
-      "See all your co-workers certifications within a swipe";
-  static const msgAuthenticate = "Authenticate";
-  static const msgAuthenticateNotSupported = "Continue";
+      'See all your co-workers certifications within a swipe';
+  static const msgAuthenticate = 'Authenticate';
+  static const msgAuthenticateNotSupported = 'Continue';
 
   bool get isAuthSupported => !kIsWeb && (Platform.isIOS || Platform.isAndroid);
 
@@ -73,13 +74,13 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
         height: getMediaHeight(context),
         decoration: BoxDecoration(
             image: DecorationImage(
-                image: AssetImage("assets/back-layer.png"), fit: BoxFit.cover)),
+                image: AssetImage('assets/back-layer.png'), fit: BoxFit.cover)),
         child: LayoutBuilder(
             builder: (BuildContext ctx, BoxConstraints constraints) {
-          final frontLayerTop = isPortrait((context))
+          final frontLayerTop = isPortrait(context)
               ? constraints.maxWidth * Dimen.scale_64_100
               : constraints.maxWidth * Dimen.scale_12_100;
-          final frontLayerLeft = isPortrait((context))
+          final frontLayerLeft = isPortrait(context)
               ? constraints.maxWidth * Dimen.scale_22_100
               : constraints.maxWidth * Dimen.scale_35_100;
           return Stack(children: <Widget>[
@@ -234,7 +235,7 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
 
   List<Widget> getPlatformIcons(
       double parentWidth, BoxConstraints constraints) {
-    List<Widget> icons = [];
+    final List<Widget> icons = [];
     icons.add(buildPlatformIcon(Constants.IC_AWS, constraints));
     icons.add(buildPlatformIcon(Constants.IC_AZURE, constraints));
     icons.add(buildPlatformIcon(Constants.IC_GCP, constraints));

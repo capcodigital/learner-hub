@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_confluence/core/constants.dart';
@@ -5,11 +7,9 @@ import 'package:flutter_confluence/core/dimen.dart';
 import 'package:flutter_confluence/core/utils/media_util.dart';
 import 'package:flutter_confluence/features/certifications/presentation/bloc/cloud_certification_bloc.dart';
 
-import 'dart:math' as math;
-
 class ToggleButton extends StatefulWidget {
-  static const TXT_COMPLETED = "Completed";
-  static const TXT_IN_PROGRESS = "In Progress";
+  static const TXT_COMPLETED = 'Completed';
+  static const TXT_IN_PROGRESS = 'In Progress';
 
   @override
   _ToggleButtonState createState() => _ToggleButtonState();

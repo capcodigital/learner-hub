@@ -1,14 +1,15 @@
 import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_confluence/core/constants.dart';
 import 'package:flutter_confluence/features/onboarding/domain/usecases/check_auth_use_case.dart';
+import 'package:local_auth/error_codes.dart' as auth_error;
 
 import '../../../../core/error/failures.dart';
 import '../../../../core/usecases/usecase.dart';
 import '../../domain/usecases/auth_use_case.dart';
-import 'package:local_auth/error_codes.dart' as auth_error;
 
 part 'on_boarding_event.dart';
 part 'on_boarding_state.dart';

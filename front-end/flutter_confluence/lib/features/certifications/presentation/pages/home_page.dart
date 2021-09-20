@@ -1,16 +1,18 @@
 import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_confluence/core/dimen.dart';
 import 'package:flutter_confluence/core/utils/media_util.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+
 import '../../../../core/constants.dart';
-import 'error_page.dart';
-import '../widgets/empty_search.dart';
-import '../widgets/searchbox.dart';
 import '../bloc/cloud_certification_bloc.dart';
 import '../widgets/certifications_view.dart';
+import '../widgets/empty_search.dart';
+import '../widgets/searchbox.dart';
 import '../widgets/toggle-switch.dart';
+import 'error_page.dart';
 
 class HomePage extends StatefulWidget {
   static const route = 'HomePage';
@@ -60,7 +62,7 @@ class _HomePageState extends State<HomePage> {
             constraints: BoxConstraints.expand(),
             decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage("assets/back-layer.png"),
+                    image: AssetImage('assets/back-layer.png'),
                     fit: BoxFit.cover)),
             child: LayoutBuilder(
                 builder: (BuildContext ctx, BoxConstraints constraints) {
@@ -143,7 +145,7 @@ class _HomePageState extends State<HomePage> {
         ),
         BlocConsumer<CloudCertificationBloc, CloudCertificationState>(
             builder: (context, state) {
-          log("HOME PAGE - New State received: " + state.toString());
+          log('HOME PAGE - New State received: ' + state.toString());
           if (state is Loaded) {
             return Expanded(child: CertificationsView(items: state.items));
           } else if (state is Loading)

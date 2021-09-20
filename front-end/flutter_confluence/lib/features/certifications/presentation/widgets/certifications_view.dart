@@ -4,7 +4,7 @@ import 'list_row.dart';
 
 class CertificationsView extends StatelessWidget {
   final List<CloudCertification> items;
-  CertificationsView({required this.items});
+  const CertificationsView({required this.items});
 
   @override
   Widget build(BuildContext context) {

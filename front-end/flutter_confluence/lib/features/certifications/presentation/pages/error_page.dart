@@ -9,13 +9,13 @@ import '../../../../core/constants.dart';
 import '../../../../core/dimen.dart';
 
 class ErrorPage extends StatelessWidget {
-  static const route = "ErrorPage";
-  static const msgTitle = "Oops!";
-  static const msgTryAgain = "Try Again";
+  static const route = 'ErrorPage';
+  static const msgTitle = 'Oops!';
+  static const msgTryAgain = 'Try Again';
 
   final Error error;
 
-  ErrorPage({required this.error});
+  const ErrorPage({required this.error});
 
   void tryAgain(BuildContext context) {
     switch (error.cloudCertificationType) {

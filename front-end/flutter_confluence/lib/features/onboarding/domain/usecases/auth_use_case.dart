@@ -9,6 +9,7 @@ class AuthUseCase implements UseCase<bool, NoParams> {
 
   AuthUseCase(this.repository);
 
+  @override
   Future<Either<Failure, bool>> call(NoParams noParams) async {
     return await repository.authenticate();
   }

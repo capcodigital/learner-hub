@@ -33,7 +33,7 @@ void main() {
     test(
       'should return a list of completed certifications when the response code is 200 (success)',
       () async {
-        setUpMockHttpClient("completed.json");
+        setUpMockHttpClient('completed.json');
         final result = await dataSource.getCompletedCertifications();
         expect(result.length, equals(NUM_OF_COMPLETED_CERT));
       },
@@ -43,7 +43,7 @@ void main() {
       'should return a generic ServerException when status code is '
       'not 200 (success), 500, 404',
       () {
-        setUpMockHttpClient("completed.json", statusCode: STATUS_CODE_224);
+        setUpMockHttpClient('completed.json', statusCode: STATUS_CODE_224);
         expect(
             () async => await dataSource.getCompletedCertifications(),
             throwsA(predicate((e) =>
@@ -55,7 +55,7 @@ void main() {
     test(
       'should return a ServerException for 500 when status code is 500',
       () {
-        setUpMockHttpClient("completed.json", statusCode: Constants.STATUS_CODE_500);
+        setUpMockHttpClient('completed.json', statusCode: Constants.STATUS_CODE_500);
         expect(
             () async => await dataSource.getCompletedCertifications(),
             throwsA(predicate((e) =>
@@ -67,7 +67,7 @@ void main() {
     test(
       'should return a ServerException for 404 when status code is 404',
       () {
-        setUpMockHttpClient("completed.json", statusCode: Constants.STATUS_CODE_404);
+        setUpMockHttpClient('completed.json', statusCode: Constants.STATUS_CODE_404);
         expect(
             () async => await dataSource.getCompletedCertifications(),
             throwsA(predicate((e) =>
@@ -81,7 +81,7 @@ void main() {
     test(
       'should return a list of in progress certifications when the response code is 200 (success)',
       () async {
-        setUpMockHttpClient("in_progress.json");
+        setUpMockHttpClient('in_progress.json');
         final result = await dataSource.getInProgressCertifications();
         expect(result.length, equals(NUM_OF_IN_PROGRESS_CERT));
       },
@@ -91,7 +91,7 @@ void main() {
       'should return a generic ServerException when status code is not 200 (success),'
       '500, 404',
       () {
-        setUpMockHttpClient("in_progress.json", statusCode: STATUS_CODE_357);
+        setUpMockHttpClient('in_progress.json', statusCode: STATUS_CODE_357);
         expect(
             () async => await dataSource.getInProgressCertifications(),
             throwsA(predicate((e) =>
@@ -103,7 +103,7 @@ void main() {
     test(
       'should return a ServerException for 500 when status code is 500',
           () {
-        setUpMockHttpClient("in_progress.json", statusCode: Constants.STATUS_CODE_500);
+        setUpMockHttpClient('in_progress.json', statusCode: Constants.STATUS_CODE_500);
         expect(
                 () async => await dataSource.getInProgressCertifications(),
             throwsA(predicate((e) =>
@@ -115,7 +115,7 @@ void main() {
     test(
       'should return a ServerException for 404 when status code is 404',
       () {
-        setUpMockHttpClient("in_progress.json", statusCode: Constants.STATUS_CODE_404);
+        setUpMockHttpClient('in_progress.json', statusCode: Constants.STATUS_CODE_404);
         expect(
             () async => await dataSource.getInProgressCertifications(),
             throwsA(predicate((e) =>

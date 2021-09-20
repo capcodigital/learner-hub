@@ -6,8 +6,8 @@ import 'package:flutter_confluence/features/certifications/domain/entities/cloud
 import 'package:flutter_confluence/features/certifications/presentation/bloc/cloud_certification_bloc.dart';
 
 class EmptySearch extends StatelessWidget {
-  static const TXT_NO_RESULTS = "No results found";
-  static const TXT_CLEAR = "Clear";
+  static const TXT_NO_RESULTS = 'No results found';
+  static const TXT_CLEAR = 'Clear';
 
   final CloudCertificationType type;
   final TextEditingController searchController;

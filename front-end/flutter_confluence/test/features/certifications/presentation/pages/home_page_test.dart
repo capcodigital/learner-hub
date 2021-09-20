@@ -2,19 +2,18 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_confluence/core/components/custom_appbar.dart';
-import 'package:mocktail/mocktail.dart' as Mocktail;
-import 'package:flutter_test/flutter_test.dart';
-
 import 'package:flutter_confluence/core/constants.dart';
-import 'package:flutter_confluence/features/certifications/presentation/pages/error_page.dart';
 import 'package:flutter_confluence/features/certifications/domain/entities/cloud_certification_type.dart';
 import 'package:flutter_confluence/features/certifications/presentation/bloc/cloud_certification_bloc.dart';
+import 'package:flutter_confluence/features/certifications/presentation/pages/error_page.dart';
 import 'package:flutter_confluence/features/certifications/presentation/pages/home_page.dart';
 import 'package:flutter_confluence/features/certifications/presentation/widgets/certifications_view.dart';
 import 'package:flutter_confluence/features/certifications/presentation/widgets/empty_search.dart';
 import 'package:flutter_confluence/features/certifications/presentation/widgets/searchbox.dart';
 import 'package:flutter_confluence/features/certifications/presentation/widgets/toggle-switch.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart' as Mocktail;
 
 import '../../../../fixtures/FixtureReader.dart';
 
@@ -36,10 +35,10 @@ void main() {
   testWidgets('Home Page shows Certifications ListView when bloc emits Loaded',
       (WidgetTester tester) async {
     // arrange
-    Loaded loaded = Loaded(
+    final Loaded loaded = Loaded(
         items: getMockCompletedCertifications(),
         cloudCertificationType: CloudCertificationType.completed);
-    CloudCertificationBloc mockBloc = MockCertificationBloc();
+    final CloudCertificationBloc mockBloc = MockCertificationBloc();
     whenListen(mockBloc, Stream.fromIterable([Empty()]), initialState: loaded);
 
     // act
@@ -78,7 +77,7 @@ void main() {
   testWidgets('Home Page shows Loading Widget when bloc emits Loading',
       (WidgetTester tester) async {
     // arrange
-    CloudCertificationBloc mockBloc = MockCertificationBloc();
+    final CloudCertificationBloc mockBloc = MockCertificationBloc();
     whenListen(mockBloc, Stream.fromIterable([Empty()]),
         initialState: Loading());
 
@@ -114,7 +113,7 @@ void main() {
   testWidgets('Home Page shows No Results Text when bloc emits Empty',
       (WidgetTester tester) async {
     // arrange
-    CloudCertificationBloc mockBloc = MockCertificationBloc();
+    final CloudCertificationBloc mockBloc = MockCertificationBloc();
     whenListen(mockBloc, Stream.fromIterable([Empty()]), initialState: Empty());
 
     // act
@@ -148,7 +147,7 @@ void main() {
       'Home Page shows Unknown Error Text when bloc emits Unknown State',
       (WidgetTester tester) async {
     // arrange
-    CloudCertificationBloc mockBloc = MockCertificationBloc();
+    final CloudCertificationBloc mockBloc = MockCertificationBloc();
     whenListen(mockBloc, Stream.fromIterable([Empty()]),
         initialState: UnknownState());
 
@@ -182,7 +181,7 @@ void main() {
   testWidgets('Home Page shows EmptySearch when bloc emits EmptySearchResult',
       (WidgetTester tester) async {
     // arrange
-    CloudCertificationBloc mockBloc = MockCertificationBloc();
+    final CloudCertificationBloc mockBloc = MockCertificationBloc();
     whenListen(mockBloc, Stream.fromIterable([Empty()]),
         initialState: EmptySearchResult(
             cloudCertificationType: CloudCertificationType.completed));
@@ -226,7 +225,7 @@ void main() {
     final Loaded loaded = Loaded(
         items: getMockCompletedCertifications(),
         cloudCertificationType: CloudCertificationType.completed);
-    CloudCertificationBloc mockBloc = MockCertificationBloc();
+    final CloudCertificationBloc mockBloc = MockCertificationBloc();
     whenListen(mockBloc, Stream.fromIterable([loaded]), initialState: error);
 
     // act
@@ -295,7 +294,7 @@ void main() {
         items: getMockCompletedCertifications(),
         cloudCertificationType: CloudCertificationType.completed);
 
-    CloudCertificationBloc mockBloc = MockCertificationBloc();
+    final CloudCertificationBloc mockBloc = MockCertificationBloc();
     whenListen(mockBloc, Stream.fromIterable([loadedCompleted]),
         initialState: loadedInProgress);
 

@@ -184,7 +184,7 @@ void main() {
           .thenThrow(CacheException());
 
       // act
-      var certifications = await repository.getInProgressCertifications();
+      final certifications = await repository.getInProgressCertifications();
 
       // assert
       verifyZeroInteractions(mockRemoteDataSource);
@@ -200,7 +200,7 @@ void main() {
           .thenThrow(CacheException());
 
       // act
-      var certifications = await repository.getCompletedCertifications();
+      final certifications = await repository.getCompletedCertifications();
 
       // assert
       verifyZeroInteractions(mockRemoteDataSource);
@@ -217,8 +217,8 @@ void main() {
           .thenThrow(CacheException());
 
       // act
-      var result = await repository.searchCertifications(
-          "search term", CloudCertificationType.completed);
+      final result = await repository.searchCertifications(
+          'search term', CloudCertificationType.completed);
 
       // assert
       verify(() => mockLocalDataSource.getCompletedCertifications());
@@ -233,8 +233,8 @@ void main() {
           .thenAnswer((_) async => localCertifications);
 
       // act
-      var result = await repository.searchCertifications(
-          "", CloudCertificationType.completed);
+      final result = await repository.searchCertifications(
+          '', CloudCertificationType.completed);
 
       // assert
       verify(() => mockLocalDataSource.getCompletedCertifications());
@@ -247,8 +247,8 @@ void main() {
           .thenAnswer((_) async => localCertifications);
 
       // act
-      var result = await repository.searchCertifications(
-          "notfoundstring", CloudCertificationType.completed);
+      final result = await repository.searchCertifications(
+          'notfoundstring', CloudCertificationType.completed);
 
       // assert
       verify(() => mockLocalDataSource.getCompletedCertifications());
@@ -263,8 +263,8 @@ void main() {
           .thenAnswer((_) async => localCertifications);
 
       // act
-      var result = await repository.searchCertifications(
-          "Kenobi", CloudCertificationType.completed);
+      final result = await repository.searchCertifications(
+          'Kenobi', CloudCertificationType.completed);
 
       // assert
       verify(() => mockLocalDataSource.getCompletedCertifications());
@@ -279,8 +279,8 @@ void main() {
           .thenAnswer((_) async => localCertifications);
 
       // act
-      var result = await repository.searchCertifications(
-          "star", CloudCertificationType.completed);
+      final result = await repository.searchCertifications(
+          'star', CloudCertificationType.completed);
 
       // assert
       verify(() => mockLocalDataSource.getCompletedCertifications());
@@ -295,8 +295,8 @@ void main() {
           .thenAnswer((_) async => localCertifications);
 
       // act
-      var result = await repository.searchCertifications(
-          "Jedi", CloudCertificationType.completed);
+      final result = await repository.searchCertifications(
+          'Jedi', CloudCertificationType.completed);
 
       // assert
       verify(() => mockLocalDataSource.getCompletedCertifications());

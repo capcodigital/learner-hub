@@ -38,12 +38,12 @@ class _AppDrawerState extends State<AppDrawer>
 
   @override
   Widget build(BuildContext context) {
-    double maxSlide = 255;
+    const double maxSlide = 255;
     return AnimatedBuilder(
       builder: (context, _) {
-        double animationValue = _controller.value;
-        double translateValue = animationValue * maxSlide;
-        double scaleValue = 1 - (animationValue * 0.3);
+        final double animationValue = _controller.value;
+        final double translateValue = animationValue * maxSlide;
+        final double scaleValue = 1 - (animationValue * 0.3);
         return Stack(
           children: [
             CustomDrawer(),
@@ -88,15 +88,15 @@ class CustomDrawer extends StatelessWidget {
             data: ThemeData(brightness: Brightness.dark),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
+              children: const [
                 Padding(
-                    padding: const EdgeInsets.only(
+                    padding: EdgeInsets.only(
                         top: Dimen.dimen_48,
                         bottom: Dimen.dimen_48,
                         right: 0,
                         left: Dimen.dimen_32),
                     child: Image(
-                      image: AssetImage("assets/capco_logo.png"),
+                      image: AssetImage('assets/capco_logo.png'),
                     )),
                 MenuButton(
                   title: 'My Profile',

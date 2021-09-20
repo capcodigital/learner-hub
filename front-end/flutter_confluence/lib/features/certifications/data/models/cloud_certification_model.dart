@@ -5,8 +5,10 @@ part 'cloud_certification_model.g.dart';
 
 @HiveType(typeId: 1)
 class CloudCertificationModel extends CloudCertification with HiveObjectMixin {
+  @override
   @HiveField(0)
   final String name;
+  @override
   @HiveField(1)
   final String platform;
   @HiveField(2)
@@ -36,10 +38,10 @@ class CloudCertificationModel extends CloudCertification with HiveObjectMixin {
 
   Map<String, dynamic> toJson() {
     return {
-      'name': this.name,
-      'platform': this.platform,
-      'certification': this.certificationName,
-      'date': this.date,
+      'name': name,
+      'platform': platform,
+      'certification': certificationName,
+      'date': date,
     };
   }
 

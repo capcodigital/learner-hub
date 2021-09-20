@@ -10,7 +10,7 @@ class ListRow extends StatelessWidget {
   static const listRowIconBorderColor = Constants.JIRA_COLOR;
 
   final CloudCertification item;
-  ListRow({required this.item});
+  const ListRow({required this.item});
 
   @override
   Widget build(BuildContext context) {

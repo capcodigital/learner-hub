@@ -14,7 +14,7 @@ class ServerFailure extends Failure {
 class CacheFailure extends Failure {}
 
 class AuthFailure extends Failure {
-  static const CODE_GENERIC_FAILURE = "code_generic_failure";
+  static const CODE_GENERIC_FAILURE = 'code_generic_failure';
   final String code;
   AuthFailure(this.code);
 }

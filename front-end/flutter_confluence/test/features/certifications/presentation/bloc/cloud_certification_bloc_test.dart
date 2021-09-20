@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:bloc_test/bloc_test.dart';
+import 'package:dartz/dartz.dart';
 import 'package:flutter_confluence/core/constants.dart';
 import 'package:flutter_confluence/core/error/failures.dart';
 import 'package:flutter_confluence/core/usecases/usecase.dart';
@@ -9,12 +11,8 @@ import 'package:flutter_confluence/features/certifications/domain/usecases/get_c
 import 'package:flutter_confluence/features/certifications/domain/usecases/get_in_progress_certifications.dart';
 import 'package:flutter_confluence/features/certifications/domain/usecases/search_certifications.dart';
 import 'package:flutter_confluence/features/certifications/presentation/bloc/cloud_certification_bloc.dart';
-
-import 'package:mocktail/mocktail.dart';
-import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:dartz/dartz.dart';
+import 'package:mocktail/mocktail.dart';
 
 import '../../../../fixtures/FixtureReader.dart';
 
@@ -246,7 +244,7 @@ void main() {
       },
       act: (CloudCertificationBloc blo) => {
         blo.add(GetCompletedCertificationsEvent()),
-        blo.add(SearchCertificationsEvent("search"))
+        blo.add(SearchCertificationsEvent('search'))
       },
       expect: () => searchCompletedNoResults,
     );
@@ -261,7 +259,7 @@ void main() {
       },
       act: (CloudCertificationBloc blo) => {
         blo.add(GetCompletedCertificationsEvent()),
-        blo.add(SearchCertificationsEvent("search"))
+        blo.add(SearchCertificationsEvent('search'))
       },
       expect: () => searchCompletedWithResults,
     );

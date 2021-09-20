@@ -2,11 +2,10 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_confluence/features/certifications/presentation/bloc/cloud_certification_bloc.dart';
+import 'package:flutter_confluence/features/certifications/presentation/widgets/toggle-switch.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart' as Mocktail;
-
-import 'package:flutter_confluence/features/certifications/presentation/widgets/toggle-switch.dart';
-import 'package:flutter_confluence/features/certifications/presentation/bloc/cloud_certification_bloc.dart';
 
 class MockCertificationBloc
     extends MockBloc<CloudCertificationEvent, CloudCertificationState>
@@ -45,7 +44,7 @@ void main() {
 
   testWidgets('ToggleButton triggers expected events when tapped',
       (WidgetTester tester) async {
-    CloudCertificationBloc mockBloc = MockCertificationBloc();
+    final CloudCertificationBloc mockBloc = MockCertificationBloc();
     whenListen(mockBloc, Stream.fromIterable([Empty()]), initialState: Empty());
 
     // act

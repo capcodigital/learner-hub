@@ -3,8 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_confluence/core/error/custom_exceptions.dart';
 
 import '../../../../core/error/failures.dart';
-import '../datasources/on_boarding_local_data_source.dart';
 import '../../domain/repositories/on_boarding_repository.dart';
+import '../datasources/on_boarding_local_data_source.dart';
 
 class OnBoardingRepositoryImpl implements OnBoardingRepository {
   final OnBoardingLocalDataSource onBoardingDataSource;

@@ -33,8 +33,8 @@ class CloudCertificationBloc
   Stream<CloudCertificationState> mapEventToState(
     CloudCertificationEvent event,
   ) async* {
-    log(this.runtimeType.toString() +
-        " - New event received: " +
+    log(runtimeType.toString() +
+        ' - New event received: ' +
         event.runtimeType.toString());
 
     if (event is GetCompletedCertificationsEvent) {
@@ -67,7 +67,7 @@ class CloudCertificationBloc
   }
 
   Stream<CloudCertificationState> _getSearchState(String searchTerm) async* {
-    var searchParameters = SearchParams(
+    final searchParameters = SearchParams(
         searchQuery: searchTerm, dataType: state.cloudCertificationType);
 
     yield Loading();

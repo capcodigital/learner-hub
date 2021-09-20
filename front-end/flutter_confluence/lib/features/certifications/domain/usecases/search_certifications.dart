@@ -10,8 +10,9 @@ class SearchParams extends Equatable {
   final String searchQuery;
   final CloudCertificationType dataType;
 
-  SearchParams({required this.searchQuery, required this.dataType});
+  const SearchParams({required this.searchQuery, required this.dataType});
 
+  @override
   List<Object> get props => [searchQuery, dataType];
 }
 
@@ -20,6 +21,7 @@ class SearchCertifications implements UseCase<List<CloudCertification>, SearchPa
 
   SearchCertifications(this.repository);
 
+  @override
   Future<Either<Failure, List<CloudCertification>>> call(SearchParams searchParameters) async {
     return await repository.searchCertifications(searchParameters.searchQuery, searchParameters.dataType);
   }

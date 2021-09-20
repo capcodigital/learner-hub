@@ -11,7 +11,7 @@ class SearchBox extends StatelessWidget {
   final TextEditingController? controller;
 
   const SearchBox(
-      {this.hintText = "Search...",
+      {this.hintText = 'Search...',
       this.onSearchTermChanged,
       this.controller,
       this.onSearchSubmitted});
@@ -28,7 +28,7 @@ class SearchBox extends StatelessWidget {
                 : getHeight(context, Dimen.scale_13_100)),
         decoration: BoxDecoration(
             color: Colors.white,
-            boxShadow: [
+            boxShadow: const [
               BoxShadow(
                   color: Colors.black45,
                   blurRadius: 10.0,
@@ -39,8 +39,8 @@ class SearchBox extends StatelessWidget {
             builder: (BuildContext ctx, BoxConstraints constraints) {
           return TextField(
             controller: controller,
-            onChanged: (onSearchTermChanged),
-            onSubmitted: (onSearchSubmitted),
+            onChanged: onSearchTermChanged,
+            onSubmitted: onSearchSubmitted,
             decoration: InputDecoration(
                 border: InputBorder.none,
                 // These extra borders are required to work with web

@@ -50,7 +50,7 @@ void main() {
         // arrange
         stubMockAuthCase(true);
         // act
-        bloc.add((AuthEvent()));
+        bloc.add(AuthEvent());
         await untilCalled(() => mockAuthCase(any()));
         // assert
         verify(() => mockAuthCase(NoParams()));
@@ -90,7 +90,7 @@ void main() {
         // arrange
         stabMockCheckAuthCase(true);
         // act
-        bloc.add((CheckAuthEvent()));
+        bloc.add(CheckAuthEvent());
         await untilCalled(() => mockCheckAuthCase(any()));
         // assert
         verify(() => mockCheckAuthCase(NoParams()));
