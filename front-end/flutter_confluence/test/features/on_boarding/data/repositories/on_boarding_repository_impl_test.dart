@@ -35,7 +35,7 @@ void main() {
 
       // assert
       verify(() => mockDataSource.saveAuthTimeStamp()).called(1);
-      expect(result, equals(Right(true)));
+      expect(result, equals(const Right(true)));
     });
 
     test('Should return success for AuthNotSupportedPlatform', () async {
@@ -47,7 +47,7 @@ void main() {
       final result = await repository.authenticate();
 
       // assert
-      expect(result, equals(Right(true)));
+      expect(result, equals(const Right(true)));
     });
 
     test('Should return AuthFailure for Default Auth Error', () async {
@@ -113,7 +113,7 @@ void main() {
 
       // assert
       verify(() => mockDataSource.checkCachedAuth()).called(1);
-      expect(result, equals(Right(true)));
+      expect(result, equals(const Right(true)));
     });
 
     test('Should call checkCachedAuth and return auth expiration failure',

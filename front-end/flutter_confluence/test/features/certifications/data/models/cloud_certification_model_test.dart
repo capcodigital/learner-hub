@@ -4,7 +4,7 @@ import 'package:flutter_confluence/features/certifications/data/models/cloud_cer
 import 'package:flutter_confluence/features/certifications/domain/entities/cloud_certification.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import '../../../../fixtures/FixtureReader.dart';
+import '../../../../fixtures/fixture_reader.dart';
 
 void main() {
   final model = CloudCertificationModel(

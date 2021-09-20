@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:mocktail/mocktail.dart';
 
-import '../../../../fixtures/FixtureReader.dart';
+import '../../../../fixtures/fixture_reader.dart';
 
 class MockClient extends Mock implements http.Client {}
 
@@ -24,9 +24,11 @@ void main() {
     registerFallbackValue<Uri>(Uri());
   });
 
-  void setUpMockHttpClient(String fixtureName, {int statusCode = Constants.STATUS_CODE_200}) {
-    when(() => mockHttpClient.get(any(), headers: any(named: 'headers'))).thenAnswer(
-        (_) async => http.Response(fixture(fixtureName), statusCode));
+  void setUpMockHttpClient(String fixtureName,
+      {int statusCode = Constants.STATUS_CODE_200}) {
+    when(() => mockHttpClient.get(any(), headers: any(named: 'headers')))
+        .thenAnswer(
+            (_) async => http.Response(fixture(fixtureName), statusCode));
   }
 
   group('getCompletedCertifications', () {
@@ -55,7 +57,8 @@ void main() {
     test(
       'should return a ServerException for 500 when status code is 500',
       () {
-        setUpMockHttpClient('completed.json', statusCode: Constants.STATUS_CODE_500);
+        setUpMockHttpClient('completed.json',
+            statusCode: Constants.STATUS_CODE_500);
         expect(
             () async => await dataSource.getCompletedCertifications(),
             throwsA(predicate((e) =>
@@ -67,7 +70,8 @@ void main() {
     test(
       'should return a ServerException for 404 when status code is 404',
       () {
-        setUpMockHttpClient('completed.json', statusCode: Constants.STATUS_CODE_404);
+        setUpMockHttpClient('completed.json',
+            statusCode: Constants.STATUS_CODE_404);
         expect(
             () async => await dataSource.getCompletedCertifications(),
             throwsA(predicate((e) =>
@@ -102,12 +106,13 @@ void main() {
 
     test(
       'should return a ServerException for 500 when status code is 500',
-          () {
-        setUpMockHttpClient('in_progress.json', statusCode: Constants.STATUS_CODE_500);
+      () {
+        setUpMockHttpClient('in_progress.json',
+            statusCode: Constants.STATUS_CODE_500);
         expect(
-                () async => await dataSource.getInProgressCertifications(),
+            () async => await dataSource.getInProgressCertifications(),
             throwsA(predicate((e) =>
-            e is ServerException &&
+                e is ServerException &&
                 e.message == Constants.SERVER_ERROR_500)));
       },
     );
@@ -115,7 +120,8 @@ void main() {
     test(
       'should return a ServerException for 404 when status code is 404',
       () {
-        setUpMockHttpClient('in_progress.json', statusCode: Constants.STATUS_CODE_404);
+        setUpMockHttpClient('in_progress.json',
+            statusCode: Constants.STATUS_CODE_404);
         expect(
             () async => await dataSource.getInProgressCertifications(),
             throwsA(predicate((e) =>

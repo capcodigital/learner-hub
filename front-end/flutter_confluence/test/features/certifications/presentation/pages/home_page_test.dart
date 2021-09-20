@@ -13,9 +13,9 @@ import 'package:flutter_confluence/features/certifications/presentation/widgets/
 import 'package:flutter_confluence/features/certifications/presentation/widgets/toggle-switch.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mocktail/mocktail.dart' as Mocktail;
+import 'package:mocktail/mocktail.dart' as mocktail;
 
-import '../../../../fixtures/FixtureReader.dart';
+import '../../../../fixtures/fixture_reader.dart';
 
 class UnknownState extends CloudCertificationState {}
 
@@ -27,8 +27,8 @@ void main() {
   setUp(() {
     // Tests fails if not call registerFallbackValue for State and Event.
     // This requires Mocktail
-    Mocktail.registerFallbackValue<CloudCertificationState>(Empty());
-    Mocktail.registerFallbackValue<CloudCertificationEvent>(
+    mocktail.registerFallbackValue<CloudCertificationState>(Empty());
+    mocktail.registerFallbackValue<CloudCertificationEvent>(
         GetInProgressCertificationsEvent());
   });
 
@@ -46,7 +46,7 @@ void main() {
       MaterialApp(
         home: BlocProvider<CloudCertificationBloc>(
           create: (_) => mockBloc,
-          child: HomePage(
+          child: const HomePage(
             appBar: CustomAppBar(
               icon: Icons.menu,
               text: 'Cloud Certification',
@@ -86,7 +86,7 @@ void main() {
       MaterialApp(
         home: BlocProvider<CloudCertificationBloc>(
           create: (_) => mockBloc,
-          child: HomePage(
+          child: const HomePage(
             appBar: CustomAppBar(
               icon: Icons.menu,
               text: 'Cloud Certification',
@@ -121,7 +121,7 @@ void main() {
       MaterialApp(
         home: BlocProvider<CloudCertificationBloc>(
           create: (_) => mockBloc,
-          child: HomePage(
+          child: const HomePage(
             appBar: CustomAppBar(
                 icon: Icons.menu,
                 text: 'Cloud Certification',
@@ -156,7 +156,7 @@ void main() {
       MaterialApp(
         home: BlocProvider<CloudCertificationBloc>(
           create: (_) => mockBloc,
-          child: HomePage(
+          child: const HomePage(
             appBar: CustomAppBar(
                 icon: Icons.menu,
                 text: 'Cloud Certification',
@@ -183,7 +183,7 @@ void main() {
     // arrange
     final CloudCertificationBloc mockBloc = MockCertificationBloc();
     whenListen(mockBloc, Stream.fromIterable([Empty()]),
-        initialState: EmptySearchResult(
+        initialState: const EmptySearchResult(
             cloudCertificationType: CloudCertificationType.completed));
 
     // act
@@ -191,7 +191,7 @@ void main() {
       MaterialApp(
         home: BlocProvider<CloudCertificationBloc>(
           create: (_) => mockBloc,
-          child: HomePage(
+          child: const HomePage(
             appBar: CustomAppBar(
                 icon: Icons.menu,
                 text: 'Cloud Certification',
@@ -219,7 +219,7 @@ void main() {
       ' bloc emits Loaded and Home Page shows Certifications ListView',
       (WidgetTester tester) async {
     // arrange
-    final Error error = Error(
+    const Error error = Error(
         message: Constants.SERVER_FAILURE_MSG,
         cloudCertificationType: CloudCertificationType.completed);
     final Loaded loaded = Loaded(
@@ -233,7 +233,7 @@ void main() {
       MaterialApp(
         home: BlocProvider<CloudCertificationBloc>(
           create: (_) => mockBloc,
-          child: HomePage(
+          child: const HomePage(
             appBar: CustomAppBar(
                 icon: Icons.menu,
                 text: 'Cloud Certification',
@@ -262,7 +262,7 @@ void main() {
 
     // act
     await tester.tap(tryAgainBtnFinder);
-    await tester.pump(Duration(seconds: 1));
+    await tester.pump(const Duration(seconds: 1));
 
     final certificationsFinder =
         find.byWidgetPredicate((widget) => widget is CertificationsView);
@@ -270,10 +270,11 @@ void main() {
     final listView = tester.widget(listFinder) as ListView;
 
     // assert
-    Mocktail.verify(() => mockBloc.add(GetCompletedCertificationsEvent()))
+    mocktail
+        .verify(() => mockBloc.add(GetCompletedCertificationsEvent()))
         .called(1);
-    Mocktail.verifyNever(
-        () => mockBloc.add(GetInProgressCertificationsEvent()));
+    mocktail
+        .verifyNever(() => mockBloc.add(GetInProgressCertificationsEvent()));
 
     expect(searchBoxFinder, findsOneWidget);
     expect(toggleFinder, findsOneWidget);
@@ -303,7 +304,7 @@ void main() {
       MaterialApp(
         home: BlocProvider<CloudCertificationBloc>(
           create: (_) => mockBloc,
-          child: HomePage(
+          child: const HomePage(
             appBar: CustomAppBar(
                 icon: Icons.menu,
                 text: 'Cloud Certification',
@@ -336,19 +337,22 @@ void main() {
     // act
     await tester.tap(toggleCompletedFinder);
     // assert
-    Mocktail.verify(() => mockBloc.add(GetCompletedCertificationsEvent()))
+    mocktail
+        .verify(() => mockBloc.add(GetCompletedCertificationsEvent()))
         .called(1);
 
     // act
     await tester.tap(toggleInProgressFinder);
     // assert
-    Mocktail.verify(() => mockBloc.add(GetInProgressCertificationsEvent()))
+    mocktail
+        .verify(() => mockBloc.add(GetInProgressCertificationsEvent()))
         .called(1);
 
     // act
     await tester.tap(toggleCompletedFinder);
     // assert
-    Mocktail.verify(() => mockBloc.add(GetCompletedCertificationsEvent()))
+    mocktail
+        .verify(() => mockBloc.add(GetCompletedCertificationsEvent()))
         .called(1);
   });
 }

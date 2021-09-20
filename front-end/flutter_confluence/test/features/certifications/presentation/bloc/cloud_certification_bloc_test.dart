@@ -14,7 +14,7 @@ import 'package:flutter_confluence/features/certifications/presentation/bloc/clo
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-import '../../../../fixtures/FixtureReader.dart';
+import '../../../../fixtures/fixture_reader.dart';
 
 class MockGetCompletedCertifications extends Mock
     implements GetCompletedCertifications {}
@@ -82,7 +82,10 @@ void main() {
 
   setUp(() {
     registerFallbackValue(NoParams());
-    registerFallbackValue(SearchParams(searchQuery: '', dataType: CloudCertificationType.completed, ));
+    registerFallbackValue(SearchParams(
+      searchQuery: '',
+      dataType: CloudCertificationType.completed,
+    ));
 
     mockCompletedCase = MockGetCompletedCertifications();
     mockInProgressCase = MockGetInProgressCertifications();

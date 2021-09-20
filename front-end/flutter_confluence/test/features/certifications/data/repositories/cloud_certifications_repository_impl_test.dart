@@ -12,7 +12,7 @@ import 'package:flutter_confluence/features/certifications/domain/entities/cloud
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-import '../../../../fixtures/FixtureReader.dart';
+import '../../../../fixtures/fixture_reader.dart';
 
 class MockCloudCertificationRemoteDataSource extends Mock
     implements CloudCertificationRemoteDataSource {}

@@ -24,7 +24,7 @@ void main() {
 
   final orderFailedUnknownError = [
     Loading(),
-    AuthError(message: Constants.BIO_AUTH_DEFAULT_AUTH_FAILED),
+    const AuthError(message: Constants.BIO_AUTH_DEFAULT_AUTH_FAILED),
   ];
 
   setUp(() {
@@ -50,7 +50,7 @@ void main() {
         // arrange
         stubMockAuthCase(true);
         // act
-        bloc.add(AuthEvent());
+        bloc.add(const AuthEvent());
         await untilCalled(() => mockAuthCase(any()));
         // assert
         verify(() => mockAuthCase(NoParams()));
@@ -63,7 +63,7 @@ void main() {
         stubMockAuthCase(true);
         return bloc;
       },
-      act: (OnBoardingBloc bloc) => {bloc.add(AuthEvent())},
+      act: (OnBoardingBloc bloc) => {bloc.add(const AuthEvent())},
       expect: () => orderCompleted,
     );
 
@@ -73,7 +73,7 @@ void main() {
         stubMockAuthCase(false);
         return bloc;
       },
-      act: (OnBoardingBloc bloc) => {bloc.add(AuthEvent())},
+      act: (OnBoardingBloc bloc) => {bloc.add(const AuthEvent())},
       expect: () => orderFailedUnknownError,
     );
   });
@@ -90,7 +90,7 @@ void main() {
         // arrange
         stabMockCheckAuthCase(true);
         // act
-        bloc.add(CheckAuthEvent());
+        bloc.add(const CheckAuthEvent());
         await untilCalled(() => mockCheckAuthCase(any()));
         // assert
         verify(() => mockCheckAuthCase(NoParams()));
@@ -103,7 +103,7 @@ void main() {
         stabMockCheckAuthCase(true);
         return bloc;
       },
-      act: (OnBoardingBloc bloc) => {bloc.add(CheckAuthEvent())},
+      act: (OnBoardingBloc bloc) => {bloc.add(const CheckAuthEvent())},
       expect: () => orderCompleted,
     );
 
@@ -113,7 +113,7 @@ void main() {
         stabMockCheckAuthCase(false);
         return bloc;
       },
-      act: (OnBoardingBloc bloc) => {bloc.add(CheckAuthEvent())},
+      act: (OnBoardingBloc bloc) => {bloc.add(const CheckAuthEvent())},
       expect: () => orderFailedUnknownError,
     );
   });

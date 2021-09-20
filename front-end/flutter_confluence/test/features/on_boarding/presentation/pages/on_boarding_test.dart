@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_confluence/features/onboarding/presentation/bloc/on_boarding_bloc.dart';
 import 'package:flutter_confluence/features/onboarding/presentation/pages/on_boarding.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mocktail/mocktail.dart' as Mocktail;
+import 'package:mocktail/mocktail.dart' as mocktail;
 
 class UnknownState extends OnBoardingState {}
 
@@ -19,8 +19,8 @@ void main() {
   setUp(() {
     // Tests fails if not call registerFallbackValue for State and Event.
     // This requires Mocktail
-    Mocktail.registerFallbackValue<OnBoardingState>(Empty());
-    Mocktail.registerFallbackValue<OnBoardingEvent>(AuthEvent());
+    mocktail.registerFallbackValue<OnBoardingState>(Empty());
+    mocktail.registerFallbackValue<OnBoardingEvent>(const AuthEvent());
   });
 
   testWidgets('OnBoarding Page should show expected widgets',
