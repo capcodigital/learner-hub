@@ -22,6 +22,6 @@ Before you create this PR confirm that it meets all requirements listed below by
 - [ ] I updated/added relevant documentation and comments (docs start with `///` and comments with `//`).
 - [ ] The analyzer (`flutter analyze`) does not report any problems on my PR.
 
-## Screenshots
+## Screenshots
 
 *Screenshots can be added here.*
