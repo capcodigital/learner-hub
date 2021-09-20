@@ -39,7 +39,7 @@ export async function addCertificationSummary(
         summaryRepo.saveSummary(summary as CertificationSummary);
         res.setHeader('Content-Type', 'application/json');
         res.statusCode = 201;
-        res.send(jsend.success("Certification summary added successfuly"));
+        res.send(jsend.successAddSummary(summary));
     } catch (e) {
         logger.log(e);
         res.statusCode = 500;

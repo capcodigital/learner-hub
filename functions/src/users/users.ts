@@ -65,16 +65,3 @@ export async function updateUser(
         res.send(jsend.error("User does not exist", 404));
     }
 }
-
-export async function getUsers(res: functions.Response) {
-    try {
-        const items = await userRepo.getAllUsers();
-        res.setHeader('Content-Type', 'application/json');
-        res.statusCode = 200;
-        res.send(jsend.successGetUsers(items));
-    } catch (error) {
-        logger.log(error)
-        res.statusCode = 500;
-        res.send(jsend.error());
-    }
-}

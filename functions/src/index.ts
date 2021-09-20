@@ -50,11 +50,6 @@ app.put("/users/update", async (req: Request, res: Response) => {
     userFuncs.updateUser(uid, property, res);
 });
 
-// Returns all users from firestore
-app.get("/users/all", async (req: Request, res: Response) => {
-    return userFuncs.getUsers(res);
-});
-
 // This HTTPS endpoint can only be accessed by your Firebase Users.
 // Requests need to be authorized by providing an `Authorization` HTTP header
 // with value `Bearer <Firebase ID Token>`.

@@ -25,12 +25,23 @@ export async function getAlCertificationSummaries(): Promise<any[]> {
     return results;
 }
 
-export async function getCertificationSummary(id: string): Promise<CertificationSummary> {
+export async function getCertificationSummary(id: string): Promise<any> {
     const collection = admin.firestore().collection(TABLE_CERTIFICATION_SUMMARIES);
     const doc = collection.doc(id);
     const docRef = await doc.get();
     if (!docRef.exists) throw Error("Certification Summary does not exist");
-    else return docRef.data() as CertificationSummary
+    else {
+        const item = docRef.data() as CertificationSummary;
+        return {
+            "id": doc.id,
+            "title": item.title,
+            "category": item.category,
+            "platform": item.platform,
+            "description": item.description,
+            "link": item.link,
+            "image": item.image
+        };
+    }
 }
 
 export async function saveSummary(summary: CertificationSummary) {
