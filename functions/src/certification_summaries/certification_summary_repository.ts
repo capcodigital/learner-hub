@@ -3,11 +3,26 @@ import * as admin from 'firebase-admin';
 
 const TABLE_CERTIFICATION_SUMMARIES = "Certification Summaries";
 
-export async function getAlCertificationSummaries(): Promise<CertificationSummary[]> {
+export async function getAlCertificationSummaries(): Promise<any[]> {
     const snapshot = await admin.firestore()
         .collection(TABLE_CERTIFICATION_SUMMARIES)
         .get();
-    return toSummaries(snapshot);
+    const results = Array<any>();
+    if (!snapshot.empty) {
+        snapshot.forEach((doc => {
+            const item = doc.data();
+            results.push({
+                "id": doc.id,
+                "title": item.title,
+                "category": item.category,
+                "platform": item.platform,
+                "description": item.description,
+                "link": item.link,
+                "image": item.image
+            });
+        }));
+    }
+    return results;
 }
 
 export async function getCertificationSummary(id: string): Promise<CertificationSummary> {
@@ -33,15 +48,4 @@ export async function saveSummary(summary: CertificationSummary) {
                 })
             }
         });
-}
-
-async function toSummaries(snapshot: FirebaseFirestore.QuerySnapshot):
-    Promise<CertificationSummary[]> {
-    const results = Array<CertificationSummary>();
-    if (!snapshot.empty) {
-        snapshot.forEach((doc: { data: () => any }) => {
-            results.push(doc.data());
-        });
-    }
-    return results;
 }

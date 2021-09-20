@@ -1,20 +1,20 @@
 export function successGetSummaries(values: any[]) {
-    return successGetItems("certificationSummaries", values);
+    return successWithData("certificationSummaries", values);
 }
 
 export function successGetCertifs(values: any[]) {
-    return successGetItems("certifications", values);
+    return successWithData("certifications", values);
 }
 
 export function successGetUsers(values: any[]) {
-    return successGetItems("users", values);
+    return successWithData("users", values);
 }
 
 export function successGetSkills(values: any[]) {
-    return successGetItems("skills", values);
+    return successWithData("skills", values);
 }
 
-export function successGetItems(title: string, values: any[]) {
+export function successWithData(title: string, values: any[]) {
     const json = {
         status: "success",
         "data": {
