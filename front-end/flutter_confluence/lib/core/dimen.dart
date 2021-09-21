@@ -1,4 +1,11 @@
 class Dimen {
+  // New
+  static const dimen_62 = 62.0; // TODO: Rename to something that makes more sense than this
+  static const button_widget_height = 62.0;
+  static const small_padding = 28.0;
+  static const big_padding = 49.0;
+
+  // Legacy
   static const dimen_6 = 6.0;
   static const dimen_8 = 8.0;
   static const dimen_10 = 10.0;
