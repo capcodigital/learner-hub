@@ -1,5 +1,5 @@
-export function successAddSummary(values: any) {
-    return successWithData(values);
+export function successAddSummary(value: any) {
+    return successWithData(value);
 }
 
 export function successGetSummaries(values: any[]) {

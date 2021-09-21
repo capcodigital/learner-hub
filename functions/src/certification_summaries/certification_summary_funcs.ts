@@ -6,7 +6,7 @@ import * as summaryRepo from "./certification_summary_repository";
 
 export async function getAllCertificationSummaries(res: functions.Response) {
     try {
-        const items = await summaryRepo.getAlCertificationSummaries();
+        const items = await summaryRepo.getAllCertificationSummaries();
         res.setHeader('Content-Type', 'application/json');
         res.statusCode = 200;
         res.send(jsend.successGetSummaries(items));
@@ -36,10 +36,11 @@ export async function addCertificationSummary(
     summary: any,
     res: functions.Response) {
     try {
-        summaryRepo.saveSummary(summary as CertificationSummary);
+        const item = await summaryRepo.saveSummary(summary as CertificationSummary);
+        logger.log(item);
         res.setHeader('Content-Type', 'application/json');
         res.statusCode = 201;
-        res.send(jsend.successAddSummary(summary));
+        res.send(jsend.successAddSummary(item));
     } catch (e) {
         logger.log(e);
         res.statusCode = 500;
