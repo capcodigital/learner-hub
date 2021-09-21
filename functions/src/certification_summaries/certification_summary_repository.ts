@@ -10,8 +10,7 @@ export async function getAllCertificationSummaries(): Promise<any[]> {
     const results = Array<any>();
     if (!snapshot.empty) {
         snapshot.forEach((doc => {
-            const item = doc.data();
-            results.push(toJsonItem(item, doc.id)
+            results.push(toJson(doc.data(), doc.id)
             );
         }));
     }
@@ -24,8 +23,7 @@ export async function getCertificationSummary(id: string): Promise<any> {
     const docRef = await doc.get();
     if (!docRef.exists) throw Error("Certification not found");
     else {
-        const item = docRef.data() as CertificationSummary;
-        return toJsonItem(item, docRef.id);
+        return toJson(docRef.data(), docRef.id);
     }
 }
 
@@ -35,11 +33,11 @@ export async function saveSummary(summary: CertificationSummary): Promise<any> {
     const snap = await col.where("title", "==", summary.title).get();
     if (snap.empty) {
         const result = await col.add(summary);
-        return toJsonItem(summary, result.id);
+        return toJson(summary, result.id);
     }
 }
 
-function toJsonItem(item: any, id: string): any {
+function toJson(item: any, id: string): any {
     return {
         "id": id,
         "title": item.title,

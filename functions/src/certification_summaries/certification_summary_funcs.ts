@@ -36,7 +36,7 @@ export async function addCertificationSummary(
     summary: any,
     res: functions.Response) {
     try {
-        const item = await summaryRepo.saveSummary(summary as CertificationSummary);
+        const item = await summaryRepo.saveSummary(summary);
         logger.log(item);
         res.setHeader('Content-Type', 'application/json');
         res.statusCode = 201;
