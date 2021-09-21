@@ -1,6 +1,8 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_confluence/core/widgets/primary_button.dart';
+import 'package:flutter_confluence/features/onboarding/presentation/widgets/onboarding_carousel.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart' as Mocktail;
 
@@ -13,10 +15,6 @@ class MockOnBoardingBloc extends MockBloc<OnBoardingEvent, OnBoardingState>
     implements OnBoardingBloc {}
 
 void main() {
-  const NUM_OF_CARDS = 2;
-  const NUM_OF_CIRCLE_AVATARS = 5;
-  const NUM_OF_IMAGES = 4;
-
   setUp(() {
     // Tests fails if not call registerFallbackValue for State and Event.
     // This requires Mocktail
@@ -38,17 +36,13 @@ void main() {
       ),
     );
 
-    final cardFinder = find.byWidgetPredicate((widget) => widget is Card);
-    final circleAvatarFinder =
-        find.byWidgetPredicate((widget) => widget is CircleAvatar);
-    final imgFinder = find.byWidgetPredicate((widget) => widget is Image);
-    final btnFinder =
-        find.byWidgetPredicate((widget) => widget is ElevatedButton);
+    final logoFinder = find.byWidgetPredicate((widget) => widget is Image);
+    final carouselFinder = find.byWidgetPredicate((widget) => widget is OnBoardingCarousel);
+    final loginButtonFinder = find.byWidgetPredicate((widget) => widget is PrimaryButton);
 
     // assert
-    expect(cardFinder, findsNWidgets(NUM_OF_CARDS));
-    expect(circleAvatarFinder, findsNWidgets(NUM_OF_CIRCLE_AVATARS));
-    expect(imgFinder, findsNWidgets(NUM_OF_IMAGES));
-    expect(btnFinder, findsOneWidget);
+    expect(logoFinder, findsNWidgets(1));
+    expect(carouselFinder, findsNWidgets(1));
+    expect(loginButtonFinder, findsNWidgets(1));
   });
 }
