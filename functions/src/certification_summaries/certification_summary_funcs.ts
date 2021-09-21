@@ -3,6 +3,7 @@ import * as functions from "firebase-functions";
 import { logger } from "firebase-functions";
 import * as jsend from "../jsend";
 import * as summaryRepo from "./certification_summary_repository";
+import { SummaryNotFound } from "./certification_summary_repository";
 
 export async function getAllCertificationSummaries(res: functions.Response) {
     try {
@@ -27,8 +28,13 @@ export async function getCertificationSummary(
         res.send(jsend.successGetSummaries([summary]));
     } catch (e) {
         logger.log(e);
-        res.statusCode = 404;
-        res.send(jsend.error("Certification not found"));
+        if (e instanceof SummaryNotFound) {
+            res.statusCode = 404;
+            res.send(jsend.error("Certification not found"));
+        } else {
+            res.statusCode = 500;
+            res.send(jsend.error());
+        }
     }
 }
 

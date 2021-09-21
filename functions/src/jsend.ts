@@ -34,7 +34,7 @@ export function fail(title: string, values: any) {
 }
 
 export function error(
-    msg: string = "Internal server error",
+    msg: string = "Internal Server Error",
     statusCode: number = 500
 ) {
     const json = {

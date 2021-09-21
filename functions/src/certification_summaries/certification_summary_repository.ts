@@ -3,6 +3,9 @@ import * as admin from 'firebase-admin';
 
 const TABLE_CERTIFICATION_SUMMARIES = "Certification Summaries";
 
+export class SummaryFirestoreError extends Error { }
+export class SummaryNotFound extends SummaryFirestoreError { }
+
 export async function getAllCertificationSummaries(): Promise<any[]> {
     const snapshot = await admin.firestore()
         .collection(TABLE_CERTIFICATION_SUMMARIES)
@@ -21,7 +24,7 @@ export async function getCertificationSummary(id: string): Promise<any> {
     const collection = admin.firestore().collection(TABLE_CERTIFICATION_SUMMARIES);
     const doc = collection.doc(id);
     const docRef = await doc.get();
-    if (!docRef.exists) throw Error("Certification not found");
+    if (!docRef.exists) throw new SummaryNotFound("Certification not found");
     else {
         return toJson(docRef.data(), docRef.id);
     }
