@@ -1,11 +1,3 @@
-export function successAddSummary(value: any) {
-    return successWithData(value);
-}
-
-export function successGetSummaries(values: any[]) {
-    return successWithData(values);
-}
-
 export function successWithData(values: any) {
     const json = {
         status: "success",

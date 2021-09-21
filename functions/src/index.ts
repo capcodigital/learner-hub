@@ -43,9 +43,9 @@ app.post("/certificationSummary", async (req: Request, res: Response) => {
 
 // Endpoint to SIGNUP a user (add in firebase auth & firestore users collection)
 register.post("/users/signup", async (req: Request, res: Response) => {
-    var props = req.body["properties"];
-    if (props != null) userFuncs.registerUser(props, res);
-    else res.status(400).send(jsend.error("Bad Request"));
+    var props = req.body;
+    if (props == null) res.status(400).send(jsend.error("Bad Request"));
+    else userFuncs.registerUser(props, res);
 });
 
 // Updates a user property in Firestore

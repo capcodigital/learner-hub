@@ -3,6 +3,9 @@ import * as admin from 'firebase-admin';
 
 const TABLE_USERS = "Users";
 
+export class UserFirestoreError extends Error { }
+export class UserExistsError extends UserFirestoreError { }
+
 export async function insertUser(
     docId: string,
     user: User,
@@ -20,7 +23,7 @@ export async function insertUser(
             skills: user.skills
         });
     } else {
-        throw Error("User already exists!");
+        throw new UserExistsError();
     }
 }
 

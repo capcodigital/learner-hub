@@ -13,10 +13,11 @@ export async function registerUser(
 ) {
     const email = properties["email"] as string;
     const password = properties["password"] as string;
-    const firstName = properties["firstName"] as string;
-    const surname = properties["surname"] as string;
+    const firstName = properties["name"] as string;
+    const surname = properties["lastName"] as string;
     const jobTitle = properties["jobTitle"] as string;
     const bio = properties["bio"] as string;
+
     // Add user in firebase auth
     admin.auth().createUser({
         email: email,
@@ -40,12 +41,17 @@ export async function registerUser(
         }
         // Add user in firestore
         userRepo.insertUser(record.uid, user);
-        res.statusCode = 200;
-        res.send(jsend.success("User added successfully"));
+        res.statusCode = 201;
+        res.send(jsend.successWithData({ "message": "User registered" }));
     }).catch(function (e) {
         logger.log(e);
-        res.statusCode = 409;
-        res.send(jsend.error("User already exists"));
+        if (e instanceof userRepo.UserExistsError) {
+            res.statusCode = 409;
+            res.send(jsend.error("User already registered"));
+        } else {
+            res.statusCode = 500;
+            res.send(jsend.error());
+        }
     });
 }
 
