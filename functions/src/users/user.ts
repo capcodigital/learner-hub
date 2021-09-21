@@ -1,9 +1,8 @@
 interface User {
+    name: string,
+    lastName: string,
     email: string,
-    firstName: string,
-    surname: string,
     jobTitle: string,
     bio: string,
-    confluenceConnected: Boolean
     skills: UserSkills
 }

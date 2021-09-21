@@ -32,11 +32,10 @@ export async function registerUser(
         }
         const user: User = {
             email: email,
-            firstName: firstName,
-            surname: surname,
+            name: firstName,
+            lastName: surname,
             jobTitle: jobTitle,
             bio: bio,
-            confluenceConnected: false,
             skills: skills
         }
         // Add user in firestore

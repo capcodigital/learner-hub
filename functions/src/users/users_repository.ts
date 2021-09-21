@@ -12,12 +12,11 @@ export async function insertUser(
     const doc = await collection.doc(docId).get();
     if (!doc.exists) {
         collection.doc(docId).create({
+            name: user.name,
+            lastName: user.lastName,
             email: user.email,
-            firstName: user.firstName,
-            surname: user.surname,
             jobTitle: user.jobTitle,
             bio: user.bio,
-            confluenceConnected: user.confluenceConnected,
             skills: user.skills
         });
     } else {
@@ -54,12 +53,12 @@ async function toUsers(snapshot: FirebaseFirestore.QuerySnapshot):
         snapshot.forEach((doc: { data: () => any }) => {
             var item = doc.data() as User
             users.push({
+                name: item.name,
+                lastName: item.lastName,
                 email: item.email,
-                firstName: item.firstName,
-                surname: item.surname,
                 jobTitle: item.jobTitle,
                 bio: item.bio,
-                confluenceConnected: item.confluenceConnected
+                skills: item.skills
             });
         });
     }
