@@ -1,22 +1,15 @@
-
-export function successGetCertifs(values: any[]) {
-    return successGetItems("certifications", values);
+export function successAddSummary(value: any) {
+    return successWithData(value);
 }
 
-export function successGetUsers(values: any[]) {
-    return successGetItems("users", values);
+export function successGetSummaries(values: any[]) {
+    return successWithData(values);
 }
 
-export function successGetSkills(values: any[]) {
-    return successGetItems("skills", values);
-}
-
-export function successGetItems(title: string, values: any[]) {
+export function successWithData(values: any) {
     const json = {
         status: "success",
-        "data": {
-            [title]: values
-        }
+        "data": values
     };
     return JSON.stringify(json);
 }
@@ -40,14 +33,10 @@ export function fail(title: string, values: any) {
     return JSON.stringify(json);
 }
 
-export function error(
-    msg: string = "Internal server error",
-    statusCode: number = 500
-) {
+export function error(msg: string = "Internal Server Error") {
     const json = {
         status: "error",
-        statusCode: statusCode,
-        "message": msg
+        "error": msg
     };
     return JSON.stringify(json);
 }
