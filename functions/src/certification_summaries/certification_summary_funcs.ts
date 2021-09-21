@@ -28,7 +28,7 @@ export async function getCertificationSummary(
     } catch (e) {
         logger.log(e);
         res.statusCode = 404;
-        res.send(jsend.error("Certification does not exist"));
+        res.send(jsend.error("Certification not found"));
     }
 }
 

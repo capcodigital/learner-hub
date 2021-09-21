@@ -1,6 +1,5 @@
 /* eslint-disable require-jsdoc */
 import * as admin from 'firebase-admin';
-//import { logger } from 'firebase-functions/v1';
 
 const TABLE_CERTIFICATION_SUMMARIES = "Certification Summaries";
 
@@ -23,7 +22,7 @@ export async function getCertificationSummary(id: string): Promise<any> {
     const collection = admin.firestore().collection(TABLE_CERTIFICATION_SUMMARIES);
     const doc = collection.doc(id);
     const docRef = await doc.get();
-    if (!docRef.exists) throw Error("Certification Summary does not exist");
+    if (!docRef.exists) throw Error("Certification not found");
     else {
         const item = docRef.data() as CertificationSummary;
         return toJsonItem(item, docRef.id);
