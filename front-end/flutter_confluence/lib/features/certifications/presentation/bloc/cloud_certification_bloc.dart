@@ -19,15 +19,14 @@ part 'cloud_certification_state.dart';
 
 class CloudCertificationBloc
     extends Bloc<CloudCertificationEvent, CloudCertificationState> {
-  final GetCompletedCertifications completedUseCase;
-  final GetInProgressCertifications inProgressUseCase;
-  final SearchCertifications searchUserCase;
-
   CloudCertificationBloc(
       {required this.completedUseCase,
       required this.inProgressUseCase,
       required this.searchUserCase})
       : super(Empty());
+  final GetCompletedCertifications completedUseCase;
+  final GetInProgressCertifications inProgressUseCase;
+  final SearchCertifications searchUserCase;
 
   @override
   Stream<CloudCertificationState> mapEventToState(

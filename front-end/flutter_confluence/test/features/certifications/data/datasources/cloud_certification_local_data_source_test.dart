@@ -45,7 +45,7 @@ void main() {
       () {
         when(() => mockHiveHelper.getCompleted())
             .thenAnswer((_) => Future.value(List.empty()));
-        expect(() async => await dataSource.getCompletedCertifications(),
+        expect(() async => dataSource.getCompletedCertifications(),
             throwsA(const TypeMatcher<CacheException>()));
       },
     );

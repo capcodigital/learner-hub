@@ -15,8 +15,8 @@ class PreLoadWidget extends StatelessWidget {
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => AppDrawer(
-              child: const HomePage(
+          builder: (context) => const AppDrawer(
+              child: HomePage(
             appBar: CustomAppBar(
               icon: Icons.menu,
               color: Constants.JIRA_COLOR,

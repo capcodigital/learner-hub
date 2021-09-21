@@ -10,7 +10,7 @@ import 'package:flutter_confluence/features/certifications/presentation/pages/ho
 import 'package:flutter_confluence/features/certifications/presentation/widgets/certifications_view.dart';
 import 'package:flutter_confluence/features/certifications/presentation/widgets/empty_search.dart';
 import 'package:flutter_confluence/features/certifications/presentation/widgets/searchbox.dart';
-import 'package:flutter_confluence/features/certifications/presentation/widgets/toggle-switch.dart';
+import 'package:flutter_confluence/features/certifications/presentation/widgets/toggle_switch.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart' as mocktail;

@@ -7,13 +7,12 @@ import '../repositories/cloud_certification_repository.dart';
 
 class GetInProgressCertifications
     implements UseCase<List<CloudCertification>, NoParams> {
-  final CloudCertificationRepository repository;
-
   GetInProgressCertifications(this.repository);
+  final CloudCertificationRepository repository;
 
   @override
   Future<Either<Failure, List<CloudCertification>>> call(
       NoParams noParams) async {
-    return await repository.getInProgressCertifications();
+    return repository.getInProgressCertifications();
   }
 }

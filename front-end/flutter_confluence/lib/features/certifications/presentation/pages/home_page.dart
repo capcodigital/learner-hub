@@ -11,14 +11,13 @@ import '../bloc/cloud_certification_bloc.dart';
 import '../widgets/certifications_view.dart';
 import '../widgets/empty_search.dart';
 import '../widgets/searchbox.dart';
-import '../widgets/toggle-switch.dart';
+import '../widgets/toggle_switch.dart';
 import 'error_page.dart';
 
 class HomePage extends StatefulWidget {
+  const HomePage({Key? key, required this.appBar}) : super(key: key);
   static const route = 'HomePage';
   final PreferredSizeWidget appBar;
-
-  const HomePage({Key? key, required this.appBar}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -59,8 +58,8 @@ class _HomePageState extends State<HomePage> {
         child: Container(
             width: getMediaWidth(context),
             height: getMediaHeight(context),
-            constraints: BoxConstraints.expand(),
-            decoration: BoxDecoration(
+            constraints: const BoxConstraints.expand(),
+            decoration: const BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage('assets/back-layer.png'),
                     fit: BoxFit.cover)),
@@ -145,7 +144,7 @@ class _HomePageState extends State<HomePage> {
         ),
         BlocConsumer<CloudCertificationBloc, CloudCertificationState>(
             builder: (context, state) {
-          log('HOME PAGE - New State received: ' + state.toString());
+          log('HOME PAGE - New State received: $state');
           if (state is Loaded) {
             return Expanded(child: CertificationsView(items: state.items));
           } else if (state is Loading)
@@ -154,7 +153,7 @@ class _HomePageState extends State<HomePage> {
                     top: constraints.maxHeight * Dimen.scale_5_100),
                 child: PlatformCircularProgressIndicator());
           else if (state is Empty)
-            return Text(Constants.NO_RESULTS);
+            return const Text(Constants.NO_RESULTS);
           else if (state is EmptySearchResult)
             return EmptySearch(
                 type: state.cloudCertificationType,
@@ -162,7 +161,7 @@ class _HomePageState extends State<HomePage> {
           else if (state is Error)
             return Expanded(child: ErrorPage(error: state));
           else
-            return Text(Constants.UNKNOWN_ERROR);
+            return const Text(Constants.UNKNOWN_ERROR);
         }, listener: (context, state) {
           setState(() {
             disableSearchAndToggle = state is Error;

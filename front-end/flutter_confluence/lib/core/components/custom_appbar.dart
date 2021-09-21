@@ -2,15 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_confluence/core/components/app_drawer.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+  const CustomAppBar(
+      {Key? key, required this.text, required this.icon, required this.color})
+      : super(key: key);
   final String text;
   final IconData icon;
   final Color color;
-  const CustomAppBar(
-      {Key? key,
-      required this.text,
-      required this.icon,
-      required this.color})
-      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

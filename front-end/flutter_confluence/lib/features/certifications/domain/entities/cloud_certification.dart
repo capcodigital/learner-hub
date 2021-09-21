@@ -3,16 +3,15 @@ import 'package:equatable/equatable.dart';
 import '../../../../core/constants.dart';
 
 class CloudCertification extends Equatable {
-  final String name;
-  final String platform;
-  final String certificationType;
-  final String certificationDate;
-
   const CloudCertification(
       {required this.name,
       required this.platform,
       required this.certificationType,
       required this.certificationDate});
+  final String name;
+  final String platform;
+  final String certificationType;
+  final String certificationDate;
 
   String get certificationIconName {
     switch (platform.toLowerCase()) {

@@ -7,22 +7,23 @@ import 'package:flutter_confluence/features/certifications/domain/entities/cloud
 import 'package:flutter_confluence/features/certifications/domain/repositories/cloud_certification_repository.dart';
 
 class SearchParams extends Equatable {
+  const SearchParams({required this.searchQuery, required this.dataType});
   final String searchQuery;
   final CloudCertificationType dataType;
-
-  const SearchParams({required this.searchQuery, required this.dataType});
 
   @override
   List<Object> get props => [searchQuery, dataType];
 }
 
-class SearchCertifications implements UseCase<List<CloudCertification>, SearchParams> {
+class SearchCertifications
+    implements UseCase<List<CloudCertification>, SearchParams> {
+  SearchCertifications(this.repository);
   final CloudCertificationRepository repository;
 
-  SearchCertifications(this.repository);
-
   @override
-  Future<Either<Failure, List<CloudCertification>>> call(SearchParams searchParameters) async {
-    return await repository.searchCertifications(searchParameters.searchQuery, searchParameters.dataType);
+  Future<Either<Failure, List<CloudCertification>>> call(
+      SearchParams searchParameters) async {
+    return repository.searchCertifications(
+        searchParameters.searchQuery, searchParameters.dataType);
   }
 }

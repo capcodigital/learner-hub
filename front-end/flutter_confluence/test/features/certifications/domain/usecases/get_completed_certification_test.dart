@@ -19,7 +19,7 @@ void main() {
   });
 
   final tCloudCertification = [
-    CloudCertification(
+    const CloudCertification(
         name: 'Joshua',
         platform: 'GCP',
         certificationType: 'Azure',
