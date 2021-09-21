@@ -25,7 +25,12 @@ app.get("/certificationSummary", async (req: Request, res: Response) => {
 // Returns a certifications by id
 app.get("/certificationSummary/:id", async (req: Request, res: Response) => {
     const id = req.params.id as string;
-    certSummaryFuncs.getCertificationSummary(id, res);
+    if (id == null) {
+        res.statusCode = 400;
+        res.send(jsend.error("Bad Request"));
+    } else {
+        certSummaryFuncs.getCertificationSummary(id, res);
+    }
 });
 
 // Adds a certification summary to firestore
