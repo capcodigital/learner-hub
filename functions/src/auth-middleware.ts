@@ -3,6 +3,7 @@
 import admin from "firebase-admin";
 import { Request, Response, NextFunction } from "express";
 import { logger } from "firebase-functions";
+import * as jsend from "./jsend";
 
 // Express middleware that validates Firebase ID Tokens passed in the Authorization HTTP header.
 // The Firebase ID token needs to be passed as a Bearer token in the Authorization HTTP header like this:
@@ -19,7 +20,7 @@ export const validateFirebaseIdToken = async (req: Request, res: Response, next:
             "Authorization: Bearer <Firebase ID Token>",
             "or by passing a \"__session\" cookie."
         );
-        res.status(401).send("Unauthorized");
+        res.status(401).send(jsend.error("Unauthorized"));
         return;
     }
 

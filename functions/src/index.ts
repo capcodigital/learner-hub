@@ -45,7 +45,7 @@ app.post("/certificationSummary", async (req: Request, res: Response) => {
 register.post("/users/signup", async (req: Request, res: Response) => {
     var props = req.body["properties"];
     if (props != null) userFuncs.registerUser(props, res);
-    else res.status(400).send(jsend.error("Bad Request", 400));
+    else res.status(400).send(jsend.error("Bad Request"));
 });
 
 // Updates a user property in Firestore

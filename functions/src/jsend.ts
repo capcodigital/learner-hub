@@ -33,14 +33,10 @@ export function fail(title: string, values: any) {
     return JSON.stringify(json);
 }
 
-export function error(
-    msg: string = "Internal Server Error",
-    statusCode: number = 500
-) {
+export function error(msg: string = "Internal Server Error") {
     const json = {
         status: "error",
-        statusCode: statusCode,
-        "message": msg
+        "error": msg
     };
     return JSON.stringify(json);
 }

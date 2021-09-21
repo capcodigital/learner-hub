@@ -62,6 +62,6 @@ export async function updateUser(
     } catch (e) {
         logger.log(e);
         res.statusCode = 404;
-        res.send(jsend.error("User does not exist", 404));
+        res.send(jsend.error("User does not exist"));
     }
 }
