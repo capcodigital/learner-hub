@@ -5,13 +5,11 @@ import '../../../../core/usecases/usecase.dart';
 import '../repositories/on_boarding_repository.dart';
 
 class AuthUseCase implements UseCase<bool, NoParams> {
-  final OnBoardingRepository repository;
-
   AuthUseCase(this.repository);
+  final OnBoardingRepository repository;
 
   @override
   Future<Either<Failure, bool>> call(NoParams noParams) async {
-    return await repository.authenticate();
+    return repository.authenticate();
   }
-
 }

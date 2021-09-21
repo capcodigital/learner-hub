@@ -15,11 +15,10 @@ part 'on_boarding_event.dart';
 part 'on_boarding_state.dart';
 
 class OnBoardingBloc extends Bloc<OnBoardingEvent, OnBoardingState> {
-  final AuthUseCase authUseCase;
-  final CheckAuthUseCase checkAuthUseCase;
-
   OnBoardingBloc({required this.authUseCase, required this.checkAuthUseCase})
       : super(Empty());
+  final AuthUseCase authUseCase;
+  final CheckAuthUseCase checkAuthUseCase;
 
   @override
   Stream<OnBoardingState> mapEventToState(
@@ -39,9 +38,12 @@ class OnBoardingBloc extends Bloc<OnBoardingEvent, OnBoardingState> {
 
   Stream<OnBoardingState> getState(Either<Failure, bool> arg) async* {
     yield arg.fold(
-      (failure) => failure is AuthExpirationFailure ? Expired() :
-      AuthError(message: _mapFailureToMessage(failure as AuthFailure)),
-      (result) => result ? Completed() : AuthError(message: Constants.BIO_AUTH_DEFAULT_AUTH_FAILED),
+      (failure) => failure is AuthExpirationFailure
+          ? Expired()
+          : AuthError(message: _mapFailureToMessage(failure as AuthFailure)),
+      (result) => result
+          ? Completed()
+          : const AuthError(message: Constants.BIO_AUTH_DEFAULT_AUTH_FAILED),
     );
   }
 
@@ -63,5 +65,4 @@ class OnBoardingBloc extends Bloc<OnBoardingEvent, OnBoardingState> {
         return Constants.BIO_AUTH_DEFAULT_AUTH_FAILED;
     }
   }
-
 }

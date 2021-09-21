@@ -6,13 +6,12 @@ import 'package:flutter_confluence/features/certifications/domain/entities/cloud
 import 'package:flutter_confluence/features/certifications/presentation/bloc/cloud_certification_bloc.dart';
 
 class EmptySearch extends StatelessWidget {
+  const EmptySearch({required this.type, required this.searchController});
   static const TXT_NO_RESULTS = 'No results found';
   static const TXT_CLEAR = 'Clear';
 
   final CloudCertificationType type;
   final TextEditingController searchController;
-
-  const EmptySearch({required this.type, required this.searchController});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +21,7 @@ class EmptySearch extends StatelessWidget {
           padding: EdgeInsets.only(
               top: getHeight(context, Dimen.scale_3_100),
               bottom: getHeight(context, Dimen.scale_3_100)),
-          child: Text(TXT_NO_RESULTS, style: TextStyle(fontSize: 18)),
+          child: const Text(TXT_NO_RESULTS, style: TextStyle(fontSize: 18)),
         ),
         TextButton(
             style: TextButton.styleFrom(

@@ -6,11 +6,11 @@ import 'package:flutter_confluence/core/utils/media_util.dart';
 import 'package:flutter_confluence/features/certifications/domain/entities/cloud_certification.dart';
 
 class ListRow extends StatelessWidget {
+  const ListRow({required this.item});
   static const listRowIconBorderWidth = 1.0;
   static const listRowIconBorderColor = Constants.JIRA_COLOR;
 
   final CloudCertification item;
-  const ListRow({required this.item});
 
   @override
   Widget build(BuildContext context) {
