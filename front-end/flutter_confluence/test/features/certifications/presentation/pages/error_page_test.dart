@@ -54,23 +54,22 @@ void main() {
   });
 
   testWidgets(
-      'When tap on Try Again Btn to get Completed Certifications,'
+      'When tap on Try Again Btn to get Completed Certifications, '
       'then Bloc emits GetCompletedCertificationsEvent',
       (WidgetTester tester) async {
     // arrange
-    final Error error = Error(
+    const Error error = Error(
         message: Constants.SERVER_FAILURE_MSG,
         cloudCertificationType: CloudCertificationType.completed);
     final CloudCertificationBloc mockBloc = MockCertificationBloc();
-    whenListen(mockBloc, Stream.fromIterable([Empty()]),
-        initialState: error);
+    whenListen(mockBloc, Stream.fromIterable([Empty()]), initialState: error);
 
     await tester.pumpWidget(
       MaterialApp(
-          home: BlocProvider<CloudCertificationBloc>(
-            create: (_) => mockBloc,
-            child: Scaffold(body: ErrorPage(error: error)),
-          ),
+        home: BlocProvider<CloudCertificationBloc>(
+          create: (_) => mockBloc,
+          child: const Scaffold(body: ErrorPage(error: error)),
+        ),
       ),
     );
 
@@ -88,11 +87,11 @@ void main() {
   });
 
   testWidgets(
-      'When tap on Try Again Btn to get In Progress Certifications,'
+      'When tap on Try Again Btn to get In Progress Certifications, '
       'then Bloc emits GetInProgressCertificationsEvent',
       (WidgetTester tester) async {
     // arrange
-    final Error error = Error(
+    const Error error = Error(
         message: Constants.SERVER_FAILURE_MSG,
         cloudCertificationType: CloudCertificationType.in_progress);
     final CloudCertificationBloc mockBloc = MockCertificationBloc();
@@ -103,7 +102,7 @@ void main() {
       MaterialApp(
         home: BlocProvider<CloudCertificationBloc>(
           create: (_) => mockBloc,
-          child: Scaffold(body: ErrorPage(error: error)),
+          child: const Scaffold(body: ErrorPage(error: error)),
         ),
       ),
     );

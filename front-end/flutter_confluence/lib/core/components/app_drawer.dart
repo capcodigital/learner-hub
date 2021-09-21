@@ -4,26 +4,26 @@ import 'package:flutter_confluence/core/dimen.dart';
 import 'package:flutter_confluence/core/utils/media_util.dart';
 
 class AppDrawer extends StatefulWidget {
-  final Widget child;
   const AppDrawer({Key? key, required this.child}) : super(key: key);
+  final Widget child;
 
-  static _AppDrawerState? of(BuildContext context) =>
-      context.findAncestorStateOfType<_AppDrawerState>();
+  static AppDrawerState? of(BuildContext context) =>
+      context.findAncestorStateOfType<AppDrawerState>();
 
   @override
-  _AppDrawerState createState() => _AppDrawerState();
+  AppDrawerState createState() => AppDrawerState();
 }
 
-class _AppDrawerState extends State<AppDrawer>
+class AppDrawerState extends State<AppDrawer>
     with SingleTickerProviderStateMixin {
-  static Duration duration = Duration(milliseconds: 300);
+  static Duration duration = const Duration(milliseconds: 300);
   late AnimationController _controller;
 
   @override
   void initState() {
     super.initState();
     _controller =
-        AnimationController(vsync: this, duration: _AppDrawerState.duration);
+        AnimationController(vsync: this, duration: AppDrawerState.duration);
   }
 
   @override
@@ -46,7 +46,7 @@ class _AppDrawerState extends State<AppDrawer>
         final double scaleValue = 1 - (animationValue * 0.3);
         return Stack(
           children: [
-            CustomDrawer(),
+            const CustomDrawer(),
             Transform(
                 alignment: Alignment.centerLeft,
                 transform: Matrix4.identity()
@@ -74,7 +74,7 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
+      appBar: const CustomAppBar(
         text: 'Menu',
         icon: Icons.close,
         color: Colors.black,
@@ -125,15 +125,15 @@ class CustomDrawer extends StatelessWidget {
 }
 
 class MenuButton extends StatelessWidget {
-  final String title;
-  final int id;
-  final IconData icon;
   const MenuButton({
     Key? key,
     required this.id,
     required this.title,
     required this.icon,
   }) : super(key: key);
+  final String title;
+  final int id;
+  final IconData icon;
 
   @override
   Widget build(BuildContext context) {

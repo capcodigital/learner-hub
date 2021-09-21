@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
     return ThemeData(
       primaryColor: Constants.JIRA_COLOR,
       fontFamily: 'Montserrat',
-      textTheme: TextTheme(
+      textTheme: const TextTheme(
         headline1: TextStyle(
             fontSize: 20.0, color: Colors.white, fontWeight: FontWeight.w600),
         headline2: TextStyle(
@@ -77,7 +77,7 @@ class MyApp extends StatelessWidget {
               ..add(GetInProgressCertificationsEvent()),
           ),
           BlocProvider<OnBoardingBloc>(
-            create: (_) => sl<OnBoardingBloc>()..add(CheckAuthEvent()),
+            create: (_) => sl<OnBoardingBloc>()..add(const CheckAuthEvent()),
           ),
         ],
         child: MaterialApp(
@@ -85,7 +85,7 @@ class MyApp extends StatelessWidget {
             title: 'Flutter Demo',
             theme: buildAppTheme(),
             routes: {
-              HomePage.route: (context) => HomePage(
+              HomePage.route: (context) => const HomePage(
                     appBar: CustomAppBar(
                       icon: Icons.menu,
                       text: 'Cloud Certification',

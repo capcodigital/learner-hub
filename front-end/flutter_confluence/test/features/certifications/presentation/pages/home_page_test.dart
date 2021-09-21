@@ -282,8 +282,6 @@ void main() {
     expect(listFinder, findsOneWidget);
     expect(listView.childrenDelegate.estimatedChildCount, loaded.items.length);
   });
-
-  // TODO: Also check tapping toggle updates certifications ListView
   testWidgets('Tapping Toggle in Home Page triggers expected Event',
       (WidgetTester tester) async {
     // arrange

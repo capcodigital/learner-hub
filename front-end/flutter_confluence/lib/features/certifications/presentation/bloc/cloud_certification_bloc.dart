@@ -33,9 +33,7 @@ class CloudCertificationBloc
   Stream<CloudCertificationState> mapEventToState(
     CloudCertificationEvent event,
   ) async* {
-    log(runtimeType.toString() +
-        ' - New event received: ' +
-        event.runtimeType.toString());
+    log('$runtimeType - New event received: ${event.runtimeType}');
 
     if (event is GetCompletedCertificationsEvent) {
       yield Loading();

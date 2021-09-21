@@ -29,14 +29,14 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
   bool get isAuthSupported => !kIsWeb && (Platform.isIOS || Platform.isAndroid);
 
   void authenticate(BuildContext context) {
-    BlocProvider.of<OnBoardingBloc>(context).add(AuthEvent());
+    BlocProvider.of<OnBoardingBloc>(context).add(const AuthEvent());
   }
 
   void openHomePage(BuildContext context) {
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => AppDrawer(
+          builder: (context) => const AppDrawer(
               child: HomePage(
             appBar: CustomAppBar(
               icon: Icons.menu,
@@ -72,7 +72,7 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
         // TODO: If we subtract status bar height, then background image not covering
         // all screen. There is a white portion on the bottom equal to status bar height
         height: getMediaHeight(context),
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             image: DecorationImage(
                 image: AssetImage('assets/back-layer.png'), fit: BoxFit.cover)),
         child: LayoutBuilder(

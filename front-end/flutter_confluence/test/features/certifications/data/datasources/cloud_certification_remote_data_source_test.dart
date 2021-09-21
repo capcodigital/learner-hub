@@ -47,7 +47,7 @@ void main() {
       () {
         setUpMockHttpClient('completed.json', statusCode: STATUS_CODE_224);
         expect(
-            () async => await dataSource.getCompletedCertifications(),
+            () async => dataSource.getCompletedCertifications(),
             throwsA(predicate((e) =>
                 e is ServerException &&
                 e.message == Constants.SERVER_FAILURE_MSG)));
@@ -60,7 +60,7 @@ void main() {
         setUpMockHttpClient('completed.json',
             statusCode: Constants.STATUS_CODE_500);
         expect(
-            () async => await dataSource.getCompletedCertifications(),
+            () async => dataSource.getCompletedCertifications(),
             throwsA(predicate((e) =>
                 e is ServerException &&
                 e.message == Constants.SERVER_ERROR_500)));
@@ -73,7 +73,7 @@ void main() {
         setUpMockHttpClient('completed.json',
             statusCode: Constants.STATUS_CODE_404);
         expect(
-            () async => await dataSource.getCompletedCertifications(),
+            () async => dataSource.getCompletedCertifications(),
             throwsA(predicate((e) =>
                 e is ServerException &&
                 e.message == Constants.SERVER_ERROR_404)));
@@ -92,12 +92,12 @@ void main() {
     );
 
     test(
-      'should return a generic ServerException when status code is not 200 (success),'
+      'should return a generic ServerException when status code is not 200 (success), '
       '500, 404',
       () {
         setUpMockHttpClient('in_progress.json', statusCode: STATUS_CODE_357);
         expect(
-            () async => await dataSource.getInProgressCertifications(),
+            () async => dataSource.getInProgressCertifications(),
             throwsA(predicate((e) =>
                 e is ServerException &&
                 e.message == Constants.SERVER_FAILURE_MSG)));
@@ -110,7 +110,7 @@ void main() {
         setUpMockHttpClient('in_progress.json',
             statusCode: Constants.STATUS_CODE_500);
         expect(
-            () async => await dataSource.getInProgressCertifications(),
+            () async => dataSource.getInProgressCertifications(),
             throwsA(predicate((e) =>
                 e is ServerException &&
                 e.message == Constants.SERVER_ERROR_500)));
@@ -123,7 +123,7 @@ void main() {
         setUpMockHttpClient('in_progress.json',
             statusCode: Constants.STATUS_CODE_404);
         expect(
-            () async => await dataSource.getInProgressCertifications(),
+            () async => dataSource.getInProgressCertifications(),
             throwsA(predicate((e) =>
                 e is ServerException &&
                 e.message == Constants.SERVER_ERROR_404)));

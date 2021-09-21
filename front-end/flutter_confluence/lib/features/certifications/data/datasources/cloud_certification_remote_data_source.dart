@@ -13,21 +13,20 @@ abstract class CloudCertificationRemoteDataSource {
 
 class CloudCertificationRemoteDataSourceImpl
     implements CloudCertificationRemoteDataSource {
+  CloudCertificationRemoteDataSourceImpl({required this.client});
   static const TAG = 'CloudCertificationRemoteDataSourceImpl:';
   final http.Client client;
-
-  CloudCertificationRemoteDataSourceImpl({required this.client});
 
   @override
   Future<List<CloudCertificationModel>> getCompletedCertifications() {
     return _getDataFromUrl(
-        Constants.BASE_API_URL + '/' + Constants.COMPLETED_URL);
+        '${Constants.BASE_API_URL}/${Constants.COMPLETED_URL}');
   }
 
   @override
   Future<List<CloudCertificationModel>> getInProgressCertifications() {
     return _getDataFromUrl(
-        Constants.BASE_API_URL + '/' + Constants.IN_PROGRESS_URL);
+        '${Constants.BASE_API_URL}/${Constants.IN_PROGRESS_URL}');
   }
 
   Future<List<CloudCertificationModel>> _getDataFromUrl(String url) async {

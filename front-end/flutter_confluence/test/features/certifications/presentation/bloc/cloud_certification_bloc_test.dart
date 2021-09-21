@@ -49,28 +49,28 @@ void main() {
 
   final orderInProgressServerError = [
     Loading(),
-    Error(
+    const Error(
         cloudCertificationType: CloudCertificationType.in_progress,
         message: Constants.SERVER_FAILURE_MSG),
   ];
 
   final orderCompletedServerError = [
     Loading(),
-    Error(
+    const Error(
         cloudCertificationType: CloudCertificationType.completed,
         message: Constants.SERVER_FAILURE_MSG),
   ];
 
   final orderInProgressCacheError = [
     Loading(),
-    Error(
+    const Error(
         cloudCertificationType: CloudCertificationType.in_progress,
         message: Constants.CACHE_FAILURE_MSG),
   ];
 
   final orderCompletedCacheError = [
     Loading(),
-    Error(
+    const Error(
         cloudCertificationType: CloudCertificationType.completed,
         message: Constants.CACHE_FAILURE_MSG),
   ];
@@ -82,7 +82,7 @@ void main() {
 
   setUp(() {
     registerFallbackValue(NoParams());
-    registerFallbackValue(SearchParams(
+    registerFallbackValue(const SearchParams(
       searchQuery: '',
       dataType: CloudCertificationType.completed,
     ));
@@ -225,7 +225,7 @@ void main() {
           items: mockCompletedCerts,
           cloudCertificationType: CloudCertificationType.completed),
       Loading(),
-      EmptySearchResult(
+      const EmptySearchResult(
           cloudCertificationType: CloudCertificationType.completed),
     ];
 
