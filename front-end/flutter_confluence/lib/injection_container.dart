@@ -57,12 +57,13 @@ Future<void> init() async {
   sl.registerLazySingleton<CheckAuthUseCase>(() => CheckAuthUseCase(sl()));
   sl.registerLazySingleton<OnBoardingRepository>(
       () => OnBoardingRepositoryImpl(onBoardingDataSource: sl()));
-  sl.registerLazySingleton<OnBoardingLocalDataSource>(
-      () => OnBoardingLocalDataSourceImpl(auth: sl(), authHiveHelper: sl(), device:sl()));
+  sl.registerLazySingleton<OnBoardingLocalDataSource>(() =>
+      OnBoardingLocalDataSourceImpl(
+          auth: sl(), authHiveHelper: sl(), device: sl()));
 
   sl.registerLazySingleton(() => http.Client());
   sl.registerLazySingleton(() => Connectivity());
   sl.registerLazySingleton(() => LocalAuthentication());
-  sl.registerLazySingleton<Platform>(() => LocalPlatform());
+  sl.registerLazySingleton<Platform>(() => const LocalPlatform());
   sl.registerLazySingleton<Device>(() => DeviceImpl(platform: sl()));
 }

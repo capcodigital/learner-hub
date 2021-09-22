@@ -16,9 +16,8 @@ class Completed extends OnBoardingState {}
 class Expired extends OnBoardingState {}
 
 class AuthError extends OnBoardingState {
-  final String message;
-
   const AuthError({required this.message});
+  final String message;
 
   @override
   List<Object> get props => [message];

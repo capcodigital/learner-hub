@@ -69,8 +69,6 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
   Widget buildWithLayoutBuilder(BuildContext context) {
     return Container(
         width: getMediaWidth(context),
-        // TODO: If we subtract status bar height, then background image not covering
-        // all screen. There is a white portion on the bottom equal to status bar height
         height: getMediaHeight(context),
         decoration: const BoxDecoration(
             image: DecorationImage(
@@ -186,7 +184,7 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
             BoxShadow(
               color: Constants.BLACK_25,
               blurRadius: 3,
-              offset: Offset(0.0, 4.0),
+              offset: const Offset(0.0, 4.0),
             ),
           ],
         ),
@@ -216,7 +214,7 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
                       color: Colors.white, fontSize: Dimen.dimen_14)),
             ),
             GridView.count(
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               padding: EdgeInsets.only(
                   top: constraints.maxHeight * Dimen.scale_3_100,
                   left: constraints.maxWidth * Dimen.scale_12_100,

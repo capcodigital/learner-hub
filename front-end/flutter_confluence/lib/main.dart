@@ -15,6 +15,7 @@ import 'features/onboarding/presentation/pages/on_boarding.dart';
 import 'injection_container.dart';
 import 'injection_container.dart' as di;
 
+// ignore: avoid_void_async
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
