@@ -57,16 +57,15 @@ export async function registerUser(
 
 // Updates user in firestore and returns a response
 export async function updateUser(
-    userId: string,
-    property: any,
+    user: any,
     res: functions.Response) {
     try {
-        userRepo.editUser(userId, property);
+        userRepo.editUser(user);
         res.statusCode = 200;
         res.send(jsend.success("User updated successfully"));
     } catch (e) {
         logger.log(e);
-        res.statusCode = 404;
-        res.send(jsend.error("User does not exist"));
+        res.statusCode = 500;
+        res.send(jsend.error());
     }
 }

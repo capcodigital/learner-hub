@@ -5,6 +5,7 @@ const TABLE_USERS = "Users";
 
 export class UserFirestoreError extends Error { }
 export class UserExistsError extends UserFirestoreError { }
+export class UserNotFoundError extends UserFirestoreError { }
 
 export async function insertUser(
     docId: string,
@@ -27,19 +28,18 @@ export async function insertUser(
     }
 }
 
-export async function editUser(
-    uid: string,
-    property: any
-) {
-    const key = property["key"];
-    const value = property["value"];
-    const db = admin.firestore();
-    const collection = db.collection(TABLE_USERS);
-    const doc = await collection.doc(uid).get();
-    if (doc.exists) {
-        collection.doc(uid).update({
-            [key]: value
-        });
+export async function editUser(user: any) {
+    const col = admin.firestore().collection(TABLE_USERS);
+    const snapshot = await admin.firestore()
+        .collection(TABLE_USERS)
+        .where("email", "==", user["email"])
+        .get();
+    if (!snapshot.empty) {
+        snapshot.forEach((doc => {
+            col.doc(doc.id).update(user);
+        }));
+    } else {
+        throw new UserNotFoundError();
     }
 }
 

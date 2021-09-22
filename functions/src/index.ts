@@ -41,18 +41,18 @@ app.post("/certificationSummary", async (req: Request, res: Response) => {
 
 // USER ENDPOINTS
 
-// Endpoint to SIGNUP a user (add in firebase auth & firestore users collection)
-register.post("/users/signup", async (req: Request, res: Response) => {
+// Signup a user (add in firebase auth & firestore users)
+register.post("/user", async (req: Request, res: Response) => {
     var props = req.body;
     if (props == null) res.status(400).send(jsend.error("Bad Request"));
     else userFuncs.registerUser(props, res);
 });
 
-// Updates a user property in Firestore
-app.put("/users/update", async (req: Request, res: Response) => {
-    const uid = req.query["uid"] as string;
-    const property = req.body["property"] as any;
-    userFuncs.updateUser(uid, property, res);
+// Updates user properties in firestore
+app.put("/user", async (req: Request, res: Response) => {
+    var props = req.body;
+    if (props == null) res.status(400).send(jsend.error("Bad Request"));
+    userFuncs.updateUser(props, res);
 });
 
 // Returns the logged in User
