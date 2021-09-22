@@ -52,7 +52,7 @@ register.post("/user", async (req: Request, res: Response) => {
 app.put("/user", async (req: Request, res: Response) => {
     var props = req.body;
     if (props == null) res.status(400).send(jsend.error("Bad Request"));
-    userFuncs.updateUser(props, res);
+    else userFuncs.updateUser(props, res);
 });
 
 // Returns the logged in User
