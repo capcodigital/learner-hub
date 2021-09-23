@@ -1,2 +1,0 @@
-runtime: python39
-entrypoint: gunicorn -b :$PORT -w 4 -k uvicorn.workers.UvicornWorker data_api:app

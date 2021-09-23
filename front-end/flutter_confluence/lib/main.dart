@@ -1,9 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_confluence/core/components/app_drawer.dart';
 import 'package:flutter_confluence/core/components/custom_appbar.dart';
-import 'package:lottie/lottie.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'core/components/preloader.dart';
@@ -41,35 +39,30 @@ class MyApp extends StatelessWidget {
             fontWeight: FontWeight.w400),
         // NEW STYLES FOR THE NEW UI
         bodyText1: TextStyle(
-          color: Colors.white,
-          fontFamily: 'Lato',
-          fontWeight: FontWeight.w400,
-          fontSize: 16.0
-        ),
+            color: Colors.white,
+            fontFamily: 'Lato',
+            fontWeight: FontWeight.w400,
+            fontSize: 16.0),
         button: TextStyle(
             color: Colors.white,
             fontFamily: 'Lato',
             fontWeight: FontWeight.w700,
-            fontSize: 18.0
-        ),
+            fontSize: 18.0),
         headline6: TextStyle(
             color: Colors.white,
             fontFamily: 'FuturaPT',
             fontWeight: FontWeight.w800,
-            fontSize: 22.0
-        ),
+            fontSize: 22.0),
         subtitle1: TextStyle(
             color: Colors.black,
             fontFamily: 'FuturaPT',
             fontWeight: FontWeight.w400,
-            fontSize: 18.0
-        ),
+            fontSize: 18.0),
         subtitle2: TextStyle(
             color: Constants.ACCENT_COLOR,
             fontFamily: 'FuturaPT',
             fontWeight: FontWeight.w600,
-            fontSize: 18.0
-        ),
+            fontSize: 18.0),
       ),
     );
   }
