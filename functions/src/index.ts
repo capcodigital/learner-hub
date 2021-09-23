@@ -2,14 +2,12 @@ import * as functions from "firebase-functions";
 import express, { Request, Response } from "express";
 import { validateFirebaseIdToken } from "./auth-middleware";
 import * as certSummaryFuncs from "./certification_summaries/certification_summary_funcs";
-import * as userFuncs from "./users/users";
+import * as userFuncs from "./users/user_funcs";
 import * as admin from "firebase-admin";
 import * as jsend from "./jsend";
 
 // Initialize Firebase app
 admin.initializeApp();
-
-export const register = express();
 
 // Initialize and configure Express server
 export const app = express();
@@ -41,21 +39,22 @@ app.post("/certificationSummary", async (req: Request, res: Response) => {
 
 // USER ENDPOINTS
 
-// Signup a user (add in firebase auth & firestore users)
-register.post("/user", async (req: Request, res: Response) => {
-    var props = req.body;
-    if (props == null) res.status(400).send(jsend.error("Bad Request"));
-    else userFuncs.registerUser(props, res);
+// Adds user in firestore
+app.post("/user", async (req: Request, res: Response) => {
+    const uid = req.user?.uid as string
+    const user = req.body;
+    if (uid == null || user == null) res.status(400).send(jsend.error("Bad Request"));
+    else userFuncs.registerUser(uid, user, res);
 });
 
-// Updates user properties in firestore
+// Updates user in firestore
 app.put("/user", async (req: Request, res: Response) => {
     var props = req.body;
     if (props == null) res.status(400).send(jsend.error("Bad Request"));
     else userFuncs.updateUser(props, res);
 });
 
-// Returns the logged in User
+// Returns current user
 app.get("/user", async (req: Request, res: Response) => {
 
 });
@@ -66,7 +65,3 @@ app.get("/user", async (req: Request, res: Response) => {
 exports.app = functions
     .region('europe-west2') // London
     .https.onRequest(app);
-
-exports.register = functions
-    .region('europe-west2') // London
-    .https.onRequest(register);

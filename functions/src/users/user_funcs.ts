@@ -1,37 +1,27 @@
 /* eslint-disable require-jsdoc */
 import * as functions from "firebase-functions";
 import { logger } from "firebase-functions";
-import * as admin from 'firebase-admin';
 import * as userRepo from "./users_repository";
 import * as jsend from "../jsend";
 
-// Creates user in firebase auth and adds them to firestore 
-// Users collection
 export async function registerUser(
-    properties: any,
+    uid: string,
+    user: any,
     res: functions.Response
 ) {
-    const email = properties["email"] as string;
-    const password = properties["password"] as string;
-    const firstName = properties["name"] as string;
-    const surname = properties["lastName"] as string;
-    const jobTitle = properties["jobTitle"] as string;
-    const bio = properties["bio"] as string;
+    try {
+        const email = user["email"] as string;
+        const firstName = user["name"] as string;
+        const surname = user["lastName"] as string;
+        const jobTitle = user["jobTitle"] as string;
+        const bio = user["bio"] as string;
 
-    // Add user in firebase auth
-    admin.auth().createUser({
-        email: email,
-        emailVerified: false,
-        password: password,
-        displayName: firstName + " " + surname,
-        disabled: false,
-    }).then(function (record) {
-        logger.log("User created:", record.uid);
         const skills: UserSkills = {
             primarySkills: [],
             secondarySkills: []
         }
-        const user: User = {
+
+        const item: User = {
             email: email,
             name: firstName,
             lastName: surname,
@@ -39,11 +29,11 @@ export async function registerUser(
             bio: bio,
             skills: skills
         }
-        // Add user in firestore
-        userRepo.insertUser(record.uid, user);
+
+        userRepo.insertUser(uid, item);
         res.statusCode = 201;
         res.send(jsend.successWithData({ "message": "User registered" }));
-    }).catch(function (e) {
+    } catch (e) {
         logger.log(e);
         if (e instanceof userRepo.UserExistsError) {
             res.statusCode = 409;
@@ -52,7 +42,7 @@ export async function registerUser(
             res.statusCode = 500;
             res.send(jsend.error());
         }
-    });
+    }
 }
 
 // Updates user in firestore and returns a response

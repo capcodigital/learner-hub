@@ -8,14 +8,15 @@ export class UserExistsError extends UserFirestoreError { }
 export class UserNotFoundError extends UserFirestoreError { }
 
 export async function insertUser(
-    docId: string,
-    user: User,
+    uid: string,
+    user: User
 ) {
     const db = admin.firestore();
     const collection = db.collection(TABLE_USERS);
-    const doc = await collection.doc(docId).get();
-    if (!doc.exists) {
-        collection.doc(docId).create({
+    const doc = collection.doc(uid);
+    const docRef = await doc.get();
+    if (!docRef.exists) {
+        doc.create({
             name: user.name,
             lastName: user.lastName,
             email: user.email,
