@@ -19,23 +19,20 @@ part 'cloud_certification_state.dart';
 
 class CloudCertificationBloc
     extends Bloc<CloudCertificationEvent, CloudCertificationState> {
-  final GetCompletedCertifications completedUseCase;
-  final GetInProgressCertifications inProgressUseCase;
-  final SearchCertifications searchUserCase;
-
   CloudCertificationBloc(
       {required this.completedUseCase,
       required this.inProgressUseCase,
       required this.searchUserCase})
       : super(Empty());
+  final GetCompletedCertifications completedUseCase;
+  final GetInProgressCertifications inProgressUseCase;
+  final SearchCertifications searchUserCase;
 
   @override
   Stream<CloudCertificationState> mapEventToState(
     CloudCertificationEvent event,
   ) async* {
-    log(this.runtimeType.toString() +
-        " - New event received: " +
-        event.runtimeType.toString());
+    log('$runtimeType - New event received: ${event.runtimeType}');
 
     if (event is GetCompletedCertificationsEvent) {
       yield Loading();
@@ -67,7 +64,7 @@ class CloudCertificationBloc
   }
 
   Stream<CloudCertificationState> _getSearchState(String searchTerm) async* {
-    var searchParameters = SearchParams(
+    final searchParameters = SearchParams(
         searchQuery: searchTerm, dataType: state.cloudCertificationType);
 
     yield Loading();

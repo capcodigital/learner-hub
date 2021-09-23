@@ -17,8 +17,8 @@ const IN_PROGRESS_CERTIFICATIONS_KEY = 'CACHED_IN_PROGRESS';
 
 class CloudCertificationLocalDataSourceImpl
     implements CloudCertificationLocalDataSource {
-  final CertificationHiveHelper hiveHelper;
   CloudCertificationLocalDataSourceImpl({required this.hiveHelper});
+  final CertificationHiveHelper hiveHelper;
 
   @override
   Future<List<CloudCertificationModel>> getCompletedCertifications() async {

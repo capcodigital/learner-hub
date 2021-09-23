@@ -81,7 +81,7 @@ void main() {
       'Should ',
       () async {
         // arrange
-        final now = DateTime.parse("2021-01-12 21:12:01");
+        final now = DateTime.parse('2021-01-12 21:12:01');
         CustomizableDateTime.customTime = now;
         when(() => mockHiveHelper.save(any()))
             .thenAnswer((_) => Future.value(true));
@@ -98,8 +98,8 @@ void main() {
       'Should return valid cached auth',
       () async {
         // arrange
-        final now = DateTime.parse("2021-05-12 20:15:00");
-        final lastAuthDate = DateTime.parse("2021-05-12 15:35:00");
+        final now = DateTime.parse('2021-05-12 20:15:00');
+        final lastAuthDate = DateTime.parse('2021-05-12 15:35:00');
         CustomizableDateTime.customTime = now;
         when(() => mockHiveHelper.getLatestBioAuthTime()).thenAnswer(
             (_) => Future.value(lastAuthDate.millisecondsSinceEpoch));
@@ -115,8 +115,8 @@ void main() {
       'Should return expired cached auth',
       () async {
         // arrange
-        final now = DateTime.parse("2021-05-16 20:15:00");
-        final lastAuthDate = DateTime.parse("2021-05-12 15:35:00");
+        final now = DateTime.parse('2021-05-16 20:15:00');
+        final lastAuthDate = DateTime.parse('2021-05-12 15:35:00');
         CustomizableDateTime.customTime = now;
         when(() => mockHiveHelper.getLatestBioAuthTime()).thenAnswer(
             (_) => Future.value(lastAuthDate.millisecondsSinceEpoch));

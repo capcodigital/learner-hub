@@ -19,7 +19,7 @@ import '../../../certifications/presentation/pages/home_page.dart';
 import '../bloc/on_boarding_bloc.dart';
 
 class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
-  static const route = "OnBoardingPage";
+  static const route = 'OnBoardingPage';
 
   void login(BuildContext context) {
     navigateToLoginPage(context);
@@ -33,7 +33,7 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => AppDrawer(
+          builder: (context) => const AppDrawer(
               child: HomePage(
             appBar: CustomAppBar(
               icon: Icons.menu,
@@ -48,7 +48,7 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => AppDrawer(
+          builder: (context) => const AppDrawer(
               child: HomePage(
             appBar: CustomAppBar(
               icon: Icons.menu,
@@ -63,7 +63,7 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => AppDrawer(
+          builder: (context) => const AppDrawer(
               child: HomePage(
             appBar: CustomAppBar(
               icon: Icons.menu,
@@ -77,9 +77,9 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
   @override
   Widget build(BuildContext context) {
     // Change Status bar background colour
-    // TODO: Should this be global? Or driven by each page, as
+    // TODO(cgal-capco): Should this be global? Or driven by each page, as
     // according to FIGMA there are different status bars?
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colours.PRIMARY_COLOR,
     ));
 
@@ -117,13 +117,14 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
                     children: [
                       Center(
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: Dimen.big_padding, horizontal: Dimen.small_padding),
-                          child: Image.asset("assets/capco_logo.png"),
+                          padding:
+                              const EdgeInsets.symmetric(vertical: Dimen.big_padding, horizontal: Dimen.small_padding),
+                          child: Image.asset('assets/capco_logo.png'),
                         ),
                       ),
                       Expanded(child: OnBoardingCarousel()),
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: Dimen.small_padding, vertical: Dimen.big_padding),
+                        padding: const EdgeInsets.symmetric(horizontal: Dimen.small_padding, vertical: Dimen.big_padding),
                         child: PrimaryButton(
                             text: 'Log in',
                             onPressed: () {
@@ -146,10 +147,10 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Not a member yet?",
-                style: const TextStyle(
+            const Text('Not a member yet?',
+                style: TextStyle(
                     color: Colours.ALTERNATIVE_TEXT_COLOR,
-                    fontFamily: "FuturaPT",
+                    fontFamily: 'FuturaPT',
                     fontSize: 18,
                     fontWeight: FontWeight.w400,
                     fontStyle: FontStyle.italic)),
@@ -157,7 +158,7 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
                 style: TextButton.styleFrom(
                   primary: Colours.ACCENT_COLOR,
                   textStyle: const TextStyle(
-                      fontSize: 18, fontFamily: "FuturaPT", fontWeight: FontWeight.w600, fontStyle: FontStyle.italic),
+                      fontSize: 18, fontFamily: 'FuturaPT', fontWeight: FontWeight.w600, fontStyle: FontStyle.italic),
                 ),
                 onPressed: () {
                   register(context);
@@ -167,9 +168,3 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
         ));
   }
 }
-//
-//
-// color: Colours.PRIMARY_TEXT_COLOR,
-// fontFamily: 'FuturaPT',
-// fontWeight: FontWeight.w600,
-// fontSize: 18.0)

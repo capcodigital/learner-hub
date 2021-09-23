@@ -1,6 +1,6 @@
 class Dimen {
   // New
-  static const dimen_62 = 62.0; // TODO: Rename to something that makes more sense than this
+  static const dimen_62 = 62.0; // TODO(cgal-capco): Rename to something that makes more sense than this
   static const button_widget_height = 62.0;
   static const extra_small_padding = 14.0;
   static const small_padding = 28.0;

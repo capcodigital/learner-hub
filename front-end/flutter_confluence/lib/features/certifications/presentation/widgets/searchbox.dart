@@ -5,16 +5,15 @@ import 'package:flutter_confluence/core/dimen.dart';
 import 'package:flutter_confluence/core/utils/media_util.dart';
 
 class SearchBox extends StatelessWidget {
+  const SearchBox(
+      {this.hintText = 'Search...',
+      this.onSearchTermChanged,
+      this.controller,
+      this.onSearchSubmitted});
   final String hintText;
   final ValueChanged<String>? onSearchTermChanged;
   final ValueChanged<String>? onSearchSubmitted;
   final TextEditingController? controller;
-
-  const SearchBox(
-      {this.hintText = "Search...",
-      this.onSearchTermChanged,
-      this.controller,
-      this.onSearchSubmitted});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +27,7 @@ class SearchBox extends StatelessWidget {
                 : getHeight(context, Dimen.scale_13_100)),
         decoration: BoxDecoration(
             color: Colors.white,
-            boxShadow: [
+            boxShadow: const [
               BoxShadow(
                   color: Colors.black45,
                   blurRadius: 10.0,
@@ -39,8 +38,8 @@ class SearchBox extends StatelessWidget {
             builder: (BuildContext ctx, BoxConstraints constraints) {
           return TextField(
             controller: controller,
-            onChanged: (onSearchTermChanged),
-            onSubmitted: (onSearchSubmitted),
+            onChanged: onSearchTermChanged,
+            onSubmitted: onSearchSubmitted,
             decoration: InputDecoration(
                 border: InputBorder.none,
                 // These extra borders are required to work with web
@@ -59,7 +58,7 @@ class SearchBox extends StatelessWidget {
                     color: Colors.black45,
                   ),
                 )),
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 18.0,
             ),
           );

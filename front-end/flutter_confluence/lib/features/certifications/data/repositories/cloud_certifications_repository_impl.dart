@@ -15,21 +15,20 @@ import 'package:flutter_confluence/features/certifications/domain/repositories/c
 
 class CloudCertificationsRepositoryImpl
     implements CloudCertificationRepository {
-  static const TAG = "CloudCertificationsRepositoryImpl:";
-  final CloudCertificationRemoteDataSource remoteDataSource;
-  final CloudCertificationLocalDataSource localDataSource;
-  final NetworkInfo networkInfo;
-
   CloudCertificationsRepositoryImpl({
     required this.remoteDataSource,
     required this.localDataSource,
     required this.networkInfo,
   });
+  static const TAG = 'CloudCertificationsRepositoryImpl:';
+  final CloudCertificationRemoteDataSource remoteDataSource;
+  final CloudCertificationLocalDataSource localDataSource;
+  final NetworkInfo networkInfo;
 
   @override
   Future<Either<Failure, List<CloudCertification>>>
       getCompletedCertifications() async {
-    return await _getData(
+    return _getData(
         remoteDataSource.getCompletedCertifications,
         localDataSource.getCompletedCertifications,
         localDataSource.saveCompletedCertifications);
@@ -38,7 +37,7 @@ class CloudCertificationsRepositoryImpl
   @override
   Future<Either<Failure, List<CloudCertification>>>
       getInProgressCertifications() async {
-    return await _getData(
+    return _getData(
         remoteDataSource.getInProgressCertifications,
         localDataSource.getInProgressCertifications,
         localDataSource.saveInProgressCertifications);
@@ -62,7 +61,7 @@ class CloudCertificationsRepositoryImpl
             final localCertifications = await getLocalData();
             return Right(localCertifications);
           } on CacheException {
-            log(TAG + "CacheException");
+            log('${TAG}CacheException');
             return Left(ServerFailure(message: e.message));
           }
         }
@@ -92,9 +91,9 @@ class CloudCertificationsRepositoryImpl
           certifications = await localDataSource.getInProgressCertifications();
           break;
       }
-      var searchTerm = searchQuery.trim();
+      final searchTerm = searchQuery.trim();
       if (searchTerm.isNotEmpty) {
-        var filtered = certifications
+        final filtered = certifications
             .where((element) =>
                 element.name.containsIgnoreCase(searchTerm) ||
                 element.certificationType.containsIgnoreCase(searchTerm) ||

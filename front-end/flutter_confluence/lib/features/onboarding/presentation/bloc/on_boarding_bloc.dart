@@ -1,25 +1,25 @@
 import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_confluence/core/auth/auth_failures.dart';
 import 'package:flutter_confluence/core/constants.dart';
 import 'package:flutter_confluence/features/onboarding/domain/usecases/check_auth_use_case.dart';
+import 'package:local_auth/error_codes.dart' as auth_error;
 
 import '../../../../core/error/failures.dart';
 import '../../../../core/usecases/usecase.dart';
 import '../../domain/usecases/auth_use_case.dart';
-import 'package:local_auth/error_codes.dart' as auth_error;
 
 part 'on_boarding_event.dart';
 part 'on_boarding_state.dart';
 
 class OnBoardingBloc extends Bloc<OnBoardingEvent, OnBoardingState> {
-  final AuthUseCase authUseCase;
-  final CheckAuthUseCase checkAuthUseCase;
-
   OnBoardingBloc({required this.authUseCase, required this.checkAuthUseCase})
       : super(Empty());
+  final AuthUseCase authUseCase;
+  final CheckAuthUseCase checkAuthUseCase;
 
   @override
   Stream<OnBoardingState> mapEventToState(
@@ -39,9 +39,12 @@ class OnBoardingBloc extends Bloc<OnBoardingEvent, OnBoardingState> {
 
   Stream<OnBoardingState> getState(Either<Failure, bool> arg) async* {
     yield arg.fold(
-      (failure) => failure is AuthExpirationFailure ? Expired() :
-      AuthError(message: _mapFailureToMessage(failure as AuthFailure)),
-      (result) => result ? Completed() : AuthError(message: Constants.BIO_AUTH_DEFAULT_AUTH_FAILED),
+      (failure) => failure is AuthExpirationFailure
+          ? Expired()
+          : AuthError(message: _mapFailureToMessage(failure as AuthFailure)),
+      (result) => result
+          ? Completed()
+          : const AuthError(message: Constants.BIO_AUTH_DEFAULT_AUTH_FAILED),
     );
   }
 
@@ -63,5 +66,4 @@ class OnBoardingBloc extends Bloc<OnBoardingEvent, OnBoardingState> {
         return Constants.BIO_AUTH_DEFAULT_AUTH_FAILED;
     }
   }
-
 }
