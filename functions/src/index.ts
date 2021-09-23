@@ -72,7 +72,7 @@ app.get("/certifications/:userId", async (req: Request, res: Response) => {
 app.post("/certifications", async (req: Request, res: Response) => {
     const userCert = req.body as any;
     // const uid = req.user?.uid as string
-    const uid = userCert["uid"]; // CHANGE this, uid is current user id
+    const uid = userCert["uid"]; // CHANGE to current user id
     if (uid == null) {
         res.statusCode = 400;
         res.send(jsend.error("Bad Request"));

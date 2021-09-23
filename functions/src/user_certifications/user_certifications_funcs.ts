@@ -25,6 +25,7 @@ export async function updateUserCertification(
     cert: string,
     res: functions.Response) {
     try {
+        userCertRepo.update(id, cert);
         res.setHeader('Content-Type', 'application/json');
         res.statusCode = 201;
         res.send(jsend.success);
@@ -39,7 +40,7 @@ export async function deleteUserCertification(
     id: string,
     res: functions.Response) {
     try {
-
+        userCertRepo.deleteItem(id);
         res.setHeader('Content-Type', 'application/json');
         res.statusCode = 201;
         res.send(jsend.success);

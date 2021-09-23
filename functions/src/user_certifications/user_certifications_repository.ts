@@ -17,7 +17,6 @@ export async function insert(
     const docRef = await collection.doc(id).get();
     if (!docRef.exists) {
         doc.create({
-            userId: certification["userId"], // CHANGE this to current user id
             certificationId: certification["certificationId"],
             isCompleted: certification["isCompleted"],
             startDate: certification["startDate"],
@@ -30,7 +29,7 @@ export async function insert(
     }
 }
 
-export async function edit(
+export async function update(
     id: string,
     certification: any
 ) {
@@ -38,6 +37,19 @@ export async function edit(
     const docRef = await doc.get();
     if (docRef.exists) {
         doc.update(certification);
+    } else {
+        throw new CertificationNotFoundError();
+    }
+}
+
+// "delete" is a reserved word
+export async function deleteItem(
+    id: string
+) {
+    const doc = admin.firestore().collection(TABLE_CERTIFICATIONS).doc(id);
+    const docRef = await doc.get();
+    if (docRef.exists) {
+        doc.delete();
     } else {
         throw new CertificationNotFoundError();
     }
