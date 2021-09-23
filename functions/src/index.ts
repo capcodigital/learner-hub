@@ -2,6 +2,7 @@ import * as functions from "firebase-functions";
 import express, { Request, Response } from "express";
 import { validateFirebaseIdToken } from "./auth-middleware";
 import * as certSummaryFuncs from "./certification_summaries/certification_summary_funcs";
+//import * as userCertFuncs from "./user_certifications/certifications_repository";
 import * as userFuncs from "./users/users";
 import * as admin from "firebase-admin";
 import * as jsend from "./jsend";
@@ -58,6 +59,36 @@ app.put("/user", async (req: Request, res: Response) => {
 // Returns the logged in User
 app.get("/user", async (req: Request, res: Response) => {
 
+});
+
+// USER CERTIFICATION ENDPOINTS
+
+// Returns 
+app.get("/certifications", async (req: Request, res: Response) => {
+
+});
+
+// Returns 
+app.post("/certifications", async (req: Request, res: Response) => {
+    // const id = req.params.id as string;
+    // if (id == null) {
+    //     res.statusCode = 400;
+    //     res.send(jsend.error("Bad Request"));
+    // } else {
+    //     certSummaryFuncs.getCertificationSummary(id, res);
+    // }
+});
+
+// 
+app.put("/certifications", async (req: Request, res: Response) => {
+    const summary = req.body as any;
+    certSummaryFuncs.addCertificationSummary(summary, res);
+});
+
+// 
+app.delete("/certifications", async (req: Request, res: Response) => {
+    const summary = req.body as any;
+    certSummaryFuncs.addCertificationSummary(summary, res);
 });
 
 // This HTTPS endpoint can only be accessed by your Firebase Users.
