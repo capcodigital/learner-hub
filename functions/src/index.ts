@@ -49,9 +49,9 @@ app.post("/user", async (req: Request, res: Response) => {
 
 // Updates user in firestore
 app.put("/user", async (req: Request, res: Response) => {
-    var props = req.body;
-    if (props == null) res.status(400).send(jsend.error("Bad Request"));
-    else userFuncs.updateUser(props, res);
+    var user = req.body;
+    if (user == null) res.status(400).send(jsend.error("Bad Request"));
+    else userFuncs.updateUser(user, res);
 });
 
 // Returns current user
