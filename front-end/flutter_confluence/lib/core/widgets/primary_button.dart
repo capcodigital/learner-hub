@@ -15,7 +15,8 @@ class PrimaryButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ButtonStyle style = ElevatedButton.styleFrom(
-        primary: Colours.ACCENT_COLOR, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(150)));
+        primary: Colours.ACCENT_COLOR,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(150)));
 
     // TODO: Should this style be defined here?
     // It makes sense to be a themed style, but the theme

@@ -117,13 +117,8 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
                     children: [
                       Center(
                         child: Padding(
-                          padding:
-                              const EdgeInsets.symmetric(vertical: Dimen.big_padding, horizontal: Dimen.small_padding),
-                          child: Image.asset(
-                            "assets/capco_logo.png",
-                            // height: 150,
-                            // fit:BoxFit.fitHeight
-                          ),
+                          padding: const EdgeInsets.symmetric(vertical: Dimen.big_padding, horizontal: Dimen.small_padding),
+                          child: Image.asset("assets/capco_logo.png"),
                         ),
                       ),
                       Expanded(child: OnBoardingCarousel()),
