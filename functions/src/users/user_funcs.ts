@@ -50,9 +50,9 @@ export async function updateUser(
     user: any,
     res: functions.Response) {
     try {
-        userRepo.editUser(user);
+        const item = userRepo.editUser(user);
         res.statusCode = 200;
-        res.send(jsend.success("User updated successfully"));
+        res.send(jsend.successWithData(item));
     } catch (e) {
         logger.log(e);
         res.statusCode = 500;

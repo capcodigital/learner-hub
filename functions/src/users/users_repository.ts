@@ -37,9 +37,12 @@ export async function editUser(user: any) {
         .get();
     if (!snapshot.empty) {
         snapshot.forEach((doc => {
-            col.doc(doc.id).update(user);
+            const id = doc.id;
+            col.doc(id).update(user);
+            return doc.data();
         }));
-    } else {
+    }
+    else {
         throw new UserNotFoundError();
     }
 }
