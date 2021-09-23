@@ -44,6 +44,14 @@ export async function editUser(user: any) {
     }
 }
 
+export async function getUser(id: any) {
+    const col = admin.firestore().collection(TABLE_USERS);
+    const doc = col.doc(id);
+    const docRef = await doc.get();
+    if (docRef.exists) return docRef.data();
+    else throw new UserNotFoundError();
+}
+
 export async function getAllUsers(): Promise<any[]> {
     const snapshot = await admin.firestore()
         .collection(TABLE_USERS).get();

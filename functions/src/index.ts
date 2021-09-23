@@ -58,11 +58,8 @@ app.put("/user", async (req: Request, res: Response) => {
 // Returns current user
 app.get("/user", async (req: Request, res: Response) => {
     const user = fauth.getAuth().currentUser;
-    if (user != null) {
-
-    } else {
-
-    }
+    if (user != null) { userFuncs.getUser(user.uid, res) }
+    else res.status(500).send(jsend.error);
 });
 
 // This HTTPS endpoint can only be accessed by your Firebase Users.

@@ -59,3 +59,18 @@ export async function updateUser(
         res.send(jsend.error());
     }
 }
+
+// Returns firestore user of given id
+export async function getUser(
+    id: string,
+    res: functions.Response) {
+    try {
+        const user = userRepo.getUser(id);
+        res.statusCode = 200;
+        res.send(jsend.successWithData(user));
+    } catch (e) {
+        logger.log(e);
+        res.statusCode = 500;
+        res.send(jsend.error());
+    }
+}
