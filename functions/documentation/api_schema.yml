@@ -184,7 +184,9 @@ paths:
                   title: "AWS Certified Solutions Architect Associate",
                   description: "AWS Certified Solutions Architect – Associate is intended for anyone with one or more years of hands-on experience designing available, cost-efficient, fault-tolerant, and scalable distributed systems on AWS",
                   link: "https://aws.amazon.com/certification/certified-solutions-architect-associate",
-                  image: "https://d1.awsstatic.com/training-and-certification/Certification%20Badges/AWS-Certified_Solutions-Architect_Associate_badge_512x512.139edbefd4d7e9a16213032f592bdd8ca769dced.png"
+                  image: "https://d1.awsstatic.com/training-and-certification/Certification%20Badges/AWS-Certified_Solutions-Architect_Associate_badge_512x512.139edbefd4d7e9a16213032f592bdd8ca769dced.png",
+                  isIndustryRecognised: true
+
                 }]
               }
         '401':
@@ -226,13 +228,17 @@ paths:
                   type: string
                   format: uri
                   nullable: true
+                isIndustryRecognised: 
+                  type: boolean
             example:
               category: Cloud
               platform: AWS
               title: AWS Certified Solutions Architect Associate
               description: AWS Certified Solutions Architect – Associate is intended for anyone with one or more years of hands-on experience designing available, cost-efficient, fault-tolerant, and scalable distributed systems on AWS
               link: https://aws.amazon.com/certification/certified-solutions-architect-associate
-              image: https://d1.awsstatic.com/training-and-certification/Certification%20Badges/AWS-Certified_Solutions-Architect_Associate_badge_512x512.139edbefd4d7e9a16213032f592bdd8ca769dced.png
+              image: https://d1.awsstatic.com/training-and-certification/Certification%20Badges/AWS-Certified_Solutions-Architect_Associate_badge_512x512.139edbefd4d7e9a16213032f592bdd8ca769dced.png,
+              isIndustryRecognised: true
+
       responses:
         '201':
           description: Created
@@ -249,7 +255,9 @@ paths:
                   title: "AWS Certified Solutions Architect Associate",
                   description: "AWS Certified Solutions Architect – Associate is intended for anyone with one or more years of hands-on experience designing available, cost-efficient, fault-tolerant, and scalable distributed systems on AWS",
                   link: "https://aws.amazon.com/certification/certified-solutions-architect-associate",
-                  image: "https://d1.awsstatic.com/training-and-certification/Certification%20Badges/AWS-Certified_Solutions-Architect_Associate_badge_512x512.139edbefd4d7e9a16213032f592bdd8ca769dced.png"
+                  image: "https://d1.awsstatic.com/training-and-certification/Certification%20Badges/AWS-Certified_Solutions-Architect_Associate_badge_512x512.139edbefd4d7e9a16213032f592bdd8ca769dced.png",
+                  isIndustryRecognised: true
+
                 }
               }
         '401':
@@ -286,7 +294,8 @@ paths:
                   platform: "AWS",
                   title: "AWS Certified Solutions Architect Associate",
                   description: "AWS Certified Solutions Architect – Associate is intended for anyone with one or more years of hands-on experience designing available, cost-efficient, fault-tolerant, and scalable distributed systems on AWS",
-                  image: "https://d1.awsstatic.com/training-and-certification/Certification%20Badges/AWS-Certified_Solutions-Architect_Associate_badge_512x512.139edbefd4d7e9a16213032f592bdd8ca769dced.png"
+                  image: "https://d1.awsstatic.com/training-and-certification/Certification%20Badges/AWS-Certified_Solutions-Architect_Associate_badge_512x512.139edbefd4d7e9a16213032f592bdd8ca769dced.png",
+                  isIndustryRecognised: true
                 }
               }
         '400':
@@ -343,7 +352,8 @@ paths:
                     title: "AWS Certified Solutions Architect Associate",
                     description: "AWS Certified Solutions Architect – Associate is intended for anyone with one or more years of hands-on experience designing available, cost-efficient, fault-tolerant, and scalable distributed systems on AWS",
                     link: "https://aws.amazon.com/certification/certified-solutions-architect-associate",
-                    image: "https://d1.awsstatic.com/training-and-certification/Certification%20Badges/AWS-Certified_Solutions-Architect_Associate_badge_512x512.139edbefd4d7e9a16213032f592bdd8ca769dced.png"
+                    image: "https://d1.awsstatic.com/training-and-certification/Certification%20Badges/AWS-Certified_Solutions-Architect_Associate_badge_512x512.139edbefd4d7e9a16213032f592bdd8ca769dced.png",
+                    isIndustryRecognised: true
                   },
                   isCompleted: true,
                   startDate: '2021-09-13',
@@ -728,6 +738,8 @@ components:
           type: string
           format: uri
           nullable: true
+        isIndustryRecognised: 
+          type: boolean
     Skills:
       type: object
       properties:
