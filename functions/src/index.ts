@@ -1,9 +1,10 @@
 import * as functions from "firebase-functions";
+import * as admin from "firebase-admin";
+import * as fauth from "@firebase/auth";
 import express, { Request, Response } from "express";
 import { validateFirebaseIdToken } from "./auth-middleware";
 import * as certSummaryFuncs from "./certification_summaries/certification_summary_funcs";
 import * as userFuncs from "./users/user_funcs";
-import * as admin from "firebase-admin";
 import * as jsend from "./jsend";
 
 // Initialize Firebase app
@@ -56,7 +57,12 @@ app.put("/user", async (req: Request, res: Response) => {
 
 // Returns current user
 app.get("/user", async (req: Request, res: Response) => {
+    const user = fauth.getAuth().currentUser;
+    if (user != null) {
 
+    } else {
+
+    }
 });
 
 // This HTTPS endpoint can only be accessed by your Firebase Users.
