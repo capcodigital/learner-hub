@@ -1,17 +1,18 @@
 import 'package:dartz/dartz.dart';
-import '../../../../core/usecases/usecase.dart';
+
 import '../../../../core/error/failures.dart';
+import '../../../../core/usecases/usecase.dart';
 import '../entities/cloud_certification.dart';
 import '../repositories/cloud_certification_repository.dart';
 
 class GetInProgressCertifications
     implements UseCase<List<CloudCertification>, NoParams> {
+  GetInProgressCertifications(this.repository);
   final CloudCertificationRepository repository;
 
-  GetInProgressCertifications(this.repository);
-
+  @override
   Future<Either<Failure, List<CloudCertification>>> call(
       NoParams noParams) async {
-    return await repository.getInProgressCertifications();
+    return repository.getInProgressCertifications();
   }
 }

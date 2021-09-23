@@ -1,7 +1,7 @@
 version: 2
 
 jobs:
-  tests:
+  analysis:
     docker:
       - image: "cirrusci/flutter:2.2.3"
     steps:
@@ -9,11 +9,20 @@ jobs:
       - run:
           name: check flutter requirements
           command: flutter doctor -v
+          working_directory: ~/project/front-end/flutter_confluence
+      - run:
+          name: run static analysis
+          command: flutter analyze
+          working_directory: ~/project/front-end/flutter_confluence
+  tests:
+    docker:
+      - image: "cirrusci/flutter:2.2.3"
+    steps:
+      - checkout
       - run:
           name: run tests
           command: flutter test
           working_directory: ~/project/front-end/flutter_confluence
-
   deploy_functions:
     docker:
       - image: "cimg/node:14.0.0"
@@ -36,9 +45,11 @@ workflows:
   version: 2
   commit:
     jobs:
+      - analysis
       - tests
       - deploy_functions:
           requires:
+            - analysis
             - tests
           filters:
             branches:

@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_confluence/core/constants.dart';
@@ -5,17 +7,15 @@ import 'package:flutter_confluence/core/dimen.dart';
 import 'package:flutter_confluence/core/utils/media_util.dart';
 import 'package:flutter_confluence/features/certifications/presentation/bloc/cloud_certification_bloc.dart';
 
-import 'dart:math' as math;
-
 class ToggleButton extends StatefulWidget {
-  static const TXT_COMPLETED = "Completed";
-  static const TXT_IN_PROGRESS = "In Progress";
+  static const TXT_COMPLETED = 'Completed';
+  static const TXT_IN_PROGRESS = 'In Progress';
 
   @override
-  _ToggleButtonState createState() => _ToggleButtonState();
+  ToggleButtonState createState() => ToggleButtonState();
 }
 
-class _ToggleButtonState extends State<ToggleButton> {
+class ToggleButtonState extends State<ToggleButton> {
   final Color jiraColor = Constants.JIRA_COLOR;
   final double minWidth = 300.0;
   final double height = 50.0;
@@ -54,13 +54,13 @@ class _ToggleButtonState extends State<ToggleButton> {
         children: [
           AnimatedAlign(
             alignment: Alignment(xAlign!, 0),
-            duration: Duration(milliseconds: 300),
+            duration: const Duration(milliseconds: 300),
             child: Container(
               width: scaledWidth * Dimen.scale_50_100,
               height: height,
               decoration: BoxDecoration(
                 color: jiraColor,
-                borderRadius: BorderRadius.all(
+                borderRadius: const BorderRadius.all(
                   Radius.circular(50.0),
                 ),
               ),
@@ -77,7 +77,7 @@ class _ToggleButtonState extends State<ToggleButton> {
               });
             },
             child: Align(
-              alignment: Alignment(-1, 0),
+              alignment: Alignment.centerLeft,
               child: Container(
                 width: scaledWidth * Dimen.scale_50_100,
                 color: Colors.transparent,
@@ -101,7 +101,7 @@ class _ToggleButtonState extends State<ToggleButton> {
               });
             },
             child: Align(
-              alignment: Alignment(1, 0),
+              alignment: Alignment.centerRight,
               child: Container(
                 width: scaledWidth * Dimen.scale_50_100,
                 color: Colors.transparent,

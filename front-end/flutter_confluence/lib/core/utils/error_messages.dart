@@ -3,8 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
-const OK = "OK";
-const SETTINGS = "Settings";
+const OK = 'OK';
+const SETTINGS = 'Settings';
 
 mixin CustomAlertDialog {
   showAlertDialog(BuildContext dialogContext, String message) {

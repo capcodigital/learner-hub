@@ -31,6 +31,9 @@
 .pub/
 /build/
 
+# iOS related
+/ios/build/Pods.build
+
 # Web related
 lib/generated_plugin_registrant.dart
 

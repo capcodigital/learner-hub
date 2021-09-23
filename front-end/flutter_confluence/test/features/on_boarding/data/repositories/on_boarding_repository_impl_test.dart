@@ -2,12 +2,12 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_confluence/core/constants.dart';
 import 'package:flutter_confluence/core/error/custom_exceptions.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:local_auth/error_codes.dart' as auth_error;
 import 'package:flutter_confluence/core/error/failures.dart';
 import 'package:flutter_confluence/features/onboarding/data/datasources/on_boarding_local_data_source.dart';
 import 'package:flutter_confluence/features/onboarding/data/repositories/on_boarding_repository_impl.dart';
 import 'package:flutter_confluence/features/onboarding/domain/repositories/on_boarding_repository.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:local_auth/error_codes.dart' as auth_error;
 import 'package:mocktail/mocktail.dart';
 
 class MockOnBoardingLocalDataSource extends Mock
@@ -35,7 +35,7 @@ void main() {
 
       // assert
       verify(() => mockDataSource.saveAuthTimeStamp()).called(1);
-      expect(result, equals(Right(true)));
+      expect(result, equals(const Right(true)));
     });
 
     test('Should return success for AuthNotSupportedPlatform', () async {
@@ -47,7 +47,7 @@ void main() {
       final result = await repository.authenticate();
 
       // assert
-      expect(result, equals(Right(true)));
+      expect(result, equals(const Right(true)));
     });
 
     test('Should return AuthFailure for Default Auth Error', () async {
@@ -113,7 +113,7 @@ void main() {
 
       // assert
       verify(() => mockDataSource.checkCachedAuth()).called(1);
-      expect(result, equals(Right(true)));
+      expect(result, equals(const Right(true)));
     });
 
     test('Should call checkCachedAuth and return auth expiration failure',
