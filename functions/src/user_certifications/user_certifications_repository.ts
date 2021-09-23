@@ -17,7 +17,7 @@ export async function insert(
     const docRef = await collection.doc(id).get();
     if (!docRef.exists) {
         doc.create({
-            userId: certification["userId"], // Will change to current user id
+            userId: certification["userId"], // CHANGE this to current user id
             certificationId: certification["certificationId"],
             isCompleted: certification["isCompleted"],
             startDate: certification["startDate"],

@@ -4,10 +4,11 @@ import * as jsend from "../jsend";
 import * as userCertRepo from "./user_certifications_repository";
 
 export async function addUserCertification(
-    summary: any,
+    id: string,
+    userCert: any,
     res: functions.Response) {
     try {
-        const item = await userCertRepo.insert(summary);
+        const item = await userCertRepo.insert(id, userCert);
         functions.logger.log(item);
         res.setHeader('Content-Type', 'application/json');
         res.statusCode = 201;
@@ -19,38 +20,33 @@ export async function addUserCertification(
     }
 }
 
-/*
-export async function getAllCertifications(res: functions.Response) {
+export async function updateUserCertification(
+    id: string,
+    cert: string,
+    res: functions.Response) {
     try {
-        const items = await userCertRepo.
-            res.setHeader('Content-Type', 'application/json');
-        res.statusCode = 200;
-        res.send(jsend.successWithData(items));
+        res.setHeader('Content-Type', 'application/json');
+        res.statusCode = 201;
+        res.send(jsend.success);
     } catch (e) {
-        logger.log(e);
+        functions.logger.log(e);
         res.statusCode = 500;
         res.send(jsend.error());
     }
 }
 
-export async function getCertificationSummary(
+export async function deleteUserCertification(
     id: string,
     res: functions.Response) {
     try {
-        const summary = await userCertRepo.get(id);
+
         res.setHeader('Content-Type', 'application/json');
-        res.statusCode = 200;
-        res.send(jsend.successWithData([summary]));
+        res.statusCode = 201;
+        res.send(jsend.success);
     } catch (e) {
-        logger.log(e);
-        if (e instanceof userCertRepo.CertificationNotFoundError) {
-            res.statusCode = 404;
-            res.send(jsend.error("Certification not found"));
-        } else {
-            res.statusCode = 500;
-            res.send(jsend.error());
-        }
+        functions.logger.log(e);
+        res.statusCode = 500;
+        res.send(jsend.error());
     }
 }
-*/
 
