@@ -13,9 +13,7 @@ analyzer:
     # Stream and not importing dart:async
     # Please see https://github.com/flutter/flutter/pull/24528 for details.
     sdk_version_async_exported_from_core: ignore
-    # TODO(https://github.com/flutter/flutter/issues/74381):
-    # Clean up existing unnecessary imports, and remove line to ignore.
-    unnecessary_import: ignore
+    unused_import: warning
     # Turned off until null-safe rollout is complete.
     unnecessary_null_comparison: ignore
   exclude:
@@ -102,7 +100,6 @@ linter:
     - leading_newlines_in_multiline_strings
     - library_names
     - library_prefixes
-    - library_private_types_in_public_api
     # - lines_longer_than_80_chars # not required by flutter style
     - list_remove_unrelated_type
     # - literal_only_boolean_expressions # too many false positives: https://github.com/dart-lang/sdk/issues/34181
@@ -112,7 +109,6 @@ linter:
     - no_duplicate_case_values
     - no_logic_in_create_state
     # - no_runtimeType_toString # ok in tests; we enable this only in packages/
-    - noop_primitive_operations
     - non_constant_identifier_names
     - null_check_on_nullable_type_parameter
     - null_closures
@@ -208,7 +204,6 @@ linter:
     - use_rethrow_when_possible
     # - use_setters_to_change_properties # not yet tested
     # - use_string_buffers # has false positives: https://github.com/dart-lang/sdk/issues/34182
-    - use_test_throws_matchers
     # - use_to_and_as_if_applicable # has false positives, so we prefer to catch this by code-review
     - valid_regexps
     # - void_checks
