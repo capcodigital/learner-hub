@@ -24,17 +24,13 @@ export async function insertUser(
             bio: user.bio,
             skills: user.skills
         });
-    } else {
-        throw new UserExistsError();
-    }
+    } else throw new UserExistsError();
+
 }
 
 export async function editUser(user: any) {
     const col = admin.firestore().collection(TABLE_USERS);
-    const snapshot = await admin.firestore()
-        .collection(TABLE_USERS)
-        .where("email", "==", user["email"])
-        .get();
+    const snapshot = await col.where("email", "==", user["email"]).get();
     if (!snapshot.empty) {
         snapshot.forEach((doc => {
             const id = doc.id;
@@ -42,9 +38,7 @@ export async function editUser(user: any) {
             return doc.data();
         }));
     }
-    else {
-        throw new UserNotFoundError();
-    }
+    else throw new UserNotFoundError();
 }
 
 export async function getUser(id: any) {
