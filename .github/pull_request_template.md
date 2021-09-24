@@ -8,19 +8,20 @@
 
 ## WIP
 
-*PRs that should not be reviewed should be marked as a WIP. When the checkbox is unmarked, the reviewer can assume the PR is ready for review.*
+Before you create this PR confirm that it meets all requirements listed below by checking the relevant checkboxes (`[x]`).
 
-- [] This PR is currently a work-in-progress
+*PRs that should not be reviewed should be marked as a WIP.
+
+- [] This PR is currently a work-in-progress.
+- [] This PR is ready for review.
 
 ## Checklist
 
-Before you create this PR confirm that it meets all requirements listed below by checking the relevant checkboxes (`[x]`).
-
-- [ ] My PR includes unit or integration tests for *all* changed/updated/fixed behaviors.
-- [ ] All existing and new tests are passing.
-- [ ] My PR meets the acceptance criteria as outlined by my ticket.
-- [ ] I updated/added relevant documentation and comments (docs start with `///` and comments with `//`).
-- [ ] The analyzer (`flutter analyze`) does not report any problems on my PR.
+- [] My PR includes unit or integration tests for *all* changed/updated/fixed behaviors.
+- [] All existing and new tests are passing.
+- [] My PR meets the acceptance criteria as outlined by my ticket.
+- [] I updated/added relevant documentation and comments (docs start with `///` and comments with `//`).
+- [] The analyzer (`flutter analyze`) does not report any problems on my PR.
 
 ## Screenshots
 
