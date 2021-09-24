@@ -76,3 +76,28 @@ export async function deleteItem(
         throw new UserCertificationNotFoundError();
     }
 }
+
+export async function getAllUsers(): Promise<any[]> {
+    const snapshot = await admin.firestore()
+        .collection(TABLE_USERS).get();
+    return toUsers(snapshot);
+}
+
+async function toUserCertifications(snapshot: FirebaseFirestore.QuerySnapshot):
+    Promise<any[]> {
+    const users = Array<any>();
+    if (!snapshot.empty) {
+        snapshot.forEach((doc: { data: () => any }) => {
+            var item = doc.data() as User
+            users.push({
+                name: item.name,
+                lastName: item.lastName,
+                email: item.email,
+                jobTitle: item.jobTitle,
+                bio: item.bio,
+                skills: item.skills
+            });
+        });
+    }
+    return users;
+}
