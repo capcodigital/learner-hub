@@ -3,29 +3,38 @@ import * as admin from 'firebase-admin';
 
 const TABLE_CERTIFICATIONS = "User Certifications";
 
-export class CertificationFirestoreError extends Error { }
-export class CertificationsExistsError extends CertificationFirestoreError { }
-export class CertificationNotFoundError extends CertificationFirestoreError { }
+export class UserCertificationFirestoreError extends Error { }
+export class UserCertificationExistsError extends UserCertificationFirestoreError { }
+export class UserCertificationNotFoundError extends UserCertificationFirestoreError { }
 
 export async function insert(
-    id: string,
-    certification: any,
+    uid: string,
+    item: any,
 ) {
     const db = admin.firestore();
     const collection = db.collection(TABLE_CERTIFICATIONS);
-    const doc = collection.doc(id);
-    const docRef = await collection.doc(id).get();
-    if (!docRef.exists) {
-        doc.create({
-            certificationId: certification["certificationId"],
-            isCompleted: certification["isCompleted"],
-            startDate: certification["startDate"],
-            completionDate: certification["completionDate"],
-            expiryDate: certification["expiryDate"],
-            rating: certification["rating"]
-        });
-    } else {
-        throw new CertificationsExistsError();
+    const snap = await collection
+        .where("userId", "==", uid)
+        .where("certificationId", "==", item["certificationId"]).get();
+    if (!snap.empty) throw new UserCertificationExistsError();
+    else {
+        const doc = collection.doc(id);
+        const docRef = await collection.doc(id).get();
+        if (!docRef.exists) {
+            doc.create({
+                userId: item["userId"],
+                certificationId: item["certificationId"],
+                isCompleted: item["isCompleted"],
+                startDate: item["startDate"],
+                completionDate: item["completionDate"],
+                expiryDate: item["expiryDate"],
+                rating: item["rating"]
+            });
+            return
+        } else {
+
+        }
+
     }
 }
 
@@ -38,7 +47,7 @@ export async function update(
     if (docRef.exists) {
         doc.update(certification);
     } else {
-        throw new CertificationNotFoundError();
+        throw new UserCertificationNotFoundError();
     }
 }
 
@@ -51,32 +60,6 @@ export async function deleteItem(
     if (docRef.exists) {
         doc.delete();
     } else {
-        throw new CertificationNotFoundError();
+        throw new UserCertificationNotFoundError();
     }
 }
-
-/*
-export async function getAll(): Promise<any[]> {
-    const snapshot = await admin.firestore()
-        .collection(TABLE_CERTIFICATIONS).get();
-    return toCertifications(snapshot);
-}
-
-async function toCertifications(snapshot: FirebaseFirestore.QuerySnapshot): Promise<any[]> {
-    const users = Array<any>();
-    if (!snapshot.empty) {
-        snapshot.forEach((doc: { data: () => any }) => {
-            var item = doc.data() as User
-            users.push({
-                userId: string,
-                certificationId: string,
-                isComplete: string,
-                startDate: string,
-                completionDate: string,
-                expiryDate: string,
-                rating: string
-            });
-        });
-    }
-    return users;
-}*/

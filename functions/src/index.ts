@@ -74,14 +74,9 @@ app.get("/certifications/:userId", async (req: Request, res: Response) => {
 // Creates a Certification to firestore for current user
 app.post("/certifications", async (req: Request, res: Response) => {
     const userCert = req.body as any;
-    // const uid = req.user?.uid as string
-    const uid = userCert["uid"]; // CHANGE to current user id
-    if (uid == null) {
-        res.statusCode = 400;
-        res.send(jsend.error("Bad Request"));
-    } else {
-        userCertFuncs.addUserCertification(uid, userCert, res);
-    }
+    const user = fauth.getAuth().currentUser;
+    if (user != null) userCertFuncs.addUserCertification(user.uid, userCert, res);
+    else res.status(400).send(jsend.error("Bad Request"));
 });
 
 // Updates the certification of given id in firestore

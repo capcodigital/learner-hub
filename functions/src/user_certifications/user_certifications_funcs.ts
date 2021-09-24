@@ -4,11 +4,11 @@ import * as jsend from "../jsend";
 import * as userCertRepo from "./user_certifications_repository";
 
 export async function addUserCertification(
-    id: string,
+    uid: string,
     userCert: any,
     res: functions.Response) {
     try {
-        const item = await userCertRepo.insert(id, userCert);
+        const item = await userCertRepo.insert(uid, userCert);
         functions.logger.log(item);
         res.setHeader('Content-Type', 'application/json');
         res.statusCode = 201;
