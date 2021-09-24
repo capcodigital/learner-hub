@@ -96,6 +96,15 @@ paths:
                 status: success
                 data: 
                   message: User registered
+
+        '400':
+          description: Missing body
+          content:
+            application/json:
+              example:
+                status: error
+                data: 
+                  message: Bad Request
                 
         '401':
           $ref: '#/components/responses/UnauthorizedError'
