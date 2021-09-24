@@ -16,26 +16,39 @@ export async function insert(
     const snap = await collection
         .where("userId", "==", uid)
         .where("certificationId", "==", item["certificationId"]).get();
-    if (!snap.empty) throw new UserCertificationExistsError();
-    else {
-        const doc = collection.doc(id);
-        const docRef = await collection.doc(id).get();
-        if (!docRef.exists) {
-            doc.create({
-                userId: item["userId"],
-                certificationId: item["certificationId"],
-                isCompleted: item["isCompleted"],
-                startDate: item["startDate"],
-                completionDate: item["completionDate"],
-                expiryDate: item["expiryDate"],
-                rating: item["rating"]
-            });
-            return
-        } else {
 
+    if (snap.empty) {
+
+        const userId = item["userId"];
+        const certificationId = item["certificationId"];
+        const isCompleted = item["isCompleted"];
+        const startDate = item["startDate"];
+        const completionDate = item["completionDate"];
+        const expiryDate = item["expiryDate"];
+        const rating = item["rating"];
+
+        const docRef = await collection.add({
+            userId: userId,
+            certificationId: certificationId,
+            isCompleted: isCompleted,
+            startDate: startDate,
+            completionDate: completionDate,
+            expiryDate: expiryDate,
+            rating: rating
+        });
+
+        return {
+            id: docRef.id,
+            userId: userId,
+            certificationId: certificationId,
+            isCompleted: isCompleted,
+            startDate: startDate,
+            completionDate: completionDate,
+            expiryDate: expiryDate,
+            rating: rating
         }
-
     }
+    else throw new UserCertificationExistsError();
 }
 
 export async function update(
