@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_confluence/core/colours.dart';
 import 'package:flutter_confluence/core/dimen.dart';
+import 'package:flutter_confluence/features/onboarding/presentation/widgets/indicator_icon.dart';
 
 class _OnBoardingCarouselItem {
   _OnBoardingCarouselItem({required this.asset, required this.title, required this.description});
@@ -95,23 +96,9 @@ class _OnBoardingCarouselState extends State<OnBoardingCarousel> {
         children: _carouselItems.asMap().entries.map((entry) {
           return GestureDetector(
             onTap: () => _controller.animateToPage(entry.key),
-            child: Stack(
-              children: [
-                Container(
-                    width: 12.0,
-                    height: 12.0,
-                    margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
-                    decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.white)),
-                Align(
-                  alignment: Alignment.center,
-                  child: Container(
-                      width: 7.5,
-                      height: 7.5,
-                      margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 6.0),
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle, color: _currentIndex == entry.key ? Colors.white : Colors.black)),
-                ),
-              ],
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: Dimen.extra_small_padding / 2, vertical: 0),
+              child: IndicatorIcon(isSelected: _currentIndex == entry.key),
             ),
           );
         }).toList(),
