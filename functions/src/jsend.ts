@@ -15,16 +15,6 @@ export function success(msg: string) {
     return JSON.stringify(json);
 }
 
-export function fail(title: string, values: any) {
-    const json = {
-        status: "fail",
-        "data": {
-            [title]: values
-        }
-    };
-    return JSON.stringify(json);
-}
-
 export function error(msg: string = "Internal Server Error") {
     const json = {
         status: "error",

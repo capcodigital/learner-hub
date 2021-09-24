@@ -1,10 +1,11 @@
 import * as functions from "firebase-functions";
+import * as admin from "firebase-admin";
+import * as fauth from "@firebase/auth";
 import express, { Request, Response } from "express";
 import { validateFirebaseIdToken } from "./auth-middleware";
 import * as certSummaryFuncs from "./certification_summaries/certification_summary_funcs";
 import * as userCertFuncs from "./user_certifications/user_certifications_funcs";
 import * as userFuncs from "./users/user_funcs";
-import * as admin from "firebase-admin";
 import * as jsend from "./jsend";
 
 // Initialize Firebase app
@@ -42,7 +43,7 @@ app.post("/certificationSummary", async (req: Request, res: Response) => {
 
 // Adds user in firestore
 app.post("/user", async (req: Request, res: Response) => {
-    const uid = req.user?.uid as string
+    const uid = req.user?.uid as string;
     const user = req.body;
     if (uid == null || user == null) res.status(400).send(jsend.error("Bad Request"));
     else userFuncs.registerUser(uid, user, res);
@@ -50,14 +51,16 @@ app.post("/user", async (req: Request, res: Response) => {
 
 // Updates user in firestore
 app.put("/user", async (req: Request, res: Response) => {
-    var props = req.body;
-    if (props == null) res.status(400).send(jsend.error("Bad Request"));
-    else userFuncs.updateUser(props, res);
+    var user = req.body;
+    if (user == null) res.status(400).send(jsend.error("Bad Request"));
+    else userFuncs.updateUser(user, res);
 });
 
 // Returns current user
 app.get("/user", async (req: Request, res: Response) => {
-
+    const user = fauth.getAuth().currentUser;
+    if (user != null) { userFuncs.getUser(user.uid, res) }
+    else res.status(500).send(jsend.error);
 });
 
 // USER CERTIFICATION ENDPOINTS

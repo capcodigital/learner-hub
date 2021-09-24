@@ -4,6 +4,7 @@ import { logger } from "firebase-functions";
 import * as userRepo from "./users_repository";
 import * as jsend from "../jsend";
 
+// Adds a user in firestore and returns a response with a message
 export async function registerUser(
     uid: string,
     user: any,
@@ -11,8 +12,8 @@ export async function registerUser(
 ) {
     try {
         const email = user["email"] as string;
-        const firstName = user["name"] as string;
-        const surname = user["lastName"] as string;
+        const name = user["name"] as string;
+        const lastName = user["lastName"] as string;
         const jobTitle = user["jobTitle"] as string;
         const bio = user["bio"] as string;
 
@@ -23,39 +24,47 @@ export async function registerUser(
 
         const item: User = {
             email: email,
-            name: firstName,
-            lastName: surname,
+            name: name,
+            lastName: lastName,
             jobTitle: jobTitle,
             bio: bio,
             skills: skills
         }
 
         userRepo.insertUser(uid, item);
-        res.statusCode = 201;
-        res.send(jsend.successWithData({ "message": "User registered" }));
+        res.status(201).send(jsend.successWithData({ "message": "User registered" }));
     } catch (e) {
         logger.log(e);
         if (e instanceof userRepo.UserExistsError) {
-            res.statusCode = 409;
-            res.send(jsend.error("User already registered"));
+            res.status(409).send(jsend.error("User already registered"));
         } else {
-            res.statusCode = 500;
-            res.send(jsend.error());
+            res.status(500).send(jsend.error());
         }
     }
 }
 
-// Updates user in firestore and returns a response
+// Updates user in firestore and returns a response with the updated user
 export async function updateUser(
     user: any,
     res: functions.Response) {
     try {
-        userRepo.editUser(user);
-        res.statusCode = 200;
-        res.send(jsend.success("User updated successfully"));
+        const item = await userRepo.editUser(user);
+        res.status(200).send(jsend.successWithData(item));
     } catch (e) {
         logger.log(e);
-        res.statusCode = 500;
-        res.send(jsend.error());
+        res.status(500).send(jsend.error());
+    }
+}
+
+// Returns a response with firestore user of given id
+export async function getUser(
+    id: string,
+    res: functions.Response) {
+    try {
+        const user = await userRepo.getUser(id);
+        res.status(200).send(jsend.successWithData(user));
+    } catch (e) {
+        logger.log(e);
+        res.status(500).send(jsend.error());
     }
 }
