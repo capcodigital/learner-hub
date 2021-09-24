@@ -4,7 +4,6 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_confluence/core/colours.dart';
 import 'package:flutter_confluence/core/components/app_drawer.dart';
 import 'package:flutter_confluence/core/components/custom_appbar.dart';
@@ -16,7 +15,6 @@ import 'package:flutter_confluence/features/onboarding/presentation/widgets/onbo
 
 import '../../../../core/constants.dart';
 import '../../../certifications/presentation/pages/home_page.dart';
-import '../bloc/on_boarding_bloc.dart';
 
 class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
   static const route = 'OnBoardingPage';
@@ -45,7 +43,7 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
   }
 
   void navigateToLoginPage(BuildContext context) {
-    Navigator.pushReplacement(
+    Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => const AppDrawer(
@@ -60,7 +58,7 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
   }
 
   void navigateToRegisterPage(BuildContext context) {
-    Navigator.pushReplacement(
+    Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => const AppDrawer(
@@ -84,59 +82,33 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
     ));
 
     return Scaffold(
-      body: buildBodyWithBloc(context),
-      backgroundColor: Colours.PRIMARY_COLOR,
-    );
-  }
-
-  Widget buildBodyWithBloc(BuildContext context) {
-    return BlocListener(
-      bloc: BlocProvider.of<OnBoardingBloc>(context),
-      listener: (context, state) {
-        if (state is AuthError) {
-          showAlertDialog(context, state.message);
-        } else if (state is Completed) {
-          navigateToHomePage(context);
-        }
-      },
-      child: buildWithLayoutBuilder(context),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        title: Image.asset('assets/capco_logo.png'),
+      ),
+      body: buildWithLayoutBuilder(context),
+      backgroundColor: Colors.black,
     );
   }
 
   Widget buildWithLayoutBuilder(BuildContext context) {
     return SafeArea(
-        top: true,
-        bottom: true,
-        child: Column(
-          children: [
-            Expanded(
-              child: Container(
-                  color: Colours.PRIMARY_COLOR,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Center(
-                        child: Padding(
-                          padding:
-                              const EdgeInsets.symmetric(vertical: Dimen.big_padding, horizontal: Dimen.small_padding),
-                          child: Image.asset('assets/capco_logo.png'),
-                        ),
-                      ),
-                      Expanded(child: OnBoardingCarousel()),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: Dimen.small_padding, vertical: Dimen.big_padding),
-                        child: PrimaryButton(
-                            text: 'Log in',
-                            onPressed: () {
-                              login(context);
-                            }),
-                      )
-                    ],
-                  )),
-            ),
-            getFooter(context)
-          ],
-        ));
+      child:
+          Column(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.center, children: [
+        const Spacer(),
+        OnBoardingCarousel(),
+        const Spacer(),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: Dimen.large_padding, horizontal: Dimen.small_padding),
+          child: PrimaryButton(
+              text: 'Log in',
+              onPressed: () {
+                login(context);
+              }),
+        ),
+        getFooter(context),
+      ]),
+    );
   }
 
   Widget getFooter(BuildContext context) {

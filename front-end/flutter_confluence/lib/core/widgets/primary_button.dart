@@ -14,7 +14,8 @@ class PrimaryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final ButtonStyle style = ElevatedButton.styleFrom(
         primary: Colours.ACCENT_COLOR,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(150)));
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(150)));
 
     // TODO(cgal-capco): Should this style be defined here?
     // It makes sense to be a themed style, but the theme
@@ -28,6 +29,10 @@ class PrimaryButton extends StatelessWidget {
     // ignore: sized_box_for_whitespace
     return Container(
         height: Dimen.button_widget_height,
-        child: ElevatedButton(style: style, onPressed: onPressed, child: Text(text, style: textStyle)));
+        width: double.infinity,
+        child: ElevatedButton(
+            style: style,
+            onPressed: onPressed,
+            child: Text(text, style: textStyle)));
   }
 }
