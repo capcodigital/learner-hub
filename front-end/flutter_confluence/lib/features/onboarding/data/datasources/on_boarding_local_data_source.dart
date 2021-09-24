@@ -13,13 +13,16 @@ abstract class OnBoardingLocalDataSource {
   Future<bool> checkCachedAuth();
 }
 
-const PREF_LAST_BIOMETRIC_AUTH_TIME_MILLIS = "last_biometric_auth_time_millis";
+const PREF_LAST_BIOMETRIC_AUTH_TIME_MILLIS = 'last_biometric_auth_time_millis';
 const AUTH_REASON = 'Please authenticate to proceed';
 const BIOMETRIC_AUTH_ONLY = true;
 const STICKY_AUTH = true;
 const USE_ERROR_DIALOGS = false;
 
 class OnBoardingLocalDataSourceImpl implements OnBoardingLocalDataSource {
+  OnBoardingLocalDataSourceImpl(
+      {required this.auth, required this.authHiveHelper, required this.device});
+
   final LocalAuthentication auth;
   final BioAuthHiveHelper authHiveHelper;
   final Device device;
@@ -29,19 +32,16 @@ class OnBoardingLocalDataSourceImpl implements OnBoardingLocalDataSource {
     return device.isMobile;
   }
 
-  OnBoardingLocalDataSourceImpl(
-      {required this.auth, required this.authHiveHelper, required this.device});
-
   @override
   Future<bool> authenticate() async {
     if (_isSupportedPlatform) {
-      return await auth.authenticate(
+      return auth.authenticate(
           localizedReason: AUTH_REASON,
           biometricOnly: BIOMETRIC_AUTH_ONLY,
           stickyAuth: STICKY_AUTH,
           useErrorDialogs: USE_ERROR_DIALOGS);
     } else {
-      log("Auth is not supported for this platform");
+      log('Auth is not supported for this platform');
       throw AuthNotSupportedPlatform();
     }
   }
@@ -54,7 +54,7 @@ class OnBoardingLocalDataSourceImpl implements OnBoardingLocalDataSource {
 
   @override
   Future<bool> checkCachedAuth() async {
-    int? lastAuthTime = await authHiveHelper.getLatestBioAuthTime();
+    final int? lastAuthTime = await authHiveHelper.getLatestBioAuthTime();
     if (lastAuthTime != null) {
       final now = CustomizableDateTime.current;
       final lastAuthDate = DateTime.fromMillisecondsSinceEpoch(lastAuthTime);

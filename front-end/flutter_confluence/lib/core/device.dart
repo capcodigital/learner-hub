@@ -14,9 +14,8 @@ abstract class Device {
 }
 
 class DeviceImpl implements Device {
-  final Platform platform;
-
   DeviceImpl({required this.platform});
+  final Platform platform;
 
   @override
   bool get isDesktop => !isWeb && (isWindows || isLinux || isMacOS);

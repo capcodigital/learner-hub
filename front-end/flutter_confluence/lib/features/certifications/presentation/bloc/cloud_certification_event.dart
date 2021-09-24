@@ -14,9 +14,8 @@ class GetInProgressCertificationsEvent extends CloudCertificationEvent {
 }
 
 class SearchCertificationsEvent extends CloudCertificationEvent {
-  final String searchTerm;
-
   SearchCertificationsEvent(this.searchTerm);
+  final String searchTerm;
 
   @override
   List<Object> get props => [searchTerm];
