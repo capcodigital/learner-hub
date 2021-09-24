@@ -4,6 +4,7 @@ import { logger } from "firebase-functions";
 import * as userRepo from "./users_repository";
 import * as jsend from "../jsend";
 
+// Adds a user in firestore and returns a response with a message
 export async function registerUser(
     uid: string,
     user: any,
@@ -42,7 +43,7 @@ export async function registerUser(
     }
 }
 
-// Updates user in firestore and returns a response
+// Updates user in firestore and returns a response with the updated user
 export async function updateUser(
     user: any,
     res: functions.Response) {
@@ -55,7 +56,7 @@ export async function updateUser(
     }
 }
 
-// Returns firestore user of given id
+// Returns a response with firestore user of given id
 export async function getUser(
     id: string,
     res: functions.Response) {
