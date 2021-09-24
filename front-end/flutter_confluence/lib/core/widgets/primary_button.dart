@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_confluence/core/Colours.dart';
-
+import '../colours.dart';
 import '../dimen.dart';
 
 class PrimaryButton extends StatelessWidget {
