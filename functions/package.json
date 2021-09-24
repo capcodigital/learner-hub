@@ -14,8 +14,6 @@
   },
   "main": "lib/index.js",
   "dependencies": {
-    "@firebase/app": "^0.7.0",
-    "@firebase/auth": "^0.17.2",
     "axios": "^0.21.1",
     "express": "^4.17.1",
     "firebase-admin": "^9.11.1",

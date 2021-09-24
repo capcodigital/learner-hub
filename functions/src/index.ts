@@ -1,6 +1,5 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
-import * as fauth from "@firebase/auth";
 import express, { Request, Response } from "express";
 import { validateFirebaseIdToken } from "./auth-middleware";
 import * as certSummaryFuncs from "./certification_summaries/certification_summary_funcs";
@@ -44,21 +43,22 @@ app.post("/certificationSummary", async (req: Request, res: Response) => {
 app.post("/user", async (req: Request, res: Response) => {
     const uid = req.user?.uid as string;
     const user = req.body;
-    if (uid == null || user == null) res.status(400).send(jsend.error("Bad Request"));
+    if (user == null) res.status(400).send(jsend.error("Bad Request"));
     else userFuncs.registerUser(uid, user, res);
 });
 
 // Updates user in firestore
 app.put("/user", async (req: Request, res: Response) => {
+    const uid = req.user?.uid as string;
     var user = req.body;
     if (user == null) res.status(400).send(jsend.error("Bad Request"));
-    else userFuncs.updateUser(user, res);
+    else userFuncs.updateUser(uid, user, res);
 });
 
 // Returns current user
 app.get("/user", async (req: Request, res: Response) => {
-    const user = fauth.getAuth().currentUser;
-    if (user != null) userFuncs.getUser(user.uid, res);
+    const uid = req.user?.uid as string;
+    if (uid != null) userFuncs.getUser(uid, res);
     else res.status(500).send(jsend.error);
 });
 
