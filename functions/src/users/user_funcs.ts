@@ -47,7 +47,7 @@ export async function updateUser(
     user: any,
     res: functions.Response) {
     try {
-        const item = userRepo.editUser(user);
+        const item = await userRepo.editUser(user);
         res.status(200).send(jsend.successWithData(item));
     } catch (e) {
         logger.log(e);
@@ -60,7 +60,7 @@ export async function getUser(
     id: string,
     res: functions.Response) {
     try {
-        const user = userRepo.getUser(id);
+        const user = await userRepo.getUser(id);
         res.status(200).send(jsend.successWithData(user));
     } catch (e) {
         logger.log(e);

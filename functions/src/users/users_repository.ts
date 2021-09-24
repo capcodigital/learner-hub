@@ -6,6 +6,7 @@ const TABLE_USERS = "Users";
 export class UserFirestoreError extends Error { }
 export class UserExistsError extends UserFirestoreError { }
 export class UserNotFoundError extends UserFirestoreError { }
+export class UserDuplicationError extends UserFirestoreError { }
 
 export async function insertUser(
     uid: string,
@@ -31,13 +32,14 @@ export async function insertUser(
 export async function editUser(user: any) {
     const col = admin.firestore().collection(TABLE_USERS);
     const snapshot = await col.where("email", "==", user["email"]).get();
-    if (!snapshot.empty) {
+    if (snapshot.size == 1) {
         snapshot.forEach((doc => {
             const id = doc.id;
             col.doc(id).update(user);
             return doc.data();
         }));
     }
+    else if (snapshot.size > 1) throw new UserDuplicationError();
     else throw new UserNotFoundError();
 }
 
