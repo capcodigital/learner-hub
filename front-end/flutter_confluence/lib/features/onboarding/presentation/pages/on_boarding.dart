@@ -119,19 +119,11 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text('Not a member yet?',
-                style: TextStyle(
-                    color: Colours.ALTERNATIVE_TEXT_COLOR,
-                    fontFamily: 'FuturaPT',
-                    fontSize: 18,
-                    fontWeight: FontWeight.w400,
-                    fontStyle: FontStyle.italic)),
+            Text('Not a member yet?', style: Theme.of(context).textTheme.subtitle1),
             TextButton(
                 style: TextButton.styleFrom(
-                  primary: Colours.ACCENT_COLOR,
-                  textStyle: const TextStyle(
-                      fontSize: 18, fontFamily: 'FuturaPT', fontWeight: FontWeight.w600, fontStyle: FontStyle.italic),
-                ),
+                    primary: Colours.ACCENT_COLOR,
+                    textStyle: Theme.of(context).textTheme.subtitle2?.copyWith(fontStyle: FontStyle.italic)),
                 onPressed: () {
                   register(context);
                 },
