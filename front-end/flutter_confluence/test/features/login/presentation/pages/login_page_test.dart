@@ -33,7 +33,7 @@ void main() {
     final loginButton = find.byWidgetPredicate((widget) => widget is PrimaryButton);
 
     // assert
-    // expect(formFields, findsNWidgets(2));
-    // expect(loginButton, findsOneWidget);
+    expect(formFields, findsNWidgets(2));
+    expect(loginButton, findsOneWidget);
   });
 }
