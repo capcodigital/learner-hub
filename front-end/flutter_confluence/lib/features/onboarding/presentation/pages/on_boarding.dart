@@ -13,9 +13,9 @@ import '/core/dimen.dart';
 import '/core/utils/error_messages.dart';
 import '/core/utils/media_util.dart';
 import '/core/widgets/primary_button.dart';
+import '/features/certifications/presentation/pages/home_page.dart';
 import '/features/login/presentation/pages/login_page.dart';
 import '/features/onboarding/presentation/widgets/onboarding_carousel.dart';
-import '../../../certifications/presentation/pages/home_page.dart';
 
 class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
   static const route = 'OnBoardingPage';
