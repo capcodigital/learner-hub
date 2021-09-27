@@ -6,14 +6,18 @@ const TABLE_CERTIFICATION_SUMMARIES = "Certification Summaries";
 export class SummaryFirestoreError extends Error { }
 export class SummaryNotFound extends SummaryFirestoreError { }
 
-export async function getAllCertificationSummaries(): Promise<any[]> {
+interface AssocList {
+    [index: string]: any;
+}
+
+export async function getAllCertificationSummaries(): Promise<AssocList> {
     const snapshot = await admin.firestore()
         .collection(TABLE_CERTIFICATION_SUMMARIES)
         .get();
-    const results = Array<any>();
+    const results: AssocList = [];
     if (!snapshot.empty) {
         snapshot.forEach((doc => {
-            results.push(toJson(doc.data(), doc.id)
+            results.push(doc.id, toJson(doc.data(), doc.id)
             );
         }));
     }
@@ -51,3 +55,4 @@ function toJson(item: any, id: string): any {
         "image": item.image
     }
 }
+

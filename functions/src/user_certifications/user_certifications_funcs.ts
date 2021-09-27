@@ -39,9 +39,6 @@ export async function getUserCertifications(
         const items = await userCertRepo.getUserCertifications(uid);
         functions.logger.log(items);
         res.setHeader('Content-Type', 'application/json');
-        // TODO: Format response as per the API docs i.e. each json
-        // item contains the full certificationSummary, not just
-        // the certification id
         res.status(200).send(jsend.successfullResponse(items));
     } catch (e) {
         functions.logger.log(e);
@@ -63,4 +60,3 @@ export async function deleteUserCertification(
         res.status(500).send(jsend.error);
     }
 }
-

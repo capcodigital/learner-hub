@@ -66,8 +66,8 @@ app.get("/user", async (req: Request, res: Response) => {
 
 // USER CERTIFICATION ENDPOINTS
 
-// Returns the user certifications. When passed a parameter,
-// returns the certification for the requested userId
+// Returns the certifications of user with passed id.
+// If no id passed, then user is current user.
 app.get("/certifications/:userId", async (req: Request, res: Response) => {
     var uid = req.params.userId;
     if (uid == null) uid = req.user?.uid as string;

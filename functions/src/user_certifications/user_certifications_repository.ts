@@ -1,5 +1,6 @@
 /* eslint-disable require-jsdoc */
 import * as admin from 'firebase-admin';
+import * as summaryRepo from '../certification_summaries/certification_summary_repository';
 
 const TABLE_CERTIFICATIONS = "User Certifications";
 
@@ -99,13 +100,15 @@ export async function getUserCertifications(uid: string): Promise<any[]> {
 
 async function toCertifications(snap: FirebaseFirestore.QuerySnapshot):
     Promise<any[]> {
+    const summaries = await summaryRepo.getAllCertificationSummaries();
     const items = Array<any>();
     if (!snap.empty) {
         snap.forEach((doc: { data: () => any }) => {
             var it = doc.data() as UserCertification
+            const summary = summaries[it.certificationId];
             items.push({
                 userId: it.userId,
-                certificationId: it.certificationId,
+                certificationSummary: summary,
                 isCompleted: it.isCompleted,
                 startDate: it.startDate,
                 completionDate: it.completionDate,
