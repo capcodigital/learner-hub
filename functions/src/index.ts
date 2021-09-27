@@ -69,26 +69,19 @@ app.get("/user", async (req: Request, res: Response) => {
 // Returns the user certifications. When passed a parameter,
 // returns the certification for the requested userId
 app.get("/certifications/:userId", async (req: Request, res: Response) => {
-    var uid = req.params.userId;
-    if (uid == null) {
-        const currentUser = fauth.getAuth().currentUser;
-        if (currentUser != null) uid = currentUser.uid;
-    }
-
-    if (uid != null) {
-        // return all certifs for this uid
-    } else {
-        // send error
-    }
+    var userId = req.params.userId;
+    if (userId == null) userId = req.user?.uid as string;
+    if (userId != null) userCertFuncs.getUserCertifications(userId, res);
+    else res.status(401).send(jsend.error("Unauthorized"));
 });
 
 // Creates a Certification to firestore for current user
 app.post("/certifications", async (req: Request, res: Response) => {
     const userCert = req.body as any;
-    const user = fauth.getAuth().currentUser;
+    const uid = req.user?.uid as string;
     if (userCert == null) res.status(400).send(jsend.error("Bad Request"));
-    else if (user == null) res.status(401).send(jsend.error("Unauthorized"));
-    else userCertFuncs.addUserCertification(user.uid, userCert, res);
+    else if (uid == null) res.status(401).send(jsend.error("Unauthorized"));
+    else userCertFuncs.addUserCertification(uid, userCert, res);
 });
 
 // Updates the certification of given id in firestore
