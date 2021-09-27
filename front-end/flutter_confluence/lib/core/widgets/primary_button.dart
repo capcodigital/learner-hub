@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+
 import '../colours.dart';
 import '../dimen.dart';
 
@@ -13,17 +14,7 @@ class PrimaryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final ButtonStyle style = ElevatedButton.styleFrom(
         primary: Colours.ACCENT_COLOR,
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(150)));
-
-    // TODO(cgal-capco): Should this style be defined here?
-    // It makes sense to be a themed style, but the theme
-    // styles are very limited in number ¯\_(ツ)_/¯
-    const TextStyle textStyle = TextStyle(
-        color: Colours.PRIMARY_TEXT_COLOR,
-        fontFamily: 'FuturaPT',
-        fontWeight: FontWeight.w600,
-        fontSize: 18.0);
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(150)));
 
     // ignore: sized_box_for_whitespace
     return Container(
@@ -32,6 +23,6 @@ class PrimaryButton extends StatelessWidget {
         child: ElevatedButton(
             style: style,
             onPressed: onPressed,
-            child: Text(text, style: textStyle)));
+            child: Text(text, style: Theme.of(context).textTheme.button)));
   }
 }

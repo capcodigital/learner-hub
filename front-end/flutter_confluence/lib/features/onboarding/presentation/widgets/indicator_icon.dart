@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_confluence/core/colours.dart';
+import '/core/colours.dart';
 
 class IndicatorIcon extends StatelessWidget {
   const IndicatorIcon({required this.isSelected});

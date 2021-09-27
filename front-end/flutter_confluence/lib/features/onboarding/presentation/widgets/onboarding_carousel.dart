@@ -1,9 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_confluence/core/colours.dart';
-import 'package:flutter_confluence/core/dimen.dart';
-import 'package:flutter_confluence/features/onboarding/presentation/widgets/indicator_icon.dart';
+
+import '/core/dimen.dart';
+import '/features/onboarding/presentation/widgets/indicator_icon.dart';
 
 class _OnBoardingCarouselItem {
   _OnBoardingCarouselItem({required this.asset, required this.title, required this.description});
@@ -29,35 +29,25 @@ final List<_OnBoardingCarouselItem> _carouselItems = [
       description: 'Do you want to make this completed  message goes here'),
 ];
 
-final List<Widget> _imageSliders = _carouselItems
-    .map((item) => Column(
-          children: [
-            Image.asset(item.asset),
-            Padding(
-              padding: const EdgeInsets.all(Dimen.large_padding),
-              child: Column(
-                children: [
-                  Text(item.title,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                          color: Colours.PRIMARY_TEXT_COLOR,
-                          fontFamily: 'FuturaPT',
-                          fontWeight: FontWeight.w800,
-                          fontSize: 22.0)),
-                  const SizedBox(height: Dimen.small_padding),
-                  Text(item.description,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                          color: Colours.PRIMARY_TEXT_COLOR,
-                          fontFamily: 'Lato',
-                          fontWeight: FontWeight.w400,
-                          fontSize: 16.0)),
-                ],
-              ),
-            )
-          ],
-        ))
-    .toList();
+List<Widget> _getImageSliders(BuildContext context) {
+  return _carouselItems
+      .map((item) => Column(
+            children: [
+              Image.asset(item.asset),
+              Padding(
+                padding: const EdgeInsets.all(Dimen.large_padding),
+                child: Column(
+                  children: [
+                    Text(item.title, textAlign: TextAlign.center, style: Theme.of(context).textTheme.headline1),
+                    const SizedBox(height: Dimen.small_padding),
+                    Text(item.description, textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyText1),
+                  ],
+                ),
+              )
+            ],
+          ))
+      .toList();
+}
 
 class OnBoardingCarousel extends StatefulWidget {
   @override
@@ -76,7 +66,7 @@ class _OnBoardingCarouselState extends State<OnBoardingCarousel> {
       Padding(
         padding: const EdgeInsets.only(top: Dimen.large_padding),
         child: CarouselSlider(
-          items: _imageSliders,
+          items: _getImageSliders(context),
           carouselController: _controller,
           options: CarouselOptions(
               autoPlay: false,

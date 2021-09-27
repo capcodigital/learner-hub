@@ -7,6 +7,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 import 'core/components/preloader.dart';
 import 'core/constants.dart';
+import 'core/themes.dart';
 import 'features/certifications/data/models/cloud_certification_model.dart';
 import 'features/certifications/presentation/bloc/cloud_certification_bloc.dart';
 import 'features/certifications/presentation/pages/home_page.dart';
@@ -29,46 +30,7 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   ThemeData buildAppTheme() {
-    return ThemeData(
-      primaryColor: Constants.JIRA_COLOR,
-      fontFamily: 'Montserrat',
-      textTheme: const TextTheme(
-        headline1: TextStyle(
-            fontSize: 20.0, color: Colors.white, fontWeight: FontWeight.w600),
-        headline2: TextStyle(
-            color: Colors.black, fontSize: 16.0, fontWeight: FontWeight.w600),
-        headline3: TextStyle(
-            color: Constants.BLACK_75,
-            fontSize: 12.0,
-            fontWeight: FontWeight.w400),
-        // NEW STYLES FOR THE NEW UI
-        bodyText1: TextStyle(
-            color: Colors.white,
-            fontFamily: 'Lato',
-            fontWeight: FontWeight.w400,
-            fontSize: 16.0),
-        button: TextStyle(
-            color: Colors.white,
-            fontFamily: 'Lato',
-            fontWeight: FontWeight.w700,
-            fontSize: 18.0),
-        headline6: TextStyle(
-            color: Colors.white,
-            fontFamily: 'FuturaPT',
-            fontWeight: FontWeight.w800,
-            fontSize: 22.0),
-        subtitle1: TextStyle(
-            color: Colors.black,
-            fontFamily: 'FuturaPT',
-            fontWeight: FontWeight.w400,
-            fontSize: 18.0),
-        subtitle2: TextStyle(
-            color: Constants.ACCENT_COLOR,
-            fontFamily: 'FuturaPT',
-            fontWeight: FontWeight.w600,
-            fontSize: 18.0),
-      ),
-    );
+    return Themes.appTheme;
   }
 
   @override
