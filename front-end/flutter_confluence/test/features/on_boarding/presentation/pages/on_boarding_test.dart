@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_confluence/core/themes.dart';
 import 'package:flutter_confluence/core/widgets/primary_button.dart';
 import 'package:flutter_confluence/features/onboarding/presentation/pages/on_boarding.dart';
 import 'package:flutter_confluence/features/onboarding/presentation/widgets/onboarding_carousel.dart';
@@ -8,7 +9,7 @@ void main() {
   testWidgets('OnBoarding Page should show expected widgets', (tester) async {
     // arrange
     // act
-    await tester.pumpWidget(MaterialApp(home: OnBoardingPage()));
+    await tester.pumpWidget(MaterialApp(theme: Themes.appTheme, home: OnBoardingPage()));
 
     final logoFinder = find.byWidgetPredicate((widget) => widget is Image);
     final carouselFinder = find.byWidgetPredicate((widget) => widget is OnBoardingCarousel);

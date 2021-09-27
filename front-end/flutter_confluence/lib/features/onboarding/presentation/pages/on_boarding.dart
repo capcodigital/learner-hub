@@ -4,16 +4,17 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_confluence/core/colours.dart';
-import 'package:flutter_confluence/core/components/app_drawer.dart';
-import 'package:flutter_confluence/core/components/custom_appbar.dart';
-import 'package:flutter_confluence/core/dimen.dart';
-import 'package:flutter_confluence/core/utils/error_messages.dart';
-import 'package:flutter_confluence/core/utils/media_util.dart';
-import 'package:flutter_confluence/core/widgets/primary_button.dart';
-import 'package:flutter_confluence/features/onboarding/presentation/widgets/onboarding_carousel.dart';
 
-import '../../../../core/constants.dart';
+import '/core/colours.dart';
+import '/core/components/app_drawer.dart';
+import '/core/components/custom_appbar.dart';
+import '/core/constants.dart';
+import '/core/dimen.dart';
+import '/core/utils/error_messages.dart';
+import '/core/utils/media_util.dart';
+import '/core/widgets/primary_button.dart';
+import '/features/login/presentation/pages/login_page.dart';
+import '/features/onboarding/presentation/widgets/onboarding_carousel.dart';
 import '../../../certifications/presentation/pages/home_page.dart';
 
 class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
@@ -43,18 +44,7 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
   }
 
   void navigateToLoginPage(BuildContext context) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const AppDrawer(
-              child: HomePage(
-            appBar: CustomAppBar(
-              icon: Icons.menu,
-              text: 'Login Page',
-              color: Constants.JIRA_COLOR,
-            ),
-          )),
-        ));
+    Navigator.pushNamed(context, LoginPage.route);
   }
 
   void navigateToRegisterPage(BuildContext context) {

@@ -11,6 +11,8 @@ import 'core/themes.dart';
 import 'features/certifications/data/models/cloud_certification_model.dart';
 import 'features/certifications/presentation/bloc/cloud_certification_bloc.dart';
 import 'features/certifications/presentation/pages/home_page.dart';
+import 'features/login/presentation/bloc/login_bloc.dart';
+import 'features/login/presentation/pages/login_page.dart';
 import 'features/onboarding/presentation/bloc/on_boarding_bloc.dart';
 import 'features/onboarding/presentation/pages/on_boarding.dart';
 import 'injection_container.dart';
@@ -44,6 +46,9 @@ class MyApp extends StatelessWidget {
           BlocProvider<OnBoardingBloc>(
             create: (_) => sl<OnBoardingBloc>()..add(const CheckAuthEvent()),
           ),
+          BlocProvider<LoginBloc>(
+            create: (_) => sl<LoginBloc>(),
+          )
         ],
         child: MaterialApp(
             debugShowCheckedModeBanner: false,
@@ -58,6 +63,7 @@ class MyApp extends StatelessWidget {
                     ),
                   ),
               OnBoardingPage.route: (context) => OnBoardingPage(),
+              LoginPage.route: (context) => const LoginPage(),
             },
             home: PreLoadWidget()));
   }

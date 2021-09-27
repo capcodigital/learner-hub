@@ -19,6 +19,8 @@ import 'features/certifications/domain/usecases/get_completed_certifications.dar
 import 'features/certifications/domain/usecases/get_in_progress_certifications.dart';
 import 'features/certifications/domain/usecases/search_certifications.dart';
 import 'features/certifications/presentation/bloc/cloud_certification_bloc.dart';
+import 'features/login/domain/usecases/login_use_case.dart';
+import 'features/login/presentation/bloc/login_bloc.dart';
 import 'features/onboarding/data/datasources/bio_auth_hive_helper.dart';
 import 'features/onboarding/data/datasources/on_boarding_local_data_source.dart';
 import 'features/onboarding/data/repositories/on_boarding_repository_impl.dart';
@@ -73,4 +75,7 @@ Future<void> init() async {
   sl.registerLazySingleton(() => LocalAuthentication());
   sl.registerLazySingleton<Platform>(() => const LocalPlatform());
   sl.registerLazySingleton<Device>(() => DeviceImpl(platform: sl()));
+
+  sl.registerLazySingleton(() => LoginUseCase(authManager: sl()));
+  sl.registerFactory(() => LoginBloc(loginUseCase: sl()));
 }
