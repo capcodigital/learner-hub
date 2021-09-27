@@ -3,65 +3,45 @@ import * as admin from 'firebase-admin';
 
 const TABLE_USERS = "Users";
 
+export class UserFirestoreError extends Error { }
+export class UserExistsError extends UserFirestoreError { }
+export class UserNotFoundError extends UserFirestoreError { }
+
 export async function insertUser(
-    docId: string,
-    user: User,
+    uid: string,
+    user: User
 ) {
-    const db = admin.firestore();
-    const collection = db.collection(TABLE_USERS);
-    const doc = await collection.doc(docId).get();
-    if (!doc.exists) {
-        collection.doc(docId).create({
+    const doc = admin.firestore().collection(TABLE_USERS).doc(uid);
+    const docRef = await doc.get();
+    if (!docRef.exists) {
+        doc.create({
+            name: user.name,
+            lastName: user.lastName,
             email: user.email,
-            firstName: user.firstName,
-            surname: user.surname,
             jobTitle: user.jobTitle,
             bio: user.bio,
-            confluenceConnected: user.confluenceConnected,
             skills: user.skills
         });
-    } else {
-        throw Error("User already exists!");
-    }
+    } else throw new UserExistsError();
 }
 
 export async function editUser(
     uid: string,
-    property: any
+    user: any
 ) {
-    const key = property["key"];
-    const value = property["value"];
-    const db = admin.firestore();
-    const collection = db.collection(TABLE_USERS);
-    const doc = await collection.doc(uid).get();
-    if (doc.exists) {
-        collection.doc(uid).update({
-            [key]: value
-        });
+    const col = admin.firestore().collection(TABLE_USERS);
+    const doc = col.doc(uid);
+    const docRef = await doc.get();
+    if (docRef.exists) {
+        doc.update(user);
     }
+    else throw new UserNotFoundError();
 }
 
-export async function getAllUsers(): Promise<any[]> {
-    const snapshot = await admin.firestore()
-        .collection(TABLE_USERS).get();
-    return toUsers(snapshot);
-}
-
-async function toUsers(snapshot: FirebaseFirestore.QuerySnapshot):
-    Promise<any[]> {
-    const users = Array<any>();
-    if (!snapshot.empty) {
-        snapshot.forEach((doc: { data: () => any }) => {
-            var item = doc.data() as User
-            users.push({
-                email: item.email,
-                firstName: item.firstName,
-                surname: item.surname,
-                jobTitle: item.jobTitle,
-                bio: item.bio,
-                confluenceConnected: item.confluenceConnected
-            });
-        });
-    }
-    return users;
+export async function getUser(id: any) {
+    const col = admin.firestore().collection(TABLE_USERS);
+    const doc = col.doc(id);
+    const docRef = await doc.get();
+    if (docRef.exists) return docRef.data();
+    else throw new UserNotFoundError();
 }

@@ -1,15 +1,13 @@
 import * as functions from "firebase-functions";
+import * as admin from "firebase-admin";
 import express, { Request, Response } from "express";
 import { validateFirebaseIdToken } from "./auth-middleware";
 import * as certSummaryFuncs from "./certification_summaries/certification_summary_funcs";
-import * as userFuncs from "./users/users";
-import * as admin from "firebase-admin";
+import * as userFuncs from "./users/user_funcs";
 import * as jsend from "./jsend";
 
 // Initialize Firebase app
 admin.initializeApp();
-
-export const register = express();
 
 // Initialize and configure Express server
 export const app = express();
@@ -41,18 +39,28 @@ app.post("/certificationSummary", async (req: Request, res: Response) => {
 
 // USER ENDPOINTS
 
-// Endpoint to SIGNUP a user (add in firebase auth & firestore users collection)
-register.post("/users/signup", async (req: Request, res: Response) => {
-    var props = req.body["properties"];
-    if (props != null) userFuncs.registerUser(props, res);
+// Adds user in firestore
+app.post("/user", async (req: Request, res: Response) => {
+    const uid = req.user?.uid as string;
+    const user = req.body;
+    if (uid != null && user != null) userFuncs.registerUser(uid, user, res);
+    else if (uid == null) res.status(401).send(jsend.error("Unauthorized"));
     else res.status(400).send(jsend.error("Bad Request"));
 });
 
-// Updates a user property in Firestore
-app.put("/users/update", async (req: Request, res: Response) => {
-    const uid = req.query["uid"] as string;
-    const property = req.body["property"] as any;
-    userFuncs.updateUser(uid, property, res);
+// Updates user in firestore
+app.put("/user", async (req: Request, res: Response) => {
+    const uid = req.user?.uid as string;
+    var user = req.body;
+    if (user == null) res.status(400).send(jsend.error("Bad Request"));
+    else userFuncs.updateUser(uid, user, res);
+});
+
+// Returns current user
+app.get("/user", async (req: Request, res: Response) => {
+    const uid = req.user?.uid as string;
+    if (uid != null) userFuncs.getUser(uid, res);
+    else res.status(500).send(jsend.error);
 });
 
 // This HTTPS endpoint can only be accessed by your Firebase Users.
@@ -61,7 +69,3 @@ app.put("/users/update", async (req: Request, res: Response) => {
 exports.app = functions
     .region('europe-west2') // London
     .https.onRequest(app);
-
-exports.register = functions
-    .region('europe-west2') // London
-    .https.onRequest(register);
