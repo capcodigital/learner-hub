@@ -39,7 +39,7 @@ export async function insert(
         });
 
         return {
-            id: docRef.id,
+            id: docRef.id, // adding doc id in result
             userId: userId,
             certificationId: certificationId,
             isCompleted: isCompleted,
@@ -60,6 +60,17 @@ export async function update(
     const docRef = await doc.get();
     if (docRef.exists) {
         doc.update(certification);
+        const item = docRef.data() as UserCertification;
+        return {
+            id: docRef.id, // adding doc id in result
+            userId: item.userId,
+            certificationId: item.certificationId,
+            isCompleted: item.isCompleted,
+            startDate: item.startDate,
+            completionDate: item.completionDate,
+            expiryDate: item.expiryDate,
+            rating: item.rating
+        }
     } else {
         throw new UserCertificationNotFoundError();
     }

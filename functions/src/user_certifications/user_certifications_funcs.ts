@@ -11,12 +11,10 @@ export async function addUserCertification(
         const item = await userCertRepo.insert(uid, userCert);
         functions.logger.log(item);
         res.setHeader('Content-Type', 'application/json');
-        res.statusCode = 201;
-        res.send(jsend.successfullResponse(item));
+        res.status(201).send(jsend.successfullResponse(item));
     } catch (e) {
         functions.logger.log(e);
-        res.statusCode = 500;
-        res.send(jsend.error());
+        res.status(500).send(jsend.error);
     }
 }
 
@@ -25,14 +23,12 @@ export async function updateUserCertification(
     cert: string,
     res: functions.Response) {
     try {
-        userCertRepo.update(id, cert);
+        const item = userCertRepo.update(id, cert);
         res.setHeader('Content-Type', 'application/json');
-        res.statusCode = 201;
-        res.send(jsend.successfullResponse);
+        res.status(200).send(jsend.successfullResponse(item));
     } catch (e) {
         functions.logger.log(e);
-        res.statusCode = 500;
-        res.send(jsend.error());
+        res.status(500).send(jsend.error);
     }
 }
 
@@ -51,7 +47,7 @@ export async function getUserCertifications(
         functions.logger.log(e);
         if (e instanceof userCertRepo.UserNotFoundError)
             res.status(404).send(jsend.error("User not found"));
-        else res.status(500).send(jsend.error());
+        else res.status(500).send(jsend.error);
     }
 }
 
@@ -61,12 +57,10 @@ export async function deleteUserCertification(
     try {
         userCertRepo.deleteItem(id);
         res.setHeader('Content-Type', 'application/json');
-        res.statusCode = 201;
-        res.send(jsend.successfullResponse);
+        res.status(200).send(jsend.successfullResponse({ "message": "Item deleted" }));
     } catch (e) {
         functions.logger.log(e);
-        res.statusCode = 500;
-        res.send(jsend.error());
+        res.status(500).send(jsend.error);
     }
 }
 
