@@ -6,15 +6,12 @@ const TABLE_USERS = "Users";
 export class UserFirestoreError extends Error { }
 export class UserExistsError extends UserFirestoreError { }
 export class UserNotFoundError extends UserFirestoreError { }
-export class UserDuplicationError extends UserFirestoreError { }
 
 export async function insertUser(
     uid: string,
     user: User
 ) {
-    const db = admin.firestore();
-    const collection = db.collection(TABLE_USERS);
-    const doc = collection.doc(uid);
+    const doc = admin.firestore().collection(TABLE_USERS).doc(uid);
     const docRef = await doc.get();
     if (!docRef.exists) {
         doc.create({
@@ -26,20 +23,18 @@ export async function insertUser(
             skills: user.skills
         });
     } else throw new UserExistsError();
-
 }
 
-export async function editUser(user: any) {
+export async function editUser(
+    uid: string,
+    user: any
+) {
     const col = admin.firestore().collection(TABLE_USERS);
-    const snapshot = await col.where("email", "==", user["email"]).get();
-    if (snapshot.size == 1) {
-        snapshot.forEach((doc => {
-            const id = doc.id;
-            col.doc(id).update(user);
-            return doc.data();
-        }));
+    const doc = col.doc(uid);
+    const docRef = await doc.get();
+    if (docRef.exists) {
+        doc.update(user);
     }
-    else if (snapshot.size > 1) throw new UserDuplicationError();
     else throw new UserNotFoundError();
 }
 

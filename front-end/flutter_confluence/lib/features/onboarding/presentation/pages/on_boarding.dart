@@ -1,5 +1,6 @@
-import 'package:flutter/foundation.dart' show kIsWeb;
 import 'dart:io' show Platform;
+
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
@@ -15,27 +16,27 @@ import '../../../certifications/presentation/pages/home_page.dart';
 import '../bloc/on_boarding_bloc.dart';
 
 class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
-  static const route = "OnBoardingPage";
+  static const route = 'OnBoardingPage';
 
-  static const msgTrainingTypes = "Training Types";
+  static const msgTrainingTypes = 'Training Types';
   static const msgCardDescription =
-      "See the name, the date, the title of certification";
+      'See the name, the date, the title of certification';
   static const msgDescription =
-      "See all your co-workers certifications within a swipe";
-  static const msgAuthenticate = "Authenticate";
-  static const msgAuthenticateNotSupported = "Continue";
+      'See all your co-workers certifications within a swipe';
+  static const msgAuthenticate = 'Authenticate';
+  static const msgAuthenticateNotSupported = 'Continue';
 
   bool get isAuthSupported => !kIsWeb && (Platform.isIOS || Platform.isAndroid);
 
   void authenticate(BuildContext context) {
-    BlocProvider.of<OnBoardingBloc>(context).add(AuthEvent());
+    BlocProvider.of<OnBoardingBloc>(context).add(const AuthEvent());
   }
 
   void openHomePage(BuildContext context) {
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => AppDrawer(
+          builder: (context) => const AppDrawer(
               child: HomePage(
             appBar: CustomAppBar(
               icon: Icons.menu,
@@ -68,18 +69,16 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
   Widget buildWithLayoutBuilder(BuildContext context) {
     return Container(
         width: getMediaWidth(context),
-        // TODO: If we subtract status bar height, then background image not covering
-        // all screen. There is a white portion on the bottom equal to status bar height
         height: getMediaHeight(context),
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             image: DecorationImage(
-                image: AssetImage("assets/back-layer.png"), fit: BoxFit.cover)),
+                image: AssetImage('assets/back-layer.png'), fit: BoxFit.cover)),
         child: LayoutBuilder(
             builder: (BuildContext ctx, BoxConstraints constraints) {
-          final frontLayerTop = isPortrait((context))
+          final frontLayerTop = isPortrait(context)
               ? constraints.maxWidth * Dimen.scale_64_100
               : constraints.maxWidth * Dimen.scale_12_100;
-          final frontLayerLeft = isPortrait((context))
+          final frontLayerLeft = isPortrait(context)
               ? constraints.maxWidth * Dimen.scale_22_100
               : constraints.maxWidth * Dimen.scale_35_100;
           return Stack(children: <Widget>[
@@ -185,7 +184,7 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
             BoxShadow(
               color: Constants.BLACK_25,
               blurRadius: 3,
-              offset: Offset(0.0, 4.0),
+              offset: const Offset(0.0, 4.0),
             ),
           ],
         ),
@@ -215,7 +214,7 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
                       color: Colors.white, fontSize: Dimen.dimen_14)),
             ),
             GridView.count(
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               padding: EdgeInsets.only(
                   top: constraints.maxHeight * Dimen.scale_3_100,
                   left: constraints.maxWidth * Dimen.scale_12_100,
@@ -234,7 +233,7 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
 
   List<Widget> getPlatformIcons(
       double parentWidth, BoxConstraints constraints) {
-    List<Widget> icons = [];
+    final List<Widget> icons = [];
     icons.add(buildPlatformIcon(Constants.IC_AWS, constraints));
     icons.add(buildPlatformIcon(Constants.IC_AZURE, constraints));
     icons.add(buildPlatformIcon(Constants.IC_GCP, constraints));

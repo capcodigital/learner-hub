@@ -9,67 +9,78 @@
                 "title": "cloud practitioner",
                 "description": "Certified Cloud Practitioners have a good base understanding of basic IT services and their uses within the AWS Cloud platform. They are capable and have a good understanding of the core AWS services as well as use cases, pricing models, security concepts and how the cloud as a whole impacts businesses.",
                 "link": "https://aws.amazon.com/certification/certified-cloud-practitioner/",
-                "image": "https://d1.awsstatic.com/training-and-certification/Certification%20Badges/AWS-Certified_Cloud-Practitioner_512x512.bc006f14f986fa4f3ca238b0b62be458ce1fb5ce.png"
+                "image": "https://d1.awsstatic.com/training-and-certification/Certification%20Badges/AWS-Certified_Cloud-Practitioner_512x512.bc006f14f986fa4f3ca238b0b62be458ce1fb5ce.png",
+                "isIndustryRecognised": true
               },
               {
                 "title": "associate developer",
                 "description": "Certified Associate Developers have a very good understanding of core AWS services, use cases as well as basic understanding of the AWS architecture best practices. They have a decent proficiency in developing, deploying and debugging cloud-based applications using AWS and writing code for server less applications. With a good amount of knowledge on AWS services and said services key features and how to use them. They y are able to apply their basic understanding of cloud-native applications to write code as well as author, maintain and debug code modules on AWS.",
                 "link": "https://aws.amazon.com/certification/certified-developer-associate/",
-                "image": "https://d1.awsstatic.com/training-and-certification/Certification%20Badges/AWS-Certified_Developer_Associate_badge_512x512.616df8fd6c6a4298d013b7787e0bbbf93f9e2760.png"
+                "image": "https://d1.awsstatic.com/training-and-certification/Certification%20Badges/AWS-Certified_Developer_Associate_badge_512x512.616df8fd6c6a4298d013b7787e0bbbf93f9e2760.png",
+                "isIndustryRecognised": true
               },
               {
                 "title": "associate solutions architect",
                 "description": "Certified Associate Solutions Architects have a very good understanding of the AWS technologies including but not limited to using compute, networking, storage and databases along with the AWS deployment and management services. They are capable of deploying, managing and operating workloads on AWS whilst utilising the security products in order to remain compliant with requirements. They are very familiar with the AWS CLI and Management Console. They have an ability to identify which AWS Services meet certain technical requirements and define equivalent requirements for AWS-based Applications.",
                 "link": "https://aws.amazon.com/certification/certified-solutions-architect-associate/",
-                "image": "https://d1.awsstatic.com/training-and-certification/Certification%20Badges/AWS-Certified_Solutions-Architect_Associate_badge_512x512.139edbefd4d7e9a16213032f592bdd8ca769dced.png"
+                "image": "https://d1.awsstatic.com/training-and-certification/Certification%20Badges/AWS-Certified_Solutions-Architect_Associate_badge_512x512.139edbefd4d7e9a16213032f592bdd8ca769dced.png",
+                "isIndustryRecognised": true
               },
               {
                 "title": "associate sysops administrator",
                 "description": "Certified Associate SysOps Administrators have an effective understanding of the AWS technologies specifically in the use cases of system administrators for cloud operations. They have a good understanding of deployment, management and operation of workloads on AWS along with the security infrastructures required. They are comfortable using the AWS Management Console as well as the CLI. Along with all of this they manage to have a base level knowledge on the best practices for AWS Frameworks and networking Architecture.",
                 "link": "https://aws.amazon.com/certification/certified-sysops-admin-associate/",
-                "image": "https://d1.awsstatic.com/training-and-certification/Certification%20Badges/AWS-Certified_Sysops-Administrator_Associate_512x512.7ee4f9e7f4046349a3bfe27dcb1a54a340e04623.png"
+                "image": "https://d1.awsstatic.com/training-and-certification/Certification%20Badges/AWS-Certified_Sysops-Administrator_Associate_512x512.7ee4f9e7f4046349a3bfe27dcb1a54a340e04623.png",
+                "isIndustryRecognised": true
               },
               {
                 "title": "professional devops engineer",
                 "description": "Certified Professional DevOps Engineers are fully capable of implementing and managing continuous delivery systems and methods on AWS along with automating the security controls, governance processes and any other compliance validating required. They also have a deep understanding of the metrics and logging systems for AWS and are able to define and deploy monitors for said data. They are also capable of designing, managing and maintaining tools to operate all of these operational processes.",
                 "link": "https://aws.amazon.com/certification/certified-devops-engineer-professional/",
-                "image": "https://d1.awsstatic.com/training-and-certification/Certification%20Badges/AWS-Certified_Devops-Engineer_Professional_badge_512x512.ae0626c6bc4c9cfcfe910ab418e8a5481bdcc3e1.png"
+                "image": "https://d1.awsstatic.com/training-and-certification/Certification%20Badges/AWS-Certified_Devops-Engineer_Professional_badge_512x512.ae0626c6bc4c9cfcfe910ab418e8a5481bdcc3e1.png",
+                "isIndustryRecognised": true
               },
               {
                 "title": "professional solutions architect",
                 "description": "Certified Professional Solutions Architects have a proficient ability in designing and deploying scalable, highly available, fault-tolerant and reliable applications on the AWS platform. They have a deeper understanding of the services on offer by AWS and can use this knowledge in order to select the appropriate services to design/deploy an application based on requirements. They are also able to migrate complex and multi-tier applications as well and design and deploy enterprise-wide scalable operations all on AWS.",
                 "link": "https://aws.amazon.com/certification/certified-solutions-architect-professional/",
-                "image": "https://d1.awsstatic.com/training-and-certification/Certification%20Badges/AWS-Certified_%20Certified_Solutions-Architect_Professional_badge_512x512.ab5b14ee31132a77715a338f6d6c0b43eefdc8a6.png"
+                "image": "https://d1.awsstatic.com/training-and-certification/Certification%20Badges/AWS-Certified_%20Certified_Solutions-Architect_Professional_badge_512x512.ab5b14ee31132a77715a338f6d6c0b43eefdc8a6.png",
+                "isIndustryRecognised": true
               },
               {
                 "title": "advanced networking",
                 "description": "Certified Specialists in Advanced Networking design, develop and deploy cloud-based solutions using AWS through implementing core AWS services according to the architectural best practices. They are capable of designing and maintaining network architecture for all AWS services through leveraging tools to automate the AWS networking tasks.",
                 "link": "https://aws.amazon.com/certification/certified-advanced-networking-specialty/",
-                "image": "https://d1.awsstatic.com/training-and-certification/Certification%20Badges/AWS-Certified_Advanced-Networking_Specialty_badge_512x512.ac4b81f689c2dd6c7a8dc9599ff49a050682089e.png"
+                "image": "https://d1.awsstatic.com/training-and-certification/Certification%20Badges/AWS-Certified_Advanced-Networking_Specialty_badge_512x512.ac4b81f689c2dd6c7a8dc9599ff49a050682089e.png",
+                "isIndustryRecognised": true
               },
               {
                 "title": "data analytics",
                 "description": "Certified Specialists in Data Analytics are proficient in defining appropriate AWS Data Analytics services and have a deeper understanding of how they integrate with one another. They can also very effectively explain how AWS data analytics services fit within the data life cycle of t collection, storage, processing and visualisation.",
                 "link": "https://aws.amazon.com/certification/certified-data-analytics-specialty/",
-                "image": "https://d1.awsstatic.com/training-and-certification/Certification%20Badges/AWS-Certified_Data_Analytics_Specialty_badge_512x512.1ac7ce0a18ced455f146b8133a3d5374c98f23c7.png"
+                "image": "https://d1.awsstatic.com/training-and-certification/Certification%20Badges/AWS-Certified_Data_Analytics_Specialty_badge_512x512.1ac7ce0a18ced455f146b8133a3d5374c98f23c7.png",
+                "isIndustryRecognised": true
               },
               {
                 "title": "database",
                 "description": "Certified Specialists in Databases understand fully the different and key features of AWS database services. They are able to analyse the needs and requirements in order to recommend and design project appropriate database solutions utilising the AWS services.",
                 "link": "https://aws.amazon.com/certification/certified-database-specialty/",
-                "image": "https://d1.awsstatic.com/training-and-certification/Certification%20Badges/AWS-Certified_Database_Specialty_badge_512x512.026086365e38f26f96087a467f8592369b0f1041.png"
+                "image": "https://d1.awsstatic.com/training-and-certification/Certification%20Badges/AWS-Certified_Database_Specialty_badge_512x512.026086365e38f26f96087a467f8592369b0f1041.png",
+                "isIndustryRecognised": true
               },
               {
                 "title": "machine learning",
                 "description": "Certified Specialists in Machine Learning can select and justify the appropriate Machine Learning approach for a given problem and identify which AWS services would be most appropriate in order to implement said Machine Learning solutions. They are also capable of designing and implementing scalable, cost-optimised, reliable and secure Machine Learning solutions.",
                 "link": "https://aws.amazon.com/certification/certified-machine-learning-specialty/",
-                "image": "https://d1.awsstatic.com/training-and-certification/Certification%20Badges/AWS-Certified_Machine_Learning_Specialty_badge_512x512.faab741792f1b5195d2dfbf8ae5abd0d9024af7e.png"
+                "image": "https://d1.awsstatic.com/training-and-certification/Certification%20Badges/AWS-Certified_Machine_Learning_Specialty_badge_512x512.faab741792f1b5195d2dfbf8ae5abd0d9024af7e.png",
+                "isIndustryRecognised": true
               },
               {
                 "title": "security",
                 "description": "Certified Specialists in Security have a deep understanding of specialised data classifications and protection mechanisms within AWS as well as of data encryption methods and the AWS mechanisms used to implement them. They bring a good knowledge base on secure internet protocols and have a functioning working knowledge of the AWS security services and what features said services provide to the production environment. They have the ability to make tradeoff decisions with regards to cost, security and complexity of deployment given the requirements and have a phenomenal understanding of security operations and risk.",
                 "link": "https://aws.amazon.com/certification/certified-security-specialty/",
-                "image": "https://d1.awsstatic.com/training-and-certification/Certification%20Badges/AWS-Certified_Security_Specialty_badge_512x512.d02d4830322517ad8d0823ddf0b9b7182b2b7172.png"
+                "image": "https://d1.awsstatic.com/training-and-certification/Certification%20Badges/AWS-Certified_Security_Specialty_badge_512x512.d02d4830322517ad8d0823ddf0b9b7182b2b7172.png",
+                "isIndustryRecognised": true
               }
             ]
           },
@@ -79,31 +90,36 @@
                 "title": "associate cloud engineer",
                 "description": "Associate Cloud Engineers deploy applications, monitors operations, and manages enterprise solutions. With the ability to effectively use the Google Cloud Console and CLI to perform common platform-based tasks in order to maintain one or more deployed solutions on the Google Cloud or a Google-managed platform.",
                 "link": "https://cloud.google.com/certification/cloud-engineer",
-                "image": "https://images.credential.net/badge/tiny/j3if65ta_badge.png"
+                "image": "https://images.credential.net/badge/tiny/j3if65ta_badge.png",
+                "isIndustryRecognised": true
               },
               {
                 "title": "professional cloud architect",
                 "description": "Professional Cloud Architects assist organisations to take a greater advantage of Google Cloud technologies with their in-depth understanding of both cloud architecture and Google Cloud as a whole. They are easily capable of designing, developing and managing a robust, secure, scalable and dynamic cloud solutions to drive company and client objectives.",
                 "link": "https://cloud.google.com/certification/cloud-architect",
-                "image": "https://images.credential.net/badge/tiny/ql49a9qe_badge.png"
+                "image": "https://images.credential.net/badge/tiny/ql49a9qe_badge.png",
+                "isIndustryRecognised": true
               },
               {
                 "title": "professional cloud security engineer",
                 "description": "Professional Cloud Security Engineers allow organisations to design and deploy secure workloads and infrastructure on Google Cloud. Utilising their knowledge of both security best practices and industry requirements they can leverage Google security technologies for their projects. Proficient in all aspects of cloud Security such as identity and access management , defining organisational policies, configuration of network security defences and collection and analysing Google Cloud logs.",
                 "link": "https://cloud.google.com/certification/cloud-security-engineer",
-                "image": "https://images.credential.net/badge/tiny/j6plm80f_badge.png"
+                "image": "https://images.credential.net/badge/tiny/j6plm80f_badge.png",
+                "isIndustryRecognised": true
               },
               {
                 "title": "professional cloud network engineer",
                 "description": "Professional Cloud Network Engineers implement and manage network architectures on Google Cloud either working on networking or cloud teams with the architects who design the cloud infrastructure. They use the Google Cloud Console and/or CLI, leveraging their experience with network services, container networking, hybrid and multi-cloud connectivity, implementing VPC's and security for established architectures.",
                 "link": "https://cloud.google.com/certification/cloud-network-engineer",
-                "image": "https://images.credential.net/badge/tiny/qog5f4lm_badge.png"
+                "image": "https://images.credential.net/badge/tiny/qog5f4lm_badge.png",
+                "isIndustryRecognised": true
               },
               {
                 "title": "professional data engineer",
                 "description": "Professional Data Engineers allow for data-driven decision making through collecting, transforming and publishing data. They are able to design, build, operationalise, secure and monitor data processing systems with a great emphasis placed on, but not limited to, security, compliance, scalability, efficiency, reliability and fidelity. They are also capable of leveraging, deploying and training pre-existing machine learning models.",
                 "link": "https://cloud.google.com/certification/data-engineer",
-                "image": "https://images.credential.net/badge/tiny/u3rax8gi_badge.png"
+                "image": "https://images.credential.net/badge/tiny/u3rax8gi_badge.png",
+                "isIndustryRecognised": true
               }
             ]
           },
@@ -113,19 +129,22 @@
                 "title": "associate terraform engineer",
                 "description": "Terraform Associate Engineers are Cloud Engineers whom have gained specialised knowledge in operations, IT or development. They are capable of utilising and are knowledgable on the basic concepts and skills associated with HashiCorp Terraform. They are competent in the use of Terraform for production and understand which enterprise specific features exist and what can and cannot be accomplished using the open source offering.",
                 "link": "https://www.hashicorp.com/certification/terraform-associate",
-                "image": "https://www.datocms-assets.com/2885/1586800192-terraformassociateweb.png"
+                "image": "https://www.datocms-assets.com/2885/1586800192-terraformassociateweb.png",
+                "isIndustryRecognised": true
               },
               {
                 "title": "vault associate engineer",
                 "description": "Vault Associate Engineers are Cloud Engineers whom have gain specialised knowledge in security, development or operations. They are capable of utilising and are knowledgable on the basic concepts, skills and use cases associated with HashiCorp Vault. They are competent in the use of Vault for production and understand which enterprise specific features exist and what can and cannot be accomplished using the open source offering.",
                 "link": "https://www.hashicorp.com/certification/vault-associate",
-                "image": "https://www.datocms-assets.com/2885/1586800187-vaultassociateweb.png"
+                "image": "https://www.datocms-assets.com/2885/1586800187-vaultassociateweb.png",
+                "isIndustryRecognised": true
               },
               {
                 "title": "consul associate engineer",
                 "description": "Consul Associate Engineers are Site Reliability Engineers, Solutions Architects, DevOps professionals as well as a Cloud Engineers who are capable of utilising and are knowledgable on the basic concepts and skills in order to build, secure and maintain HashiCorp Consul. They are competent in the use of Consul for production and understand which enterprise specific features exist and what can and cannot be accomplished using the open source offering.",
                 "link": "https://www.hashicorp.com/certification/consul-associate",
-                "image": "https://www.datocms-assets.com/2885/1586800202-consulassociateweb.png"
+                "image": "https://www.datocms-assets.com/2885/1586800202-consulassociateweb.png",
+                "isIndustryRecognised": true
               }
             ]
           },
@@ -135,43 +154,50 @@
                 "title": "azure fundamentals",
                 "description": "Being Microsoft Certified in the Azure Fundamentals means having a basic understanding of cloud concepts as well as core Azure services. They have the capability of describing and explaining the core solutions and management tools on Azure as well as general security and network security features. They also have a good base level knowledge on Azure cost management and Service Level Agreements.",
                 "link": "https://docs.microsoft.com/en-us/learn/certifications/azure-fundamentals/",
-                "image": "https://images.credly.com/size/340x340/images/6a254dad-77e5-4e71-8049-94e5c7a15981/azure-fundamentals-600x600.png"
+                "image": "https://images.credly.com/size/340x340/images/6a254dad-77e5-4e71-8049-94e5c7a15981/azure-fundamentals-600x600.png",
+                "isIndustryRecognised": true
               },
               {
                 "title": "associate developer",
                 "description": "Microsoft Certified Azure Associate Developers have the ability to develop Azure compute solutions along with Azure storage. They are able to implement basic Azure security measures and can monitor, troubleshoot and optimise most Azure solutions.",
                 "link": "https://docs.microsoft.com/en-us/learn/certifications/azure-developer/",
-                "image": "https://images.credly.com/size/340x340/images/63316b60-f62d-4e51-aacc-c23cb850089c/azure-developer-associate-600x600.png"
+                "image": "https://images.credly.com/size/340x340/images/63316b60-f62d-4e51-aacc-c23cb850089c/azure-developer-associate-600x600.png",
+                "isIndustryRecognised": true
               },
               {
                 "title": "devops engineer expert",
                 "description": "Microsoft Certified Azure DevOps Experts can develop an instrumentation strategy, a Site Reliability Engineering strategy as well as a security and compliance plan. They are capable of managing source control along with defining and implementing continuous integration and a continuous delivery and release management system.",
                 "link": "https://docs.microsoft.com/en-us/learn/certifications/devops-engineer/",
-                "image": "https://images.credly.com/size/340x340/images/c3ab66f8-5d59-4afa-a6c2-0ba30a1989ca/CERT-Expert-DevOps-Engineer-600x600.png"
+                "image": "https://images.credly.com/size/340x340/images/c3ab66f8-5d59-4afa-a6c2-0ba30a1989ca/CERT-Expert-DevOps-Engineer-600x600.png",
+                "isIndustryRecognised": true
               },
               {
                 "title": "security engineer associate",
                 "description": "Microsoft Certified Azure Security Engineering Associates are capable of managing identities and the access granted. They can implement basic platform protection and manage the security operations and assist in keep data and applications secure.",
                 "link": "https://docs.microsoft.com/en-us/learn/certifications/azure-security-engineer/",
-                "image": "https://images.credly.com/size/340x340/images/1ad16b6f-2c71-4a2e-ae74-ec69c4766039/azure-security-engineer-associate600x600.png"
+                "image": "https://images.credly.com/size/340x340/images/1ad16b6f-2c71-4a2e-ae74-ec69c4766039/azure-security-engineer-associate600x600.png",
+                "isIndustryRecognised": true
               },
               {
                 "title": "solutions architect expert",
                 "description": "Microsoft Certified Azure Solutions Architect Experts implement, and monitor, Azure infrastructure as well as implementing management solutions, security solutions and application solutions along with managing data platforms. They are also fully capable of designing monitoring solutions, identity and security, data storage, business continuity and the overall infrastructure.",
                 "link": "https://docs.microsoft.com/en-us/learn/certifications/azure-solutions-architect/",
-                "image": "https://images.credly.com/size/340x340/images/987adb7e-49be-4e24-b67e-55986bd3fe66/azure-solutions-architect-expert-600x600.png"
+                "image": "https://images.credly.com/size/340x340/images/987adb7e-49be-4e24-b67e-55986bd3fe66/azure-solutions-architect-expert-600x600.png",
+                "isIndustryRecognised": true
               },
               {
                 "title": "ai fundamentals",
                 "description": "Being Microsoft Certified in Azure AI Fundamentals means being able to describe AI workloads and considerations as well as the fundamental principles of machine learning on Azure. They have a base level understanding of the features of computer vision workloads on Azure along with Natural Language Processing workloads on Azure. They also understand the features of conversational AI within Azure.",
                 "link": "https://docs.microsoft.com/en-us/learn/certifications/azure-ai-fundamentals/",
-                "image": "https://images.credly.com/size/340x340/images/4136ced8-75d5-4afb-8677-40b6236e2672/azure-ai-fundamentals-600x600.png"
+                "image": "https://images.credly.com/size/340x340/images/4136ced8-75d5-4afb-8677-40b6236e2672/azure-ai-fundamentals-600x600.png",
+                "isIndustryRecognised": true
               },
               {
                 "title": "data fundamentals",
                 "description": "Being Microsoft Certified in Azure Data Fundamentals means being Abel to describe in detail core data concepts and how to work with relational and non-relational data on Azure as well as having a good understanding of analytical workloads on Azure.",
                 "link": "https://docs.microsoft.com/en-us/learn/certifications/azure-data-fundamentals/",
-                "image": "https://images.credly.com/size/340x340/images/70eb1e3f-d4de-4377-a062-b20fb29594ea/azure-data-fundamentals-600x600.png"
+                "image": "https://images.credly.com/size/340x340/images/70eb1e3f-d4de-4377-a062-b20fb29594ea/azure-data-fundamentals-600x600.png",
+                "isIndustryRecognised": true
               }
             ]
           },
@@ -181,13 +207,15 @@
                 "title": "certified kubernetes application developer",
                 "description": "A Certified Kubernetes Application Developer is capable of defining application resources and use the core primitives in order to build, monitor and troubleshoot scalable applications and tools within Kubernetes. They have a basic understanding on container runtimes and microservice architecture. These developers are comfortable in their usage of OCI-Compliant Container Runtime (eg. Docker, cry-o etc.), cloud native application concepts and architectures and typically are relatively proficient in one or more programming languages.",
                 "link": "https://www.cncf.io/certification/ckad/",
-                "image": "https://www.cncf.io/wp-content/uploads/2020/08/kubernetes-ckad-color-276x270.png"
+                "image": "https://www.cncf.io/wp-content/uploads/2020/08/kubernetes-ckad-color-276x270.png",
+                "isIndustryRecognised": true
               },
               {
                 "title": "certified kubernetes administrator",
                 "description": "A Certified Kubernetes Administrator is capable of managing more complex Kubernetes instances. They have the ability to do both installation as well as configuration and management of production-grade Kubernetes clusters. They have a deep understanding of key concepts such as Kubernetes networking, storage, security, maintenance, application lifecycle, troubleshooting, logging and monitoring, API object primitives and they are proficient at establishing use-cases for end users.",
                 "link": "https://www.cncf.io/certification/cka/",
-                "image": "https://www.cncf.io/wp-content/uploads/2020/08/logo_cka_whitetext-2-250x250.png"
+                "image": "https://www.cncf.io/wp-content/uploads/2020/08/logo_cka_whitetext-2-250x250.png",
+                "isIndustryRecognised": true
               }
             ]
           },
@@ -197,13 +225,15 @@
                 "title": "certified cloud security professional",
                 "description": "Certified Cloud Security Professionals have a deep knowledge and proficient abilities in cloud security design, implementation, architecture, operation, controls and compliance with regulatory frameworks. CCSPs effectively apply their information and security expertise to cloud computing environments and can demonstrate immense competence in cloud security architecture, design, operation and service orchestration. They are competent in multiple cloud domains including Cloud Concepts, Architecture, Design, Data Security, Platform and Infrastructure Security, Application Security, Security Operations as well as the legal implications along with the risks and compliance regulations.",
                 "link": "https://www.isc2.org/Certifications/CCSP?filter=featured&searchRoot=CE0E426099F245E0971E6C8028700E8A",
-                "image": "https://www.isc2.org/-/media/isc2/isc2-icons/0-current-square-cert-logos/ccsp---square.ash"
+                "image": "https://www.isc2.org/-/media/isc2/isc2-icons/0-current-square-cert-logos/ccsp---square.ash",
+                "isIndustryRecognised": true
               },
               {
                 "title": "certififed information systems security professional",
                 "description": "Certified Information Systems Security Professionals are responsible for the security of data that is being stored on a computer system and all that that general idea entails. They are capable of keeping private and confidential data as such and non-public. They research, develop, implement, asses and review companies' information security systems. They inform clients of possible threats, assist in selecting and installing necessary software and ensure the security policies are extensive enough and being correctly carried out. They can easily describe problems relating to, but not limited to, architecture, identity control and safeguarding said information systems.",
                 "link": "https://www.isc2.org/Certifications/CISSP-Concentrations",
-                "image": "https://www.isc2.org/-/media/ISC2/Logos/81-Sponsors-2/logo-isc2-all-iss.ashx?h=105&w=187&la=en&hash=AA3C8CB5D26E54F98E1C31B078C6C50CA3286ED4"
+                "image": "https://www.isc2.org/-/media/ISC2/Logos/81-Sponsors-2/logo-isc2-all-iss.ashx?h=105&w=187&la=en&hash=AA3C8CB5D26E54F98E1C31B078C6C50CA3286ED4",
+                "isIndustryRecognised": true
               }
             ]
           }
@@ -219,43 +249,50 @@
                 "title": "learn oauth 2.0 - get started as an api security expert",
                 "description": "Completing this course grants you a multitude of abilities surrounding OAuth. Some of these abilities include the capability of using OAuth in order to access Google, PayPal, LinkedIn and Facebook amongst other large APIs utilised throughout the industry. They are aware of how to use and apply this OAuth knowledge in Mobile Applications as well as within Cloud Solutions on the client side in order to protect your APIs and Cloud Solutions. They also have a good understanding surrounding OAuth including the best practices and OAuth specific terminology and how to choose the correct OAuth Flow for the specific use-case.",
                 "link": "https://capco.udemy.com/course/learn-oauth-2/",
-                "image": "https://www.udemy.com/staticx/udemy/images/v7/apple-touch-icon.png"
+                "image": "https://www.udemy.com/staticx/udemy/images/v7/apple-touch-icon.png",
+                "isIndustryRecognised": false
               },
               {
                 "title": "the complete cyber security course : network security",
                 "description": "This course allows Cloud Practitioners to have a good base understanding of basic IT services and their uses within the AWS Cloud platform. They are capable and have a good understanding of the core AWS services as well as use cases, pricing models, security concepts and how the cloud as a whole impacts businesses.",
                 "link": "https://capco.udemy.com/course/network-security-course/",
-                "image": "https://www.udemy.com/staticx/udemy/images/v7/apple-touch-icon.png"
+                "image": "https://www.udemy.com/staticx/udemy/images/v7/apple-touch-icon.png",
+                "isIndustryRecognised": false
               },
               {
                 "title": "apache kafka series - kafka security | ssl sasl kerberos acl",
                 "description": "Completing this course grants you multiple abilities and a wide array of knowledge on SSL encryption specifically within Kafka. They are able to setup and use SASL Kerberos authentication in Kafka and configure the Kafka clients to make them work in a more streamlined method within the security systems. They also know how to create and use ACLs in Kafka and how to configure Zookeeper security.",
                 "link": "https://capco.udemy.com/course/apache-kafka-security/",
-                "image": "https://www.udemy.com/staticx/udemy/images/v7/apple-touch-icon.png"
+                "image": "https://www.udemy.com/staticx/udemy/images/v7/apple-touch-icon.png",
+                "isIndustryRecognised": false
               },
               {
                 "title": "the beginners 2021 cyber security awareness training course",
                 "description": "Engineers whom complete this course will have been trained in gaining an understanding in the multiple ways that hackers can socially engineer you, whether through email, text, calls, browsing etc. This course grants the knowledge on what emotions these hackers like to trigger and how they trick various victims into giving them access. They will be able to stop these attacks dead in their tracks by spotting red flags within these various forms of potential attack. They are well versed in how to securely use Windows, MacOS, iPhones, Androids along with multiple other operating systems. They are very aware as to what security software is effective. They also are able to securely configure your internet browser and how to manage the confidentiality of emails, business files, computers and mobile devices.",
                 "link": "https://capco.udemy.com/course/1m-cyber-security-awareness/",
-                "image": "https://www.udemy.com/staticx/udemy/images/v7/apple-touch-icon.png"
+                "image": "https://www.udemy.com/staticx/udemy/images/v7/apple-touch-icon.png",
+                "isIndustryRecognised": false
               },
               {
                 "title": "learn ethical hacking from scratch",
                 "description": "This course offers engineers a very hands on approach to learning the ins and outs of the basics of ethical hacking. They gain the ability to hack and secure Wi-Fi and wired networks and how to use a multitude of hacking tools. They have gained an understanding on how to hack secure systems using client-side and social engineering. They are well versed in how websites work and are capable of discovering vulnerabilities of many areas such as websites and servers. They have learnt effective network hacking ad penetrations testing along with the Kali Linux operating system. They have gained a good knowledge base on many hacking subjects such as running attacks on networks without knowing the key, controlling Wi-Fi connections without knowing the password, creating fake Wi-Fi networks, cracking WEP/WPA/WPA2 encryptions, Man In The Middle attacks, ARP spoofing, ARP poisoning amongst many others. They can sniff network traffic, redirect DNS requests, discover open ports, hack systems through backdooring downloads, analyse malware and so much more. This course will give you a phenomenal ground to grow from in your quest to become a White Hat Hacker.",
                 "link": "https://capco.udemy.com/course/learn-ethical-hacking-from-scratch/",
-                "image": "https://www.udemy.com/staticx/udemy/images/v7/apple-touch-icon.png"
+                "image": "https://www.udemy.com/staticx/udemy/images/v7/apple-touch-icon.png",
+                "isIndustryRecognised": false
               },
               {
                 "title": "ssl/tls fundamentals",
                 "description": "Completing this course grants you knowledge on Symmetric and Assymetric encryptions and how certificates are issued and managed. They know how to configure a website with a. Certificate and how said certificate interacts with the client device. They can configure a Linux OpenSSL PKI environment. They are capable of securing files and folders with EFS and configuring a TLS VPN. They also have an understanding in how TLS supersedes SSL and how to acquire a web server certificate and code-signing certificates.",
                 "link": "https://capco.udemy.com/course/ssl-tls-intro/",
-                "image": "https://www.udemy.com/staticx/udemy/images/v7/apple-touch-icon.png"
+                "image": "https://www.udemy.com/staticx/udemy/images/v7/apple-touch-icon.png",
+                "isIndustryRecognised": false
               },
               {
                 "title": "cryptography beginners guide with openssl",
                 "description": "This course offers a very basic introduction into cryptography, encryption and hashing techniques. They are knowledgable on how and when encryption is used and cipher algorithm operations. They have an understanding of symmetric keys and how to generate and apply them within OpenSSL. This course grants the ability to be highly capable in the use of hash functions and when they are used for confidentiality or integrity and how to hash multiple different file types. They also learn about public key cryptography and the theoretical ideology surrounding public and private keys. They can also create certificate signing requests and self sign requests which gives them a decent base level understanding of digital signatures.",
                 "link": "https://capco.udemy.com/course/openssl-and-cryptography-beginners-guide/",
-                "image": "https://www.udemy.com/staticx/udemy/images/v7/apple-touch-icon.png"
+                "image": "https://www.udemy.com/staticx/udemy/images/v7/apple-touch-icon.png",
+                "isIndustryRecognised": false
               }
             ]
           },
@@ -265,7 +302,8 @@
                 "title": "api academy - api security architecture",
                 "description": "Completing this course grants a fairly vast and varied amount of knowledge surrounding API security. They will be able to identify and explain in detail security risks of APIs and identify typical areas of API vulnerability. They understand the purpose of OAuth 2.0, as a formwork for authentication, as well as the challenges of implementing such a system. They also know how OpenID Connect functions as an authentication layer, how it complements Oath 2.0 and what the specifications are of the current OpenID Connect protocol suite. This course also grants the ability to explain how JSON Web Tokens work and the advantages of stateless tokens and be able to summarise common threat models used against OAuth 2.0 and ways in order to mitigate and overcome these threats.",
                 "link": "https://secureservercdn.net/198.71.233.35/e3z.729.myftpupload.com/wp-content/uploads/2020/04/certification-header3-badge2.png",
-                "image": "https://apiacademy.learnupon.com/"
+                "image": "https://apiacademy.learnupon.com/",
+                "isIndustryRecognised": true
               }
             ]
           }
@@ -281,7 +319,8 @@
                 "title": "corda developer certification",
                 "description": "Being Corda Certified demonstrates that you have technical expertise and the necessary skills to develop applications on both Corda and Corda Enterprise. They also understand the security, network design and other key aspects of Corda’s architecture. They have the knowledge to be able to assist enterprises in building interoperable blockchain networks allowing the luxury of carrying out business transactions over a private and secure network. A certified Corda developer is one who uses Corda's blockchain-inspired distribution and ledger platform in order to guide the industries across finance through the automation and  management of financial agreements by eliminating errors and friction.",
                 "link": "https://r3certification.com/collections/frontpage/products/corda-standard-certification-test",
-                "image": "https://cdn.shopify.com/s/files/1/2642/8160/products/corda-logo_favicon_720x.png"
+                "image": "https://cdn.shopify.com/s/files/1/2642/8160/products/corda-logo_favicon_720x.png",
+                "isIndustryRecognised": true
               }
             ]
           }
@@ -297,7 +336,8 @@
                 "title": "associate android certification",
                 "decription": "This certification grants engineers the ability to construct apps that take advantage of the Android OS's in built features from messaging to multitasking, connectivity and media service and many more in order to design and build full-featured apps that are primarily for mobile devices. They also have a good understanding of User Interface design and how to create applications that are clean and effective in their use of the Android UI. They are able to leverage the Android framework in order to perform/schedule data storage and retrieval within a mobile environment. Finally they also understand both debugging and testing within Android Studio and utilise this knowledge to create more reliable and robust applications.",
                 "link": "https://developers.google.com/certification/associate-android-developer",
-                "image": "https://developers-dot-devsite-v2-prod.appspot.com/certification/directory/images/badges/associate_android_developer.png"
+                "image": "https://developers-dot-devsite-v2-prod.appspot.com/certification/directory/images/badges/associate_android_developer.png",
+                "isIndustryRecognised": true
               }
             ]
           }

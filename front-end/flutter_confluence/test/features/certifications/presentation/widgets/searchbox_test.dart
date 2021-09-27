@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_confluence/features/certifications/presentation/widgets/searchbox.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:flutter_confluence/features/certifications/presentation/widgets/searchbox.dart';
-
 void main() {
-  final String hint = "Search";
+  const String hint = 'Search';
   final TextEditingController controller = TextEditingController();
 
   testWidgets('SearchBox shows expected widgets and can type in it',
@@ -28,15 +27,15 @@ void main() {
     // assert
     expect(txtFieldFinder, findsOneWidget);
 
-    final firstInput = "Jonathan";
+    const firstInput = 'Jonathan';
     await tester.enterText(txtFieldFinder, firstInput);
     await tester.testTextInput.receiveAction(TextInputAction.done);
     await tester.pump();
 
-    TextField textField = tester.widget(txtFieldFinder) as TextField;
+    final TextField textField = tester.widget(txtFieldFinder) as TextField;
     expect(textField.controller?.value.text, firstInput);
 
-    final secondInput = "Hello";
+    const secondInput = 'Hello';
     await tester.enterText(txtFieldFinder, secondInput);
     await tester.testTextInput.receiveAction(TextInputAction.done);
     await tester.pump();

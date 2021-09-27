@@ -1,11 +1,10 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
-import * as fauth from "@firebase/auth";
 import express, { Request, Response } from "express";
 import { validateFirebaseIdToken } from "./auth-middleware";
 import * as certSummaryFuncs from "./certification_summaries/certification_summary_funcs";
-import * as userCertFuncs from "./user_certifications/user_certifications_funcs";
 import * as userFuncs from "./users/user_funcs";
+import * as userCertFuncs from "./user_certifications/user_certifications_funcs";
 import * as jsend from "./jsend";
 
 // Initialize Firebase app
@@ -45,27 +44,29 @@ app.post("/certificationSummary", async (req: Request, res: Response) => {
 app.post("/user", async (req: Request, res: Response) => {
     const uid = req.user?.uid as string;
     const user = req.body;
-    if (uid == null || user == null) res.status(400).send(jsend.error("Bad Request"));
-    else userFuncs.registerUser(uid, user, res);
+    if (uid != null && user != null) userFuncs.registerUser(uid, user, res);
+    else if (uid == null) res.status(401).send(jsend.error("Unauthorized"));
+    else res.status(400).send(jsend.error("Bad Request"));
 });
 
 // Updates user in firestore
 app.put("/user", async (req: Request, res: Response) => {
+    const uid = req.user?.uid as string;
     var user = req.body;
     if (user == null) res.status(400).send(jsend.error("Bad Request"));
-    else userFuncs.updateUser(user, res);
+    else userFuncs.updateUser(uid, user, res);
 });
 
 // Returns current user
 app.get("/user", async (req: Request, res: Response) => {
-    const user = fauth.getAuth().currentUser;
-    if (user != null) { userFuncs.getUser(user.uid, res) }
+    const uid = req.user?.uid as string;
+    if (uid != null) userFuncs.getUser(uid, res);
     else res.status(500).send(jsend.error);
 });
 
 // USER CERTIFICATION ENDPOINTS
 
-// Returns the user certifications. When passed a parameter, 
+// Returns the user certifications. When passed a parameter,
 // returns the certification for the requested userId
 app.get("/certifications/:userId", async (req: Request, res: Response) => {
     var uid = req.params.userId;

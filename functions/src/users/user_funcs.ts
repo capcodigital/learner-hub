@@ -32,7 +32,7 @@ export async function registerUser(
         }
 
         userRepo.insertUser(uid, item);
-        res.status(201).send(jsend.successWithData({ "message": "User registered" }));
+        res.status(201).send(jsend.successfullResponse({ "message": "User registered" }));
     } catch (e) {
         logger.log(e);
         if (e instanceof userRepo.UserExistsError) {
@@ -45,11 +45,12 @@ export async function registerUser(
 
 // Updates user in firestore and returns a response with the updated user
 export async function updateUser(
+    uid: string,
     user: any,
     res: functions.Response) {
     try {
-        const item = await userRepo.editUser(user);
-        res.status(200).send(jsend.successWithData(item));
+        const item = await userRepo.editUser(uid, user);
+        res.status(200).send(jsend.successfullResponse(item));
     } catch (e) {
         logger.log(e);
         res.status(500).send(jsend.error());
@@ -62,7 +63,7 @@ export async function getUser(
     res: functions.Response) {
     try {
         const user = await userRepo.getUser(id);
-        res.status(200).send(jsend.successWithData(user));
+        res.status(200).send(jsend.successfullResponse(user));
     } catch (e) {
         logger.log(e);
         res.status(500).send(jsend.error());

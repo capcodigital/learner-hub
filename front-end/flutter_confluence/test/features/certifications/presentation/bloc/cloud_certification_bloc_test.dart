@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:bloc_test/bloc_test.dart';
+import 'package:dartz/dartz.dart';
 import 'package:flutter_confluence/core/constants.dart';
 import 'package:flutter_confluence/core/error/failures.dart';
 import 'package:flutter_confluence/core/usecases/usecase.dart';
@@ -9,14 +11,10 @@ import 'package:flutter_confluence/features/certifications/domain/usecases/get_c
 import 'package:flutter_confluence/features/certifications/domain/usecases/get_in_progress_certifications.dart';
 import 'package:flutter_confluence/features/certifications/domain/usecases/search_certifications.dart';
 import 'package:flutter_confluence/features/certifications/presentation/bloc/cloud_certification_bloc.dart';
-
-import 'package:mocktail/mocktail.dart';
-import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
 
-import 'package:dartz/dartz.dart';
-
-import '../../../../fixtures/FixtureReader.dart';
+import '../../../../fixtures/fixture_reader.dart';
 
 class MockGetCompletedCertifications extends Mock
     implements GetCompletedCertifications {}
@@ -51,28 +49,28 @@ void main() {
 
   final orderInProgressServerError = [
     Loading(),
-    Error(
+    const Error(
         cloudCertificationType: CloudCertificationType.in_progress,
         message: Constants.SERVER_FAILURE_MSG),
   ];
 
   final orderCompletedServerError = [
     Loading(),
-    Error(
+    const Error(
         cloudCertificationType: CloudCertificationType.completed,
         message: Constants.SERVER_FAILURE_MSG),
   ];
 
   final orderInProgressCacheError = [
     Loading(),
-    Error(
+    const Error(
         cloudCertificationType: CloudCertificationType.in_progress,
         message: Constants.CACHE_FAILURE_MSG),
   ];
 
   final orderCompletedCacheError = [
     Loading(),
-    Error(
+    const Error(
         cloudCertificationType: CloudCertificationType.completed,
         message: Constants.CACHE_FAILURE_MSG),
   ];
@@ -84,7 +82,10 @@ void main() {
 
   setUp(() {
     registerFallbackValue(NoParams());
-    registerFallbackValue(SearchParams(searchQuery: '', dataType: CloudCertificationType.completed, ));
+    registerFallbackValue(const SearchParams(
+      searchQuery: '',
+      dataType: CloudCertificationType.completed,
+    ));
 
     mockCompletedCase = MockGetCompletedCertifications();
     mockInProgressCase = MockGetInProgressCertifications();
@@ -224,7 +225,7 @@ void main() {
           items: mockCompletedCerts,
           cloudCertificationType: CloudCertificationType.completed),
       Loading(),
-      EmptySearchResult(
+      const EmptySearchResult(
           cloudCertificationType: CloudCertificationType.completed),
     ];
 
@@ -246,7 +247,7 @@ void main() {
       },
       act: (CloudCertificationBloc blo) => {
         blo.add(GetCompletedCertificationsEvent()),
-        blo.add(SearchCertificationsEvent("search"))
+        blo.add(SearchCertificationsEvent('search'))
       },
       expect: () => searchCompletedNoResults,
     );
@@ -261,7 +262,7 @@ void main() {
       },
       act: (CloudCertificationBloc blo) => {
         blo.add(GetCompletedCertificationsEvent()),
-        blo.add(SearchCertificationsEvent("search"))
+        blo.add(SearchCertificationsEvent('search'))
       },
       expect: () => searchCompletedWithResults,
     );

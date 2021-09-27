@@ -18,28 +18,30 @@ void main() {
 
   test(
     'should call authenticate and return true',
-        () async {
+    () async {
       // arrange
-      when(() => mockRepository.authenticate()).thenAnswer((_) async => Right(true));
+      when(() => mockRepository.authenticate())
+          .thenAnswer((_) async => const Right(true));
       // act
       final result = await subject(NoParams());
       // assert
       verify(() => mockRepository.authenticate());
-      expect(result, Right(true));
+      expect(result, const Right(true));
       verifyNoMoreInteractions(mockRepository);
     },
   );
 
   test(
     'should call authenticate and return false',
-        () async {
+    () async {
       // arrange
-      when(() => mockRepository.authenticate()).thenAnswer((_) async => Right(false));
+      when(() => mockRepository.authenticate())
+          .thenAnswer((_) async => const Right(false));
       // act
       final result = await subject(NoParams());
       // assert
       verify(() => mockRepository.authenticate());
-      expect(result, Right(false));
+      expect(result, const Right(false));
       verifyNoMoreInteractions(mockRepository);
     },
   );
