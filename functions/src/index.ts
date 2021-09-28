@@ -5,6 +5,7 @@ import { validateFirebaseIdToken } from "./auth-middleware";
 import * as certSummaryFuncs from "./certification_summaries/certification_summary_funcs";
 import * as userFuncs from "./users/user_funcs";
 import * as userCertFuncs from "./user_certifications/user_certifications_funcs";
+import * as todoFuncs from "./todos/todo_funcs";
 import * as jsend from "./jsend";
 
 // Initialize Firebase app
@@ -99,6 +100,43 @@ app.delete("/certifications/:id", async (req: Request, res: Response) => {
     const certId = req.params.id;
     if (certId == null) res.status(400).send(jsend.error("Bad Request"));
     else userCertFuncs.deleteUserCertification(uid, certId, res);
+});
+
+// TODO ENDPOINTS
+
+// Returns the TODOs of user with passed id.
+// If no id passed, then user is current user.
+app.get("/todos/:userId", async (req: Request, res: Response) => {
+    var uid = req.params.userId;
+    if (uid == null) uid = req.user?.uid as string;
+    if (uid != null) todoFuncs.getUserCertifications(uid, res);
+    else res.status(400).send(jsend.error("Bad Request"));
+});
+
+// Creates a TODO to firestore for current user
+app.post("/todos", async (req: Request, res: Response) => {
+    const uid = req.user?.uid as string;
+    const cert = req.body as any;
+    if (uid == null) res.status(401).send(jsend.error("Unauthorized"));
+    else if (cert == null) res.status(400).send(jsend.error("Bad Request"));
+    else todoFuncs.addUserCertification(uid, cert, res);
+});
+
+// Updates the TODO of given id in firestore
+app.put("/todos/:id", async (req: Request, res: Response) => {
+    const uid = req.user?.uid as string;
+    const certId = req.params.id;
+    const cert = req.body as any;
+    if (certId == null || cert == null) res.status(400).send(jsend.error("Bad Request"));
+    else todoFuncs.updateUserCertification(uid, certId, cert, res);
+});
+
+// Deletes the TODO of given id in firestore
+app.delete("/todos/:id", async (req: Request, res: Response) => {
+    const uid = req.user?.uid as string;
+    const certId = req.params.id;
+    if (certId == null) res.status(400).send(jsend.error("Bad Request"));
+    else todoFuncs.deleteUserCertification(uid, certId, res);
 });
 
 // This HTTPS endpoint can only be accessed by your Firebase Users.
