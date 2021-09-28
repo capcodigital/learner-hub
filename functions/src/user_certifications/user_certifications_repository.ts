@@ -2,8 +2,9 @@
 import * as admin from 'firebase-admin';
 import * as summaryRepo from '../certification_summaries/certification_summary_repository';
 import * as userRepo from '../users/users_repository';
+import { AssocArray } from '../assoc_array';
 
-const TABLE_CERTIFICATIONS = "User Certifications";
+const TABLE_USER_CERTIFICATIONS = "User Certifications";
 
 export class UserCertificationFirestoreError extends Error { }
 export class UserCertificationExistsError extends UserCertificationFirestoreError { }
@@ -11,7 +12,7 @@ export class UserCertificationNotFoundError extends UserCertificationFirestoreEr
 export class AccessForbidenError extends UserCertificationFirestoreError { }
 
 export async function getUserCertifications(uid: string): Promise<any[]> {
-    const collection = admin.firestore().collection(TABLE_CERTIFICATIONS);
+    const collection = admin.firestore().collection(TABLE_USER_CERTIFICATIONS);
     // Calling getUser will throw UserNotFoundError if user not found
     userRepo.getUser(uid);
     const snap = await collection.where("userId", "==", uid).get();
@@ -22,7 +23,7 @@ export async function insert(
     uid: string,
     item: any,
 ) {
-    const col = admin.firestore().collection(TABLE_CERTIFICATIONS);
+    const col = admin.firestore().collection(TABLE_USER_CERTIFICATIONS);
     const certificationId = item["certificationId"];
     const snap = await col.where("userId", "==", uid)
         .where("certificationId", "==", certificationId).get();
@@ -64,7 +65,7 @@ export async function update(
     id: string,
     certification: any
 ) {
-    const doc = admin.firestore().collection(TABLE_CERTIFICATIONS).doc(id);
+    const doc = admin.firestore().collection(TABLE_USER_CERTIFICATIONS).doc(id);
     const docRef = await doc.get();
     if (docRef.exists) {
         const item = docRef.data() as UserCertification;
@@ -90,7 +91,7 @@ export async function deleteItem(
     uid: string,
     id: string
 ) {
-    const doc = admin.firestore().collection(TABLE_CERTIFICATIONS).doc(id);
+    const doc = admin.firestore().collection(TABLE_USER_CERTIFICATIONS).doc(id);
     const docRef = await doc.get();
     if (docRef.exists) {
         const item = docRef.data() as UserCertification;
@@ -103,7 +104,7 @@ export async function deleteItem(
 
 async function toCertifications(snap: FirebaseFirestore.QuerySnapshot):
     Promise<any[]> {
-    const summaries = await summaryRepo.getAllCertificationSummaries();
+    const summaries: AssocArray = await summaryRepo.getAllCertificationSummaries();
     const items = Array<any>();
     if (!snap.empty) {
         snap.forEach((doc: { data: () => any }) => {
