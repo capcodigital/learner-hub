@@ -22,10 +22,10 @@ export async function getTODOs(
 
 export async function addTODO(
     uid: string,
-    userCert: any,
+    todo: any,
     res: functions.Response) {
     try {
-        const item = await todos.insert(uid, userCert);
+        const item = await todos.insert(uid, todo);
         functions.logger.log(item);
         res.setHeader('Content-Type', 'application/json');
         res.status(201).send(jsend.successfullResponse(item));
@@ -38,16 +38,16 @@ export async function addTODO(
 export async function updateTODO(
     uid: string,
     id: string,
-    cert: string,
+    todo: string,
     res: functions.Response) {
     try {
-        const item = todos.update(uid, id, cert);
+        const item = todos.update(uid, id, todo);
         res.setHeader('Content-Type', 'application/json');
         res.status(200).send(jsend.successfullResponse(item));
     } catch (e) {
         functions.logger.log(e);
         if (e instanceof todos.TODONotFoundError)
-            res.status(404).send(jsend.error("TODO found"));
+            res.status(404).send(jsend.error("TODO not found"));
         if (e instanceof todos.AccessForbidenError)
             res.status(403).send(jsend.error("Forbiden"));
         else res.status(500).send(jsend.error);

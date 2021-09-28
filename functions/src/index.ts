@@ -5,7 +5,6 @@ import { validateFirebaseIdToken } from "./auth-middleware";
 import * as certSummaryFuncs from "./certification_summaries/certification_summary_funcs";
 import * as userFuncs from "./users/user_funcs";
 import * as userCertFuncs from "./user_certifications/user_certifications_funcs";
-import * as userCertFuncs from "./user_certifications/user_certifications_funcs";
 import * as todoFuncs from "./todos/todo_funcs";
 import * as jsend from "./jsend";
 
