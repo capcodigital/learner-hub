@@ -9,6 +9,14 @@ export class UserCertificationFirestoreError extends Error { }
 export class UserCertificationExistsError extends UserCertificationFirestoreError { }
 export class UserCertificationNotFoundError extends UserCertificationFirestoreError { }
 
+export async function getUserCertifications(uid: string): Promise<any[]> {
+    const collection = admin.firestore().collection(TABLE_CERTIFICATIONS);
+    // Calling getUser will throw UserNotFoundError if user not found
+    userRepo.getUser(uid);
+    const snap = await collection.where("userId", "==", uid).get();
+    return toCertifications(snap);
+}
+
 export async function insert(
     uid: string,
     item: any,
@@ -83,14 +91,6 @@ export async function deleteItem(
     } else {
         throw new UserCertificationNotFoundError();
     }
-}
-
-export async function getUserCertifications(uid: string): Promise<any[]> {
-    const collection = admin.firestore().collection(TABLE_CERTIFICATIONS);
-    // Calling getUser to check if user exists, if not will throw UserNotFoundError
-    userRepo.getUser(uid);
-    const snap = await collection.where("userId", "==", uid).get();
-    return toCertifications(snap);
 }
 
 async function toCertifications(snap: FirebaseFirestore.QuerySnapshot):

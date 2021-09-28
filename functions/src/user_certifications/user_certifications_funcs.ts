@@ -4,6 +4,22 @@ import * as jsend from "../jsend";
 import * as userCertRepo from "./user_certifications_repository";
 import * as userRepo from "../users/users_repository";
 
+export async function getUserCertifications(
+    uid: string,
+    res: functions.Response) {
+    try {
+        const items = await userCertRepo.getUserCertifications(uid);
+        functions.logger.log(items);
+        res.setHeader('Content-Type', 'application/json');
+        res.status(200).send(jsend.successfullResponse(items));
+    } catch (e) {
+        functions.logger.log(e);
+        if (e instanceof userRepo.UserNotFoundError)
+            res.status(404).send(jsend.error("User not found"));
+        else res.status(500).send(jsend.error);
+    }
+}
+
 export async function addUserCertification(
     uid: string,
     userCert: any,
@@ -29,22 +45,8 @@ export async function updateUserCertification(
         res.status(200).send(jsend.successfullResponse(item));
     } catch (e) {
         functions.logger.log(e);
-        res.status(500).send(jsend.error);
-    }
-}
-
-export async function getUserCertifications(
-    uid: string,
-    res: functions.Response) {
-    try {
-        const items = await userCertRepo.getUserCertifications(uid);
-        functions.logger.log(items);
-        res.setHeader('Content-Type', 'application/json');
-        res.status(200).send(jsend.successfullResponse(items));
-    } catch (e) {
-        functions.logger.log(e);
-        if (e instanceof userRepo.UserNotFoundError)
-            res.status(404).send(jsend.error("User not found"));
+        if (e instanceof userCertRepo.UserCertificationNotFoundError)
+            res.status(404).send(jsend.error("User certification not found"));
         else res.status(500).send(jsend.error);
     }
 }
@@ -58,6 +60,8 @@ export async function deleteUserCertification(
         res.status(200).send(jsend.successfullResponse({ "message": "Item deleted" }));
     } catch (e) {
         functions.logger.log(e);
-        res.status(500).send(jsend.error);
+        if (e instanceof userCertRepo.UserCertificationNotFoundError)
+            res.status(404).send(jsend.error("User certification item not found"));
+        else res.status(500).send(jsend.error);
     }
 }
