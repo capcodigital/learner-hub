@@ -8,6 +8,7 @@ const TABLE_CERTIFICATIONS = "User Certifications";
 export class UserCertificationFirestoreError extends Error { }
 export class UserCertificationExistsError extends UserCertificationFirestoreError { }
 export class UserCertificationNotFoundError extends UserCertificationFirestoreError { }
+export class AccessForbidenError extends UserCertificationFirestoreError { }
 
 export async function getUserCertifications(uid: string): Promise<any[]> {
     const collection = admin.firestore().collection(TABLE_CERTIFICATIONS);
@@ -59,35 +60,42 @@ export async function insert(
 }
 
 export async function update(
+    uid: string,
     id: string,
     certification: any
 ) {
     const doc = admin.firestore().collection(TABLE_CERTIFICATIONS).doc(id);
     const docRef = await doc.get();
     if (docRef.exists) {
-        doc.update(certification);
         const item = docRef.data() as UserCertification;
-        return {
-            id: docRef.id, // adding doc id in result
-            userId: item.userId,
-            certificationId: item.certificationId,
-            isCompleted: item.isCompleted,
-            startDate: item.startDate,
-            completionDate: item.completionDate,
-            expiryDate: item.expiryDate,
-            rating: item.rating
-        }
+        if (uid == item.userId) {
+            doc.update(certification);
+            const updated = docRef.data() as UserCertification;
+            return {
+                id: docRef.id, // adding doc id in result
+                userId: updated.userId,
+                certificationId: updated.certificationId,
+                isCompleted: updated.isCompleted,
+                startDate: updated.startDate,
+                completionDate: updated.completionDate,
+                expiryDate: updated.expiryDate,
+                rating: updated.rating
+            }
+        } else throw new AccessForbidenError("Certification is not of current user");
     } else throw new UserCertificationNotFoundError();
 }
 
 // "delete" is a reserved word
 export async function deleteItem(
+    uid: string,
     id: string
 ) {
     const doc = admin.firestore().collection(TABLE_CERTIFICATIONS).doc(id);
     const docRef = await doc.get();
     if (docRef.exists) {
-        doc.delete();
+        const item = docRef.data() as UserCertification;
+        if (uid == item.userId) doc.delete();
+        else throw new AccessForbidenError("Certification is not of current user");
     } else {
         throw new UserCertificationNotFoundError();
     }

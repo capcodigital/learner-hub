@@ -36,32 +36,38 @@ export async function addUserCertification(
 }
 
 export async function updateUserCertification(
+    uid: string,
     id: string,
     cert: string,
     res: functions.Response) {
     try {
-        const item = userCertRepo.update(id, cert);
+        const item = userCertRepo.update(uid, id, cert);
         res.setHeader('Content-Type', 'application/json');
         res.status(200).send(jsend.successfullResponse(item));
     } catch (e) {
         functions.logger.log(e);
         if (e instanceof userCertRepo.UserCertificationNotFoundError)
             res.status(404).send(jsend.error("User certification not found"));
+        if (e instanceof userCertRepo.AccessForbidenError)
+            res.status(403).send(jsend.error("Forbiden"));
         else res.status(500).send(jsend.error);
     }
 }
 
 export async function deleteUserCertification(
+    uid: string,
     id: string,
     res: functions.Response) {
     try {
-        userCertRepo.deleteItem(id);
+        userCertRepo.deleteItem(uid, id);
         res.setHeader('Content-Type', 'application/json');
         res.status(200).send(jsend.successfullResponse({ "message": "Item deleted" }));
     } catch (e) {
         functions.logger.log(e);
         if (e instanceof userCertRepo.UserCertificationNotFoundError)
             res.status(404).send(jsend.error("User certification item not found"));
+        if (e instanceof userCertRepo.AccessForbidenError)
+            res.status(403).send(jsend.error("Forbiden"));
         else res.status(500).send(jsend.error);
     }
 }

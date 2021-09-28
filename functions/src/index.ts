@@ -86,17 +86,19 @@ app.post("/certifications", async (req: Request, res: Response) => {
 
 // Updates the certification of given id in firestore
 app.put("/certifications/:id", async (req: Request, res: Response) => {
+    const uid = req.user?.uid as string;
     const certId = req.params.id;
     const cert = req.body as any;
     if (certId == null || cert == null) res.status(400).send(jsend.error("Bad Request"));
-    else userCertFuncs.updateUserCertification(certId, cert, res);
+    else userCertFuncs.updateUserCertification(uid, certId, cert, res);
 });
 
 // Deletes the certification of given id in firestore
 app.delete("/certifications/:id", async (req: Request, res: Response) => {
+    const uid = req.user?.uid as string;
     const certId = req.params.id;
     if (certId == null) res.status(400).send(jsend.error("Bad Request"));
-    else userCertFuncs.deleteUserCertification(certId, res);
+    else userCertFuncs.deleteUserCertification(uid, certId, res);
 });
 
 // This HTTPS endpoint can only be accessed by your Firebase Users.
