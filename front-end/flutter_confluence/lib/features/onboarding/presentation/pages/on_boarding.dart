@@ -10,14 +10,14 @@ import '/core/components/app_drawer.dart';
 import '/core/components/custom_appbar.dart';
 import '/core/constants.dart';
 import '/core/dimen.dart';
-import '/core/utils/error_messages.dart';
 import '/core/utils/media_util.dart';
 import '/core/widgets/primary_button.dart';
 import '/features/certifications/presentation/pages/home_page.dart';
 import '/features/login/presentation/pages/login_page.dart';
 import '/features/onboarding/presentation/widgets/onboarding_carousel.dart';
+import '/features/user_registration/presentation/pages/user_details_page.dart';
 
-class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
+class OnBoardingPage extends StatelessWidget {
   static const route = 'OnBoardingPage';
 
   void login(BuildContext context) {
@@ -48,18 +48,7 @@ class OnBoardingPage extends StatelessWidget with CustomAlertDialog {
   }
 
   void navigateToRegisterPage(BuildContext context) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const AppDrawer(
-              child: HomePage(
-            appBar: CustomAppBar(
-              icon: Icons.menu,
-              text: 'Register an account',
-              color: Constants.JIRA_COLOR,
-            ),
-          )),
-        ));
+    Navigator.pushNamed(context, UserDetailsPage.route);
   }
 
   @override

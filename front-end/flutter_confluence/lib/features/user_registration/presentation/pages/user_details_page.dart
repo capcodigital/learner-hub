@@ -1,0 +1,131 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '/core/colours.dart';
+import '/core/dimen.dart';
+import '/core/widgets/primary_button.dart';
+import '/features/login/presentation/bloc/login_bloc.dart';
+import '/features/user_registration/presentation/bloc/user_registration_bloc.dart';
+import '/features/user_registration/presentation/pages/skills_page.dart';
+
+class UserDetailsPage extends StatefulWidget {
+  const UserDetailsPage({Key? key}) : super(key: key);
+
+  static const route = 'UserDetailsPage';
+
+  @override
+  UserDetailsPageState createState() {
+    return UserDetailsPageState();
+  }
+}
+
+class UserDetailsPageState extends State<UserDetailsPage> {
+  // Create a global key that uniquely identifies the Form widget
+  // and allows validation of the form.
+  //
+  // Note: This is a `GlobalKey<FormState>`,
+  // not a GlobalKey<MyCustomFormState>.
+  final _formKey = GlobalKey<FormState>();
+
+  final nameController = TextEditingController();
+  final lastNameController = TextEditingController();
+  final jobTitleController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    void onNext() {
+      if (_formKey.currentState!.validate()) {
+        // final name = nameController.text;
+        // final lastName = lastNameController.text;
+        // final jobtitle = jobTitleController.text;
+
+        // BlocProvider.of<LoginBloc>(context).add(LoginRequestEvent(email: email, password: password));
+        Navigator.pushNamed(context, SkillsPage.route);
+      }
+    }
+
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colours.PRIMARY_COLOR,
+        title: Image.asset('assets/capco_logo.png'),
+      ),
+      body: BlocListener(
+        bloc: BlocProvider.of<UserRegistrationBloc>(context),
+        listener: (context, state) {
+          if (state is LoginSuccess) {
+            // navigateToHome();
+          }
+        },
+        child: SafeArea(
+          bottom: true,
+          child: Padding(
+            padding: const EdgeInsets.all(Dimen.large_padding),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text('Nice title goes here',
+                      textAlign: TextAlign.center, style: Theme.of(context).textTheme.headline2),
+                  Padding(
+                    padding: const EdgeInsets.only(top: Dimen.extra_small_padding, bottom: Dimen.large_padding),
+                    child: Text('Do you want to make this completed  message goes here',
+                        textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyText2),
+                  ),
+                  TextFormField(
+                    controller: nameController,
+                    style: Theme.of(context).textTheme.headline2,
+                    decoration: const InputDecoration(
+                      border: UnderlineInputBorder(),
+                      labelText: 'Name',
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Name cannot be empty';
+                      }
+                      return null;
+                    },
+                  ),
+                  TextFormField(
+                      controller: lastNameController,
+                      style: Theme.of(context).textTheme.headline2,
+                      decoration: const InputDecoration(
+                        border: UnderlineInputBorder(),
+                        labelText: 'Last name',
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Last name cannot be empty';
+                        }
+                        return null;
+                      }),
+                  TextFormField(
+                      controller: jobTitleController,
+                      style: Theme.of(context).textTheme.headline2,
+                      decoration: const InputDecoration(
+                        border: UnderlineInputBorder(),
+                        labelText: 'Job title',
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Job title cannot be empty';
+                        }
+                        return null;
+                      }),
+                  const Spacer(),
+                  PrimaryButton(
+                      text: 'Next',
+                      onPressed: () {
+                        onNext();
+                      }),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

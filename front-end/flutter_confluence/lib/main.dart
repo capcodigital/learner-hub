@@ -1,10 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_confluence/core/components/custom_appbar.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+import '/core/components/custom_appbar.dart';
 import 'core/components/preloader.dart';
 import 'core/constants.dart';
 import 'core/themes.dart';
@@ -15,6 +15,11 @@ import 'features/login/presentation/bloc/login_bloc.dart';
 import 'features/login/presentation/pages/login_page.dart';
 import 'features/onboarding/presentation/bloc/on_boarding_bloc.dart';
 import 'features/onboarding/presentation/pages/on_boarding.dart';
+import 'features/user_registration/presentation/bloc/user_registration_bloc.dart';
+import 'features/user_registration/presentation/pages/bio_page.dart';
+import 'features/user_registration/presentation/pages/login_details_page.dart';
+import 'features/user_registration/presentation/pages/skills_page.dart';
+import 'features/user_registration/presentation/pages/user_details_page.dart';
 import 'injection_container.dart';
 import 'injection_container.dart' as di;
 
@@ -40,14 +45,16 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
         providers: [
           BlocProvider<CloudCertificationBloc>(
-            create: (_) => sl<CloudCertificationBloc>()
-              ..add(GetInProgressCertificationsEvent()),
+            create: (_) => sl<CloudCertificationBloc>()..add(GetInProgressCertificationsEvent()),
           ),
           BlocProvider<OnBoardingBloc>(
             create: (_) => sl<OnBoardingBloc>()..add(const CheckAuthEvent()),
           ),
           BlocProvider<LoginBloc>(
             create: (_) => sl<LoginBloc>(),
+          ),
+          BlocProvider<UserRegistrationBloc>(
+            create: (_) => sl<UserRegistrationBloc>(),
           )
         ],
         child: MaterialApp(
@@ -64,6 +71,10 @@ class MyApp extends StatelessWidget {
                   ),
               OnBoardingPage.route: (context) => OnBoardingPage(),
               LoginPage.route: (context) => const LoginPage(),
+              UserDetailsPage.route: (context) => const UserDetailsPage(),
+              SkillsPage.route: (context) => const SkillsPage(),
+              UserBioPage.route: (context) => const UserBioPage(),
+              LoginDetailsPage.route: (context) => const LoginDetailsPage(),
             },
             home: PreLoadWidget()));
   }
