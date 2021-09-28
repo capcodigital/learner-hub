@@ -4,7 +4,7 @@ import * as jsend from "../jsend";
 import * as todos from "./todo_repository";
 import * as userRepo from "../users/users_repository";
 
-export async function getUserCertifications(
+export async function getTODOs(
     uid: string,
     res: functions.Response) {
     try {

@@ -109,7 +109,7 @@ app.delete("/certifications/:id", async (req: Request, res: Response) => {
 app.get("/todos/:userId", async (req: Request, res: Response) => {
     var uid = req.params.userId;
     if (uid == null) uid = req.user?.uid as string;
-    if (uid != null) todoFuncs.getUserCertifications(uid, res);
+    if (uid != null) todoFuncs.getTODOs(uid, res);
     else res.status(400).send(jsend.error("Bad Request"));
 });
 
