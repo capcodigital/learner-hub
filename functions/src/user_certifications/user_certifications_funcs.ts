@@ -2,6 +2,7 @@
 import * as functions from "firebase-functions";
 import * as jsend from "../jsend";
 import * as userCertRepo from "./user_certifications_repository";
+import * as userRepo from "../users/users_repository";
 
 export async function addUserCertification(
     uid: string,
@@ -42,7 +43,7 @@ export async function getUserCertifications(
         res.status(200).send(jsend.successfullResponse(items));
     } catch (e) {
         functions.logger.log(e);
-        if (e instanceof userCertRepo.UserNotFoundError)
+        if (e instanceof userRepo.UserNotFoundError)
             res.status(404).send(jsend.error("User not found"));
         else res.status(500).send(jsend.error);
     }

@@ -1,13 +1,13 @@
 /* eslint-disable require-jsdoc */
 import * as admin from 'firebase-admin';
 import * as summaryRepo from '../certification_summaries/certification_summary_repository';
+import * as userRepo from '../users/users_repository';
 
 const TABLE_CERTIFICATIONS = "User Certifications";
 
 export class UserCertificationFirestoreError extends Error { }
 export class UserCertificationExistsError extends UserCertificationFirestoreError { }
 export class UserCertificationNotFoundError extends UserCertificationFirestoreError { }
-export class UserNotFoundError extends UserCertificationFirestoreError { }
 
 export async function insert(
     uid: string,
@@ -91,10 +91,10 @@ export async function deleteItem(
 }
 
 export async function getUserCertifications(uid: string): Promise<any[]> {
-    const db = admin.firestore();
-    const collection = db.collection(TABLE_CERTIFICATIONS);
-    const snap = await collection
-        .where("userId", "==", uid).get();
+    const collection = admin.firestore().collection(TABLE_CERTIFICATIONS);
+    // Calling getUser to check if user exists, if not will throw UserNotFoundError
+    userRepo.getUser(uid);
+    const snap = await collection.where("userId", "==", uid).get();
     return toCertifications(snap);
 }
 
@@ -104,7 +104,7 @@ async function toCertifications(snap: FirebaseFirestore.QuerySnapshot):
     const items = Array<any>();
     if (!snap.empty) {
         snap.forEach((doc: { data: () => any }) => {
-            var it = doc.data() as UserCertification
+            var it = doc.data() as UserCertification;
             const summary = summaries[it.certificationId];
             items.push({
                 userId: it.userId,

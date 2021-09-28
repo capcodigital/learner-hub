@@ -6,15 +6,15 @@ const TABLE_CERTIFICATION_SUMMARIES = "Certification Summaries";
 export class SummaryFirestoreError extends Error { }
 export class SummaryNotFound extends SummaryFirestoreError { }
 
-interface AssocList {
+interface AssocArray {
     [index: string]: any;
 }
 
-export async function getAllCertificationSummaries(): Promise<AssocList> {
+export async function getAllCertificationSummaries(): Promise<AssocArray> {
     const snapshot = await admin.firestore()
         .collection(TABLE_CERTIFICATION_SUMMARIES)
         .get();
-    const results: AssocList = [];
+    const results: AssocArray = [];
     if (!snapshot.empty) {
         snapshot.forEach((doc => {
             results.push(doc.id, toJson(doc.data(), doc.id)

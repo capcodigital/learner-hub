@@ -72,7 +72,7 @@ app.get("/certifications/:userId", async (req: Request, res: Response) => {
     var uid = req.params.userId;
     if (uid == null) uid = req.user?.uid as string;
     if (uid != null) userCertFuncs.getUserCertifications(uid, res);
-    else res.status(401).send(jsend.error("Unauthorized"));
+    else res.status(400).send(jsend.error("Bad Request"));
 });
 
 // Creates a Certification to firestore for current user
