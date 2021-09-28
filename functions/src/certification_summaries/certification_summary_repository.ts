@@ -1,19 +1,20 @@
 /* eslint-disable require-jsdoc */
 import * as admin from 'firebase-admin';
+import { AssocArray } from '../assoc_array';
 
 const TABLE_CERTIFICATION_SUMMARIES = "Certification Summaries";
 
 export class SummaryFirestoreError extends Error { }
 export class SummaryNotFound extends SummaryFirestoreError { }
 
-export async function getAllCertificationSummaries(): Promise<any[]> {
+export async function getAllCertificationSummaries(): Promise<AssocArray> {
     const snapshot = await admin.firestore()
         .collection(TABLE_CERTIFICATION_SUMMARIES)
         .get();
-    const results = Array<any>();
+    const results: AssocArray = [];
     if (!snapshot.empty) {
         snapshot.forEach((doc => {
-            results.push(toJson(doc.data(), doc.id)
+            results.push(doc.id, toJson(doc.id, doc.data())
             );
         }));
     }
@@ -26,7 +27,7 @@ export async function getCertificationSummary(id: string): Promise<any> {
     const docRef = await doc.get();
     if (!docRef.exists) throw new SummaryNotFound("Certification not found");
     else {
-        return toJson(docRef.data(), docRef.id);
+        return toJson(docRef.id, docRef.data());
     }
 }
 
@@ -36,11 +37,11 @@ export async function saveSummary(summary: CertificationSummary): Promise<any> {
     const snap = await col.where("title", "==", summary.title).get();
     if (snap.empty) {
         const result = await col.add(summary);
-        return toJson(summary, result.id);
+        return toJson(result.id, summary);
     }
 }
 
-function toJson(item: any, id: string): any {
+function toJson(id: string, item: any): any {
     return {
         "id": id,
         "title": item.title,
@@ -51,3 +52,4 @@ function toJson(item: any, id: string): any {
         "image": item.image
     }
 }
+

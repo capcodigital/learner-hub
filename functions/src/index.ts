@@ -4,6 +4,7 @@ import express, { Request, Response } from "express";
 import { validateFirebaseIdToken } from "./auth-middleware";
 import * as certSummaryFuncs from "./certification_summaries/certification_summary_funcs";
 import * as userFuncs from "./users/user_funcs";
+import * as userCertFuncs from "./user_certifications/user_certifications_funcs";
 import * as jsend from "./jsend";
 
 // Initialize Firebase app
@@ -61,6 +62,43 @@ app.get("/user", async (req: Request, res: Response) => {
     const uid = req.user?.uid as string;
     if (uid != null) userFuncs.getUser(uid, res);
     else res.status(500).send(jsend.error);
+});
+
+// USER CERTIFICATION ENDPOINTS
+
+// Returns the certifications of user with passed id.
+// If no id passed, then user is current user.
+app.get("/certifications/:userId", async (req: Request, res: Response) => {
+    var uid = req.params.userId;
+    if (uid == null) uid = req.user?.uid as string;
+    if (uid != null) userCertFuncs.getUserCertifications(uid, res);
+    else res.status(400).send(jsend.error("Bad Request"));
+});
+
+// Creates a Certification to firestore for current user
+app.post("/certifications", async (req: Request, res: Response) => {
+    const uid = req.user?.uid as string;
+    const cert = req.body as any;
+    if (uid == null) res.status(401).send(jsend.error("Unauthorized"));
+    else if (cert == null) res.status(400).send(jsend.error("Bad Request"));
+    else userCertFuncs.addUserCertification(uid, cert, res);
+});
+
+// Updates the certification of given id in firestore
+app.put("/certifications/:id", async (req: Request, res: Response) => {
+    const uid = req.user?.uid as string;
+    const certId = req.params.id;
+    const cert = req.body as any;
+    if (certId == null || cert == null) res.status(400).send(jsend.error("Bad Request"));
+    else userCertFuncs.updateUserCertification(uid, certId, cert, res);
+});
+
+// Deletes the certification of given id in firestore
+app.delete("/certifications/:id", async (req: Request, res: Response) => {
+    const uid = req.user?.uid as string;
+    const certId = req.params.id;
+    if (certId == null) res.status(400).send(jsend.error("Bad Request"));
+    else userCertFuncs.deleteUserCertification(uid, certId, res);
 });
 
 // This HTTPS endpoint can only be accessed by your Firebase Users.
