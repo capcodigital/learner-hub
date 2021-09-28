@@ -13,24 +13,21 @@ export async function insert(
     uid: string,
     item: any,
 ) {
-    const db = admin.firestore();
-    const collection = db.collection(TABLE_CERTIFICATIONS);
-    const snap = await collection
-        .where("userId", "==", uid)
-        .where("certificationId", "==", item["certificationId"]).get();
+    const col = admin.firestore().collection(TABLE_CERTIFICATIONS);
+    const certificationId = item["certificationId"];
+    const snap = await col.where("userId", "==", uid)
+        .where("certificationId", "==", certificationId).get();
 
     if (snap.empty) {
 
-        const userId = item["userId"];
-        const certificationId = item["certificationId"];
         const isCompleted = item["isCompleted"];
         const startDate = item["startDate"];
         const completionDate = item["completionDate"];
         const expiryDate = item["expiryDate"];
         const rating = item["rating"];
 
-        const docRef = await collection.add({
-            userId: userId,
+        const docRef = await col.add({
+            userId: uid,
             certificationId: certificationId,
             isCompleted: isCompleted,
             startDate: startDate,
@@ -41,7 +38,7 @@ export async function insert(
 
         return {
             id: docRef.id, // adding doc id in result
-            userId: userId,
+            userId: uid,
             certificationId: certificationId,
             isCompleted: isCompleted,
             startDate: startDate,
