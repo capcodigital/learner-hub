@@ -9,6 +9,7 @@ import '/core/components/custom_appbar.dart';
 import '/core/constants.dart';
 import '/core/dimen.dart';
 import '/core/utils/error_messages.dart';
+import '/core/utils/validators/email_validator.dart';
 import '/core/widgets/primary_button.dart';
 import '/features/certifications/presentation/pages/home_page.dart';
 import '/features/login/presentation/bloc/login_bloc.dart';
@@ -50,14 +51,15 @@ class LoginPageState extends State<LoginPage> with CustomAlertDialog {
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => const AppDrawer(
+            builder: (context) =>
+            const AppDrawer(
                 child: HomePage(
-              appBar: CustomAppBar(
-                icon: Icons.menu,
-                color: Constants.JIRA_COLOR,
-                text: 'Cloud Certifications',
-              ),
-            )),
+                  appBar: CustomAppBar(
+                    icon: Icons.menu,
+                    color: Constants.JIRA_COLOR,
+                    text: 'Cloud Certifications',
+                  ),
+                )),
           ));
     }
 
@@ -75,15 +77,16 @@ class LoginPageState extends State<LoginPage> with CustomAlertDialog {
           else if (state is LoginError) {
             showPlatformDialog(
               context: context,
-              builder: (_) => PlatformAlertDialog(
-                content: PlatformText(state.errorMessage),
-                actions: <Widget>[
-                  PlatformDialogAction(
-                    child: PlatformText(OK),
-                    onPressed: () => Navigator.pop(context),
+              builder: (_) =>
+                  PlatformAlertDialog(
+                    content: PlatformText(state.errorMessage),
+                    actions: <Widget>[
+                      PlatformDialogAction(
+                        child: PlatformText(OK),
+                        onPressed: () => Navigator.pop(context),
+                      ),
+                    ],
                   ),
-                ],
-              ),
             );
           }
         },
@@ -98,30 +101,42 @@ class LoginPageState extends State<LoginPage> with CustomAlertDialog {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text('Nice title goes here',
-                      textAlign: TextAlign.center, style: Theme.of(context).textTheme.headline2),
+                      textAlign: TextAlign.center, style: Theme
+                          .of(context)
+                          .textTheme
+                          .headline2),
                   Padding(
                     padding: const EdgeInsets.only(top: Dimen.extra_small_padding, bottom: Dimen.large_padding),
                     child: Text('Do you want to make this completed  message goes here',
-                        textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyText2),
+                        textAlign: TextAlign.center, style: Theme
+                            .of(context)
+                            .textTheme
+                            .bodyText2),
                   ),
                   TextFormField(
                     controller: emailController,
-                    style: Theme.of(context).textTheme.headline2,
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .headline2,
                     decoration: const InputDecoration(
                       border: UnderlineInputBorder(),
                       labelText: 'Email',
                     ),
                     validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        // TODO(cgal-capco): Write a valid email validator
+                      if (!EmailValidator.isValid(value)) {
                         return 'Please enter a valid email address';
                       }
+
                       return null;
                     },
                   ),
                   TextFormField(
                       controller: passwordController,
-                      style: Theme.of(context).textTheme.headline2,
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .headline2,
                       obscureText: true,
                       enableSuggestions: false,
                       autocorrect: false,

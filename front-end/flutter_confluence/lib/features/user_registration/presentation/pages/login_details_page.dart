@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '/core/colours.dart';
 import '/core/dimen.dart';
+import '/core/utils/validators/email_validator.dart';
 import '/core/widgets/primary_button.dart';
 import '/features/user_registration/presentation/bloc/user_registration_bloc.dart';
 
@@ -38,7 +39,7 @@ class LoginDetailsPageState extends State<LoginDetailsPage> {
       //   final password = passwordController.text;
       //   final confirmPassword = confirmPasswordController.text;
 
-        BlocProvider.of<UserRegistrationBloc>(context).add(UserRegistrationRequestEvent());
+      BlocProvider.of<UserRegistrationBloc>(context).add(UserRegistrationRequestEvent());
       // }
     }
 
@@ -79,9 +80,10 @@ class LoginDetailsPageState extends State<LoginDetailsPage> {
                       labelText: 'Email',
                     ),
                     validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter a valid email';
+                      if (!EmailValidator.isValid(value)) {
+                        return 'Please enter a valid email address';
                       }
+
                       return null;
                     },
                   ),
