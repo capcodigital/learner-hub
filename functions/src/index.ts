@@ -119,7 +119,7 @@ app.post("/todos", async (req: Request, res: Response) => {
     const cert = req.body as any;
     if (uid == null) res.status(401).send(jsend.error("Unauthorized"));
     else if (cert == null) res.status(400).send(jsend.error("Bad Request"));
-    else todoFuncs.addUserCertification(uid, cert, res);
+    else todoFuncs.addTODO(uid, cert, res);
 });
 
 // Updates the TODO of given id in firestore
@@ -128,7 +128,7 @@ app.put("/todos/:id", async (req: Request, res: Response) => {
     const certId = req.params.id;
     const cert = req.body as any;
     if (certId == null || cert == null) res.status(400).send(jsend.error("Bad Request"));
-    else todoFuncs.updateUserCertification(uid, certId, cert, res);
+    else todoFuncs.updateTODO(uid, certId, cert, res);
 });
 
 // Deletes the TODO of given id in firestore
@@ -136,7 +136,7 @@ app.delete("/todos/:id", async (req: Request, res: Response) => {
     const uid = req.user?.uid as string;
     const certId = req.params.id;
     if (certId == null) res.status(400).send(jsend.error("Bad Request"));
-    else todoFuncs.deleteUserCertification(uid, certId, res);
+    else todoFuncs.deleteTODO(uid, certId, res);
 });
 
 // This HTTPS endpoint can only be accessed by your Firebase Users.
