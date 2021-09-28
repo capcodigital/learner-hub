@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 
-import '/core/auth/user.dart';
 import '/core/error/failures.dart';
 import '/core/usecases/usecase.dart';
+import '/features/login/domain/entities/user.dart';
 import '/features/login/domain/repositories/login_repository.dart';
 
 class LoginParams extends Equatable {

@@ -1,14 +1,13 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_confluence/features/login/data/datasource/login_data_source.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 import 'package:local_auth/local_auth.dart';
 import 'package:platform/platform.dart';
 
-import '/core/auth/auth_manager.dart';
 import '/core/device.dart';
 import '/features/login/data/repositories/login_repository_impl.dart';
-import 'core/auth/firebase_auth_manager.dart';
 import 'core/network/network_info.dart';
 import 'features/certifications/data/datasources/certification_hive_helper.dart';
 import 'features/certifications/data/datasources/cloud_certification_local_data_source.dart';
@@ -70,11 +69,12 @@ Future<void> init() async {
   sl.registerLazySingleton<Platform>(() => const LocalPlatform());
   sl.registerLazySingleton<Device>(() => DeviceImpl(platform: sl()));
 
+  // Firebase auth
   sl.registerLazySingleton(() => FirebaseAuth.instance);
-  sl.registerLazySingleton<AuthManager>(() => FirebaseAuthManager(auth: sl()));
 
   // Login
+  sl.registerLazySingleton<LoginDataSource>(() => LoginDataSourceImpl(auth: sl()));
   sl.registerLazySingleton(() => LoginUseCase(loginRepository: sl()));
-  sl.registerLazySingleton<LoginRepository>(() => LoginRepositoryImpl(authManager: sl()));
+  sl.registerLazySingleton<LoginRepository>(() => LoginRepositoryImpl(dataSource: sl()));
   sl.registerFactory(() => LoginBloc(loginUseCase: sl()));
 }
