@@ -28,7 +28,7 @@ class LoginDataSourceImpl implements LoginDataSource {
       } else if (e.code == 'wrong-password') {
         return Left(InvalidPasswordFailure());
       } else {
-        return Left(AuthFailure('Error registering the user: ${e.code}'));
+        return Left(AuthFailure(e.code));
       }
     } catch (e) {
       return Left(AuthFailure('Unknown error: ${e.toString()}'));

@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import '/core/colours.dart';
 import '/core/components/app_drawer.dart';
 import '/core/components/custom_appbar.dart';
 import '/core/constants.dart';
 import '/core/dimen.dart';
+import '/core/utils/error_messages.dart';
 import '/core/widgets/primary_button.dart';
 import '/features/certifications/presentation/pages/home_page.dart';
 import '/features/login/presentation/bloc/login_bloc.dart';
@@ -22,7 +24,7 @@ class LoginPage extends StatefulWidget {
   }
 }
 
-class LoginPageState extends State<LoginPage> {
+class LoginPageState extends State<LoginPage> with CustomAlertDialog {
   // Create a global key that uniquely identifies the Form widget
   // and allows validation of the form.
   //
@@ -70,6 +72,20 @@ class LoginPageState extends State<LoginPage> {
           if (state is LoginSuccess) {
             navigateToHome();
           }
+          else if (state is LoginError) {
+            showPlatformDialog(
+              context: context,
+              builder: (_) => PlatformAlertDialog(
+                content: PlatformText(state.errorMessage),
+                actions: <Widget>[
+                  PlatformDialogAction(
+                    child: PlatformText(OK),
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                ],
+              ),
+            );
+          }
         },
         child: SafeArea(
           bottom: true,
@@ -84,15 +100,13 @@ class LoginPageState extends State<LoginPage> {
                   Text('Nice title goes here',
                       textAlign: TextAlign.center, style: Theme.of(context).textTheme.headline2),
                   Padding(
-                    padding: const EdgeInsets.only(
-                      top: Dimen.extra_small_padding,
-                      bottom: Dimen.large_padding
-                    ),
+                    padding: const EdgeInsets.only(top: Dimen.extra_small_padding, bottom: Dimen.large_padding),
                     child: Text('Do you want to make this completed  message goes here',
                         textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyText2),
                   ),
                   TextFormField(
                     controller: emailController,
+                    style: Theme.of(context).textTheme.headline2,
                     decoration: const InputDecoration(
                       border: UnderlineInputBorder(),
                       labelText: 'Email',
@@ -107,6 +121,7 @@ class LoginPageState extends State<LoginPage> {
                   ),
                   TextFormField(
                       controller: passwordController,
+                      style: Theme.of(context).textTheme.headline2,
                       obscureText: true,
                       enableSuggestions: false,
                       autocorrect: false,
