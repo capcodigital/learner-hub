@@ -69,9 +69,7 @@ export async function update(
             expiryDate: item.expiryDate,
             rating: item.rating
         }
-    } else {
-        throw new UserCertificationNotFoundError();
-    }
+    } else throw new UserCertificationNotFoundError();
 }
 
 // "delete" is a reserved word
