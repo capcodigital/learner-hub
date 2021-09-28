@@ -1,10 +1,10 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_confluence/core/auth/auth_manager.dart';
-import 'package:flutter_confluence/core/auth/user.dart';
 
-import '../../../../core/error/failures.dart';
-import '../../../../core/usecases/usecase.dart';
+import '/core/auth/user.dart';
+import '/core/error/failures.dart';
+import '/core/usecases/usecase.dart';
+import '/features/login/domain/repositories/login_repository.dart';
 
 class LoginParams extends Equatable {
   const LoginParams({required this.email, required this.password});
@@ -17,12 +17,12 @@ class LoginParams extends Equatable {
 }
 
 class LoginUseCase implements UseCase<User, LoginParams> {
-  LoginUseCase({required this.authManager});
+  LoginUseCase({required this.loginRepository});
 
-  final AuthManager authManager;
+  final LoginRepository loginRepository;
 
   @override
   Future<Either<Failure, User>> call(LoginParams parameters) async {
-    return authManager.loginUser(parameters.email, parameters.password);
+    return loginRepository.loginUser(parameters.email, parameters.password);
   }
 }
