@@ -5,6 +5,7 @@ import { validateFirebaseIdToken } from "./auth-middleware";
 import * as certSummaryFuncs from "./certification_summaries/certification_summary_funcs";
 import * as userFuncs from "./users/user_funcs";
 import * as userCertFuncs from "./user_certifications/user_certifications_funcs";
+import * as userCertFuncs from "./user_certifications/user_certifications_funcs";
 import * as todoFuncs from "./todos/todo_funcs";
 import * as jsend from "./jsend";
 
@@ -138,6 +139,7 @@ app.delete("/todos/:id", async (req: Request, res: Response) => {
     if (certId == null) res.status(400).send(jsend.error("Bad Request"));
     else todoFuncs.deleteTODO(uid, certId, res);
 });
+
 
 // This HTTPS endpoint can only be accessed by your Firebase Users.
 // Requests need to be authorized by providing an `Authorization` HTTP header

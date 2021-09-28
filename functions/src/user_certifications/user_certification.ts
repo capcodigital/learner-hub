@@ -1,9 +1,9 @@
 interface UserCertification {
     userId: string,
     certificationId: string,
-    isCompleted: string,
+    isCompleted: boolean,
     startDate: string,
     completionDate: string,
     expiryDate: string,
-    rating: string
+    rating: number
 }
