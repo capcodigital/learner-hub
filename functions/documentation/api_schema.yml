@@ -606,6 +606,22 @@ paths:
       operationId: 'createTODOItems'
       security:
         - JWTAuth: []
+      requestBody:
+        description: A JSON object containing information required to create a TODO
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  nullable: false
+                content:
+                  type: string
+                  nullable: false
+                isCompleted:
+                  type: boolean
+                  nullable: false
       responses:
         '201':
             description: "Created"
