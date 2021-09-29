@@ -63,7 +63,7 @@ export async function deleteTODO(
         functions.logger.log(e);
         if (e instanceof todos.TODONotFoundError)
             res.status(404).send(jsend.error("TODO item not found"));
-        if (e instanceof todos.AccessForbidenError)
+        else if (e instanceof todos.AccessForbidenError)
             res.status(403).send(jsend.error("Forbiden"));
         else res.status(500).send(jsend.error);
     }

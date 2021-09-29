@@ -140,7 +140,6 @@ app.delete("/todos/:id", async (req: Request, res: Response) => {
     else todoFuncs.deleteTODO(uid, todoId, res);
 });
 
-
 // This HTTPS endpoint can only be accessed by your Firebase Users.
 // Requests need to be authorized by providing an `Authorization` HTTP header
 // with value `Bearer <Firebase ID Token>`.
