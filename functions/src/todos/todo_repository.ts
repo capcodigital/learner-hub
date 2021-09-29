@@ -14,29 +14,15 @@ export async function getUserTODOs(uid: string): Promise<any[]> {
     return toTODOs(snap);
 }
 
-export async function insert(
-    uid: string,
-    item: any,
-) {
+export async function insert(todo: TODO) {
     const col = admin.firestore().collection(TABLE_TODOS);
-
-    const title = item["title"];
-    const content = item["content"];
-    const isCompleted = item["isCompleted"];
-
-    const docRef = await col.add({
-        userId: uid,
-        title: title,
-        content: content,
-        isCompleted: isCompleted
-    });
-
+    const docRef = await col.add({ todo });
     return {
         id: docRef.id,
-        userId: uid,
-        title: title,
-        content: content,
-        isCompleted: isCompleted
+        userId: todo.userId,
+        title: todo.title,
+        content: todo.content,
+        isCompleted: todo.isCompleted
     }
 }
 

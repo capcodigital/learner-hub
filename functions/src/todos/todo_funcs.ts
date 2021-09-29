@@ -22,12 +22,11 @@ export async function getTODOs(
 }
 
 export async function addTODO(
-    uid: string,
-    todo: any,
+    todo: TODO,
     res: functions.Response) {
     try {
-        userRepo.getUser(uid);
-        const item = await todoRepo.insert(uid, todo);
+        userRepo.getUser(todo.userId);
+        const item = await todoRepo.insert(todo);
         functions.logger.log(item);
         res.setHeader('Content-Type', 'application/json');
         res.status(201).send(jsend.successfullResponse(item));
