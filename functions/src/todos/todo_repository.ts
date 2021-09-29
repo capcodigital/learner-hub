@@ -27,15 +27,14 @@ export async function insert(todo: TODO) {
 }
 
 export async function update(
-    uid: string,
     todoId: string,
-    todo: any
+    todo: TODO
 ) {
     const doc = admin.firestore().collection(TABLE_TODOS).doc(todoId);
     const docRef = await doc.get();
     if (docRef.exists) {
         const item = docRef.data() as TODO;
-        if (uid == item.userId) {
+        if (todo.userId == item.userId) {
             doc.update(todo);
             const updated = docRef.data() as TODO;
             return {

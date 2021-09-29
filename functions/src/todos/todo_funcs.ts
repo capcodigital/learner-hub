@@ -39,12 +39,11 @@ export async function addTODO(
 }
 
 export async function updateTODO(
-    uid: string,
     todoId: string,
-    todo: any,
+    todo: TODO,
     res: functions.Response) {
     try {
-        const item = todoRepo.update(uid, todoId, todo);
+        const item = todoRepo.update(todoId, todo);
         res.setHeader('Content-Type', 'application/json');
         res.status(200).send(jsend.successfullResponse(item));
     } catch (e) {

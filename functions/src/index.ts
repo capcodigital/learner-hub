@@ -131,9 +131,17 @@ app.post("/todos", async (req: Request, res: Response) => {
 app.put("/todos/:id", async (req: Request, res: Response) => {
     const uid = req.user?.uid as string;
     const todoId = req.params.id;
-    const todo = req.body as any;
-    if (todoId == null || todo == null) res.status(400).send(jsend.error("Bad Request"));
-    else todoFuncs.updateTODO(uid, todoId, todo, res);
+    const body = req.body as any;
+    if (todoId == null || body == null) res.status(400).send(jsend.error("Bad Request"));
+    else {
+        const todo: TODO = {
+            userId: uid,
+            title: body["title"],
+            content: body["content"],
+            isCompleted: body["isCompleted"]
+        };
+        todoFuncs.updateTODO(todoId, todo, res);
+    }
 });
 
 // Deletes the TODO of given id in firestore
