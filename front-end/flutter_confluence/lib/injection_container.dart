@@ -84,7 +84,7 @@ Future<void> init() async {
   sl.registerFactory(() => LoginBloc(loginUseCase: sl()));
 
   // User registration
-  sl.registerLazySingleton<RegisterUserDataSource>(() => RegisterUserDataSourceImpl(auth: sl()));
+  sl.registerLazySingleton<RegisterUserDataSource>(() => RegisterUserDataSourceImpl(auth: sl(), client: sl()));
   sl.registerLazySingleton<UserRegistrationRepository>(() => UserRegistrationRepositoryIml(dataSource: sl()));
   sl.registerLazySingleton(() => RegisterUserUseCase(registrationRepository: sl()));
   sl.registerFactory(() => UserRegistrationBloc(registerUserUseCase: sl()));

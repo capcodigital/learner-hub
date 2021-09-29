@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase;
-import 'package:flutter/foundation.dart' as foundation;
 
 import '/core/auth/auth_failures.dart';
 import '/core/error/failures.dart';
@@ -51,17 +50,14 @@ class RegisterUserUseCase implements UseCase<User, RegisterParams> {
         bio: parameters.bio,
         email: parameters.email,
         password: parameters.password);
-    final firebaseUser = await registrationRepository.registerUser(newUser);
 
-
-    if (foundation.kDebugMode) {
-      // TODO(cgal-capco): Remember to delete this code before mergin into development
-      // Only useful during registration flow
-      final firebaseToken = await getUserAccessToken();
-      print('FIREBASE TOKEN: $firebaseToken');
+    final firebaseUser = await registrationRepository.registerFirebaseUser(newUser);
+    if (firebaseUser.isRight()) {
+      final user = await registrationRepository.createUser(newUser);
+      return user;
+    } else {
+      return Left(AuthFailure('Error registering the user'));
     }
-
-    return firebaseUser;
   }
 
   Future<String> getUserAccessToken() async {
