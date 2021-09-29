@@ -10,7 +10,7 @@ export async function getAllCertificationSummaries(res: functions.Response) {
         const items = await summaryRepo.getAllCertificationSummaries();
         res.setHeader('Content-Type', 'application/json');
         res.statusCode = 200;
-        res.send(jsend.successGetSummaries(items));
+        res.send(jsend.successfullResponse(items));
     } catch (e) {
         logger.log(e);
         res.statusCode = 500;
@@ -25,7 +25,7 @@ export async function getCertificationSummary(
         const summary = await summaryRepo.getCertificationSummary(id);
         res.setHeader('Content-Type', 'application/json');
         res.statusCode = 200;
-        res.send(jsend.successGetSummaries([summary]));
+        res.send(jsend.successfullResponse([summary]));
     } catch (e) {
         logger.log(e);
         if (e instanceof SummaryNotFound) {
@@ -46,7 +46,7 @@ export async function addCertificationSummary(
         logger.log(item);
         res.setHeader('Content-Type', 'application/json');
         res.statusCode = 201;
-        res.send(jsend.successAddSummary(item));
+        res.send(jsend.successfullResponse(item));
     } catch (e) {
         logger.log(e);
         res.statusCode = 500;
