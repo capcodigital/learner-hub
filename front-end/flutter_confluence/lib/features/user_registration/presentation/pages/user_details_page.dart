@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_confluence/core/shared_ui/primary_button.dart';
 
 import '/core/colours.dart';
 import '/core/dimen.dart';
-import '/core/widgets/primary_button.dart';
 import '/features/user_registration/domain/entities/user_registration_navigation_parameters.dart';
 import '/features/user_registration/presentation/pages/skills_page.dart';
 
@@ -38,9 +38,13 @@ class UserDetailsPageState extends State<UserDetailsPage> {
         final lastName = lastNameController.text;
         final jobTitle = jobTitleController.text;
 
-        final navigationParameters = UserRegistrationNavigationParameters(name: name, lastName: lastName, jobTitle: jobTitle);
+        final navigationParameters = UserRegistrationNavigationParameters(
+            name: name, lastName: lastName, jobTitle: jobTitle);
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => SkillsPage(navParameters: navigationParameters)));
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    SkillsPage(navParameters: navigationParameters)));
       }
     }
 
@@ -59,11 +63,17 @@ class UserDetailsPageState extends State<UserDetailsPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text('Nice title goes here', textAlign: TextAlign.center, style: Theme.of(context).textTheme.headline2),
+                Text('Nice title goes here',
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.headline2),
                 Padding(
-                  padding: const EdgeInsets.only(top: Dimen.extra_small_padding, bottom: Dimen.large_padding),
-                  child: Text('Do you want to make this completed  message goes here',
-                      textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyText2),
+                  padding: const EdgeInsets.only(
+                      top: Dimen.extra_small_padding,
+                      bottom: Dimen.large_padding),
+                  child: Text(
+                      'Do you want to make this completed  message goes here',
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.bodyText2),
                 ),
                 TextFormField(
                   controller: nameController,
