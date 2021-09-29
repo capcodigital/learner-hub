@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_confluence/core/components/app_drawer.dart';
+import 'package:flutter_confluence/core/shared_ui/app_drawer.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar(

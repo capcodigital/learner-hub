@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_confluence/core/shared_ui/app_drawer.dart';
+import 'package:flutter_confluence/core/shared_ui/custom_appbar.dart';
+import 'package:flutter_confluence/core/shared_ui/primary_button.dart';
 
 import '/core/colours.dart';
-import '/core/components/app_drawer.dart';
-import '/core/components/custom_appbar.dart';
 import '/core/constants.dart';
 import '/core/dimen.dart';
 import '/core/utils/media_util.dart';
-import '/core/widgets/primary_button.dart';
 import '/features/certifications/presentation/pages/home_page.dart';
 import '/features/login/presentation/pages/login_page.dart';
 import '/features/onboarding/presentation/widgets/onboarding_carousel.dart';
@@ -64,21 +64,25 @@ class OnBoardingPage extends StatelessWidget {
 
   Widget buildWithLayoutBuilder(BuildContext context) {
     return SafeArea(
-      child:
-          Column(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.center, children: [
-        const Spacer(),
-        OnBoardingCarousel(),
-        const Spacer(),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: Dimen.large_padding, horizontal: Dimen.small_padding),
-          child: PrimaryButton(
-              text: 'Log in',
-              onPressed: () {
-                login(context);
-              }),
-        ),
-        getFooter(context),
-      ]),
+      child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Spacer(),
+            OnBoardingCarousel(),
+            const Spacer(),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                  vertical: Dimen.large_padding,
+                  horizontal: Dimen.small_padding),
+              child: PrimaryButton(
+                  text: 'Log in',
+                  onPressed: () {
+                    login(context);
+                  }),
+            ),
+            getFooter(context),
+          ]),
     );
   }
 
@@ -90,11 +94,15 @@ class OnBoardingPage extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Not a member yet?', style: Theme.of(context).textTheme.subtitle1),
+            Text('Not a member yet?',
+                style: Theme.of(context).textTheme.subtitle1),
             TextButton(
                 style: TextButton.styleFrom(
                     primary: Colours.ACCENT_COLOR,
-                    textStyle: Theme.of(context).textTheme.subtitle2?.copyWith(fontStyle: FontStyle.italic)),
+                    textStyle: Theme.of(context)
+                        .textTheme
+                        .subtitle2
+                        ?.copyWith(fontStyle: FontStyle.italic)),
                 onPressed: () {
                   register(context);
                 },

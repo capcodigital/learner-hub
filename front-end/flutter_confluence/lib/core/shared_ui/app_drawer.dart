@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_confluence/core/components/custom_appbar.dart';
 import 'package:flutter_confluence/core/dimen.dart';
+import 'package:flutter_confluence/core/shared_ui/custom_appbar.dart';
 import 'package:flutter_confluence/core/utils/media_util.dart';
 
 class AppDrawer extends StatefulWidget {

@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_confluence/core/shared_ui/app_drawer.dart';
+import 'package:flutter_confluence/core/shared_ui/custom_appbar.dart';
+import 'package:flutter_confluence/core/shared_ui/primary_button.dart';
 
 import '/core/colours.dart';
-import '/core/components/app_drawer.dart';
-import '/core/components/custom_appbar.dart';
 import '/core/constants.dart';
 import '/core/dimen.dart';
 import '/core/utils/error_messages.dart';
 import '/core/utils/validators/email_validator.dart';
-import '/core/widgets/primary_button.dart';
 import '/features/certifications/presentation/pages/home_page.dart';
 import '/features/user_registration/domain/entities/user_registration_navigation_parameters.dart';
 import '/features/user_registration/presentation/bloc/user_registration_bloc.dart';
 
 class LoginDetailsPage extends StatefulWidget {
-  const LoginDetailsPage({Key? key, required this.navParameters}) : super(key: key);
+  const LoginDetailsPage({Key? key, required this.navParameters})
+      : super(key: key);
 
   static const route = 'LoginDetailsPage';
   final UserRegistrationNavigationParameters navParameters;
@@ -26,7 +27,8 @@ class LoginDetailsPage extends StatefulWidget {
   }
 }
 
-class LoginDetailsPageState extends State<LoginDetailsPage> with CustomAlertDialog {
+class LoginDetailsPageState extends State<LoginDetailsPage>
+    with CustomAlertDialog {
   @override
   Widget build(BuildContext context) {
     // Create a global key that uniquely identifies the Form widget
@@ -49,7 +51,8 @@ class LoginDetailsPageState extends State<LoginDetailsPage> with CustomAlertDial
           ..email = email
           ..password = password;
 
-        BlocProvider.of<UserRegistrationBloc>(context).add(RegisterUserEvent(parameters: registrationParameters));
+        BlocProvider.of<UserRegistrationBloc>(context)
+            .add(RegisterUserEvent(parameters: registrationParameters));
       }
     }
 
@@ -93,11 +96,16 @@ class LoginDetailsPageState extends State<LoginDetailsPage> with CustomAlertDial
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text('Nice title goes here',
-                      textAlign: TextAlign.center, style: Theme.of(context).textTheme.headline2),
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.headline2),
                   Padding(
-                    padding: const EdgeInsets.only(top: Dimen.extra_small_padding, bottom: Dimen.large_padding),
-                    child: Text('Do you want to make this completed  message goes here',
-                        textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyText2),
+                    padding: const EdgeInsets.only(
+                        top: Dimen.extra_small_padding,
+                        bottom: Dimen.large_padding),
+                    child: Text(
+                        'Do you want to make this completed  message goes here',
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.bodyText2),
                   ),
                   TextFormField(
                     controller: emailController,
