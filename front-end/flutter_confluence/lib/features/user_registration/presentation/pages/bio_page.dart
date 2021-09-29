@@ -4,10 +4,13 @@ import 'package:flutter/widgets.dart';
 import '/core/colours.dart';
 import '/core/dimen.dart';
 import '/core/widgets/primary_button.dart';
+import '/features/user_registration/domain/entities/user_registration_navigation_parameters.dart';
 import '/features/user_registration/presentation/pages/login_details_page.dart';
 
 class UserBioPage extends StatefulWidget {
-  const UserBioPage({Key? key}) : super(key: key);
+  const UserBioPage({Key? key, required this.navParameters}) : super(key: key);
+
+  final UserRegistrationNavigationParameters navParameters;
 
   static const route = 'UserBioPage';
 
@@ -23,11 +26,14 @@ class UserBioPageState extends State<UserBioPage> {
     final bioController = TextEditingController();
 
     void onNext() {
-      Navigator.pushNamed(context, LoginDetailsPage.route);
+      final navParameters = widget.navParameters
+        ..bio = bioController.text;
+
+      Navigator.push(context, MaterialPageRoute(builder: (context) => LoginDetailsPage(navParameters: navParameters)));
     }
 
     void onSkip() {
-      Navigator.pushNamed(context, LoginDetailsPage.route);
+      Navigator.push(context, MaterialPageRoute(builder: (context) => LoginDetailsPage(navParameters: widget.navParameters)));
     }
 
     return Scaffold(

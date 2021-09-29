@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import '/core/colours.dart';
 import '/core/components/app_drawer.dart';
@@ -51,15 +50,14 @@ class LoginPageState extends State<LoginPage> with CustomAlertDialog {
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) =>
-            const AppDrawer(
+            builder: (context) => const AppDrawer(
                 child: HomePage(
-                  appBar: CustomAppBar(
-                    icon: Icons.menu,
-                    color: Constants.JIRA_COLOR,
-                    text: 'Cloud Certifications',
-                  ),
-                )),
+              appBar: CustomAppBar(
+                icon: Icons.menu,
+                color: Constants.JIRA_COLOR,
+                text: 'Cloud Certifications',
+              ),
+            )),
           ));
     }
 
@@ -73,21 +71,8 @@ class LoginPageState extends State<LoginPage> with CustomAlertDialog {
         listener: (context, state) {
           if (state is LoginSuccess) {
             navigateToHome();
-          }
-          else if (state is LoginError) {
-            showPlatformDialog(
-              context: context,
-              builder: (_) =>
-                  PlatformAlertDialog(
-                    content: PlatformText(state.errorMessage),
-                    actions: <Widget>[
-                      PlatformDialogAction(
-                        child: PlatformText(OK),
-                        onPressed: () => Navigator.pop(context),
-                      ),
-                    ],
-                  ),
-            );
+          } else if (state is LoginError) {
+            showAlertDialog(context, state.errorMessage);
           }
         },
         child: SafeArea(
@@ -101,24 +86,15 @@ class LoginPageState extends State<LoginPage> with CustomAlertDialog {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text('Nice title goes here',
-                      textAlign: TextAlign.center, style: Theme
-                          .of(context)
-                          .textTheme
-                          .headline2),
+                      textAlign: TextAlign.center, style: Theme.of(context).textTheme.headline2),
                   Padding(
                     padding: const EdgeInsets.only(top: Dimen.extra_small_padding, bottom: Dimen.large_padding),
                     child: Text('Do you want to make this completed  message goes here',
-                        textAlign: TextAlign.center, style: Theme
-                            .of(context)
-                            .textTheme
-                            .bodyText2),
+                        textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyText2),
                   ),
                   TextFormField(
                     controller: emailController,
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .headline2,
+                    style: Theme.of(context).textTheme.headline2,
                     decoration: const InputDecoration(
                       border: UnderlineInputBorder(),
                       labelText: 'Email',
@@ -133,10 +109,7 @@ class LoginPageState extends State<LoginPage> with CustomAlertDialog {
                   ),
                   TextFormField(
                       controller: passwordController,
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .headline2,
+                      style: Theme.of(context).textTheme.headline2,
                       obscureText: true,
                       enableSuggestions: false,
                       autocorrect: false,

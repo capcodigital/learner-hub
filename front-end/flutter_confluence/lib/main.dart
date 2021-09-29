@@ -16,9 +16,6 @@ import 'features/login/presentation/pages/login_page.dart';
 import 'features/onboarding/presentation/bloc/on_boarding_bloc.dart';
 import 'features/onboarding/presentation/pages/on_boarding.dart';
 import 'features/user_registration/presentation/bloc/user_registration_bloc.dart';
-import 'features/user_registration/presentation/pages/bio_page.dart';
-import 'features/user_registration/presentation/pages/login_details_page.dart';
-import 'features/user_registration/presentation/pages/skills_page.dart';
 import 'features/user_registration/presentation/pages/user_details_page.dart';
 import 'injection_container.dart';
 import 'injection_container.dart' as di;
@@ -72,9 +69,6 @@ class MyApp extends StatelessWidget {
               OnBoardingPage.route: (context) => OnBoardingPage(),
               LoginPage.route: (context) => const LoginPage(),
               UserDetailsPage.route: (context) => const UserDetailsPage(),
-              SkillsPage.route: (context) => const SkillsPage(),
-              UserBioPage.route: (context) => const UserBioPage(),
-              LoginDetailsPage.route: (context) => const LoginDetailsPage(),
             },
             home: PreLoadWidget()));
   }

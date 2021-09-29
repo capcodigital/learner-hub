@@ -1,6 +1,8 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_confluence/features/login/data/datasource/login_data_source.dart';
+import 'package:flutter_confluence/features/user_registration/domain/repositories/user_registration_repository.dart';
+import 'package:flutter_confluence/features/user_registration/domain/usecases/register_user_use_case.dart';
 import 'package:flutter_confluence/features/user_registration/presentation/bloc/user_registration_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
@@ -29,6 +31,8 @@ import 'features/onboarding/domain/repositories/on_boarding_repository.dart';
 import 'features/onboarding/domain/usecases/auth_use_case.dart';
 import 'features/onboarding/domain/usecases/check_auth_use_case.dart';
 import 'features/onboarding/presentation/bloc/on_boarding_bloc.dart';
+import 'features/user_registration/data/datasources/register_user_data_source.dart';
+import 'features/user_registration/data/repositories/user_registration_repository_impl.dart';
 
 final sl = GetIt.instance;
 
@@ -75,10 +79,13 @@ Future<void> init() async {
 
   // Login
   sl.registerLazySingleton<LoginDataSource>(() => LoginDataSourceImpl(auth: sl()));
-  sl.registerLazySingleton(() => LoginUseCase(loginRepository: sl()));
   sl.registerLazySingleton<LoginRepository>(() => LoginRepositoryImpl(dataSource: sl()));
+  sl.registerLazySingleton(() => LoginUseCase(loginRepository: sl()));
   sl.registerFactory(() => LoginBloc(loginUseCase: sl()));
 
   // User registration
-  sl.registerFactory(() => UserRegistrationBloc());
+  sl.registerLazySingleton<RegisterUserDataSource>(() => RegisterUserDataSourceImpl(auth: sl()));
+  sl.registerLazySingleton<UserRegistrationRepository>(() => UserRegistrationRepositoryIml(dataSource: sl()));
+  sl.registerLazySingleton(() => RegisterUserUseCase(registrationRepository: sl()));
+  sl.registerFactory(() => UserRegistrationBloc(registerUserUseCase: sl()));
 }

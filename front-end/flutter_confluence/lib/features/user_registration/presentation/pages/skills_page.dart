@@ -4,12 +4,14 @@ import 'package:flutter/widgets.dart';
 import '/core/colours.dart';
 import '/core/dimen.dart';
 import '/core/widgets/primary_button.dart';
+import '/features/user_registration/domain/entities/user_registration_navigation_parameters.dart';
 import '/features/user_registration/presentation/pages/bio_page.dart';
 
 class SkillsPage extends StatefulWidget {
-  const SkillsPage({Key? key}) : super(key: key);
+  const SkillsPage({Key? key, required this.navParameters}) : super(key: key);
 
   static const route = 'SkillsPage';
+  final UserRegistrationNavigationParameters navParameters;
 
   @override
   SkillsPageState createState() {
@@ -97,7 +99,11 @@ class SkillsPageState extends State<SkillsPage> {
     final skillsWidgets = skills.map((skill) => Chip(label: Text(skill))).toList();
 
     void onNext() {
-      Navigator.pushNamed(context, UserBioPage.route);
+      final navParameters = widget.navParameters
+        ..primarySkills = ['primaryTest']
+        ..secondarySkills = ['secondaryTest'];
+
+      Navigator.push(context, MaterialPageRoute(builder: (context) => UserBioPage(navParameters: navParameters)));
     }
 
     return Scaffold(

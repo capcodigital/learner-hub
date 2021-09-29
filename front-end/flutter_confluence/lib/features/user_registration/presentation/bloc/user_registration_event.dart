@@ -2,6 +2,8 @@ part of 'user_registration_bloc.dart';
 
 abstract class UserRegistrationEvent {}
 
+class RegisterUserEvent extends UserRegistrationEvent {
+  RegisterUserEvent({required this.parameters});
 
-class UserRegistrationRequestEvent extends UserRegistrationEvent {}
-
+  final UserRegistrationNavigationParameters parameters;
+}
