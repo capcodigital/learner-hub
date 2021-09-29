@@ -41,11 +41,11 @@ export async function addTODO(
 
 export async function updateTODO(
     uid: string,
-    id: string,
+    todoId: string,
     todo: any,
     res: functions.Response) {
     try {
-        const item = todoRepo.update(uid, id, todo);
+        const item = todoRepo.update(uid, todoId, todo);
         res.setHeader('Content-Type', 'application/json');
         res.status(200).send(jsend.successfullResponse(item));
     } catch (e) {
@@ -60,10 +60,10 @@ export async function updateTODO(
 
 export async function deleteTODO(
     uid: string,
-    id: string,
+    todoId: string,
     res: functions.Response) {
     try {
-        todoRepo.deleteItem(uid, id);
+        todoRepo.deleteItem(uid, todoId);
         res.setHeader('Content-Type', 'application/json');
         res.status(200).send(jsend.successfullResponse({ "message": "Item deleted" }));
     } catch (e) {
