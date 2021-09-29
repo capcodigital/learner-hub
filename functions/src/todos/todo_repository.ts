@@ -42,10 +42,10 @@ export async function insert(
 
 export async function update(
     uid: string,
-    id: string,
+    todoId: string,
     todo: any
 ) {
-    const doc = admin.firestore().collection(TABLE_TODOS).doc(id);
+    const doc = admin.firestore().collection(TABLE_TODOS).doc(todoId);
     const docRef = await doc.get();
     if (docRef.exists) {
         const item = docRef.data() as TODO;
@@ -66,9 +66,9 @@ export async function update(
 // "delete" is a reserved word
 export async function deleteItem(
     uid: string,
-    id: string
+    todoId: string
 ) {
-    const doc = admin.firestore().collection(TABLE_TODOS).doc(id);
+    const doc = admin.firestore().collection(TABLE_TODOS).doc(todoId);
     const docRef = await doc.get();
     if (docRef.exists) {
         const item = docRef.data() as TODO;

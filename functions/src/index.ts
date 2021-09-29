@@ -108,16 +108,14 @@ app.delete("/certifications/:id", async (req: Request, res: Response) => {
 // If no id passed, then user is current user.
 app.get("/todos", async (req: Request, res: Response) => {
     const uid = req.user?.uid as string;
-    if (uid != null) todoFuncs.getTODOs(uid, res);
-    else res.status(401).send(jsend.error("Unauthorized"));
+    todoFuncs.getTODOs(uid, res);
 });
 
 // Creates a TODO to firestore for current user
 app.post("/todos", async (req: Request, res: Response) => {
     const uid = req.user?.uid as string;
     const todo = req.body as any;
-    if (uid == null) res.status(401).send(jsend.error("Unauthorized"));
-    else if (todo == null) res.status(400).send(jsend.error("Bad Request"));
+    if (todo == null) res.status(400).send(jsend.error("Bad Request"));
     else todoFuncs.addTODO(uid, todo, res);
 });
 
@@ -126,8 +124,7 @@ app.put("/todos/:id", async (req: Request, res: Response) => {
     const uid = req.user?.uid as string;
     const todoId = req.params.id;
     const todo = req.body as any;
-    if (uid == null) res.status(401).send(jsend.error("Unauthorised"));
-    else if (todoId == null || todo == null) res.status(400).send(jsend.error("Bad Request"));
+    if (todoId == null || todo == null) res.status(400).send(jsend.error("Bad Request"));
     else todoFuncs.updateTODO(uid, todoId, todo, res);
 });
 
@@ -135,8 +132,7 @@ app.put("/todos/:id", async (req: Request, res: Response) => {
 app.delete("/todos/:id", async (req: Request, res: Response) => {
     const uid = req.user?.uid as string;
     const todoId = req.params.id;
-    if (uid == null) res.status(401).send(jsend.error("Unauthorised"));
-    else if (todoId == null) res.status(400).send(jsend.error("Bad Request"));
+    if (todoId == null) res.status(400).send(jsend.error("Bad Request"));
     else todoFuncs.deleteTODO(uid, todoId, res);
 });
 

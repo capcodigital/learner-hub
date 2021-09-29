@@ -1,19 +1,23 @@
 /* eslint-disable require-jsdoc */
 import * as functions from "firebase-functions";
 import * as jsend from "../jsend";
-import * as todos from "./todo_repository";
+import * as todoRepo from "./todo_repository";
+import * as userRepo from "../users/users_repository";
 
 export async function getTODOs(
     uid: string,
     res: functions.Response) {
     try {
-        const items = await todos.getUserTODOs(uid);
+        userRepo.getUser(uid); // will throw UserNotFoundError if uid not exist
+        const items = await todoRepo.getUserTODOs(uid);
         functions.logger.log(items);
         res.setHeader('Content-Type', 'application/json');
         res.status(200).send(jsend.successfullResponse(items));
     } catch (e) {
         functions.logger.log(e);
-        res.status(500).send(jsend.error);
+        if (e instanceof userRepo.UserNotFoundError)
+            res.status(400).send(jsend.error("Bad Request"));
+        else res.status(500).send(jsend.error);
     }
 }
 
@@ -22,30 +26,33 @@ export async function addTODO(
     todo: any,
     res: functions.Response) {
     try {
-        const item = await todos.insert(uid, todo);
+        userRepo.getUser(uid);
+        const item = await todoRepo.insert(uid, todo);
         functions.logger.log(item);
         res.setHeader('Content-Type', 'application/json');
         res.status(201).send(jsend.successfullResponse({ "message": "Todo Created" }));
     } catch (e) {
         functions.logger.log(e);
-        res.status(500).send(jsend.error);
+        if (e instanceof userRepo.UserNotFoundError)
+            res.status(400).send(jsend.error("Bad Request"));
+        else res.status(500).send(jsend.error);
     }
 }
 
 export async function updateTODO(
     uid: string,
     id: string,
-    todo: string,
+    todo: any,
     res: functions.Response) {
     try {
-        const item = todos.update(uid, id, todo);
+        const item = todoRepo.update(uid, id, todo);
         res.setHeader('Content-Type', 'application/json');
         res.status(200).send(jsend.successfullResponse(item));
     } catch (e) {
         functions.logger.log(e);
-        if (e instanceof todos.TODONotFoundError)
+        if (e instanceof todoRepo.TODONotFoundError)
             res.status(404).send(jsend.error("TODO item not found"));
-        else if (e instanceof todos.AccessForbidenError)
+        else if (e instanceof todoRepo.AccessForbidenError)
             res.status(403).send(jsend.error("Forbiden"));
         else res.status(500).send(jsend.error);
     }
@@ -56,14 +63,14 @@ export async function deleteTODO(
     id: string,
     res: functions.Response) {
     try {
-        todos.deleteItem(uid, id);
+        todoRepo.deleteItem(uid, id);
         res.setHeader('Content-Type', 'application/json');
         res.status(200).send(jsend.successfullResponse({ "message": "Item deleted" }));
     } catch (e) {
         functions.logger.log(e);
-        if (e instanceof todos.TODONotFoundError)
+        if (e instanceof todoRepo.TODONotFoundError)
             res.status(404).send(jsend.error("TODO item not found"));
-        else if (e instanceof todos.AccessForbidenError)
+        else if (e instanceof todoRepo.AccessForbidenError)
             res.status(403).send(jsend.error("Forbiden"));
         else res.status(500).send(jsend.error);
     }
