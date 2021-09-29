@@ -612,16 +612,17 @@ paths:
           application/json:
             schema:
               type: object
+              required:
+                - title
+                - content
+                - isCompleted
               properties:
                 title:
                   type: string
-                  nullable: false
                 content:
                   type: string
-                  nullable: false
                 isCompleted:
                   type: boolean
-                  nullable: false
             example:
               title: "Book the certification exam"
               content: "It needs to be booked from the oficial website and then claim the expenses back"
