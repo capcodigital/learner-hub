@@ -6,9 +6,10 @@ import 'package:flutter_confluence/features/certifications/data/models/cloud_cer
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-import '../../../../fixtures/FixtureReader.dart';
+import '../../../../fixtures/fixture_reader.dart';
 
-class MockCertificationHiveHelper extends Mock implements CertificationHiveHelper {}
+class MockCertificationHiveHelper extends Mock
+    implements CertificationHiveHelper {}
 
 void main() {
   late CloudCertificationLocalDataSourceImpl dataSource;
@@ -16,7 +17,8 @@ void main() {
 
   setUp(() {
     mockHiveHelper = MockCertificationHiveHelper();
-    dataSource = CloudCertificationLocalDataSourceImpl(hiveHelper: mockHiveHelper);
+    dataSource =
+        CloudCertificationLocalDataSourceImpl(hiveHelper: mockHiveHelper);
   });
 
   group('completedCertificationsCache', () {
@@ -43,8 +45,8 @@ void main() {
       () {
         when(() => mockHiveHelper.getCompleted())
             .thenAnswer((_) => Future.value(List.empty()));
-        expect(() async => await dataSource.getCompletedCertifications(),
-            throwsA(TypeMatcher<CacheException>()));
+        expect(() async => dataSource.getCompletedCertifications(),
+            throwsA(const TypeMatcher<CacheException>()));
       },
     );
 

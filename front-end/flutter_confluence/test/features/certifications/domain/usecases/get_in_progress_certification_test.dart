@@ -19,7 +19,7 @@ void main() {
   });
 
   final tCloudCertification = [
-    CloudCertification(
+    const CloudCertification(
         name: 'Jason',
         platform: 'GCP',
         certificationType: 'Azure',
@@ -35,7 +35,8 @@ void main() {
     final result = await usecase(NoParams());
     // assert
     expect(result, Right(tCloudCertification));
-    verify(() => mockCloudCertificationRepository.getInProgressCertifications());
+    verify(
+        () => mockCloudCertificationRepository.getInProgressCertifications());
     verifyNoMoreInteractions(mockCloudCertificationRepository);
   });
 }

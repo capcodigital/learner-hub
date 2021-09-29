@@ -21,12 +21,12 @@ void main() {
     () async {
       // arrange
       when(() => mockRepository.checkCachedAuth())
-          .thenAnswer((_) async => Right(true));
+          .thenAnswer((_) async => const Right(true));
       // act
       final result = await subject(NoParams());
       // assert
       verify(() => mockRepository.checkCachedAuth());
-      expect(result, Right(true));
+      expect(result, const Right(true));
       verifyNoMoreInteractions(mockRepository);
     },
   );
@@ -36,12 +36,12 @@ void main() {
     () async {
       // arrange
       when(() => mockRepository.checkCachedAuth())
-          .thenAnswer((_) async => Right(false));
+          .thenAnswer((_) async => const Right(false));
       // act
       final result = await subject(NoParams());
       // assert
       verify(() => mockRepository.checkCachedAuth());
-      expect(result, Right(false));
+      expect(result, const Right(false));
       verifyNoMoreInteractions(mockRepository);
     },
   );

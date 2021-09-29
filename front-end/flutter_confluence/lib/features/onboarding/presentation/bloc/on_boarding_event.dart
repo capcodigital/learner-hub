@@ -8,9 +8,9 @@ abstract class OnBoardingEvent extends Equatable {
 }
 
 class AuthEvent extends OnBoardingEvent {
-  AuthEvent();
+  const AuthEvent();
 }
 
 class CheckAuthEvent extends OnBoardingEvent {
-  CheckAuthEvent();
+  const CheckAuthEvent();
 }

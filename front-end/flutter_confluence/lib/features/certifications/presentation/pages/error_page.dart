@@ -9,13 +9,12 @@ import '../../../../core/constants.dart';
 import '../../../../core/dimen.dart';
 
 class ErrorPage extends StatelessWidget {
-  static const route = "ErrorPage";
-  static const msgTitle = "Oops!";
-  static const msgTryAgain = "Try Again";
+  const ErrorPage({required this.error});
+  static const route = 'ErrorPage';
+  static const msgTitle = 'Oops!';
+  static const msgTryAgain = 'Try Again';
 
   final Error error;
-
-  ErrorPage({required this.error});
 
   void tryAgain(BuildContext context) {
     switch (error.cloudCertificationType) {
@@ -82,7 +81,7 @@ class ErrorPage extends StatelessWidget {
             primary: Colors.white,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(Dimen.mainBtnBorderRadius),
-                side: BorderSide(
+                side: const BorderSide(
                     width: Dimen.mainBtnBorderWidth,
                     color: Constants.JIRA_COLOR)),
           ),

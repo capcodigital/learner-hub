@@ -15,7 +15,7 @@ class PreLoadWidget extends StatelessWidget {
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => AppDrawer(
+          builder: (context) => const AppDrawer(
               child: HomePage(
             appBar: CustomAppBar(
               icon: Icons.menu,
@@ -37,14 +37,14 @@ class PreLoadWidget extends StatelessWidget {
             bloc: BlocProvider.of<OnBoardingBloc>(context),
             listener: (context, state) {
               if (state is Expired) {
-                Future.delayed(Duration(milliseconds: STARTUP_DELAY_MILLIS),
-                    () {
+                Future.delayed(
+                    const Duration(milliseconds: STARTUP_DELAY_MILLIS), () {
                   openOnBoardingPage(context);
                 });
               }
               if (state is Completed) {
-                Future.delayed(Duration(milliseconds: STARTUP_DELAY_MILLIS),
-                    () {
+                Future.delayed(
+                    const Duration(milliseconds: STARTUP_DELAY_MILLIS), () {
                   openHomePage(context);
                 });
               }

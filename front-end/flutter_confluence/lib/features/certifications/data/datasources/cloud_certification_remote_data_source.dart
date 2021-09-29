@@ -1,10 +1,10 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter_confluence/core/constants.dart';
 import 'package:flutter_confluence/core/error/custom_exceptions.dart';
 import 'package:flutter_confluence/features/certifications/data/models/cloud_certification_model.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 abstract class CloudCertificationRemoteDataSource {
   Future<List<CloudCertificationModel>> getCompletedCertifications();
@@ -13,21 +13,20 @@ abstract class CloudCertificationRemoteDataSource {
 
 class CloudCertificationRemoteDataSourceImpl
     implements CloudCertificationRemoteDataSource {
-  static const TAG = "CloudCertificationRemoteDataSourceImpl:";
-  final http.Client client;
-
   CloudCertificationRemoteDataSourceImpl({required this.client});
+  static const TAG = 'CloudCertificationRemoteDataSourceImpl:';
+  final http.Client client;
 
   @override
   Future<List<CloudCertificationModel>> getCompletedCertifications() {
     return _getDataFromUrl(
-        Constants.BASE_API_URL + '/' + Constants.COMPLETED_URL);
+        '${Constants.BASE_API_URL}/${Constants.COMPLETED_URL}');
   }
 
   @override
   Future<List<CloudCertificationModel>> getInProgressCertifications() {
     return _getDataFromUrl(
-        Constants.BASE_API_URL + '/' + Constants.IN_PROGRESS_URL);
+        '${Constants.BASE_API_URL}/${Constants.IN_PROGRESS_URL}');
   }
 
   Future<List<CloudCertificationModel>> _getDataFromUrl(String url) async {
@@ -48,7 +47,7 @@ class CloudCertificationRemoteDataSourceImpl
             message: _mapStatusCodeToMessage(response.statusCode));
       }
     } on Exception catch (ex) {
-      if (ex is ServerException) throw ex;
+      if (ex is ServerException) rethrow;
       log(TAG + ex.toString());
       throw ServerException(message: Constants.SERVER_FAILURE_MSG);
     }

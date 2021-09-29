@@ -3,8 +3,8 @@ import 'package:flutter_confluence/features/certifications/domain/entities/cloud
 import 'list_row.dart';
 
 class CertificationsView extends StatelessWidget {
+  const CertificationsView({required this.items});
   final List<CloudCertification> items;
-  CertificationsView({required this.items});
 
   @override
   Widget build(BuildContext context) {

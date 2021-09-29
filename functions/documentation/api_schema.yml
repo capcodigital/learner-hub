@@ -1,0 +1,964 @@
+openapi: 3.0.0
+info:
+  title: Flutter API
+  version: 1.0.0
+servers:
+  - url: http://localhost:5001/io-capco-flutter-dev/europe-west2/app
+    description: localhost
+  - url: https://europe-west2-io-capco-flutter-dev.cloudfunctions.net/app
+    description: Production URL
+paths:
+  /user:
+    get:
+      tags: 
+        - Users
+      summary: 'Returns the currenlty logged in user information'
+      operationId: 'getUserDetails'
+      security:
+        - JWTAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+              example: {
+                status: "success",
+                data: {
+                  name: Luke,
+                  lastName: Skywalker,
+                  email: luke.skywalker@capco.com,
+                  jobtTitle: Master Jedi,
+                  bio: Trained by Joda in planet Dagobah,
+                  skills: {
+                    primarySkills: ["Control the force"], 
+                    secondarySkills: ["Lightsaber", "Mind control"]}
+                }
+              }
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    post:
+      tags:
+        - Users
+      summary: Registers a user
+      description: Registers the user in the DB and links it with Firebase Auth
+      operationId: 'registerUser'
+      security:
+        - JWTAuth: []
+      requestBody:
+        description: A JSON object containing user information required to register
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - lastName
+                - email
+                - jobTitle
+                - bio
+                - skills
+              properties:
+                name:
+                  type: string
+                lastName:
+                  type: string
+                email:
+                  type: string
+                  format: email
+                jobtitle:
+                  type: string
+                bio:
+                  type: string
+                skills:
+                  $ref: '#/components/schemas/Skills'
+            example:
+              name: Luke
+              lastName: Skywalker
+              email: luke.skywalker@capco.com
+              jobtTitle: Master Jedi
+              bio: Trained by Joda in planet Dagobah
+              skills: {primarySkills: ["Control the force"], secondarySkills: ["Lightsaber", "Mind control"]}
+              
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+              example:
+                status: success
+                data: 
+                  message: User registered
+
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                status: error
+                error: Bad Request
+                
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+              example:
+                status: error
+                error: User already registered
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    put:
+      tags: 
+          - Users
+      summary: 'Updates the user information'
+      operationId: 'updateUser'
+      security:
+        - JWTAuth: []
+      requestBody:
+        description: A JSON object containing information required to update the user
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                lastName:
+                  type: string
+                email:
+                  type: string
+                  format: email
+                jobtitle:
+                  type: string
+                bio:
+                  type: string
+                skills:
+                  $ref: '#/components/schemas/Skills'
+      responses:
+        '200':
+            description: "OK"
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/User"
+                example: 
+                  name: Luke
+                  lastName: Skywalker
+                  email: luke.skywalker@capco.com
+                  jobtTitle: Master Jedi
+                  bio: Trained by Joda in planet Dagobah
+                  skills: {primarySkills: ["Control the force"], secondarySkills: ["Lightsaber", "Mind control"]}
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /certificationSummary:
+    get:
+      tags: 
+        - Certifications Summary
+      summary: 'Returns a list of available certifications'
+      operationId: 'getAllCertifications'
+      security:
+        - JWTAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Certification'
+              example: {
+                status: "success",
+                data: [{
+                  id: "MjFGNkFbwq0mC6WjB0Q",
+                  category: "Cloud",
+                  platform: "AWS",
+                  title: "AWS Certified Solutions Architect Associate",
+                  description: "AWS Certified Solutions Architect – Associate is intended for anyone with one or more years of hands-on experience designing available, cost-efficient, fault-tolerant, and scalable distributed systems on AWS",
+                  link: "https://aws.amazon.com/certification/certified-solutions-architect-associate",
+                  image: "https://d1.awsstatic.com/training-and-certification/Certification%20Badges/AWS-Certified_Solutions-Architect_Associate_badge_512x512.139edbefd4d7e9a16213032f592bdd8ca769dced.png",
+                  isIndustryRecognised: true
+
+                }]
+              }
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    post:
+      tags:
+        - Certifications Summary
+      summary: Adds a new certification to the database
+      operationId: 'addCertification'
+      security:
+        - JWTAuth: []
+      requestBody:
+        description: A JSON object containing information required to create a certification
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - category
+                - platform
+                - title
+                - description
+              properties:
+                category:
+                  type: string
+                platform:
+                  type: string
+                title:
+                  type: string
+                description:
+                  type: string
+                link:
+                  type: string
+                  format: uri
+                  nullable: true
+                image:
+                  type: string
+                  format: uri
+                  nullable: true
+                isIndustryRecognised: 
+                  type: boolean
+            example:
+              category: Cloud
+              platform: AWS
+              title: AWS Certified Solutions Architect Associate
+              description: AWS Certified Solutions Architect – Associate is intended for anyone with one or more years of hands-on experience designing available, cost-efficient, fault-tolerant, and scalable distributed systems on AWS
+              link: https://aws.amazon.com/certification/certified-solutions-architect-associate
+              image: https://d1.awsstatic.com/training-and-certification/Certification%20Badges/AWS-Certified_Solutions-Architect_Associate_badge_512x512.139edbefd4d7e9a16213032f592bdd8ca769dced.png,
+              isIndustryRecognised: true
+
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Certification'
+              example: {
+                status: "success",
+                data: {
+                  id: "MjFGNkFbwq0mC6WjB0Q",
+                  category: "Cloud",
+                  platform: "AWS",
+                  title: "AWS Certified Solutions Architect Associate",
+                  description: "AWS Certified Solutions Architect – Associate is intended for anyone with one or more years of hands-on experience designing available, cost-efficient, fault-tolerant, and scalable distributed systems on AWS",
+                  link: "https://aws.amazon.com/certification/certified-solutions-architect-associate",
+                  image: "https://d1.awsstatic.com/training-and-certification/Certification%20Badges/AWS-Certified_Solutions-Architect_Associate_badge_512x512.139edbefd4d7e9a16213032f592bdd8ca769dced.png",
+                  isIndustryRecognised: true
+
+                }
+              }
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /certificationSummary/{id}:
+    get:
+      tags: 
+        - Certifications Summary
+      summary: "Find certification by ID"
+      description: "Returns a single certification"
+      operationId: "getCertificationById"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "ID of certification to return"
+          required: true
+          schema:
+            type: "string"
+            format: "uuid"
+      responses:
+        '200':
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Certification"
+              example: {
+                status: "success",
+                data: {
+                  id: "MjFGNkFbwq0mC6WjB0Q",
+                  category: "Cloud",
+                  platform: "AWS",
+                  title: "AWS Certified Solutions Architect Associate",
+                  description: "AWS Certified Solutions Architect – Associate is intended for anyone with one or more years of hands-on experience designing available, cost-efficient, fault-tolerant, and scalable distributed systems on AWS",
+                  image: "https://d1.awsstatic.com/training-and-certification/Certification%20Badges/AWS-Certified_Solutions-Architect_Associate_badge_512x512.139edbefd4d7e9a16213032f592bdd8ca769dced.png",
+                  isIndustryRecognised: true
+                }
+              }
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Certification not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+              example:
+                status: error
+                error: Certification not found
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - JWTAuth: []
+  
+  /certifications:
+    get:
+      tags: 
+        - User Certifications
+      summary: "Find certification by user"
+      description: "Returns the user certifications. When passed a parameter, returns the certification for the requested userId"
+      operationId: "getUserCertifications"
+      parameters:
+        - name: userId
+          in: query
+          description: "Returns the certifications for this given user"
+          required: true
+          schema:
+            type: "string"
+            format: "uuid"
+      security:
+        - JWTAuth: []      
+      responses:
+        '200':
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserCertificationsResponse"
+              example: {
+                status: success,
+                data: {
+                  id: MjTC160LVKBigw_Oy6O,
+                  userId: MjTC3imhub3n1ARhp8H,
+                  certificationSummary: {
+                    id: "MjFGNkFbwq0mC6WjB0Q",
+                    category: "Cloud",
+                    platform: "AWS",
+                    title: "AWS Certified Solutions Architect Associate",
+                    description: "AWS Certified Solutions Architect – Associate is intended for anyone with one or more years of hands-on experience designing available, cost-efficient, fault-tolerant, and scalable distributed systems on AWS",
+                    link: "https://aws.amazon.com/certification/certified-solutions-architect-associate",
+                    image: "https://d1.awsstatic.com/training-and-certification/Certification%20Badges/AWS-Certified_Solutions-Architect_Associate_badge_512x512.139edbefd4d7e9a16213032f592bdd8ca769dced.png",
+                    isIndustryRecognised: true
+                  },
+                  isCompleted: true,
+                  startDate: '2021-09-13',
+                  completionDate: '2021-12-13',
+                  expiryDate: '2023-12-13',
+                  rating: 3
+                }
+              }
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+              example:
+                status: error
+                error: User not found
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    post:
+      tags: 
+          - User Certifications
+      summary: 'Creates a new certification item for the current user'
+      operationId: 'createUserCertification'
+      security:
+        - JWTAuth: []
+      requestBody:
+        description: A JSON object containing information required to create a certification
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - certificationId
+              properties:
+                certificationId:
+                  type: string
+                  format: uuid
+                isCompleted:
+                  type: boolean
+                  nullable: true
+                startDate:
+                  type: string
+                  format: date
+                  nullable: true
+                completionDate:
+                  type: string
+                  format: date
+                  nullable: true
+                expiryDate:
+                  type: string
+                  format: date
+                  nullable: true
+                rating:
+                  type: integer
+                  nullable: true
+      responses:
+        '201':
+            description: "Created"
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/Response"
+                example:
+                  status: success
+                  data: {
+                    id: "MjTC160LVKBigw_Oy6O",
+                    userId: "MjTC3imhub3n1ARhp8H",
+                    certificationId: "MjTC6JkXWEwzCwKNCLi",
+                    isCompleted: true,
+                    startDate: "2021-09-13",
+                    completionDate: "2021-12-13",
+                    expiryDate: "2023-12-13",
+                    rating: 4
+                  }
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'  
+  /certifications/{id}:
+    put:
+      tags: 
+          - User Certifications
+      summary: 'Updates the user certification item'
+      operationId: 'updateUserCertification'
+      security:
+        - JWTAuth: []
+      parameters:
+        - name: id
+          in: path
+          description: "ID of certification to update"
+          required: true
+          schema:
+            type: "string"
+            format: "uuid"
+      requestBody:
+        description: A JSON object containing information required to update a certification
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                isCompleted:
+                  type: boolean
+                  nullable: true
+                startDate:
+                  type: string
+                  format: date
+                  nullable: true
+                completionDate:
+                  type: string
+                  format: date
+                  nullable: true
+                expiryDate:
+                  type: string
+                  format: date
+                  nullable: true
+                rating:
+                  type: integer
+                  nullable: true
+      responses:
+        '200':
+            description: "OK"
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/UserCertification"
+                example: 
+                  status: success,
+                  data: 
+                    id: MjTC160LVKBigw_Oy6O
+                    userId: MjTC3imhub3n1ARhp8H
+                    certificationId: MjTC6JkXWEwzCwKNCLi
+                    isCompleted: true
+                    startDate: '2021-09-13'
+                    completionDate: '2021-12-13'
+                    expiryDate: '2023-12-13'
+                    rating: 1
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+        '404':
+          description: Item not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+              example:
+                status: error
+                error: User certification not found
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    delete:
+      tags: 
+          - User Certifications
+      summary: 'Deletes the user certification item'
+      operationId: 'deteleUserCertification'
+      security:
+        - JWTAuth: []
+      parameters:
+        - name: id
+          in: path
+          description: "ID of user certification item to delete"
+          required: true
+          schema:
+            type: "string"
+            format: "uuid"
+      responses:
+        '200':
+            description: "OK"
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/Response"
+                example:
+                  status: success
+                  data: 
+                    message: Item deleted
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+        '404':
+          description: Item not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+              example:
+                status: error
+                error: User Certification item not found
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  
+  /todos:
+    get:
+      tags: 
+          - TODOs
+      summary: 'Gets the current user TODO items'
+      operationId: 'getAllUserTODOItems'
+      security:
+        - JWTAuth: []
+      responses:
+        '200':
+            description: "OK"
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/Todo"
+                example:
+                  status: success
+                  data: [{
+                      id: "MjTKV4R_v71KpMzk1f",
+                      userId: "MjTK_9W0U1Nz_5REqPl",
+                      title: "Book the certification exam",
+                      content: "It needs to be booked from the oficial website and then claim the expenses back",
+                      isCompleted: true
+                    }]
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    post:
+      tags: 
+          - TODOs
+      summary: 'Creates a new TODO item for the current user'
+      operationId: 'createTODOItems'
+      security:
+        - JWTAuth: []
+      responses:
+        '201':
+            description: "Created"
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/Response"
+                example:
+                  status: success
+                  data:
+                    message: "Todo Created"
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'  
+  /todos/{id}:  
+    put:
+      tags: 
+          - TODOs
+      summary: 'Updates the TODO item'
+      operationId: 'updateTODOItem'
+      security:
+        - JWTAuth: []
+      parameters:
+        - name: id
+          in: path
+          description: "ID of item to update"
+          required: true
+          schema:
+            type: "string"
+            format: "uuid"
+      responses:
+        '200':
+            description: "OK"
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/Todo"
+                example:
+                  status: success
+                  data: {
+                      id: "MjTKV4R_v71KpMzk1f",
+                      userId: "MjTK_9W0U1Nz_5REqPl",
+                      title: "Book the certification exam",
+                      content: "It needs to be booked from the oficial website and then claim the expenses back",
+                      isCompleted: true
+                    }
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+        '404':
+          description: Item not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+              example:
+                status: error
+                error: Todo item not found
+        '500':
+          $ref: '#/components/responses/InternalServerError'    
+    delete:
+      tags: 
+          - TODOs
+      summary: 'Deletes the TODO item'
+      operationId: 'deteleTODOItem'
+      security:
+        - JWTAuth: []
+      parameters:
+        - name: id
+          in: path
+          description: "ID of item to delete"
+          required: true
+          schema:
+            type: "string"
+            format: "uuid"
+      responses:
+        '200':
+            description: "OK"
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/Response"
+                example:
+                  status: success
+                  data: 
+                    message: Item deleted
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+        '404':
+          description: Item not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+              example:
+                status: error
+                error: Todo item not found
+        '500':
+          $ref: '#/components/responses/InternalServerError'  
+          
+components:
+  schemas:
+    Certification:
+      type: object
+      required:
+        - id
+        - category
+        - platform
+        - title
+        - description
+      properties:
+        id:
+          type: string
+          format: uuid
+        category:
+          type: string
+        platform:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        link:
+          type: string
+          format: uri
+          nullable: true
+        image:
+          type: string
+          format: uri
+          nullable: true
+        isIndustryRecognised: 
+          type: boolean
+    Skills:
+      type: object
+      properties:
+        primarySkills:
+          type: array
+          items:
+            type: string
+        secondarySkills:
+          type: array
+          items:
+            type: string
+    User:
+      type: object
+      required:
+        - id
+        - name
+        - lastName
+        - email
+        - skills
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+          format: email
+        jobtitle:
+          type: string
+        bio:
+          type: string
+        skills:
+          $ref: '#/components/schemas/Skills'
+    Todo:
+      type: object
+      required:
+        - id
+        - userId
+        - title
+        - content
+      properties:
+        id:
+          type: string
+          format: uuid
+        userId:
+          type: string
+          format: uuid
+        title:
+          type: string
+        content:
+          type: string
+        isCompleted:
+          type: boolean
+    UserCertification:
+      type: object
+      required:
+        - id
+        - userId
+        - certificationId
+      properties:
+        id:
+          type: string
+          format: uuid
+        userId:
+          type: string
+          format: uuid
+        certificationId:
+          type: string
+          format: uuid
+        isCompleted:
+          type: boolean
+        startDate:
+          type: string
+          format: date
+          nullable: true
+        completionDate:
+          type: string
+          format: date
+          nullable: true
+        expiryDate:
+          type: string
+          format: date
+          nullable: true
+        rating:
+          type: integer
+          nullable: true
+    Response:
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          type: string
+          enum:
+            - success
+            - fail
+            - error
+          description: >
+            Response status:
+              * `success` - All went well, and (usually) some data was returned.
+              * `fail` - There was a problem with the data submitted, or some pre-condition of the API call wasn't satisfied
+              * `error` - An error occurred in processing the request, i.e. an exception was thrown
+        data:
+          type: object
+          nullable: true
+        error:
+          type: string
+          nullable: true
+    UserCertificationsResponse:
+      type: object
+      required:
+        - status
+        - data
+      properties:
+        status:
+          type: string
+          enum:
+            - success
+            - fail
+            - error
+          description: >
+            Response status:
+              * `success` - All went well, and (usually) some data was returned.
+              * `fail` - There was a problem with the data submitted, or some pre-condition of the API call wasn't satisfied
+              * `error` - An error occurred in processing the request, i.e. an exception was thrown
+        data:
+          type: object
+          nullable: true
+          required:
+            - id
+            - userId
+            - certificationSummary
+          properties:
+            id:
+              type: string
+              format: uuid
+            userId:
+              type: string
+              format: uuid
+            certificationSummary:
+              $ref: '#/components/schemas/Certification'
+            isCompleted:
+              type: boolean
+              nullable: true
+            startDate:
+              type: string
+              format: date
+            completionDate:
+              type: string
+              format: date 
+              nullable: true
+            expiryDate:
+              type: string
+              format: date 
+              nullable: true
+            rating:
+              type: integer
+              nullable: true
+        error:
+          type: string
+          nullable: true
+  securitySchemes:
+    JWTAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: |-
+        Example: 
+        > Authorization: Bearer <token>
+  headers: {}
+  responses:
+      BadRequestError:
+        description: Bad Request
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Response'
+            example:
+              status: error
+              error: Bad Request
+      UnauthorizedError:
+        description: Access token is missing or invalid
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Response'
+            example:
+              status: error
+              error: Unauthorized
+      ForbiddenError:
+        description: Forbidden
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Response'
+            example:
+              status: error
+              error: Forbidden
+      InternalServerError:
+        description: Internal Server Error
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Response'
+            example:
+              status: error
+              error: Internal Server Error
+  parameters: {}
+security:
+  - JWTAuth: []
+tags: []
