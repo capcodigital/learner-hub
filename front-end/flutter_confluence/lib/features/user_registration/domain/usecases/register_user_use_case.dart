@@ -1,8 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import 'package:firebase_auth/firebase_auth.dart' as firebase;
 
-import '/core/auth/auth_failures.dart';
 import '/core/error/failures.dart';
 import '/core/usecases/usecase.dart';
 import '/features/login/domain/entities/user.dart';
@@ -51,26 +49,8 @@ class RegisterUserUseCase implements UseCase<User, RegisterParams> {
         email: parameters.email,
         password: parameters.password);
 
-    final firebaseUser = await registrationRepository.registerFirebaseUser(newUser);
-    if (firebaseUser.isRight()) {
-      final user = await registrationRepository.createUser(newUser);
-      return user;
-    } else {
-      return Left(AuthFailure('Error registering the user'));
-    }
-  }
-
-  Future<String> getUserAccessToken() async {
-    try {
-      final user = firebase.FirebaseAuth.instance.currentUser;
-      if (user != null) {
-        final token = await user.getIdToken();
-        return token;
-      } else {
-        throw AuthFailure('User is not logged in');
-      }
-    } catch (e) {
-      throw AuthFailure("It's not possible to get the user token: ${e.toString()}");
-    }
+    final registerFirebaseUserResult = await registrationRepository.registerFirebaseUser(newUser);
+    return registerFirebaseUserResult.fold(
+        (failure) => registerFirebaseUserResult, (success) => registrationRepository.createUser(newUser));
   }
 }

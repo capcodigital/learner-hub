@@ -16,14 +16,18 @@ class UserRegistrationRepositoryIml implements UserRegistrationRepository {
 
   @override
   Future<Either<Failure, User>> registerFirebaseUser(UserRegistration user) async {
-    final result = await dataSource.registerFirebaseUser(user.email, user.password);
-    return result.fold(
-        (failure) => Left(failure),
-        (firebaseUser) => Right(UserModel(
-            uid: firebaseUser.uid,
-            displayName: firebaseUser.displayName,
-            email: firebaseUser.email,
-            photoUrl: firebaseUser.photoURL)));
+    try {
+      final firebaseUser = await dataSource.registerFirebaseUser(user.email, user.password);
+      return Right(UserModel(
+          uid: firebaseUser.uid,
+          displayName: firebaseUser.displayName,
+          email: firebaseUser.email,
+          photoUrl: firebaseUser.photoURL));
+    } on AuthFailure catch (failure) {
+      return Left(failure);
+    } on Exception catch (ex) {
+      return Left(AuthFailure('$ex'));
+    }
   }
 
   @override
