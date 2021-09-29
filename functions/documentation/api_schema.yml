@@ -622,6 +622,10 @@ paths:
                 isCompleted:
                   type: boolean
                   nullable: false
+            example:
+              title: "Book the certification exam"
+              content: "It needs to be booked from the oficial website and then claim the expenses back"
+              isCompleted: true
       responses:
         '201':
             description: "Created"
