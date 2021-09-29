@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
 import '/core/colours.dart';
@@ -53,13 +52,6 @@ class OnBoardingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Change Status bar background colour
-    // TODO(cgal-capco): Should this be global? Or driven by each page, as
-    // according to FIGMA there are different status bars?
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: Colours.PRIMARY_COLOR,
-    ));
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
