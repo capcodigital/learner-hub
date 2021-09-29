@@ -42,8 +42,7 @@ class LoginPageState extends State<LoginPage> with CustomAlertDialog {
         final email = emailController.text;
         final password = passwordController.text;
 
-        BlocProvider.of<LoginBloc>(context)
-            .add(LoginRequestEvent(email: email, password: password));
+        BlocProvider.of<LoginBloc>(context).add(LoginRequestEvent(email: email, password: password));
       }
     }
 
@@ -129,12 +128,14 @@ class LoginPageState extends State<LoginPage> with CustomAlertDialog {
                         }
                         return null;
                       }),
-                  const Spacer(),
-                  PrimaryButton(
-                      text: 'Log in',
-                      onPressed: () {
-                        onLogin();
-                      }),
+                  Expanded(
+                    child: Align(
+                      alignment: FractionalOffset.bottomCenter,
+                      child: PrimaryButton(
+                          text: 'Log in',
+                          onPressed: onLogin),
+                    ),
+                  ),
                 ],
               ),
             ),

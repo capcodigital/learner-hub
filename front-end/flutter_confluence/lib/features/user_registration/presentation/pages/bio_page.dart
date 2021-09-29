@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_confluence/core/shared_ui/primary_button.dart';
 
 import '/core/colours.dart';
 import '/core/dimen.dart';
+import '/core/shared_ui/primary_button.dart';
 import '/features/user_registration/domain/entities/user_registration_navigation_parameters.dart';
 import '/features/user_registration/presentation/pages/login_details_page.dart';
 
@@ -28,19 +28,12 @@ class UserBioPageState extends State<UserBioPage> {
     void onNext() {
       final navParameters = widget.navParameters..bio = bioController.text;
 
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) =>
-                  LoginDetailsPage(navParameters: navParameters)));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => LoginDetailsPage(navParameters: navParameters)));
     }
 
     void onSkip() {
       Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) =>
-                  LoginDetailsPage(navParameters: widget.navParameters)));
+          context, MaterialPageRoute(builder: (context) => LoginDetailsPage(navParameters: widget.navParameters)));
     }
 
     return Scaffold(
@@ -56,17 +49,11 @@ class UserBioPageState extends State<UserBioPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text('BIO',
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.headline2),
+              Text('BIO', textAlign: TextAlign.center, style: Theme.of(context).textTheme.headline2),
               Padding(
-                padding: const EdgeInsets.only(
-                    top: Dimen.extra_small_padding,
-                    bottom: Dimen.large_padding),
-                child: Text(
-                    'Do you want to make this completed  message goes here',
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.bodyText2),
+                padding: const EdgeInsets.only(top: Dimen.extra_small_padding, bottom: Dimen.large_padding),
+                child: Text('Do you want to make this completed  message goes here',
+                    textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyText2),
               ),
               Expanded(
                 child: TextField(
@@ -74,17 +61,14 @@ class UserBioPageState extends State<UserBioPage> {
                   expands: true,
                   minLines: null,
                   maxLines: null,
-                  decoration: const InputDecoration(
-                      border: UnderlineInputBorder(), hintText: 'Type here...'),
+                  decoration: const InputDecoration(border: UnderlineInputBorder(), hintText: 'Type here...'),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(
-                    vertical: Dimen.small_padding, horizontal: 0),
+                padding: const EdgeInsets.symmetric(vertical: Dimen.small_padding, horizontal: 0),
                 child: TextButton(
                     style: TextButton.styleFrom(
-                        primary: Colours.ALTERNATIVE_TEXT_COLOR,
-                        textStyle: Theme.of(context).textTheme.button),
+                        primary: Colours.ALTERNATIVE_TEXT_COLOR, textStyle: Theme.of(context).textTheme.button),
                     onPressed: onSkip,
                     child: const Text('Skip')),
               ),

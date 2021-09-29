@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_confluence/core/shared_ui/primary_button.dart';
 
 import '/core/colours.dart';
 import '/core/dimen.dart';
+import '/core/shared_ui/primary_button.dart';
 import '/features/user_registration/domain/entities/user_registration_navigation_parameters.dart';
 import '/features/user_registration/presentation/pages/bio_page.dart';
 
@@ -96,18 +96,14 @@ class SkillsPageState extends State<SkillsPage> {
       'Consul',
     ];
 
-    final skillsWidgets =
-        skills.map((skill) => Chip(label: Text(skill))).toList();
+    final skillsWidgets = skills.map((skill) => Chip(label: Text(skill))).toList();
 
     void onNext() {
       final navParameters = widget.navParameters
         ..primarySkills = ['primaryTest']
         ..secondarySkills = ['secondaryTest'];
 
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => UserBioPage(navParameters: navParameters)));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => UserBioPage(navParameters: navParameters)));
     }
 
     return Scaffold(
@@ -125,17 +121,11 @@ class SkillsPageState extends State<SkillsPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text('Primary skills',
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.headline1),
+                Text('Primary skills', textAlign: TextAlign.center, style: Theme.of(context).textTheme.headline1),
                 Padding(
-                  padding: const EdgeInsets.only(
-                      top: Dimen.extra_small_padding,
-                      bottom: Dimen.large_padding),
-                  child: Text(
-                      'Do you want to make this completed  message goes here',
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.bodyText1),
+                  padding: const EdgeInsets.only(top: Dimen.extra_small_padding, bottom: Dimen.large_padding),
+                  child: Text('Do you want to make this completed  message goes here',
+                      textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyText1),
                 ),
                 Expanded(
                   child: SingleChildScrollView(
