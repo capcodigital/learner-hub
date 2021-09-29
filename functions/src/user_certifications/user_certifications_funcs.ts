@@ -48,7 +48,7 @@ export async function updateUserCertification(
         functions.logger.log(e);
         if (e instanceof userCertRepo.UserCertificationNotFoundError)
             res.status(404).send(jsend.error("User certification not found"));
-        if (e instanceof userCertRepo.AccessForbidenError)
+        else if (e instanceof userCertRepo.AccessForbidenError)
             res.status(403).send(jsend.error("Forbiden"));
         else res.status(500).send(jsend.error);
     }

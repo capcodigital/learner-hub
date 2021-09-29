@@ -2,7 +2,6 @@
 import * as functions from "firebase-functions";
 import * as jsend from "../jsend";
 import * as todos from "./todo_repository";
-import * as userRepo from "../users/users_repository";
 
 export async function getTODOs(
     uid: string,
@@ -14,9 +13,7 @@ export async function getTODOs(
         res.status(200).send(jsend.successfullResponse(items));
     } catch (e) {
         functions.logger.log(e);
-        if (e instanceof userRepo.UserNotFoundError)
-            res.status(404).send(jsend.error("User not found"));
-        else res.status(500).send(jsend.error);
+        res.status(500).send(jsend.error);
     }
 }
 
@@ -28,7 +25,7 @@ export async function addTODO(
         const item = await todos.insert(uid, todo);
         functions.logger.log(item);
         res.setHeader('Content-Type', 'application/json');
-        res.status(201).send(jsend.successfullResponse(item));
+        res.status(201).send(jsend.successfullResponse({ "message": "Todo Created" }));
     } catch (e) {
         functions.logger.log(e);
         res.status(500).send(jsend.error);
@@ -47,8 +44,8 @@ export async function updateTODO(
     } catch (e) {
         functions.logger.log(e);
         if (e instanceof todos.TODONotFoundError)
-            res.status(404).send(jsend.error("TODO not found"));
-        if (e instanceof todos.AccessForbidenError)
+            res.status(404).send(jsend.error("TODO item not found"));
+        else if (e instanceof todos.AccessForbidenError)
             res.status(403).send(jsend.error("Forbiden"));
         else res.status(500).send(jsend.error);
     }

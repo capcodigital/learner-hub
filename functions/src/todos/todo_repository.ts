@@ -74,19 +74,17 @@ export async function deleteItem(
         const item = docRef.data() as TODO;
         if (uid == item.userId) doc.delete();
         else throw new AccessForbidenError("TODO is not of current user");
-    } else {
-        throw new TODONotFoundError();
     }
+    else throw new TODONotFoundError();
 }
 
-async function toTODOs(snap: FirebaseFirestore.QuerySnapshot):
-    Promise<any[]> {
+async function toTODOs(snap: FirebaseFirestore.QuerySnapshot): Promise<any[]> {
     const items = Array<any>();
     if (!snap.empty) {
-        snap.forEach(doc => {
-            const it = doc.data() as TODO;
+        snap.forEach(docRef => {
+            const it = docRef.data() as TODO;
             items.push({
-                id: doc.id,
+                id: docRef.id,
                 userId: it.userId,
                 title: it.title,
                 content: it.content,
