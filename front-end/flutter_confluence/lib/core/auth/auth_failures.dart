@@ -16,8 +16,8 @@ class InvalidPasswordFailure extends AuthFailure {
   InvalidPasswordFailure() : super('Wrong password provided for that user.');
 }
 
-class AuthExpirationFailure extends AuthFailure {
-  AuthExpirationFailure() : super('The token is expired or invalid');
+class NoCurrentUserLogged extends AuthFailure {
+  NoCurrentUserLogged() : super('User is not logged or the token is expired or invalid');
 }
 
 class AuthFailure extends Failure {

@@ -7,10 +7,6 @@ abstract class OnBoardingEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class AuthEvent extends OnBoardingEvent {
-  const AuthEvent();
-}
-
 class CheckAuthEvent extends OnBoardingEvent {
   const CheckAuthEvent();
 }

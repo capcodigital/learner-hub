@@ -1,131 +1,62 @@
-import 'package:flutter_confluence/core/device.dart';
-import 'package:flutter_confluence/core/utils/extensions/date_extensions.dart';
-import 'package:flutter_confluence/features/onboarding/data/datasources/bio_auth_hive_helper.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_confluence/features/onboarding/data/datasources/on_boarding_local_data_source.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:local_auth/local_auth.dart';
 import 'package:mocktail/mocktail.dart';
 
-class MockBioAuthHiveHelper extends Mock implements BioAuthHiveHelper {}
+class MockFirebaseAuth extends Mock implements FirebaseAuth {}
 
-class MockLocalAuthentication extends Mock implements LocalAuthentication {}
+// Both UserCredentials and Firebase User have private constructors.
+// So let's use mocks to be able to create instances of those classes for testing
+class MockFirebaseCredentials extends Mock implements UserCredential {}
 
-class MockDevice extends Mock implements Device {}
+class MockFirebaseUser extends Mock implements User {}
 
 void main() {
   late OnBoardingLocalDataSource dataSource;
-  late MockBioAuthHiveHelper mockHiveHelper;
-  late MockLocalAuthentication mockAuth;
-  late MockDevice mockDevice;
+  late MockFirebaseAuth mockAuth;
 
   setUp(() {
-    mockHiveHelper = MockBioAuthHiveHelper();
-    mockAuth = MockLocalAuthentication();
-    mockDevice = MockDevice();
-    dataSource = OnBoardingLocalDataSourceImpl(
-        auth: mockAuth, authHiveHelper: mockHiveHelper, device: mockDevice);
+    mockAuth = MockFirebaseAuth();
+    dataSource = OnBoardingLocalDataSourceImpl(auth: mockAuth);
   });
 
-  group('authenticate', () {
-    setUp(() {
-      when(() => mockDevice.isMobile).thenReturn(true);
+  User _createFirebaseUser(String uid, String displayName, String email, String photoUrl) {
+    final firebaseUser = MockFirebaseUser();
+    when(() => firebaseUser.uid).thenReturn(uid);
+    when(() => firebaseUser.displayName).thenReturn(displayName);
+    when(() => firebaseUser.email).thenReturn(email);
+    when(() => firebaseUser.photoURL).thenReturn(photoUrl);
+
+    return firebaseUser;
+  }
+
+  group('check user logged persistence', () {
+    const String uid = 'Mk1x5qCzmlTye7vpVRV';
+    const String displayName = 'Luke Skywalker';
+    const String email = 'luke@jedi.com';
+    const String photoUrl = 'https://photoUrl';
+
+    test('should return true when there is a current logged user', () async {
+      // arrange
+      final mockUser = _createFirebaseUser(uid, displayName, email, photoUrl);
+      when(() => mockAuth.currentUser).thenReturn(mockUser);
+
+      // act
+      final result = await dataSource.checkLocalUserLogged();
+
+      // assert
+      expect(result, true);
     });
 
-    void mockAuthenticateCall(bool result) {
-      when(() => mockAuth.authenticate(
-          localizedReason: AUTH_REASON,
-          biometricOnly: BIOMETRIC_AUTH_ONLY,
-          stickyAuth: true,
-          useErrorDialogs: false)).thenAnswer((_) async {
-        return result;
-      });
-    }
+    test('should return false when there is not a current logged user', () async {
+      // arrange
+      when(() => mockAuth.currentUser).thenReturn(null);
 
-    void verifyAuthCallDone() {
-      verify(() => mockAuth.authenticate(
-          localizedReason: AUTH_REASON,
-          biometricOnly: BIOMETRIC_AUTH_ONLY,
-          stickyAuth: STICKY_AUTH,
-          useErrorDialogs: USE_ERROR_DIALOGS)).called(1);
-    }
+      // act
+      final result = await dataSource.checkLocalUserLogged();
 
-    test(
-      'Should return true when calling authenticate',
-      () async {
-        // arrange
-        mockAuthenticateCall(true);
-        // act
-        final result = await dataSource.authenticate();
-        // assert
-        verifyAuthCallDone();
-        expect(result, equals(true));
-      },
-    );
-
-    test(
-      'Should return false when calling authenticate',
-      () async {
-        // arrange
-        mockAuthenticateCall(false);
-        // act
-        final result = await dataSource.authenticate();
-        // assert
-        verifyAuthCallDone();
-        expect(result, equals(false));
-      },
-    );
-  });
-
-  group('saveAuthTimeStamp', () {
-    test(
-      'Should ',
-      () async {
-        // arrange
-        final now = DateTime.parse('2021-01-12 21:12:01');
-        CustomizableDateTime.customTime = now;
-        when(() => mockHiveHelper.save(any()))
-            .thenAnswer((_) => Future.value(true));
-        // act
-        await dataSource.saveAuthTimeStamp();
-        // assert
-        verify(() => mockHiveHelper.save(now.millisecondsSinceEpoch)).called(1);
-      },
-    );
-  });
-
-  group('checkAuthTimeStamp', () {
-    test(
-      'Should return valid cached auth',
-      () async {
-        // arrange
-        final now = DateTime.parse('2021-05-12 20:15:00');
-        final lastAuthDate = DateTime.parse('2021-05-12 15:35:00');
-        CustomizableDateTime.customTime = now;
-        when(() => mockHiveHelper.getLatestBioAuthTime()).thenAnswer(
-            (_) => Future.value(lastAuthDate.millisecondsSinceEpoch));
-        // act
-        final result = await dataSource.checkCachedAuth();
-        // assert
-        verify(() => mockHiveHelper.getLatestBioAuthTime()).called(1);
-        expect(result, equals(true));
-      },
-    );
-
-    test(
-      'Should return expired cached auth',
-      () async {
-        // arrange
-        final now = DateTime.parse('2021-05-16 20:15:00');
-        final lastAuthDate = DateTime.parse('2021-05-12 15:35:00');
-        CustomizableDateTime.customTime = now;
-        when(() => mockHiveHelper.getLatestBioAuthTime()).thenAnswer(
-            (_) => Future.value(lastAuthDate.millisecondsSinceEpoch));
-        // act
-        final result = await dataSource.checkCachedAuth();
-        // assert
-        verify(() => mockHiveHelper.getLatestBioAuthTime()).called(1);
-        expect(result, equals(false));
-      },
-    );
+      // assert
+      expect(result, false);
+    });
   });
 }

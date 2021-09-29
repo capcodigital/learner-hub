@@ -8,6 +8,12 @@ import 'package:flutter_confluence/features/onboarding/presentation/bloc/on_boar
 import 'package:flutter_confluence/features/onboarding/presentation/pages/on_boarding.dart';
 import 'package:lottie/lottie.dart';
 
+import '/core/colours.dart';
+import '/core/constants.dart';
+import '/features/certifications/presentation/pages/home_page.dart';
+import '/features/onboarding/presentation/bloc/on_boarding_bloc.dart';
+import '/features/onboarding/presentation/pages/on_boarding.dart';
+
 class PreLoadWidget extends StatelessWidget {
   static const STARTUP_DELAY_MILLIS = 2000;
 
@@ -50,7 +56,7 @@ class PreLoadWidget extends StatelessWidget {
               }
             },
             child: Container(
-              color: Colors.white,
+              color: Colours.PRIMARY_COLOR,
               child: Center(
                 child: Lottie.asset(
                   'assets/lottie-animation.json',
