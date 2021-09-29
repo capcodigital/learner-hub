@@ -30,7 +30,7 @@ export async function addTODO(
         const item = await todoRepo.insert(uid, todo);
         functions.logger.log(item);
         res.setHeader('Content-Type', 'application/json');
-        res.status(201).send(jsend.successfullResponse({ "message": "Todo Created" }));
+        res.status(201).send(jsend.successfullResponse(item));
     } catch (e) {
         functions.logger.log(e);
         if (e instanceof userRepo.UserNotFoundError)

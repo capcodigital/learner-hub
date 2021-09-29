@@ -615,8 +615,13 @@ paths:
                   $ref: "#/components/schemas/Response"
                 example:
                   status: success
-                  data:
-                    message: "Todo Created"
+                  data: {
+                    "id": "MjTKV4R_v71KpMzk1f",
+                    "userId": "MjTK_9W0U1Nz_5REqPl",
+                    "title": "Book the certification exam",
+                    "content": "It needs to be booked from the oficial website and then claim the expenses back",
+                    "isCompleted": true
+                  }           
         '400':
           $ref: '#/components/responses/BadRequestError'
         '401':
