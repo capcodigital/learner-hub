@@ -21,6 +21,11 @@ import '/features/login/data/repositories/login_repository_impl.dart';
 import '/features/login/domain/repositories/login_repository.dart';
 import '/features/login/domain/usecases/login_use_case.dart';
 import '/features/login/presentation/bloc/login_bloc.dart';
+import '/features/logout/data/datasources/logout_data_source.dart';
+import '/features/logout/data/repositories/logout_repository_impl.dart';
+import '/features/logout/domain/repositories/logout_repository.dart';
+import '/features/logout/domain/usecases/logout_use_case.dart';
+import '/features/logout/presentation/bloc/auth_bloc.dart';
 import '/features/onboarding/data/datasources/bio_auth_hive_helper.dart';
 import '/features/onboarding/data/datasources/on_boarding_local_data_source.dart';
 import '/features/onboarding/data/repositories/on_boarding_repository_impl.dart';
@@ -66,14 +71,18 @@ Future<void> init() async {
   sl.registerLazySingleton<Platform>(() => const LocalPlatform());
   sl.registerLazySingleton<Device>(() => DeviceImpl(platform: sl()));
 
-  // Firebase auth
+  // Auth / Firebase auth
   sl.registerLazySingleton(() => FirebaseAuth.instance);
+  sl.registerLazySingleton<LogoutDataSource>(() => LogoutDataSourceImpl(auth: sl()));
+  sl.registerLazySingleton<LogoutRepository>(() => LogoutRepositoryImpl(dataSource: sl()));
+  sl.registerLazySingleton<LogoutUseCase>(() => LogoutUseCase(logoutRepository: sl()));
+  sl.registerFactory(() => AuthBloc(logoutUseCase: sl()));
 
   // OnBoarding / Splashscreen
-  sl.registerFactory(() => OnBoardingBloc(checkAuthUseCase: sl()));
-  sl.registerLazySingleton<CheckAuthUseCase>(() => CheckAuthUseCase(sl()));
-  sl.registerLazySingleton<OnBoardingRepository>(() => OnBoardingRepositoryImpl(onBoardingDataSource: sl()));
   sl.registerLazySingleton<OnBoardingLocalDataSource>(() => OnBoardingLocalDataSourceImpl(auth: sl()));
+  sl.registerLazySingleton<OnBoardingRepository>(() => OnBoardingRepositoryImpl(onBoardingDataSource: sl()));
+  sl.registerLazySingleton<CheckAuthUseCase>(() => CheckAuthUseCase(sl()));
+  sl.registerFactory(() => OnBoardingBloc(checkAuthUseCase: sl()));
 
   // Login
   sl.registerLazySingleton<LoginDataSource>(() => LoginDataSourceImpl(auth: sl()));

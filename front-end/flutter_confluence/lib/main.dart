@@ -6,20 +6,21 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '/core/components/custom_appbar.dart';
-import 'core/components/preloader.dart';
-import 'core/constants.dart';
-import 'core/themes.dart';
-import 'features/certifications/data/models/cloud_certification_model.dart';
-import 'features/certifications/presentation/bloc/cloud_certification_bloc.dart';
-import 'features/certifications/presentation/pages/home_page.dart';
-import 'features/login/presentation/bloc/login_bloc.dart';
-import 'features/login/presentation/pages/login_page.dart';
-import 'features/onboarding/presentation/bloc/on_boarding_bloc.dart';
-import 'features/onboarding/presentation/pages/on_boarding.dart';
-import 'features/user_registration/presentation/bloc/user_registration_bloc.dart';
-import 'features/user_registration/presentation/pages/user_details_page.dart';
-import 'injection_container.dart';
-import 'injection_container.dart' as di;
+import '/core/components/preloader.dart';
+import '/core/constants.dart';
+import '/core/themes.dart';
+import '/features/certifications/data/models/cloud_certification_model.dart';
+import '/features/certifications/presentation/bloc/cloud_certification_bloc.dart';
+import '/features/certifications/presentation/pages/home_page.dart';
+import '/features/login/presentation/bloc/login_bloc.dart';
+import '/features/login/presentation/pages/login_page.dart';
+import '/features/logout/presentation/bloc/auth_bloc.dart';
+import '/features/onboarding/presentation/bloc/on_boarding_bloc.dart';
+import '/features/onboarding/presentation/pages/on_boarding.dart';
+import '/features/user_registration/presentation/bloc/user_registration_bloc.dart';
+import '/features/user_registration/presentation/pages/user_details_page.dart';
+import '/injection_container.dart';
+import '/injection_container.dart' as di;
 
 // ignore: avoid_void_async
 void main() async {
@@ -53,6 +54,9 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider<UserRegistrationBloc>(
             create: (_) => sl<UserRegistrationBloc>(),
+          ),
+          BlocProvider<AuthBloc>(
+            create: (_) => sl<AuthBloc>(),
           )
         ],
         child: MaterialApp(

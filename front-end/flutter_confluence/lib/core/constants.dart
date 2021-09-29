@@ -77,4 +77,6 @@ class Constants {
 
   static const NO_RESULTS = 'No results';
   static const UNKNOWN_ERROR = 'Unknown Error';
+
+  static const LOGOUT_ERROR = "It's not possible to logout at the moment. Please try again later";
 }
