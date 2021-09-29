@@ -7,20 +7,23 @@ class AppDrawer extends StatefulWidget {
   const AppDrawer({Key? key, required this.child}) : super(key: key);
   final Widget child;
 
-  static AppDrawerState? of(BuildContext context) => context.findAncestorStateOfType<AppDrawerState>();
+  static AppDrawerState? of(BuildContext context) =>
+      context.findAncestorStateOfType<AppDrawerState>();
 
   @override
   AppDrawerState createState() => AppDrawerState();
 }
 
-class AppDrawerState extends State<AppDrawer> with SingleTickerProviderStateMixin {
+class AppDrawerState extends State<AppDrawer>
+    with SingleTickerProviderStateMixin {
   static Duration duration = const Duration(milliseconds: 300);
   late AnimationController _controller;
 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(vsync: this, duration: AppDrawerState.duration);
+    _controller =
+        AnimationController(vsync: this, duration: AppDrawerState.duration);
   }
 
   @override
@@ -30,9 +33,7 @@ class AppDrawerState extends State<AppDrawer> with SingleTickerProviderStateMixi
   }
 
   void open() => _controller.forward();
-
   void close() => _controller.reverse();
-
   void toggle() => _controller.isCompleted ? close() : open();
 
   @override
@@ -89,8 +90,11 @@ class CustomDrawer extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: const [
                 Padding(
-                    padding:
-                        EdgeInsets.only(top: Dimen.dimen_48, bottom: Dimen.dimen_48, right: 0, left: Dimen.dimen_32),
+                    padding: EdgeInsets.only(
+                        top: Dimen.dimen_48,
+                        bottom: Dimen.dimen_48,
+                        right: 0,
+                        left: Dimen.dimen_32),
                     child: Image(
                       image: AssetImage('assets/capco_logo.png'),
                     )),
