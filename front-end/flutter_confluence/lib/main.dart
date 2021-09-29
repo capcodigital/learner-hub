@@ -5,9 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import '/core/components/custom_appbar.dart';
 import '/core/components/preloader.dart';
 import '/core/constants.dart';
+import '/core/shared_ui/custom_appbar.dart';
 import '/core/themes.dart';
 import '/features/certifications/data/models/cloud_certification_model.dart';
 import '/features/certifications/presentation/bloc/cloud_certification_bloc.dart';
