@@ -115,10 +115,10 @@ app.get("/todos", async (req: Request, res: Response) => {
 // Creates a TODO to firestore for current user
 app.post("/todos", async (req: Request, res: Response) => {
     const uid = req.user?.uid as string;
-    const cert = req.body as any;
+    const todo = req.body as any;
     if (uid == null) res.status(401).send(jsend.error("Unauthorized"));
-    else if (cert == null) res.status(400).send(jsend.error("Bad Request"));
-    else todoFuncs.addTODO(uid, cert, res);
+    else if (todo == null) res.status(400).send(jsend.error("Bad Request"));
+    else todoFuncs.addTODO(uid, todo, res);
 });
 
 // Updates the TODO of given id in firestore
