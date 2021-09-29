@@ -1,7 +1,7 @@
 import 'package:flutter_confluence/core/error/failures.dart';
 
 class WeakPasswordFailure extends AuthFailure {
-  WeakPasswordFailure() : super('The password provided is too weak.');
+  WeakPasswordFailure() : super('Password require at least 6 characters');
 }
 
 class AlreadyRegisteredFailure extends AuthFailure {
