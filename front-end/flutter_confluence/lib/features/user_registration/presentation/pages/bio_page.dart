@@ -61,6 +61,7 @@ class UserBioPageState extends State<UserBioPage> {
                   expands: true,
                   minLines: null,
                   maxLines: null,
+                  style: Theme.of(context).textTheme.bodyText2,
                   decoration: const InputDecoration(border: UnderlineInputBorder(), hintText: 'Type here...'),
                 ),
               ),
