@@ -3,13 +3,14 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 
-import '/core/auth/auth_failures.dart';
 import '/core/constants.dart';
+import '/core/error/auth_failures.dart';
 import '/core/error/custom_exceptions.dart';
 import '/features/user_registration/data/models/user_registration_model.dart';
 
 abstract class RegisterUserDataSource {
   Future<User> registerFirebaseUser(String email, String password);
+
   Future<bool> createUser(UserRegistrationModel userRequest);
 }
 

@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_confluence/core/auth/auth_failures.dart';
+import 'package:flutter_confluence/core/error/auth_failures.dart';
 import 'package:flutter_confluence/features/auth/data/datasources/auth_data_source.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';

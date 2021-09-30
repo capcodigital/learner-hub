@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import '/core/auth/auth_failures.dart';
+import '/core/error/auth_failures.dart';
 import '/core/error/failures.dart';
 import '/features/user_registration/domain/entities/user_registration_navigation_parameters.dart';
 import '/features/user_registration/domain/usecases/register_user_use_case.dart';
@@ -34,9 +34,8 @@ class UserRegistrationBloc extends Bloc<UserRegistrationEvent, UserRegistrationS
           email: parameters.email!,
           password: parameters.password!);
       final result = await registerUserUseCase.call(params);
-      yield result.fold(
-              (failure) => UserRegistrationError(errorMessage: _mapFailureToMessage(failure)),
-              (user) => UserRegistrationSuccess());
+      yield result.fold((failure) => UserRegistrationError(errorMessage: _mapFailureToMessage(failure)),
+          (user) => UserRegistrationSuccess());
     }
   }
 

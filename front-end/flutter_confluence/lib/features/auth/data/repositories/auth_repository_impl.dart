@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 
-import '/core/auth/auth_failures.dart';
 import '/core/constants.dart';
+import '/core/error/auth_failures.dart';
 import '/features/auth/data/datasources/auth_data_source.dart';
 import '/features/auth/domain/entities/user.dart';
 import '/features/auth/domain/repositories/auth_repository.dart';

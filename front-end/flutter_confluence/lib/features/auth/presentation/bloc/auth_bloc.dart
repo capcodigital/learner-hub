@@ -5,7 +5,7 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
-import '/core/auth/auth_failures.dart';
+import '/core/error/auth_failures.dart';
 import '/core/error/failures.dart';
 import '/core/usecases/usecase.dart';
 import '/features/auth/domain/usecases/check_auth_use_case.dart';
