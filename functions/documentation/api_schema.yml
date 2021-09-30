@@ -606,6 +606,27 @@ paths:
       operationId: 'createTODOItems'
       security:
         - JWTAuth: []
+      requestBody:
+        description: A JSON object containing information required to create a TODO
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - title
+                - content
+                - isCompleted
+              properties:
+                title:
+                  type: string
+                content:
+                  type: string
+                isCompleted:
+                  type: boolean
+            example:
+              title: "Book the certification exam"
+              content: "It needs to be booked from the oficial website and then claim the expenses back"
+              isCompleted: true
       responses:
         '201':
             description: "Created"
@@ -615,8 +636,13 @@ paths:
                   $ref: "#/components/schemas/Response"
                 example:
                   status: success
-                  data:
-                    message: "Todo Created"
+                  data: {
+                    "id": "MjTKV4R_v71KpMzk1f",
+                    "userId": "MjTK_9W0U1Nz_5REqPl",
+                    "title": "Book the certification exam",
+                    "content": "It needs to be booked from the oficial website and then claim the expenses back",
+                    "isCompleted": true
+                  }           
         '400':
           $ref: '#/components/responses/BadRequestError'
         '401':

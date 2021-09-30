@@ -1,72 +1,74 @@
 /* eslint-disable require-jsdoc */
 import * as functions from "firebase-functions";
 import * as jsend from "../jsend";
-import * as userCertRepo from "./user_certifications_repository";
+import * as todoRepo from "./todo_repository";
 import * as userRepo from "../users/users_repository";
 
-export async function getUserCertifications(
+export async function getTODOs(
     uid: string,
     res: functions.Response) {
     try {
-        const items = await userCertRepo.getUserCertifications(uid);
+        userRepo.getUser(uid); // will throw UserNotFoundError if uid not exist
+        const items = await todoRepo.getUserTODOs(uid);
         functions.logger.log(items);
         res.setHeader('Content-Type', 'application/json');
         res.status(200).send(jsend.successfullResponse(items));
     } catch (e) {
         functions.logger.log(e);
         if (e instanceof userRepo.UserNotFoundError)
-            res.status(404).send(jsend.error("User not found"));
+            res.status(400).send(jsend.error("Bad Request"));
         else res.status(500).send(jsend.error);
     }
 }
 
-export async function addUserCertification(
-    uid: string,
-    userCert: any,
+export async function addTODO(
+    todo: TODO,
     res: functions.Response) {
     try {
-        const item = await userCertRepo.insert(uid, userCert);
+        userRepo.getUser(todo.userId);
+        const item = await todoRepo.insert(todo);
         functions.logger.log(item);
         res.setHeader('Content-Type', 'application/json');
         res.status(201).send(jsend.successfullResponse(item));
     } catch (e) {
         functions.logger.log(e);
-        res.status(500).send(jsend.error);
+        if (e instanceof userRepo.UserNotFoundError)
+            res.status(400).send(jsend.error("Bad Request"));
+        else res.status(500).send(jsend.error);
     }
 }
 
-export async function updateUserCertification(
-    uid: string,
-    id: string,
-    cert: string,
+export async function updateTODO(
+    todoId: string,
+    todo: TODO,
     res: functions.Response) {
     try {
-        const item = userCertRepo.update(uid, id, cert);
+        const item = todoRepo.update(todoId, todo);
         res.setHeader('Content-Type', 'application/json');
         res.status(200).send(jsend.successfullResponse(item));
     } catch (e) {
         functions.logger.log(e);
-        if (e instanceof userCertRepo.UserCertificationNotFoundError)
-            res.status(404).send(jsend.error("User certification not found"));
-        else if (e instanceof userCertRepo.AccessForbidenError)
+        if (e instanceof todoRepo.TODONotFoundError)
+            res.status(404).send(jsend.error("TODO item not found"));
+        else if (e instanceof todoRepo.AccessForbidenError)
             res.status(403).send(jsend.error("Forbiden"));
         else res.status(500).send(jsend.error);
     }
 }
 
-export async function deleteUserCertification(
+export async function deleteTODO(
     uid: string,
-    id: string,
+    todoId: string,
     res: functions.Response) {
     try {
-        userCertRepo.deleteItem(uid, id);
+        todoRepo.deleteItem(uid, todoId);
         res.setHeader('Content-Type', 'application/json');
         res.status(200).send(jsend.successfullResponse({ "message": "Item deleted" }));
     } catch (e) {
         functions.logger.log(e);
-        if (e instanceof userCertRepo.UserCertificationNotFoundError)
-            res.status(404).send(jsend.error("User certification item not found"));
-        if (e instanceof userCertRepo.AccessForbidenError)
+        if (e instanceof todoRepo.TODONotFoundError)
+            res.status(404).send(jsend.error("TODO item not found"));
+        else if (e instanceof todoRepo.AccessForbidenError)
             res.status(403).send(jsend.error("Forbiden"));
         else res.status(500).send(jsend.error);
     }
