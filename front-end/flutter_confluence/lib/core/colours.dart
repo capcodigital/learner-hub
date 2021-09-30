@@ -10,4 +10,7 @@ class Colours {
 
   static const PRIMARY_TEXT_COLOR = Colors.white;
   static const ALTERNATIVE_TEXT_COLOR = Colors.black;
+
+  static const ACCENT_2_COLOR = Color(0xff6E41E2);
+  static const ACCENT_3_COLOR = Color(0xff41E2D8);
 }

@@ -1,11 +1,15 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 import '/core/colours.dart';
+import '/core/constants.dart';
 import '/core/dimen.dart';
 import '/core/shared_ui/primary_button.dart';
 import '/features/user_registration/domain/entities/user_registration_navigation_parameters.dart';
 import '/features/user_registration/presentation/pages/bio_page.dart';
+import '/features/user_registration/presentation/widgets/skill_chip.dart';
 
 class SkillsPage extends StatefulWidget {
   const SkillsPage({Key? key, required this.navParameters}) : super(key: key);
@@ -22,81 +26,20 @@ class SkillsPage extends StatefulWidget {
 class SkillsPageState extends State<SkillsPage> {
   @override
   Widget build(BuildContext context) {
-    final skills = [
-      'React Native',
-      'Gradle',
-      'Swift',
-      'Kotlin',
-      'Java',
-      'Ionic',
-      'Flutter',
-      'React',
-      'Angular',
-      'Vue',
-      'Typescript',
-      'Node',
-      'Go',
-      'Python',
-      'Scala',
-      'Groovy',
-      'Postgress',
-      'Neo4J',
-      'MongoDB',
-      'SQL Server',
-      'MySQL',
-      'Oracle',
-      'BigQuery',
-      'Liquibase',
-      'Snowflake',
-      'Rest',
-      'Camel',
-      'gRPC',
-      'Kafka',
-      'ActiveM',
-      'IBM MQ',
-      'GraphQL',
-      'GCP',
-      'AWS',
-      'Azure',
-      'Digital Ocean',
-      'Grafana',
-      'Kubernetes',
-      'Serverless',
-      'OpenShift',
-      'PCF',
-      'PKS',
-      'Selenium',
-      'Cucumber',
-      'Appium',
-      'Rest-assured',
-      'BrowserStack',
-      'Sauce Labs',
-      'WireMock',
-      'Applitools',
-      'JMeter',
-      'Axe',
-      'Cypress',
-      'Gatling',
-      'PACT contract testing',
-      'GitHub',
-      'CircleCI',
-      'Terraform',
-      'Vault',
-      'SonarQube',
-      'Elastic',
-      'Bitbucket',
-      'Jenkins',
-      'TeamCity',
-      'Istio',
-      'Ansible',
-      'Packer',
-      'Twistlock',
-      'Kiali',
-      'ConcourseCl',
-      'Consul',
-    ];
+    final _randomGenerator = Random();
+    final skillItems = Constants.SKILLS.map((skill) =>
+        Skill(name: skill, isPrimary: _randomGenerator.nextBool(), isSecondary: _randomGenerator.nextBool()));
 
-    final skillsWidgets = skills.map((skill) => Chip(label: Text(skill))).toList();
+    void onSkillSelected(Skill selectedSkill) {
+      print('Selected ${selectedSkill.name} skill');
+    }
+
+    final skillsWidgets = skillItems
+        .map((skill) => SkillChip(
+              skill: skill,
+              onPressed: onSkillSelected,
+            ))
+        .toList();
 
     void onNext() {
       final navParameters = widget.navParameters
