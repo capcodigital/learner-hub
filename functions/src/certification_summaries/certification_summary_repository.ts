@@ -49,7 +49,8 @@ function toJson(id: string, item: any): any {
         "platform": item.platform,
         "description": item.description,
         "link": item.link,
-        "image": item.image
+        "image": item.image,
+        "isIndustryRecognised": item.isIndustryRecognised
     }
 }
 
