@@ -1,5 +1,10 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_confluence/features/auth/data/datasources/auth_data_source.dart';
+import 'package:flutter_confluence/features/auth/data/repositories/auth_repository_impl.dart';
+import 'package:flutter_confluence/features/auth/domain/repositories/auth_repository.dart';
+import 'package:flutter_confluence/features/auth/domain/usecases/logout_use_case.dart';
+import 'package:flutter_confluence/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 import 'package:local_auth/local_auth.dart';
@@ -21,22 +26,12 @@ import '/features/login/data/repositories/login_repository_impl.dart';
 import '/features/login/domain/repositories/login_repository.dart';
 import '/features/login/domain/usecases/login_use_case.dart';
 import '/features/login/presentation/bloc/login_bloc.dart';
-import '/features/logout/data/datasources/logout_data_source.dart';
-import '/features/logout/data/repositories/logout_repository_impl.dart';
-import '/features/logout/domain/repositories/logout_repository.dart';
-import '/features/logout/domain/usecases/logout_use_case.dart';
-import '/features/logout/presentation/bloc/auth_bloc.dart';
-import '/features/onboarding/data/datasources/bio_auth_hive_helper.dart';
-import '/features/onboarding/data/datasources/on_boarding_local_data_source.dart';
-import '/features/onboarding/data/repositories/on_boarding_repository_impl.dart';
-import '/features/onboarding/domain/repositories/on_boarding_repository.dart';
-import '/features/onboarding/domain/usecases/check_auth_use_case.dart';
-import '/features/onboarding/presentation/bloc/on_boarding_bloc.dart';
 import '/features/user_registration/data/datasources/register_user_data_source.dart';
 import '/features/user_registration/data/repositories/user_registration_repository_impl.dart';
 import '/features/user_registration/domain/repositories/user_registration_repository.dart';
 import '/features/user_registration/domain/usecases/register_user_use_case.dart';
 import '/features/user_registration/presentation/bloc/user_registration_bloc.dart';
+import 'features/auth/domain/usecases/check_auth_use_case.dart';
 
 final sl = GetIt.instance;
 
@@ -47,7 +42,6 @@ Future<void> init() async {
   sl.registerLazySingleton(() => GetInProgressCertifications(sl()));
   sl.registerLazySingleton(() => SearchCertifications(sl()));
   sl.registerLazySingleton(() => CertificationHiveHelper());
-  sl.registerLazySingleton(() => BioAuthHiveHelper());
 
   sl.registerLazySingleton<CloudCertificationRepository>(
     () => CloudCertificationsRepositoryImpl(remoteDataSource: sl(), localDataSource: sl(), networkInfo: sl()),
@@ -73,16 +67,14 @@ Future<void> init() async {
 
   // Auth / Firebase auth
   sl.registerLazySingleton(() => FirebaseAuth.instance);
-  sl.registerLazySingleton<LogoutDataSource>(() => LogoutDataSourceImpl(auth: sl()));
-  sl.registerLazySingleton<LogoutRepository>(() => LogoutRepositoryImpl(dataSource: sl()));
+  sl.registerLazySingleton<AuthDataSource>(() => FirebaseAuthDataSourceImpl(auth: sl()));
+  sl.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(authDataSource: sl()));
   sl.registerLazySingleton<LogoutUseCase>(() => LogoutUseCase(logoutRepository: sl()));
-  sl.registerFactory(() => AuthBloc(logoutUseCase: sl()));
-
-  // OnBoarding / Splashscreen
-  sl.registerLazySingleton<OnBoardingLocalDataSource>(() => OnBoardingLocalDataSourceImpl(auth: sl()));
-  sl.registerLazySingleton<OnBoardingRepository>(() => OnBoardingRepositoryImpl(onBoardingDataSource: sl()));
   sl.registerLazySingleton<CheckAuthUseCase>(() => CheckAuthUseCase(sl()));
-  sl.registerFactory(() => OnBoardingBloc(checkAuthUseCase: sl()));
+  sl.registerFactory(() => AuthBloc(
+        checkAuthUseCase: sl(),
+        logoutUseCase: sl(),
+      ));
 
   // Login
   sl.registerLazySingleton<LoginDataSource>(() => LoginDataSourceImpl(auth: sl()));

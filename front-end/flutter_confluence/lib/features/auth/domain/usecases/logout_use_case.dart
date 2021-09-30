@@ -3,12 +3,12 @@ import 'package:dartz/dartz.dart';
 import '/core/auth/auth_failures.dart';
 import '/core/error/failures.dart';
 import '/core/usecases/usecase.dart';
-import '/features/logout/domain/repositories/logout_repository.dart';
+import '/features/auth/domain/repositories/auth_repository.dart';
 
 class LogoutUseCase implements UseCase<bool, NoParams> {
   LogoutUseCase({required this.logoutRepository});
 
-  final LogoutRepository logoutRepository;
+  final AuthRepository logoutRepository;
 
   @override
   Future<Either<Failure, bool>> call(NoParams parameters) async {

@@ -1,18 +1,18 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_confluence/core/usecases/usecase.dart';
-import 'package:flutter_confluence/features/onboarding/domain/repositories/on_boarding_repository.dart';
-import 'package:flutter_confluence/features/onboarding/domain/usecases/check_auth_use_case.dart';
+import 'package:flutter_confluence/features/auth/domain/repositories/auth_repository.dart';
+import 'package:flutter_confluence/features/auth/domain/usecases/check_auth_use_case.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-class MockOnBoardingRepository extends Mock implements OnBoardingRepository {}
+class MockAuthRepository extends Mock implements AuthRepository {}
 
 void main() {
   late CheckAuthUseCase subject;
-  late MockOnBoardingRepository mockRepository;
+  late MockAuthRepository mockRepository;
 
   setUp(() {
-    mockRepository = MockOnBoardingRepository();
+    mockRepository = MockAuthRepository();
     subject = CheckAuthUseCase(mockRepository);
   });
 
@@ -20,8 +20,7 @@ void main() {
     'should call checkCachedAuth and return true',
     () async {
       // arrange
-      when(() => mockRepository.checkCachedAuth())
-          .thenAnswer((_) async => const Right(true));
+      when(() => mockRepository.checkCachedAuth()).thenAnswer((_) async => const Right(true));
       // act
       final result = await subject(NoParams());
       // assert
@@ -35,8 +34,7 @@ void main() {
     'should call checkCachedAuth and return false',
     () async {
       // arrange
-      when(() => mockRepository.checkCachedAuth())
-          .thenAnswer((_) async => const Right(false));
+      when(() => mockRepository.checkCachedAuth()).thenAnswer((_) async => const Right(false));
       // act
       final result = await subject(NoParams());
       // assert

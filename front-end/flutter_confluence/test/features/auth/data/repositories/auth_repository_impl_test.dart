@@ -1,20 +1,20 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_confluence/core/auth/auth_failures.dart';
-import 'package:flutter_confluence/features/onboarding/data/datasources/on_boarding_local_data_source.dart';
-import 'package:flutter_confluence/features/onboarding/data/repositories/on_boarding_repository_impl.dart';
-import 'package:flutter_confluence/features/onboarding/domain/repositories/on_boarding_repository.dart';
+import 'package:flutter_confluence/features/auth/data/datasources/auth_data_source.dart';
+import 'package:flutter_confluence/features/auth/data/repositories/auth_repository_impl.dart';
+import 'package:flutter_confluence/features/auth/domain/repositories/auth_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-class MockOnBoardingLocalDataSource extends Mock implements OnBoardingLocalDataSource {}
+class MockAuthDataSource extends Mock implements AuthDataSource {}
 
 void main() {
-  late OnBoardingRepository repository;
-  late MockOnBoardingLocalDataSource mockDataSource;
+  late AuthRepository repository;
+  late MockAuthDataSource mockDataSource;
 
   setUp(() {
-    mockDataSource = MockOnBoardingLocalDataSource();
-    repository = OnBoardingRepositoryImpl(onBoardingDataSource: mockDataSource);
+    mockDataSource = MockAuthDataSource();
+    repository = AuthRepositoryImpl(authDataSource: mockDataSource);
   });
 
   group('checkCachedAuth', () {

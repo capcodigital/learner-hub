@@ -126,7 +126,7 @@ class LoginDetailsPageState extends State<LoginDetailsPage> with CustomAlertDial
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Password canont be empty';
+                          return 'Password cannot be empty';
                         }
                         return null;
                       }),

@@ -5,7 +5,7 @@ import '/core/constants.dart';
 import '/core/dimen.dart';
 import '/core/utils/error_messages.dart';
 import '/core/utils/media_util.dart';
-import '/features/logout/presentation/bloc/auth_bloc.dart';
+import '/features/auth/presentation/bloc/auth_bloc.dart';
 import '/features/onboarding/presentation/pages/on_boarding.dart';
 import 'custom_appbar.dart';
 
@@ -51,9 +51,10 @@ class AppDrawerState extends State<AppDrawer> with SingleTickerProviderStateMixi
     return BlocListener(
       bloc: BlocProvider.of<AuthBloc>(context),
       listener: (context, state) {
+        print('State received: ${state.runtimeType}');
         if (state is AuthLogout) {
           openOnBoardingPage(context);
-        } else if (state is AuthLogoutError) {
+        } else if (state is AuthError) {
           showAlertDialog(context, Constants.LOGOUT_ERROR);
         }
       },

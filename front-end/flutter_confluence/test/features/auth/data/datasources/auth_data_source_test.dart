@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_confluence/features/onboarding/data/datasources/on_boarding_local_data_source.dart';
+import 'package:flutter_confluence/features/auth/data/datasources/auth_data_source.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -12,12 +12,12 @@ class MockFirebaseCredentials extends Mock implements UserCredential {}
 class MockFirebaseUser extends Mock implements User {}
 
 void main() {
-  late OnBoardingLocalDataSource dataSource;
+  late AuthDataSource dataSource;
   late MockFirebaseAuth mockAuth;
 
   setUp(() {
     mockAuth = MockFirebaseAuth();
-    dataSource = OnBoardingLocalDataSourceImpl(auth: mockAuth);
+    dataSource = FirebaseAuthDataSourceImpl(auth: mockAuth);
   });
 
   User _createFirebaseUser(String uid, String displayName, String email, String photoUrl) {

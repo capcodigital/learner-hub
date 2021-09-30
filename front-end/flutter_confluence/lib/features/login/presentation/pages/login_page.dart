@@ -86,16 +86,11 @@ class LoginPageState extends State<LoginPage> with CustomAlertDialog {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text('Nice title goes here',
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.headline2),
+                      textAlign: TextAlign.center, style: Theme.of(context).textTheme.headline2),
                   Padding(
-                    padding: const EdgeInsets.only(
-                        top: Dimen.extra_small_padding,
-                        bottom: Dimen.large_padding),
-                    child: Text(
-                        'Do you want to make this completed  message goes here',
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.bodyText2),
+                    padding: const EdgeInsets.only(top: Dimen.extra_small_padding, bottom: Dimen.large_padding),
+                    child: Text('Do you want to make this completed  message goes here',
+                        textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyText2),
                   ),
                   TextFormField(
                     controller: emailController,

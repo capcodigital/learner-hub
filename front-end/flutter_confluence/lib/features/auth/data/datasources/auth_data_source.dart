@@ -1,13 +1,19 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
-abstract class OnBoardingLocalDataSource {
+abstract class AuthDataSource {
   Future<bool> checkLocalUserLogged();
+  Future<void> logout();
 }
 
-class OnBoardingLocalDataSourceImpl implements OnBoardingLocalDataSource {
-  OnBoardingLocalDataSourceImpl({required this.auth});
+class FirebaseAuthDataSourceImpl implements AuthDataSource {
+  FirebaseAuthDataSourceImpl({required this.auth});
 
   final FirebaseAuth auth;
+
+  @override
+  Future<void> logout() async {
+    await auth.signOut();
+  }
 
   @override
   Future<bool> checkLocalUserLogged() async {
