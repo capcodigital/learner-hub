@@ -1,4 +1,4 @@
-import '/features/login/domain/entities/user.dart';
+import '/features/auth/domain/entities/user.dart';
 
 class UserModel extends User {
   const UserModel({

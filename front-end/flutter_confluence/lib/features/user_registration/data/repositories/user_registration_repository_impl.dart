@@ -2,8 +2,8 @@ import 'package:dartz/dartz.dart';
 
 import '/core/auth/auth_failures.dart';
 import '/core/error/failures.dart';
-import '/features/login/data/models/user_model.dart';
-import '/features/login/domain/entities/user.dart';
+import '/features/auth/data/models/user_model.dart';
+import '/features/auth/domain/entities/user.dart';
 import '/features/user_registration/data/datasources/register_user_data_source.dart';
 import '/features/user_registration/data/models/user_registration_model.dart';
 import '/features/user_registration/domain/entities/user_registration.dart';

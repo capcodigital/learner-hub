@@ -1,10 +1,5 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_confluence/features/auth/data/datasources/auth_data_source.dart';
-import 'package:flutter_confluence/features/auth/data/repositories/auth_repository_impl.dart';
-import 'package:flutter_confluence/features/auth/domain/repositories/auth_repository.dart';
-import 'package:flutter_confluence/features/auth/domain/usecases/logout_use_case.dart';
-import 'package:flutter_confluence/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 import 'package:local_auth/local_auth.dart';
@@ -12,6 +7,11 @@ import 'package:platform/platform.dart';
 
 import '/core/device.dart';
 import '/core/network/network_info.dart';
+import '/features/auth/data/datasources/auth_data_source.dart';
+import '/features/auth/data/repositories/auth_repository_impl.dart';
+import '/features/auth/domain/repositories/auth_repository.dart';
+import '/features/auth/domain/usecases/logout_use_case.dart';
+import '/features/auth/presentation/bloc/auth_bloc.dart';
 import '/features/certifications/data/datasources/certification_hive_helper.dart';
 import '/features/certifications/data/datasources/cloud_certification_local_data_source.dart';
 import '/features/certifications/data/datasources/cloud_certification_remote_data_source.dart';
@@ -21,17 +21,13 @@ import '/features/certifications/domain/usecases/get_completed_certifications.da
 import '/features/certifications/domain/usecases/get_in_progress_certifications.dart';
 import '/features/certifications/domain/usecases/search_certifications.dart';
 import '/features/certifications/presentation/bloc/cloud_certification_bloc.dart';
-import '/features/login/data/datasource/login_data_source.dart';
-import '/features/login/data/repositories/login_repository_impl.dart';
-import '/features/login/domain/repositories/login_repository.dart';
-import '/features/login/domain/usecases/login_use_case.dart';
-import '/features/login/presentation/bloc/login_bloc.dart';
 import '/features/user_registration/data/datasources/register_user_data_source.dart';
 import '/features/user_registration/data/repositories/user_registration_repository_impl.dart';
 import '/features/user_registration/domain/repositories/user_registration_repository.dart';
 import '/features/user_registration/domain/usecases/register_user_use_case.dart';
 import '/features/user_registration/presentation/bloc/user_registration_bloc.dart';
 import 'features/auth/domain/usecases/check_auth_use_case.dart';
+import 'features/auth/domain/usecases/login_use_case.dart';
 
 final sl = GetIt.instance;
 
@@ -69,18 +65,14 @@ Future<void> init() async {
   sl.registerLazySingleton(() => FirebaseAuth.instance);
   sl.registerLazySingleton<AuthDataSource>(() => FirebaseAuthDataSourceImpl(auth: sl()));
   sl.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(authDataSource: sl()));
-  sl.registerLazySingleton<LogoutUseCase>(() => LogoutUseCase(logoutRepository: sl()));
   sl.registerLazySingleton<CheckAuthUseCase>(() => CheckAuthUseCase(sl()));
+  sl.registerLazySingleton(() => LoginUseCase(authRepository: sl()));
+  sl.registerLazySingleton<LogoutUseCase>(() => LogoutUseCase(logoutRepository: sl()));
   sl.registerFactory(() => AuthBloc(
         checkAuthUseCase: sl(),
+        loginUseCase: sl(),
         logoutUseCase: sl(),
       ));
-
-  // Login
-  sl.registerLazySingleton<LoginDataSource>(() => LoginDataSourceImpl(auth: sl()));
-  sl.registerLazySingleton<LoginRepository>(() => LoginRepositoryImpl(dataSource: sl()));
-  sl.registerLazySingleton(() => LoginUseCase(loginRepository: sl()));
-  sl.registerFactory(() => LoginBloc(loginUseCase: sl()));
 
   // User registration
   sl.registerLazySingleton<RegisterUserDataSource>(() => RegisterUserDataSourceImpl(auth: sl(), client: sl()));

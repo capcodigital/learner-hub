@@ -1,4 +1,4 @@
-import 'package:flutter_confluence/core/error/failures.dart';
+import '/core/error/failures.dart';
 
 class WeakPasswordFailure extends AuthFailure {
   WeakPasswordFailure() : super('Password require at least 6 characters');
@@ -25,4 +25,7 @@ class AuthFailure extends Failure {
 
   static const CODE_GENERIC_FAILURE = 'code_generic_failure';
   final String reason;
+
+  @override
+  List<Object> get props => [reason];
 }

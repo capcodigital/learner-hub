@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_confluence/core/shared_ui/app_drawer.dart';
-import 'package:flutter_confluence/core/shared_ui/custom_appbar.dart';
-import 'package:flutter_confluence/core/shared_ui/primary_button.dart';
 
 import '/core/colours.dart';
 import '/core/constants.dart';
 import '/core/dimen.dart';
+import '/core/shared_ui/app_drawer.dart';
+import '/core/shared_ui/custom_appbar.dart';
+import '/core/shared_ui/primary_button.dart';
 import '/core/utils/error_messages.dart';
 import '/core/utils/validators/email_validator.dart';
+import '/features/auth/presentation/bloc/auth_bloc.dart';
 import '/features/certifications/presentation/pages/home_page.dart';
-import '/features/login/presentation/bloc/login_bloc.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -42,7 +42,7 @@ class LoginPageState extends State<LoginPage> with CustomAlertDialog {
         final email = emailController.text;
         final password = passwordController.text;
 
-        BlocProvider.of<LoginBloc>(context).add(LoginRequestEvent(email: email, password: password));
+        BlocProvider.of<AuthBloc>(context).add(LoginEvent(email: email, password: password));
       }
     }
 
@@ -67,12 +67,12 @@ class LoginPageState extends State<LoginPage> with CustomAlertDialog {
         title: Image.asset('assets/capco_logo.png'),
       ),
       body: BlocListener(
-        bloc: BlocProvider.of<LoginBloc>(context),
+        bloc: BlocProvider.of<AuthBloc>(context),
         listener: (context, state) {
           if (state is LoginSuccess) {
             navigateToHome();
-          } else if (state is LoginError) {
-            showAlertDialog(context, state.errorMessage);
+          } else if (state is AuthError) {
+            showAlertDialog(context, state.message);
           }
         },
         child: SafeArea(
@@ -126,9 +126,7 @@ class LoginPageState extends State<LoginPage> with CustomAlertDialog {
                   Expanded(
                     child: Align(
                       alignment: FractionalOffset.bottomCenter,
-                      child: PrimaryButton(
-                          text: 'Log in',
-                          onPressed: onLogin),
+                      child: PrimaryButton(text: 'Log in', onPressed: onLogin),
                     ),
                   ),
                 ],

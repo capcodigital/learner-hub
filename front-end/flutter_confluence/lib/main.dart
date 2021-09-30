@@ -13,7 +13,6 @@ import '/features/auth/presentation/bloc/auth_bloc.dart';
 import '/features/certifications/data/models/cloud_certification_model.dart';
 import '/features/certifications/presentation/bloc/cloud_certification_bloc.dart';
 import '/features/certifications/presentation/pages/home_page.dart';
-import '/features/login/presentation/bloc/login_bloc.dart';
 import '/features/login/presentation/pages/login_page.dart';
 import '/features/onboarding/presentation/pages/on_boarding.dart';
 import '/features/user_registration/presentation/bloc/user_registration_bloc.dart';
@@ -47,9 +46,6 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider<CloudCertificationBloc>(
             create: (_) => sl<CloudCertificationBloc>()..add(GetInProgressCertificationsEvent()),
-          ),
-          BlocProvider<LoginBloc>(
-            create: (_) => sl<LoginBloc>(),
           ),
           BlocProvider<UserRegistrationBloc>(
             create: (_) => sl<UserRegistrationBloc>(),
