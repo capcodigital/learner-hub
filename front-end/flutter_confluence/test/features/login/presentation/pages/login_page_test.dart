@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_confluence/core/shared_ui/primary_button.dart';
 import 'package:flutter_confluence/core/themes.dart';
 import 'package:flutter_confluence/features/auth/presentation/bloc/auth_bloc.dart';
-import 'package:flutter_confluence/features/login/presentation/pages/login_page.dart';
+import 'package:flutter_confluence/features/onboarding/presentation/pages/login_page.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart' as mocktail;
 
@@ -23,14 +23,19 @@ void main() {
   testWidgets('Login Page should show expected widgets', (tester) async {
     // arrange
     final AuthBloc mockBloc = MockAuthBloc();
-    whenListen(mockBloc, Stream.fromIterable([AuthInitial()]), initialState: AuthInitial());
+    whenListen(mockBloc, Stream.fromIterable([AuthInitial()]),
+        initialState: AuthInitial());
 
     // act
     await tester.pumpWidget(MaterialApp(
-        theme: Themes.appTheme, home: BlocProvider<AuthBloc>(create: (_) => mockBloc, child: const LoginPage())));
+        theme: Themes.appTheme,
+        home: BlocProvider<AuthBloc>(
+            create: (_) => mockBloc, child: const LoginPage())));
 
-    final formFields = find.byWidgetPredicate((widget) => widget is TextFormField);
-    final loginButton = find.byWidgetPredicate((widget) => widget is PrimaryButton);
+    final formFields =
+        find.byWidgetPredicate((widget) => widget is TextFormField);
+    final loginButton =
+        find.byWidgetPredicate((widget) => widget is PrimaryButton);
 
     // assert
     expect(formFields, findsNWidgets(2));

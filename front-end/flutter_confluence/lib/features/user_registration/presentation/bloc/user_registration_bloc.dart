@@ -12,10 +12,12 @@ part 'user_registration_event.dart';
 
 part 'user_registration_state.dart';
 
-class UserRegistrationBloc extends Bloc<UserRegistrationEvent, UserRegistrationState> {
-  UserRegistrationBloc({required this.registerUserUseCase}) : super(UserRegistrationInitial());
+class UserRegistrationBloc
+    extends Bloc<UserRegistrationEvent, UserRegistrationState> {
+  UserRegistrationBloc({required this.registerUser})
+      : super(UserRegistrationInitial());
 
-  final RegisterUserUseCase registerUserUseCase;
+  final RegisterUser registerUser;
 
   @override
   Stream<UserRegistrationState> mapEventToState(
@@ -28,13 +30,17 @@ class UserRegistrationBloc extends Bloc<UserRegistrationEvent, UserRegistrationS
           name: parameters.name!,
           lastName: parameters.lastName!,
           jobTitle: parameters.jobTitle!,
-          primarySkills: parameters.primarySkills?.map((e) => e.name).toList() ?? [],
-          secondarySkills: parameters.secondarySkills?.map((e) => e.name).toList() ?? [],
+          primarySkills:
+              parameters.primarySkills?.map((e) => e.name).toList() ?? [],
+          secondarySkills:
+              parameters.secondarySkills?.map((e) => e.name).toList() ?? [],
           bio: parameters.bio!,
           email: parameters.email!,
           password: parameters.password!);
-      final result = await registerUserUseCase.call(params);
-      yield result.fold((failure) => UserRegistrationError(errorMessage: _mapFailureToMessage(failure)),
+      final result = await registerUser(params);
+      yield result.fold(
+          (failure) => UserRegistrationError(
+              errorMessage: _mapFailureToMessage(failure)),
           (user) => UserRegistrationSuccess());
     }
   }

@@ -28,11 +28,20 @@ class RegisterParams extends Equatable {
   final String password;
 
   @override
-  List<Object> get props => [name, lastName, jobTitle, primarySkills, secondarySkills, bio, email, password];
+  List<Object> get props => [
+        name,
+        lastName,
+        jobTitle,
+        primarySkills,
+        secondarySkills,
+        bio,
+        email,
+        password
+      ];
 }
 
-class RegisterUserUseCase implements UseCase<bool, RegisterParams> {
-  RegisterUserUseCase({required this.registrationRepository});
+class RegisterUser implements UseCase<bool, RegisterParams> {
+  RegisterUser({required this.registrationRepository});
 
   final UserRegistrationRepository registrationRepository;
 
@@ -48,8 +57,9 @@ class RegisterUserUseCase implements UseCase<bool, RegisterParams> {
         email: parameters.email,
         password: parameters.password);
 
-    final registerFirebaseUserResult = await registrationRepository.registerFirebaseUser(newUser);
-    return registerFirebaseUserResult.fold(
-        (failure) => Left(failure), (success) => registrationRepository.createUser(newUser));
+    final registerFirebaseUserResult =
+        await registrationRepository.registerFirebaseUser(newUser);
+    return registerFirebaseUserResult.fold((failure) => Left(failure),
+        (success) => registrationRepository.createUser(newUser));
   }
 }

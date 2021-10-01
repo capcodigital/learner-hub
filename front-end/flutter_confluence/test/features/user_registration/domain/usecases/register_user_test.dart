@@ -7,10 +7,11 @@ import 'package:flutter_confluence/features/user_registration/domain/usecases/re
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-class MockRegisterUserRepository extends Mock implements UserRegistrationRepository {}
+class MockRegisterUserRepository extends Mock
+    implements UserRegistrationRepository {}
 
 void main() {
-  late RegisterUserUseCase useCase;
+  late RegisterUser useCase;
   late MockRegisterUserRepository mockRepository;
 
   setUpAll(() {
@@ -27,7 +28,7 @@ void main() {
 
   setUp(() {
     mockRepository = MockRegisterUserRepository();
-    useCase = RegisterUserUseCase(registrationRepository: mockRepository);
+    useCase = RegisterUser(registrationRepository: mockRepository);
   });
 
   const testUser = User(uid: '123');
@@ -47,8 +48,10 @@ void main() {
     'should create a user if the firebase registration succeeds',
     () async {
       // arrange
-      when(() => mockRepository.registerFirebaseUser(any())).thenAnswer((_) => Future.value(const Right(testUser)));
-      when(() => mockRepository.createUser(any())).thenAnswer((_) => Future.value(const Right(true)));
+      when(() => mockRepository.registerFirebaseUser(any()))
+          .thenAnswer((_) => Future.value(const Right(testUser)));
+      when(() => mockRepository.createUser(any()))
+          .thenAnswer((_) => Future.value(const Right(true)));
 
       // Act
       final result = await useCase(useCaseParams);
@@ -65,7 +68,8 @@ void main() {
       // arrange
       when(() => mockRepository.registerFirebaseUser(any()))
           .thenAnswer((_) => Future.value(Left(WeakPasswordFailure())));
-      when(() => mockRepository.createUser(any())).thenAnswer((_) => Future.value(const Right(false)));
+      when(() => mockRepository.createUser(any()))
+          .thenAnswer((_) => Future.value(const Right(false)));
 
       // Act
       final result = await useCase(useCaseParams);

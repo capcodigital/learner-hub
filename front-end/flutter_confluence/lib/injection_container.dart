@@ -1,5 +1,6 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_confluence/features/user_registration/domain/usecases/register_user.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 import 'package:local_auth/local_auth.dart';
@@ -24,7 +25,6 @@ import '/features/certifications/presentation/bloc/cloud_certification_bloc.dart
 import '/features/user_registration/data/datasources/register_user_data_source.dart';
 import '/features/user_registration/data/repositories/user_registration_repository_impl.dart';
 import '/features/user_registration/domain/repositories/user_registration_repository.dart';
-import '/features/user_registration/domain/usecases/register_user.dart';
 import '/features/user_registration/presentation/bloc/user_registration_bloc.dart';
 import 'features/auth/domain/usecases/check_auth.dart';
 import 'features/auth/domain/usecases/login.dart';
@@ -32,15 +32,16 @@ import 'features/auth/domain/usecases/login.dart';
 final sl = GetIt.instance;
 
 Future<void> init() async {
-  sl.registerFactory(
-      () => CloudCertificationBloc(completedUseCase: sl(), inProgressUseCase: sl(), searchUserCase: sl()));
+  sl.registerFactory(() => CloudCertificationBloc(
+      completedUseCase: sl(), inProgressUseCase: sl(), searchUserCase: sl()));
   sl.registerLazySingleton(() => GetCompletedCertifications(sl()));
   sl.registerLazySingleton(() => GetInProgressCertifications(sl()));
   sl.registerLazySingleton(() => SearchCertifications(sl()));
   sl.registerLazySingleton(() => CertificationHiveHelper());
 
   sl.registerLazySingleton<CloudCertificationRepository>(
-    () => CloudCertificationsRepositoryImpl(remoteDataSource: sl(), localDataSource: sl(), networkInfo: sl()),
+    () => CloudCertificationsRepositoryImpl(
+        remoteDataSource: sl(), localDataSource: sl(), networkInfo: sl()),
   );
 
   sl.registerLazySingleton<CloudCertificationRemoteDataSource>(
@@ -63,11 +64,14 @@ Future<void> init() async {
 
   // Auth / Firebase auth
   sl.registerLazySingleton(() => FirebaseAuth.instance);
-  sl.registerLazySingleton<AuthDataSource>(() => FirebaseAuthDataSourceImpl(auth: sl()));
-  sl.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(authDataSource: sl()));
+  sl.registerLazySingleton<AuthDataSource>(
+      () => FirebaseAuthDataSourceImpl(auth: sl()));
+  sl.registerLazySingleton<AuthRepository>(
+      () => AuthRepositoryImpl(authDataSource: sl()));
   sl.registerLazySingleton<CheckAuthUseCase>(() => CheckAuthUseCase(sl()));
   sl.registerLazySingleton(() => LoginUseCase(authRepository: sl()));
-  sl.registerLazySingleton<LogoutUseCase>(() => LogoutUseCase(logoutRepository: sl()));
+  sl.registerLazySingleton<LogoutUseCase>(
+      () => LogoutUseCase(logoutRepository: sl()));
   sl.registerFactory(() => AuthBloc(
         checkAuthUseCase: sl(),
         loginUseCase: sl(),
@@ -75,8 +79,10 @@ Future<void> init() async {
       ));
 
   // User registration
-  sl.registerLazySingleton<RegisterUserDataSource>(() => RegisterUserDataSourceImpl(auth: sl(), client: sl()));
-  sl.registerLazySingleton<UserRegistrationRepository>(() => UserRegistrationRepositoryIml(dataSource: sl()));
-  sl.registerLazySingleton(() => RegisterUserUseCase(registrationRepository: sl()));
-  sl.registerFactory(() => UserRegistrationBloc(registerUserUseCase: sl()));
+  sl.registerLazySingleton<RegisterUserDataSource>(
+      () => RegisterUserDataSourceImpl(auth: sl(), client: sl()));
+  sl.registerLazySingleton<UserRegistrationRepository>(
+      () => UserRegistrationRepositoryIml(dataSource: sl()));
+  sl.registerLazySingleton(() => RegisterUser(registrationRepository: sl()));
+  sl.registerFactory(() => UserRegistrationBloc(registerUser: sl()));
 }
