@@ -28,8 +28,8 @@ class UserRegistrationBloc extends Bloc<UserRegistrationEvent, UserRegistrationS
           name: parameters.name!,
           lastName: parameters.lastName!,
           jobTitle: parameters.jobTitle!,
-          primarySkills: parameters.primarySkills!,
-          secondarySkills: parameters.secondarySkills!,
+          primarySkills: parameters.primarySkills?.map((e) => e.name).toList() ?? [],
+          secondarySkills: parameters.secondarySkills?.map((e) => e.name).toList() ?? [],
           bio: parameters.bio!,
           email: parameters.email!,
           password: parameters.password!);

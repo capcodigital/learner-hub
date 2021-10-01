@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -8,33 +6,49 @@ import '/core/constants.dart';
 import '/core/dimen.dart';
 import '/core/shared_ui/primary_button.dart';
 import '/features/user_registration/domain/entities/user_registration_navigation_parameters.dart';
-import '/features/user_registration/presentation/pages/bio_page.dart';
+import '/features/user_registration/presentation/pages/secondary_skills_page.dart';
 import '/features/user_registration/presentation/widgets/skill_chip.dart';
 
-class SkillsPage extends StatefulWidget {
-  const SkillsPage({Key? key, required this.navParameters}) : super(key: key);
+class PrimarySkillsPage extends StatefulWidget {
+  const PrimarySkillsPage({Key? key, required this.navParameters}) : super(key: key);
 
-  static const route = 'SkillsPage';
+  static const route = 'PrimarySkillsPage';
   final UserRegistrationNavigationParameters navParameters;
 
   @override
-  SkillsPageState createState() {
-    return SkillsPageState();
+  _PrimarySkillsPageState createState() {
+    return _PrimarySkillsPageState();
   }
 }
 
-class SkillsPageState extends State<SkillsPage> {
+class _PrimarySkillsPageState extends State<PrimarySkillsPage> {
+  List<Skill> _skillItems = [];
+
+  @override
+  void initState() {
+    super.initState();
+
+    _skillItems = Constants.SKILLS.map((skill) => Skill(name: skill, isPrimary: false, isSecondary: false)).toList();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final _randomGenerator = Random();
-    final skillItems = Constants.SKILLS.map((skill) =>
-        Skill(name: skill, isPrimary: _randomGenerator.nextBool(), isSecondary: _randomGenerator.nextBool()));
-
     void onSkillSelected(Skill selectedSkill) {
       print('Selected ${selectedSkill.name} skill');
+      setState(() {
+        final itemIndex = _skillItems.indexWhere((element) => element.name == selectedSkill.name);
+        if (itemIndex > -1) {
+          final item = _skillItems[itemIndex];
+          final newItem = item.copyWith(isPrimary: !item.isPrimary);
+          _skillItems[itemIndex] = newItem;
+        } else {
+          // Item not found
+          print('Item $selectedSkill not found');
+        }
+      });
     }
 
-    final skillsWidgets = skillItems
+    final _skillsWidgets = _skillItems
         .map((skill) => SkillChip(
               skill: skill,
               onPressed: onSkillSelected,
@@ -42,11 +56,11 @@ class SkillsPageState extends State<SkillsPage> {
         .toList();
 
     void onNext() {
-      final navParameters = widget.navParameters
-        ..primarySkills = ['primaryTest']
-        ..secondarySkills = ['secondaryTest'];
+      final selectedSkills = _skillItems.where((element) => element.isPrimary).toList();
+      final navParameters = widget.navParameters..primarySkills = selectedSkills;
 
-      Navigator.push(context, MaterialPageRoute(builder: (context) => UserBioPage(navParameters: navParameters)));
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => SecondarySkillsPage(navParameters: navParameters)));
     }
 
     return Scaffold(
@@ -76,7 +90,7 @@ class SkillsPageState extends State<SkillsPage> {
                     child: Wrap(
                       spacing: Dimen.extra_small_padding,
                       runSpacing: Dimen.extra_small_padding / 2,
-                      children: skillsWidgets,
+                      children: _skillsWidgets,
                     ),
                   ),
                 ),
