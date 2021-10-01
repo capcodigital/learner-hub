@@ -8,9 +8,9 @@ import 'package:meta/meta.dart';
 import '/core/error/auth_failures.dart';
 import '/core/error/failures.dart';
 import '/core/usecases/usecase.dart';
-import '/features/auth/domain/usecases/check_auth_use_case.dart';
-import '/features/auth/domain/usecases/login_use_case.dart';
-import '/features/auth/domain/usecases/logout_use_case.dart';
+import '/features/auth/domain/usecases/check_auth.dart';
+import '/features/auth/domain/usecases/login.dart';
+import '/features/auth/domain/usecases/logout.dart';
 
 part 'auth_event.dart';
 

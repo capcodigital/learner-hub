@@ -3,7 +3,6 @@ import 'package:equatable/equatable.dart';
 
 import '/core/error/failures.dart';
 import '/core/usecases/usecase.dart';
-import '/features/auth/domain/entities/user.dart';
 import '/features/user_registration/domain/entities/user_registration.dart';
 import '/features/user_registration/domain/repositories/user_registration_repository.dart';
 
@@ -32,13 +31,13 @@ class RegisterParams extends Equatable {
   List<Object> get props => [name, lastName, jobTitle, primarySkills, secondarySkills, bio, email, password];
 }
 
-class RegisterUserUseCase implements UseCase<User, RegisterParams> {
+class RegisterUserUseCase implements UseCase<bool, RegisterParams> {
   RegisterUserUseCase({required this.registrationRepository});
 
   final UserRegistrationRepository registrationRepository;
 
   @override
-  Future<Either<Failure, User>> call(RegisterParams parameters) async {
+  Future<Either<Failure, bool>> call(RegisterParams parameters) async {
     final newUser = UserRegistration(
         name: parameters.name,
         lastName: parameters.lastName,
@@ -51,6 +50,6 @@ class RegisterUserUseCase implements UseCase<User, RegisterParams> {
 
     final registerFirebaseUserResult = await registrationRepository.registerFirebaseUser(newUser);
     return registerFirebaseUserResult.fold(
-        (failure) => registerFirebaseUserResult, (success) => registrationRepository.createUser(newUser));
+        (failure) => Left(failure), (success) => registrationRepository.createUser(newUser));
   }
 }

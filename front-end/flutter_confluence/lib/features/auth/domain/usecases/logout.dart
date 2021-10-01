@@ -16,7 +16,7 @@ class LogoutUseCase implements UseCase<bool, NoParams> {
       await logoutRepository.logout();
       return const Right(true);
     } catch (ex) {
-      return Left(AuthFailure('Is not possible to logout the user: $ex'));
+      return Left(AuthFailure('Is not possible to logout the user'));
     }
   }
 }

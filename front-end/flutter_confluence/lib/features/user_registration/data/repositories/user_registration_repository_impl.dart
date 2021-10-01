@@ -15,7 +15,7 @@ class UserRegistrationRepositoryIml implements UserRegistrationRepository {
   final RegisterUserDataSource dataSource;
 
   @override
-  Future<Either<Failure, User>> registerFirebaseUser(UserRegistration user) async {
+  Future<Either<AuthFailure, User>> registerFirebaseUser(UserRegistration user) async {
     try {
       final firebaseUser = await dataSource.registerFirebaseUser(user.email, user.password);
       return Right(UserModel(
@@ -31,7 +31,7 @@ class UserRegistrationRepositoryIml implements UserRegistrationRepository {
   }
 
   @override
-  Future<Either<Failure, User>> createUser(UserRegistration user) async {
+  Future<Either<AuthFailure, bool>> createUser(UserRegistration user) async {
     final userRequest = UserRegistrationModel(
         name: user.name,
         lastName: user.lastName,
@@ -44,7 +44,7 @@ class UserRegistrationRepositoryIml implements UserRegistrationRepository {
 
     final isUserCreated = await dataSource.createUser(userRequest);
     if (isUserCreated) {
-      return const Right(User(uid: '1234'));
+      return const Right(true);
     } else {
       return Left(AuthFailure("It's not possible to create the user"));
     }

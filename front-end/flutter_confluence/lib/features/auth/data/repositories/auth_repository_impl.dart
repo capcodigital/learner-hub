@@ -12,8 +12,9 @@ class AuthRepositoryImpl implements AuthRepository {
   final AuthDataSource authDataSource;
 
   @override
-  Future<void> logout() async {
-    await authDataSource.logout();
+  Future<Either<AuthFailure, bool>> checkCachedAuth() async {
+    final result = await authDataSource.checkLocalUserLogged();
+    return result ? const Right(true) : Left(NoCurrentUserLogged());
   }
 
   @override
@@ -29,8 +30,7 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<Either<AuthFailure, bool>> checkCachedAuth() async {
-    final result = await authDataSource.checkLocalUserLogged();
-    return result ? const Right(true) : Left(NoCurrentUserLogged());
+  Future<void> logout() async {
+    await authDataSource.logout();
   }
 }

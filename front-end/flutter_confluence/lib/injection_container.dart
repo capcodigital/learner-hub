@@ -10,7 +10,7 @@ import '/core/network/network_info.dart';
 import '/features/auth/data/datasources/auth_data_source.dart';
 import '/features/auth/data/repositories/auth_repository_impl.dart';
 import '/features/auth/domain/repositories/auth_repository.dart';
-import '/features/auth/domain/usecases/logout_use_case.dart';
+import '/features/auth/domain/usecases/logout.dart';
 import '/features/auth/presentation/bloc/auth_bloc.dart';
 import '/features/certifications/data/datasources/certification_hive_helper.dart';
 import '/features/certifications/data/datasources/cloud_certification_local_data_source.dart';
@@ -24,10 +24,10 @@ import '/features/certifications/presentation/bloc/cloud_certification_bloc.dart
 import '/features/user_registration/data/datasources/register_user_data_source.dart';
 import '/features/user_registration/data/repositories/user_registration_repository_impl.dart';
 import '/features/user_registration/domain/repositories/user_registration_repository.dart';
-import '/features/user_registration/domain/usecases/register_user_use_case.dart';
+import '/features/user_registration/domain/usecases/register_user.dart';
 import '/features/user_registration/presentation/bloc/user_registration_bloc.dart';
-import 'features/auth/domain/usecases/check_auth_use_case.dart';
-import 'features/auth/domain/usecases/login_use_case.dart';
+import 'features/auth/domain/usecases/check_auth.dart';
+import 'features/auth/domain/usecases/login.dart';
 
 final sl = GetIt.instance;
 

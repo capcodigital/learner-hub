@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_confluence/core/usecases/usecase.dart';
 import 'package:flutter_confluence/features/auth/domain/repositories/auth_repository.dart';
-import 'package:flutter_confluence/features/auth/domain/usecases/check_auth_use_case.dart';
+import 'package:flutter_confluence/features/auth/domain/usecases/check_auth.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 

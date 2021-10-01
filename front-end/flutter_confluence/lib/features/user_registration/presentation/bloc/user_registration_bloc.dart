@@ -6,7 +6,7 @@ import 'package:equatable/equatable.dart';
 import '/core/error/auth_failures.dart';
 import '/core/error/failures.dart';
 import '/features/user_registration/domain/entities/user_registration_navigation_parameters.dart';
-import '/features/user_registration/domain/usecases/register_user_use_case.dart';
+import '/features/user_registration/domain/usecases/register_user.dart';
 
 part 'user_registration_event.dart';
 
