@@ -86,7 +86,7 @@ class _PrimarySkillsPageState extends State<PrimarySkillsPage> {
                 ),
                 Expanded(
                   child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
+                    scrollDirection: Axis.vertical,
                     child: Wrap(
                       spacing: Dimen.extra_small_padding,
                       runSpacing: Dimen.extra_small_padding / 2,
