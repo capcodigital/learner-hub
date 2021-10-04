@@ -38,8 +38,8 @@ class Constants {
   static const AWS = 'aws';
 
   // Backend Endpoints
+  static const BASE_API_URL = 'https://europe-west2-io-capco-flutter-dev.cloudfunctions.net/app';
   // static const BASE_API_URL = 'http://localhost:5001/io-capco-flutter-dev/europe-west2/app';
-  static const BASE_API_URL = 'http://localhost:5001/io-capco-flutter-dev/europe-west2/app';
   static const COMPLETED_URL = 'completed';
   static const IN_PROGRESS_URL = 'in_progress';
 

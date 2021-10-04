@@ -20,15 +20,18 @@ class RegisterUser implements UseCase<bool, UserRegistration> {
     return registerFirebaseUserResult.fold((failure) => Left(failure), (success) async {
       final createUserResult = await registrationRepository.createUser(user);
       return createUserResult.fold(
-              (failure) async => _handleCreateUserFailure(failure),
+              (failure) async {
+                          await _handleCreateUserFailure(failure);
+                          return Left(CreateUserError());
+                        },
               (success) => Right(success));
     });
   }
 
-  Future<Either<Failure, bool>> _handleCreateUserFailure(Failure failure) {
+  Future<void> _handleCreateUserFailure(Failure failure) async {
     // If creating the user in our custom backend fails,
     // then we need to clear all local firebase auth details in our app
     // so there are no conflicts
-    return registrationRepository.cleanUpFirebaseUser();
+    await registrationRepository.cleanUpFirebaseUser();
   }
 }

@@ -85,7 +85,7 @@ void main() {
       final result = await useCase(useCaseParams);
 
       // assert
-      expect(result, const Right(true));
+      expect(result, Left(CreateUserError()));
       verify(() => mockRepository.createUser(any()));
       verify(() => mockRepository.cleanUpFirebaseUser());
     },
