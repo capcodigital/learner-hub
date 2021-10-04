@@ -6,8 +6,8 @@ import '/core/usecases/usecase.dart';
 import '/features/user_registration/domain/entities/user_registration.dart';
 import '/features/user_registration/domain/repositories/user_registration_repository.dart';
 
-class RegisterUserUseCase implements UseCase<bool, UserRegistration> {
-  RegisterUserUseCase({required this.registrationRepository});
+class RegisterUser implements UseCase<bool, UserRegistration> {
+  RegisterUser({required this.registrationRepository});
 
   final UserRegistrationRepository registrationRepository;
 

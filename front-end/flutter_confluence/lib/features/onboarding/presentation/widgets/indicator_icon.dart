@@ -10,22 +10,15 @@ class IndicatorIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const outerCircleSize = 12.0;
-    const innerCircleSize = outerCircleSize - 4;
-
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        Container(
-            width: outerCircleSize,
-            height: outerCircleSize,
-            decoration: const BoxDecoration(shape: BoxShape.circle, color: Colours.PRIMARY_TEXT_COLOR)),
-        Container(
-            width: innerCircleSize,
-            height: innerCircleSize,
-            decoration: BoxDecoration(
-                shape: BoxShape.circle, color: isSelected ? Colours.PRIMARY_TEXT_COLOR : Colours.PRIMARY_COLOR)),
-      ],
-    );
+    return Container(
+        alignment: Alignment.center,
+        width: 8,
+        height: 8,
+        decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            border: Border.all(color: Colours.PRIMARY_TEXT_COLOR, width: 1),
+            color: isSelected
+                ? Colours.PRIMARY_TEXT_COLOR
+                : Colours.PRIMARY_COLOR));
   }
 }

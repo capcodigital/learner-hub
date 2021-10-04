@@ -17,7 +17,10 @@ part 'auth_event.dart';
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  AuthBloc({required this.isSessionValidUseCase, required this.loginUseCase, required this.logoutUseCase})
+  AuthBloc(
+      {required this.isSessionValidUseCase,
+      required this.loginUseCase,
+      required this.logoutUseCase})
       : super(AuthInitial());
 
   final IsSessionValisUseCase isSessionValidUseCase;
@@ -39,20 +42,24 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       yield LoginLoading();
       final params = LoginParams(email: event.email, password: event.password);
       final result = await loginUseCase(params);
-      yield result.fold((failure) => AuthError(message: _mapFailureToMessage(failure)), (user) => LoginSuccess());
+      yield result.fold(
+              (failure) => AuthError(message: _mapFailureToMessage(failure)),
+              (user) => LoginSuccess());
     }
 
     // Logout
     if (event is LogoutEvent) {
       final result = await logoutUseCase(NoParams());
-      yield result.fold((failure) => AuthError(message: _mapFailureToMessage(failure)), (r) => AuthLogout());
+      yield result.fold(
+              (failure) => AuthError(message: _mapFailureToMessage(failure)),
+              (success) => AuthLogout());
     }
   }
 
   Stream<AuthState> getStateFromCheckAuthResult(Either<Failure, bool> arg) async* {
     yield arg.fold(
       (failure) => InvalidUser(), // If there is an error with auth, treat it as if there is no user
-      (result) => result ? ValidUser() : InvalidUser(),
+      (success) => success ? ValidUser() : InvalidUser(),
     );
   }
 

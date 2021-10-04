@@ -3,18 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_confluence/core/shared_ui/app_drawer.dart';
-import 'package:flutter_confluence/core/shared_ui/custom_appbar.dart';
-import 'package:flutter_confluence/core/shared_ui/primary_button.dart';
 
 import '/core/colours.dart';
 import '/core/constants.dart';
 import '/core/dimen.dart';
+import '/core/shared_ui/app_drawer.dart';
+import '/core/shared_ui/custom_appbar.dart';
+import '/core/shared_ui/primary_button.dart';
 import '/core/utils/media_util.dart';
 import '/features/certifications/presentation/pages/home_page.dart';
-import '/features/login/presentation/pages/login_page.dart';
 import '/features/onboarding/presentation/widgets/onboarding_carousel.dart';
 import '/features/user_registration/presentation/pages/user_details_page.dart';
+import 'login_page.dart';
 
 class OnBoardingPage extends StatelessWidget {
   static const route = 'OnBoardingPage';
@@ -63,51 +63,52 @@ class OnBoardingPage extends StatelessWidget {
   }
 
   Widget buildWithLayoutBuilder(BuildContext context) {
-    return SafeArea(
-      child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const Spacer(),
-            OnBoardingCarousel(),
-            const Spacer(),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                  vertical: Dimen.large_padding,
-                  horizontal: Dimen.small_padding),
-              child: PrimaryButton(
-                  text: 'Log in',
-                  onPressed: () {
-                    login(context);
-                  }),
-            ),
-            getFooter(context),
-          ]),
-    );
+    return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const Spacer(),
+          OnBoardingCarousel(),
+          const Spacer(),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: Dimen.large_padding, horizontal: Dimen.small_padding),
+            child: PrimaryButton(
+                text: 'Log in',
+                onPressed: () {
+                  login(context);
+                }),
+          ),
+          getFooter(context),
+        ]);
   }
 
   Widget getFooter(BuildContext context) {
-    return Container(
-        color: Colours.ALTERNATIVE_COLOR,
-        height: Dimen.dimen_62,
-        width: getMediaWidth(context),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('Not a member yet?',
-                style: Theme.of(context).textTheme.subtitle1),
-            TextButton(
-                style: TextButton.styleFrom(
-                    primary: Colours.ACCENT_COLOR,
-                    textStyle: Theme.of(context)
-                        .textTheme
-                        .subtitle2
-                        ?.copyWith(fontStyle: FontStyle.italic)),
-                onPressed: () {
-                  register(context);
-                },
-                child: const Text('Register!'))
-          ],
-        ));
+    return Column(
+      children: [
+        Container(
+            color: Colours.ALTERNATIVE_COLOR,
+            height: 64,
+            width: getMediaWidth(context),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('Not a member yet?', style: Theme.of(context).textTheme.subtitle1),
+                TextButton(
+                    style: TextButton.styleFrom(
+                        primary: Colours.ACCENT_COLOR,
+                        textStyle: Theme.of(context).textTheme.subtitle2?.copyWith(fontStyle: FontStyle.italic)),
+                    onPressed: () {
+                      register(context);
+                    },
+                    child: const Text('Register!'))
+              ],
+            )),
+        Container(
+          height: Dimen.regular_padding,
+          width: getMediaWidth(context),
+          color: Colors.white,
+        )
+      ],
+    );
   }
 }

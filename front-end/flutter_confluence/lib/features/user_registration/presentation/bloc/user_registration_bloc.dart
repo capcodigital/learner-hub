@@ -12,10 +12,12 @@ part 'user_registration_event.dart';
 
 part 'user_registration_state.dart';
 
-class UserRegistrationBloc extends Bloc<UserRegistrationEvent, UserRegistrationState> {
-  UserRegistrationBloc({required this.registerUserUseCase}) : super(UserRegistrationInitial());
+class UserRegistrationBloc
+    extends Bloc<UserRegistrationEvent, UserRegistrationState> {
+  UserRegistrationBloc({required this.registerUser})
+      : super(UserRegistrationInitial());
 
-  final RegisterUserUseCase registerUserUseCase;
+  final RegisterUser registerUser;
 
   @override
   Stream<UserRegistrationState> mapEventToState(
@@ -23,7 +25,7 @@ class UserRegistrationBloc extends Bloc<UserRegistrationEvent, UserRegistrationS
   ) async* {
     if (event is RegisterUserEvent) {
       yield UserRegistrationLoading();
-      final result = await registerUserUseCase(event.parameters);
+      final result = await registerUser(event.parameters);
       yield result.fold(
               (failure) => UserRegistrationError(errorMessage: _mapFailureToMessage(failure)),
           (user) => UserRegistrationSuccess());

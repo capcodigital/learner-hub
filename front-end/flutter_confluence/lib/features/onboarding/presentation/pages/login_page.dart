@@ -42,7 +42,8 @@ class LoginPageState extends State<LoginPage> with CustomAlertDialog {
         final email = emailController.text;
         final password = passwordController.text;
 
-        BlocProvider.of<AuthBloc>(context).add(LoginEvent(email: email, password: password));
+        BlocProvider.of<AuthBloc>(context)
+            .add(LoginEvent(email: email, password: password));
       }
     }
 
@@ -86,11 +87,14 @@ class LoginPageState extends State<LoginPage> with CustomAlertDialog {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text('Welcome back',
-                      textAlign: TextAlign.center, style: Theme.of(context).textTheme.headline2),
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.headline2),
                   Padding(
                     padding: const EdgeInsets.only(top: Dimen.extra_small_padding, bottom: Dimen.large_padding),
-                    child: Text('To access your account, log in below',
-                        textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyText2),
+                    child: Text(
+                        'To access your account, log in below',
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.bodyText2),
                   ),
                   TextFormField(
                     controller: emailController,

@@ -9,7 +9,7 @@ import 'package:mocktail/mocktail.dart';
 class MockRegisterUserRepository extends Mock implements UserRegistrationRepository {}
 
 void main() {
-  late RegisterUserUseCase useCase;
+  late RegisterUser useCase;
   late MockRegisterUserRepository mockRepository;
 
   setUpAll(() {
@@ -26,7 +26,7 @@ void main() {
 
   setUp(() {
     mockRepository = MockRegisterUserRepository();
-    useCase = RegisterUserUseCase(registrationRepository: mockRepository);
+    useCase = RegisterUser(registrationRepository: mockRepository);
   });
 
   final useCaseParams = UserRegistration(
