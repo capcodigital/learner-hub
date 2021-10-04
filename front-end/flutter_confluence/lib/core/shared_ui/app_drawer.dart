@@ -13,20 +13,23 @@ class AppDrawer extends StatefulWidget {
   const AppDrawer({Key? key, required this.child}) : super(key: key);
   final Widget child;
 
-  static AppDrawerState? of(BuildContext context) => context.findAncestorStateOfType<AppDrawerState>();
+  static AppDrawerState? of(BuildContext context) =>
+      context.findAncestorStateOfType<AppDrawerState>();
 
   @override
   AppDrawerState createState() => AppDrawerState();
 }
 
-class AppDrawerState extends State<AppDrawer> with SingleTickerProviderStateMixin, CustomAlertDialog {
+class AppDrawerState extends State<AppDrawer>
+    with SingleTickerProviderStateMixin, CustomAlertDialog {
   static Duration duration = const Duration(milliseconds: 300);
   late AnimationController _controller;
 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(vsync: this, duration: AppDrawerState.duration);
+    _controller =
+        AnimationController(vsync: this, duration: AppDrawerState.duration);
   }
 
   @override
@@ -110,8 +113,11 @@ class CustomDrawer extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: const [
                 Padding(
-                    padding:
-                        EdgeInsets.only(top: Dimen.dimen_48, bottom: Dimen.dimen_48, right: 0, left: Dimen.dimen_32),
+                    padding: EdgeInsets.only(
+                        top: Dimen.dimen_48,
+                        bottom: Dimen.dimen_48,
+                        right: 0,
+                        left: Dimen.dimen_32),
                     child: Image(
                       image: AssetImage('assets/capco_logo.png'),
                     )),
@@ -120,17 +126,20 @@ class CustomDrawer extends StatelessWidget {
                   id: 1,
                   icon: Icons.home,
                 ),
-                Expanded(
-                  child: MenuButton(
-                    title: 'Code Standards',
-                    id: 2,
-                    icon: Icons.code,
-                  ),
-                ),
                 MenuButton(
-                  icon: Icons.logout,
-                  id: 3,
-                  title: 'Logout',
+                  title: 'Code Standards',
+                  id: 2,
+                  icon: Icons.code,
+                ),
+                Expanded(
+                  child: Align(
+                    alignment: FractionalOffset.bottomCenter,
+                    child: MenuButton(
+                      icon: Icons.logout,
+                      id: 3,
+                      title: 'Logout',
+                    ),
+                  ),
                 ),
               ],
             ),
