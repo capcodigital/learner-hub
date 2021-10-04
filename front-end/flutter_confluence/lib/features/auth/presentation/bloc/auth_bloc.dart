@@ -23,7 +23,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       required this.logoutUseCase})
       : super(AuthInitial());
 
-  final IsSessionValisUseCase isSessionValidUseCase;
+  final IsSessionValidUseCase isSessionValidUseCase;
   final LoginUseCase loginUseCase;
   final LogoutUseCase logoutUseCase;
 

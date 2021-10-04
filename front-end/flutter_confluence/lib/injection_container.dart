@@ -65,7 +65,7 @@ Future<void> init() async {
   sl.registerLazySingleton(() => FirebaseAuth.instance);
   sl.registerLazySingleton<AuthDataSource>(() => FirebaseAuthDataSourceImpl(auth: sl()));
   sl.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(authDataSource: sl()));
-  sl.registerLazySingleton<IsSessionValisUseCase>(() => IsSessionValisUseCase(sl()));
+  sl.registerLazySingleton<IsSessionValidUseCase>(() => IsSessionValidUseCase(sl()));
   sl.registerLazySingleton(() => LoginUseCase(authRepository: sl()));
   sl.registerLazySingleton<LogoutUseCase>(() => LogoutUseCase(logoutRepository: sl()));
   sl.registerFactory(() => AuthBloc(

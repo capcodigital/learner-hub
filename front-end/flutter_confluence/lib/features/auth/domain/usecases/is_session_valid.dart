@@ -4,8 +4,8 @@ import '/core/error/failures.dart';
 import '/core/usecases/usecase.dart';
 import '/features/auth/domain/repositories/auth_repository.dart';
 
-class IsSessionValisUseCase implements UseCase<bool, NoParams> {
-  IsSessionValisUseCase(this.repository);
+class IsSessionValidUseCase implements UseCase<bool, NoParams> {
+  IsSessionValidUseCase(this.repository);
 
   final AuthRepository repository;
 

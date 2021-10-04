@@ -8,12 +8,12 @@ import 'package:mocktail/mocktail.dart';
 class MockAuthRepository extends Mock implements AuthRepository {}
 
 void main() {
-  late IsSessionValisUseCase subject;
+  late IsSessionValidUseCase subject;
   late MockAuthRepository mockRepository;
 
   setUp(() {
     mockRepository = MockAuthRepository();
-    subject = IsSessionValisUseCase(mockRepository);
+    subject = IsSessionValidUseCase(mockRepository);
   });
 
   test(
