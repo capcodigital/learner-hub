@@ -42,4 +42,14 @@ class UserRegistrationRepositoryIml implements UserRegistrationRepository {
       return Left(AuthFailure("It's not possible to create the user"));
     }
   }
+
+  @override
+  Future<Either<AuthFailure, bool>> cleanUpFirebaseUser() async {
+    try {
+      await dataSource.cleanUpFailedUser();
+      return const Right(true);
+    } catch (ex) {
+      return Left(AuthFailure("It's not possible to clean up the user"));
+    }
+  }
 }

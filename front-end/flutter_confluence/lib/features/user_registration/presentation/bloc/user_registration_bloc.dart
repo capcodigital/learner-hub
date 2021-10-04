@@ -24,7 +24,8 @@ class UserRegistrationBloc extends Bloc<UserRegistrationEvent, UserRegistrationS
     if (event is RegisterUserEvent) {
       yield UserRegistrationLoading();
       final result = await registerUserUseCase(event.parameters);
-      yield result.fold((failure) => UserRegistrationError(errorMessage: _mapFailureToMessage(failure)),
+      yield result.fold(
+              (failure) => UserRegistrationError(errorMessage: _mapFailureToMessage(failure)),
           (user) => UserRegistrationSuccess());
     }
   }

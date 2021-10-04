@@ -11,6 +11,8 @@ import '/features/user_registration/data/models/user_registration_model.dart';
 abstract class RegisterUserDataSource {
   Future<User> registerFirebaseUser(String email, String password);
   Future<bool> createUser(UserRegistrationModel userRequest);
+
+  Future<void> cleanUpFailedUser();
 }
 
 class RegisterUserDataSourceImpl implements RegisterUserDataSource {
@@ -72,5 +74,13 @@ class RegisterUserDataSourceImpl implements RegisterUserDataSource {
       print(exception.toString());
       throw ServerException(message: Constants.SERVER_FAILURE_MSG);
     }
+  }
+
+  @override
+  Future<void> cleanUpFailedUser() async {
+    // Delete the user from Firebase, so the user can register again later
+    // Otherwise, the user will get an "EmailAlreadyRegistered" error
+    await auth.currentUser?.delete();
+    await auth.signOut();
   }
 }
