@@ -52,8 +52,10 @@ class UserBioPageState extends State<UserBioPage> {
               Text('About yourself', textAlign: TextAlign.center, style: Theme.of(context).textTheme.headline2),
               Padding(
                 padding: const EdgeInsets.only(top: Dimen.extra_small_padding, bottom: Dimen.large_padding),
-                child: Text('Provide a brief introduction about yourself here. This is what other users will see then they click on your profile.',
-                    textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyText2),
+                child: Text(
+                    'Provide a brief introduction about yourself here. This is what other users will see then they click on your profile.',
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.bodyText2),
               ),
               Expanded(
                 child: TextField(
@@ -62,7 +64,9 @@ class UserBioPageState extends State<UserBioPage> {
                   minLines: null,
                   maxLines: null,
                   style: Theme.of(context).textTheme.bodyText2,
-                  decoration: const InputDecoration(border: UnderlineInputBorder(), hintText: 'Type here...'),
+                  decoration: const InputDecoration(
+                      focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colours.ACCENT_COLOR)),
+                      hintText: 'Type here...'),
                 ),
               ),
               Padding(
