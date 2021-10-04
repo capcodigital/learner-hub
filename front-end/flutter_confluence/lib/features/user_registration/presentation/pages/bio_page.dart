@@ -49,10 +49,10 @@ class UserBioPageState extends State<UserBioPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text('BIO', textAlign: TextAlign.center, style: Theme.of(context).textTheme.headline2),
+              Text('About yourself', textAlign: TextAlign.center, style: Theme.of(context).textTheme.headline2),
               Padding(
                 padding: const EdgeInsets.only(top: Dimen.extra_small_padding, bottom: Dimen.large_padding),
-                child: Text('Do you want to make this completed  message goes here',
+                child: Text('Provide a brief introduction about yourself here. This is what other users will see then they click on your profile.',
                     textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyText2),
               ),
               Expanded(

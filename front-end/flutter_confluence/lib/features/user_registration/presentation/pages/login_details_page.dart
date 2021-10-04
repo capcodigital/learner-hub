@@ -92,11 +92,11 @@ class LoginDetailsPageState extends State<LoginDetailsPage> with CustomAlertDial
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text('Nice title goes here',
+                  Text('Almost done!',
                       textAlign: TextAlign.center, style: Theme.of(context).textTheme.headline2),
                   Padding(
                     padding: const EdgeInsets.only(top: Dimen.extra_small_padding, bottom: Dimen.large_padding),
-                    child: Text('Do you want to make this completed  message goes here',
+                    child: Text('To finish off, create your login credentials',
                         textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyText2),
                   ),
                   TextFormField(

@@ -85,11 +85,11 @@ class LoginPageState extends State<LoginPage> with CustomAlertDialog {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text('Nice title goes here',
+                  Text('Welcome back',
                       textAlign: TextAlign.center, style: Theme.of(context).textTheme.headline2),
                   Padding(
                     padding: const EdgeInsets.only(top: Dimen.extra_small_padding, bottom: Dimen.large_padding),
-                    child: Text('Do you want to make this completed  message goes here',
+                    child: Text('To access your account, log in below',
                         textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyText2),
                   ),
                   TextFormField(

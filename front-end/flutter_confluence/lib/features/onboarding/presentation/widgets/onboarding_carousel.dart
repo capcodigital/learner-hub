@@ -22,11 +22,11 @@ final List<_OnBoardingCarouselItem> _carouselItems = [
   _OnBoardingCarouselItem(
       asset: 'assets/guides_icon.png',
       title: 'Create guides',
-      description: 'Do you want to make this completed  message goes here'),
+      description: 'Keep track of your training by making your own study guide!'),
   _OnBoardingCarouselItem(
       asset: 'assets/chat_icon.png',
       title: 'Chat with colleagues',
-      description: 'Do you want to make this completed  message goes here'),
+      description: 'Talk with your colleagues and share resources about your training materials'),
 ];
 
 List<Widget> _getImageSliders(BuildContext context) {

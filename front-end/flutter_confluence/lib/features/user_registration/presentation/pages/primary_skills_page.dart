@@ -78,10 +78,10 @@ class _PrimarySkillsPageState extends State<PrimarySkillsPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text('Primary skills', textAlign: TextAlign.center, style: Theme.of(context).textTheme.headline1),
+                Text('Your primary skillset', textAlign: TextAlign.center, style: Theme.of(context).textTheme.headline1),
                 Padding(
                   padding: const EdgeInsets.only(top: Dimen.extra_small_padding, bottom: Dimen.large_padding),
-                  child: Text('Do you want to make this completed  message goes here',
+                  child: Text('Select from below the technologies that you primarily work with',
                       textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyText1),
                 ),
                 Expanded(
