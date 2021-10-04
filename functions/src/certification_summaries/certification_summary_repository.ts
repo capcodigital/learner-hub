@@ -2,7 +2,7 @@
 import * as admin from 'firebase-admin';
 import { AssocArray } from '../assoc_array';
 
-const TABLE_CERTIFICATION_SUMMARIES = "Certification Summaries";
+const TABLE_CERTIFICATION_SUMMARIES = "certificationSummaries";
 
 export class SummaryFirestoreError extends Error { }
 export class SummaryNotFound extends SummaryFirestoreError { }
