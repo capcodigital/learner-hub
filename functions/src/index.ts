@@ -5,6 +5,7 @@ import { validateFirebaseIdToken } from "./auth-middleware";
 import * as certSummaryFuncs from "./certification_summaries/certification_summary_funcs";
 import * as userFuncs from "./users/user_funcs";
 import * as userCertFuncs from "./user_certifications/user_certifications_funcs";
+import * as todoFuncs from "./todos/todo_funcs";
 import * as jsend from "./jsend";
 
 // Initialize Firebase app
@@ -99,6 +100,56 @@ app.delete("/certifications/:id", async (req: Request, res: Response) => {
     const certId = req.params.id;
     if (certId == null) res.status(400).send(jsend.error("Bad Request"));
     else userCertFuncs.deleteUserCertification(uid, certId, res);
+});
+
+// TODO ENDPOINTS
+
+// Returns the TODOs of user with passed id.
+// If no id passed, then user is current user.
+app.get("/todos", async (req: Request, res: Response) => {
+    const uid = req.user?.uid as string;
+    todoFuncs.getTODOs(uid, res);
+});
+
+// Creates a TODO to firestore for current user
+app.post("/todos", async (req: Request, res: Response) => {
+    const uid = req.user?.uid as string;
+    const body = req.body as any;
+    if (body == null) res.status(400).send(jsend.error("Bad Request"));
+    else {
+        const todo: TODO = {
+            userId: uid,
+            title: body["title"],
+            content: body["content"],
+            isCompleted: body["isCompleted"]
+        };
+        todoFuncs.addTODO(todo, res);
+    }
+});
+
+// Updates the TODO of given id in firestore
+app.put("/todos/:id", async (req: Request, res: Response) => {
+    const uid = req.user?.uid as string;
+    const todoId = req.params.id;
+    const body = req.body as any;
+    if (todoId == null || body == null) res.status(400).send(jsend.error("Bad Request"));
+    else {
+        const todo: TODO = {
+            userId: uid,
+            title: body["title"],
+            content: body["content"],
+            isCompleted: body["isCompleted"]
+        };
+        todoFuncs.updateTODO(todoId, todo, res);
+    }
+});
+
+// Deletes the TODO of given id in firestore
+app.delete("/todos/:id", async (req: Request, res: Response) => {
+    const uid = req.user?.uid as string;
+    const todoId = req.params.id;
+    if (todoId == null) res.status(400).send(jsend.error("Bad Request"));
+    else todoFuncs.deleteTODO(uid, todoId, res);
 });
 
 // This HTTPS endpoint can only be accessed by your Firebase Users.

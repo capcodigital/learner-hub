@@ -4,5 +4,6 @@ interface CertificationSummary {
     platform: string,
     description: string,
     link: string,
-    image: string
+    image: string,
+    isIndustryRecognised: boolean
 }
