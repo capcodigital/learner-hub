@@ -2,7 +2,7 @@
 import * as admin from 'firebase-admin';
 import { AssocArray } from '../assoc_array';
 
-const TABLE_CERTIFICATION_SUMMARIES = "Certification Summaries";
+const TABLE_CERTIFICATION_SUMMARIES = "certificationSummaries";
 
 export class SummaryFirestoreError extends Error { }
 export class SummaryNotFound extends SummaryFirestoreError { }
@@ -49,7 +49,8 @@ function toJson(id: string, item: any): any {
         "platform": item.platform,
         "description": item.description,
         "link": item.link,
-        "image": item.image
+        "image": item.image,
+        "isIndustryRecognised": item.isIndustryRecognised
     }
 }
 
