@@ -34,11 +34,8 @@ export async function getCertificationSummary(id: string): Promise<any> {
 export async function saveSummary(summary: CertificationSummary): Promise<any> {
     const db = admin.firestore();
     const col = db.collection(TABLE_CERTIFICATION_SUMMARIES);
-    const snap = await col.where("title", "==", summary.title).get();
-    if (snap.empty) {
-        const result = await col.add(summary);
-        return toJson(result.id, summary);
-    }
+    const result = await col.add(summary);
+    return toJson(result.id, summary);
 }
 
 function toJson(id: string, item: any): any {
