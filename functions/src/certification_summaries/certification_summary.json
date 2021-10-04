@@ -102,14 +102,14 @@
               },
               {
                 "title": "professional cloud security engineer",
-                "description": "Professional Cloud Security Engineers allow organisations to design and deploy secure workloads and infrastructure on Google Cloud. Utilising their knowledge of both security best practices and industry requirements they can leverage Google security technologies for their projects. Proficient in all aspects of cloud Security such as identity and access management , defining organisational policies, configuration of network security defences and collection and analysing Google Cloud logs.",
+                "description": "Professional Cloud Security Engineers allow organisations to design and deploy secure workloads and infrastructure on Google Cloud. Utilising their knowledge of both security best practices and industry requirements they can leverage Google security technologies for their projects. Proficient in all aspects of cloud Security such as identity and access management, defining organisational policies, configuration of network security defences and collection and analysing Google Cloud logs.",
                 "link": "https://cloud.google.com/certification/cloud-security-engineer",
                 "image": "https://images.credential.net/badge/tiny/j6plm80f_badge.png",
                 "isIndustryRecognised": true
               },
               {
                 "title": "professional cloud network engineer",
-                "description": "Professional Cloud Network Engineers implement and manage network architectures on Google Cloud either working on networking or cloud teams with the architects who design the cloud infrastructure. They use the Google Cloud Console and/or CLI, leveraging their experience with network services, container networking, hybrid and multi-cloud connectivity, implementing VPC's and security for established architectures.",
+                "description": "Professional Cloud Network Engineers implement and manage network architectures on Google Cloud either working on networking or cloud teams with the architects who design the cloud infrastructure. They use the Google Cloud Console and/or CLI, leveraging their experience with network services, container networking, hybrid and multi cloud connectivity, implementing VPCs and security for established architectures.",
                 "link": "https://cloud.google.com/certification/cloud-network-engineer",
                 "image": "https://images.credential.net/badge/tiny/qog5f4lm_badge.png",
                 "isIndustryRecognised": true
@@ -230,7 +230,7 @@
               },
               {
                 "title": "certififed information systems security professional",
-                "description": "Certified Information Systems Security Professionals are responsible for the security of data that is being stored on a computer system and all that that general idea entails. They are capable of keeping private and confidential data as such and non-public. They research, develop, implement, asses and review companies' information security systems. They inform clients of possible threats, assist in selecting and installing necessary software and ensure the security policies are extensive enough and being correctly carried out. They can easily describe problems relating to, but not limited to, architecture, identity control and safeguarding said information systems.",
+                "description": "Certified Information Systems Security Professionals are responsible for the security of data that is being stored on a computer system and all that that general idea entails. They are capable of keeping private and confidential data as such and non public. They research, develop, implement, asses and review companies information security systems. They inform clients of possible threats, assist in selecting and installing necessary software and ensure the security policies are extensive enough and being correctly carried out. They can easily describe problems relating to, but not limited to, architecture, identity control and safeguarding said information systems.",
                 "link": "https://www.isc2.org/Certifications/CISSP-Concentrations",
                 "image": "https://www.isc2.org/-/media/ISC2/Logos/81-Sponsors-2/logo-isc2-all-iss.ashx?h=105&w=187&la=en&hash=AA3C8CB5D26E54F98E1C31B078C6C50CA3286ED4",
                 "isIndustryRecognised": true
@@ -334,7 +334,7 @@
             "android": [
               {
                 "title": "associate android certification",
-                "decription": "This certification grants engineers the ability to construct apps that take advantage of the Android OS's in built features from messaging to multitasking, connectivity and media service and many more in order to design and build full-featured apps that are primarily for mobile devices. They also have a good understanding of User Interface design and how to create applications that are clean and effective in their use of the Android UI. They are able to leverage the Android framework in order to perform/schedule data storage and retrieval within a mobile environment. Finally they also understand both debugging and testing within Android Studio and utilise this knowledge to create more reliable and robust applications.",
+                "decription": "This certification grants engineers the ability to construct apps that take advantage of the Android OS in built features from messaging to multitasking, connectivity and media service and many more in order to design and build full featured apps that are primarily for mobile devices. They also have a good understanding of User Interface design and how to create applications that are clean and effective in their use of the Android UI. They are able to leverage the Android framework in order to perform/schedule data storage and retrieval within a mobile environment. Finally they also understand both debugging and testing within Android Studio and utilise this knowledge to create more reliable and robust applications.",
                 "link": "https://developers.google.com/certification/associate-android-developer",
                 "image": "https://developers-dot-devsite-v2-prod.appspot.com/certification/directory/images/badges/associate_android_developer.png",
                 "isIndustryRecognised": true
