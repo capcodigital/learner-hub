@@ -5,7 +5,7 @@ import '/core/colours.dart';
 import '/core/constants.dart';
 import '/core/dimen.dart';
 import '/core/shared_ui/primary_button.dart';
-import '/features/user_registration/domain/entities/user_registration_navigation_parameters.dart';
+import '/features/user_registration/domain/entities/user_registration.dart';
 import '/features/user_registration/presentation/pages/secondary_skills_page.dart';
 import '/features/user_registration/presentation/widgets/skill_chip.dart';
 
@@ -13,7 +13,7 @@ class PrimarySkillsPage extends StatefulWidget {
   const PrimarySkillsPage({Key? key, required this.navParameters}) : super(key: key);
 
   static const route = 'PrimarySkillsPage';
-  final UserRegistrationNavigationParameters navParameters;
+  final UserRegistration navParameters;
 
   @override
   _PrimarySkillsPageState createState() {
@@ -57,7 +57,7 @@ class _PrimarySkillsPageState extends State<PrimarySkillsPage> {
 
     void onNext() {
       final selectedSkills = _skillItems.where((element) => element.isPrimary).toList();
-      final navParameters = widget.navParameters..primarySkills = selectedSkills;
+      final navParameters = widget.navParameters..primarySkills = selectedSkills.map((e) => e.name).toList();
 
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => SecondarySkillsPage(navParameters: navParameters)));
@@ -86,7 +86,7 @@ class _PrimarySkillsPageState extends State<PrimarySkillsPage> {
                 ),
                 Expanded(
                   child: SingleChildScrollView(
-                    scrollDirection: Axis.vertical,
+                    scrollDirection: Axis.horizontal,
                     child: Wrap(
                       spacing: Dimen.extra_small_padding,
                       runSpacing: Dimen.extra_small_padding / 2,

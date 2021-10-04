@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_confluence/core/error/auth_failures.dart';
-import 'package:flutter_confluence/features/auth/domain/entities/user.dart';
 import 'package:flutter_confluence/features/user_registration/domain/entities/user_registration.dart';
 import 'package:flutter_confluence/features/user_registration/domain/repositories/user_registration_repository.dart';
 import 'package:flutter_confluence/features/user_registration/domain/usecases/register_user.dart';
@@ -30,9 +29,7 @@ void main() {
     useCase = RegisterUserUseCase(registrationRepository: mockRepository);
   });
 
-  const testUser = User(uid: '123');
-
-  const useCaseParams = RegisterParams(
+  final useCaseParams = UserRegistration(
     name: 'testName',
     lastName: 'testLastName',
     jobTitle: 'testJobTitle',
@@ -47,7 +44,7 @@ void main() {
     'should create a user if the firebase registration succeeds',
     () async {
       // arrange
-      when(() => mockRepository.registerFirebaseUser(any())).thenAnswer((_) => Future.value(const Right(testUser)));
+      when(() => mockRepository.registerFirebaseUser(any(), any())).thenAnswer((_) => Future.value(const Right(true)));
       when(() => mockRepository.createUser(any())).thenAnswer((_) => Future.value(const Right(true)));
 
       // Act
@@ -63,7 +60,7 @@ void main() {
     "should don't create a user if the firebase registration fails",
     () async {
       // arrange
-      when(() => mockRepository.registerFirebaseUser(any()))
+      when(() => mockRepository.registerFirebaseUser(any(), any()))
           .thenAnswer((_) => Future.value(Left(WeakPasswordFailure())));
       when(() => mockRepository.createUser(any())).thenAnswer((_) => Future.value(const Right(false)));
 

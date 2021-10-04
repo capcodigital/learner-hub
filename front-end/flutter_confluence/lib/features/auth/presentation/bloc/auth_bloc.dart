@@ -8,7 +8,7 @@ import 'package:meta/meta.dart';
 import '/core/error/auth_failures.dart';
 import '/core/error/failures.dart';
 import '/core/usecases/usecase.dart';
-import '/features/auth/domain/usecases/check_auth.dart';
+import '/features/auth/domain/usecases/is_session_valid.dart';
 import '/features/auth/domain/usecases/login.dart';
 import '/features/auth/domain/usecases/logout.dart';
 
@@ -17,10 +17,10 @@ part 'auth_event.dart';
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  AuthBloc({required this.checkAuthUseCase, required this.loginUseCase, required this.logoutUseCase})
+  AuthBloc({required this.isSessionValidUseCase, required this.loginUseCase, required this.logoutUseCase})
       : super(AuthInitial());
 
-  final CheckAuthUseCase checkAuthUseCase;
+  final IsSessionValisUseCase isSessionValidUseCase;
   final LoginUseCase loginUseCase;
   final LogoutUseCase logoutUseCase;
 
@@ -30,7 +30,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     // Add user check for initial preloader
     if (event is CheckAuthEvent) {
-      final result = await checkAuthUseCase(NoParams());
+      final result = await isSessionValidUseCase(NoParams());
       yield* getStateFromCheckAuthResult(result);
     }
 
@@ -38,13 +38,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     if (event is LoginEvent) {
       yield LoginLoading();
       final params = LoginParams(email: event.email, password: event.password);
-      final result = await loginUseCase.call(params);
+      final result = await loginUseCase(params);
       yield result.fold((failure) => AuthError(message: _mapFailureToMessage(failure)), (user) => LoginSuccess());
     }
 
     // Logout
     if (event is LogoutEvent) {
-      final result = await logoutUseCase.call(NoParams());
+      final result = await logoutUseCase(NoParams());
       yield result.fold((failure) => AuthError(message: _mapFailureToMessage(failure)), (r) => AuthLogout());
     }
   }

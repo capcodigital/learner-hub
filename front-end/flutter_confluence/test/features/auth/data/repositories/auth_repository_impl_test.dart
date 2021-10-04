@@ -2,7 +2,6 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_confluence/core/error/auth_failures.dart';
 import 'package:flutter_confluence/features/auth/data/datasources/auth_data_source.dart';
 import 'package:flutter_confluence/features/auth/data/repositories/auth_repository_impl.dart';
-import 'package:flutter_confluence/features/auth/domain/entities/user.dart';
 import 'package:flutter_confluence/features/auth/domain/repositories/auth_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -24,7 +23,7 @@ void main() {
       when(() => mockDataSource.checkLocalUserLogged()).thenAnswer((_) => Future.value(true));
 
       // act
-      final result = await repository.checkCachedAuth();
+      final result = await repository.isValidSession();
 
       // assert
       verify(() => mockDataSource.checkLocalUserLogged()).called(1);
@@ -36,7 +35,7 @@ void main() {
       when(() => mockDataSource.checkLocalUserLogged()).thenAnswer((_) => Future.value(false));
 
       // act
-      final result = await repository.checkCachedAuth();
+      final result = await repository.isValidSession();
 
       // assert
       verify(() => mockDataSource.checkLocalUserLogged()).called(1);
@@ -48,7 +47,7 @@ void main() {
     test('Should return a user when the email and password are correct', () async {
       // arrange
       when(() => mockDataSource.signInWithEmailAndPassword(any(), any()))
-          .thenAnswer((_) => Future.value(const User(uid: '1234')));
+          .thenAnswer((_) => Future.value(true));
 
       // act
       final result = await repository.loginUser('email', 'password');
@@ -56,7 +55,7 @@ void main() {
       // assert
       verify(() => mockDataSource.signInWithEmailAndPassword(any(), any())).called(1);
       result.fold((l) => throwsAssertionError, (result) {
-        expect(result, const User(uid: '1234'));
+        expect(result, true);
       });
     });
 

@@ -26,7 +26,7 @@ import '/features/user_registration/data/repositories/user_registration_reposito
 import '/features/user_registration/domain/repositories/user_registration_repository.dart';
 import '/features/user_registration/domain/usecases/register_user.dart';
 import '/features/user_registration/presentation/bloc/user_registration_bloc.dart';
-import 'features/auth/domain/usecases/check_auth.dart';
+import 'features/auth/domain/usecases/is_session_valid.dart';
 import 'features/auth/domain/usecases/login.dart';
 
 final sl = GetIt.instance;
@@ -65,11 +65,11 @@ Future<void> init() async {
   sl.registerLazySingleton(() => FirebaseAuth.instance);
   sl.registerLazySingleton<AuthDataSource>(() => FirebaseAuthDataSourceImpl(auth: sl()));
   sl.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(authDataSource: sl()));
-  sl.registerLazySingleton<CheckAuthUseCase>(() => CheckAuthUseCase(sl()));
+  sl.registerLazySingleton<IsSessionValisUseCase>(() => IsSessionValisUseCase(sl()));
   sl.registerLazySingleton(() => LoginUseCase(authRepository: sl()));
   sl.registerLazySingleton<LogoutUseCase>(() => LogoutUseCase(logoutRepository: sl()));
   sl.registerFactory(() => AuthBloc(
-        checkAuthUseCase: sl(),
+        isSessionValidUseCase: sl(),
         loginUseCase: sl(),
         logoutUseCase: sl(),
       ));

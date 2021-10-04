@@ -1,55 +1,23 @@
 import 'package:dartz/dartz.dart';
-import 'package:equatable/equatable.dart';
+import 'package:flutter_confluence/core/error/auth_failures.dart';
 
 import '/core/error/failures.dart';
 import '/core/usecases/usecase.dart';
 import '/features/user_registration/domain/entities/user_registration.dart';
 import '/features/user_registration/domain/repositories/user_registration_repository.dart';
 
-class RegisterParams extends Equatable {
-  const RegisterParams({
-    required this.name,
-    required this.lastName,
-    required this.jobTitle,
-    required this.primarySkills,
-    required this.secondarySkills,
-    required this.bio,
-    required this.email,
-    required this.password,
-  });
-
-  final String name;
-  final String lastName;
-  final String jobTitle;
-  final List<String> primarySkills;
-  final List<String> secondarySkills;
-  final String bio;
-  final String email;
-  final String password;
-
-  @override
-  List<Object> get props => [name, lastName, jobTitle, primarySkills, secondarySkills, bio, email, password];
-}
-
-class RegisterUserUseCase implements UseCase<bool, RegisterParams> {
+class RegisterUserUseCase implements UseCase<bool, UserRegistration> {
   RegisterUserUseCase({required this.registrationRepository});
 
   final UserRegistrationRepository registrationRepository;
 
   @override
-  Future<Either<Failure, bool>> call(RegisterParams parameters) async {
-    final newUser = UserRegistration(
-        name: parameters.name,
-        lastName: parameters.lastName,
-        jobTitle: parameters.jobTitle,
-        primarySkills: parameters.primarySkills,
-        secondarySkills: parameters.secondarySkills,
-        bio: parameters.bio,
-        email: parameters.email,
-        password: parameters.password);
-
-    final registerFirebaseUserResult = await registrationRepository.registerFirebaseUser(newUser);
+  Future<Either<Failure, bool>> call(UserRegistration user) async {
+    if (user.email == null || user.password == null) {
+      return Left(AuthFailure('Email and password cannot be null'));
+    }
+    final registerFirebaseUserResult = await registrationRepository.registerFirebaseUser(user.email!, user.password!);
     return registerFirebaseUserResult.fold(
-        (failure) => Left(failure), (success) => registrationRepository.createUser(newUser));
+        (failure) => Left(failure), (success) => registrationRepository.createUser(user));
   }
 }

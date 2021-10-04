@@ -100,9 +100,9 @@ void main() {
       when(() => mockAuth.signInWithEmailAndPassword(email: any(named: 'email'), password: any(named: 'password')))
           .thenAnswer((_) => Future.value(firebaseCredentials));
       // act
-      final user = await dataSource.signInWithEmailAndPassword('email', 'password');
+      final isSuccess = await dataSource.signInWithEmailAndPassword('email', 'password');
       // assert
-      expect(user.uid, uid);
+      expect(isSuccess, true);
     });
   });
 }

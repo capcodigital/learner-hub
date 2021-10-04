@@ -10,7 +10,6 @@ import '/features/user_registration/data/models/user_registration_model.dart';
 
 abstract class RegisterUserDataSource {
   Future<User> registerFirebaseUser(String email, String password);
-
   Future<bool> createUser(UserRegistrationModel userRequest);
 }
 

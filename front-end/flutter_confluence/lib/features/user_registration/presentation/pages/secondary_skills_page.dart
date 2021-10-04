@@ -5,7 +5,7 @@ import '/core/colours.dart';
 import '/core/constants.dart';
 import '/core/dimen.dart';
 import '/core/shared_ui/primary_button.dart';
-import '/features/user_registration/domain/entities/user_registration_navigation_parameters.dart';
+import '/features/user_registration/domain/entities/user_registration.dart';
 import '/features/user_registration/presentation/pages/bio_page.dart';
 import '/features/user_registration/presentation/widgets/skill_chip.dart';
 
@@ -13,7 +13,7 @@ class SecondarySkillsPage extends StatefulWidget {
   const SecondarySkillsPage({Key? key, required this.navParameters}) : super(key: key);
 
   static const route = 'SecondarySkillsPage';
-  final UserRegistrationNavigationParameters navParameters;
+  final UserRegistration navParameters;
 
   @override
   SecondarySkillsPageState createState() {
@@ -30,8 +30,8 @@ class SecondarySkillsPageState extends State<SecondarySkillsPage> {
 
     final selectedPrimarySkills = widget.navParameters.primarySkills ?? [];
     _skillItems = Constants.SKILLS
-        .map((skill) => Skill(
-            name: skill, isPrimary: selectedPrimarySkills.any((element) => element.name == skill), isSecondary: false))
+        .map((skill) =>
+            Skill(name: skill, isPrimary: selectedPrimarySkills.any((element) => element == skill), isSecondary: false))
         .toList();
   }
 
@@ -65,7 +65,7 @@ class SecondarySkillsPageState extends State<SecondarySkillsPage> {
 
     void onNext() {
       final selectedSkills = _skillItems.where((element) => element.isSecondary).toList();
-      final navParameters = widget.navParameters..secondarySkills = selectedSkills;
+      final navParameters = widget.navParameters..secondarySkills = selectedSkills.map((e) => e.name).toList();
 
       Navigator.push(context, MaterialPageRoute(builder: (context) => UserBioPage(navParameters: navParameters)));
     }

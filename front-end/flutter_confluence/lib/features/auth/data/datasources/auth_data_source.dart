@@ -1,12 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart' as firebase;
 
 import '/core/error/auth_failures.dart';
-import '/features/auth/domain/entities/user.dart';
 
 abstract class AuthDataSource {
   Future<bool> checkLocalUserLogged();
 
-  Future<User> signInWithEmailAndPassword(String email, String password);
+  Future<bool> signInWithEmailAndPassword(String email, String password);
 
   Future<void> logout();
 }
@@ -26,16 +25,12 @@ class FirebaseAuthDataSourceImpl implements AuthDataSource {
   }
 
   @override
-  Future<User> signInWithEmailAndPassword(String email, String password) async {
+  Future<bool> signInWithEmailAndPassword(String email, String password) async {
     try {
       final credentials = await auth.signInWithEmailAndPassword(email: email, password: password);
       final firebaseUser = credentials.user;
       if (firebaseUser != null) {
-        return User(
-            uid: firebaseUser.uid,
-            email: firebaseUser.email,
-            displayName: firebaseUser.displayName,
-            photoUrl: firebaseUser.photoURL);
+        return true;
       } else {
         throw AuthFailure('Is not possible to get the firebase user');
       }

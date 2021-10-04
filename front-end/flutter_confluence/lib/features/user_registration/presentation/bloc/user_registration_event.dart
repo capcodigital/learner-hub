@@ -5,5 +5,5 @@ abstract class UserRegistrationEvent {}
 class RegisterUserEvent extends UserRegistrationEvent {
   RegisterUserEvent({required this.parameters});
 
-  final UserRegistrationNavigationParameters parameters;
+  final UserRegistration parameters;
 }

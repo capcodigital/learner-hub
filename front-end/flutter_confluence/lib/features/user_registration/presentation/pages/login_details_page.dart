@@ -11,14 +11,14 @@ import '/core/shared_ui/primary_button.dart';
 import '/core/utils/error_messages.dart';
 import '/core/utils/validators/email_validator.dart';
 import '/features/certifications/presentation/pages/home_page.dart';
-import '/features/user_registration/domain/entities/user_registration_navigation_parameters.dart';
+import '/features/user_registration/domain/entities/user_registration.dart';
 import '/features/user_registration/presentation/bloc/user_registration_bloc.dart';
 
 class LoginDetailsPage extends StatefulWidget {
   const LoginDetailsPage({Key? key, required this.navParameters}) : super(key: key);
 
   static const route = 'LoginDetailsPage';
-  final UserRegistrationNavigationParameters navParameters;
+  final UserRegistration navParameters;
 
   @override
   LoginDetailsPageState createState() {

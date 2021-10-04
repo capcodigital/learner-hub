@@ -1,21 +1,21 @@
 class UserRegistration {
   UserRegistration({
-    required this.name,
-    required this.lastName,
-    required this.jobTitle,
-    required this.primarySkills,
-    required this.secondarySkills,
-    required this.bio,
-    required this.email,
-    required this.password,
+    this.name,
+    this.lastName,
+    this.jobTitle,
+    this.primarySkills,
+    this.secondarySkills,
+    this.bio,
+    this.email,
+    this.password,
   });
 
-  final String name;
-  final String lastName;
-  final String jobTitle;
-  final List<String> primarySkills;
-  final List<String> secondarySkills;
-  final String bio;
-  final String email;
-  final String password;
+  String? name;
+  String? lastName;
+  String? jobTitle;
+  List<String>? primarySkills;
+  List<String>? secondarySkills;
+  String? bio;
+  String? email;
+  String? password;
 }

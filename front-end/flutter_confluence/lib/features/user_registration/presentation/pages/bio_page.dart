@@ -4,13 +4,13 @@ import 'package:flutter/widgets.dart';
 import '/core/colours.dart';
 import '/core/dimen.dart';
 import '/core/shared_ui/primary_button.dart';
-import '/features/user_registration/domain/entities/user_registration_navigation_parameters.dart';
+import '/features/user_registration/domain/entities/user_registration.dart';
 import '/features/user_registration/presentation/pages/login_details_page.dart';
 
 class UserBioPage extends StatefulWidget {
   const UserBioPage({Key? key, required this.navParameters}) : super(key: key);
 
-  final UserRegistrationNavigationParameters navParameters;
+  final UserRegistration navParameters;
 
   static const route = 'UserBioPage';
 

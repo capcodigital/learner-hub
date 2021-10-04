@@ -1,9 +1,6 @@
 import 'package:dartz/dartz.dart';
 
 import '/core/error/auth_failures.dart';
-import '/core/error/failures.dart';
-import '/features/auth/data/models/user_model.dart';
-import '/features/auth/domain/entities/user.dart';
 import '/features/user_registration/data/datasources/register_user_data_source.dart';
 import '/features/user_registration/data/models/user_registration_model.dart';
 import '/features/user_registration/domain/entities/user_registration.dart';
@@ -15,14 +12,10 @@ class UserRegistrationRepositoryIml implements UserRegistrationRepository {
   final RegisterUserDataSource dataSource;
 
   @override
-  Future<Either<AuthFailure, User>> registerFirebaseUser(UserRegistration user) async {
+  Future<Either<AuthFailure, bool>> registerFirebaseUser(String email, String password) async {
     try {
-      final firebaseUser = await dataSource.registerFirebaseUser(user.email, user.password);
-      return Right(UserModel(
-          uid: firebaseUser.uid,
-          displayName: firebaseUser.displayName,
-          email: firebaseUser.email,
-          photoUrl: firebaseUser.photoURL));
+      await dataSource.registerFirebaseUser(email, password);
+      return const Right(true);
     } on AuthFailure catch (failure) {
       return Left(failure);
     } on Exception catch (ex) {

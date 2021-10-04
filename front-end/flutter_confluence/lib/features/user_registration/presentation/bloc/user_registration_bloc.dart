@@ -5,7 +5,7 @@ import 'package:equatable/equatable.dart';
 
 import '/core/error/auth_failures.dart';
 import '/core/error/failures.dart';
-import '/features/user_registration/domain/entities/user_registration_navigation_parameters.dart';
+import '/features/user_registration/domain/entities/user_registration.dart';
 import '/features/user_registration/domain/usecases/register_user.dart';
 
 part 'user_registration_event.dart';
@@ -23,17 +23,7 @@ class UserRegistrationBloc extends Bloc<UserRegistrationEvent, UserRegistrationS
   ) async* {
     if (event is RegisterUserEvent) {
       yield UserRegistrationLoading();
-      final parameters = event.parameters;
-      final params = RegisterParams(
-          name: parameters.name!,
-          lastName: parameters.lastName!,
-          jobTitle: parameters.jobTitle!,
-          primarySkills: parameters.primarySkills?.map((e) => e.name).toList() ?? [],
-          secondarySkills: parameters.secondarySkills?.map((e) => e.name).toList() ?? [],
-          bio: parameters.bio!,
-          email: parameters.email!,
-          password: parameters.password!);
-      final result = await registerUserUseCase.call(params);
+      final result = await registerUserUseCase(event.parameters);
       yield result.fold((failure) => UserRegistrationError(errorMessage: _mapFailureToMessage(failure)),
           (user) => UserRegistrationSuccess());
     }

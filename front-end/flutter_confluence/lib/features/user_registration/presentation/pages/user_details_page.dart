@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 import '/core/colours.dart';
 import '/core/dimen.dart';
 import '/core/shared_ui/primary_button.dart';
-import '/features/user_registration/domain/entities/user_registration_navigation_parameters.dart';
+import '/features/user_registration/domain/entities/user_registration.dart';
 import '/features/user_registration/presentation/pages/primary_skills_page.dart';
 
 class UserDetailsPage extends StatefulWidget {
@@ -38,8 +38,7 @@ class UserDetailsPageState extends State<UserDetailsPage> {
         final lastName = lastNameController.text;
         final jobTitle = jobTitleController.text;
 
-        final navigationParameters =
-            UserRegistrationNavigationParameters(name: name, lastName: lastName, jobTitle: jobTitle);
+        final navigationParameters = UserRegistration(name: name, lastName: lastName, jobTitle: jobTitle);
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => PrimarySkillsPage(navParameters: navigationParameters)));
       }

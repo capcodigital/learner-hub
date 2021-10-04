@@ -13,11 +13,6 @@ class Skill extends Equatable {
   @override
   List<Object?> get props => [name, isPrimary, isSecondary];
 
-  @override
-  String toString() {
-    return "$name: ${isPrimary ? 'Primary' : ""} ${isSecondary ? 'Secondary' : ""}";
-  }
-
   Skill copyWith({String? name, bool? isPrimary, bool? isSecondary}) {
     return Skill(
         name: name ?? this.name, isPrimary: isPrimary ?? this.isPrimary, isSecondary: isSecondary ?? this.isSecondary);
