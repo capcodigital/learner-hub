@@ -72,4 +72,22 @@ void main() {
       verifyNever(() => mockRepository.createUser(any()));
     },
   );
+
+  test(
+    'should clean up the firebase user if cannot create a user',
+    () async {
+      // arrange
+      when(() => mockRepository.registerFirebaseUser(any(), any())).thenAnswer((_) => Future.value(const Right(true)));
+      when(() => mockRepository.createUser(any())).thenAnswer((_) => Future.value(Left(AuthFailure(''))));
+      when(() => mockRepository.cleanUpFirebaseUser()).thenAnswer((_) => Future.value(const Right(true)));
+
+      // Act
+      final result = await useCase(useCaseParams);
+
+      // assert
+      expect(result, const Right(true));
+      verify(() => mockRepository.createUser(any()));
+      verify(() => mockRepository.cleanUpFirebaseUser());
+    },
+  );
 }

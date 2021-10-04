@@ -20,6 +20,10 @@ class NoCurrentUserLogged extends AuthFailure {
   NoCurrentUserLogged() : super('User is not logged or the token is expired or invalid');
 }
 
+class CreateUserError extends AuthFailure {
+  CreateUserError() : super("It's not possible to create the user in the remote DB");
+}
+
 class AuthFailure extends Failure {
   AuthFailure(this.reason);
 

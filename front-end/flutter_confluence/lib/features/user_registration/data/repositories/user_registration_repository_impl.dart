@@ -25,21 +25,25 @@ class UserRegistrationRepositoryIml implements UserRegistrationRepository {
 
   @override
   Future<Either<AuthFailure, bool>> createUser(UserRegistration user) async {
-    final userRequest = UserRegistrationModel(
-        name: user.name,
-        lastName: user.lastName,
-        jobTitle: user.jobTitle,
-        primarySkills: user.primarySkills,
-        secondarySkills: user.secondarySkills,
-        bio: user.bio,
-        email: user.email,
-        password: user.password);
+    try {
+      final userRequest = UserRegistrationModel(
+          name: user.name,
+          lastName: user.lastName,
+          jobTitle: user.jobTitle,
+          primarySkills: user.primarySkills,
+          secondarySkills: user.secondarySkills,
+          bio: user.bio,
+          email: user.email,
+          password: user.password);
 
-    final isUserCreated = await dataSource.createUser(userRequest);
-    if (isUserCreated) {
-      return const Right(true);
-    } else {
-      return Left(AuthFailure("It's not possible to create the user"));
+      final isUserCreated = await dataSource.createUser(userRequest);
+      if (isUserCreated) {
+        return const Right(true);
+      } else {
+        return Left(CreateUserError());
+      }
+    } catch (ex) {
+      return Left(CreateUserError());
     }
   }
 
