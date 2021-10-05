@@ -8,10 +8,8 @@ class LayoutConstants {
   static const large_padding = 32.0;
   static const extra_large_padding = 64.0;
 
-  // Legacy
-  static const dimen_32 = 32.0;
-  static const dimen_48 = 48.0;
-
+  static const app_drawer_logo_left_padding = 32.0;
+  static const app_drawer_logo_vertical_padding = 48.0;
   static const mainBtnHeight = 60.0;
   static const mainBtnWidth = 230.0;
   static const mainBtnBorderRadius = 20.0;
@@ -19,25 +17,23 @@ class LayoutConstants {
   static const bgFrontLayerLeft = 88.0;
   static const bgFrontLayerTop = 270.0;
 
-  static const scale_3_100 = 0.03;
-  static const scale_2_100 = 0.02;
-  static const scale_4_100 = 0.04;
-  static const scale_6_100 = 0.06;
-  static const scale_9_100 = 0.09;
-  static const scale_5_100 = 0.05;
-  static const scale_12_100 = 0.12;
-  static const scale_13_100 = 0.13;
-  static const scale_20_100 = 0.2;
-  static const scale_35_100 = 0.35;
-  static const scale_40_100 = 0.4;
-  static const scale_50_100 = 0.5;
-  static const scale_70_100 = 0.7;
-  static const scale_80_100 = 0.8;
-  static const scale_90_100 = 0.9;
-  static const scale_95_100 = 0.95;
-  static const scale_25_1000 = 0.025;
-  static const scale_56_1000 = 0.056;
-
-  static const ratio_40_55 = 4 / 5.5;
-  static const ratio_80_115 = 8 / 11.5;
+  static const extra_small_scale = 0.12;
+  static const small_scale = 0.2;
+  static const medium_scale = 0.4;
+  static const half_size_scale = 0.5;
+  static const normal_scale = 0.7;
+  static const big_scale = 0.8;
+  static const large_scale = 0.9;
+  static const extra_large_scale = 0.95;
+  
+  static const list_row_icon_border_scale_small = 0.02;
+  static const toggle_space_top_scale_small = 0.03;
+  static const home_vertical_padding_scale_large = 0.04;
+  static const toggle_space_top_scale_large = 0.05;
+  static const parallax_layer_left_scale_small = 0.06;
+  static const home_horizontal_padding_scale_small = 0.09;
+  static const search_box_height_scale_small = 0.13;
+  static const parallax_layer_left_scale_large = 0.35;
+  static const list_row_icon_border_scale_large = 0.025;
+  static const search_box_height_scale_large = 0.056;
 }

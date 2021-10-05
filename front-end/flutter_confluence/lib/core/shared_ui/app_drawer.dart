@@ -104,7 +104,7 @@ class CustomDrawer extends StatelessWidget {
       ),
       backgroundColor: Colors.black,
       body: Container(
-        height: getHeight(context, LayoutConstants.scale_95_100),
+        height: getHeight(context, LayoutConstants.extra_large_scale),
         color: Colors.black,
         child: SafeArea(
           child: Theme(
@@ -114,10 +114,10 @@ class CustomDrawer extends StatelessWidget {
               children: const [
                 Padding(
                     padding: EdgeInsets.only(
-                        top: LayoutConstants.dimen_48,
-                        bottom: LayoutConstants.dimen_48,
+                        top: LayoutConstants.app_drawer_logo_vertical_padding,
+                        bottom: LayoutConstants.app_drawer_logo_vertical_padding,
                         right: 0,
-                        left: LayoutConstants.dimen_32),
+                        left: LayoutConstants.app_drawer_logo_left_padding),
                     child: Image(
                       image: AssetImage('assets/capco_logo.png'),
                     )),

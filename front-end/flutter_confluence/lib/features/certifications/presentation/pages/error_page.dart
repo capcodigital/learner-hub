@@ -56,14 +56,14 @@ class ErrorPage extends StatelessWidget {
         ),
         Container(
           alignment: Alignment.center,
-          width: getWidth(context, LayoutConstants.scale_80_100),
+          width: getWidth(context, LayoutConstants.big_scale),
           child: Text(
             error.message,
             style:
                 Theme.of(context).textTheme.headline2?.copyWith(fontSize: 18),
             textAlign: TextAlign.center,
           ),
-          margin: EdgeInsets.only(top: getHeight(context, LayoutConstants.scale_5_100)),
+          margin: EdgeInsets.only(top: getHeight(context, LayoutConstants.toggle_space_top_scale_large)),
         ),
         buildTryAgainBtn(context)
       ],
@@ -72,7 +72,7 @@ class ErrorPage extends StatelessWidget {
 
   Widget buildTryAgainBtn(BuildContext context) {
     return Container(
-        margin: EdgeInsets.only(top: getHeight(context, LayoutConstants.scale_5_100)),
+        margin: EdgeInsets.only(top: getHeight(context, LayoutConstants.toggle_space_top_scale_large)),
         width: LayoutConstants.mainBtnWidth,
         height: LayoutConstants.mainBtnHeight,
         child: ElevatedButton(

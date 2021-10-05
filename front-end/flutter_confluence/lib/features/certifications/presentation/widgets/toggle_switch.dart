@@ -39,7 +39,7 @@ class ToggleButtonState extends State<ToggleButton> {
   @override
   Widget build(BuildContext context) {
     final scaledWidth =
-        math.max(getWidth(context, LayoutConstants.scale_80_100), minWidth);
+        math.max(getWidth(context, LayoutConstants.big_scale), minWidth);
     return Container(
       width: scaledWidth,
       height: height,
@@ -47,7 +47,7 @@ class ToggleButtonState extends State<ToggleButton> {
         color: Colors.white,
         border: Border.all(color: jiraColor, width: 2.0),
         borderRadius: BorderRadius.all(
-          Radius.circular(scaledWidth * LayoutConstants.scale_40_100),
+          Radius.circular(scaledWidth * LayoutConstants.medium_scale),
         ),
       ),
       child: Stack(
@@ -56,7 +56,7 @@ class ToggleButtonState extends State<ToggleButton> {
             alignment: Alignment(xAlign!, 0),
             duration: const Duration(milliseconds: 300),
             child: Container(
-              width: scaledWidth * LayoutConstants.scale_50_100,
+              width: scaledWidth * LayoutConstants.half_size_scale,
               height: height,
               decoration: BoxDecoration(
                 color: jiraColor,
@@ -79,7 +79,7 @@ class ToggleButtonState extends State<ToggleButton> {
             child: Align(
               alignment: Alignment.centerLeft,
               child: Container(
-                width: scaledWidth * LayoutConstants.scale_50_100,
+                width: scaledWidth * LayoutConstants.half_size_scale,
                 color: Colors.transparent,
                 alignment: Alignment.center,
                 child: Text(ToggleButton.TXT_IN_PROGRESS,
@@ -103,7 +103,7 @@ class ToggleButtonState extends State<ToggleButton> {
             child: Align(
               alignment: Alignment.centerRight,
               child: Container(
-                width: scaledWidth * LayoutConstants.scale_50_100,
+                width: scaledWidth * LayoutConstants.half_size_scale,
                 color: Colors.transparent,
                 alignment: Alignment.center,
                 child: Text(ToggleButton.TXT_COMPLETED,
