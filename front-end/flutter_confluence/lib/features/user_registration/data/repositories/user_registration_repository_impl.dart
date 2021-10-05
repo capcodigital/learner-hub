@@ -43,6 +43,7 @@ class UserRegistrationRepositoryIml implements UserRegistrationRepository {
         return Left(CreateUserError());
       }
     } catch (ex) {
+      print('Error: $ex');
       return Left(CreateUserError());
     }
   }
