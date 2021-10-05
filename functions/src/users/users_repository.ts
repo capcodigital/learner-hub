@@ -1,7 +1,7 @@
 /* eslint-disable require-jsdoc */
 import * as admin from 'firebase-admin';
 
-const TABLE_USERS = "Users";
+const TABLE_USERS = "users";
 
 export class UserFirestoreError extends Error { }
 export class UserExistsError extends UserFirestoreError { }
