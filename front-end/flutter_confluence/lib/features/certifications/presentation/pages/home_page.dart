@@ -88,7 +88,7 @@ class _HomePageState extends State<HomePage> {
     }
 
     final verticalPadding = isPortrait(context)
-        ? constraints.maxHeight * LayoutConstants.list_row_icon_border_scale_small
+        ? constraints.maxHeight * LayoutConstants.tiny_scale
         : constraints.maxHeight * LayoutConstants.home_vertical_padding_scale_large;
     final horizontalPadding = isPortrait(context)
         ? constraints.maxWidth * LayoutConstants.home_horizontal_padding_scale_small

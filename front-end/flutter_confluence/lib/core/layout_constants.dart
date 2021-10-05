@@ -17,6 +17,7 @@ class LayoutConstants {
   static const bgFrontLayerLeft = 88.0;
   static const bgFrontLayerTop = 270.0;
 
+  static const tiny_scale = 0.02;
   static const extra_small_scale = 0.12;
   static const small_scale = 0.2;
   static const medium_scale = 0.4;
@@ -25,8 +26,7 @@ class LayoutConstants {
   static const big_scale = 0.8;
   static const large_scale = 0.9;
   static const extra_large_scale = 0.95;
-  
-  static const list_row_icon_border_scale_small = 0.02;
+
   static const toggle_space_top_scale_small = 0.03;
   static const home_vertical_padding_scale_large = 0.04;
   static const toggle_space_top_scale_large = 0.05;

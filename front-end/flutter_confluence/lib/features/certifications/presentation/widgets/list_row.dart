@@ -25,7 +25,7 @@ class ListRow extends StatelessWidget {
             : getWidth(context, LayoutConstants.parallax_layer_left_scale_small);
     final iconBorder = isPortrait(context)
         ? iconSize * LayoutConstants.list_row_icon_border_scale_large
-        : iconSize * LayoutConstants.list_row_icon_border_scale_small;
+        : iconSize * LayoutConstants.tiny_scale;
     return Card(
         elevation: 0,
         color: Colors.transparent,
