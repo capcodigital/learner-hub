@@ -1,6 +1,4 @@
 class LayoutConstants {
-  // New
-  static const button_widget_height = 62.0;
 
   static const extra_small_padding = 8.0;
   static const small_padding = 16.0;
@@ -8,6 +6,7 @@ class LayoutConstants {
   static const large_padding = 32.0;
   static const extra_large_padding = 64.0;
 
+  static const button_widget_height = 62.0;
   static const app_drawer_logo_left_padding = 32.0;
   static const app_drawer_logo_vertical_padding = 48.0;
   static const mainBtnHeight = 60.0;
