@@ -11,26 +11,7 @@ export async function registerUser(
     res: functions.Response
 ) {
     try {
-        const email = request["email"] as string;
-        const name = request["name"] as string;
-        const lastName = request["lastName"] as string;
-        const jobTitle = request["jobTitle"] as string;
-        const bio = request["bio"] as string;
-        const primarySkills = request["primarySkills"] as string[];
-        const secondarySkills = request["secondarySkills"] as string[];
-
-        const user: User = {
-            email: email,
-            name: name,
-            lastName: lastName,
-            jobTitle: jobTitle,
-            bio: bio,
-            skills: {
-                primarySkills: primarySkills,
-                secondarySkills: secondarySkills
-            }
-        }
-
+        const user = request as User;
         await userRepo.insertUser(uid, user);
         res.status(201).send(jsend.successfullResponse({ "message": "User registered" }));
     } catch (e) {
