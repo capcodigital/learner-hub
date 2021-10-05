@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_confluence/core/constants.dart';
-import 'package:flutter_confluence/core/dimen.dart';
+import 'package:flutter_confluence/core/layout_constants.dart';
 import 'package:flutter_confluence/core/utils/media_util.dart';
 import 'package:flutter_confluence/features/certifications/domain/entities/cloud_certification.dart';
 
@@ -19,13 +19,13 @@ class ListRow extends StatelessWidget {
 
   Widget getRow(CloudCertification item, BuildContext context) {
     final iconSize = kIsWeb
-        ? getWidth(context, Dimen.scale_3_100)
+        ? getWidth(context, LayoutConstants.scale_3_100)
         : isPortrait(context)
-            ? getWidth(context, Dimen.scale_12_100)
-            : getWidth(context, Dimen.scale_6_100);
+            ? getWidth(context, LayoutConstants.scale_12_100)
+            : getWidth(context, LayoutConstants.scale_6_100);
     final iconBorder = isPortrait(context)
-        ? iconSize * Dimen.scale_25_1000
-        : iconSize * Dimen.scale_2_100;
+        ? iconSize * LayoutConstants.scale_25_1000
+        : iconSize * LayoutConstants.scale_2_100;
     return Card(
         elevation: 0,
         color: Colors.transparent,

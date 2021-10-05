@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_confluence/core/dimen.dart';
+import 'package:flutter_confluence/core/layout_constants.dart';
 import 'package:flutter_confluence/core/utils/media_util.dart';
 
 class SearchBox extends StatelessWidget {
@@ -18,13 +18,13 @@ class SearchBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: getWidth(context, Dimen.scale_90_100),
+        width: getWidth(context, LayoutConstants.scale_90_100),
         // Checking for web cause SearchBox height needs adjust
         height: kIsWeb
             ? getHeight(context, 0.07)
             : (isPortrait(context)
-                ? getHeight(context, Dimen.scale_56_1000)
-                : getHeight(context, Dimen.scale_13_100)),
+                ? getHeight(context, LayoutConstants.scale_56_1000)
+                : getHeight(context, LayoutConstants.scale_13_100)),
         decoration: BoxDecoration(
             color: Colors.white,
             boxShadow: const [
@@ -50,11 +50,11 @@ class SearchBox extends StatelessWidget {
                 hintText: hintText,
                 prefixIcon: Padding(
                   padding: EdgeInsets.only(
-                      left: constraints.maxHeight * Dimen.scale_20_100,
-                      right: constraints.maxHeight * Dimen.scale_20_100),
+                      left: constraints.maxHeight * LayoutConstants.scale_20_100,
+                      right: constraints.maxHeight * LayoutConstants.scale_20_100),
                   child: Icon(
                     Icons.search,
-                    size: constraints.maxHeight * Dimen.scale_70_100,
+                    size: constraints.maxHeight * LayoutConstants.scale_70_100,
                     color: Colors.black45,
                   ),
                 )),

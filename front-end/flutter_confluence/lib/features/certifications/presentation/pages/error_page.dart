@@ -6,7 +6,7 @@ import 'package:flutter_confluence/features/certifications/domain/entities/cloud
 import 'package:flutter_confluence/features/certifications/presentation/bloc/cloud_certification_bloc.dart';
 
 import '../../../../core/constants.dart';
-import '../../../../core/dimen.dart';
+import '../../../../core/layout_constants.dart';
 
 class ErrorPage extends StatelessWidget {
   const ErrorPage({required this.error});
@@ -56,14 +56,14 @@ class ErrorPage extends StatelessWidget {
         ),
         Container(
           alignment: Alignment.center,
-          width: getWidth(context, Dimen.scale_80_100),
+          width: getWidth(context, LayoutConstants.scale_80_100),
           child: Text(
             error.message,
             style:
                 Theme.of(context).textTheme.headline2?.copyWith(fontSize: 18),
             textAlign: TextAlign.center,
           ),
-          margin: EdgeInsets.only(top: getHeight(context, Dimen.scale_5_100)),
+          margin: EdgeInsets.only(top: getHeight(context, LayoutConstants.scale_5_100)),
         ),
         buildTryAgainBtn(context)
       ],
@@ -72,17 +72,17 @@ class ErrorPage extends StatelessWidget {
 
   Widget buildTryAgainBtn(BuildContext context) {
     return Container(
-        margin: EdgeInsets.only(top: getHeight(context, Dimen.scale_5_100)),
-        width: Dimen.mainBtnWidth,
-        height: Dimen.mainBtnHeight,
+        margin: EdgeInsets.only(top: getHeight(context, LayoutConstants.scale_5_100)),
+        width: LayoutConstants.mainBtnWidth,
+        height: LayoutConstants.mainBtnHeight,
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
             shadowColor: Colors.black,
             primary: Colors.white,
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(Dimen.mainBtnBorderRadius),
+                borderRadius: BorderRadius.circular(LayoutConstants.mainBtnBorderRadius),
                 side: const BorderSide(
-                    width: Dimen.mainBtnBorderWidth,
+                    width: LayoutConstants.mainBtnBorderWidth,
                     color: Constants.JIRA_COLOR)),
           ),
           onPressed: () {

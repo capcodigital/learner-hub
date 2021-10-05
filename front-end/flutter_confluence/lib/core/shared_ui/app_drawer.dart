@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '/core/constants.dart';
-import '/core/dimen.dart';
+import '/core/layout_constants.dart';
 import '/core/utils/error_messages.dart';
 import '/core/utils/media_util.dart';
 import '/features/auth/presentation/bloc/auth_bloc.dart';
@@ -104,7 +104,7 @@ class CustomDrawer extends StatelessWidget {
       ),
       backgroundColor: Colors.black,
       body: Container(
-        height: getHeight(context, Dimen.scale_95_100),
+        height: getHeight(context, LayoutConstants.scale_95_100),
         color: Colors.black,
         child: SafeArea(
           child: Theme(
@@ -114,10 +114,10 @@ class CustomDrawer extends StatelessWidget {
               children: const [
                 Padding(
                     padding: EdgeInsets.only(
-                        top: Dimen.dimen_48,
-                        bottom: Dimen.dimen_48,
+                        top: LayoutConstants.dimen_48,
+                        bottom: LayoutConstants.dimen_48,
                         right: 0,
-                        left: Dimen.dimen_32),
+                        left: LayoutConstants.dimen_32),
                     child: Image(
                       image: AssetImage('assets/capco_logo.png'),
                     )),

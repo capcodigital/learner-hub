@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 
 import '/core/colours.dart';
 import '/core/constants.dart';
-import '/core/dimen.dart';
+import '/core/layout_constants.dart';
 import '/core/shared_ui/primary_button.dart';
 import '/features/user_registration/domain/entities/user_registration.dart';
 import '/features/user_registration/presentation/pages/bio_page.dart';
@@ -80,14 +80,14 @@ class SecondarySkillsPageState extends State<SecondarySkillsPage> {
         child: SafeArea(
           bottom: true,
           child: Padding(
-            padding: const EdgeInsets.all(Dimen.large_padding),
+            padding: const EdgeInsets.all(LayoutConstants.large_padding),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text('Your secondary skillset', textAlign: TextAlign.center, style: Theme.of(context).textTheme.headline1),
                 Padding(
-                  padding: const EdgeInsets.only(top: Dimen.extra_small_padding, bottom: Dimen.large_padding),
+                  padding: const EdgeInsets.only(top: LayoutConstants.extra_small_padding, bottom: LayoutConstants.large_padding),
                   child: Text('Select from below the technologies that you are interested in or are currently learning',
                       textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyText1),
                 ),
@@ -95,14 +95,14 @@ class SecondarySkillsPageState extends State<SecondarySkillsPage> {
                   child: SingleChildScrollView(
                     scrollDirection: Axis.vertical,
                     child: Wrap(
-                      spacing: Dimen.extra_small_padding,
-                      runSpacing: Dimen.extra_small_padding / 2,
+                      spacing: LayoutConstants.extra_small_padding,
+                      runSpacing: LayoutConstants.extra_small_padding / 2,
                       children: _skillsWidgets,
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: Dimen.small_padding),
+                  padding: const EdgeInsets.only(top: LayoutConstants.small_padding),
                   child: PrimaryButton(
                       text: 'Next',
                       onPressed: () {

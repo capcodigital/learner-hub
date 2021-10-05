@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_confluence/core/dimen.dart';
+import 'package:flutter_confluence/core/layout_constants.dart';
 import 'package:flutter_confluence/core/utils/media_util.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
@@ -66,8 +66,8 @@ class _HomePageState extends State<HomePage> {
             child: LayoutBuilder(
                 builder: (BuildContext ctx, BoxConstraints constraints) {
               final parallaxLayerLeft = isPortrait(ctx)
-                  ? constraints.maxWidth * Dimen.scale_6_100
-                  : constraints.maxWidth * Dimen.scale_35_100;
+                  ? constraints.maxWidth * LayoutConstants.scale_6_100
+                  : constraints.maxWidth * LayoutConstants.scale_35_100;
               return Stack(
                 children: <Widget>[
                   Positioned(
@@ -88,11 +88,11 @@ class _HomePageState extends State<HomePage> {
     }
 
     final verticalPadding = isPortrait(context)
-        ? constraints.maxHeight * Dimen.scale_2_100
-        : constraints.maxHeight * Dimen.scale_4_100;
+        ? constraints.maxHeight * LayoutConstants.scale_2_100
+        : constraints.maxHeight * LayoutConstants.scale_4_100;
     final horizontalPadding = isPortrait(context)
-        ? constraints.maxWidth * Dimen.scale_9_100
-        : constraints.maxWidth * Dimen.scale_12_100;
+        ? constraints.maxWidth * LayoutConstants.scale_9_100
+        : constraints.maxWidth * LayoutConstants.scale_12_100;
     return Column(
       children: [
         // Padding around Search and Toggle
@@ -126,8 +126,8 @@ class _HomePageState extends State<HomePage> {
               Padding(
                 padding: EdgeInsets.only(
                     top: isPortrait(context)
-                        ? constraints.maxHeight * Dimen.scale_3_100
-                        : constraints.maxHeight * Dimen.scale_5_100),
+                        ? constraints.maxHeight * LayoutConstants.scale_3_100
+                        : constraints.maxHeight * LayoutConstants.scale_5_100),
                 child: ColorFiltered(
                     colorFilter: ColorFilter.mode(
                       disableSearchAndToggle
@@ -150,7 +150,7 @@ class _HomePageState extends State<HomePage> {
           } else if (state is Loading)
             return Container(
                 margin: EdgeInsets.only(
-                    top: constraints.maxHeight * Dimen.scale_5_100),
+                    top: constraints.maxHeight * LayoutConstants.scale_5_100),
                 child: PlatformCircularProgressIndicator());
           else if (state is Empty)
             return const Text(Constants.NO_RESULTS);

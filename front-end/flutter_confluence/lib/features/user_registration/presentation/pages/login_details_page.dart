@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '/core/colours.dart';
 import '/core/constants.dart';
-import '/core/dimen.dart';
+import '/core/layout_constants.dart';
 import '/core/shared_ui/app_drawer.dart';
 import '/core/shared_ui/custom_appbar.dart';
 import '/core/shared_ui/primary_button.dart';
@@ -85,7 +85,7 @@ class LoginDetailsPageState extends State<LoginDetailsPage> with CustomAlertDial
         child: SafeArea(
           bottom: true,
           child: Padding(
-            padding: const EdgeInsets.all(Dimen.large_padding),
+            padding: const EdgeInsets.all(LayoutConstants.large_padding),
             child: Form(
               key: _formKey,
               child: Column(
@@ -95,7 +95,7 @@ class LoginDetailsPageState extends State<LoginDetailsPage> with CustomAlertDial
                   Text('Almost done!',
                       textAlign: TextAlign.center, style: Theme.of(context).textTheme.headline2),
                   Padding(
-                    padding: const EdgeInsets.only(top: Dimen.extra_small_padding, bottom: Dimen.large_padding),
+                    padding: const EdgeInsets.only(top: LayoutConstants.extra_small_padding, bottom: LayoutConstants.large_padding),
                     child: Text('To finish off, create your login credentials',
                         textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyText2),
                   ),

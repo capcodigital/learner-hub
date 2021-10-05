@@ -6,7 +6,7 @@ import 'package:flutter/widgets.dart';
 
 import '/core/colours.dart';
 import '/core/constants.dart';
-import '/core/dimen.dart';
+import '/core/layout_constants.dart';
 import '/core/shared_ui/app_drawer.dart';
 import '/core/shared_ui/custom_appbar.dart';
 import '/core/shared_ui/primary_button.dart';
@@ -71,7 +71,7 @@ class OnBoardingPage extends StatelessWidget {
           OnBoardingCarousel(),
           const Spacer(),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: Dimen.large_padding, horizontal: Dimen.small_padding),
+            padding: const EdgeInsets.symmetric(vertical: LayoutConstants.large_padding, horizontal: LayoutConstants.small_padding),
             child: PrimaryButton(
                 text: 'Log in',
                 onPressed: () {
@@ -104,7 +104,7 @@ class OnBoardingPage extends StatelessWidget {
               ],
             )),
         Container(
-          height: Dimen.regular_padding,
+          height: LayoutConstants.regular_padding,
           width: getMediaWidth(context),
           color: Colors.white,
         )

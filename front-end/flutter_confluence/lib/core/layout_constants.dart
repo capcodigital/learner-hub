@@ -1,4 +1,4 @@
-class Dimen {
+class LayoutConstants {
   // New
   static const dimen_62 =
       62.0; // TODO(cgal-capco): Rename to something that makes more sense than this
