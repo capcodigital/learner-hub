@@ -7,7 +7,7 @@ const OK = 'OK';
 const SETTINGS = 'Settings';
 
 mixin CustomAlertDialog {
-  showAlertDialog(BuildContext dialogContext, String message) {
+  showSettingsAlertDialog(BuildContext dialogContext, String message) {
     showPlatformDialog(
       context: dialogContext,
       builder: (_) => PlatformAlertDialog(
@@ -21,6 +21,21 @@ mixin CustomAlertDialog {
             child: PlatformText(SETTINGS),
             onPressed: () => AppSettings.openDeviceSettings(),
           ),
+        ],
+      ),
+    );
+  }
+
+  showAlertDialog(BuildContext dialogContext, String message) {
+    showPlatformDialog(
+      context: dialogContext,
+      builder: (_) => PlatformAlertDialog(
+        content: PlatformText(message),
+        actions: <Widget>[
+          PlatformDialogAction(
+            child: PlatformText(OK),
+            onPressed: () => Navigator.pop(dialogContext),
+          )
         ],
       ),
     );

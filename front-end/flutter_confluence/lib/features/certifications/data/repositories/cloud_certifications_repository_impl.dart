@@ -26,8 +26,7 @@ class CloudCertificationsRepositoryImpl
   final NetworkInfo networkInfo;
 
   @override
-  Future<Either<Failure, List<CloudCertification>>>
-      getCompletedCertifications() async {
+  Future<Either<Failure, List<CloudCertification>>> getCompletedCertifications() async {
     return _getData(
         remoteDataSource.getCompletedCertifications,
         localDataSource.getCompletedCertifications,
