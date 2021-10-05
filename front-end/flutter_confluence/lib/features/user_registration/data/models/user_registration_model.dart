@@ -20,4 +20,22 @@ class UserRegistrationModel extends UserRegistration {
           email: email,
           password: password,
         );
+
+  Map<String, dynamic> toJson() {
+    return {
+      'email': email,
+      'name': name,
+      'lastName': lastName,
+      'jobTitle': jobTitle,
+      'bio': bio,
+      'primarySkills': primarySkills?.toJson(),
+      'secondarySkills': secondarySkills?.toJson(),
+    };
+  }
+}
+
+extension JsonExtensions on List<String> {
+  String toJson() {
+    return '[${map((e) => '"$e"').join(",")}]';
+  }
 }
