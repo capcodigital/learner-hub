@@ -4,7 +4,7 @@ import * as summaryRepo from '../certification_summaries/certification_summary_r
 import * as userRepo from '../users/users_repository';
 import { AssocArray } from '../assoc_array';
 
-const TABLE_USER_CERTIFICATIONS = "User Certifications";
+const TABLE_USER_CERTIFICATIONS = "userCertifications";
 
 export class UserCertificationFirestoreError extends Error { }
 export class UserCertificationExistsError extends UserCertificationFirestoreError { }
