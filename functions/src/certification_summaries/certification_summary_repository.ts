@@ -6,6 +6,7 @@ const TABLE_CERTIFICATION_SUMMARIES = "certificationSummaries";
 
 export class SummaryFirestoreError extends Error { }
 export class SummaryNotFound extends SummaryFirestoreError { }
+export class SummaryExistsError extends SummaryFirestoreError { }
 
 export async function getAllCertificationSummaries(): Promise<AssocArray> {
     const snapshot = await admin.firestore()
@@ -34,8 +35,14 @@ export async function getCertificationSummary(id: string): Promise<any> {
 export async function saveSummary(summary: CertificationSummary): Promise<any> {
     const db = admin.firestore();
     const col = db.collection(TABLE_CERTIFICATION_SUMMARIES);
-    const result = await col.add(summary);
-    return toJson(result.id, summary);
+    const snap = await col.where("category", "==", summary.category)
+        .where("platform", "==", summary.platform)
+        .where("title", "==", summary.title).get();
+    if (snap.empty) {
+        const result = await col.add(summary);
+        return toJson(result.id, summary);
+    }
+    else throw new SummaryExistsError();
 }
 
 function toJson(id: string, item: any): any {
