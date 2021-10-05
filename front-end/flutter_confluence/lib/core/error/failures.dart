@@ -12,11 +12,3 @@ class ServerFailure extends Failure {
 }
 
 class CacheFailure extends Failure {}
-
-class AuthFailure extends Failure {
-  AuthFailure(this.code);
-  static const CODE_GENERIC_FAILURE = 'code_generic_failure';
-  final String code;
-}
-
-class AuthExpirationFailure extends Failure {}

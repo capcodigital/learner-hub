@@ -38,8 +38,8 @@ class Constants {
   static const AWS = 'aws';
 
   // Backend Endpoints
-  static const BASE_API_URL = 'https://io-capco-flutter-dev.nw.r.appspot.com/';
-  // static const BASE_API_URL = 'http://10.0.2.2:8000'; //Android localhost
+  static const BASE_API_URL = 'https://europe-west2-io-capco-flutter-dev.cloudfunctions.net/app';
+  // static const BASE_API_URL = 'http://localhost:5001/io-capco-flutter-dev/europe-west2/app';
   static const COMPLETED_URL = 'completed';
   static const IN_PROGRESS_URL = 'in_progress';
 
@@ -77,4 +77,80 @@ class Constants {
 
   static const NO_RESULTS = 'No results';
   static const UNKNOWN_ERROR = 'Unknown Error';
+
+  static const LOGOUT_ERROR = "It's not possible to logout at the moment. Please try again later";
+
+  static const SKILLS = [
+    'React Native',
+    'Gradle',
+    'Swift',
+    'Kotlin',
+    'Java',
+    'Ionic',
+    'Flutter',
+    'React',
+    'Angular',
+    'Vue',
+    'Typescript',
+    'Node',
+    'Go',
+    'Python',
+    'Scala',
+    'Groovy',
+    'Postgress',
+    'Neo4J',
+    'MongoDB',
+    'SQL Server',
+    'MySQL',
+    'Oracle',
+    'BigQuery',
+    'Liquibase',
+    'Snowflake',
+    'Rest',
+    'Camel',
+    'gRPC',
+    'Kafka',
+    'ActiveM',
+    'IBM MQ',
+    'GraphQL',
+    'GCP',
+    'AWS',
+    'Azure',
+    'Digital Ocean',
+    'Grafana',
+    'Kubernetes',
+    'Serverless',
+    'OpenShift',
+    'PCF',
+    'PKS',
+    'Selenium',
+    'Cucumber',
+    'Appium',
+    'Rest-assured',
+    'BrowserStack',
+    'Sauce Labs',
+    'WireMock',
+    'Applitools',
+    'JMeter',
+    'Axe',
+    'Cypress',
+    'Gatling',
+    'PACT contract testing',
+    'GitHub',
+    'CircleCI',
+    'Terraform',
+    'Vault',
+    'SonarQube',
+    'Elastic',
+    'Bitbucket',
+    'Jenkins',
+    'TeamCity',
+    'Istio',
+    'Ansible',
+    'Packer',
+    'Twistlock',
+    'Kiali',
+    'ConcourseCl',
+    'Consul',
+  ];
 }

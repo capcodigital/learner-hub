@@ -1,19 +1,23 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_confluence/core/components/custom_appbar.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import 'core/components/preloader.dart';
-import 'core/constants.dart';
-import 'features/certifications/data/models/cloud_certification_model.dart';
-import 'features/certifications/presentation/bloc/cloud_certification_bloc.dart';
-import 'features/certifications/presentation/pages/home_page.dart';
-import 'features/onboarding/presentation/bloc/on_boarding_bloc.dart';
-import 'features/onboarding/presentation/pages/on_boarding.dart';
-import 'injection_container.dart';
-import 'injection_container.dart' as di;
+import '/core/components/preloader.dart';
+import '/core/constants.dart';
+import '/core/shared_ui/custom_appbar.dart';
+import '/core/themes.dart';
+import '/features/auth/presentation/bloc/auth_bloc.dart';
+import '/features/certifications/data/models/cloud_certification_model.dart';
+import '/features/certifications/presentation/bloc/cloud_certification_bloc.dart';
+import '/features/certifications/presentation/pages/home_page.dart';
+import '/features/onboarding/presentation/pages/login_page.dart';
+import '/features/onboarding/presentation/pages/on_boarding.dart';
+import '/features/user_registration/presentation/bloc/user_registration_bloc.dart';
+import '/features/user_registration/presentation/pages/user_details_page.dart';
+import '/injection_container.dart';
+import '/injection_container.dart' as di;
 
 // ignore: avoid_void_async
 void main() async {
@@ -21,65 +25,31 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(CloudCertificationModelAdapter());
   await Firebase.initializeApp();
+  // Initialize Local Auth Emulator if necessary
+  // await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
   await di.init();
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   ThemeData buildAppTheme() {
-    return ThemeData(
-      primaryColor: Constants.JIRA_COLOR,
-      fontFamily: 'Montserrat',
-      textTheme: const TextTheme(
-        headline1: TextStyle(
-            fontSize: 20.0, color: Colors.white, fontWeight: FontWeight.w600),
-        headline2: TextStyle(
-            color: Colors.black, fontSize: 16.0, fontWeight: FontWeight.w600),
-        headline3: TextStyle(
-            color: Constants.BLACK_75,
-            fontSize: 12.0,
-            fontWeight: FontWeight.w400),
-        // NEW STYLES FOR THE NEW UI
-        bodyText1: TextStyle(
-            color: Colors.white,
-            fontFamily: 'Lato',
-            fontWeight: FontWeight.w400,
-            fontSize: 16.0),
-        button: TextStyle(
-            color: Colors.white,
-            fontFamily: 'Lato',
-            fontWeight: FontWeight.w700,
-            fontSize: 18.0),
-        headline6: TextStyle(
-            color: Colors.white,
-            fontFamily: 'FuturaPT',
-            fontWeight: FontWeight.w800,
-            fontSize: 22.0),
-        subtitle1: TextStyle(
-            color: Colors.black,
-            fontFamily: 'FuturaPT',
-            fontWeight: FontWeight.w400,
-            fontSize: 18.0),
-        subtitle2: TextStyle(
-            color: Constants.ACCENT_COLOR,
-            fontFamily: 'FuturaPT',
-            fontWeight: FontWeight.w600,
-            fontSize: 18.0),
-      ),
-    );
+    return Themes.appTheme;
   }
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
         providers: [
+          BlocProvider<AuthBloc>(
+            create: (_) => sl<AuthBloc>()..add(CheckAuthEvent()),
+          ),
           BlocProvider<CloudCertificationBloc>(
             create: (_) => sl<CloudCertificationBloc>()
               ..add(GetInProgressCertificationsEvent()),
           ),
-          BlocProvider<OnBoardingBloc>(
-            create: (_) => sl<OnBoardingBloc>()..add(const CheckAuthEvent()),
-          ),
+          BlocProvider<UserRegistrationBloc>(
+            create: (_) => sl<UserRegistrationBloc>(),
+          )
         ],
         child: MaterialApp(
             debugShowCheckedModeBanner: false,
@@ -94,6 +64,8 @@ class MyApp extends StatelessWidget {
                     ),
                   ),
               OnBoardingPage.route: (context) => OnBoardingPage(),
+              LoginPage.route: (context) => const LoginPage(),
+              UserDetailsPage.route: (context) => const UserDetailsPage(),
             },
             home: PreLoadWidget()));
   }
