@@ -80,14 +80,14 @@ class SecondarySkillsPageState extends State<SecondarySkillsPage> {
         child: SafeArea(
           bottom: true,
           child: Padding(
-            padding: const EdgeInsets.all(LayoutConstants.large_padding),
+            padding: const EdgeInsets.all(LayoutConstants.LARGE_PADDING),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text('Your secondary skillset', textAlign: TextAlign.center, style: Theme.of(context).textTheme.headline1),
                 Padding(
-                  padding: const EdgeInsets.only(top: LayoutConstants.extra_small_padding, bottom: LayoutConstants.large_padding),
+                  padding: const EdgeInsets.only(top: LayoutConstants.EXTRA_SMALL_PADDING, bottom: LayoutConstants.LARGE_PADDING),
                   child: Text('Select from below the technologies that you are interested in or are currently learning',
                       textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyText1),
                 ),
@@ -95,14 +95,14 @@ class SecondarySkillsPageState extends State<SecondarySkillsPage> {
                   child: SingleChildScrollView(
                     scrollDirection: Axis.vertical,
                     child: Wrap(
-                      spacing: LayoutConstants.extra_small_padding,
-                      runSpacing: LayoutConstants.extra_small_padding / 2,
+                      spacing: LayoutConstants.EXTRA_SMALL_PADDING,
+                      runSpacing: LayoutConstants.EXTRA_SMALL_PADDING / 2,
                       children: _skillsWidgets,
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: LayoutConstants.small_padding),
+                  padding: const EdgeInsets.only(top: LayoutConstants.SMALL_PADDING),
                   child: PrimaryButton(
                       text: 'Next',
                       onPressed: () {

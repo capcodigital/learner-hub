@@ -19,8 +19,8 @@ class EmptySearch extends StatelessWidget {
       children: [
         Padding(
           padding: EdgeInsets.only(
-              top: getHeight(context, LayoutConstants.toggle_space_top_scale_small),
-              bottom: getHeight(context, LayoutConstants.toggle_space_top_scale_small)),
+              top: getHeight(context, LayoutConstants.TOGGLE_SPACE_TOP_SCALE_SMALL),
+              bottom: getHeight(context, LayoutConstants.TOGGLE_SPACE_TOP_SCALE_SMALL)),
           child: const Text(TXT_NO_RESULTS, style: TextStyle(fontSize: 18)),
         ),
         TextButton(

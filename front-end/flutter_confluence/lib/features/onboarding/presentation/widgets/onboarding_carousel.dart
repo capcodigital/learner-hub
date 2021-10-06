@@ -35,11 +35,11 @@ List<Widget> _getImageSliders(BuildContext context) {
             children: [
               Image.asset(item.asset),
               Padding(
-                padding: const EdgeInsets.all(LayoutConstants.large_padding),
+                padding: const EdgeInsets.all(LayoutConstants.LARGE_PADDING),
                 child: Column(
                   children: [
                     Text(item.title, textAlign: TextAlign.center, style: Theme.of(context).textTheme.headline1),
-                    const SizedBox(height: LayoutConstants.small_padding),
+                    const SizedBox(height: LayoutConstants.SMALL_PADDING),
                     Text(item.description, textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyText1),
                   ],
                 ),
@@ -64,7 +64,7 @@ class _OnBoardingCarouselState extends State<OnBoardingCarousel> {
   Widget build(BuildContext context) {
     return Column(children: [
       Padding(
-        padding: const EdgeInsets.only(top: LayoutConstants.large_padding),
+        padding: const EdgeInsets.only(top: LayoutConstants.LARGE_PADDING),
         child: CarouselSlider(
           items: _getImageSliders(context),
           carouselController: _controller,
@@ -87,7 +87,7 @@ class _OnBoardingCarouselState extends State<OnBoardingCarousel> {
           return GestureDetector(
             onTap: () => _controller.animateToPage(entry.key),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: LayoutConstants.extra_small_padding / 2, vertical: 0),
+              padding: const EdgeInsets.symmetric(horizontal: LayoutConstants.EXTRA_SMALL_PADDING / 2, vertical: 0),
               child: IndicatorIcon(isSelected: _currentIndex == entry.key),
             ),
           );

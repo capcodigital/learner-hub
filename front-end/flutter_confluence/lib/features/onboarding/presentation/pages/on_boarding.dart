@@ -71,7 +71,7 @@ class OnBoardingPage extends StatelessWidget {
           OnBoardingCarousel(),
           const Spacer(),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: LayoutConstants.large_padding, horizontal: LayoutConstants.small_padding),
+            padding: const EdgeInsets.symmetric(vertical: LayoutConstants.LARGE_PADDING, horizontal: LayoutConstants.SMALL_PADDING),
             child: PrimaryButton(
                 text: 'Log in',
                 onPressed: () {
@@ -104,7 +104,7 @@ class OnBoardingPage extends StatelessWidget {
               ],
             )),
         Container(
-          height: LayoutConstants.regular_padding,
+          height: LayoutConstants.REGULAR_PADDING,
           width: getMediaWidth(context),
           color: Colors.white,
         )

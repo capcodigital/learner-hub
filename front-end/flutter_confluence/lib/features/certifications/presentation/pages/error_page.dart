@@ -56,14 +56,14 @@ class ErrorPage extends StatelessWidget {
         ),
         Container(
           alignment: Alignment.center,
-          width: getWidth(context, LayoutConstants.big_scale),
+          width: getWidth(context, LayoutConstants.BIG_SCALE),
           child: Text(
             error.message,
             style:
                 Theme.of(context).textTheme.headline2?.copyWith(fontSize: 18),
             textAlign: TextAlign.center,
           ),
-          margin: EdgeInsets.only(top: getHeight(context, LayoutConstants.toggle_space_top_scale_large)),
+          margin: EdgeInsets.only(top: getHeight(context, LayoutConstants.TOGGLE_SPACE_TOP_SCALE_LARGE)),
         ),
         buildTryAgainBtn(context)
       ],
@@ -72,17 +72,17 @@ class ErrorPage extends StatelessWidget {
 
   Widget buildTryAgainBtn(BuildContext context) {
     return Container(
-        margin: EdgeInsets.only(top: getHeight(context, LayoutConstants.toggle_space_top_scale_large)),
-        width: LayoutConstants.mainBtnWidth,
-        height: LayoutConstants.mainBtnHeight,
+        margin: EdgeInsets.only(top: getHeight(context, LayoutConstants.TOGGLE_SPACE_TOP_SCALE_LARGE)),
+        width: LayoutConstants.MAIN_BTN_WIDTH,
+        height: LayoutConstants.MAIN_BTN_HEIGHT,
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
             shadowColor: Colors.black,
             primary: Colors.white,
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(LayoutConstants.mainBtnBorderRadius),
+                borderRadius: BorderRadius.circular(LayoutConstants.MAIN_BTN_BORDER_RADIUS),
                 side: const BorderSide(
-                    width: LayoutConstants.mainBtnBorderWidth,
+                    width: LayoutConstants.MAIN_BTN_BORDER_WIDTH,
                     color: Constants.JIRA_COLOR)),
           ),
           onPressed: () {

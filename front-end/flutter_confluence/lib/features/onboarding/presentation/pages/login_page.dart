@@ -79,7 +79,7 @@ class LoginPageState extends State<LoginPage> with CustomAlertDialog {
         child: SafeArea(
           bottom: true,
           child: Padding(
-            padding: const EdgeInsets.all(LayoutConstants.large_padding),
+            padding: const EdgeInsets.all(LayoutConstants.LARGE_PADDING),
             child: Form(
               key: _formKey,
               child: Column(
@@ -90,7 +90,7 @@ class LoginPageState extends State<LoginPage> with CustomAlertDialog {
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.headline2),
                   Padding(
-                    padding: const EdgeInsets.only(top: LayoutConstants.extra_small_padding, bottom: LayoutConstants.large_padding),
+                    padding: const EdgeInsets.only(top: LayoutConstants.EXTRA_SMALL_PADDING, bottom: LayoutConstants.LARGE_PADDING),
                     child: Text(
                         'To access your account, log in below',
                         textAlign: TextAlign.center,

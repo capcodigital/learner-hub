@@ -18,7 +18,7 @@ class PrimaryButton extends StatelessWidget {
 
     // ignore: sized_box_for_whitespace
     return Container(
-        height: LayoutConstants.button_widget_height,
+        height: LayoutConstants.BTN_WIDGET_HEIGHT,
         width: double.infinity,
         child: ElevatedButton(
             style: style,

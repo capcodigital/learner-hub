@@ -18,13 +18,13 @@ class SearchBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: getWidth(context, LayoutConstants.large_scale),
+        width: getWidth(context, LayoutConstants.LARGE_SCALE),
         // Checking for web cause SearchBox height needs adjust
         height: kIsWeb
             ? getHeight(context, 0.07)
             : (isPortrait(context)
-                ? getHeight(context, LayoutConstants.search_box_height_scale_large)
-                : getHeight(context, LayoutConstants.search_box_height_scale_small)),
+                ? getHeight(context, LayoutConstants.SEARCH_BOX_HEIGHT_SCALE_LARGE)
+                : getHeight(context, LayoutConstants.SEARCH_BOX_HEIGHT_SCALE_SMALL)),
         decoration: BoxDecoration(
             color: Colors.white,
             boxShadow: const [
@@ -50,11 +50,11 @@ class SearchBox extends StatelessWidget {
                 hintText: hintText,
                 prefixIcon: Padding(
                   padding: EdgeInsets.only(
-                      left: constraints.maxHeight * LayoutConstants.small_scale,
-                      right: constraints.maxHeight * LayoutConstants.small_scale),
+                      left: constraints.maxHeight * LayoutConstants.SMALL_SCALE,
+                      right: constraints.maxHeight * LayoutConstants.SMALL_SCALE),
                   child: Icon(
                     Icons.search,
-                    size: constraints.maxHeight * LayoutConstants.normal_scale,
+                    size: constraints.maxHeight * LayoutConstants.NORMAL_SCALE,
                     color: Colors.black45,
                   ),
                 )),

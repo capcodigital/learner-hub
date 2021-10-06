@@ -19,13 +19,13 @@ class ListRow extends StatelessWidget {
 
   Widget getRow(CloudCertification item, BuildContext context) {
     final iconSize = kIsWeb
-        ? getWidth(context, LayoutConstants.toggle_space_top_scale_small)
+        ? getWidth(context, LayoutConstants.TOGGLE_SPACE_TOP_SCALE_SMALL)
         : isPortrait(context)
-            ? getWidth(context, LayoutConstants.extra_small_scale)
-            : getWidth(context, LayoutConstants.parallax_layer_left_scale_small);
+            ? getWidth(context, LayoutConstants.EXTRA_SMALL_SCALE)
+            : getWidth(context, LayoutConstants.PARALLAX_LAYER_LEFT_SCALE_SMALL);
     final iconBorder = isPortrait(context)
-        ? iconSize * LayoutConstants.list_row_icon_border_scale_large
-        : iconSize * LayoutConstants.tiny_scale;
+        ? iconSize * LayoutConstants.LIST_ROW_ICON_BORDER_SCALE_LARGE
+        : iconSize * LayoutConstants.TINY_SCALE;
     return Card(
         elevation: 0,
         color: Colors.transparent,

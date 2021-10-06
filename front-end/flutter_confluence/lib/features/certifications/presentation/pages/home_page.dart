@@ -66,8 +66,8 @@ class _HomePageState extends State<HomePage> {
             child: LayoutBuilder(
                 builder: (BuildContext ctx, BoxConstraints constraints) {
               final parallaxLayerLeft = isPortrait(ctx)
-                  ? constraints.maxWidth * LayoutConstants.parallax_layer_left_scale_small
-                  : constraints.maxWidth * LayoutConstants.parallax_layer_left_scale_large;
+                  ? constraints.maxWidth * LayoutConstants.PARALLAX_LAYER_LEFT_SCALE_SMALL
+                  : constraints.maxWidth * LayoutConstants.PARALLAX_LAYER_LEFT_SCALE_LARGE;
               return Stack(
                 children: <Widget>[
                   Positioned(
@@ -88,11 +88,11 @@ class _HomePageState extends State<HomePage> {
     }
 
     final verticalPadding = isPortrait(context)
-        ? constraints.maxHeight * LayoutConstants.tiny_scale
-        : constraints.maxHeight * LayoutConstants.home_vertical_padding_scale_large;
+        ? constraints.maxHeight * LayoutConstants.TINY_SCALE
+        : constraints.maxHeight * LayoutConstants.HOME_VERTICAL_PADDING_SCALE_LARGE;
     final horizontalPadding = isPortrait(context)
-        ? constraints.maxWidth * LayoutConstants.home_horizontal_padding_scale_small
-        : constraints.maxWidth * LayoutConstants.extra_small_scale;
+        ? constraints.maxWidth * LayoutConstants.HOME_HORIZONTAL_PADDING_SCALE_SMALL
+        : constraints.maxWidth * LayoutConstants.EXTRA_SMALL_SCALE;
     return Column(
       children: [
         // Padding around Search and Toggle
@@ -126,8 +126,8 @@ class _HomePageState extends State<HomePage> {
               Padding(
                 padding: EdgeInsets.only(
                     top: isPortrait(context)
-                        ? constraints.maxHeight * LayoutConstants.toggle_space_top_scale_small
-                        : constraints.maxHeight * LayoutConstants.toggle_space_top_scale_large),
+                        ? constraints.maxHeight * LayoutConstants.TOGGLE_SPACE_TOP_SCALE_SMALL
+                        : constraints.maxHeight * LayoutConstants.TOGGLE_SPACE_TOP_SCALE_LARGE),
                 child: ColorFiltered(
                     colorFilter: ColorFilter.mode(
                       disableSearchAndToggle
@@ -150,7 +150,7 @@ class _HomePageState extends State<HomePage> {
           } else if (state is Loading)
             return Container(
                 margin: EdgeInsets.only(
-                    top: constraints.maxHeight * LayoutConstants.toggle_space_top_scale_large),
+                    top: constraints.maxHeight * LayoutConstants.TOGGLE_SPACE_TOP_SCALE_LARGE),
                 child: PlatformCircularProgressIndicator());
           else if (state is Empty)
             return const Text(Constants.NO_RESULTS);
