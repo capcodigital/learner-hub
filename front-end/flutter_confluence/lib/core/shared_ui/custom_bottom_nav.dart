@@ -76,9 +76,8 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
                   AssetImage('assets/nav_bar_icons/user_nav_bar.png'),
                   color: Colors.black),
               label: 'users',
-              activeIcon: ImageIcon(
-                AssetImage('assets/nav_bar_icons/selected/user_nav_bar.png'),
-              )),
+              activeIcon: ImageIcon(AssetImage(
+                  'assets/nav_bar_icons/selected/user_nav_bar.png'))),
           BottomNavigationBarItem(
             icon: Icon(Icons.business),
             label: 'certs',
