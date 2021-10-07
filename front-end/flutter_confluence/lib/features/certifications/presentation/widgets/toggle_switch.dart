@@ -28,6 +28,8 @@ class ToggleButtonState extends State<ToggleButton> {
   Color? inProgressColor;
   Color? completedColor;
 
+  late MediaQueriesImpl mediaQueries;
+
   @override
   void initState() {
     super.initState();
@@ -38,8 +40,10 @@ class ToggleButtonState extends State<ToggleButton> {
 
   @override
   Widget build(BuildContext context) {
-    final scaledWidth =
-        math.max(getWidth(context, LayoutConstants.BIG_SCALE), minWidth);
+    mediaQueries = MediaQueriesImpl(buildContext: context);
+    var scaledWidth =
+        mediaQueries.applyWidth(context, LayoutConstants.LARGE_SCALE);
+    if (scaledWidth < minWidth) scaledWidth = minWidth;
     return Container(
       width: scaledWidth,
       height: height,
@@ -47,7 +51,7 @@ class ToggleButtonState extends State<ToggleButton> {
         color: Colors.white,
         border: Border.all(color: jiraColor, width: 2.0),
         borderRadius: BorderRadius.all(
-          Radius.circular(scaledWidth * LayoutConstants.MEDIUM_SCALE),
+          Radius.circular(scaledWidth * LayoutConstants.REGULAR_SCALE),
         ),
       ),
       child: Stack(
@@ -56,7 +60,7 @@ class ToggleButtonState extends State<ToggleButton> {
             alignment: Alignment(xAlign!, 0),
             duration: const Duration(milliseconds: 300),
             child: Container(
-              width: scaledWidth * LayoutConstants.HALF_SIZE_SCALE,
+              width: scaledWidth * LayoutConstants.LARGE_SCALE,
               height: height,
               decoration: BoxDecoration(
                 color: jiraColor,
@@ -79,7 +83,7 @@ class ToggleButtonState extends State<ToggleButton> {
             child: Align(
               alignment: Alignment.centerLeft,
               child: Container(
-                width: scaledWidth * LayoutConstants.HALF_SIZE_SCALE,
+                width: scaledWidth * LayoutConstants.REGULAR_SCALE,
                 color: Colors.transparent,
                 alignment: Alignment.center,
                 child: Text(ToggleButton.TXT_IN_PROGRESS,
@@ -103,7 +107,7 @@ class ToggleButtonState extends State<ToggleButton> {
             child: Align(
               alignment: Alignment.centerRight,
               child: Container(
-                width: scaledWidth * LayoutConstants.HALF_SIZE_SCALE,
+                width: scaledWidth * LayoutConstants.REGULAR_SCALE,
                 color: Colors.transparent,
                 alignment: Alignment.center,
                 child: Text(ToggleButton.TXT_COMPLETED,

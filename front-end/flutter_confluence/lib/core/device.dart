@@ -17,6 +17,8 @@ class DeviceImpl implements Device {
   DeviceImpl({required this.platform});
   final Platform platform;
 
+  static DeviceImpl getDefault() { return DeviceImpl(platform: LocalPlatform()); }
+
   @override
   bool get isDesktop => !isWeb && (isWindows || isLinux || isMacOS);
 

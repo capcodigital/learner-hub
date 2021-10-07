@@ -1,43 +1,58 @@
 import 'package:flutter/material.dart';
 
-bool isLandscape(BuildContext context) {
-  return MediaQuery.of(context).orientation == Orientation.landscape;
+abstract class MediaQueries {
+  double get deviceHeight;
+  double get deviceWidth;
+  double get deviceHeightWithoutAppBar;
 }
 
-bool isPortrait(BuildContext context) {
-  return MediaQuery.of(context).orientation == Orientation.portrait;
-}
+class MediaQueriesImpl implements MediaQueries {
+  MediaQueriesImpl({required this.buildContext});
 
-double getStatusBarHeight(BuildContext context) {
-  return MediaQuery.of(context).padding.top;
-}
+  final BuildContext buildContext;
 
-double getMediaWidth(BuildContext context) {
-  return MediaQuery.of(context).size.width;
-}
+  @override
+  double get deviceHeight => _getFullDeviceHeight(buildContext)
+      - _getStatusBarHeight(buildContext) - kToolbarHeight;
 
-double getWidth(BuildContext context, double scale) {
-  return getMediaWidth(context) * scale;
-}
+  @override
+  double get deviceHeightWithoutAppBar =>
+      _getFullDeviceHeight(buildContext) - _getStatusBarHeight(buildContext);
 
-double getMediaHeight(BuildContext context) {
-  return MediaQuery.of(context).size.height;
-}
+  @override
+  double get deviceWidth => MediaQuery.of(buildContext).size.width;
 
-double getMeaningfulHeight(BuildContext context) {
-  final statusBarHeight = getStatusBarHeight(context);
-  return getMediaHeight(context) - statusBarHeight - kToolbarHeight;
-}
+  /// Takes in a size and applies a scale factor
+  double applyWidgetSize(double originalSize, double scaleFactor) =>
+      originalSize * scaleFactor;
 
-double getHeight(BuildContext context, double scale) {
-  return getMeaningfulHeight(context) * scale;
-}
+  /// Returns a width scaled against screen width
+  double applyWidth(BuildContext context, double scaleFactor) =>
+      applyWidgetSize(deviceWidth, scaleFactor);
 
-double getMeaningfulHeightNoAppBar(BuildContext context) {
-  final statusBarHeight = getStatusBarHeight(context);
-  return getMediaHeight(context) - statusBarHeight;
-}
+  /// Returns a height scaled against screen height
+  double applyHeight(BuildContext context, double scale) {
+    return deviceHeight * scale;
+  }
 
-double getHeightNoAppBar(BuildContext context, double scale) {
-  return getMeaningfulHeightNoAppBar(context) * scale;
+  /// Returns full height of the screen
+  double _getFullDeviceHeight(BuildContext context) {
+    return MediaQuery.of(context).size.height;
+  }
+
+  /// Returns height of status bar
+  double _getStatusBarHeight(BuildContext context) {
+    return MediaQuery.of(context).padding.top;
+  }
+
+  // move to device.dart
+  bool isLandscape(BuildContext context) {
+    return MediaQuery.of(context).orientation == Orientation.landscape;
+  }
+
+  // move to device.dart
+  bool isPortrait(BuildContext context) {
+    return MediaQuery.of(context).orientation == Orientation.portrait;
+  }
+
 }

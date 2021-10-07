@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_confluence/core/device.dart';
 import 'package:flutter_confluence/core/layout_constants.dart';
 import 'package:flutter_confluence/core/utils/media_util.dart';
 
@@ -10,6 +11,7 @@ class SearchBox extends StatelessWidget {
       this.onSearchTermChanged,
       this.controller,
       this.onSearchSubmitted});
+
   final String hintText;
   final ValueChanged<String>? onSearchTermChanged;
   final ValueChanged<String>? onSearchSubmitted;
@@ -17,14 +19,20 @@ class SearchBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final MediaQueriesImpl mediaQueries =
+        MediaQueriesImpl(buildContext: context);
+    final DeviceImpl deviceImpl = DeviceImpl.getDefault();
     return Container(
-        width: getWidth(context, LayoutConstants.LARGE_SCALE),
+        width: mediaQueries.applyWidth(context, LayoutConstants.LARGE_SCALE),
         // Checking for web cause SearchBox height needs adjust
-        height: kIsWeb
-            ? getHeight(context, 0.07)
-            : (isPortrait(context)
-                ? getHeight(context, LayoutConstants.SEARCH_BOX_HEIGHT_SCALE_LARGE)
-                : getHeight(context, LayoutConstants.SEARCH_BOX_HEIGHT_SCALE_SMALL)),
+        height: deviceImpl.isWeb
+            ? mediaQueries.applyWidgetSize(
+                LayoutConstants.SEARCHBOX_WIDTH, LayoutConstants.REGULAR_SCALE)
+            : (mediaQueries.isPortrait(context)
+                ? mediaQueries.applyWidgetSize(LayoutConstants.SEARCHBOX_WIDTH,
+                    LayoutConstants.LARGE_SCALE)
+                : mediaQueries.applyWidgetSize(LayoutConstants.SEARCHBOX_WIDTH,
+                    LayoutConstants.SMALL_SCALE)),
         decoration: BoxDecoration(
             color: Colors.white,
             boxShadow: const [
@@ -51,10 +59,11 @@ class SearchBox extends StatelessWidget {
                 prefixIcon: Padding(
                   padding: EdgeInsets.only(
                       left: constraints.maxHeight * LayoutConstants.SMALL_SCALE,
-                      right: constraints.maxHeight * LayoutConstants.SMALL_SCALE),
+                      right:
+                          constraints.maxHeight * LayoutConstants.SMALL_SCALE),
                   child: Icon(
                     Icons.search,
-                    size: constraints.maxHeight * LayoutConstants.NORMAL_SCALE,
+                    size: constraints.maxHeight * LayoutConstants.REGULAR_SCALE,
                     color: Colors.black45,
                   ),
                 )),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../device.dart';
 import '/core/constants.dart';
 import '/core/layout_constants.dart';
 import '/core/utils/error_messages.dart';
@@ -96,6 +97,7 @@ class CustomDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final MediaQueriesImpl mediaQueries = MediaQueriesImpl(buildContext: context);
     return Scaffold(
       appBar: const CustomAppBar(
         text: 'Menu',
@@ -104,7 +106,7 @@ class CustomDrawer extends StatelessWidget {
       ),
       backgroundColor: Colors.black,
       body: Container(
-        height: getHeight(context, LayoutConstants.EXTRA_LARGE_SCALE),
+        height: mediaQueries.applyHeight(context, LayoutConstants.EXTRA_LARGE_SCALE),
         color: Colors.black,
         child: SafeArea(
           child: Theme(

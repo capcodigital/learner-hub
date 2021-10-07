@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_confluence/core/device.dart';
 import 'package:flutter_confluence/core/layout_constants.dart';
 import 'package:flutter_confluence/core/utils/media_util.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
@@ -31,9 +32,12 @@ class _HomePageState extends State<HomePage> {
   var frontLayerTop = frontLayerInitialTop;
   var disableSearchAndToggle = false;
   final TextEditingController searchController = TextEditingController();
+  late MediaQueriesImpl mediaQueries;
+  late DeviceImpl device = DeviceImpl.getDefault();
 
   @override
   Widget build(BuildContext context) {
+    mediaQueries = MediaQueriesImpl(buildContext: context);
     return Scaffold(
       // Fixes bottom overflow error when show keyboard in landscape
       resizeToAvoidBottomInset: false,
@@ -56,8 +60,8 @@ class _HomePageState extends State<HomePage> {
           return true;
         },
         child: Container(
-            width: getMediaWidth(context),
-            height: getMediaHeight(context),
+            width: mediaQueries.applyWidth(context, 1),
+            height: mediaQueries.applyHeight(context, 1),
             constraints: const BoxConstraints.expand(),
             decoration: const BoxDecoration(
                 image: DecorationImage(
@@ -65,9 +69,9 @@ class _HomePageState extends State<HomePage> {
                     fit: BoxFit.cover)),
             child: LayoutBuilder(
                 builder: (BuildContext ctx, BoxConstraints constraints) {
-              final parallaxLayerLeft = isPortrait(ctx)
-                  ? constraints.maxWidth * LayoutConstants.PARALLAX_LAYER_LEFT_SCALE_SMALL
-                  : constraints.maxWidth * LayoutConstants.PARALLAX_LAYER_LEFT_SCALE_LARGE;
+              final parallaxLayerLeft = mediaQueries.isPortrait(ctx)
+                  ? constraints.maxWidth * LayoutConstants.SMALL_SCALE
+                  : constraints.maxWidth * LayoutConstants.LARGE_SCALE;
               return Stack(
                 children: <Widget>[
                   Positioned(
@@ -87,11 +91,11 @@ class _HomePageState extends State<HomePage> {
           .add(SearchCertificationsEvent(searchTerm));
     }
 
-    final verticalPadding = isPortrait(context)
-        ? constraints.maxHeight * LayoutConstants.TINY_SCALE
-        : constraints.maxHeight * LayoutConstants.HOME_VERTICAL_PADDING_SCALE_LARGE;
-    final horizontalPadding = isPortrait(context)
-        ? constraints.maxWidth * LayoutConstants.HOME_HORIZONTAL_PADDING_SCALE_SMALL
+    final verticalPadding = mediaQueries.isPortrait(context)
+        ? constraints.maxHeight * LayoutConstants.EXTRA_SMALL_SCALE
+        : constraints.maxHeight * LayoutConstants.LARGE_SCALE;
+    final horizontalPadding = mediaQueries.isPortrait(context)
+        ? constraints.maxWidth * LayoutConstants.SMALL_SCALE
         : constraints.maxWidth * LayoutConstants.EXTRA_SMALL_SCALE;
     return Column(
       children: [
@@ -125,9 +129,9 @@ class _HomePageState extends State<HomePage> {
               // Toggle
               Padding(
                 padding: EdgeInsets.only(
-                    top: isPortrait(context)
-                        ? constraints.maxHeight * LayoutConstants.TOGGLE_SPACE_TOP_SCALE_SMALL
-                        : constraints.maxHeight * LayoutConstants.TOGGLE_SPACE_TOP_SCALE_LARGE),
+                    top: mediaQueries.isPortrait(context)
+                        ? constraints.maxHeight * LayoutConstants.SMALL_SCALE
+                        : constraints.maxHeight * LayoutConstants.LARGE_SCALE),
                 child: ColorFiltered(
                     colorFilter: ColorFilter.mode(
                       disableSearchAndToggle
@@ -150,7 +154,7 @@ class _HomePageState extends State<HomePage> {
           } else if (state is Loading)
             return Container(
                 margin: EdgeInsets.only(
-                    top: constraints.maxHeight * LayoutConstants.TOGGLE_SPACE_TOP_SCALE_LARGE),
+                    top: constraints.maxHeight * LayoutConstants.LARGE_SCALE),
                 child: PlatformCircularProgressIndicator());
           else if (state is Empty)
             return const Text(Constants.NO_RESULTS);

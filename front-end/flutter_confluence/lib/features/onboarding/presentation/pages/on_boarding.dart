@@ -83,12 +83,13 @@ class OnBoardingPage extends StatelessWidget {
   }
 
   Widget getFooter(BuildContext context) {
+    final MediaQueriesImpl mediaQueries = MediaQueriesImpl(buildContext: context);
     return Column(
       children: [
         Container(
             color: Colours.ALTERNATIVE_COLOR,
             height: 64,
-            width: getMediaWidth(context),
+            width: mediaQueries.applyWidth(context, 1),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -105,7 +106,7 @@ class OnBoardingPage extends StatelessWidget {
             )),
         Container(
           height: LayoutConstants.REGULAR_PADDING,
-          width: getMediaWidth(context),
+          width: mediaQueries.applyWidth(context, 1),
           color: Colors.white,
         )
       ],

@@ -15,12 +15,13 @@ class EmptySearch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final MediaQueriesImpl mediaQueries = MediaQueriesImpl(buildContext: context);
     return Column(
       children: [
         Padding(
           padding: EdgeInsets.only(
-              top: getHeight(context, LayoutConstants.TOGGLE_SPACE_TOP_SCALE_SMALL),
-              bottom: getHeight(context, LayoutConstants.TOGGLE_SPACE_TOP_SCALE_SMALL)),
+              top: mediaQueries.applyHeight(context, LayoutConstants.SMALL_SCALE),
+              bottom: mediaQueries.applyHeight(context, LayoutConstants.SMALL_SCALE)),
           child: const Text(TXT_NO_RESULTS, style: TextStyle(fontSize: 18)),
         ),
         TextButton(

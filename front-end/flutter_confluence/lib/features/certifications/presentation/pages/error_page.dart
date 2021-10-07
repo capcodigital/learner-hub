@@ -41,6 +41,7 @@ class ErrorPage extends StatelessWidget {
   }
 
   Widget buildBody(BuildContext context) {
+    final MediaQueriesImpl mediaQueries = MediaQueriesImpl(buildContext: context);
     return Column(
       children: [
         Image.asset(
@@ -56,14 +57,15 @@ class ErrorPage extends StatelessWidget {
         ),
         Container(
           alignment: Alignment.center,
-          width: getWidth(context, LayoutConstants.BIG_SCALE),
+          width: mediaQueries.applyWidth(context, LayoutConstants.LARGE_SCALE),
           child: Text(
             error.message,
             style:
                 Theme.of(context).textTheme.headline2?.copyWith(fontSize: 18),
             textAlign: TextAlign.center,
           ),
-          margin: EdgeInsets.only(top: getHeight(context, LayoutConstants.TOGGLE_SPACE_TOP_SCALE_LARGE)),
+          margin: EdgeInsets.only(top: mediaQueries.applyHeight(context,
+              LayoutConstants.LARGE_SCALE)),
         ),
         buildTryAgainBtn(context)
       ],
@@ -71,8 +73,10 @@ class ErrorPage extends StatelessWidget {
   }
 
   Widget buildTryAgainBtn(BuildContext context) {
+    final MediaQueriesImpl mediaQueries = MediaQueriesImpl(buildContext: context);
     return Container(
-        margin: EdgeInsets.only(top: getHeight(context, LayoutConstants.TOGGLE_SPACE_TOP_SCALE_LARGE)),
+        margin: EdgeInsets.only(top: mediaQueries.applyHeight(context,
+            LayoutConstants.LARGE_SCALE)),
         width: LayoutConstants.MAIN_BTN_WIDTH,
         height: LayoutConstants.MAIN_BTN_HEIGHT,
         child: ElevatedButton(

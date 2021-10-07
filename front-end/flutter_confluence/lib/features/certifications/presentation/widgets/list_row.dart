@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_confluence/core/constants.dart';
+import 'package:flutter_confluence/core/device.dart';
 import 'package:flutter_confluence/core/layout_constants.dart';
 import 'package:flutter_confluence/core/utils/media_util.dart';
 import 'package:flutter_confluence/features/certifications/domain/entities/cloud_certification.dart';
@@ -17,15 +18,24 @@ class ListRow extends StatelessWidget {
     return getRow(item, context);
   }
 
+  double _applyIconSize(
+      double cloudCertificationIconSize,
+      BuildContext context) {
+    final MediaQueriesImpl mediaQueries = MediaQueriesImpl(buildContext: context);
+    final DeviceImpl device = DeviceImpl.getDefault();
+    final iconSize = device.isWeb
+        ? mediaQueries.applyWidgetSize(cloudCertificationIconSize,
+        LayoutConstants.SMALL_SCALE)
+        : mediaQueries.isPortrait(context)
+            ? mediaQueries.applyWidgetSize(cloudCertificationIconSize,
+        LayoutConstants.EXTRA_SMALL_SCALE)
+            : mediaQueries.applyWidgetSize(cloudCertificationIconSize,
+        LayoutConstants.SMALL_SCALE);
+                return iconSize;
+  }
+
   Widget getRow(CloudCertification item, BuildContext context) {
-    final iconSize = kIsWeb
-        ? getWidth(context, LayoutConstants.TOGGLE_SPACE_TOP_SCALE_SMALL)
-        : isPortrait(context)
-            ? getWidth(context, LayoutConstants.EXTRA_SMALL_SCALE)
-            : getWidth(context, LayoutConstants.PARALLAX_LAYER_LEFT_SCALE_SMALL);
-    final iconBorder = isPortrait(context)
-        ? iconSize * LayoutConstants.LIST_ROW_ICON_BORDER_SCALE_LARGE
-        : iconSize * LayoutConstants.TINY_SCALE;
+    final iconSize = _applyIconSize(60.0, context);
     return Card(
         elevation: 0,
         color: Colors.transparent,
@@ -46,7 +56,7 @@ class ListRow extends StatelessWidget {
                     shape: BoxShape.circle,
                     border: Border.all(
                       color: listRowIconBorderColor,
-                      width: iconBorder,
+                      width: 2.0,
                     ),
                   )),
               title:
