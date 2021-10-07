@@ -93,6 +93,7 @@ class _SkillsPageState extends State<SkillsPage> {
                 Padding(
                   padding: const EdgeInsets.only(top: Dimen.extra_small_padding, bottom: Dimen.large_padding),
                   child: RichText(
+                      textAlign: TextAlign.center,
                       key: const Key('subtitleText'),
                       text: TextSpan(
                           text: 'Select from the list below all of your',
