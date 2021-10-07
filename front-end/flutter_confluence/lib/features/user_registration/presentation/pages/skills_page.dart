@@ -6,22 +6,22 @@ import '/core/constants.dart';
 import '/core/dimen.dart';
 import '/core/shared_ui/primary_button.dart';
 import '/features/user_registration/domain/entities/user_registration.dart';
-import '/features/user_registration/presentation/pages/secondary_skills_page.dart';
+import '/features/user_registration/presentation/pages/bio_page.dart';
 import '/features/user_registration/presentation/widgets/skill_chip.dart';
 
-class PrimarySkillsPage extends StatefulWidget {
-  const PrimarySkillsPage({Key? key, required this.navParameters}) : super(key: key);
+class SkillsPage extends StatefulWidget {
+  const SkillsPage({Key? key, required this.navParameters}) : super(key: key);
 
   static const route = 'PrimarySkillsPage';
   final UserRegistration navParameters;
 
   @override
-  _PrimarySkillsPageState createState() {
-    return _PrimarySkillsPageState();
+  _SkillsPageState createState() {
+    return _SkillsPageState();
   }
 }
 
-class _PrimarySkillsPageState extends State<PrimarySkillsPage> {
+class _SkillsPageState extends State<SkillsPage> {
   List<Skill> _skillItems = [];
 
   @override
@@ -34,12 +34,20 @@ class _PrimarySkillsPageState extends State<PrimarySkillsPage> {
   @override
   Widget build(BuildContext context) {
     void onSkillSelected(Skill selectedSkill) {
-      print('Selected ${selectedSkill.name} skill');
       setState(() {
         final itemIndex = _skillItems.indexWhere((element) => element.name == selectedSkill.name);
         if (itemIndex > -1) {
-          final item = _skillItems[itemIndex];
-          final newItem = item.copyWith(isPrimary: !item.isPrimary);
+          Skill newItem;
+          if (selectedSkill.isPrimary) {
+            // Move to secondary
+            newItem = selectedSkill.copyWith(isPrimary: false, isSecondary: true);
+          } else if (selectedSkill.isSecondary) {
+            // Move to not-selected
+            newItem = selectedSkill.copyWith(isPrimary: false, isSecondary: false);
+          } else {
+            // Move to primary
+            newItem = selectedSkill.copyWith(isPrimary: true, isSecondary: false);
+          }
           _skillItems[itemIndex] = newItem;
         } else {
           // Item not found
@@ -56,11 +64,14 @@ class _PrimarySkillsPageState extends State<PrimarySkillsPage> {
         .toList();
 
     void onNext() {
-      final selectedSkills = _skillItems.where((element) => element.isPrimary).toList();
-      final navParameters = widget.navParameters..primarySkills = selectedSkills.map((e) => e.name).toList();
+      final primarySkill = _skillItems.where((element) => element.isPrimary).map((e) => e.name).toList();
+      final secondarySkills = _skillItems.where((element) => element.isSecondary).map((e) => e.name).toList();
 
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => SecondarySkillsPage(navParameters: navParameters)));
+      final navParameters = widget.navParameters
+        ..primarySkills = primarySkill
+        ..secondarySkills = secondarySkills;
+
+      Navigator.push(context, MaterialPageRoute(builder: (context) => UserBioPage(navParameters: navParameters)));
     }
 
     return Scaffold(
@@ -78,11 +89,25 @@ class _PrimarySkillsPageState extends State<PrimarySkillsPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text('Your primary skillset', textAlign: TextAlign.center, style: Theme.of(context).textTheme.headline1),
+                Text('Your skillset', textAlign: TextAlign.center, style: Theme.of(context).textTheme.headline1),
                 Padding(
                   padding: const EdgeInsets.only(top: Dimen.extra_small_padding, bottom: Dimen.large_padding),
-                  child: Text('Select from below the technologies that you primarily work with',
-                      textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyText1),
+                  child: RichText(
+                      textAlign: TextAlign.center,
+                      key: const Key('subtitleText'),
+                      text: TextSpan(
+                          text: 'Select from the list below all of your',
+                          style: Theme.of(context).textTheme.bodyText1,
+                          children: const <TextSpan>[
+                        TextSpan(
+                            text: ' primary',
+                            style: TextStyle(fontWeight: FontWeight.bold, color: Colours.ACCENT_2_COLOR)),
+                        TextSpan(text: ' and'),
+                        TextSpan(
+                            text: ' secondary',
+                            style: TextStyle(fontWeight: FontWeight.bold, color: Colours.ACCENT_3_COLOR)),
+                        TextSpan(text: ' skills'),
+                      ])),
                 ),
                 Expanded(
                   child: SingleChildScrollView(
