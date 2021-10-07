@@ -71,6 +71,7 @@ flutter:
   #   - images/a_dot_ham.jpeg
   assets:
     - assets/
+    - assets/nav_bar_icons/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
@@ -127,3 +128,6 @@ flutter:
         - asset: fonts/FuturaPTExtraBold.otf
           style: normal
           weight: 800
+    - family: CustomIconFont
+      fonts:
+        - asset: assets/CustomIconFont.ttf

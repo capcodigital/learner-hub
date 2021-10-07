@@ -1,8 +1,19 @@
 import 'package:flutter/material.dart';
 // ignore: implementation_imports
 import 'package:flutter/src/painting/image_resolution.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_confluence/core/constants.dart';
 import 'package:flutter_confluence/core/shared_ui/custom_appbar.dart';
+
+class CustomIconFont {
+  CustomIconFont._();
+
+  static const _kFontFam = 'CustomIconFont';
+  static const String? _kFontPkg = null;
+
+  static const IconData user_nav_bar =
+      IconData(0xe806, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+}
 
 class CustomBottomNavBar extends StatefulWidget {
   const CustomBottomNavBar({Key? key}) : super(key: key);
@@ -26,6 +37,14 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
     ),
     Text(
       'My Profile',
+      style: optionStyle,
+    ),
+    Text(
+      'TODO',
+      style: optionStyle,
+    ),
+    Text(
+      'Chat',
       style: optionStyle,
     ),
   ];
@@ -54,6 +73,16 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
             _title = 'profile';
             break;
           }
+        case 3:
+          {
+            _title = 'todo';
+            break;
+          }
+        case 4:
+          {
+            _title = 'chat';
+            break;
+          }
       }
     });
   }
@@ -69,28 +98,63 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-              icon: ImageIcon(
-                  AssetImage('assets/nav_bar_icons/user_nav_bar.png'),
-                  color: Colors.black),
-              label: 'users',
-              activeIcon: ImageIcon(AssetImage(
-                  'assets/nav_bar_icons/selected/user_nav_bar.png'))),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            label: 'certs',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            activeIcon: Icon(Icons.access_alarm_outlined),
-            label: 'my profile',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
-        onTap: _onItemTapped,
+      bottomNavigationBar: Theme(
+        data: ThemeData(
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent),
+        child: BottomNavigationBar(
+          enableFeedback: true,
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          type: BottomNavigationBarType.fixed,
+          unselectedItemColor: Colors.grey[850],
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+                icon: Icon(CustomIconFont.user_nav_bar, size: 75),
+                backgroundColor: Colors.pink,
+                label: 'USERS',
+                tooltip: '',
+                activeIcon: ImageIcon(
+                    AssetImage(
+                        'assets/nav_bar_icons/selected/user_nav_bar.png'),
+                    size: 75)),
+            BottomNavigationBarItem(
+                icon: Icon(CustomIconFont.user_nav_bar, size: 75),
+                label: '',
+                tooltip: '',
+                activeIcon: ImageIcon(
+                    AssetImage(
+                        'assets/nav_bar_icons/selected/certification_nav_bar.png'),
+                    size: 75)),
+            BottomNavigationBarItem(
+                icon: Icon(CustomIconFont.user_nav_bar, size: 75),
+                label: '',
+                tooltip: '',
+                activeIcon: ImageIcon(
+                    AssetImage(
+                        'assets/nav_bar_icons/selected/profile_nav_bar.png'),
+                    size: 75)),
+            BottomNavigationBarItem(
+                icon: Icon(CustomIconFont.user_nav_bar, size: 75),
+                label: '',
+                tooltip: '',
+                activeIcon: ImageIcon(
+                    AssetImage(
+                        'assets/nav_bar_icons/selected/study_nav_bar.png'),
+                    size: 75)),
+            BottomNavigationBarItem(
+                icon: Icon(CustomIconFont.user_nav_bar, size: 75),
+                label: '',
+                tooltip: '',
+                activeIcon: ImageIcon(
+                    AssetImage(
+                        'assets/nav_bar_icons/selected/chat_nav_bar.png'),
+                    size: 75)),
+          ],
+          currentIndex: _selectedIndex,
+          selectedItemColor: Colors.pink[200],
+          onTap: _onItemTapped,
+        ),
       ),
     );
   }
