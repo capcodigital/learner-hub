@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+// ignore: implementation_imports
+import 'package:flutter/src/painting/image_resolution.dart';
 import 'package:flutter_confluence/core/constants.dart';
 import 'package:flutter_confluence/core/shared_ui/custom_appbar.dart';
 
@@ -15,7 +17,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
     Text(
-      'My Profile',
+      'Users',
       style: optionStyle,
     ),
     Text(
@@ -23,7 +25,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
       style: optionStyle,
     ),
     Text(
-      'Chats',
+      'My Profile',
       style: optionStyle,
     ),
   ];
@@ -39,17 +41,17 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
       switch (index) {
         case 0:
           {
-            _title = 'button 1';
+            _title = 'users';
             break;
           }
         case 1:
           {
-            _title = 'button 2';
+            _title = 'certifications';
             break;
           }
         case 2:
           {
-            _title = 'button 3';
+            _title = 'profile';
             break;
           }
       }
@@ -70,17 +72,22 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Button 1',
-          ),
+              icon: ImageIcon(
+                  AssetImage('assets/nav_bar_icons/user_nav_bar.png'),
+                  size: 1,
+                  color: Colors.black),
+              label: 'users',
+              activeIcon: ImageIcon(
+                AssetImage('assets/nav_bar_icons/selected/user_nav_bar.png'),
+              )),
           BottomNavigationBarItem(
             icon: Icon(Icons.business),
-            label: 'Button 2',
+            label: 'certs',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.school),
             activeIcon: Icon(Icons.access_alarm_outlined),
-            label: 'Button 2',
+            label: 'my profile',
           ),
         ],
         currentIndex: _selectedIndex,

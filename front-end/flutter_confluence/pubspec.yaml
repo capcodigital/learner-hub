@@ -89,6 +89,7 @@ flutter:
     - assets/certifications_icon.png
     - assets/guides_icon.png
     - assets/chat_icon.png
+    - assets/nav_bar_icons/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
