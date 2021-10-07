@@ -23,16 +23,16 @@ class SearchBox extends StatelessWidget {
         MediaQueriesImpl(buildContext: context);
     final DeviceImpl deviceImpl = DeviceImpl.getDefault();
     return Container(
-        width: mediaQueries.applyWidth(context, LayoutConstants.LARGE_SCALE),
-        // Checking for web cause SearchBox height needs adjust
-        height: deviceImpl.isWeb
-            ? mediaQueries.applyWidgetSize(
-                LayoutConstants.SEARCHBOX_WIDTH, LayoutConstants.REGULAR_SCALE)
-            : (mediaQueries.isPortrait(context)
-                ? mediaQueries.applyWidgetSize(LayoutConstants.SEARCHBOX_WIDTH,
-                    LayoutConstants.LARGE_SCALE)
-                : mediaQueries.applyWidgetSize(LayoutConstants.SEARCHBOX_WIDTH,
-                    LayoutConstants.SMALL_SCALE)),
+        width: mediaQueries.applyWidth(context, LayoutConstants.MAX_SCALE),
+        height: 50,
+        // height: deviceImpl.isWeb
+        //     ? mediaQueries.applyWidgetSize(
+        //         LayoutConstants.SEARCHBOX_WIDTH, LayoutConstants.REGULAR_SCALE)
+        //     : (mediaQueries.isPortrait(context)
+        //         ? mediaQueries.applyWidgetSize(LayoutConstants.SEARCHBOX_WIDTH,
+        //             LayoutConstants.LARGE_SCALE)
+        //         : mediaQueries.applyWidgetSize(LayoutConstants.SEARCHBOX_WIDTH,
+        //             LayoutConstants.SMALL_SCALE)),
         decoration: BoxDecoration(
             color: Colors.white,
             boxShadow: const [
@@ -63,7 +63,7 @@ class SearchBox extends StatelessWidget {
                           constraints.maxHeight * LayoutConstants.SMALL_SCALE),
                   child: Icon(
                     Icons.search,
-                    size: constraints.maxHeight * LayoutConstants.REGULAR_SCALE,
+                    size: constraints.maxHeight * LayoutConstants.EXTRA_LARGE_SCALE,
                     color: Colors.black45,
                   ),
                 )),
