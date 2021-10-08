@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 import '/core/colours.dart';
-import '/core/dimen.dart';
+import '/core/layout_constants.dart';
 import '/core/shared_ui/primary_button.dart';
 import '/features/user_registration/domain/entities/user_registration.dart';
 import '/features/user_registration/presentation/pages/login_details_page.dart';
@@ -44,14 +44,14 @@ class UserBioPageState extends State<UserBioPage> {
       body: SafeArea(
         bottom: true,
         child: Padding(
-          padding: const EdgeInsets.all(Dimen.large_padding),
+          padding: const EdgeInsets.all(LayoutConstants.LARGE_PADDING),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text('About yourself', textAlign: TextAlign.center, style: Theme.of(context).textTheme.headline2),
               Padding(
-                padding: const EdgeInsets.only(top: Dimen.extra_small_padding, bottom: Dimen.large_padding),
+                padding: const EdgeInsets.only(top: LayoutConstants.EXTRA_SMALL_PADDING, bottom: LayoutConstants.LARGE_PADDING),
                 child: Text(
                     'Provide a brief introduction about yourself here. This is what other users will see then they click on your profile.',
                     textAlign: TextAlign.center,
@@ -70,7 +70,7 @@ class UserBioPageState extends State<UserBioPage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: Dimen.small_padding, horizontal: 0),
+                padding: const EdgeInsets.symmetric(vertical: LayoutConstants.SMALL_PADDING, horizontal: 0),
                 child: TextButton(
                     style: TextButton.styleFrom(
                         primary: Colours.ALTERNATIVE_TEXT_COLOR, textStyle: Theme.of(context).textTheme.button),

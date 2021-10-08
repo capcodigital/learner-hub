@@ -6,7 +6,7 @@ import 'package:flutter/widgets.dart';
 
 import '/core/colours.dart';
 import '/core/constants.dart';
-import '/core/dimen.dart';
+import '/core/layout_constants.dart';
 import '/core/shared_ui/app_drawer.dart';
 import '/core/shared_ui/custom_appbar.dart';
 import '/core/shared_ui/primary_button.dart';
@@ -71,7 +71,7 @@ class OnBoardingPage extends StatelessWidget {
           OnBoardingCarousel(),
           const Spacer(),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: Dimen.large_padding, horizontal: Dimen.small_padding),
+            padding: const EdgeInsets.symmetric(vertical: LayoutConstants.LARGE_PADDING, horizontal: LayoutConstants.SMALL_PADDING),
             child: PrimaryButton(
                 text: 'Log in',
                 onPressed: () {
@@ -83,12 +83,13 @@ class OnBoardingPage extends StatelessWidget {
   }
 
   Widget getFooter(BuildContext context) {
+    final MediaQueriesImpl mediaQueries = MediaQueriesImpl(buildContext: context);
     return Column(
       children: [
         Container(
             color: Colours.ALTERNATIVE_COLOR,
             height: 64,
-            width: getMediaWidth(context),
+            width: mediaQueries.applyWidth(context, 1),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -104,8 +105,8 @@ class OnBoardingPage extends StatelessWidget {
               ],
             )),
         Container(
-          height: Dimen.regular_padding,
-          width: getMediaWidth(context),
+          height: LayoutConstants.REGULAR_PADDING,
+          width: mediaQueries.applyWidth(context, 1),
           color: Colors.white,
         )
       ],

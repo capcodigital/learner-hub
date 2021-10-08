@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 import '/core/colours.dart';
-import '/core/dimen.dart';
+import '/core/layout_constants.dart';
 import '/core/shared_ui/primary_button.dart';
 import '/features/user_registration/domain/entities/user_registration.dart';
 import '/features/user_registration/presentation/pages/skills_page.dart';
@@ -52,7 +52,7 @@ class UserDetailsPageState extends State<UserDetailsPage> {
       body: SafeArea(
         bottom: true,
         child: Padding(
-          padding: const EdgeInsets.all(Dimen.large_padding),
+          padding: const EdgeInsets.all(LayoutConstants.LARGE_PADDING),
           child: Form(
             key: _formKey,
             child: Column(
@@ -61,7 +61,7 @@ class UserDetailsPageState extends State<UserDetailsPage> {
               children: [
                 Text('Sign up', textAlign: TextAlign.center, style: Theme.of(context).textTheme.headline2),
                 Padding(
-                  padding: const EdgeInsets.only(top: Dimen.extra_small_padding, bottom: Dimen.large_padding),
+                  padding: const EdgeInsets.only(top: LayoutConstants.EXTRA_SMALL_PADDING, bottom: LayoutConstants.LARGE_PADDING),
                   child: Text('To get started, fill out your name and job title',
                       textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyText2),
                 ),
