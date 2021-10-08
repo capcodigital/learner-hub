@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 
 import '/core/colours.dart';
 import '/core/constants.dart';
-import '/core/dimen.dart';
+import '/core/layout_constants.dart';
 import '/core/shared_ui/primary_button.dart';
 import '/features/user_registration/domain/entities/user_registration.dart';
 import '/features/user_registration/presentation/pages/bio_page.dart';
@@ -84,14 +84,15 @@ class _SkillsPageState extends State<SkillsPage> {
         child: SafeArea(
           bottom: true,
           child: Padding(
-            padding: const EdgeInsets.all(Dimen.large_padding),
+            padding: const EdgeInsets.all(LayoutConstants.LARGE_PADDING),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text('Your skillset', textAlign: TextAlign.center, style: Theme.of(context).textTheme.headline1),
                 Padding(
-                  padding: const EdgeInsets.only(top: Dimen.extra_small_padding, bottom: Dimen.large_padding),
+                  padding: const EdgeInsets.only(
+                      top: LayoutConstants.EXTRA_SMALL_PADDING, bottom: LayoutConstants.LARGE_PADDING),
                   child: RichText(
                       textAlign: TextAlign.center,
                       key: const Key('subtitleText'),
@@ -99,28 +100,28 @@ class _SkillsPageState extends State<SkillsPage> {
                           text: 'Select from the list below all of your',
                           style: Theme.of(context).textTheme.bodyText1,
                           children: const <TextSpan>[
-                        TextSpan(
-                            text: ' primary',
-                            style: TextStyle(fontWeight: FontWeight.bold, color: Colours.ACCENT_2_COLOR)),
-                        TextSpan(text: ' and'),
-                        TextSpan(
-                            text: ' secondary',
-                            style: TextStyle(fontWeight: FontWeight.bold, color: Colours.ACCENT_3_COLOR)),
-                        TextSpan(text: ' skills'),
-                      ])),
+                            TextSpan(
+                                text: ' primary',
+                                style: TextStyle(fontWeight: FontWeight.bold, color: Colours.ACCENT_2_COLOR)),
+                            TextSpan(text: ' and'),
+                            TextSpan(
+                                text: ' secondary',
+                                style: TextStyle(fontWeight: FontWeight.bold, color: Colours.ACCENT_3_COLOR)),
+                            TextSpan(text: ' skills'),
+                          ])),
                 ),
                 Expanded(
                   child: SingleChildScrollView(
                     scrollDirection: Axis.vertical,
                     child: Wrap(
-                      spacing: Dimen.extra_small_padding,
-                      runSpacing: Dimen.extra_small_padding / 2,
+                      spacing: LayoutConstants.EXTRA_SMALL_PADDING,
+                      runSpacing: LayoutConstants.EXTRA_SMALL_PADDING / 2,
                       children: _skillsWidgets,
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: Dimen.small_padding),
+                  padding: const EdgeInsets.only(top: LayoutConstants.SMALL_PADDING),
                   child: PrimaryButton(
                       text: 'Next',
                       onPressed: () {
