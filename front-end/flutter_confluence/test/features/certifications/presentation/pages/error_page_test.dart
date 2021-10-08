@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_confluence/core/constants.dart';
+import 'package:flutter_confluence/core/themes.dart';
 import 'package:flutter_confluence/features/certifications/domain/entities/cloud_certification_type.dart';
 import 'package:flutter_confluence/features/certifications/presentation/bloc/cloud_certification_bloc.dart';
 import 'package:flutter_confluence/features/certifications/presentation/pages/error_page.dart';
@@ -30,8 +31,9 @@ void main() {
 
     // act
     await tester.pumpWidget(
-      const MaterialApp(
-        home: Scaffold(
+      MaterialApp(
+        theme: Themes.appTheme,
+        home: const Scaffold(
           body: ErrorPage(error: error),
         ),
       ),

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_confluence/core/constants.dart';
 import 'package:flutter_confluence/core/shared_ui/custom_appbar.dart';
+import 'package:flutter_confluence/core/themes.dart';
 import 'package:flutter_confluence/features/certifications/domain/entities/cloud_certification_type.dart';
 import 'package:flutter_confluence/features/certifications/presentation/bloc/cloud_certification_bloc.dart';
 import 'package:flutter_confluence/features/certifications/presentation/pages/error_page.dart';
@@ -45,6 +46,7 @@ void main() {
     // act
     await tester.pumpWidget(
       MaterialApp(
+        theme: Themes.appTheme,
         home: BlocProvider<CloudCertificationBloc>(
           create: (_) => mockBloc,
           child: const HomePage(
@@ -85,6 +87,7 @@ void main() {
     // act
     await tester.pumpWidget(
       MaterialApp(
+        theme: Themes.appTheme,
         home: BlocProvider<CloudCertificationBloc>(
           create: (_) => mockBloc,
           child: const HomePage(
@@ -120,6 +123,7 @@ void main() {
     // act
     await tester.pumpWidget(
       MaterialApp(
+        theme: Themes.appTheme,
         home: BlocProvider<CloudCertificationBloc>(
           create: (_) => mockBloc,
           child: const HomePage(
@@ -155,6 +159,7 @@ void main() {
     // act
     await tester.pumpWidget(
       MaterialApp(
+        theme: Themes.appTheme,
         home: BlocProvider<CloudCertificationBloc>(
           create: (_) => mockBloc,
           child: const HomePage(
@@ -190,6 +195,7 @@ void main() {
     // act
     await tester.pumpWidget(
       MaterialApp(
+        theme: Themes.appTheme,
         home: BlocProvider<CloudCertificationBloc>(
           create: (_) => mockBloc,
           child: const HomePage(
@@ -232,6 +238,7 @@ void main() {
     // act
     await tester.pumpWidget(
       MaterialApp(
+        theme: Themes.appTheme,
         home: BlocProvider<CloudCertificationBloc>(
           create: (_) => mockBloc,
           child: const HomePage(
@@ -301,6 +308,7 @@ void main() {
     // act
     await tester.pumpWidget(
       MaterialApp(
+        theme: Themes.appTheme,
         home: BlocProvider<CloudCertificationBloc>(
           create: (_) => mockBloc,
           child: const HomePage(
