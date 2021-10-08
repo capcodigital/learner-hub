@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_confluence/core/device.dart';
 import 'package:flutter_confluence/core/layout_constants.dart';
 import 'package:flutter_confluence/core/utils/media_util.dart';
 
@@ -21,7 +20,6 @@ class _HomePageState extends State<HomePage> {
   var disableSearchAndToggle = false;
   final TextEditingController searchController = TextEditingController();
   late MediaQueriesImpl mediaQueries;
-  late DeviceImpl device = DeviceImpl.getDefault();
 
   @override
   Widget build(BuildContext context) {
