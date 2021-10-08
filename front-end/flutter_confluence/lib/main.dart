@@ -12,12 +12,12 @@ import '/features/auth/presentation/bloc/auth_bloc.dart';
 import '/features/certifications/data/models/cloud_certification_model.dart';
 import '/features/certifications/presentation/bloc/cloud_certification_bloc.dart';
 import '/features/certifications/presentation/pages/home_page.dart';
+import '/features/onboarding/presentation/pages/login_page.dart';
 import '/features/onboarding/presentation/pages/on_boarding.dart';
 import '/features/user_registration/presentation/bloc/user_registration_bloc.dart';
 import '/features/user_registration/presentation/pages/user_details_page.dart';
 import '/injection_container.dart';
 import '/injection_container.dart' as di;
-import 'features/onboarding/presentation/pages/login_page.dart';
 
 // ignore: avoid_void_async
 void main() async {

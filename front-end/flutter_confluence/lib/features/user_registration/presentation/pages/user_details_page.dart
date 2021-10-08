@@ -5,7 +5,7 @@ import '/core/colours.dart';
 import '/core/layout_constants.dart';
 import '/core/shared_ui/primary_button.dart';
 import '/features/user_registration/domain/entities/user_registration.dart';
-import '/features/user_registration/presentation/pages/primary_skills_page.dart';
+import '/features/user_registration/presentation/pages/skills_page.dart';
 
 class UserDetailsPage extends StatefulWidget {
   const UserDetailsPage({Key? key}) : super(key: key);
@@ -40,7 +40,7 @@ class UserDetailsPageState extends State<UserDetailsPage> {
 
         final navigationParameters = UserRegistration(name: name, lastName: lastName, jobTitle: jobTitle);
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => PrimarySkillsPage(navParameters: navigationParameters)));
+            context, MaterialPageRoute(builder: (context) => SkillsPage(navParameters: navigationParameters)));
       }
     }
 
