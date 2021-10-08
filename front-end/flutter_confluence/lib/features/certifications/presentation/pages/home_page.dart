@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_confluence/core/layout_constants.dart';
-import 'package:flutter_confluence/core/utils/media_util.dart';
+
+import '/core/layout_constants.dart';
+import '/core/utils/media_util.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key, required this.appBar}) : super(key: key);
