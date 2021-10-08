@@ -1,19 +1,7 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_confluence/core/device.dart';
 import 'package:flutter_confluence/core/layout_constants.dart';
 import 'package:flutter_confluence/core/utils/media_util.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-
-import '../../../../core/constants.dart';
-import '../bloc/cloud_certification_bloc.dart';
-import '../widgets/certifications_view.dart';
-import '../widgets/empty_search.dart';
-import '../widgets/searchbox.dart';
-import '../widgets/toggle_switch.dart';
-import 'error_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key, required this.appBar}) : super(key: key);
@@ -64,11 +52,8 @@ class _HomePageState extends State<HomePage> {
             height: mediaQueries.applyHeight(context, 1),
             constraints: const BoxConstraints.expand(),
             decoration: const BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage('assets/back-layer.png'),
-                    fit: BoxFit.cover)),
-            child: LayoutBuilder(
-                builder: (BuildContext ctx, BoxConstraints constraints) {
+                image: DecorationImage(image: AssetImage('assets/back-layer.png'), fit: BoxFit.cover)),
+            child: LayoutBuilder(builder: (BuildContext ctx, BoxConstraints constraints) {
               final parallaxLayerLeft = mediaQueries.isPortrait(ctx)
                   ? constraints.maxWidth * LayoutConstants.SMALL_SCALE
                   : constraints.maxWidth * LayoutConstants.LARGE_SCALE;
@@ -79,100 +64,9 @@ class _HomePageState extends State<HomePage> {
                     top: frontLayerTop,
                     child: Image.asset('assets/front-layer.png'),
                   ),
-                  buildTable(context, constraints)
+                  const Text('Add here your new UI', key: Key('sampleText'))
                 ],
               );
             })));
-  }
-
-  Widget buildTable(BuildContext context, BoxConstraints constraints) {
-    void doSearch(String searchTerm) {
-      BlocProvider.of<CloudCertificationBloc>(context)
-          .add(SearchCertificationsEvent(searchTerm));
-    }
-
-    final verticalPadding = mediaQueries.isPortrait(context)
-        ? constraints.maxHeight * LayoutConstants.EXTRA_SMALL_SCALE
-        : constraints.maxHeight * LayoutConstants.LARGE_SCALE;
-    final horizontalPadding = mediaQueries.isPortrait(context)
-        ? constraints.maxWidth * LayoutConstants.SMALL_SCALE
-        : constraints.maxWidth * LayoutConstants.EXTRA_SMALL_SCALE;
-    return Column(
-      children: [
-        // Padding around Search and Toggle
-        Padding(
-          padding: EdgeInsets.only(
-            top: verticalPadding,
-            bottom: verticalPadding,
-            left: horizontalPadding,
-            right: horizontalPadding,
-          ),
-          child: Column(
-            children: [
-              // Search
-              ColorFiltered(
-                colorFilter: ColorFilter.mode(
-                  disableSearchAndToggle
-                      ? Constants.DISABLED_COLOR
-                      : Colors.white,
-                  BlendMode.modulate,
-                ),
-                child: IgnorePointer(
-                  ignoring: disableSearchAndToggle,
-                  child: SearchBox(
-                    controller: searchController,
-                    onSearchTermChanged: doSearch,
-                    onSearchSubmitted: doSearch,
-                  ),
-                ),
-              ),
-              // Toggle
-              Padding(
-                padding: EdgeInsets.only(
-                    top: mediaQueries.isPortrait(context)
-                        ? constraints.maxHeight * LayoutConstants.SMALL_SCALE
-                        : constraints.maxHeight * LayoutConstants.LARGE_SCALE),
-                child: ColorFiltered(
-                    colorFilter: ColorFilter.mode(
-                      disableSearchAndToggle
-                          ? Constants.DISABLED_COLOR
-                          : Colors.white,
-                      BlendMode.modulate,
-                    ),
-                    child: IgnorePointer(
-                        ignoring: disableSearchAndToggle,
-                        child: ToggleButton())),
-              ),
-            ],
-          ),
-        ),
-        BlocConsumer<CloudCertificationBloc, CloudCertificationState>(
-            builder: (context, state) {
-          log('HOME PAGE - New State received: $state');
-          if (state is Loaded) {
-            return Expanded(child: CertificationsView(items: state.items));
-          } else if (state is Loading)
-            return Container(
-                margin: EdgeInsets.only(
-                    top: constraints.maxHeight * LayoutConstants.LARGE_SCALE),
-                child: PlatformCircularProgressIndicator());
-          else if (state is Empty)
-            return const Text(Constants.NO_RESULTS);
-          else if (state is EmptySearchResult)
-            return EmptySearch(
-                type: state.cloudCertificationType,
-                searchController: searchController);
-          else if (state is Error)
-            return Expanded(child: ErrorPage(error: state));
-          else
-            return const Text(Constants.UNKNOWN_ERROR);
-        }, listener: (context, state) {
-          setState(() {
-            disableSearchAndToggle = state is Error;
-            if (disableSearchAndToggle) FocusScope.of(context).unfocus();
-          });
-        })
-      ],
-    );
   }
 }

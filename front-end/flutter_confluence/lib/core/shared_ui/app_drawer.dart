@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../device.dart';
 import '/core/constants.dart';
 import '/core/layout_constants.dart';
 import '/core/utils/error_messages.dart';
