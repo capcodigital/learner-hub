@@ -130,4 +130,4 @@ flutter:
           weight: 800
     - family: CustomIconFont
       fonts:
-        - asset: assets/CustomIconFont.ttf
+        - asset: fonts/CustomIconFont.ttf
