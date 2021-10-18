@@ -10,6 +10,8 @@ class Themes {
   static const futuraPTFontFamily = 'FuturaPT';
 
   static ThemeData appTheme = ThemeData(
+      splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
       primaryColor: Colours.ACCENT_COLOR,
       textTheme: const TextTheme(
         headline1: TextStyle(
