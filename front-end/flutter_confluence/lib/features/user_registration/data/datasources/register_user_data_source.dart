@@ -11,7 +11,6 @@ import '/features/user_registration/data/models/user_registration_model.dart';
 abstract class RegisterUserDataSource {
   Future<User> registerFirebaseUser(String email, String password);
   Future<bool> createUser(UserRegistrationModel userRequest);
-
   Future<void> cleanUpFailedUser();
 }
 
@@ -24,7 +23,8 @@ class RegisterUserDataSourceImpl implements RegisterUserDataSource {
   @override
   Future<User> registerFirebaseUser(String email, String password) async {
     try {
-      final userCredential = await auth.createUserWithEmailAndPassword(email: email, password: password);
+      final userCredential = await auth.createUserWithEmailAndPassword(
+          email: email, password: password);
       if (userCredential.user == null) {
         throw AuthFailure('Is not possible to get the firebase user');
       } else {
@@ -55,22 +55,16 @@ class RegisterUserDataSourceImpl implements RegisterUserDataSource {
 
       final token = await auth.currentUser?.getIdToken();
 
-      final response = await client.post(Uri.parse(url), headers: {
-        HttpHeaders.authorizationHeader: 'Bearer $token'
-      }, body: {
-        'email': userRequest.email,
-        'name': userRequest.name,
-        'lastName': userRequest.lastName,
-        'jobTitle': userRequest.jobTitle,
-        'bio': userRequest.bio,
-      });
+      final response = await client.post(Uri.parse(url),
+          headers: {HttpHeaders.authorizationHeader: 'Bearer $token'},
+          body: userRequest.toJson());
 
       if (response.statusCode == HttpStatus.created) {
         return true;
       } else {
         throw AuthFailure('Status code: ${response.statusCode}');
       }
-    } on Exception catch (exception) {
+    } catch (exception) {
       print(exception.toString());
       throw ServerException(message: Constants.SERVER_FAILURE_MSG);
     }

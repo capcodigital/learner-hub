@@ -1,18 +1,7 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_confluence/core/dimen.dart';
-import 'package:flutter_confluence/core/utils/media_util.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
-import '../../../../core/constants.dart';
-import '../bloc/cloud_certification_bloc.dart';
-import '../widgets/certifications_view.dart';
-import '../widgets/empty_search.dart';
-import '../widgets/searchbox.dart';
-import '../widgets/toggle_switch.dart';
-import 'error_page.dart';
+import '/core/layout_constants.dart';
+import '/core/utils/media_util.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key, required this.appBar}) : super(key: key);
@@ -31,9 +20,11 @@ class _HomePageState extends State<HomePage> {
   var frontLayerTop = frontLayerInitialTop;
   var disableSearchAndToggle = false;
   final TextEditingController searchController = TextEditingController();
+  late MediaQueriesImpl mediaQueries;
 
   @override
   Widget build(BuildContext context) {
+    mediaQueries = MediaQueriesImpl(buildContext: context);
     return Scaffold(
       // Fixes bottom overflow error when show keyboard in landscape
       resizeToAvoidBottomInset: false,
@@ -56,18 +47,15 @@ class _HomePageState extends State<HomePage> {
           return true;
         },
         child: Container(
-            width: getMediaWidth(context),
-            height: getMediaHeight(context),
+            width: mediaQueries.applyWidth(context, 1),
+            height: mediaQueries.applyHeight(context, 1),
             constraints: const BoxConstraints.expand(),
             decoration: const BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage('assets/back-layer.png'),
-                    fit: BoxFit.cover)),
-            child: LayoutBuilder(
-                builder: (BuildContext ctx, BoxConstraints constraints) {
-              final parallaxLayerLeft = isPortrait(ctx)
-                  ? constraints.maxWidth * Dimen.scale_6_100
-                  : constraints.maxWidth * Dimen.scale_35_100;
+                image: DecorationImage(image: AssetImage('assets/back-layer.png'), fit: BoxFit.cover)),
+            child: LayoutBuilder(builder: (BuildContext ctx, BoxConstraints constraints) {
+              final parallaxLayerLeft = mediaQueries.isPortrait(ctx)
+                  ? constraints.maxWidth * LayoutConstants.SMALL_SCALE
+                  : constraints.maxWidth * LayoutConstants.LARGE_SCALE;
               return Stack(
                 children: <Widget>[
                   Positioned(
@@ -75,100 +63,9 @@ class _HomePageState extends State<HomePage> {
                     top: frontLayerTop,
                     child: Image.asset('assets/front-layer.png'),
                   ),
-                  buildTable(context, constraints)
+                  const Text('Add here your new UI', key: Key('sampleText'))
                 ],
               );
             })));
-  }
-
-  Widget buildTable(BuildContext context, BoxConstraints constraints) {
-    void doSearch(String searchTerm) {
-      BlocProvider.of<CloudCertificationBloc>(context)
-          .add(SearchCertificationsEvent(searchTerm));
-    }
-
-    final verticalPadding = isPortrait(context)
-        ? constraints.maxHeight * Dimen.scale_2_100
-        : constraints.maxHeight * Dimen.scale_4_100;
-    final horizontalPadding = isPortrait(context)
-        ? constraints.maxWidth * Dimen.scale_9_100
-        : constraints.maxWidth * Dimen.scale_12_100;
-    return Column(
-      children: [
-        // Padding around Search and Toggle
-        Padding(
-          padding: EdgeInsets.only(
-            top: verticalPadding,
-            bottom: verticalPadding,
-            left: horizontalPadding,
-            right: horizontalPadding,
-          ),
-          child: Column(
-            children: [
-              // Search
-              ColorFiltered(
-                colorFilter: ColorFilter.mode(
-                  disableSearchAndToggle
-                      ? Constants.DISABLED_COLOR
-                      : Colors.white,
-                  BlendMode.modulate,
-                ),
-                child: IgnorePointer(
-                  ignoring: disableSearchAndToggle,
-                  child: SearchBox(
-                    controller: searchController,
-                    onSearchTermChanged: doSearch,
-                    onSearchSubmitted: doSearch,
-                  ),
-                ),
-              ),
-              // Toggle
-              Padding(
-                padding: EdgeInsets.only(
-                    top: isPortrait(context)
-                        ? constraints.maxHeight * Dimen.scale_3_100
-                        : constraints.maxHeight * Dimen.scale_5_100),
-                child: ColorFiltered(
-                    colorFilter: ColorFilter.mode(
-                      disableSearchAndToggle
-                          ? Constants.DISABLED_COLOR
-                          : Colors.white,
-                      BlendMode.modulate,
-                    ),
-                    child: IgnorePointer(
-                        ignoring: disableSearchAndToggle,
-                        child: ToggleButton())),
-              ),
-            ],
-          ),
-        ),
-        BlocConsumer<CloudCertificationBloc, CloudCertificationState>(
-            builder: (context, state) {
-          log('HOME PAGE - New State received: $state');
-          if (state is Loaded) {
-            return Expanded(child: CertificationsView(items: state.items));
-          } else if (state is Loading)
-            return Container(
-                margin: EdgeInsets.only(
-                    top: constraints.maxHeight * Dimen.scale_5_100),
-                child: PlatformCircularProgressIndicator());
-          else if (state is Empty)
-            return const Text(Constants.NO_RESULTS);
-          else if (state is EmptySearchResult)
-            return EmptySearch(
-                type: state.cloudCertificationType,
-                searchController: searchController);
-          else if (state is Error)
-            return Expanded(child: ErrorPage(error: state));
-          else
-            return const Text(Constants.UNKNOWN_ERROR);
-        }, listener: (context, state) {
-          setState(() {
-            disableSearchAndToggle = state is Error;
-            if (disableSearchAndToggle) FocusScope.of(context).unfocus();
-          });
-        })
-      ],
-    );
   }
 }

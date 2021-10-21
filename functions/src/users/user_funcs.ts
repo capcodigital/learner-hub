@@ -7,31 +7,12 @@ import * as jsend from "../jsend";
 // Adds a user in firestore and returns a response with a message
 export async function registerUser(
     uid: string,
-    user: any,
+    request: any,
     res: functions.Response
 ) {
     try {
-        const email = user["email"] as string;
-        const name = user["name"] as string;
-        const lastName = user["lastName"] as string;
-        const jobTitle = user["jobTitle"] as string;
-        const bio = user["bio"] as string;
-
-        const skills: UserSkills = {
-            primarySkills: [],
-            secondarySkills: []
-        }
-
-        const item: User = {
-            email: email,
-            name: name,
-            lastName: lastName,
-            jobTitle: jobTitle,
-            bio: bio,
-            skills: skills
-        }
-
-        userRepo.insertUser(uid, item);
+        const user = request as User;
+        await userRepo.insertUser(uid, user);
         res.status(201).send(jsend.successfullResponse({ "message": "User registered" }));
     } catch (e) {
         logger.log(e);

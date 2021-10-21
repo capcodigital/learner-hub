@@ -1,31 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_confluence/core/shared_ui/custom_bottom_nav.dart';
 import 'package:lottie/lottie.dart';
 
 import '/core/colours.dart';
-import '/core/constants.dart';
 import '/core/shared_ui/app_drawer.dart';
-import '/core/shared_ui/custom_appbar.dart';
 import '/features/auth/presentation/bloc/auth_bloc.dart';
-import '/features/certifications/presentation/pages/home_page.dart';
 import '/features/onboarding/presentation/pages/on_boarding.dart';
 
 class PreLoadWidget extends StatelessWidget {
   static const STARTUP_DELAY_MILLIS = 2000;
 
-  void openHomePage(BuildContext context) {
+  void _goToBottomNavigationBar(BuildContext context) {
     Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
+      context,
+      MaterialPageRoute(
           builder: (context) => const AppDrawer(
-              child: HomePage(
-            appBar: CustomAppBar(
-              icon: Icons.menu,
-              color: Constants.JIRA_COLOR,
-              text: 'Cloud Certifications',
-            ),
-          )),
-        ));
+                child: CustomBottomNavBar(),
+              )),
+    );
   }
 
   void openOnBoardingPage(BuildContext context) {
@@ -38,16 +31,22 @@ class PreLoadWidget extends StatelessWidget {
         body: BlocListener(
             bloc: BlocProvider.of<AuthBloc>(context),
             listener: (context, state) {
-              if (state is InvalidUser) {
-                Future.delayed(const Duration(milliseconds: STARTUP_DELAY_MILLIS), () {
-                  openOnBoardingPage(context);
-                });
-              }
-              if (state is ValidUser) {
-                Future.delayed(const Duration(milliseconds: STARTUP_DELAY_MILLIS), () {
-                  openHomePage(context);
-                });
-              }
+              // For testing purposes, let's go straight to the bottom
+              // nav screen as soon as the app opens.
+              _goToBottomNavigationBar(context);
+
+              // if (state is InvalidUser) {
+              //   Future.delayed(
+              //       const Duration(milliseconds: STARTUP_DELAY_MILLIS), () {
+              //     openOnBoardingPage(context);
+              //   });
+              // }
+              // if (state is ValidUser) {
+              //   Future.delayed(
+              //       const Duration(milliseconds: STARTUP_DELAY_MILLIS), () {
+              //     openHomePage(context);
+              //   });
+              // }
             },
             child: Container(
               color: Colours.PRIMARY_COLOR,

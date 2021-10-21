@@ -44,8 +44,8 @@ app.post("/certificationSummary", async (req: Request, res: Response) => {
 // Adds user in firestore
 app.post("/user", async (req: Request, res: Response) => {
     const uid = req.user?.uid as string;
-    const user = req.body;
-    if (uid != null && user != null) userFuncs.registerUser(uid, user, res);
+    const request = req.body;
+    if (uid != null && request != null) userFuncs.registerUser(uid, request, res);
     else if (uid == null) res.status(401).send(jsend.error("Unauthorized"));
     else res.status(400).send(jsend.error("Bad Request"));
 });
