@@ -71,7 +71,9 @@ class OnBoardingPage extends StatelessWidget {
           OnBoardingCarousel(),
           const Spacer(),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: LayoutConstants.LARGE_PADDING, horizontal: LayoutConstants.SMALL_PADDING),
+            padding: const EdgeInsets.symmetric(
+                vertical: LayoutConstants.LARGE_PADDING,
+                horizontal: LayoutConstants.SMALL_PADDING),
             child: PrimaryButton(
                 text: 'Log in',
                 onPressed: () {
@@ -83,7 +85,8 @@ class OnBoardingPage extends StatelessWidget {
   }
 
   Widget getFooter(BuildContext context) {
-    final MediaQueriesImpl mediaQueries = MediaQueriesImpl(buildContext: context);
+    final MediaQueriesImpl mediaQueries =
+        MediaQueriesImpl(buildContext: context);
     return Column(
       children: [
         Container(
@@ -93,11 +96,15 @@ class OnBoardingPage extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('Not a member yet?', style: Theme.of(context).textTheme.subtitle1),
+                Text('Not a member yet?',
+                    style: Theme.of(context).textTheme.subtitle1),
                 TextButton(
                     style: TextButton.styleFrom(
                         primary: Colours.ACCENT_COLOR,
-                        textStyle: Theme.of(context).textTheme.subtitle2?.copyWith(fontStyle: FontStyle.italic)),
+                        textStyle: Theme.of(context)
+                            .textTheme
+                            .subtitle2
+                            ?.copyWith(fontStyle: FontStyle.italic)),
                     onPressed: () {
                       register(context);
                     },

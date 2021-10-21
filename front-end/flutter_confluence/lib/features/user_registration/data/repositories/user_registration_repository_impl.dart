@@ -12,7 +12,8 @@ class UserRegistrationRepositoryIml implements UserRegistrationRepository {
   final RegisterUserDataSource dataSource;
 
   @override
-  Future<Either<AuthFailure, bool>> registerFirebaseUser(String email, String password) async {
+  Future<Either<AuthFailure, bool>> registerFirebaseUser(
+      String email, String password) async {
     try {
       await dataSource.registerFirebaseUser(email, password);
       return const Right(true);
