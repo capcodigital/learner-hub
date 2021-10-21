@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '/core/constants.dart';
 import '/core/layout_constants.dart';
+import '/core/ui/tech_radar_view.dart';
 import '/core/utils/error_messages.dart';
 import '/core/utils/media_util.dart';
 import '/features/auth/presentation/bloc/auth_bloc.dart';
@@ -96,7 +97,8 @@ class CustomDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final MediaQueriesImpl mediaQueries = MediaQueriesImpl(buildContext: context);
+    final MediaQueriesImpl mediaQueries =
+        MediaQueriesImpl(buildContext: context);
     return Scaffold(
       appBar: const CustomAppBar(
         text: 'Menu',
@@ -105,7 +107,8 @@ class CustomDrawer extends StatelessWidget {
       ),
       backgroundColor: Colors.black,
       body: Container(
-        height: mediaQueries.applyHeight(context, LayoutConstants.EXTRA_LARGE_SCALE),
+        height: mediaQueries.applyHeight(
+            context, LayoutConstants.EXTRA_LARGE_SCALE),
         color: Colors.black,
         child: SafeArea(
           child: Theme(
@@ -116,7 +119,8 @@ class CustomDrawer extends StatelessWidget {
                 Padding(
                     padding: EdgeInsets.only(
                         top: LayoutConstants.APP_DRAWER_LOGO_VERTICAL_PADDING,
-                        bottom: LayoutConstants.APP_DRAWER_LOGO_VERTICAL_PADDING,
+                        bottom:
+                            LayoutConstants.APP_DRAWER_LOGO_VERTICAL_PADDING,
                         right: 0,
                         left: LayoutConstants.APP_DRAWER_LOGO_LEFT_PADDING),
                     child: Image(
@@ -128,9 +132,9 @@ class CustomDrawer extends StatelessWidget {
                   icon: Icons.home,
                 ),
                 MenuButton(
-                  title: 'Code Standards',
+                  title: 'Tech Radar',
                   id: 2,
-                  icon: Icons.code,
+                  icon: Icons.radar,
                 ),
                 Expanded(
                   child: Align(
@@ -173,7 +177,8 @@ class MenuButton extends StatelessWidget {
               print('My Profile pressed');
               break;
             case 2:
-              print('Standards pressed');
+              runApp(const MaterialApp(home: WebViewExample()));
+              print('Tech Radar Pressed');
               break;
             case 3:
               BlocProvider.of<AuthBloc>(context).add(LogoutEvent());
