@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_confluence/core/constants.dart';
+import 'package:flutter_confluence/core/colours.dart';
 import 'package:flutter_confluence/core/shared_ui/custom_appbar.dart';
+import 'package:flutter_confluence/features/user_settings/presentation/pages/user_settings_page.dart';
 
 class CustomBottomNavBar extends StatefulWidget {
   const CustomBottomNavBar({Key? key}) : super(key: key);
+
   @override
   State<CustomBottomNavBar> createState() => _CustomBottomNavBarState();
 }
@@ -13,8 +15,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
   int _selectedIndex = 0;
   String _title = 'Users';
   final _kFontFam = 'CustomIconFont';
-  TextStyle optionStyle =
-      const TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  TextStyle optionStyle = const TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   late final List<Widget> _widgetOptions = <Widget>[
     Text(
       'Users',
@@ -30,6 +31,10 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
     ),
     Text(
       'TODO',
+      style: optionStyle,
+    ),
+    Text(
+      'Settings',
       style: optionStyle,
     ),
   ];
@@ -53,6 +58,18 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
         case 3:
           _title = 'My TODOs';
           break;
+
+        case 4:
+          _title = 'Settings';
+          // Navigate to settings page
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(
+          //       builder: (context) => const UserSettingsPage()),
+          // );
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => const UserSettingsPage(), fullscreenDialog: true));
+          break;
       }
     });
   }
@@ -62,7 +79,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
     return Scaffold(
       appBar: CustomAppBar(
         icon: Icons.menu,
-        color: Constants.JIRA_COLOR,
+        color: Colours.ACCENT_COLOR,
         text: _title,
       ),
       body: Center(
@@ -98,10 +115,16 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
             icon: Icon(IconData(0xe803, fontFamily: _kFontFam), size: 75),
             label: '',
             tooltip: '',
+          ),
+          BottomNavigationBarItem(
+            // My TODOs
+            icon: Icon(IconData(0xe801, fontFamily: _kFontFam), size: 75),
+            label: '',
+            tooltip: '',
           )
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.pink[300],
+        selectedItemColor: Colours.ACCENT_COLOR,
         onTap: _onItemTapped,
       ),
     );

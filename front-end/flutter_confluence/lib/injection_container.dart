@@ -1,5 +1,6 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_confluence/features/user_settings/presentation/bloc/user_settings_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 import 'package:local_auth/local_auth.dart';
@@ -79,4 +80,7 @@ Future<void> init() async {
   sl.registerLazySingleton<UserRegistrationRepository>(() => UserRegistrationRepositoryIml(dataSource: sl()));
   sl.registerLazySingleton(() => RegisterUser(registrationRepository: sl()));
   sl.registerFactory(() => UserRegistrationBloc(registerUser: sl()));
+
+  // User settings
+  sl.registerFactory(() => UserSettingsBloc());
 }
