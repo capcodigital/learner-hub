@@ -2,20 +2,16 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_confluence/core/constants.dart';
-import 'package:flutter_confluence/core/shared_ui/custom_appbar.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-
-import '/core/shared_ui/custom_appbar.dart';
 
 class WebViewExample extends StatefulWidget {
   const WebViewExample({Key? key}) : super(key: key);
+  static const route = 'TechRadarPage';
   @override
   WebViewExampleState createState() => WebViewExampleState();
 }
 
 class WebViewExampleState extends State<WebViewExample> {
-  final String _title = 'Tech Radar';
   TextStyle optionStyle =
       const TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   @override
@@ -28,10 +24,10 @@ class WebViewExampleState extends State<WebViewExample> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: CustomAppBar(
-          icon: Icons.menu,
-          color: Constants.JIRA_COLOR,
-          text: _title,
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
         ),
         // We're using a Builder here so we have a context that is below the Scaffold
         // to allow calling Scaffold.of(context) so we can show a snackbar.

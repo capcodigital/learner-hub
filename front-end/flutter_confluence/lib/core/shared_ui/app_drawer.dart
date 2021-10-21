@@ -108,46 +108,39 @@ class CustomDrawer extends StatelessWidget {
       backgroundColor: Colors.black,
       body: Container(
         height: mediaQueries.applyHeight(
-            context, LayoutConstants.EXTRA_LARGE_SCALE),
+            context, LayoutConstants.XXX_EXTRA_LARGE_SCALE),
         color: Colors.black,
-        child: SafeArea(
-          child: Theme(
-            data: ThemeData(brightness: Brightness.dark),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                Padding(
-                    padding: EdgeInsets.only(
-                        top: LayoutConstants.APP_DRAWER_LOGO_VERTICAL_PADDING,
-                        bottom:
-                            LayoutConstants.APP_DRAWER_LOGO_VERTICAL_PADDING,
-                        right: 0,
-                        left: LayoutConstants.APP_DRAWER_LOGO_LEFT_PADDING),
-                    child: Image(
-                      image: AssetImage('assets/capco_logo.png'),
-                    )),
-                MenuButton(
-                  title: 'My Profile',
-                  id: 1,
-                  icon: Icons.home,
-                ),
-                MenuButton(
-                  title: 'Tech Radar',
-                  id: 2,
-                  icon: Icons.radar,
-                ),
-                Expanded(
-                  child: Align(
-                    alignment: FractionalOffset.bottomCenter,
-                    child: MenuButton(
-                      icon: Icons.logout,
-                      id: 3,
-                      title: 'Logout',
-                    ),
-                  ),
-                ),
-              ],
-            ),
+        child: Theme(
+          data: ThemeData(brightness: Brightness.dark),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: const [
+              Padding(
+                  padding: EdgeInsets.only(
+                      top: LayoutConstants.APP_DRAWER_LOGO_VERTICAL_PADDING,
+                      bottom: LayoutConstants.APP_DRAWER_LOGO_VERTICAL_PADDING,
+                      right: 0,
+                      left: LayoutConstants.APP_DRAWER_LOGO_LEFT_PADDING),
+                  child: Image(
+                    image: AssetImage('assets/capco_logo.png'),
+                  )),
+              MenuButton(
+                title: 'My Profile',
+                id: 1,
+                icon: Icons.home,
+              ),
+              MenuButton(
+                title: 'Tech Radar',
+                id: 2,
+                icon: Icons.radar,
+              ),
+              Spacer(),
+              MenuButton(
+                icon: Icons.logout,
+                id: 3,
+                title: 'Logout',
+              ),
+            ],
           ),
         ),
       ),
@@ -177,10 +170,11 @@ class MenuButton extends StatelessWidget {
               print('My Profile pressed');
               break;
             case 2:
-              runApp(const MaterialApp(home: WebViewExample()));
+              Navigator.pushNamed(context, WebViewExample.route);
               print('Tech Radar Pressed');
               break;
             case 3:
+              print('User has logged out');
               BlocProvider.of<AuthBloc>(context).add(LogoutEvent());
               break;
           }
