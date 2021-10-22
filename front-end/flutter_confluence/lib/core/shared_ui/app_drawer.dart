@@ -96,7 +96,8 @@ class CustomDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final MediaQueriesImpl mediaQueries = MediaQueriesImpl(buildContext: context);
+    final MediaQueriesImpl mediaQueries =
+        MediaQueriesImpl(buildContext: context);
     return Scaffold(
       appBar: const CustomAppBar(
         text: 'Menu',
@@ -105,7 +106,8 @@ class CustomDrawer extends StatelessWidget {
       ),
       backgroundColor: Colors.black,
       body: Container(
-        height: mediaQueries.applyHeight(context, LayoutConstants.EXTRA_LARGE_SCALE),
+        height: mediaQueries.applyHeight(
+            context, LayoutConstants.EXTRA_LARGE_SCALE),
         color: Colors.black,
         child: SafeArea(
           child: Theme(
@@ -116,7 +118,8 @@ class CustomDrawer extends StatelessWidget {
                 Padding(
                     padding: EdgeInsets.only(
                         top: LayoutConstants.APP_DRAWER_LOGO_VERTICAL_PADDING,
-                        bottom: LayoutConstants.APP_DRAWER_LOGO_VERTICAL_PADDING,
+                        bottom:
+                            LayoutConstants.APP_DRAWER_LOGO_VERTICAL_PADDING,
                         right: 0,
                         left: LayoutConstants.APP_DRAWER_LOGO_LEFT_PADDING),
                     child: Image(

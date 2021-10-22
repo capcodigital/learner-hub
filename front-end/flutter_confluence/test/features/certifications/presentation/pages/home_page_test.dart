@@ -11,7 +11,8 @@ import 'package:mocktail/mocktail.dart' as mocktail;
 
 class UnknownState extends CloudCertificationState {}
 
-class MockCertificationBloc extends MockBloc<CloudCertificationEvent, CloudCertificationState>
+class MockCertificationBloc
+    extends MockBloc<CloudCertificationEvent, CloudCertificationState>
     implements CloudCertificationBloc {}
 
 void main() {
@@ -19,13 +20,16 @@ void main() {
     // Tests fails if not call registerFallbackValue for State and Event.
     // This requires Mocktail
     mocktail.registerFallbackValue<CloudCertificationState>(Empty());
-    mocktail.registerFallbackValue<CloudCertificationEvent>(GetInProgressCertificationsEvent());
+    mocktail.registerFallbackValue<CloudCertificationEvent>(
+        GetInProgressCertificationsEvent());
   });
 
-  testWidgets('Home Page shows Loading Widget when bloc emits Loading', (WidgetTester tester) async {
+  testWidgets('Home Page shows Loading Widget when bloc emits Loading',
+      (WidgetTester tester) async {
     // arrange
     final CloudCertificationBloc mockBloc = MockCertificationBloc();
-    whenListen(mockBloc, Stream.fromIterable([Empty()]), initialState: Loading());
+    whenListen(mockBloc, Stream.fromIterable([Empty()]),
+        initialState: Loading());
 
     // act
     await tester.pumpWidget(

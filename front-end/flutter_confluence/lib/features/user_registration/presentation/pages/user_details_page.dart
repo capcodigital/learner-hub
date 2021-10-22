@@ -38,9 +38,13 @@ class UserDetailsPageState extends State<UserDetailsPage> {
         final lastName = lastNameController.text;
         final jobTitle = jobTitleController.text;
 
-        final navigationParameters = UserRegistration(name: name, lastName: lastName, jobTitle: jobTitle);
+        final navigationParameters = UserRegistration(
+            name: name, lastName: lastName, jobTitle: jobTitle);
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => SkillsPage(navParameters: navigationParameters)));
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    SkillsPage(navParameters: navigationParameters)));
       }
     }
 
@@ -59,11 +63,17 @@ class UserDetailsPageState extends State<UserDetailsPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text('Sign up', textAlign: TextAlign.center, style: Theme.of(context).textTheme.headline2),
+                Text('Sign up',
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.headline2),
                 Padding(
-                  padding: const EdgeInsets.only(top: LayoutConstants.EXTRA_SMALL_PADDING, bottom: LayoutConstants.LARGE_PADDING),
-                  child: Text('To get started, fill out your name and job title',
-                      textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyText2),
+                  padding: const EdgeInsets.only(
+                      top: LayoutConstants.EXTRA_SMALL_PADDING,
+                      bottom: LayoutConstants.LARGE_PADDING),
+                  child: Text(
+                      'To get started, fill out your name and job title',
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.bodyText2),
                 ),
                 TextFormField(
                   controller: nameController,
