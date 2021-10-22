@@ -3,7 +3,7 @@ version: 2
 jobs:
   analysis:
     docker:
-      - image: "cirrusci/flutter:2.2.3"
+      - image: "cirrusci/flutter:stable"
     steps:
       - checkout
       - run:
@@ -16,7 +16,7 @@ jobs:
           working_directory: ~/project/front-end/flutter_confluence
   tests:
     docker:
-      - image: "cirrusci/flutter:2.2.3"
+      - image: "cirrusci/flutter:stable"
     steps:
       - checkout
       - run:
