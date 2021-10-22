@@ -8,6 +8,7 @@ import 'package:flutter_confluence/core/shared_ui/skill_chip.dart';
 import 'package:flutter_confluence/features/user_settings/presentation/bloc/user_settings_bloc.dart';
 
 import '/core/colours.dart';
+import 'change_password_page.dart';
 
 class UserSettingsPage extends StatefulWidget {
   const UserSettingsPage({Key? key}) : super(key: key);
@@ -37,9 +38,9 @@ class UserSettingsPageState extends State<UserSettingsPage> {
   }
 
   void onChangePassword() {
-    BlocProvider.of<UserSettingsBloc>(context).add(ChangePasswordEvent());
+    // BlocProvider.of<UserSettingsBloc>(context).add(ChangePasswordEvent());
+    Navigator.push(context, MaterialPageRoute(builder: (context) => const ChangePasswordPage()));
   }
-
 
   void onSaveChanges() {
     BlocProvider.of<UserSettingsBloc>(context).add(SaveChangesEvent());

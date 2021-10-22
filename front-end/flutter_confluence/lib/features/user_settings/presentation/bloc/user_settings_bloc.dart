@@ -14,5 +14,10 @@ class UserSettingsBloc extends Bloc<UserSettingsEvent, UserSettingsState> {
   Stream<UserSettingsState> mapEventToState(UserSettingsEvent event) async* {
     print('Event received: ${event.runtimeType}');
     yield const UserSettingsInitial();
+
+    if(event is UpdatePasswordEvent) {
+      // Change password
+      yield PasswordUpdateSuccess();
+    }
   }
 }

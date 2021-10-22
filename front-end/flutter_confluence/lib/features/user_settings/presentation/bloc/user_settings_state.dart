@@ -21,3 +21,15 @@ class UserSettingsInitial extends UserSettingsState {
 
 
 class TodosLoadInProgress extends UserSettingsState {}
+
+
+class PasswordUpdateSuccess extends UserSettingsState {}
+class PasswordUpdateError extends UserSettingsState {
+  const PasswordUpdateError({required this.errorMessage});
+
+  final String errorMessage;
+
+  @override
+  List<Object> get props => [errorMessage];
+}
+
