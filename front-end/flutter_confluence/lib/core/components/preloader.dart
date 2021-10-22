@@ -4,7 +4,7 @@ import 'package:flutter_confluence/core/shared_ui/custom_bottom_nav.dart';
 import 'package:lottie/lottie.dart';
 
 import '/core/colours.dart';
-import '/core/shared_ui/app_drawer.dart';
+import '../shared_ui/custom_menu_page.dart';
 import '/features/auth/presentation/bloc/auth_bloc.dart';
 import '/features/onboarding/presentation/pages/on_boarding.dart';
 
@@ -15,7 +15,7 @@ class PreLoadWidget extends StatelessWidget {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-          builder: (context) => const AppDrawer(
+          builder: (context) => const CustomMenuPage(
                 child: CustomBottomNavBar(),
               )),
     );

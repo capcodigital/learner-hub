@@ -15,6 +15,7 @@ class _TodoPageState extends State<TodoPage> {
     return DefaultTabController(
         length: 2,
         child: Scaffold(
+            backgroundColor: Colors.black,
             appBar: AppBar(
                 toolbarHeight: 24,
                 backgroundColor: Colors.black,
@@ -44,13 +45,25 @@ class _TodoPageState extends State<TodoPage> {
         if (state is TodoLoadedSuccess) {
           final todos =
               inProgress ? state.inProgressTodos : state.completedTodos;
-          return ListView.builder(
+          return ListView.separated(
             itemBuilder: (context, index) {
               return ListTile(
-                title: Text(todos[index].title),
+                title: Text(
+                  todos[index].title,
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'FuturaPT',
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold),
+                ),
               );
             },
             itemCount: todos.length,
+            separatorBuilder: (BuildContext context, int index) {
+              return const Divider(
+                color: Colors.white,
+              );
+            },
           );
         }
         return Text(state.toString());

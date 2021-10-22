@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '/core/colours.dart';
 import '/core/constants.dart';
 import '/core/layout_constants.dart';
-import '/core/shared_ui/app_drawer.dart';
+import '../../../../core/shared_ui/custom_menu_page.dart';
 import '/core/shared_ui/custom_appbar.dart';
 import '/core/shared_ui/primary_button.dart';
 import '/core/utils/error_messages.dart';
@@ -15,7 +15,8 @@ import '/features/user_registration/domain/entities/user_registration.dart';
 import '/features/user_registration/presentation/bloc/user_registration_bloc.dart';
 
 class LoginDetailsPage extends StatefulWidget {
-  const LoginDetailsPage({Key? key, required this.navParameters}) : super(key: key);
+  const LoginDetailsPage({Key? key, required this.navParameters})
+      : super(key: key);
 
   static const route = 'LoginDetailsPage';
   final UserRegistration navParameters;
@@ -26,7 +27,8 @@ class LoginDetailsPage extends StatefulWidget {
   }
 }
 
-class LoginDetailsPageState extends State<LoginDetailsPage> with CustomAlertDialog {
+class LoginDetailsPageState extends State<LoginDetailsPage>
+    with CustomAlertDialog {
   @override
   Widget build(BuildContext context) {
     // Create a global key that uniquely identifies the Form widget
@@ -49,7 +51,8 @@ class LoginDetailsPageState extends State<LoginDetailsPage> with CustomAlertDial
           ..email = email
           ..password = password;
 
-        BlocProvider.of<UserRegistrationBloc>(context).add(RegisterUserEvent(parameters: registrationParameters));
+        BlocProvider.of<UserRegistrationBloc>(context)
+            .add(RegisterUserEvent(parameters: registrationParameters));
       }
     }
 
@@ -57,7 +60,7 @@ class LoginDetailsPageState extends State<LoginDetailsPage> with CustomAlertDial
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => const AppDrawer(
+            builder: (context) => const CustomMenuPage(
                 child: HomePage(
               appBar: CustomAppBar(
                 icon: Icons.menu,
@@ -93,11 +96,15 @@ class LoginDetailsPageState extends State<LoginDetailsPage> with CustomAlertDial
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text('Almost done!',
-                      textAlign: TextAlign.center, style: Theme.of(context).textTheme.headline2),
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.headline2),
                   Padding(
-                    padding: const EdgeInsets.only(top: LayoutConstants.EXTRA_SMALL_PADDING, bottom: LayoutConstants.LARGE_PADDING),
+                    padding: const EdgeInsets.only(
+                        top: LayoutConstants.EXTRA_SMALL_PADDING,
+                        bottom: LayoutConstants.LARGE_PADDING),
                     child: Text('To finish off, create your login credentials',
-                        textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyText2),
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.bodyText2),
                   ),
                   TextFormField(
                     controller: emailController,
@@ -152,7 +159,8 @@ class LoginDetailsPageState extends State<LoginDetailsPage> with CustomAlertDial
                   Expanded(
                       child: Align(
                           alignment: FractionalOffset.bottomCenter,
-                          child: PrimaryButton(text: 'Done', onPressed: onDone))),
+                          child:
+                              PrimaryButton(text: 'Done', onPressed: onDone))),
                 ],
               ),
             ),

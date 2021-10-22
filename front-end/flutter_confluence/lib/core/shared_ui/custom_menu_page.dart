@@ -10,18 +10,18 @@ import '/features/auth/presentation/bloc/auth_bloc.dart';
 import '/features/onboarding/presentation/pages/on_boarding.dart';
 import 'custom_appbar.dart';
 
-class AppDrawer extends StatefulWidget {
-  const AppDrawer({Key? key, required this.child}) : super(key: key);
+class CustomMenuPage extends StatefulWidget {
+  const CustomMenuPage({Key? key, required this.child}) : super(key: key);
   final Widget child;
 
-  static AppDrawerState? of(BuildContext context) =>
-      context.findAncestorStateOfType<AppDrawerState>();
+  static CustomMenuPageState? of(BuildContext context) =>
+      context.findAncestorStateOfType<CustomMenuPageState>();
 
   @override
-  AppDrawerState createState() => AppDrawerState();
+  CustomMenuPageState createState() => CustomMenuPageState();
 }
 
-class AppDrawerState extends State<AppDrawer>
+class CustomMenuPageState extends State<CustomMenuPage>
     with SingleTickerProviderStateMixin, CustomAlertDialog {
   static Duration duration = const Duration(milliseconds: 300);
   late AnimationController _controller;
@@ -29,8 +29,8 @@ class AppDrawerState extends State<AppDrawer>
   @override
   void initState() {
     super.initState();
-    _controller =
-        AnimationController(vsync: this, duration: AppDrawerState.duration);
+    _controller = AnimationController(
+        vsync: this, duration: CustomMenuPageState.duration);
   }
 
   @override

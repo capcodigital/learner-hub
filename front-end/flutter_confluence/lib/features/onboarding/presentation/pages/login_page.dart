@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '/core/colours.dart';
 import '/core/constants.dart';
 import '/core/layout_constants.dart';
-import '/core/shared_ui/app_drawer.dart';
+import '../../../../core/shared_ui/custom_menu_page.dart';
 import '/core/shared_ui/custom_appbar.dart';
 import '/core/shared_ui/primary_button.dart';
 import '/core/utils/error_messages.dart';
@@ -51,7 +51,7 @@ class LoginPageState extends State<LoginPage> with CustomAlertDialog {
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => const AppDrawer(
+            builder: (context) => const CustomMenuPage(
                 child: HomePage(
               appBar: CustomAppBar(
                 icon: Icons.menu,
@@ -90,9 +90,10 @@ class LoginPageState extends State<LoginPage> with CustomAlertDialog {
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.headline2),
                   Padding(
-                    padding: const EdgeInsets.only(top: LayoutConstants.EXTRA_SMALL_PADDING, bottom: LayoutConstants.LARGE_PADDING),
-                    child: Text(
-                        'To access your account, log in below',
+                    padding: const EdgeInsets.only(
+                        top: LayoutConstants.EXTRA_SMALL_PADDING,
+                        bottom: LayoutConstants.LARGE_PADDING),
+                    child: Text('To access your account, log in below',
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.bodyText2),
                   ),

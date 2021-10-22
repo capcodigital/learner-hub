@@ -13,12 +13,20 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   Future<void> _getTodos(GetTodosEvent event, Emitter<TodoState> emit) async {
     final todos = [
       MockTodo(
-          title: 'in progress test title',
-          content: 'testing in progress content',
+          title: 'first in progress test title',
+          content: 'first testing in progress content',
           isCompleted: false),
       MockTodo(
-          title: 'done test title',
-          content: 'testing completed content',
+          title: 'first done test title',
+          content: 'first testing completed content',
+          isCompleted: true),
+      MockTodo(
+          title: 'second in progress test title',
+          content: 'second testing in progress content',
+          isCompleted: false),
+      MockTodo(
+          title: 'second done test title',
+          content: 'second testing completed content',
           isCompleted: true)
     ];
     final inProgressTodos =
