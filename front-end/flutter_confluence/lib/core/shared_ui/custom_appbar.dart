@@ -13,6 +13,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: color,
+      flexibleSpace: const Image(
+        image: AssetImage('assets/background.png'),
+        fit: BoxFit.cover,
+      ),
       leading: Builder(
         builder: (appBarContext) {
           return IconButton(

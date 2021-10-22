@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_confluence/features/todo/presentation/bloc/todo_bloc.dart';
+import 'package:flutter_confluence/features/todo/presentation/widgets/swipeable_todo_item.dart';
 
 class TodoPage extends StatefulWidget {
   const TodoPage({Key? key}) : super(key: key);
@@ -33,10 +34,13 @@ class _TodoPageState extends State<TodoPage> {
                     )
                   ],
                 )),
-            body: TabBarView(children: [
-              _createTodoList(inProgress: true),
-              _createTodoList(inProgress: false),
-            ])));
+            body: Padding(
+              padding: const EdgeInsets.only(top: 32),
+              child: TabBarView(children: [
+                _createTodoList(inProgress: true),
+                _createTodoList(inProgress: false),
+              ]),
+            )));
   }
 
   BlocBuilder<TodoBloc, TodoState> _createTodoList({required bool inProgress}) {
@@ -47,21 +51,19 @@ class _TodoPageState extends State<TodoPage> {
               inProgress ? state.inProgressTodos : state.completedTodos;
           return ListView.separated(
             itemBuilder: (context, index) {
-              return ListTile(
-                title: Text(
-                  todos[index].title,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: 'FuturaPT',
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold),
-                ),
+              return SwipeableTodoItem(
+                todo: todos[index],
+                onDismiss: (direction) =>
+                    onDismiss(todos: todos, index: index, direction: direction),
               );
             },
             itemCount: todos.length,
             separatorBuilder: (BuildContext context, int index) {
               return const Divider(
                 color: Colors.white,
+                endIndent: 32,
+                indent: 32,
+                height: 32,
               );
             },
           );
@@ -69,5 +71,19 @@ class _TodoPageState extends State<TodoPage> {
         return Text(state.toString());
       },
     );
+  }
+
+  onDismiss(
+      {required List<MockTodo> todos,
+      required int index,
+      required DismissDirection direction}) {
+    if (direction == DismissDirection.startToEnd) {
+      BlocProvider.of<TodoBloc>(context)
+          .add(UpdateTodoEvent(todo: todos[index]));
+    } else if (direction == DismissDirection.endToStart) {
+      setState(() {
+        todos.removeAt(index);
+      });
+    }
   }
 }

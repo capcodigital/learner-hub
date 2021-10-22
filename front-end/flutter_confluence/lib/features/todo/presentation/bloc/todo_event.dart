@@ -19,6 +19,9 @@ class DeleteTodoEvent extends TodoEvent {
 }
 
 class UpdateTodoEvent extends TodoEvent {
+  UpdateTodoEvent({required this.todo});
+
+  final MockTodo todo;
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [todo];
 }
