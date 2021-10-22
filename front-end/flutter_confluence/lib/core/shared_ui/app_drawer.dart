@@ -171,7 +171,7 @@ class MenuButton extends StatelessWidget {
           switch (id) {
             case 1:
               print('My Profile pressed');
-              // TODO: Navigate to Settings Page
+              // TODO(cgal-capco): Navigate to Settings Page
               break;
             case 2:
               print('Standards pressed');

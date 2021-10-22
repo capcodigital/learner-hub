@@ -16,7 +16,7 @@ abstract class UserSettingsState extends Equatable {
 }
 
 class UserSettingsInitial extends UserSettingsState {
-  UserSettingsInitial() : super();
+  const UserSettingsInitial() : super();
 }
 
 

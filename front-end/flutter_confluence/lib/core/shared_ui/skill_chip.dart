@@ -23,7 +23,7 @@ class SkillChip extends StatelessWidget {
   const SkillChip({required this.skill, required this.onPressed});
 
   final Skill skill;
-  final Function(Skill) onPressed;
+  final Function(Skill)? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +39,9 @@ class SkillChip extends StatelessWidget {
         style: Theme.of(context).textTheme.button,
       ),
       onPressed: () {
-        onPressed(skill);
+        if (onPressed != null) {
+          onPressed!(skill);
+        }
       },
     );
   }

@@ -8,6 +8,7 @@ abstract class UserSettingsEvent extends Equatable {
 }
 
 class LoadUserEvent extends UserSettingsEvent {}
+class EditPhotoEvent extends UserSettingsEvent {}
 class EnableEditEvent extends UserSettingsEvent {}
 class SaveChangesEvent extends UserSettingsEvent {}
 class CancelEditingEvent extends UserSettingsEvent {}

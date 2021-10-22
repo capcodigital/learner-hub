@@ -8,11 +8,11 @@ part 'user_settings_event.dart';
 part 'user_settings_state.dart';
 
 class UserSettingsBloc extends Bloc<UserSettingsEvent, UserSettingsState> {
-  UserSettingsBloc() : super(UserSettingsInitial()) {}
+  UserSettingsBloc() : super(const UserSettingsInitial());
 
   @override
   Stream<UserSettingsState> mapEventToState(UserSettingsEvent event) async* {
     print('Event received: ${event.runtimeType}');
-    yield UserSettingsInitial();
+    yield const UserSettingsInitial();
   }
 }

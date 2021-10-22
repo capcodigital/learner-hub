@@ -5,9 +5,9 @@ import '/core/colours.dart';
 import '/core/constants.dart';
 import '/core/layout_constants.dart';
 import '/core/shared_ui/primary_button.dart';
+import '/core/shared_ui/skill_chip.dart';
 import '/features/user_registration/domain/entities/user_registration.dart';
 import '/features/user_registration/presentation/pages/bio_page.dart';
-import '/features/user_registration/presentation/widgets/skill_chip.dart';
 
 class SkillsPage extends StatefulWidget {
   const SkillsPage({Key? key, required this.navParameters}) : super(key: key);
