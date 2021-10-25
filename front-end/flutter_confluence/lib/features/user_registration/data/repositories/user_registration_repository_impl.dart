@@ -41,11 +41,11 @@ class UserRegistrationRepositoryIml implements UserRegistrationRepository {
       if (isUserCreated) {
         return const Right(true);
       } else {
-        return Left(CreateUserError());
+        return const Left(CreateUserError());
       }
     } catch (ex) {
       print('Error: $ex');
-      return Left(CreateUserError());
+      return const Left(CreateUserError());
     }
   }
 
@@ -55,7 +55,7 @@ class UserRegistrationRepositoryIml implements UserRegistrationRepository {
       await dataSource.cleanUpFailedUser();
       return const Right(true);
     } catch (ex) {
-      return Left(AuthFailure("It's not possible to clean up the user"));
+      return const Left(AuthFailure("It's not possible to clean up the user"));
     }
   }
 }

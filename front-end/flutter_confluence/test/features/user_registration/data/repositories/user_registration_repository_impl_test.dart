@@ -56,13 +56,13 @@ void main() {
 
     test('should return a failure when there is an error registering the user in fireabse', () async {
       // arrange
-      when(() => mockDataSource.registerFirebaseUser(any(), any())).thenThrow(WeakPasswordFailure());
+      when(() => mockDataSource.registerFirebaseUser(any(), any())).thenThrow(const WeakPasswordFailure());
 
       // act
       final result = await repository.registerFirebaseUser('email', 'password');
 
       // assert
-      expect(result, Left(WeakPasswordFailure()));
+      expect(result, const Left(WeakPasswordFailure()));
     });
   });
 
@@ -91,13 +91,13 @@ void main() {
 
     test('should return a failure when there is an error creating the user in the DB', () async {
       // arrange
-      when(() => mockDataSource.createUser(any())).thenThrow(AuthFailure('unit test error'));
+      when(() => mockDataSource.createUser(any())).thenThrow(const AuthFailure('unit test error'));
 
       // act
       final result = await repository.createUser(userRegistration);
 
       // assert
-      expect(result, Left(CreateUserError()));
+      expect(result, const Left(CreateUserError()));
     });
   });
 }

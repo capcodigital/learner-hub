@@ -13,7 +13,7 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<Either<AuthFailure, bool>> isValidSession() async {
     final result = await authDataSource.checkLocalUserLogged();
-    return result ? const Right(true) : Left(NoCurrentUserLogged());
+    return result ? const Right(true) : const Left(NoCurrentUserLogged());
   }
 
   @override

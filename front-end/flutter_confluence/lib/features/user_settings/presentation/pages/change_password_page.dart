@@ -27,7 +27,7 @@ class ChangePasswordPageState extends State<ChangePasswordPage> with CustomAlert
   final newPasswordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
 
-  void onDone() {
+  void onUpdatePassword() {
     if (_formKey.currentState!.validate()) {
       final password = newPasswordController.text;
 
@@ -128,7 +128,7 @@ class ChangePasswordPageState extends State<ChangePasswordPage> with CustomAlert
                   Expanded(
                       child: Align(
                           alignment: FractionalOffset.bottomCenter,
-                          child: PrimaryButton(text: 'Done', onPressed: onDone))),
+                          child: PrimaryButton(text: 'Update Password', onPressed: onUpdatePassword))),
                 ],
               ),
             ),

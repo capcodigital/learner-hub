@@ -7,13 +7,16 @@ import 'package:flutter_confluence/features/user_settings/domain/usecases/update
 import 'package:flutter_confluence/features/user_settings/domain/usecases/update_user_settings.dart';
 
 part 'user_settings_event.dart';
-
 part 'user_settings_state.dart';
 
 class UserSettingsBloc extends Bloc<UserSettingsEvent, UserSettingsState> {
   UserSettingsBloc({required this.updateUserSettings, required this.updatePassword})
       : super(const UserSettingsInitial()) {
     on<UpdatePasswordEvent>(onUpdatePassword);
+    on<EditPhotoEvent>(onEditPhotoEvent);
+    on<EnableEditEvent>(onEnableEditEvent);
+    on<CancelEditingEvent>(onCancelEditingEvent);
+    on<SaveChangesEvent>(onSaveChangesEvent);
   }
 
   final UpdateUserSettings updateUserSettings;
@@ -21,11 +24,49 @@ class UserSettingsBloc extends Bloc<UserSettingsEvent, UserSettingsState> {
 
   @override
   Stream<UserSettingsState> mapEventToState(UserSettingsEvent event) async* {
-    print('Event received: ${event.runtimeType}');
+    // Note: this method is not needed, but it will be nice to print in the console
+    // each event received for debugging and traceability
+    print('EVENT RECEIVED: ${event.runtimeType}');
   }
 
-  void onUpdatePassword(UpdatePasswordEvent event, Emitter<UserSettingsState> emit) {
+  Future onUpdatePassword(UpdatePasswordEvent event, Emitter<UserSettingsState> emit) async {
     print('Updating password');
-    emit(PasswordUpdateSuccess());
+    final currentUser = state.user;
+    emit(Loading(user: currentUser));
+    final result = await updatePassword(UpdatePasswordParams(password: event.newPassword));
+    result.fold(
+            (failure) => emit(PasswordUpdateError(errorMessage: failure.message, user: currentUser)),
+            (success) => emit(PasswordUpdateSuccess(user: currentUser))
+    );
+  }
+
+  FutureOr<void> onEditPhotoEvent(EditPhotoEvent event, Emitter<UserSettingsState> emit) {
+    print('On edit profile photo');
+    emit(Loading(user: state.user));
+  }
+
+  FutureOr<void> onEnableEditEvent(EnableEditEvent event, Emitter<UserSettingsState> emit) {
+    print('Enter edit mode');
+    emit(UserLoadedState(user: state.user, isEditing: true, canSave: true, canCancel: true));
+  }
+
+  FutureOr<void> onCancelEditingEvent(CancelEditingEvent event, Emitter<UserSettingsState> emit) {
+    print('Canceling edit');
+    emit(UserLoadedState(user: state.user, isEditing: false, canSave: false, canCancel: false));
+  }
+
+  FutureOr<void> onSaveChangesEvent(SaveChangesEvent event, Emitter<UserSettingsState> emit) async {
+    print('Saving user profile changes');
+    final currentUser = state.user;
+    final newUser = event.user;
+    emit(Loading(user: state.user));
+
+    final result = await updateUserSettings(UpdateUserSettingsParams(user: newUser));
+    result.fold(
+            (failure) => emit(UserUpdateError(errorMessage: failure.message, user: currentUser, canCancel: true, canSave: true, isEditing: true)),
+            (success) => emit(UserUpdateSuccess(user:newUser))
+    );
+
+    emit(UserLoadedState(user: state.user, isEditing: false, canSave: false, canCancel: false));
   }
 }

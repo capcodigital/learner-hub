@@ -14,7 +14,7 @@ class RegisterUser implements UseCase<bool, UserRegistration> {
   @override
   Future<Either<Failure, bool>> call(UserRegistration user) async {
     if (user.email == null || user.password == null) {
-      return Left(AuthFailure('Email and password cannot be null'));
+      return const Left(AuthFailure('Email and password cannot be null'));
     }
     final registerFirebaseUserResult = await registrationRepository.registerFirebaseUser(user.email!, user.password!);
     return registerFirebaseUserResult.fold((failure) => Left(failure), (success) async {
@@ -22,7 +22,7 @@ class RegisterUser implements UseCase<bool, UserRegistration> {
       return createUserResult.fold(
               (failure) async {
                           await _handleCreateUserFailure(failure);
-                          return Left(CreateUserError());
+                          return const Left(CreateUserError());
                         },
               (success) => Right(success));
     });

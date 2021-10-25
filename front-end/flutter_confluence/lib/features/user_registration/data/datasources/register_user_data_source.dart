@@ -26,20 +26,20 @@ class RegisterUserDataSourceImpl implements RegisterUserDataSource {
       final userCredential = await auth.createUserWithEmailAndPassword(
           email: email, password: password);
       if (userCredential.user == null) {
-        throw AuthFailure('Is not possible to get the firebase user');
+        throw const AuthFailure('Is not possible to get the firebase user');
       } else {
         final appUser = userCredential.user;
         if (appUser == null) {
-          throw AuthFailure("It's not possible to get the user");
+          throw const AuthFailure("It's not possible to get the user");
         } else {
           return appUser;
         }
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-        throw WeakPasswordFailure();
+        throw const WeakPasswordFailure();
       } else if (e.code == 'email-already-in-use') {
-        throw AlreadyRegisteredFailure();
+        throw const AlreadyRegisteredFailure();
       } else {
         throw AuthFailure('Error registering the user: ${e.code}');
       }

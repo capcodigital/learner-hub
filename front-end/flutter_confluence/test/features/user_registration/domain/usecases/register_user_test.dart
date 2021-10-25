@@ -61,14 +61,14 @@ void main() {
     () async {
       // arrange
       when(() => mockRepository.registerFirebaseUser(any(), any()))
-          .thenAnswer((_) => Future.value(Left(WeakPasswordFailure())));
+          .thenAnswer((_) => Future.value(const Left(WeakPasswordFailure())));
       when(() => mockRepository.createUser(any())).thenAnswer((_) => Future.value(const Right(false)));
 
       // Act
       final result = await useCase(useCaseParams);
 
       // assert
-      expect(result, Left(WeakPasswordFailure()));
+      expect(result, const Left(WeakPasswordFailure()));
       verifyNever(() => mockRepository.createUser(any()));
     },
   );
@@ -78,14 +78,14 @@ void main() {
     () async {
       // arrange
       when(() => mockRepository.registerFirebaseUser(any(), any())).thenAnswer((_) => Future.value(const Right(true)));
-      when(() => mockRepository.createUser(any())).thenAnswer((_) => Future.value(Left(AuthFailure(''))));
+      when(() => mockRepository.createUser(any())).thenAnswer((_) => Future.value(const Left(AuthFailure(''))));
       when(() => mockRepository.cleanUpFirebaseUser()).thenAnswer((_) => Future.value(const Right(true)));
 
       // Act
       final result = await useCase(useCaseParams);
 
       // assert
-      expect(result, Left(CreateUserError()));
+      expect(result, const Left(CreateUserError()));
       verify(() => mockRepository.createUser(any()));
       verify(() => mockRepository.cleanUpFirebaseUser());
     },

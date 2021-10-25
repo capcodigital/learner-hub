@@ -24,7 +24,7 @@ class UpdatePassword implements UseCase<bool, UpdatePasswordParams> {
   Future<Either<Failure, bool>> call(UpdatePasswordParams passwordParams) async {
     final password = passwordParams.password;
     if (password == null || password.isEmpty) {
-      return Left(AuthFailure('New password cannot be null'));
+      return const Left(AuthFailure('New password cannot be null'));
     }
 
     return userSettingsRepository.updatePassword(passwordParams.password);

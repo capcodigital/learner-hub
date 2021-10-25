@@ -13,11 +13,12 @@ class EditPhotoEvent extends UserSettingsEvent {}
 
 class EnableEditEvent extends UserSettingsEvent {}
 
-class SaveChangesEvent extends UserSettingsEvent {}
+class SaveChangesEvent extends UserSettingsEvent {
+  const SaveChangesEvent({required this.user}) : super();
+  final User user;
+}
 
 class CancelEditingEvent extends UserSettingsEvent {}
-
-class ChangePasswordEvent extends UserSettingsEvent {}
 
 class UpdatePasswordEvent extends UserSettingsEvent {
   const UpdatePasswordEvent({required this.newPassword}) : super();
