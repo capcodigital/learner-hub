@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_confluence/core/error/auth_failures.dart';
+import 'package:flutter_confluence/features/user_registration/domain/entities/skills.dart';
 import 'package:flutter_confluence/features/user_registration/domain/entities/user_registration.dart';
 import 'package:flutter_confluence/features/user_registration/domain/repositories/user_registration_repository.dart';
 import 'package:flutter_confluence/features/user_registration/domain/usecases/register_user.dart';

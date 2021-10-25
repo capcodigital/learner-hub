@@ -1,3 +1,4 @@
+import '/features/user_registration/data/models/skills_model.dart';
 import '/features/user_registration/domain/entities/user_registration.dart';
 
 class UserRegistrationModel extends UserRegistration {
@@ -5,7 +6,7 @@ class UserRegistrationModel extends UserRegistration {
     required name,
     required lastName,
     required jobTitle,
-    required skills,
+    required SkillsModel this.skills,
     required bio,
     required email,
     required password,
@@ -13,11 +14,14 @@ class UserRegistrationModel extends UserRegistration {
           name: name,
           lastName: lastName,
           jobTitle: jobTitle,
-          skills: skills,
+          skills: skills.toSkillsEntity(),
           bio: bio,
           email: email,
           password: password,
         );
+
+  @override
+  final SkillsModel? skills;
 
   Map<String, dynamic> toJson() {
     return {
@@ -26,7 +30,7 @@ class UserRegistrationModel extends UserRegistration {
       'lastName': lastName,
       'jobTitle': jobTitle,
       'bio': bio,
-      'skills': skills?.toJson() ?? []
+      'skills': skills?.toJson()
     };
   }
 }

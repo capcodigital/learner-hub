@@ -2,8 +2,10 @@ import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_confluence/core/error/auth_failures.dart';
 import 'package:flutter_confluence/features/user_registration/data/datasources/register_user_data_source.dart';
+import 'package:flutter_confluence/features/user_registration/data/models/skills_model.dart';
 import 'package:flutter_confluence/features/user_registration/data/models/user_registration_model.dart';
 import 'package:flutter_confluence/features/user_registration/data/repositories/user_registration_repository_impl.dart';
+import 'package:flutter_confluence/features/user_registration/domain/entities/skills.dart';
 import 'package:flutter_confluence/features/user_registration/domain/entities/user_registration.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -21,7 +23,7 @@ void main() {
         name: 'name',
         lastName: 'lastName',
         jobTitle: 'jobTitle',
-        skills: Skills(primarySkills: ['primary'], secondarySkills: ['secondary']),
+        skills: SkillsModel(primarySkills: ['primary'], secondarySkills: ['secondary']),
         bio: 'bio',
         email: 'email',
         password: 'password'));
@@ -53,7 +55,7 @@ void main() {
       verify(() => mockDataSource.registerFirebaseUser(any(), any()));
     });
 
-    test('should return a failure when there is an error registering the user in fireabse', () async {
+    test('should return a failure when there is an error registering the user in firebase', () async {
       // arrange
       when(() => mockDataSource.registerFirebaseUser(any(), any())).thenThrow(WeakPasswordFailure());
 

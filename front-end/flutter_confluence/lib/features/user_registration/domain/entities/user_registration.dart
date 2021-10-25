@@ -1,19 +1,4 @@
-class Skills {
-  Skills({
-    required this.primarySkills,
-    required this.secondarySkills,
-  });
-
-  List<String> primarySkills;
-  List<String> secondarySkills;
-
-  Map<String, dynamic> toJson() {
-    return {
-      'primarySkills': primarySkills,
-      'secondarySkills': secondarySkills
-    };
-  }
-}
+import '/features/user_registration/domain/entities/skills.dart';
 
 class UserRegistration {
   UserRegistration({
