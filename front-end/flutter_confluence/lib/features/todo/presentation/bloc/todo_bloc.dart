@@ -9,6 +9,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   TodoBloc() : super(TodoInitial()) {
     on<GetTodosEvent>(_getTodos);
     on<UpdateTodoEvent>(_updateTodos);
+    on<DeleteTodoEvent>(_deleteTodos);
   }
 
   final todos = [
@@ -42,6 +43,17 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   Future<void> _updateTodos(
       UpdateTodoEvent event, Emitter<TodoState> emit) async {
     event.todo.isCompleted = true;
+    final inProgressTodos =
+        todos.where((element) => element.isCompleted == false).toList();
+    final completedTodos =
+        todos.where((element) => element.isCompleted == true).toList();
+    emit(TodoLoadedSuccess(
+        inProgressTodos: inProgressTodos, completedTodos: completedTodos));
+  }
+
+  Future<void> _deleteTodos(
+      DeleteTodoEvent event, Emitter<TodoState> emit) async {
+    todos.removeWhere((element) => element == event.todo);
     final inProgressTodos =
         todos.where((element) => element.isCompleted == false).toList();
     final completedTodos =

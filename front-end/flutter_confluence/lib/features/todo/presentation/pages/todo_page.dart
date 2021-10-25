@@ -81,9 +81,8 @@ class _TodoPageState extends State<TodoPage> {
       BlocProvider.of<TodoBloc>(context)
           .add(UpdateTodoEvent(todo: todos[index]));
     } else if (direction == DismissDirection.endToStart) {
-      setState(() {
-        todos.removeAt(index);
-      });
+      BlocProvider.of<TodoBloc>(context)
+          .add(DeleteTodoEvent(todo: todos[index]));
     }
   }
 }
