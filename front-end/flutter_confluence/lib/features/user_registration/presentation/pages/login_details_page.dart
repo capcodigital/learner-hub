@@ -159,8 +159,11 @@ class LoginDetailsPageState extends State<LoginDetailsPage>
                   Expanded(
                       child: Align(
                           alignment: FractionalOffset.bottomCenter,
-                          child:
-                              PrimaryButton(text: 'Done', onPressed: onDone))),
+                          child: PrimaryButton(
+                            text: 'Done',
+                            onPressed: onDone,
+                            color: Constants.ACCENT_COLOR,
+                          ))),
                 ],
               ),
             ),

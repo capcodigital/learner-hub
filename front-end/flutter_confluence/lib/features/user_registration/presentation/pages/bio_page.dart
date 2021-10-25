@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_confluence/core/constants.dart';
 
 import '/core/colours.dart';
 import '/core/layout_constants.dart';
@@ -91,7 +92,11 @@ class UserBioPageState extends State<UserBioPage> {
                     onPressed: onSkip,
                     child: const Text('Skip')),
               ),
-              PrimaryButton(text: 'Next', onPressed: onNext),
+              PrimaryButton(
+                text: 'Next',
+                onPressed: onNext,
+                color: Constants.ACCENT_COLOR,
+              ),
             ],
           ),
         ),

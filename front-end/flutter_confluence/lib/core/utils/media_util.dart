@@ -12,8 +12,8 @@ class MediaQueriesImpl implements MediaQueries {
   final BuildContext buildContext;
 
   @override
-  double get deviceHeight => _getFullDeviceHeight(buildContext)
-      - _getStatusBarHeight(buildContext) - kToolbarHeight;
+  double get deviceHeight =>
+      _getFullDeviceHeight(buildContext) - _getStatusBarHeight(buildContext);
 
   @override
   double get deviceHeightWithoutAppBar =>
@@ -54,5 +54,4 @@ class MediaQueriesImpl implements MediaQueries {
   bool isPortrait(BuildContext context) {
     return MediaQuery.of(context).orientation == Orientation.portrait;
   }
-
 }

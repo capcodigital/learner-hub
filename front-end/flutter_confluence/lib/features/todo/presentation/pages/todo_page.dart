@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_confluence/core/constants.dart';
+import 'package:flutter_confluence/core/layout_constants.dart';
+import 'package:flutter_confluence/core/shared_ui/primary_button.dart';
+import 'package:flutter_confluence/core/utils/media_util.dart';
 import 'package:flutter_confluence/features/todo/presentation/bloc/todo_bloc.dart';
 import 'package:flutter_confluence/features/todo/presentation/widgets/swipeable_todo_item.dart';
 
@@ -13,6 +17,8 @@ class TodoPage extends StatefulWidget {
 class _TodoPageState extends State<TodoPage> {
   @override
   Widget build(BuildContext context) {
+    final MediaQueriesImpl mediaQueries =
+        MediaQueriesImpl(buildContext: context);
     return DefaultTabController(
         length: 2,
         child: Scaffold(
@@ -37,10 +43,29 @@ class _TodoPageState extends State<TodoPage> {
             body: Padding(
               padding: const EdgeInsets.only(top: 32),
               child: TabBarView(children: [
-                _createTodoList(inProgress: true),
+                Column(
+                  children: [
+                    Expanded(child: _createTodoList(inProgress: true)),
+                    Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Padding(
+                          padding: const EdgeInsets.all(32.0),
+                          child: PrimaryButton(
+                            text: 'Add new',
+                            color: Colors.transparent,
+                            borderColor: Colors.white,
+                            onPressed: onAddNewButtonPressed,
+                          ),
+                        ))
+                  ],
+                ),
                 _createTodoList(inProgress: false),
               ]),
             )));
+  }
+
+  void onAddNewButtonPressed() {
+    print('pressed');
   }
 
   BlocBuilder<TodoBloc, TodoState> _createTodoList({required bool inProgress}) {

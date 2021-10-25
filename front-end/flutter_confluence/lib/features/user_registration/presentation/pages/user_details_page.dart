@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_confluence/core/constants.dart';
 
 import '/core/colours.dart';
 import '/core/layout_constants.dart';
@@ -119,10 +120,12 @@ class UserDetailsPageState extends State<UserDetailsPage> {
                   child: Align(
                     alignment: FractionalOffset.bottomCenter,
                     child: PrimaryButton(
-                        text: 'Next',
-                        onPressed: () {
-                          onNext();
-                        }),
+                      text: 'Next',
+                      onPressed: () {
+                        onNext();
+                      },
+                      color: Constants.ACCENT_COLOR,
+                    ),
                   ),
                 ),
               ],

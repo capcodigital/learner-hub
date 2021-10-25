@@ -75,6 +75,7 @@ class OnBoardingPage extends StatelessWidget {
                 vertical: LayoutConstants.LARGE_PADDING,
                 horizontal: LayoutConstants.SMALL_PADDING),
             child: PrimaryButton(
+                color: Constants.ACCENT_COLOR,
                 text: 'Log in',
                 onPressed: () {
                   login(context);

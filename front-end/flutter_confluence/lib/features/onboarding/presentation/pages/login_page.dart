@@ -131,7 +131,11 @@ class LoginPageState extends State<LoginPage> with CustomAlertDialog {
                   Expanded(
                     child: Align(
                       alignment: FractionalOffset.bottomCenter,
-                      child: PrimaryButton(text: 'Log in', onPressed: onLogin),
+                      child: PrimaryButton(
+                        text: 'Log in',
+                        onPressed: onLogin,
+                        color: Constants.ACCENT_COLOR,
+                      ),
                     ),
                   ),
                 ],

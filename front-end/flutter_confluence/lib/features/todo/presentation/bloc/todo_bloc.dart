@@ -26,6 +26,30 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
         content: 'second testing in progress content',
         isCompleted: false),
     MockTodo(
+        title: 'third in progress test title',
+        content: 'third testing in progress content',
+        isCompleted: false),
+    MockTodo(
+        title: 'fourth in progress test title',
+        content: 'fourth testing in progress content',
+        isCompleted: false),
+    MockTodo(
+        title: 'fifth in progress test title',
+        content: 'fifth testing in progress content',
+        isCompleted: false),
+    MockTodo(
+        title: 'sixth in progress test title',
+        content: 'sixth testing in progress content',
+        isCompleted: false),
+    MockTodo(
+        title: 'seventh in progress test title',
+        content: 'seventh testing in progress content',
+        isCompleted: false),
+    MockTodo(
+        title: 'eighth in progress test title',
+        content: 'eighth testing in progress content',
+        isCompleted: false),
+    MockTodo(
         title: 'second done test title',
         content: 'second testing completed content',
         isCompleted: true)

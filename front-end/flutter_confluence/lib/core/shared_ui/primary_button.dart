@@ -1,21 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-import '/core/colours.dart';
 import '/core/layout_constants.dart';
 
 class PrimaryButton extends StatelessWidget {
-  const PrimaryButton({required this.text, this.onPressed});
+  const PrimaryButton(
+      {required this.text,
+      required this.onPressed,
+      required this.color,
+      this.borderColor});
 
   final String text;
-  final VoidCallback? onPressed;
+  final VoidCallback onPressed;
+  final Color color;
+  final Color? borderColor;
 
   @override
   Widget build(BuildContext context) {
     final ButtonStyle style = ElevatedButton.styleFrom(
-        primary: Colours.ACCENT_COLOR,
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(150)));
+        primary: color,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(150),
+            side: BorderSide(
+                color: borderColor ?? Colors.transparent, width: 2)));
 
     // ignore: sized_box_for_whitespace
     return Container(
