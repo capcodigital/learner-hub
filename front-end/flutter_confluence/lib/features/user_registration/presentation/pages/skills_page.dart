@@ -68,8 +68,7 @@ class _SkillsPageState extends State<SkillsPage> {
       final secondarySkills = _skillItems.where((element) => element.isSecondary).map((e) => e.name).toList();
 
       final navParameters = widget.navParameters
-        ..primarySkills = primarySkill
-        ..secondarySkills = secondarySkills;
+      ..skills = Skills(primarySkills: primarySkill, secondarySkills: secondarySkills);
 
       Navigator.push(context, MaterialPageRoute(builder: (context) => UserBioPage(navParameters: navParameters)));
     }

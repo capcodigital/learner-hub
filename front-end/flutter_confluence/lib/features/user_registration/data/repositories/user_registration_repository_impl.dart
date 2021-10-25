@@ -31,8 +31,7 @@ class UserRegistrationRepositoryIml implements UserRegistrationRepository {
           name: user.name,
           lastName: user.lastName,
           jobTitle: user.jobTitle,
-          primarySkills: user.primarySkills,
-          secondarySkills: user.secondarySkills,
+          skills: user.skills,
           bio: user.bio,
           email: user.email,
           password: user.password);

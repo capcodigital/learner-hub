@@ -21,8 +21,7 @@ void main() {
         name: 'name',
         lastName: 'lastName',
         jobTitle: 'jobTitle',
-        primarySkills: ['primary'],
-        secondarySkills: ['secondary'],
+        skills: Skills(primarySkills: ['primary'], secondarySkills: ['secondary']),
         bio: 'bio',
         email: 'email',
         password: 'password'));
@@ -72,8 +71,7 @@ void main() {
       ..lastName = 'lastName'
       ..jobTitle = 'jobTitle'
       ..bio = 'bio'
-      ..primarySkills = ['primary']
-      ..secondarySkills = ['secondary']
+      ..skills = Skills(primarySkills: ['primary'], secondarySkills: ['secondary'])
       ..email = 'email'
       ..password = 'password';
 

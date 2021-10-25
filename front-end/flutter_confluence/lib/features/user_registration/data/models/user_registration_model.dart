@@ -5,8 +5,7 @@ class UserRegistrationModel extends UserRegistration {
     required name,
     required lastName,
     required jobTitle,
-    required primarySkills,
-    required secondarySkills,
+    required skills,
     required bio,
     required email,
     required password,
@@ -14,8 +13,7 @@ class UserRegistrationModel extends UserRegistration {
           name: name,
           lastName: lastName,
           jobTitle: jobTitle,
-          primarySkills: primarySkills,
-          secondarySkills: secondarySkills,
+          skills: skills,
           bio: bio,
           email: email,
           password: password,
@@ -28,14 +26,7 @@ class UserRegistrationModel extends UserRegistration {
       'lastName': lastName,
       'jobTitle': jobTitle,
       'bio': bio,
-      'primarySkills': primarySkills?.toJson(),
-      'secondarySkills': secondarySkills?.toJson(),
+      'skills': skills?.toJson() ?? []
     };
-  }
-}
-
-extension JsonExtensions on List<String> {
-  String toJson() {
-    return '[${map((e) => '"$e"').join(",")}]';
   }
 }

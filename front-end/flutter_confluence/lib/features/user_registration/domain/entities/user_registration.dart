@@ -1,10 +1,26 @@
+class Skills {
+  Skills({
+    required this.primarySkills,
+    required this.secondarySkills,
+  });
+
+  List<String> primarySkills;
+  List<String> secondarySkills;
+
+  Map<String, dynamic> toJson() {
+    return {
+      'primarySkills': primarySkills,
+      'secondarySkills': secondarySkills
+    };
+  }
+}
+
 class UserRegistration {
   UserRegistration({
     this.name,
     this.lastName,
     this.jobTitle,
-    this.primarySkills,
-    this.secondarySkills,
+    this.skills,
     this.bio,
     this.email,
     this.password,
@@ -13,8 +29,7 @@ class UserRegistration {
   String? name;
   String? lastName;
   String? jobTitle;
-  List<String>? primarySkills;
-  List<String>? secondarySkills;
+  Skills? skills;
   String? bio;
   String? email;
   String? password;

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_confluence/features/user_registration/data/datasources/register_user_data_source.dart';
 import 'package:flutter_confluence/features/user_registration/data/models/user_registration_model.dart';
+import 'package:flutter_confluence/features/user_registration/domain/entities/user_registration.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:mocktail/mocktail.dart';
@@ -92,8 +93,7 @@ void main() {
     const String name = 'Luke';
     const String lastName = 'Skywalker';
     const String jobTitle = 'Master Jedi';
-    const List<String> primarySkills = [];
-    const List<String> secondarySkills = [];
+    final Skills skills = Skills(primarySkills: [], secondarySkills: []);
     const String bio = 'Master Jedi';
     const String password = '123456';
 
@@ -116,8 +116,7 @@ void main() {
           name: name,
           lastName: lastName,
           jobTitle: jobTitle,
-          primarySkills: primarySkills,
-          secondarySkills: secondarySkills,
+          skills: skills,
           bio: bio,
           email: email,
           password: password));

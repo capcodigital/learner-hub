@@ -17,8 +17,7 @@ void main() {
         lastName: '',
         jobTitle: '',
         bio: '',
-        secondarySkills: [],
-        primarySkills: [],
+        skills: Skills(primarySkills: [], secondarySkills: []),
         password: '',
         name: '',
         email: ''));
@@ -34,8 +33,7 @@ void main() {
     lastName: 'testLastName',
     jobTitle: 'testJobTitle',
     bio: 'testBio',
-    primarySkills: [],
-    secondarySkills: [],
+    skills: Skills(primarySkills: [], secondarySkills: []),
     email: 'test@capco.com',
     password: '123456',
   );
