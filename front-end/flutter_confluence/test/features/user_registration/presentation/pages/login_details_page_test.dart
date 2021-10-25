@@ -9,7 +9,8 @@ import 'package:flutter_confluence/features/user_registration/presentation/pages
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-class MockUserRegistrationBloc extends MockBloc<UserRegistrationEvent, UserRegistrationState>
+class MockUserRegistrationBloc
+    extends MockBloc<UserRegistrationEvent, UserRegistrationState>
     implements UserRegistrationBloc {}
 
 class TestAuthEvent extends UserRegistrationEvent {}
@@ -20,12 +21,20 @@ void main() {
     registerFallbackValue<UserRegistrationEvent>(TestAuthEvent());
   });
 
-  testWidgets('Login Details Page should show expected widgets', (tester) async {
+  testWidgets('Login Details Page should show expected widgets',
+      (tester) async {
     // arrange
-    final navParameters = UserRegistration();
+    final navParameters = UserRegistration(
+        name: null,
+        lastName: null,
+        jobTitle: null,
+        skills: null,
+        bio: null,
+        email: null);
 
     final UserRegistrationBloc mockBloc = MockUserRegistrationBloc();
-    whenListen(mockBloc, Stream.fromIterable([UserRegistrationInitial()]), initialState: UserRegistrationInitial());
+    whenListen(mockBloc, Stream.fromIterable([UserRegistrationInitial()]),
+        initialState: UserRegistrationInitial());
 
     // act
     await tester.pumpWidget(
@@ -39,8 +48,10 @@ void main() {
     );
 
     final formWidget = find.byWidgetPredicate((widget) => widget is Form);
-    final inputFieldsWidgets = find.byWidgetPredicate((widget) => widget is TextFormField);
-    final ctaButtonWidget = find.byWidgetPredicate((widget) => widget is PrimaryButton);
+    final inputFieldsWidgets =
+        find.byWidgetPredicate((widget) => widget is TextFormField);
+    final ctaButtonWidget =
+        find.byWidgetPredicate((widget) => widget is PrimaryButton);
 
     // assert
     expect(formWidget, findsOneWidget);

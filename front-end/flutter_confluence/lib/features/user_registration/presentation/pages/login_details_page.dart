@@ -47,12 +47,10 @@ class LoginDetailsPageState extends State<LoginDetailsPage>
         final email = emailController.text;
         final password = passwordController.text;
 
-        final registrationParameters = widget.navParameters
-          ..email = email
-          ..password = password;
+        final registrationParameters = widget.navParameters..email = email;
 
-        BlocProvider.of<UserRegistrationBloc>(context)
-            .add(RegisterUserEvent(parameters: registrationParameters));
+        BlocProvider.of<UserRegistrationBloc>(context).add(RegisterUserEvent(
+            parameters: registrationParameters, password: password));
       }
     }
 

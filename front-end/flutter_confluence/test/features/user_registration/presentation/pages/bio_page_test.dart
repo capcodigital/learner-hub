@@ -8,13 +8,23 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   testWidgets('Bio Page should show expected widgets', (tester) async {
     // arrange
-    final navParameters = UserRegistration();
+    final navParameters = UserRegistration(
+        name: null,
+        lastName: null,
+        jobTitle: null,
+        skills: null,
+        bio: null,
+        email: null);
 
     // act
-    await tester.pumpWidget(MaterialApp(theme: Themes.appTheme, home: UserBioPage(navParameters: navParameters)));
+    await tester.pumpWidget(MaterialApp(
+        theme: Themes.appTheme,
+        home: UserBioPage(navParameters: navParameters)));
 
-    final textFieldWidget = find.byWidgetPredicate((widget) => widget is TextField);
-    final ctaButtonWidget = find.byWidgetPredicate((widget) => widget is PrimaryButton);
+    final textFieldWidget =
+        find.byWidgetPredicate((widget) => widget is TextField);
+    final ctaButtonWidget =
+        find.byWidgetPredicate((widget) => widget is PrimaryButton);
 
     // assert
     expect(textFieldWidget, findsOneWidget);

@@ -10,7 +10,8 @@ import 'package:flutter_confluence/features/user_registration/domain/entities/us
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-class MockRegisterUserDataSource extends Mock implements RegisterUserDataSource {}
+class MockRegisterUserDataSource extends Mock
+    implements RegisterUserDataSource {}
 
 class MockFirebaseUser extends Mock implements User {}
 
@@ -20,13 +21,15 @@ void main() {
 
   setUpAll(() {
     registerFallbackValue(UserRegistrationModel(
-        name: 'name',
-        lastName: 'lastName',
-        jobTitle: 'jobTitle',
-        skills: SkillsModel(primarySkills: ['primary'], secondarySkills: ['secondary']),
-        bio: 'bio',
-        email: 'email',
-        password: 'password'));
+      name: 'name',
+      lastName: 'lastName',
+      jobTitle: 'jobTitle',
+      skills: SkillsModel(
+          primarySkills: const ['primary'],
+          secondarySkills: const ['secondary']),
+      bio: 'bio',
+      email: 'email',
+    ));
   });
 
   setUp(() {
@@ -41,7 +44,9 @@ void main() {
       return firebaseUser;
     }
 
-    test('should return true when the the user is registered successfully in firebase', () async {
+    test(
+        'should return true when the the user is registered successfully in firebase',
+        () async {
       // arrange
       final mockFirebaseUser = _createFirebaseUser('uid');
       when(() => mockDataSource.registerFirebaseUser(any(), any()))
@@ -55,9 +60,12 @@ void main() {
       verify(() => mockDataSource.registerFirebaseUser(any(), any()));
     });
 
-    test('should return a failure when there is an error registering the user in firebase', () async {
+    test(
+        'should return a failure when there is an error registering the user in firebase',
+        () async {
       // arrange
-      when(() => mockDataSource.registerFirebaseUser(any(), any())).thenThrow(WeakPasswordFailure());
+      when(() => mockDataSource.registerFirebaseUser(any(), any()))
+          .thenThrow(WeakPasswordFailure());
 
       // act
       final result = await repository.registerFirebaseUser('email', 'password');
@@ -68,18 +76,20 @@ void main() {
   });
 
   group('create user in remote DB', () {
-    final userRegistration = UserRegistration()
-      ..name = 'name'
-      ..lastName = 'lastName'
-      ..jobTitle = 'jobTitle'
-      ..bio = 'bio'
-      ..skills = Skills(primarySkills: ['primary'], secondarySkills: ['secondary'])
-      ..email = 'email'
-      ..password = 'password';
+    final userRegistration = UserRegistration(
+        name: 'name',
+        lastName: 'lastName',
+        jobTitle: 'jobTitle',
+        skills: const Skills(
+            primarySkills: ['primary'], secondarySkills: ['secondary']),
+        bio: 'bio',
+        email: 'email');
 
-    test('should return true when the the user is created successfully in DB', () async {
+    test('should return true when the the user is created successfully in DB',
+        () async {
       // arrange
-      when(() => mockDataSource.createUser(any())).thenAnswer((_) async => Future.value(true));
+      when(() => mockDataSource.createUser(any()))
+          .thenAnswer((_) async => Future.value(true));
 
       // act
       final result = await repository.createUser(userRegistration);
@@ -89,9 +99,12 @@ void main() {
       verify(() => mockDataSource.createUser(any()));
     });
 
-    test('should return a failure when there is an error creating the user in the DB', () async {
+    test(
+        'should return a failure when there is an error creating the user in the DB',
+        () async {
       // arrange
-      when(() => mockDataSource.createUser(any())).thenThrow(AuthFailure('unit test error'));
+      when(() => mockDataSource.createUser(any()))
+          .thenThrow(AuthFailure('unit test error'));
 
       // act
       final result = await repository.createUser(userRegistration);

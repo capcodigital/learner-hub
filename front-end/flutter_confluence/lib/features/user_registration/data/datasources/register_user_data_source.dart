@@ -24,7 +24,8 @@ class RegisterUserDataSourceImpl implements RegisterUserDataSource {
   @override
   Future<User> registerFirebaseUser(String email, String password) async {
     try {
-      final userCredential = await auth.createUserWithEmailAndPassword(email: email, password: password);
+      final userCredential = await auth.createUserWithEmailAndPassword(
+          email: email, password: password);
       if (userCredential.user == null) {
         throw AuthFailure('Is not possible to get the firebase user');
       } else {

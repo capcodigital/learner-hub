@@ -2,29 +2,28 @@ import 'package:dartz/dartz.dart';
 
 import '/core/error/auth_failures.dart';
 import '/core/error/failures.dart';
-import '/core/usecases/usecase.dart';
 import '/features/user_registration/domain/entities/user_registration.dart';
 import '/features/user_registration/domain/repositories/user_registration_repository.dart';
 
-class RegisterUser implements UseCase<bool, UserRegistration> {
+class RegisterUser {
   RegisterUser({required this.registrationRepository});
 
   final UserRegistrationRepository registrationRepository;
 
-  @override
-  Future<Either<Failure, bool>> call(UserRegistration user) async {
-    if (user.email == null || user.password == null) {
+  Future<Either<Failure, bool>> execute(
+      UserRegistration user, String? password) async {
+    if (user.email == null || password == null) {
       return Left(AuthFailure('Email and password cannot be null'));
     }
-    final registerFirebaseUserResult = await registrationRepository.registerFirebaseUser(user.email!, user.password!);
-    return registerFirebaseUserResult.fold((failure) => Left(failure), (success) async {
+    final registerFirebaseUserResult = await registrationRepository
+        .registerFirebaseUser(user.email!, password);
+    return registerFirebaseUserResult.fold((failure) => Left(failure),
+        (success) async {
       final createUserResult = await registrationRepository.createUser(user);
-      return createUserResult.fold(
-              (failure) async {
-                          await _handleCreateUserFailure(failure);
-                          return Left(CreateUserError());
-                        },
-              (success) => Right(success));
+      return createUserResult.fold((failure) async {
+        await _handleCreateUserFailure(failure);
+        return Left(CreateUserError());
+      }, (success) => Right(success));
     });
   }
 

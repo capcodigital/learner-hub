@@ -1,27 +1,41 @@
+import 'package:equatable/equatable.dart';
+
 import '/features/user_registration/data/models/skills_model.dart';
 import '/features/user_registration/domain/entities/user_registration.dart';
 
-class UserRegistrationModel extends UserRegistration {
+// ignore: must_be_immutable
+class UserRegistrationModel extends UserRegistration with EquatableMixin {
   UserRegistrationModel({
-    required name,
-    required lastName,
-    required jobTitle,
-    required SkillsModel this.skills,
-    required bio,
-    required email,
-    required password,
+    required this.name,
+    required this.lastName,
+    required this.jobTitle,
+    required this.skills,
+    required this.bio,
+    required this.email,
   }) : super(
           name: name,
           lastName: lastName,
           jobTitle: jobTitle,
-          skills: skills.toSkillsEntity(),
+          skills: skills,
           bio: bio,
           email: email,
-          password: password,
         );
 
   @override
+  final String? name;
+  @override
+  final String? lastName;
+  @override
+  final String? jobTitle;
+  @override
   final SkillsModel? skills;
+  @override
+  final String? bio;
+  @override
+  final String? email;
+
+  @override
+  List<Object?> get props => [name, lastName, jobTitle, skills, bio, email];
 
   Map<String, dynamic> toJson() {
     return {
