@@ -1,3 +1,4 @@
+import '/core/utils/extensions/extensions.dart';
 import '/features/user_registration/domain/entities/user_registration.dart';
 
 class UserRegistrationModel extends UserRegistration {
@@ -31,11 +32,5 @@ class UserRegistrationModel extends UserRegistration {
       'primarySkills': primarySkills?.toJson(),
       'secondarySkills': secondarySkills?.toJson(),
     };
-  }
-}
-
-extension JsonExtensions on List<String> {
-  String toJson() {
-    return '[${map((e) => '"$e"').join(",")}]';
   }
 }

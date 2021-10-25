@@ -1,19 +1,24 @@
-class User {
-  User({
-    this.name,
-    this.lastName,
-    this.jobTitle,
-    this.primarySkills,
-    this.secondarySkills,
-    this.bio,
-    this.email,
+import 'package:equatable/equatable.dart';
+
+class User extends Equatable {
+  const User({
+    required this.name,
+    required this.lastName,
+    required this.jobTitle,
+    required this.primarySkills,
+    required this.secondarySkills,
+    required this.bio,
+    required this.email,
   });
 
-  String? name;
-  String? lastName;
-  String? jobTitle;
-  List<String>? primarySkills;
-  List<String>? secondarySkills;
-  String? bio;
-  String? email;
+  final String? name;
+  final String? lastName;
+  final String? jobTitle;
+  final List<String>? primarySkills;
+  final List<String>? secondarySkills;
+  final String? bio;
+  final String? email;
+
+  @override
+  List<Object?> get props => [name, lastName, jobTitle, primarySkills, secondarySkills, bio, email];
 }
