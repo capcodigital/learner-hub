@@ -29,7 +29,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
       'My Profile',
       style: optionStyle,
     ),
-    TodoPage()
+    const TodoPage()
   ];
 
   void _onItemTapped(int index) {

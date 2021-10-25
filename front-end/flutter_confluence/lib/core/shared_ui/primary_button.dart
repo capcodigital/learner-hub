@@ -11,7 +11,7 @@ class PrimaryButton extends StatelessWidget {
       this.borderColor});
 
   final String text;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final Color color;
   final Color? borderColor;
 

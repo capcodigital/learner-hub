@@ -9,9 +9,11 @@ class SwipeableTodoItem extends StatefulWidget {
     Key? key,
     required this.todo,
     required this.onDismiss,
+    required this.onTodoPressed,
   }) : super(key: key);
   final MockTodo todo;
   final Function(DismissDirection)? onDismiss;
+  final VoidCallback onTodoPressed;
 
   @override
   _SwipeableTodoItemState createState() => _SwipeableTodoItemState();
@@ -72,7 +74,11 @@ class _SwipeableTodoItemState extends State<SwipeableTodoItem> {
         ),
       ),
       child: ListTile(
-        leading: const CircularTodoIcon(),
+        leading: const CircularTodoIcon(
+          backgroundColor: Colors.black,
+          iconColor: Colors.white,
+        ),
+        onTap: widget.onTodoPressed,
         title: Text(
           widget.todo.title,
           style: const TextStyle(

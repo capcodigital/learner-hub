@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_confluence/core/constants.dart';
-import 'package:flutter_confluence/core/layout_constants.dart';
 import 'package:flutter_confluence/core/shared_ui/primary_button.dart';
-import 'package:flutter_confluence/core/utils/media_util.dart';
 import 'package:flutter_confluence/features/todo/presentation/bloc/todo_bloc.dart';
+import 'package:flutter_confluence/features/todo/presentation/pages/todo_detail_page.dart';
 import 'package:flutter_confluence/features/todo/presentation/widgets/swipeable_todo_item.dart';
 
 class TodoPage extends StatefulWidget {
@@ -17,8 +15,6 @@ class TodoPage extends StatefulWidget {
 class _TodoPageState extends State<TodoPage> {
   @override
   Widget build(BuildContext context) {
-    final MediaQueriesImpl mediaQueries =
-        MediaQueriesImpl(buildContext: context);
     return DefaultTabController(
         length: 2,
         child: Scaffold(
@@ -54,7 +50,7 @@ class _TodoPageState extends State<TodoPage> {
                             text: 'Add new',
                             color: Colors.transparent,
                             borderColor: Colors.white,
-                            onPressed: onAddNewButtonPressed,
+                            onPressed: () => onAddNewButtonPressed(null),
                           ),
                         ))
                   ],
@@ -64,8 +60,14 @@ class _TodoPageState extends State<TodoPage> {
             )));
   }
 
-  void onAddNewButtonPressed() {
-    print('pressed');
+  onAddNewButtonPressed(MockTodo? todo) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => TodoDetailPage(
+            todo: todo,
+          ),
+        ));
   }
 
   BlocBuilder<TodoBloc, TodoState> _createTodoList({required bool inProgress}) {
@@ -80,6 +82,7 @@ class _TodoPageState extends State<TodoPage> {
                 todo: todos[index],
                 onDismiss: (direction) =>
                     onDismiss(todos: todos, index: index, direction: direction),
+                onTodoPressed: () => onAddNewButtonPressed(todos[index]),
               );
             },
             itemCount: todos.length,

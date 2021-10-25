@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
 
 class CircularTodoIcon extends StatelessWidget {
-  const CircularTodoIcon({
-    Key? key,
-  }) : super(key: key);
+  const CircularTodoIcon(
+      {Key? key, required this.backgroundColor, required this.iconColor})
+      : super(key: key);
+
+  final Color backgroundColor;
+  final Color iconColor;
 
   @override
   Widget build(BuildContext context) {
-    return const CircleAvatar(
+    return CircleAvatar(
       backgroundColor: Colors.pink,
       radius: 32,
       child: CircleAvatar(
           radius: 26,
-          backgroundColor: Colors.black,
+          backgroundColor: backgroundColor,
           child: Icon(
-            Icons.note_add_rounded,
-            color: Colors.white,
+            Icons.notes_rounded,
+            color: iconColor,
           )),
     );
   }
