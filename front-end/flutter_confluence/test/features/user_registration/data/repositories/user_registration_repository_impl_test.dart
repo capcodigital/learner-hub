@@ -83,7 +83,8 @@ void main() {
         skills: const Skills(
             primarySkills: ['primary'], secondarySkills: ['secondary']),
         bio: 'bio',
-        email: 'email');
+        email: 'email',
+        password: 'password');
 
     test('should return true when the the user is created successfully in DB',
         () async {

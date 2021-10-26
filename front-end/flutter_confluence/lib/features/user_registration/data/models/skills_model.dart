@@ -1,9 +1,7 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter_confluence/features/user_registration/domain/entities/skills.dart';
 
-class SkillsModel extends Skills with EquatableMixin {
-  SkillsModel({required this.primarySkills, required this.secondarySkills})
-      : super(primarySkills: primarySkills, secondarySkills: secondarySkills);
+class SkillsModel with EquatableMixin {
+  SkillsModel({required this.primarySkills, required this.secondarySkills});
 
   Map<String, dynamic> toJson() {
     return {'primarySkills': primarySkills, 'secondarySkills': secondarySkills};
@@ -12,8 +10,6 @@ class SkillsModel extends Skills with EquatableMixin {
   @override
   List<Object?> get props => [primarySkills, secondarySkills];
 
-  @override
   final List<String> primarySkills;
-  @override
   final List<String> secondarySkills;
 }
