@@ -11,7 +11,7 @@ import '/features/onboarding/presentation/pages/on_boarding.dart';
 class PreLoadWidget extends StatelessWidget {
   static const STARTUP_DELAY_MILLIS = 2000;
 
-  void _goToBottomNavigationBar(BuildContext context) {
+  void _openHomePage(BuildContext context) {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
@@ -21,7 +21,7 @@ class PreLoadWidget extends StatelessWidget {
     );
   }
 
-  void openOnBoardingPage(BuildContext context) {
+  void _openOnBoardingPage(BuildContext context) {
     Navigator.pushReplacementNamed(context, OnBoardingPage.route);
   }
 
@@ -31,22 +31,16 @@ class PreLoadWidget extends StatelessWidget {
         body: BlocListener(
             bloc: BlocProvider.of<AuthBloc>(context),
             listener: (context, state) {
-              // For testing purposes, let's go straight to the bottom
-              // nav screen as soon as the app opens.
-              _goToBottomNavigationBar(context);
-
-              // if (state is InvalidUser) {
-              //   Future.delayed(
-              //       const Duration(milliseconds: STARTUP_DELAY_MILLIS), () {
-              //     openOnBoardingPage(context);
-              //   });
-              // }
-              // if (state is ValidUser) {
-              //   Future.delayed(
-              //       const Duration(milliseconds: STARTUP_DELAY_MILLIS), () {
-              //     openHomePage(context);
-              //   });
-              // }
+              if (state is InvalidUser) {
+                Future.delayed(const Duration(milliseconds: STARTUP_DELAY_MILLIS), () {
+                  _openOnBoardingPage(context);
+                });
+              }
+              if (state is ValidUser) {
+                Future.delayed(const Duration(milliseconds: STARTUP_DELAY_MILLIS), () {
+                  _openHomePage(context);
+                });
+              }
             },
             child: Container(
               color: Colours.PRIMARY_COLOR,
