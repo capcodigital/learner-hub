@@ -5,6 +5,7 @@ import '/core/colours.dart';
 import '/core/constants.dart';
 import '/core/layout_constants.dart';
 import '/core/shared_ui/primary_button.dart';
+import '/features/user_registration/domain/entities/skills.dart';
 import '/features/user_registration/domain/entities/user_registration.dart';
 import '/features/user_registration/presentation/pages/bio_page.dart';
 import '/features/user_registration/presentation/widgets/skill_chip.dart';
@@ -81,8 +82,7 @@ class _SkillsPageState extends State<SkillsPage> {
           .toList();
 
       final navParameters = widget.navParameters
-        ..primarySkills = primarySkill
-        ..secondarySkills = secondarySkills;
+        ..skills = Skills(primarySkills: primarySkill, secondarySkills: secondarySkills);
 
       Navigator.push(
           context,
