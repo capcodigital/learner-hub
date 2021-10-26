@@ -31,9 +31,6 @@ class PreLoadWidget extends StatelessWidget {
         body: BlocListener(
             bloc: BlocProvider.of<AuthBloc>(context),
             listener: (context, state) {
-              // For testing purposes, let's go straight to the bottom
-              // nav screen as soon as the app opens.
-
               if (state is InvalidUser) {
                 Future.delayed(const Duration(milliseconds: STARTUP_DELAY_MILLIS), () {
                   _openOnBoardingPage(context);
