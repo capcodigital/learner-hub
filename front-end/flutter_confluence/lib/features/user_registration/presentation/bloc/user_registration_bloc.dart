@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_confluence/core/constants.dart';
 
 import '/core/error/auth_failures.dart';
 import '/core/error/failures.dart';
@@ -37,7 +38,7 @@ class UserRegistrationBloc
     if (failure is AuthFailure) {
       return failure.reason;
     } else {
-      return 'Constants.UNKNOWN_ERROR_MSG';
+      return Constants.UNKNOWN_ERROR_MSG;
     }
   }
 }
