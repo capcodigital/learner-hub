@@ -44,12 +44,9 @@ class LoginDetailsPageState extends State<LoginDetailsPage>
 
     void onDone() {
       if (_formKey.currentState!.validate()) {
-        final email = emailController.text;
-        final password = passwordController.text;
-
         final registrationParameters = widget.navParameters
-          ..email = email
-          ..password = password;
+          ..email = emailController.text
+          ..password = passwordController.text;
 
         BlocProvider.of<UserRegistrationBloc>(context)
             .add(RegisterUserEvent(parameters: registrationParameters));

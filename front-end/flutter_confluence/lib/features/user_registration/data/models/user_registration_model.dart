@@ -1,26 +1,26 @@
-import '/core/utils/extensions/extensions.dart';
-import '/features/user_registration/domain/entities/user_registration.dart';
+import 'package:equatable/equatable.dart';
 
-class UserRegistrationModel extends UserRegistration {
+import '/features/user_registration/data/models/skills_model.dart';
+
+class UserRegistrationModel with EquatableMixin {
   UserRegistrationModel({
-    required name,
-    required lastName,
-    required jobTitle,
-    required primarySkills,
-    required secondarySkills,
-    required bio,
-    required email,
-    required password,
-  }) : super(
-          name: name,
-          lastName: lastName,
-          jobTitle: jobTitle,
-          primarySkills: primarySkills,
-          secondarySkills: secondarySkills,
-          bio: bio,
-          email: email,
-          password: password,
-        );
+    required this.name,
+    required this.lastName,
+    required this.jobTitle,
+    required this.skills,
+    required this.bio,
+    required this.email,
+  });
+
+  final String? name;
+  final String? lastName;
+  final String? jobTitle;
+  final SkillsModel? skills;
+  final String? bio;
+  final String? email;
+
+  @override
+  List<Object?> get props => [name, lastName, jobTitle, skills, bio, email];
 
   Map<String, dynamic> toJson() {
     return {
@@ -29,10 +29,7 @@ class UserRegistrationModel extends UserRegistration {
       'lastName': lastName,
       'jobTitle': jobTitle,
       'bio': bio,
-      'skills': {
-        'primarySkills': primarySkills?.toJson(),
-        'secondarySkills': secondarySkills?.toJson(),
-      }
+      'skills': skills?.toJson()
     };
   }
 }

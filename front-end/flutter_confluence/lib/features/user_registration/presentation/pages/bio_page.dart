@@ -91,7 +91,10 @@ class UserBioPageState extends State<UserBioPage> {
                     onPressed: onSkip,
                     child: const Text('Skip')),
               ),
-              PrimaryButton(text: 'Next', onPressed: onNext),
+              PrimaryButton(
+                text: 'Next',
+                onPressed: onNext,
+              ),
             ],
           ),
         ),

@@ -39,7 +39,13 @@ class UserDetailsPageState extends State<UserDetailsPage> {
         final jobTitle = jobTitleController.text;
 
         final navigationParameters = UserRegistration(
-            name: name, lastName: lastName, jobTitle: jobTitle);
+            name: name,
+            lastName: lastName,
+            jobTitle: jobTitle,
+            bio: null,
+            email: null,
+            skills: null,
+            password: null);
         Navigator.push(
             context,
             MaterialPageRoute(

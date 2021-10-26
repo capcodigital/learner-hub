@@ -8,17 +8,29 @@ import 'package:flutter_confluence/features/user_registration/presentation/pages
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  testWidgets('Primary Skills Page should show expected widgets', (tester) async {
+  testWidgets('Primary Skills Page should show expected widgets',
+      (tester) async {
     // arrange
-    final navParameters = UserRegistration();
+    final navParameters = UserRegistration(
+        name: null,
+        lastName: null,
+        jobTitle: null,
+        skills: null,
+        bio: null,
+        email: null,
+        password: null);
 
     // act
-    await tester.pumpWidget(MaterialApp(theme: Themes.appTheme, home: SkillsPage(navParameters: navParameters)));
+    await tester.pumpWidget(MaterialApp(
+        theme: Themes.appTheme,
+        home: SkillsPage(navParameters: navParameters)));
 
-    final wrapContainerWidget = find.byWidgetPredicate((widget) => widget is Wrap);
+    final wrapContainerWidget =
+        find.byWidgetPredicate((widget) => widget is Wrap);
     final richTextWidgets = find.byKey(const Key('subtitleText'));
     final chipWidgets = find.byWidgetPredicate((widget) => widget is SkillChip);
-    final ctaButtonWidget = find.byWidgetPredicate((widget) => widget is PrimaryButton);
+    final ctaButtonWidget =
+        find.byWidgetPredicate((widget) => widget is PrimaryButton);
 
     // assert
     expect(wrapContainerWidget, findsOneWidget);
