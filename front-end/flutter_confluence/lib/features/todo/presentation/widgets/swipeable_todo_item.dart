@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_confluence/core/layout_constants.dart';
 import 'package:flutter_confluence/core/utils/media_util.dart';
-import 'package:flutter_confluence/features/todo/presentation/bloc/todo_bloc.dart';
+import 'package:flutter_confluence/features/todo/domain/entities/todo.dart';
 import 'package:flutter_confluence/features/todo/presentation/widgets/circular_todo_icon.dart';
 
 class SwipeableTodoItem extends StatefulWidget {
@@ -11,7 +11,7 @@ class SwipeableTodoItem extends StatefulWidget {
     required this.onDismiss,
     required this.onTodoPressed,
   }) : super(key: key);
-  final MockTodo todo;
+  final Todo todo;
   final Function(DismissDirection)? onDismiss;
   final VoidCallback onTodoPressed;
 
@@ -26,7 +26,9 @@ class _SwipeableTodoItemState extends State<SwipeableTodoItem> {
         MediaQueriesImpl(buildContext: context);
     return Dismissible(
       key: UniqueKey(),
-      direction: DismissDirection.horizontal,
+      direction: !widget.todo.isCompleted
+          ? DismissDirection.horizontal
+          : DismissDirection.endToStart,
       onDismissed: widget.onDismiss,
       secondaryBackground: Container(
         color: Colors.red,
@@ -51,28 +53,30 @@ class _SwipeableTodoItemState extends State<SwipeableTodoItem> {
           ],
         ),
       ),
-      background: Container(
-        color: Colors.white,
-        child: Row(
-          children: [
-            SizedBox(
-              width:
-                  mediaQueries.applyWidth(context, LayoutConstants.SMALL_SCALE),
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: const [
-                Icon(
-                  Icons.done_rounded,
-                  color: Colors.red,
-                ),
-                Text('Done', style: TextStyle(color: Colors.red)),
-              ],
-            ),
-          ],
-        ),
-      ),
+      background: !widget.todo.isCompleted
+          ? Container(
+              color: Colors.white,
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: mediaQueries.applyWidth(
+                        context, LayoutConstants.SMALL_SCALE),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: const [
+                      Icon(
+                        Icons.done_rounded,
+                        color: Colors.red,
+                      ),
+                      Text('Done', style: TextStyle(color: Colors.red)),
+                    ],
+                  ),
+                ],
+              ),
+            )
+          : const SizedBox.shrink(),
       child: ListTile(
         leading: const CircularTodoIcon(
           backgroundColor: Colors.black,

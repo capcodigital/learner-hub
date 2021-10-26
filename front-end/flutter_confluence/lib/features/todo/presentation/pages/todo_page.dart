@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_confluence/core/shared_ui/primary_button.dart';
+import 'package:flutter_confluence/features/todo/domain/entities/todo.dart';
 import 'package:flutter_confluence/features/todo/presentation/bloc/todo_bloc.dart';
 import 'package:flutter_confluence/features/todo/presentation/pages/todo_detail_page.dart';
 import 'package:flutter_confluence/features/todo/presentation/widgets/swipeable_todo_item.dart';
@@ -60,14 +61,16 @@ class _TodoPageState extends State<TodoPage> {
             )));
   }
 
-  onAddNewButtonPressed(MockTodo? todo) {
+  onAddNewButtonPressed(Todo? todo) {
     Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => TodoDetailPage(
             todo: todo,
           ),
-        ));
+        )).then((value) {
+      setState(() {});
+    });
   }
 
   BlocBuilder<TodoBloc, TodoState> _createTodoList({required bool inProgress}) {
@@ -102,10 +105,11 @@ class _TodoPageState extends State<TodoPage> {
   }
 
   onDismiss(
-      {required List<MockTodo> todos,
+      {required List<Todo> todos,
       required int index,
       required DismissDirection direction}) {
     if (direction == DismissDirection.startToEnd) {
+      todos[index].isCompleted = true;
       BlocProvider.of<TodoBloc>(context)
           .add(UpdateTodoEvent(todo: todos[index]));
     } else if (direction == DismissDirection.endToStart) {

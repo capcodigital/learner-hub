@@ -17,8 +17,8 @@ class TodoLoadedSuccess extends TodoState {
   TodoLoadedSuccess(
       {required this.inProgressTodos, required this.completedTodos});
 
-  final List<MockTodo> inProgressTodos;
-  final List<MockTodo> completedTodos;
+  final List<Todo> inProgressTodos;
+  final List<Todo> completedTodos;
   @override
   List<Object?> get props => [inProgressTodos, completedTodos];
 }

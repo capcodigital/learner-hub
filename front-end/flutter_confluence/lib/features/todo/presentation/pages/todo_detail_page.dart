@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_confluence/core/constants.dart';
 import 'package:flutter_confluence/core/shared_ui/primary_button.dart';
+import 'package:flutter_confluence/features/todo/domain/entities/todo.dart';
 import 'package:flutter_confluence/features/todo/presentation/bloc/todo_bloc.dart';
 import 'package:flutter_confluence/features/todo/presentation/widgets/circular_todo_icon.dart';
 
 class TodoDetailPage extends StatefulWidget {
   const TodoDetailPage({Key? key, this.todo}) : super(key: key);
 
-  final MockTodo? todo;
+  final Todo? todo;
 
   @override
   _TodoDetailPageState createState() => _TodoDetailPageState();
@@ -19,8 +21,10 @@ class _TodoDetailPageState extends State<TodoDetailPage> {
     super.initState();
     if (widget.todo != null) {
       _isInEditingMode = true;
+      _isButtonDisabled = false;
     } else {
       _isInEditingMode = false;
+      _isButtonDisabled = true;
     }
     _initialTitleText = _isInEditingMode ? widget.todo!.title : '';
     _initialContentText = _isInEditingMode ? widget.todo!.content : '';
@@ -40,6 +44,7 @@ class _TodoDetailPageState extends State<TodoDetailPage> {
   late bool _isInEditingMode;
   late String _initialTitleText;
   late String _initialContentText;
+  late bool _isButtonDisabled;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,7 +73,7 @@ class _TodoDetailPageState extends State<TodoDetailPage> {
                   decoration: const InputDecoration(
                       border: InputBorder.none,
                       counterText: '',
-                      hintText: 'Add your title here'),
+                      hintText: 'Add your title here..'),
                   maxLength: 50,
                   controller: _titleController,
                   onSubmitted: (value) {
@@ -77,7 +82,10 @@ class _TodoDetailPageState extends State<TodoDetailPage> {
                   },
                   onChanged: (value) {
                     _initialTitleText = value;
-                    save();
+                    setState(() {
+                      _isButtonDisabled = _contentController.text.isEmpty ||
+                          _titleController.text.isEmpty;
+                    });
                   },
                 ),
               )),
@@ -94,7 +102,7 @@ class _TodoDetailPageState extends State<TodoDetailPage> {
               decoration: const InputDecoration(
                   border: InputBorder.none,
                   counterText: '',
-                  hintText: 'Add your notes here'),
+                  hintText: 'Add your notes here..'),
               controller: _contentController,
               onSubmitted: (value) {
                 _initialContentText = value;
@@ -102,7 +110,10 @@ class _TodoDetailPageState extends State<TodoDetailPage> {
               },
               onChanged: (value) {
                 _initialContentText = value;
-                save();
+                setState(() {
+                  _isButtonDisabled = _contentController.text.isEmpty &&
+                      _titleController.text.isEmpty;
+                });
               },
             ),
           )),
@@ -117,11 +128,8 @@ class _TodoDetailPageState extends State<TodoDetailPage> {
                     height: 24,
                   ),
                   PrimaryButton(
-                      text: 'Add',
-                      onPressed: (_titleController.text.isNotEmpty &&
-                              _contentController.text.isNotEmpty)
-                          ? save
-                          : null,
+                      text: _isInEditingMode ? 'Update' : 'Add',
+                      onPressed: _isButtonDisabled ? null : save,
                       color: Constants.ACCENT_COLOR),
                 ],
               ),
@@ -133,7 +141,19 @@ class _TodoDetailPageState extends State<TodoDetailPage> {
   }
 
   void save() {
-    print(_initialTitleText);
-    print(_initialContentText);
+    if (_isInEditingMode) {
+      widget.todo!.title = _titleController.text;
+      widget.todo!.content = _contentController.text;
+      widget.todo!.isCompleted = widget.todo!.isCompleted;
+      BlocProvider.of<TodoBloc>(context)
+          .add(UpdateTodoEvent(todo: widget.todo!));
+    } else {
+      final todo = Todo(
+          title: _titleController.text,
+          content: _contentController.text,
+          isCompleted: false);
+      BlocProvider.of<TodoBloc>(context).add(AddTodoEvent(todo: todo));
+    }
+    Navigator.pop(context);
   }
 }
