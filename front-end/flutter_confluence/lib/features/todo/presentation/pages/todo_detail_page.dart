@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_confluence/core/constants.dart';
 import 'package:flutter_confluence/core/shared_ui/primary_button.dart';
 import 'package:flutter_confluence/features/todo/domain/entities/todo.dart';
+import 'package:flutter_confluence/features/todo/domain/usecases/create_todo.dart';
 import 'package:flutter_confluence/features/todo/presentation/bloc/todo_bloc.dart';
 import 'package:flutter_confluence/features/todo/presentation/widgets/circular_todo_icon.dart';
 
@@ -148,7 +149,7 @@ class _TodoDetailPageState extends State<TodoDetailPage> {
       BlocProvider.of<TodoBloc>(context)
           .add(UpdateTodoEvent(todo: widget.todo!));
     } else {
-      final todo = Todo(
+      final todo = TodoParams(
           title: _titleController.text,
           content: _contentController.text,
           isCompleted: false);

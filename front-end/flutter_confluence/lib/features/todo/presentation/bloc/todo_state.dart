@@ -24,6 +24,9 @@ class TodoLoadedSuccess extends TodoState {
 }
 
 class TodoLoadedError extends TodoState {
+  TodoLoadedError({required this.message});
+
+  final String message;
   @override
   List<Object?> get props => [];
 }

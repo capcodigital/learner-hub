@@ -11,7 +11,7 @@ class GetTodosEvent extends TodoEvent {
 class AddTodoEvent extends TodoEvent {
   AddTodoEvent({required this.todo});
 
-  final Todo todo;
+  final TodoParams todo;
   @override
   List<Object?> get props => [todo];
 }

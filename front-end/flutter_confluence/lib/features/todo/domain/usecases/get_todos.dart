@@ -9,7 +9,7 @@ class GetTodos implements UseCase<List<Todo>, NoParams> {
   final TodoRepository repository;
 
   @override
-  Future<Either<Failure, List<Todo>>> call(NoParams noParams) {
+  Future<Either<Failure, List<Todo>>> call(NoParams noParams) async {
     return repository.getTodos();
   }
 }

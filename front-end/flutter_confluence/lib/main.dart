@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_confluence/core/ui/tech_radar_view.dart';
+import 'package:flutter_confluence/features/todo/data/models/todo_model.dart';
 import 'package:flutter_confluence/features/todo/presentation/bloc/todo_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -26,6 +27,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   Hive.registerAdapter(CloudCertificationModelAdapter());
+  Hive.registerAdapter(TodoModelAdapter());
   await Firebase.initializeApp();
   // Initialize Local Auth Emulator if necessary
   // await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);

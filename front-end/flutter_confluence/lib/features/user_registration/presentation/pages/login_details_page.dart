@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '/core/colours.dart';
 import '/core/constants.dart';
 import '/core/layout_constants.dart';
-import '../../../../core/shared_ui/custom_menu_page.dart';
 import '/core/shared_ui/custom_appbar.dart';
 import '/core/shared_ui/primary_button.dart';
 import '/core/utils/error_messages.dart';
@@ -13,6 +12,7 @@ import '/core/utils/validators/email_validator.dart';
 import '/features/certifications/presentation/pages/home_page.dart';
 import '/features/user_registration/domain/entities/user_registration.dart';
 import '/features/user_registration/presentation/bloc/user_registration_bloc.dart';
+import '../../../../core/shared_ui/custom_menu_page.dart';
 
 class LoginDetailsPage extends StatefulWidget {
   const LoginDetailsPage({Key? key, required this.navParameters})

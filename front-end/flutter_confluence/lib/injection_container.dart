@@ -1,5 +1,10 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_confluence/features/todo/data/models/todo_hive_helper.dart';
+import 'package:flutter_confluence/features/todo/domain/usecases/create_todo.dart';
+import 'package:flutter_confluence/features/todo/domain/usecases/delete_todo.dart';
+import 'package:flutter_confluence/features/todo/domain/usecases/get_todos.dart';
+import 'package:flutter_confluence/features/todo/domain/usecases/update_todo.dart';
 import 'package:flutter_confluence/features/todo/presentation/bloc/todo_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
@@ -89,5 +94,17 @@ Future<void> init() async {
   sl.registerFactory(() => UserRegistrationBloc(registerUser: sl()));
 
   // TODOs
-  sl.registerFactory(() => TodoBloc());
+  // Usecases
+  sl.registerLazySingleton(() => CreateTodo(repository: sl()));
+  sl.registerLazySingleton(() => GetTodos(repository: sl()));
+  sl.registerLazySingleton(() => UpdateTodo(repository: sl()));
+  sl.registerLazySingleton(() => DeleteTodo(repository: sl()));
+  // BLoC
+  sl.registerFactory(() => TodoBloc(
+      createTodoUsecase: sl(),
+      deleteTodoUsecase: sl(),
+      getTodosUsecase: sl(),
+      updateTodoUsecase: sl()));
+  // Helpers
+  sl.registerLazySingleton(() => TodoHiveHelperImpl());
 }

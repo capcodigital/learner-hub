@@ -9,7 +9,7 @@ class CreateTodo implements UseCase<Todo, TodoParams> {
   final TodoRepository repository;
 
   @override
-  Future<Either<Failure, Todo>> call(TodoParams todoParams) {
+  Future<Either<Failure, Todo>> call(TodoParams todoParams) async {
     return repository.createTodo();
   }
 }

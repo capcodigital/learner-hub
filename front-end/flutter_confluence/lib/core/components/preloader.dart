@@ -4,9 +4,9 @@ import 'package:flutter_confluence/core/shared_ui/custom_bottom_nav.dart';
 import 'package:lottie/lottie.dart';
 
 import '/core/colours.dart';
-import '../shared_ui/custom_menu_page.dart';
 import '/features/auth/presentation/bloc/auth_bloc.dart';
 import '/features/onboarding/presentation/pages/on_boarding.dart';
+import '../shared_ui/custom_menu_page.dart';
 
 class PreLoadWidget extends StatelessWidget {
   static const STARTUP_DELAY_MILLIS = 2000;
