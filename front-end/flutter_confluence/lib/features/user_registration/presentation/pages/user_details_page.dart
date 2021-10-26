@@ -44,7 +44,8 @@ class UserDetailsPageState extends State<UserDetailsPage> {
             jobTitle: jobTitle,
             bio: null,
             email: null,
-            skills: null);
+            skills: null,
+            password: null);
         Navigator.push(
             context,
             MaterialPageRoute(

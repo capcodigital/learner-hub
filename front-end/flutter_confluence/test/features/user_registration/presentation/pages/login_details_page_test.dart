@@ -30,7 +30,8 @@ void main() {
         jobTitle: null,
         skills: null,
         bio: null,
-        email: null);
+        email: null,
+        password: null);
 
     final UserRegistrationBloc mockBloc = MockUserRegistrationBloc();
     whenListen(mockBloc, Stream.fromIterable([UserRegistrationInitial()]),

@@ -10,13 +10,12 @@ class RegisterUser {
 
   final UserRegistrationRepository registrationRepository;
 
-  Future<Either<Failure, bool>> execute(
-      UserRegistration user, String? password) async {
-    if (user.email == null || password == null) {
+  Future<Either<Failure, bool>> execute(UserRegistration user) async {
+    if (user.email == null || user.password == null) {
       return Left(AuthFailure('Email and password cannot be null'));
     }
     final registerFirebaseUserResult = await registrationRepository
-        .registerFirebaseUser(user.email!, password);
+        .registerFirebaseUser(user.email!, user.password!);
     return registerFirebaseUserResult.fold((failure) => Left(failure),
         (success) async {
       final createUserResult = await registrationRepository.createUser(user);

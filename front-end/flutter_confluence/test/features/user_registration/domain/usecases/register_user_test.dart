@@ -21,7 +21,8 @@ void main() {
         bio: '',
         skills: const Skills(primarySkills: [], secondarySkills: []),
         name: '',
-        email: ''));
+        email: '',
+        password: ''));
   });
 
   setUp(() {
@@ -36,6 +37,7 @@ void main() {
     bio: 'testBio',
     skills: const Skills(primarySkills: [], secondarySkills: []),
     email: 'test@capco.com',
+    password: 'password'
   );
 
   test(
@@ -48,7 +50,7 @@ void main() {
           .thenAnswer((_) => Future.value(const Right(true)));
 
       // Act
-      final result = await useCase.execute(useCaseParams, 'password');
+      final result = await useCase.execute(useCaseParams);
 
       // assert
       verify(() => mockRepository.createUser(any()));
@@ -66,7 +68,7 @@ void main() {
           .thenAnswer((_) => Future.value(const Right(false)));
 
       // Act
-      final result = await useCase.execute(useCaseParams, 'password');
+      final result = await useCase.execute(useCaseParams);
 
       // assert
       expect(result, Left(WeakPasswordFailure()));
@@ -86,7 +88,7 @@ void main() {
           .thenAnswer((_) => Future.value(const Right(true)));
 
       // Act
-      final result = await useCase.execute(useCaseParams, 'password');
+      final result = await useCase.execute(useCaseParams);
 
       // assert
       expect(result, Left(CreateUserError()));

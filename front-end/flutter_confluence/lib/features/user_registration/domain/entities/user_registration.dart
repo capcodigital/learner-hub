@@ -11,6 +11,7 @@ class UserRegistration extends Equatable {
     required this.skills,
     required this.bio,
     required this.email,
+    required this.password,
   });
 
   late String? name;
@@ -19,7 +20,8 @@ class UserRegistration extends Equatable {
   late Skills? skills;
   late String? bio;
   late String? email;
+  late String? password;
 
   @override
-  List<Object?> get props => [name, lastName, jobTitle, skills, bio, email];
+  List<Object?> get props => [name, lastName, jobTitle, skills, bio, email, password];
 }
