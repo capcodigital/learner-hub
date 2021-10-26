@@ -23,6 +23,9 @@ class RegisterUserDataSourceImpl implements RegisterUserDataSource {
 
   @override
   Future<User> registerFirebaseUser(String email, String password) async {
+    if (email == null || password == null) {
+      throw AuthFailure('Email and password cannot be null');
+    }
     try {
       final userCredential = await auth.createUserWithEmailAndPassword(
           email: email, password: password);
