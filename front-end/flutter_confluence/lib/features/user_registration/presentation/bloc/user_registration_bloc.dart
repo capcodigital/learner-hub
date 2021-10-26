@@ -25,8 +25,7 @@ class UserRegistrationBloc
   ) async* {
     if (event is RegisterUserEvent) {
       yield UserRegistrationLoading();
-      final result =
-          await registerUser.execute(event.parameters);
+      final result = await registerUser(event.parameters);
       yield result.fold(
           (failure) => UserRegistrationError(
               errorMessage: _mapFailureToMessage(failure)),

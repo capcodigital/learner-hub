@@ -31,14 +31,13 @@ void main() {
   });
 
   final useCaseParams = UserRegistration(
-    name: 'testName',
-    lastName: 'testLastName',
-    jobTitle: 'testJobTitle',
-    bio: 'testBio',
-    skills: const Skills(primarySkills: [], secondarySkills: []),
-    email: 'test@capco.com',
-    password: 'password'
-  );
+      name: 'testName',
+      lastName: 'testLastName',
+      jobTitle: 'testJobTitle',
+      bio: 'testBio',
+      skills: const Skills(primarySkills: [], secondarySkills: []),
+      email: 'test@capco.com',
+      password: 'password');
 
   test(
     'should create a user if the firebase registration succeeds',
@@ -50,7 +49,7 @@ void main() {
           .thenAnswer((_) => Future.value(const Right(true)));
 
       // Act
-      final result = await useCase.execute(useCaseParams);
+      final result = await useCase(useCaseParams);
 
       // assert
       verify(() => mockRepository.createUser(any()));
@@ -68,7 +67,7 @@ void main() {
           .thenAnswer((_) => Future.value(const Right(false)));
 
       // Act
-      final result = await useCase.execute(useCaseParams);
+      final result = await useCase(useCaseParams);
 
       // assert
       expect(result, Left(WeakPasswordFailure()));
@@ -88,7 +87,7 @@ void main() {
           .thenAnswer((_) => Future.value(const Right(true)));
 
       // Act
-      final result = await useCase.execute(useCaseParams);
+      final result = await useCase(useCaseParams);
 
       // assert
       expect(result, Left(CreateUserError()));
