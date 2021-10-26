@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:flutter_confluence/features/user_registration/data/models/skills_model.dart';
 
 import '/core/error/auth_failures.dart';
 import '/features/user_registration/data/datasources/register_user_data_source.dart';
@@ -31,11 +32,11 @@ class UserRegistrationRepositoryIml implements UserRegistrationRepository {
           name: user.name,
           lastName: user.lastName,
           jobTitle: user.jobTitle,
-          primarySkills: user.primarySkills,
-          secondarySkills: user.secondarySkills,
+          skills: SkillsModel(
+              primarySkills: user.skills?.primarySkills ?? [],
+              secondarySkills: user.skills?.secondarySkills ?? []),
           bio: user.bio,
-          email: user.email,
-          password: user.password);
+          email: user.email);
 
       final isUserCreated = await dataSource.createUser(userRequest);
       if (isUserCreated) {
@@ -44,7 +45,6 @@ class UserRegistrationRepositoryIml implements UserRegistrationRepository {
         return Left(CreateUserError());
       }
     } catch (ex) {
-      print('Error: $ex');
       return Left(CreateUserError());
     }
   }

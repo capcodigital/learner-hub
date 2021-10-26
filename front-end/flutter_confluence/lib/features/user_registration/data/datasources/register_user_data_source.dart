@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -22,6 +23,9 @@ class RegisterUserDataSourceImpl implements RegisterUserDataSource {
 
   @override
   Future<User> registerFirebaseUser(String email, String password) async {
+    if (email == null || password == null) {
+      throw AuthFailure('Email and password cannot be null');
+    }
     try {
       final userCredential = await auth.createUserWithEmailAndPassword(
           email: email, password: password);
@@ -55,9 +59,14 @@ class RegisterUserDataSourceImpl implements RegisterUserDataSource {
 
       final token = await auth.currentUser?.getIdToken();
 
+      final body = jsonEncode(userRequest);
+
       final response = await client.post(Uri.parse(url),
-          headers: {HttpHeaders.authorizationHeader: 'Bearer $token'},
-          body: userRequest.toJson());
+          headers: {
+            HttpHeaders.authorizationHeader: 'Bearer $token',
+            HttpHeaders.contentTypeHeader: 'application/json'
+          },
+          body: body);
 
       if (response.statusCode == HttpStatus.created) {
         return true;
