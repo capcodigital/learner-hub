@@ -1,16 +1,25 @@
 import 'package:dartz/dartz.dart';
+import 'package:flutter_confluence/core/usecases/usecase.dart';
 
 import '/core/error/auth_failures.dart';
 import '/core/error/failures.dart';
 import '/features/user_registration/domain/entities/user_registration.dart';
 import '/features/user_registration/domain/repositories/user_registration_repository.dart';
 
-class RegisterUser {
+class RegisterUser implements UseCase<bool, UserRegistration> {
   RegisterUser({required this.registrationRepository});
 
   final UserRegistrationRepository registrationRepository;
 
-  Future<Either<Failure, bool>> execute(UserRegistration user) async {
+  Future<void> _handleCreateUserFailure(Failure failure) async {
+    // If creating the user in our custom backend fails,
+    // then we need to clear all local firebase auth details in our app
+    // so there are no conflicts
+    await registrationRepository.cleanUpFirebaseUser();
+  }
+
+  @override
+  Future<Either<Failure, bool>> call(UserRegistration user) async {
     if (user.email == null || user.password == null) {
       return Left(AuthFailure('Email and password cannot be null'));
     }
@@ -24,12 +33,5 @@ class RegisterUser {
         return Left(CreateUserError());
       }, (success) => Right(success));
     });
-  }
-
-  Future<void> _handleCreateUserFailure(Failure failure) async {
-    // If creating the user in our custom backend fails,
-    // then we need to clear all local firebase auth details in our app
-    // so there are no conflicts
-    await registrationRepository.cleanUpFirebaseUser();
   }
 }
