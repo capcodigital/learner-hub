@@ -9,6 +9,6 @@ class DeleteTodo implements UseCase<void, String> {
 
   @override
   Future<Either<Failure, void>> call(String todoId) async {
-    return repository.deleteTodo();
+    return repository.deleteTodo(todoId);
   }
 }

@@ -1,6 +1,9 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_confluence/features/todo/data/datasources/todo_remote_data_source.dart';
 import 'package:flutter_confluence/features/todo/data/models/todo_hive_helper.dart';
+import 'package:flutter_confluence/features/todo/data/repository/todo_repository_impl.dart';
+import 'package:flutter_confluence/features/todo/domain/repository/todo_repository.dart';
 import 'package:flutter_confluence/features/todo/domain/usecases/create_todo.dart';
 import 'package:flutter_confluence/features/todo/domain/usecases/delete_todo.dart';
 import 'package:flutter_confluence/features/todo/domain/usecases/get_todos.dart';
@@ -107,4 +110,10 @@ Future<void> init() async {
       updateTodoUsecase: sl()));
   // Helpers
   sl.registerLazySingleton(() => TodoHiveHelperImpl());
+  // Repositories
+  sl.registerLazySingleton<TodoRepository>(
+      () => TodoRepositoryImpl(remoteDataSource: sl()));
+  // Datasources
+  sl.registerLazySingleton<TodoRemoteDataSource>(
+      () => TodoRemoteDataSourceImpl(auth: sl(), client: sl()));
 }

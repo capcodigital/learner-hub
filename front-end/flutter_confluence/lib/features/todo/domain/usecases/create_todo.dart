@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_confluence/core/error/failures.dart';
 import 'package:flutter_confluence/core/usecases/usecase.dart';
 import 'package:flutter_confluence/features/todo/domain/entities/todo.dart';
+import 'package:flutter_confluence/features/todo/domain/params/todo_params.dart';
 import 'package:flutter_confluence/features/todo/domain/repository/todo_repository.dart';
 
 class CreateTodo implements UseCase<Todo, TodoParams> {
@@ -10,15 +11,6 @@ class CreateTodo implements UseCase<Todo, TodoParams> {
 
   @override
   Future<Either<Failure, Todo>> call(TodoParams todoParams) async {
-    return repository.createTodo();
+    return repository.createTodo(todoParams);
   }
-}
-
-class TodoParams {
-  TodoParams(
-      {required this.title, required this.content, required this.isCompleted});
-
-  final String title;
-  final String content;
-  final bool isCompleted;
 }

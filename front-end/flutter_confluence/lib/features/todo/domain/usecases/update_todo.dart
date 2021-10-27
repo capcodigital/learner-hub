@@ -10,6 +10,6 @@ class UpdateTodo implements UseCase<Todo, Todo> {
 
   @override
   Future<Either<Failure, Todo>> call(Todo todo) async {
-    return repository.updateTodo();
+    return repository.updateTodo(todo);
   }
 }

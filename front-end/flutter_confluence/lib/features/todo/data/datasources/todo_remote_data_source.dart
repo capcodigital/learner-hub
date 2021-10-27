@@ -7,13 +7,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_confluence/core/constants.dart';
 import 'package:flutter_confluence/core/error/custom_exceptions.dart';
 import 'package:flutter_confluence/features/todo/data/models/todo_model.dart';
+import 'package:flutter_confluence/features/todo/domain/entities/todo.dart';
+import 'package:flutter_confluence/features/todo/domain/params/todo_params.dart';
 import 'package:http/http.dart' as http;
 
 abstract class TodoRemoteDataSource {
   Future<List<TodoModel>> getTodos();
-  Future<TodoModel> addTodo(TodoModel todo);
-  Future<TodoModel> updateTodo(TodoModel todo);
-  Future<void> deleteTodo(TodoModel todo);
+  Future<TodoModel> addTodo(TodoParams todo);
+  Future<TodoModel> updateTodo(Todo todo);
+  Future<String> deleteTodo(String todoId);
 }
 
 class TodoRemoteDataSourceImpl implements TodoRemoteDataSource {
@@ -22,13 +24,13 @@ class TodoRemoteDataSourceImpl implements TodoRemoteDataSource {
   final FirebaseAuth auth;
   final http.Client client;
   @override
-  Future<TodoModel> addTodo(TodoModel todo) async {
+  Future<TodoModel> addTodo(TodoParams todoParams) async {
     try {
       const url = '${Constants.BASE_API_URL}/todos';
 
       final token = await auth.currentUser?.getIdToken();
 
-      final body = jsonEncode(todo);
+      final body = jsonEncode(todoParams);
 
       final response = await client.post(Uri.parse(url),
           headers: {
@@ -49,9 +51,9 @@ class TodoRemoteDataSourceImpl implements TodoRemoteDataSource {
   }
 
   @override
-  Future<void> deleteTodo(TodoModel todo) async {
+  Future<String> deleteTodo(String todoId) async {
     try {
-      final url = '${Constants.BASE_API_URL}/todos/${todo.id}';
+      final url = '${Constants.BASE_API_URL}/todos/$todoId';
 
       final token = await auth.currentUser?.getIdToken();
 
@@ -63,7 +65,8 @@ class TodoRemoteDataSourceImpl implements TodoRemoteDataSource {
         },
       );
       if (response.statusCode == 200) {
-        return;
+        final results = json.decode(response.body)['data'];
+        return results['message'];
       } else {
         throw ServerException(message: 'Internal Server Error');
       }
@@ -100,7 +103,7 @@ class TodoRemoteDataSourceImpl implements TodoRemoteDataSource {
   }
 
   @override
-  Future<TodoModel> updateTodo(TodoModel todo) async {
+  Future<TodoModel> updateTodo(Todo todo) async {
     try {
       final url = '${Constants.BASE_API_URL}/todos/${todo.id}';
 
