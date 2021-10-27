@@ -19,46 +19,47 @@ class _TodoPageState extends State<TodoPage> {
     return DefaultTabController(
         length: 2,
         child: Scaffold(
-            backgroundColor: Colors.black,
-            appBar: AppBar(
-                toolbarHeight: 24,
-                backgroundColor: Colors.black,
-                bottom: TabBar(
-                  labelStyle: const TextStyle(fontSize: 18, fontFamily: 'Lato'),
-                  unselectedLabelColor: Colors.pink[200],
-                  indicatorWeight: 4,
-                  indicatorColor: Colors.pink,
-                  tabs: const [
-                    Tab(
-                      text: 'TO DO',
-                    ),
-                    Tab(
-                      text: 'DONE',
-                    )
-                  ],
-                )),
-            body: Padding(
-              padding: const EdgeInsets.only(top: 32),
-              child: TabBarView(children: [
-                Column(
-                  children: [
-                    Expanded(child: _createTodoList(inProgress: true)),
-                    Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Padding(
-                          padding: const EdgeInsets.all(32.0),
-                          child: PrimaryButton(
-                            text: 'Add new',
-                            color: Colors.transparent,
-                            borderColor: Colors.white,
-                            onPressed: () => onAddNewButtonPressed(null),
-                          ),
-                        ))
-                  ],
-                ),
-                _createTodoList(inProgress: false),
-              ]),
-            )));
+          backgroundColor: Colors.black,
+          appBar: PreferredSize(
+            preferredSize: const Size.fromHeight(64),
+            child: SizedBox(
+              height: 64,
+              child: TabBar(
+                labelStyle: const TextStyle(fontSize: 18, fontFamily: 'Lato'),
+                unselectedLabelColor: Colors.pink[200],
+                indicatorWeight: 4,
+                indicatorColor: Colors.pink,
+                tabs: const [
+                  Tab(
+                    text: 'TO DO',
+                  ),
+                  Tab(
+                    text: 'DONE',
+                  )
+                ],
+              ),
+            ),
+          ),
+          body: TabBarView(children: [
+            Column(
+              children: [
+                Expanded(child: _createTodoList(inProgress: true)),
+                Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Padding(
+                      padding: const EdgeInsets.all(32.0),
+                      child: PrimaryButton(
+                        text: 'Add new',
+                        color: Colors.transparent,
+                        borderColor: Colors.white,
+                        onPressed: () => onAddNewButtonPressed(null),
+                      ),
+                    ))
+              ],
+            ),
+            _createTodoList(inProgress: false),
+          ]),
+        ));
   }
 
   onAddNewButtonPressed(Todo? todo) {
