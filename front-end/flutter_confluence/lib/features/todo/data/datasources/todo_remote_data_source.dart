@@ -38,7 +38,7 @@ class TodoRemoteDataSourceImpl implements TodoRemoteDataSource {
             HttpHeaders.contentTypeHeader: 'application/json'
           },
           body: body);
-      if (response.statusCode == 200) {
+      if (response.statusCode == 201) {
         final results = json.decode(response.body)['data'];
         final todo = TodoModel.fromJson(results);
         return todo;
@@ -119,6 +119,7 @@ class TodoRemoteDataSourceImpl implements TodoRemoteDataSource {
       if (response.statusCode == 200) {
         final results = json.decode(response.body)['data'];
         final todo = TodoModel.fromJson(results);
+        print(todo);
         return todo;
       } else {
         throw ServerException(message: 'Internal Server Error');
