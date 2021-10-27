@@ -69,7 +69,14 @@ class UserSettingsDataSourceImpl implements UserSettingsDataSource {
       );
 
       if (response.statusCode == HttpStatus.ok) {
-        return UserModel.fromJson(jsonDecode(response.body));
+        final Map<String, dynamic> json = jsonDecode(response.body);
+        final responseStatus = json['status'];
+        if (responseStatus == 'success') {
+          final Map<String, dynamic> data = json['data'];
+          return UserModel.fromJson(data);
+        } else {
+          throw ServerFailure(message: 'Response status: $responseStatus');
+        }
       } else {
         throw ServerFailure(message: 'Status code: ${response.statusCode}');
       }

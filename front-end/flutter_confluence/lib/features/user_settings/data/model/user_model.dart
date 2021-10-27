@@ -21,14 +21,16 @@ class UserModel extends User {
             email: email);
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
+    final Map<String, dynamic> skills = json['skills'];
+
     return UserModel(
       name: json['name'],
       email: json['email'],
       lastName: json['lastName'],
       bio: json['bio'],
       jobTitle: json['jobTitle'],
-      primarySkills: json['primarySkills'],
-      secondarySkills: json['secondarySkills'],
+      primarySkills: (skills['primarySkills'] as List).map((name) => name.toString()).toList(),
+      secondarySkills: (skills['secondarySkills'] as List).map((name) => name.toString()).toList(),
     );
   }
 

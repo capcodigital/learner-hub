@@ -25,6 +25,15 @@ class UserSettingsPage extends StatefulWidget {
 
 class UserSettingsPageState extends State<UserSettingsPage> with CustomAlertDialog {
   @override
+  void initState() {
+    super.initState();
+
+    // This is the first time we load the page. So we trigger the
+    // 'loadUser' event
+    BlocProvider.of<UserSettingsBloc>(context).add(LoadUserEvent());
+  }
+
+  @override
   Widget build(BuildContext context) {
     void onEditPhoto() {
       BlocProvider.of<UserSettingsBloc>(context).add(EditPhotoEvent());
@@ -156,10 +165,7 @@ class UserSettingsPageState extends State<UserSettingsPage> with CustomAlertDial
                           style: Theme.of(context).textTheme.headline3,
                         ),
                       ),
-                      Text(
-                          state.user.bio,
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.bodyText2),
+                      Text(state.user.bio, textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyText2),
                       const Divider(height: LayoutConstants.LARGE_PADDING),
                       Text(state.user.email, style: Theme.of(context).textTheme.headline3),
                       const Divider(height: LayoutConstants.LARGE_PADDING),

@@ -36,15 +36,6 @@ class ChangePasswordPageState extends State<ChangePasswordPage> with CustomAlert
   }
 
   @override
-  void initState() {
-    super.initState();
-
-    // Load the user for first time
-    print('THIS IS THE FIRST TIME TO LOAD THE PAGE');
-    BlocProvider.of<UserSettingsBloc>(context).add(LoadUserEvent());
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
