@@ -24,9 +24,11 @@ class WebViewExampleState extends State<WebViewExample> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        extendBodyBehindAppBar: true,
+        extendBodyBehindAppBar: false,
         appBar: AppBar(
-          backgroundColor: Colors.transparent,
+          title:
+              Text('Tech Radar', style: Theme.of(context).textTheme.headline1),
+          backgroundColor: Colors.black,
           elevation: 0,
         ),
         // We're using a Builder here so we have a context that is below the Scaffold
