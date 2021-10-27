@@ -40,8 +40,10 @@ class UserSettingsBloc extends Bloc<UserSettingsEvent, UserSettingsState> {
     final currentUser = state.user;
     emit(Loading(user: currentUser));
     final result = await loadUser(NoParams());
-    result.fold((failure) => emit(PasswordUpdateError(errorMessage: failure.message, user: currentUser)),
-        (user) => emit(UserLoadedState(user: user, canCancel: false, canSave: false, isEditing: false)));
+    result.fold(
+            (failure) => emit(PasswordUpdateError(errorMessage: failure.message, user: currentUser)),
+            (user) => emit(UserLoadedState(user: user, canCancel: false, canSave: false, isEditing: false))
+    );
   }
 
   Future onUpdatePassword(UpdatePasswordEvent event, Emitter<UserSettingsState> emit) async {
@@ -49,8 +51,10 @@ class UserSettingsBloc extends Bloc<UserSettingsEvent, UserSettingsState> {
     final currentUser = state.user;
     emit(Loading(user: currentUser));
     final result = await updatePassword(UpdatePasswordParams(password: event.newPassword));
-    result.fold((failure) => emit(PasswordUpdateError(errorMessage: failure.message, user: currentUser)),
-        (success) => emit(PasswordUpdateSuccess(user: currentUser)));
+    result.fold(
+            (failure) => emit(PasswordUpdateError(errorMessage: failure.message, user: currentUser)),
+            (success) => emit(PasswordUpdateSuccess(user: currentUser))
+    );
   }
 
   FutureOr<void> onEditPhotoEvent(EditPhotoEvent event, Emitter<UserSettingsState> emit) {
@@ -76,9 +80,9 @@ class UserSettingsBloc extends Bloc<UserSettingsEvent, UserSettingsState> {
 
     final result = await updateUserSettings(UpdateUserSettingsParams(user: newUser));
     result.fold(
-        (failure) => emit(UserUpdateError(
-            errorMessage: failure.message, user: currentUser, canCancel: true, canSave: true, isEditing: true)),
-        (success) => emit(UserUpdateSuccess(user: newUser)));
+        (failure) => emit(UserUpdateError(errorMessage: failure.message, user: currentUser, canCancel: true, canSave: true, isEditing: true)),
+        (success) => emit(UserUpdateSuccess(user: newUser))
+    );
 
     emit(UserLoadedState(user: state.user, isEditing: false, canSave: false, canCancel: false));
   }

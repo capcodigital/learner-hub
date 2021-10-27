@@ -53,86 +53,95 @@ class ChangePasswordPageState extends State<ChangePasswordPage> with CustomAlert
             showAlertDialog(context, state.errorMessage);
           }
         },
-        child: SafeArea(
-          bottom: true,
-          child: Padding(
-            padding: const EdgeInsets.all(LayoutConstants.LARGE_PADDING),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text('Change your password',
-                      textAlign: TextAlign.center, style: Theme.of(context).textTheme.headline2),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        top: LayoutConstants.EXTRA_SMALL_PADDING, bottom: LayoutConstants.LARGE_PADDING),
-                    child: Text('To change your password, use the form below.',
-                        textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyText2),
-                  ),
-                  TextFormField(
-                    controller: currentPasswordController,
-                    obscureText: true,
-                    enableSuggestions: false,
-                    autocorrect: false,
-                    style: Theme.of(context).textTheme.headline2,
-                    decoration: const InputDecoration(
-                      border: UnderlineInputBorder(),
-                      labelText: 'Current password',
+        child: BlocBuilder<UserSettingsBloc, UserSettingsState>(
+          buildWhen: (previous, current) => previous != current,
+          builder: (context, state) {
+            return SafeArea(
+              bottom: true,
+              child: Visibility(
+                visible: (state is Loading) == false,
+                replacement: const Center(child: CircularProgressIndicator()),
+                child: Padding(
+                  padding: const EdgeInsets.all(LayoutConstants.LARGE_PADDING),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text('Change your password',
+                            textAlign: TextAlign.center, style: Theme.of(context).textTheme.headline2),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              top: LayoutConstants.EXTRA_SMALL_PADDING, bottom: LayoutConstants.LARGE_PADDING),
+                          child: Text('To change your password, use the form below.',
+                              textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyText2),
+                        ),
+                        TextFormField(
+                          controller: currentPasswordController,
+                          obscureText: true,
+                          enableSuggestions: false,
+                          autocorrect: false,
+                          style: Theme.of(context).textTheme.headline2,
+                          decoration: const InputDecoration(
+                            border: UnderlineInputBorder(),
+                            labelText: 'Current password',
+                          ),
+                          validator: (value) {
+                            if (!PasswordValidator.isValid(value)) {
+                              return 'Password has to be at least 6 characters';
+                            }
+
+                            return null;
+                          },
+                        ),
+                        TextFormField(
+                            controller: newPasswordController,
+                            style: Theme.of(context).textTheme.headline2,
+                            obscureText: true,
+                            enableSuggestions: false,
+                            autocorrect: false,
+                            decoration: const InputDecoration(
+                              border: UnderlineInputBorder(),
+                              labelText: 'New password',
+                            ),
+                            validator: (value) {
+                              if (!PasswordValidator.isValid(value)) {
+                                return 'Password has to be at least 6 characters';
+                              }
+
+                              return null;
+                            }),
+                        TextFormField(
+                            controller: confirmPasswordController,
+                            style: Theme.of(context).textTheme.headline2,
+                            obscureText: true,
+                            enableSuggestions: false,
+                            autocorrect: false,
+                            decoration: const InputDecoration(
+                              border: UnderlineInputBorder(),
+                              labelText: 'Confirm password',
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'This cannot be empty';
+                              }
+                              if (value != newPasswordController.text) {
+                                return "Passwords don't match";
+                              }
+                              return null;
+                            }),
+                        Expanded(
+                            child: Align(
+                                alignment: FractionalOffset.bottomCenter,
+                                child: PrimaryButton(text: 'Update Password', onPressed: onUpdatePassword))),
+                      ],
                     ),
-                    validator: (value) {
-                      if (!PasswordValidator.isValid(value)) {
-                        return 'Password has to be at least 6 characters';
-                      }
-
-                      return null;
-                    },
                   ),
-                  TextFormField(
-                      controller: newPasswordController,
-                      style: Theme.of(context).textTheme.headline2,
-                      obscureText: true,
-                      enableSuggestions: false,
-                      autocorrect: false,
-                      decoration: const InputDecoration(
-                        border: UnderlineInputBorder(),
-                        labelText: 'New password',
-                      ),
-                      validator: (value) {
-                        if (!PasswordValidator.isValid(value)) {
-                          return 'Password has to be at least 6 characters';
-                        }
-
-                        return null;
-                      }),
-                  TextFormField(
-                      controller: confirmPasswordController,
-                      style: Theme.of(context).textTheme.headline2,
-                      obscureText: true,
-                      enableSuggestions: false,
-                      autocorrect: false,
-                      decoration: const InputDecoration(
-                        border: UnderlineInputBorder(),
-                        labelText: 'Confirm password',
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'This cannot be empty';
-                        }
-                        if (value != newPasswordController.text) {
-                          return "Passwords don't match";
-                        }
-                        return null;
-                      }),
-                  Expanded(
-                      child: Align(
-                          alignment: FractionalOffset.bottomCenter,
-                          child: PrimaryButton(text: 'Update Password', onPressed: onUpdatePassword))),
-                ],
+                ),
               ),
-            ),
-          ),
+            );
+          },
         ),
       ),
     );
