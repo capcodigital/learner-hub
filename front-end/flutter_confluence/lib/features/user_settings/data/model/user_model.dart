@@ -41,8 +41,10 @@ class UserModel extends User {
       'lastName': lastName,
       'jobTitle': jobTitle,
       'bio': bio,
-      'primarySkills': primarySkills.toJson(),
-      'secondarySkills': secondarySkills.toJson(),
+      'skills': {
+        'primarySkills': primarySkills.toJson(),
+        'secondarySkills': secondarySkills.toJson(),
+      }
     };
   }
 

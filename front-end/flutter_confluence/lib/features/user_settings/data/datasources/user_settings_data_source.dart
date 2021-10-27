@@ -33,7 +33,7 @@ class UserSettingsDataSourceImpl implements UserSettingsDataSource {
             HttpHeaders.authorizationHeader: 'Bearer $token',
             HttpHeaders.contentTypeHeader: 'application/json'
           },
-          body: user.toJson());
+          body: jsonEncode(user.toJson()));
 
       if (response.statusCode == HttpStatus.ok) {
         return true;
