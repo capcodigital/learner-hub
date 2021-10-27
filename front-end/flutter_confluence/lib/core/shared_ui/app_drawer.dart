@@ -170,7 +170,7 @@ class MenuButton extends StatelessWidget {
               print('My Profile pressed');
               break;
             case 2:
-              Navigator.pushNamed(context, WebViewExample.route);
+              Navigator.pushNamed(context, TechRadarView.route);
               print('Tech Radar Pressed');
               break;
             case 3:
