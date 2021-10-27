@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class WebViewExample extends StatefulWidget {
-  const WebViewExample({Key? key}) : super(key: key);
+class TechRadarView extends StatefulWidget {
+  const TechRadarView({Key? key}) : super(key: key);
   static const route = 'TechRadarPage';
   @override
-  WebViewExampleState createState() => WebViewExampleState();
+  TechRadarViewState createState() => TechRadarViewState();
 }
 
-class WebViewExampleState extends State<WebViewExample> {
+class TechRadarViewState extends State<TechRadarView> {
   TextStyle optionStyle =
       const TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   @override

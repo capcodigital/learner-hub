@@ -67,7 +67,7 @@ class MyApp extends StatelessWidget {
               OnBoardingPage.route: (context) => OnBoardingPage(),
               LoginPage.route: (context) => const LoginPage(),
               UserDetailsPage.route: (context) => const UserDetailsPage(),
-              WebViewExample.route: (context) => const WebViewExample()
+              TechRadarView.route: (context) => const TechRadarView()
             },
             home: PreLoadWidget()));
   }
