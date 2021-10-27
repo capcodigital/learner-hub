@@ -7,7 +7,7 @@
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log",
-    "kill": "npx kill-port 5000 5001 8080 8085 4000 9229"
+    "kill": "npx kill-port 5000 5001 8080 8085 4000 9000 9229"
   },
   "engines": {
     "node": "14"

@@ -10,7 +10,7 @@ export class AccessForbidenError extends TODOFirestoreError { }
 
 export async function getUserTODOs(uid: string): Promise<any[]> {
     const collection = admin.firestore().collection(TABLE_TODOS);
-    const snap = await collection.where("userId", "==", uid).get();
+    const snap = await collection.where("todo.userId", "==", uid).get();
     return toTODOs(snap);
 }
 
@@ -67,13 +67,13 @@ async function toTODOs(snap: FirebaseFirestore.QuerySnapshot): Promise<any[]> {
     const items = Array<any>();
     if (!snap.empty) {
         snap.forEach(docRef => {
-            const it = docRef.data() as TODO;
+            const it = docRef.data();
             items.push({
                 id: docRef.id,
-                userId: it.userId,
-                title: it.title,
-                content: it.content,
-                isCompleted: it.isCompleted
+                userId: it.todo.userId,
+                title: it.todo.title,
+                content: it.todo.content,
+                isCompleted: it.todo.isCompleted
             });
         });
     }
