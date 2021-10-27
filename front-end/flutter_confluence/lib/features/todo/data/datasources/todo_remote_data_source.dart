@@ -100,8 +100,28 @@ class TodoRemoteDataSourceImpl implements TodoRemoteDataSource {
   }
 
   @override
-  Future<TodoModel> updateTodo(TodoModel todo) {
-    // TODO: implement updateTodo
-    throw UnimplementedError();
+  Future<TodoModel> updateTodo(TodoModel todo) async {
+    try {
+      final url = '${Constants.BASE_API_URL}/todos/${todo.id}';
+
+      final token = await auth.currentUser?.getIdToken();
+
+      final response = await client.put(
+        Uri.parse(url),
+        headers: {
+          HttpHeaders.authorizationHeader: 'Bearer $token',
+          HttpHeaders.contentTypeHeader: 'application/json'
+        },
+      );
+      if (response.statusCode == 200) {
+        final results = json.decode(response.body)['data'];
+        final todo = TodoModel.fromJson(results);
+        return todo;
+      } else {
+        throw ServerException(message: 'Internal Server Error');
+      }
+    } on Exception catch (ex) {
+      throw ServerException(message: ex.toString());
+    }
   }
 }
