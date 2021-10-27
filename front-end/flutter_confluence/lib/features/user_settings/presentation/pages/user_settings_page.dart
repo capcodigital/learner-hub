@@ -25,6 +25,11 @@ class UserSettingsPage extends StatefulWidget {
 }
 
 class UserSettingsPageState extends State<UserSettingsPage> with CustomAlertDialog {
+  final nameController = TextEditingController();
+  final lastNameController = TextEditingController();
+  final jobTitleController = TextEditingController();
+  final bioController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -52,17 +57,17 @@ class UserSettingsPageState extends State<UserSettingsPage> with CustomAlertDial
       Navigator.push(context, MaterialPageRoute(builder: (context) => const ChangePasswordPage()));
     }
 
-    void onSaveChanges() {
-      // TODO(cgal-capco): Get the actual values
-      const user = User(
-          name: 'name',
-          lastName: 'lastName',
-          jobTitle: 'jobTitle',
-          primarySkills: [],
-          secondarySkills: [],
-          bio: 'bio',
-          email: 'email');
-      BlocProvider.of<UserSettingsBloc>(context).add(const SaveChangesEvent(user: user));
+    void onSaveChanges(User currentUser) {
+      final newUser = User(
+          name: nameController.text,
+          lastName: lastNameController.text,
+          jobTitle: jobTitleController.text,
+          primarySkills: currentUser.primarySkills,
+          secondarySkills: currentUser.secondarySkills,
+          bio: bioController.text,
+          email: currentUser.email);
+
+      BlocProvider.of<UserSettingsBloc>(context).add(SaveChangesEvent(user: newUser));
     }
 
     return Scaffold(
@@ -79,6 +84,12 @@ class UserSettingsPageState extends State<UserSettingsPage> with CustomAlertDial
         bloc: BlocProvider.of<UserSettingsBloc>(context),
         listener: (context, state) {
           print('NEW STATE RECEIVED: ${state.runtimeType}');
+          if (state is UserSettingsState) {
+            nameController.text = state.user.name;
+            lastNameController.text = state.user.lastName;
+            jobTitleController.text = state.user.jobTitle;
+            bioController.text = state.user.bio;
+          }
         },
         child: BlocBuilder<UserSettingsBloc, UserSettingsState>(
           buildWhen: (previous, current) => previous != current,
@@ -113,19 +124,47 @@ class UserSettingsPageState extends State<UserSettingsPage> with CustomAlertDial
                           ),
                         ),
                         Container(height: LayoutConstants.LARGE_PADDING),
-                        Text(
-                          state.user.name,
+                        TextFormField(
+                          controller: nameController,
+                          readOnly: state.isEditing == false,
                           style: Theme.of(context).textTheme.headline2,
+                          cursorColor: Colours.ACCENT_COLOR,
+                          decoration: InputDecoration(
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: state.isEditing ? Colours.ACCENT_COLOR : Colors.grey),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: state.isEditing ? Colours.ACCENT_COLOR : Colors.grey),
+                            ),
+                          ),
                         ),
-                        const Divider(height: LayoutConstants.LARGE_PADDING),
-                        Text(
-                          state.user.lastName,
+                        TextFormField(
+                          controller: lastNameController,
+                          readOnly: state.isEditing == false,
                           style: Theme.of(context).textTheme.headline2,
+                          cursorColor: Colours.ACCENT_COLOR,
+                          decoration: InputDecoration(
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: state.isEditing ? Colours.ACCENT_COLOR : Colors.grey),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: state.isEditing ? Colours.ACCENT_COLOR : Colors.grey),
+                            ),
+                          ),
                         ),
-                        const Divider(height: LayoutConstants.LARGE_PADDING),
-                        Text(
-                          state.user.jobTitle,
+                        TextFormField(
+                          controller: jobTitleController,
+                          readOnly: state.isEditing == false,
                           style: Theme.of(context).textTheme.headline3,
+                          cursorColor: Colours.ACCENT_COLOR,
+                          decoration: InputDecoration(
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: state.isEditing ? Colours.ACCENT_COLOR : Colors.grey),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: state.isEditing ? Colours.ACCENT_COLOR : Colors.grey),
+                            ),
+                          ),
                         ),
                         Container(height: LayoutConstants.EXTRA_LARGE_PADDING),
                         Text(
@@ -173,8 +212,22 @@ class UserSettingsPageState extends State<UserSettingsPage> with CustomAlertDial
                             style: Theme.of(context).textTheme.headline3,
                           ),
                         ),
-                        Text(state.user.bio, textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyText2),
-                        const Divider(height: LayoutConstants.LARGE_PADDING),
+                        TextFormField(
+                          controller: bioController,
+                          readOnly: state.isEditing == false,
+                          style: Theme.of(context).textTheme.bodyText2,
+                          cursorColor: Colours.ACCENT_COLOR,
+                          maxLines: null,
+                          keyboardType: TextInputType.multiline,
+                          decoration: InputDecoration(
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: state.isEditing ? Colours.ACCENT_COLOR : Colors.grey),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: state.isEditing ? Colours.ACCENT_COLOR : Colors.grey),
+                            ),
+                          ),
+                        ),
                         Text(state.user.email, style: Theme.of(context).textTheme.headline3),
                         const Divider(height: LayoutConstants.LARGE_PADDING),
                         GestureDetector(
@@ -203,7 +256,9 @@ class UserSettingsPageState extends State<UserSettingsPage> with CustomAlertDial
                         Container(height: LayoutConstants.SMALL_PADDING),
                         PrimaryButton(
                           text: 'Save',
-                          onPressed: onSaveChanges,
+                          onPressed: () {
+                            onSaveChanges(state.user);
+                          },
                           isEnabled: state.canSave,
                         )
                       ],
