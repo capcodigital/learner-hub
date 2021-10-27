@@ -3,22 +3,22 @@ part of 'user_settings_bloc.dart';
 abstract class UserSettingsState extends Equatable {
   const UserSettingsState({
     required this.user,
-    required this.isEditing,
-    required this.canCancel,
-    required this.canSave,
+    this.isEditing = false,
+    this.canCancel = false,
+    this.canSave = false,
   });
 
-  final User? user;
-  final bool? isEditing;
-  final bool? canCancel;
-  final bool? canSave;
+  final User user;
+  final bool isEditing;
+  final bool canCancel;
+  final bool canSave;
 
   @override
-  List<Object> get props => [user ?? '', isEditing ?? '', canCancel ?? '', canSave ?? ''];
+  List<Object> get props => [user, isEditing, canCancel, canSave];
 }
 
 class UserSettingsInitial extends UserSettingsState {
-  const UserSettingsInitial() : super(user: null, isEditing: false, canCancel: false, canSave: false);
+  UserSettingsInitial() : super(user: User.emptyUser(), isEditing: false, canCancel: false, canSave: false);
 }
 
 class Loading extends UserSettingsState {
@@ -70,5 +70,5 @@ class PasswordUpdateError extends UserSettingsState {
   final String errorMessage;
 
   @override
-  List<Object> get props => [errorMessage, user ?? '', isEditing ?? '', canCancel ?? '', canSave ?? ''];
+  List<Object> get props => [errorMessage, user, isEditing, canCancel, canSave];
 }

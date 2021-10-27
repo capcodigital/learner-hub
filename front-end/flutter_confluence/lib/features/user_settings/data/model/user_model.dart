@@ -20,6 +20,18 @@ class UserModel extends User {
             bio: bio,
             email: email);
 
+  factory UserModel.fromJson(Map<String, dynamic> json) {
+    return UserModel(
+      name: json['name'],
+      email: json['email'],
+      lastName: json['lastName'],
+      bio: json['bio'],
+      jobTitle: json['jobTitle'],
+      primarySkills: json['primarySkills'],
+      secondarySkills: json['secondarySkills'],
+    );
+  }
+
   Map<String, dynamic> toJson() {
     return {
       'email': email,
@@ -27,8 +39,8 @@ class UserModel extends User {
       'lastName': lastName,
       'jobTitle': jobTitle,
       'bio': bio,
-      'primarySkills': primarySkills?.toJson(),
-      'secondarySkills': secondarySkills?.toJson(),
+      'primarySkills': primarySkills.toJson(),
+      'secondarySkills': secondarySkills.toJson(),
     };
   }
 

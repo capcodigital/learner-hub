@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
-import 'package:flutter_confluence/features/user_registration/data/models/skills_model.dart';
 
 import '/core/error/auth_failures.dart';
 import '/features/user_registration/data/datasources/register_user_data_source.dart';
+import '/features/user_registration/data/models/skills_model.dart';
 import '/features/user_registration/data/models/user_registration_model.dart';
 import '/features/user_registration/domain/entities/user_registration.dart';
 import '/features/user_registration/domain/repositories/user_registration_repository.dart';
@@ -13,8 +13,7 @@ class UserRegistrationRepositoryIml implements UserRegistrationRepository {
   final RegisterUserDataSource dataSource;
 
   @override
-  Future<Either<AuthFailure, bool>> registerFirebaseUser(
-      String email, String password) async {
+  Future<Either<AuthFailure, bool>> registerFirebaseUser(String email, String password) async {
     try {
       await dataSource.registerFirebaseUser(email, password);
       return const Right(true);
@@ -33,8 +32,7 @@ class UserRegistrationRepositoryIml implements UserRegistrationRepository {
           lastName: user.lastName,
           jobTitle: user.jobTitle,
           skills: SkillsModel(
-              primarySkills: user.skills?.primarySkills ?? [],
-              secondarySkills: user.skills?.secondarySkills ?? []),
+              primarySkills: user.skills?.primarySkills ?? [], secondarySkills: user.skills?.secondarySkills ?? []),
           bio: user.bio,
           email: user.email);
 

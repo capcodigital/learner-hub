@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:flutter_confluence/core/error/auth_failures.dart';
 
 import '/core/error/failures.dart';
 import '/features/user_settings/data/datasources/user_settings_data_source.dart';
@@ -29,6 +30,17 @@ class UserSettingsRepositoryImpl implements UserSettingsRepository {
       return const Right(true);
     } on Exception catch (ex) {
       return Left(ServerFailure(message: '$ex'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, User>> getCurrentUser() async {
+    try {
+      final user = await dataSource.loadUserInfo();
+      return Right(user);
+    } on Exception catch (ex) {
+      print('Error loading the user details: $ex');
+      return const Left(AuthFailure("It's not possible to load the user"));
     }
   }
 }
