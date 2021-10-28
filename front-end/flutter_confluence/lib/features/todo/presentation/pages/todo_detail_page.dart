@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_confluence/core/constants.dart';
+import 'package:flutter_confluence/core/layout_constants.dart';
 import 'package:flutter_confluence/core/shared_ui/primary_button.dart';
 import 'package:flutter_confluence/features/todo/domain/entities/todo.dart';
 import 'package:flutter_confluence/features/todo/domain/params/todo_params.dart';
@@ -59,7 +60,8 @@ class _TodoDetailPageState extends State<TodoDetailPage> {
       body: Column(
         children: [
           Padding(
-              padding: const EdgeInsets.only(top: 32),
+              padding:
+                  const EdgeInsets.only(top: LayoutConstants.LARGE_PADDING),
               child: ListTile(
                 leading: const CircularTodoIcon(
                   backgroundColor: Colors.white,
@@ -78,11 +80,9 @@ class _TodoDetailPageState extends State<TodoDetailPage> {
                   maxLength: 50,
                   controller: _titleController,
                   onSubmitted: (value) {
-                    _initialTitleText = value;
                     save();
                   },
-                  onChanged: (value) {
-                    _initialTitleText = value;
+                  onChanged: (_) {
                     setState(() {
                       _isButtonDisabled = _contentController.text.isEmpty ||
                           _titleController.text.isEmpty;
@@ -92,7 +92,10 @@ class _TodoDetailPageState extends State<TodoDetailPage> {
               )),
           Expanded(
               child: Padding(
-            padding: const EdgeInsets.only(top: 32, left: 32, right: 32),
+            padding: const EdgeInsets.only(
+                top: LayoutConstants.LARGE_PADDING,
+                left: LayoutConstants.LARGE_PADDING,
+                right: LayoutConstants.LARGE_PADDING),
             child: TextField(
               maxLines: null,
               style: const TextStyle(
@@ -108,7 +111,7 @@ class _TodoDetailPageState extends State<TodoDetailPage> {
               onSubmitted: (value) {
                 save();
               },
-              onChanged: (value) {
+              onChanged: (_) {
                 setState(() {
                   _isButtonDisabled = _contentController.text.isEmpty &&
                       _titleController.text.isEmpty;
@@ -119,12 +122,15 @@ class _TodoDetailPageState extends State<TodoDetailPage> {
           Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
-              padding: const EdgeInsets.only(bottom: 32, left: 32, right: 32),
+              padding: const EdgeInsets.only(
+                  bottom: LayoutConstants.LARGE_PADDING,
+                  left: LayoutConstants.LARGE_PADDING,
+                  right: LayoutConstants.LARGE_PADDING),
               child: Column(
                 children: [
                   const Divider(),
                   const SizedBox(
-                    height: 24,
+                    height: LayoutConstants.REGULAR_PADDING,
                   ),
                   PrimaryButton(
                       text: _isInEditingMode ? 'Update' : 'Add',

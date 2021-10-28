@@ -123,7 +123,6 @@ class TodoRemoteDataSourceImpl implements TodoRemoteDataSource {
       if (response.statusCode == 200) {
         final results = json.decode(response.body)['data'];
         final todo = TodoModel.fromJson(results);
-        print(todo);
         return todo;
       } else {
         throw ServerException(message: 'Internal Server Error');

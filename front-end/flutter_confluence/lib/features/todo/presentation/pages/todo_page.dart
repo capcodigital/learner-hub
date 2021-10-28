@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_confluence/core/layout_constants.dart';
 import 'package:flutter_confluence/core/shared_ui/primary_button.dart';
 import 'package:flutter_confluence/features/todo/domain/entities/todo.dart';
 import 'package:flutter_confluence/features/todo/presentation/bloc/todo_bloc.dart';
@@ -21,13 +22,14 @@ class _TodoPageState extends State<TodoPage> {
         child: Scaffold(
           backgroundColor: Colors.black,
           appBar: PreferredSize(
-            preferredSize: const Size.fromHeight(64),
+            preferredSize:
+                const Size.fromHeight(LayoutConstants.BTN_WIDGET_HEIGHT),
             child: SizedBox(
-              height: 64,
+              height: LayoutConstants.BTN_WIDGET_HEIGHT,
               child: TabBar(
                 labelStyle: const TextStyle(fontSize: 18, fontFamily: 'Lato'),
                 unselectedLabelColor: Colors.pink[200],
-                indicatorWeight: 4,
+                indicatorWeight: LayoutConstants.EXTRA_EXTRA_SMALL_PADDING,
                 indicatorColor: Colors.pink,
                 tabs: const [
                   Tab(
@@ -44,18 +46,19 @@ class _TodoPageState extends State<TodoPage> {
             Column(
               children: [
                 const SizedBox(
-                  height: 32,
+                  height: LayoutConstants.LARGE_PADDING,
                 ),
                 Expanded(child: _createTodoList(inProgress: true)),
                 Align(
                     alignment: Alignment.bottomCenter,
                     child: Padding(
-                      padding: const EdgeInsets.all(32.0),
+                      padding:
+                          const EdgeInsets.all(LayoutConstants.LARGE_PADDING),
                       child: PrimaryButton(
                         text: 'Add new',
                         color: Colors.transparent,
                         borderColor: Colors.white,
-                        onPressed: () => onAddNewButtonPressed(null),
+                        onPressed: () => onTodoSelected(null),
                       ),
                     ))
               ],
@@ -63,11 +66,11 @@ class _TodoPageState extends State<TodoPage> {
             Column(
               children: [
                 const SizedBox(
-                  height: 32,
+                  height: LayoutConstants.LARGE_PADDING,
                 ),
                 Expanded(child: _createTodoList(inProgress: false)),
                 const SizedBox(
-                  height: 16,
+                  height: LayoutConstants.SMALL_PADDING,
                 ),
               ],
             ),
@@ -75,16 +78,14 @@ class _TodoPageState extends State<TodoPage> {
         ));
   }
 
-  onAddNewButtonPressed(Todo? todo) {
+  onTodoSelected(Todo? todo) {
     Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => TodoDetailPage(
             todo: todo,
           ),
-        )).then((value) {
-      setState(() {});
-    });
+        ));
   }
 
   BlocBuilder<TodoBloc, TodoState> _createTodoList({required bool inProgress}) {
@@ -104,16 +105,16 @@ class _TodoPageState extends State<TodoPage> {
                   todo: todos[index],
                   onDismiss: (direction) => onDismiss(
                       todos: todos, index: index, direction: direction),
-                  onTodoPressed: () => onAddNewButtonPressed(todos[index]),
+                  onTodoPressed: () => onTodoSelected(todos[index]),
                 );
               },
               itemCount: todos.length,
-              separatorBuilder: (BuildContext context, int index) {
+              separatorBuilder: (BuildContext context, _) {
                 return const Divider(
                   color: Colors.white,
-                  endIndent: 32,
-                  indent: 32,
-                  height: 32,
+                  endIndent: LayoutConstants.LARGE_PADDING,
+                  indent: LayoutConstants.LARGE_PADDING,
+                  height: LayoutConstants.LARGE_PADDING,
                 );
               },
             ),
