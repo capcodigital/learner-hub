@@ -49,8 +49,7 @@ class UserSettingsRepositoryImpl implements UserSettingsRepository {
       try {
         final user = await dataSource.loadUserInfo();
         return Right(user);
-      } on Exception catch (ex) {
-        print('Error loading the user details: $ex');
+      } on Exception {
         return const Left(AuthFailure("It's not possible to load the user"));
       }
     } else {
