@@ -42,6 +42,9 @@ class TodoRemoteDataSourceImpl implements TodoRemoteDataSource {
         final results = json.decode(response.body)['data'];
         final todo = TodoModel.fromJson(results);
         return todo;
+      } else if (response.statusCode == 400 || response.statusCode == 401) {
+        final message = json.decode(response.body)['error'];
+        throw ServerException(message: message);
       } else {
         throw ServerException(message: 'Internal Server Error');
       }
@@ -67,6 +70,11 @@ class TodoRemoteDataSourceImpl implements TodoRemoteDataSource {
       if (response.statusCode == 200) {
         final results = json.decode(response.body)['data'];
         return results['message'];
+      } else if (response.statusCode == 400 ||
+          response.statusCode == 401 ||
+          response.statusCode == 403) {
+        final message = json.decode(response.body)['error'];
+        throw ServerException(message: message);
       } else {
         throw ServerException(message: 'Internal Server Error');
       }
@@ -94,6 +102,9 @@ class TodoRemoteDataSourceImpl implements TodoRemoteDataSource {
         final todos =
             (results as List).map((e) => TodoModel.fromJson(e)).toList();
         return todos;
+      } else if (response.statusCode == 400 || response.statusCode == 401) {
+        final message = json.decode(response.body)['error'];
+        throw ServerException(message: message);
       } else {
         throw ServerException(message: 'Internal Server Error');
       }
@@ -124,6 +135,12 @@ class TodoRemoteDataSourceImpl implements TodoRemoteDataSource {
         final results = json.decode(response.body)['data'];
         final todo = TodoModel.fromJson(results);
         return todo;
+      } else if (response.statusCode == 400 ||
+          response.statusCode == 401 ||
+          response.statusCode == 403 ||
+          response.statusCode == 404) {
+        final message = json.decode(response.body)['error'];
+        throw ServerException(message: message);
       } else {
         throw ServerException(message: 'Internal Server Error');
       }
