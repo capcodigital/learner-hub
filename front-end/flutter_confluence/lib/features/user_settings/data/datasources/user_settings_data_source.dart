@@ -50,7 +50,7 @@ class UserSettingsDataSourceImpl implements UserSettingsDataSource {
   Future updatePassword(String password) async {
     final currentUser = auth.currentUser;
     if (currentUser == null) {
-      throw Exception('There is no current logged in user');
+      throw ServerException(message: 'There is no current logged in user');
     } else {
       await currentUser.updatePassword(password);
     }
@@ -75,10 +75,10 @@ class UserSettingsDataSourceImpl implements UserSettingsDataSource {
           final Map<String, dynamic> data = json['data'];
           return UserModel.fromJson(data);
         } else {
-          throw ServerFailure(message: 'Response status: $responseStatus');
+          throw ServerException(message: 'Response status: $responseStatus');
         }
       } else {
-        throw ServerFailure(message: 'Status code: ${response.statusCode}');
+        throw ServerException(message: 'Status code: ${response.statusCode}');
       }
     } catch (exception) {
       print(exception.toString());
