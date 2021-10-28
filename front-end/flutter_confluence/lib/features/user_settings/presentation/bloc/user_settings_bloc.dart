@@ -77,7 +77,5 @@ class UserSettingsBloc extends Bloc<UserSettingsEvent, UserSettingsState> {
         (failure) => emit(UserUpdateError(errorMessage: failure.message, user: currentUser, canCancel: true, canSave: true, isEditing: true)),
         (success) => emit(UserUpdateSuccess(user: newUser))
     );
-
-    emit(UserLoadedState(user: state.user, isEditing: false, canSave: false, canCancel: false));
   }
 }
