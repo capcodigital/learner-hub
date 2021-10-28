@@ -1,12 +1,8 @@
+import 'package:flutter_confluence/features/todo/data/datasources/todo_local_data_source.dart';
 import 'package:flutter_confluence/features/todo/data/models/todo_model.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-abstract class TodoHiveHelper {
-  Future<List<TodoModel>> getTodos();
-  Future<void> saveTodos(List<TodoModel> todos);
-}
-
-class TodoHiveHelperImpl implements TodoHiveHelper {
+class TodoHiveHelperImpl implements TodoLocalDataSource {
   @override
   Future<List<TodoModel>> getTodos() async {
     final box = await Hive.openBox<TodoModel>('todos');

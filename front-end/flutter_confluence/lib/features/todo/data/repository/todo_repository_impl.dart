@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_confluence/core/error/custom_exceptions.dart';
 import 'package:flutter_confluence/core/error/failures.dart';
+import 'package:flutter_confluence/features/todo/data/datasources/todo_local_data_source.dart';
 import 'package:flutter_confluence/features/todo/data/datasources/todo_remote_data_source.dart';
 import 'package:flutter_confluence/features/todo/data/models/todo_model.dart';
 import 'package:flutter_confluence/features/todo/domain/entities/todo.dart';
@@ -8,9 +9,11 @@ import 'package:flutter_confluence/features/todo/domain/params/todo_params.dart'
 import 'package:flutter_confluence/features/todo/domain/repository/todo_repository.dart';
 
 class TodoRepositoryImpl implements TodoRepository {
-  TodoRepositoryImpl({required this.remoteDataSource});
+  TodoRepositoryImpl(
+      {required this.localDataSource, required this.remoteDataSource});
 
   final TodoRemoteDataSource remoteDataSource;
+  final TodoLocalDataSource localDataSource;
 
   @override
   Future<Either<Failure, Todo>> createTodo(TodoParams todo) async {
@@ -36,10 +39,17 @@ class TodoRepositoryImpl implements TodoRepository {
   Future<Either<Failure, List<Todo>>> getTodos() async {
     try {
       final todoModels = await remoteDataSource.getTodos();
+      await localDataSource.saveTodos(todoModels);
       final todos = todoModels.map((e) => e.toTodo).toList();
       return Right(todos);
     } on ServerException catch (error) {
-      return Left(ServerFailure(message: error.message));
+      try {
+        final todoModels = await localDataSource.getTodos();
+        final todos = todoModels.map((e) => e.toTodo).toList();
+        return Right(todos);
+      } on CacheException {
+        return Left(ServerFailure(message: error.message));
+      }
     }
   }
 

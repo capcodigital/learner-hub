@@ -1,5 +1,6 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_confluence/features/todo/data/datasources/todo_local_data_source.dart';
 import 'package:flutter_confluence/features/todo/data/datasources/todo_remote_data_source.dart';
 import 'package:flutter_confluence/features/todo/data/models/todo_hive_helper.dart';
 import 'package:flutter_confluence/features/todo/data/repository/todo_repository_impl.dart';
@@ -65,12 +66,6 @@ Future<void> init() async {
     () => NetworkInfoImpl(sl()),
   );
 
-  sl.registerLazySingleton(() => http.Client());
-  sl.registerLazySingleton(() => Connectivity());
-  sl.registerLazySingleton(() => LocalAuthentication());
-  sl.registerLazySingleton<Platform>(() => const LocalPlatform());
-  sl.registerLazySingleton<Device>(() => DeviceImpl(platform: sl()));
-
   // Auth / Firebase auth
   sl.registerLazySingleton(() => FirebaseAuth.instance);
   sl.registerLazySingleton<AuthDataSource>(
@@ -112,8 +107,17 @@ Future<void> init() async {
   sl.registerLazySingleton(() => TodoHiveHelperImpl());
   // Repositories
   sl.registerLazySingleton<TodoRepository>(
-      () => TodoRepositoryImpl(remoteDataSource: sl()));
+      () => TodoRepositoryImpl(remoteDataSource: sl(), localDataSource: sl()));
   // Datasources
   sl.registerLazySingleton<TodoRemoteDataSource>(
       () => TodoRemoteDataSourceImpl(auth: sl(), client: sl()));
+  sl.registerLazySingleton<TodoLocalDataSource>(
+      () => TodoLocalDataSourceImpl(hive: sl()));
+
+  // Misc
+  sl.registerLazySingleton(() => http.Client());
+  sl.registerLazySingleton(() => Connectivity());
+  sl.registerLazySingleton(() => LocalAuthentication());
+  sl.registerLazySingleton<Platform>(() => const LocalPlatform());
+  sl.registerLazySingleton<Device>(() => DeviceImpl(platform: sl()));
 }
