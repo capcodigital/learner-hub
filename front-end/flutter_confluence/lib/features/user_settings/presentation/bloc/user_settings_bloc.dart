@@ -18,7 +18,6 @@ class UserSettingsBloc extends Bloc<UserSettingsEvent, UserSettingsState> {
       : super(UserSettingsInitial()) {
     on<LoadUserEvent>(onLoadUser);
     on<UpdatePasswordEvent>(onUpdatePassword);
-    on<EditPhotoEvent>(onEditPhotoEvent);
     on<EnableEditEvent>(onEnableEditEvent);
     on<CancelEditingEvent>(onCancelEditingEvent);
     on<SaveChangesEvent>(onSaveChangesEvent);
@@ -41,7 +40,7 @@ class UserSettingsBloc extends Bloc<UserSettingsEvent, UserSettingsState> {
     emit(Loading(user: currentUser));
     final result = await loadUser(NoParams());
     result.fold(
-            (failure) => emit(PasswordUpdateError(errorMessage: failure.message, user: currentUser)),
+            (failure) => emit(UserLoadErrorState(errorMessage: "It's not possible to load the user data. ${failure.message}")),
             (user) => emit(UserLoadedState(user: user, canCancel: false, canSave: false, isEditing: false))
     );
   }
@@ -55,11 +54,6 @@ class UserSettingsBloc extends Bloc<UserSettingsEvent, UserSettingsState> {
             (failure) => emit(PasswordUpdateError(errorMessage: failure.message, user: currentUser)),
             (success) => emit(PasswordUpdateSuccess(user: currentUser))
     );
-  }
-
-  FutureOr<void> onEditPhotoEvent(EditPhotoEvent event, Emitter<UserSettingsState> emit) {
-    print('On edit profile photo');
-    emit(Loading(user: state.user));
   }
 
   FutureOr<void> onEnableEditEvent(EnableEditEvent event, Emitter<UserSettingsState> emit) {

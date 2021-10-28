@@ -34,6 +34,17 @@ class UserLoadedState extends UserSettingsState {
   }) : super(user: user, isEditing: isEditing, canCancel: canCancel, canSave: canSave);
 }
 
+class UserLoadErrorState extends UserSettingsState {
+  UserLoadErrorState({
+    required this.errorMessage,
+  }) : super(user: User.emptyUser(), isEditing: false, canCancel: false, canSave: false);
+
+  final String errorMessage;
+
+  @override
+  List<Object> get props => [errorMessage];
+}
+
 class UserUpdateSuccess extends UserSettingsState {
   const UserUpdateSuccess({
     required user,

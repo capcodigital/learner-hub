@@ -34,17 +34,13 @@ class UserSettingsPageState extends State<UserSettingsPage> with CustomAlertDial
   void initState() {
     super.initState();
 
-    // This is the first time we load the page. So we trigger the
-    // 'loadUser' event
+    // This is the first time we load the page.
+    // So we trigger the 'loadUser' event here, when the page is "loaded"
     BlocProvider.of<UserSettingsBloc>(context).add(LoadUserEvent());
   }
 
   @override
   Widget build(BuildContext context) {
-    void onEditPhoto() {
-      BlocProvider.of<UserSettingsBloc>(context).add(EditPhotoEvent());
-    }
-
     void onStartEdit() {
       BlocProvider.of<UserSettingsBloc>(context).add(EnableEditEvent());
     }
@@ -73,11 +69,17 @@ class UserSettingsPageState extends State<UserSettingsPage> with CustomAlertDial
     return BlocConsumer<UserSettingsBloc, UserSettingsState>(
       listener: (context, state) {
         print('NEW STATE RECEIVED: ${state.runtimeType}');
+
         if (state is UserSettingsState) {
           nameController.text = state.user.name;
           lastNameController.text = state.user.lastName;
           jobTitleController.text = state.user.jobTitle;
           bioController.text = state.user.bio;
+        }
+        if (state is UserLoadErrorState) {
+          showAlertDialog(context, state.errorMessage, onDismiss: () {
+            Navigator.pop(context);
+          });
         }
       },
       buildWhen: (previous, current) => previous != current,
@@ -116,15 +118,6 @@ class UserSettingsPageState extends State<UserSettingsPage> with CustomAlertDial
                           style: Theme.of(context).textTheme.headline1,
                         ),
                       ),
-                      Container(height: LayoutConstants.REGULAR_PADDING),
-                      TextButton(
-                        onPressed: onEditPhoto,
-                        child: Text(
-                          'Edit Photo',
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.bodyText2,
-                        ),
-                      ),
                       Container(height: LayoutConstants.LARGE_PADDING),
                       TextFormField(
                         controller: nameController,
@@ -140,6 +133,7 @@ class UserSettingsPageState extends State<UserSettingsPage> with CustomAlertDial
                           ),
                         ),
                       ),
+                      Container(height: LayoutConstants.SMALL_PADDING),
                       TextFormField(
                         controller: lastNameController,
                         readOnly: state.isEditing == false,
@@ -154,6 +148,7 @@ class UserSettingsPageState extends State<UserSettingsPage> with CustomAlertDial
                           ),
                         ),
                       ),
+                      Container(height: LayoutConstants.SMALL_PADDING),
                       TextFormField(
                         controller: jobTitleController,
                         readOnly: state.isEditing == false,
@@ -168,7 +163,7 @@ class UserSettingsPageState extends State<UserSettingsPage> with CustomAlertDial
                           ),
                         ),
                       ),
-                      Container(height: LayoutConstants.EXTRA_LARGE_PADDING),
+                      Container(height: LayoutConstants.LARGE_PADDING),
                       Text(
                         'Primary Skills',
                         style: Theme.of(context).textTheme.headline3,
@@ -205,19 +200,22 @@ class UserSettingsPageState extends State<UserSettingsPage> with CustomAlertDial
                               .toList(),
                         ),
                       ),
-                      const Divider(),
-                      Padding(
-                        padding: const EdgeInsets.all(LayoutConstants.REGULAR_PADDING),
-                        child: Text(
-                          'Bio',
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.headline3,
-                        ),
+                      const Divider(
+                        // Style the divider like the underline of the input fields
+                        color: Colors.grey,
+                        thickness: 1,
+                      ),
+                      Container(height: LayoutConstants.REGULAR_PADDING),
+                      Text(
+                        'Bio',
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.headline3,
                       ),
                       TextFormField(
                         controller: bioController,
                         readOnly: state.isEditing == false,
                         style: Theme.of(context).textTheme.bodyText2,
+                        textAlign: TextAlign.center,
                         cursorColor: Colours.ACCENT_COLOR,
                         maxLines: null,
                         keyboardType: TextInputType.multiline,
@@ -230,8 +228,13 @@ class UserSettingsPageState extends State<UserSettingsPage> with CustomAlertDial
                           ),
                         ),
                       ),
+                      Container(height: LayoutConstants.REGULAR_PADDING),
                       Text(state.user.email, style: Theme.of(context).textTheme.headline3),
-                      const Divider(height: LayoutConstants.LARGE_PADDING),
+                      const Divider(
+                        height: LayoutConstants.LARGE_PADDING,
+                        color: Colors.grey,
+                        thickness: 1,
+                      ),
                       GestureDetector(
                         onTap: onChangePassword,
                         child: Row(

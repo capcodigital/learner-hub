@@ -1,6 +1,5 @@
-import 'package:flutter_confluence/features/user_settings/domain/entities/user.dart';
-
 import '/core/utils/extensions/extensions.dart';
+import '/features/user_settings/domain/entities/user.dart';
 
 class UserModel extends User {
   const UserModel({
@@ -42,8 +41,8 @@ class UserModel extends User {
       'jobTitle': jobTitle,
       'bio': bio,
       'skills': {
-        'primarySkills': primarySkills.toJson(),
-        'secondarySkills': secondarySkills.toJson(),
+        'primarySkills': primarySkills,
+        'secondarySkills': secondarySkills,
       }
     };
   }
