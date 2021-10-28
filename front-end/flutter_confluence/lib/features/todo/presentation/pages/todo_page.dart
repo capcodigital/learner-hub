@@ -93,24 +93,35 @@ class _TodoPageState extends State<TodoPage> {
         if (state is TodoLoadedSuccess) {
           final todos =
               inProgress ? state.inProgressTodos : state.completedTodos;
-          return ListView.separated(
-            itemBuilder: (context, index) {
-              return SwipeableTodoItem(
-                todo: todos[index],
-                onDismiss: (direction) =>
-                    onDismiss(todos: todos, index: index, direction: direction),
-                onTodoPressed: () => onAddNewButtonPressed(todos[index]),
-              );
-            },
-            itemCount: todos.length,
-            separatorBuilder: (BuildContext context, int index) {
-              return const Divider(
-                color: Colors.white,
-                endIndent: 32,
-                indent: 32,
-                height: 32,
-              );
-            },
+          return RefreshIndicator(
+            color: Colors.pink,
+            backgroundColor: Colors.transparent,
+            onRefresh: () async =>
+                BlocProvider.of<TodoBloc>(context).add(GetTodosEvent()),
+            child: ListView.separated(
+              itemBuilder: (context, index) {
+                return SwipeableTodoItem(
+                  todo: todos[index],
+                  onDismiss: (direction) => onDismiss(
+                      todos: todos, index: index, direction: direction),
+                  onTodoPressed: () => onAddNewButtonPressed(todos[index]),
+                );
+              },
+              itemCount: todos.length,
+              separatorBuilder: (BuildContext context, int index) {
+                return const Divider(
+                  color: Colors.white,
+                  endIndent: 32,
+                  indent: 32,
+                  height: 32,
+                );
+              },
+            ),
+          );
+        } else if (state is TodoLoadedError) {
+          return Center(
+            child: Text(state.message,
+                style: Theme.of(context).textTheme.bodyText1),
           );
         }
         return const Center(

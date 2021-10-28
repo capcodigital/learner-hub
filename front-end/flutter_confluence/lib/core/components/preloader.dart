@@ -32,18 +32,20 @@ class PreLoadWidget extends StatelessWidget {
             bloc: BlocProvider.of<AuthBloc>(context),
             listener: (context, state) {
               if (state is InvalidUser) {
-                Future.delayed(const Duration(milliseconds: STARTUP_DELAY_MILLIS), () {
+                Future.delayed(
+                    const Duration(milliseconds: STARTUP_DELAY_MILLIS), () {
                   _openOnBoardingPage(context);
                 });
               }
               if (state is ValidUser) {
-                Future.delayed(const Duration(milliseconds: STARTUP_DELAY_MILLIS), () {
+                Future.delayed(
+                    const Duration(milliseconds: STARTUP_DELAY_MILLIS), () {
                   _openHomePage(context);
                 });
               }
             },
             child: Container(
-              color: Colours.PRIMARY_COLOR,
+              color: Colours.ALTERNATIVE_COLOR,
               child: Center(
                 child: Lottie.asset(
                   'assets/lottie-animation.json',
