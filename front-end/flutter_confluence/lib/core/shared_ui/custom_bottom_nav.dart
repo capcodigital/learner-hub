@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_confluence/core/colours.dart';
 import 'package:flutter_confluence/core/shared_ui/custom_appbar.dart';
-import 'package:flutter_confluence/features/user_settings/presentation/pages/user_settings_page.dart';
 
 class CustomBottomNavBar extends StatefulWidget {
   const CustomBottomNavBar({Key? key}) : super(key: key);
@@ -33,10 +32,6 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
       'TODO',
       style: optionStyle,
     ),
-    Text(
-      'Settings',
-      style: optionStyle,
-    ),
   ];
 
   void _onItemTapped(int index) {
@@ -57,18 +52,6 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
 
         case 3:
           _title = 'My TODOs';
-          break;
-
-        case 4:
-          _title = 'Settings';
-          // Navigate to settings page
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(
-          //       builder: (context) => const UserSettingsPage()),
-          // );
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => const UserSettingsPage(), fullscreenDialog: true));
           break;
       }
     });
@@ -116,12 +99,6 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
             label: '',
             tooltip: '',
           ),
-          BottomNavigationBarItem(
-            // My TODOs
-            icon: Icon(IconData(0xe801, fontFamily: _kFontFam), size: 75),
-            label: '',
-            tooltip: '',
-          )
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colours.ACCENT_COLOR,
