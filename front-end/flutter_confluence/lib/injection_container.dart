@@ -31,10 +31,10 @@ import '/features/user_registration/presentation/bloc/user_registration_bloc.dar
 import '/features/user_settings/data/datasources/user_settings_data_source.dart';
 import '/features/user_settings/data/repositories/user_settings_repository_impl.dart';
 import '/features/user_settings/domain/repositories/user_settings_repository.dart';
+import '/features/user_settings/domain/usecases/load_user.dart';
 import '/features/user_settings/domain/usecases/update_password.dart';
 import '/features/user_settings/domain/usecases/update_user_settings.dart';
 import '/features/user_settings/presentation/bloc/user_settings_bloc.dart';
-import 'features/user_settings/domain/usecases/load_user.dart';
 
 final sl = GetIt.instance;
 
@@ -89,7 +89,8 @@ Future<void> init() async {
 
   // User settings
   sl.registerLazySingleton<UserSettingsDataSource>(() => UserSettingsDataSourceImpl(auth: sl(), client: sl()));
-  sl.registerLazySingleton<UserSettingsRepository>(() => UserSettingsRepositoryImpl(dataSource: sl()));
+  sl.registerLazySingleton<UserSettingsRepository>(
+      () => UserSettingsRepositoryImpl(dataSource: sl(), networkInfo: sl()));
   sl.registerLazySingleton(() => UpdatePassword(userSettingsRepository: sl()));
   sl.registerLazySingleton(() => UpdateUserSettings(userSettingsRepository: sl()));
   sl.registerLazySingleton(() => LoadUser(userSettingsRepository: sl()));
