@@ -1,4 +1,3 @@
-import '/core/utils/extensions/extensions.dart';
 import '/features/user_settings/domain/entities/user.dart';
 
 class UserModel extends User {
