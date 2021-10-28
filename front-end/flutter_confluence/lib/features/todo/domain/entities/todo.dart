@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 
 // ignore: must_be_immutable
 class Todo extends Equatable {
-  Todo(
+  const Todo(
       {required this.id,
       required this.userId,
       required this.title,
@@ -11,9 +11,9 @@ class Todo extends Equatable {
 
   final String id;
   final String userId;
-  late String title;
-  late String content;
-  late bool isCompleted;
+  final String title;
+  final String content;
+  final bool isCompleted;
 
   @override
   List<Object?> get props => [id, userId, title, content, isCompleted];

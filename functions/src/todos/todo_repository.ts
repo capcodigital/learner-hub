@@ -1,6 +1,5 @@
 /* eslint-disable require-jsdoc */
 import * as admin from 'firebase-admin';
-import * as functions from "firebase-functions";
 
 const TABLE_TODOS = "TODOs";
 
@@ -31,27 +30,34 @@ export async function insert(todo: TODO): Promise<any[]> {
                     isCompleted: todo.isCompleted
                 };
         });
+        if (todoToReturn == null) { throw new TODONotFoundError(); }
         return todoToReturn;
 }
 
 export async function update(
     todoId: string,
     todo: TODO
-) {
+): Promise<any[]> {
     const doc = admin.firestore().collection(TABLE_TODOS).doc(todoId);
     const docRef = await doc.get();
+    var todoToReturn: any = {};
     if (docRef.exists) {
         const item = docRef.data() as TODO;
         if (todo.userId == item.userId) {
-            doc.update(todo);
-            const updated = docRef.data() as TODO;
-            return {
+            await doc.update({
+                userId: todo.userId,
+                title: todo.title,
+                content: todo.content,
+                isCompleted: todo.isCompleted
+            }).then(function() {
+                todoToReturn = {
                 id: docRef.id,
-                userId: updated.userId,
-                title: updated.title,
-                content: updated.content,
-                isCompleted: updated.isCompleted
-            }
+                userId: todo.userId,
+                title: todo.title,
+                content: todo.content,
+                isCompleted: todo.isCompleted
+            }});
+            return todoToReturn;
         } else throw new AccessForbidenError("TODO is not of current user");
     } else throw new TODONotFoundError();
 }
@@ -62,7 +68,6 @@ export async function deleteItem(
     todoId: string
 ) {
     const doc = admin.firestore().collection(TABLE_TODOS).doc(todoId);
-    functions.logger.log(doc);
     const docRef = await doc.get();
     if (docRef.exists) {
         const item = docRef.data();

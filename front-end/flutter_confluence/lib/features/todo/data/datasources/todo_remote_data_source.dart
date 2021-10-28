@@ -109,13 +109,17 @@ class TodoRemoteDataSourceImpl implements TodoRemoteDataSource {
 
       final token = await auth.currentUser?.getIdToken();
 
-      final response = await client.put(
-        Uri.parse(url),
-        headers: {
-          HttpHeaders.authorizationHeader: 'Bearer $token',
-          HttpHeaders.contentTypeHeader: 'application/json'
-        },
-      );
+      final body = jsonEncode(TodoParams(
+          title: todo.title,
+          content: todo.content,
+          isCompleted: todo.isCompleted));
+
+      final response = await client.put(Uri.parse(url),
+          headers: {
+            HttpHeaders.authorizationHeader: 'Bearer $token',
+            HttpHeaders.contentTypeHeader: 'application/json'
+          },
+          body: body);
       if (response.statusCode == 200) {
         final results = json.decode(response.body)['data'];
         final todo = TodoModel.fromJson(results);

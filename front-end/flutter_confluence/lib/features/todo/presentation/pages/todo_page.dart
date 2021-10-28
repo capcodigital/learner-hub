@@ -43,6 +43,9 @@ class _TodoPageState extends State<TodoPage> {
           body: TabBarView(children: [
             Column(
               children: [
+                const SizedBox(
+                  height: 32,
+                ),
                 Expanded(child: _createTodoList(inProgress: true)),
                 Align(
                     alignment: Alignment.bottomCenter,
@@ -57,7 +60,17 @@ class _TodoPageState extends State<TodoPage> {
                     ))
               ],
             ),
-            _createTodoList(inProgress: false),
+            Column(
+              children: [
+                const SizedBox(
+                  height: 32,
+                ),
+                Expanded(child: _createTodoList(inProgress: false)),
+                const SizedBox(
+                  height: 16,
+                ),
+              ],
+            ),
           ]),
         ));
   }
@@ -100,7 +113,9 @@ class _TodoPageState extends State<TodoPage> {
             },
           );
         }
-        return Text(state.toString());
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
       },
     );
   }
@@ -110,9 +125,13 @@ class _TodoPageState extends State<TodoPage> {
       required int index,
       required DismissDirection direction}) {
     if (direction == DismissDirection.startToEnd) {
-      todos[index].isCompleted = true;
-      BlocProvider.of<TodoBloc>(context)
-          .add(UpdateTodoEvent(todo: todos[index]));
+      final todo = Todo(
+          id: todos[index].id,
+          userId: todos[index].userId,
+          title: todos[index].title,
+          content: todos[index].content,
+          isCompleted: true);
+      BlocProvider.of<TodoBloc>(context).add(UpdateTodoEvent(todo: todo));
     } else if (direction == DismissDirection.endToStart) {
       BlocProvider.of<TodoBloc>(context)
           .add(DeleteTodoEvent(todo: todos[index]));

@@ -106,11 +106,9 @@ class _TodoDetailPageState extends State<TodoDetailPage> {
                   hintText: 'Add your notes here..'),
               controller: _contentController,
               onSubmitted: (value) {
-                _initialContentText = value;
                 save();
               },
               onChanged: (value) {
-                _initialContentText = value;
                 setState(() {
                   _isButtonDisabled = _contentController.text.isEmpty &&
                       _titleController.text.isEmpty;
@@ -143,11 +141,13 @@ class _TodoDetailPageState extends State<TodoDetailPage> {
 
   void save() {
     if (_isInEditingMode) {
-      widget.todo!.title = _titleController.text;
-      widget.todo!.content = _contentController.text;
-      widget.todo!.isCompleted = widget.todo!.isCompleted;
-      BlocProvider.of<TodoBloc>(context)
-          .add(UpdateTodoEvent(todo: widget.todo!));
+      final todo = Todo(
+          id: widget.todo!.id,
+          userId: widget.todo!.userId,
+          title: _titleController.text,
+          content: _contentController.text,
+          isCompleted: widget.todo!.isCompleted);
+      BlocProvider.of<TodoBloc>(context).add(UpdateTodoEvent(todo: todo));
     } else {
       final todo = TodoParams(
           title: _titleController.text,

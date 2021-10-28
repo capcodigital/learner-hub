@@ -1,22 +1,16 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter_confluence/features/todo/domain/entities/todo.dart';
 import 'package:hive/hive.dart';
 part 'todo_model.g.dart';
 
 @HiveType(typeId: 2)
-// ignore: must_be_immutable
-class TodoModel extends Todo with HiveObjectMixin {
-  TodoModel(
+class TodoModel extends Equatable {
+  const TodoModel(
       {required this.id,
       required this.content,
       required this.isCompleted,
       required this.title,
-      required this.userId})
-      : super(
-            id: id,
-            content: content,
-            isCompleted: isCompleted,
-            title: title,
-            userId: userId);
+      required this.userId});
 
   factory TodoModel.fromJson(Map<String, dynamic> json) {
     return TodoModel(
@@ -37,19 +31,26 @@ class TodoModel extends Todo with HiveObjectMixin {
     };
   }
 
-  @override
   @HiveField(0)
   final String id;
-  @override
   @HiveField(1)
   final String content;
-  @override
   @HiveField(2)
   final bool isCompleted;
-  @override
   @HiveField(3)
   final String title;
-  @override
   @HiveField(4)
   final String userId;
+
+  @override
+  List<Object?> get props => [id, title, userId, content, isCompleted];
+}
+
+extension TodoModelExtension on TodoModel {
+  Todo get toTodo => Todo(
+      id: id,
+      userId: userId,
+      title: title,
+      content: content,
+      isCompleted: isCompleted);
 }
