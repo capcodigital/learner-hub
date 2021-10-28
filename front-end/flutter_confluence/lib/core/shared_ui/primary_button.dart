@@ -26,7 +26,7 @@ class PrimaryButton extends StatelessWidget {
         width: double.infinity,
         child: ElevatedButton(
             style: isEnabled ? style : disabledStyle,
-            onPressed: isEnabled == null || isEnabled == true ? onPressed : null,
+            onPressed: isEnabled ? onPressed : null,
             child: Text(text, style: Theme.of(context).textTheme.button)));
   }
 }
