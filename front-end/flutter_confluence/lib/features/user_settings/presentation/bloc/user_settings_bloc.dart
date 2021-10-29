@@ -49,7 +49,7 @@ class UserSettingsBloc extends Bloc<UserSettingsEvent, UserSettingsState> {
     print('Updating password');
     final currentUser = state.user;
     emit(Loading(user: currentUser));
-    final result = await updatePassword(UpdatePasswordParams(password: event.newPassword));
+    final result = await updatePassword(UpdatePasswordParams(oldPassword: event.oldPassword, newPassword: event.newPassword));
     result.fold(
             (failure) => emit(PasswordUpdateError(errorMessage: failure.message, user: currentUser)),
             (success) => emit(PasswordUpdateSuccess(user: currentUser))

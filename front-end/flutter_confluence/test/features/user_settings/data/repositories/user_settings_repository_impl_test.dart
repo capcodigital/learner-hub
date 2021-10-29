@@ -68,18 +68,19 @@ void main() {
   group('updatePassword', () {
     setUp(() {
       when(() => mockNetworkInfo.isConnected).thenAnswer((_) async => true);
-      when(() => mockDataSource.updatePassword(any())).thenAnswer((_) async => {});
+      when(() => mockDataSource.updatePassword(any(), any())).thenAnswer((_) async => {});
     });
 
     test('should return true when the user password has been updated', () async {
       // arrange
+      const oldPassword = 'oldPassword';
       const newPassword = 'newPassword';
 
       // act
-      final result = await repository.updatePassword(newPassword);
+      final result = await repository.updatePassword(oldPassword, newPassword);
 
       // assert
-      verify(() => mockDataSource.updatePassword(newPassword));
+      verify(() => mockDataSource.updatePassword(oldPassword, newPassword));
       expect(result, const Right(true));
     });
 
@@ -88,10 +89,10 @@ void main() {
       when(() => mockNetworkInfo.isConnected).thenAnswer((_) async => false);
 
       // act
-      final result = await repository.updatePassword('new password');
+      final result = await repository.updatePassword('old password', 'new password');
 
       //  assert
-      verifyNever(() => mockDataSource.updatePassword(any()));
+      verifyNever(() => mockDataSource.updatePassword(any(), any()));
       expect(result, Left(NoInternetFailure()));
     });
   });
@@ -121,7 +122,7 @@ void main() {
       final result = await repository.updateUserDetails(sampleUser);
 
       //  assert
-      verifyNever(() => mockDataSource.updatePassword(any()));
+      verifyNever(() => mockDataSource.updatePassword(any(), any()));
       expect(result, Left(NoInternetFailure()));
     });
   });

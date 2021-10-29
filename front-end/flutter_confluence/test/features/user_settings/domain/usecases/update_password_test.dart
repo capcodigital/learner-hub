@@ -19,13 +19,13 @@ void main() {
     'should return true if the password have been updated',
     () async {
       // arrange
-      when(() => mockRepository.updatePassword(any())).thenAnswer((_) => Future.value(const Right(true)));
+      when(() => mockRepository.updatePassword(any(), any())).thenAnswer((_) => Future.value(const Right(true)));
 
       // Act
-      final result = await useCase(const UpdatePasswordParams(password: 'newPassword'));
+      final result = await useCase(const UpdatePasswordParams(oldPassword: 'oldPassword', newPassword: 'newPassword'));
 
       // assert
-      verify(() => mockRepository.updatePassword(any()));
+      verify(() => mockRepository.updatePassword(any(), any()));
       expect(result, const Right(true));
     },
   );

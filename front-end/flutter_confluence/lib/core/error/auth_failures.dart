@@ -25,11 +25,7 @@ class CreateUserError extends AuthFailure {
 }
 
 class AuthFailure extends Failure {
-  const AuthFailure(this.reason);
+  const AuthFailure(message) : super(message: message);
 
   static const CODE_GENERIC_FAILURE = 'code_generic_failure';
-  final String reason;
-
-  @override
-  List<Object> get props => [reason];
 }

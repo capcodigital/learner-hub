@@ -2,16 +2,19 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_confluence/core/error/custom_exceptions.dart';
-import 'package:flutter_confluence/core/error/failures.dart';
 import 'package:http/http.dart' as http;
 
 import '/core/constants.dart';
+import '/core/error/auth_failures.dart';
+import '/core/error/custom_exceptions.dart';
+import '/core/error/failures.dart';
 import '/features/user_settings/data/model/user_model.dart';
 
 abstract class UserSettingsDataSource {
   Future updateUserSettings(UserModel user);
-  Future updatePassword(String password);
+
+  Future updatePassword(String oldPassword, String newPassword);
+
   Future<UserModel> loadUserInfo();
 }
 
@@ -47,12 +50,26 @@ class UserSettingsDataSourceImpl implements UserSettingsDataSource {
   }
 
   @override
-  Future updatePassword(String password) async {
+  Future updatePassword(String oldPassword, String newPassword) async {
     final currentUser = auth.currentUser;
     if (currentUser == null) {
       throw ServerException(message: 'There is no current logged in user');
     } else {
-      await currentUser.updatePassword(password);
+      final email = currentUser.email;
+      if (email == null || email.isEmpty) {
+        throw Exception('Invalid email');
+      }
+
+      try {
+        final credentials = EmailAuthProvider.credential(email: email, password: oldPassword);
+        await currentUser.reauthenticateWithCredential(credentials);
+        await currentUser.updatePassword(newPassword);
+      } on FirebaseAuthException catch (e) {
+        throw AuthFailure(e.code);
+      } catch (exception) {
+        print(exception.toString());
+        throw ServerException(message: Constants.SERVER_FAILURE_MSG);
+      }
     }
   }
 

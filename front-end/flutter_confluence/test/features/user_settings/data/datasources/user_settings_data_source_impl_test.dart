@@ -10,14 +10,13 @@ import 'package:mocktail/mocktail.dart';
 
 import '../../../../fixtures/fixture_reader.dart';
 
-class MockFirebaseAuth extends Mock implements FirebaseAuth {}
-
 class MockClient extends Mock implements http.Client {}
 
 // Both UserCredentials and Firebase User have private constructors.
 // So let's use mocks to be able to create instances of those classes for testing
 class MockFirebaseCredentials extends Mock implements UserCredential {}
-
+class MockFirebaseAuth extends Mock implements FirebaseAuth {}
+class FakeAuthCredentials extends Fake implements AuthCredential {}
 class MockFirebaseUser extends Mock implements User {}
 
 void main() {
@@ -33,6 +32,7 @@ void main() {
   setUpAll(() {
     // Required for HTTP Client mock
     registerFallbackValue(Uri());
+    registerFallbackValue(FakeAuthCredentials());
   });
 
   setUp(() {
@@ -49,6 +49,13 @@ void main() {
     when(() => firebaseUser.photoURL).thenReturn(photoUrl);
 
     return firebaseUser;
+  }
+
+  UserCredential _createUserCredentials(String uid, String displayName, String email, String photoUrl) {
+    final firebaseUser = _createFirebaseUser(uid, displayName, email, photoUrl);
+    final firebaseCredentials = MockFirebaseCredentials();
+    when(() => firebaseCredentials.user).thenReturn(firebaseUser);
+    return firebaseCredentials;
   }
 
   group('update user settings', () {
@@ -106,13 +113,17 @@ void main() {
 
     test('should update the user password', () async {
       // arrange
+      const oldPassword = 'oldPassword';
       const newPassword = 'newPassword';
       final mockUser = _createFirebaseUser(uid, displayName, email, photoUrl);
+      final mockUserCredential = _createUserCredentials(uid, displayName, email, photoUrl);
       when(() => mockUser.updatePassword(any())).thenAnswer((_) => Future.value());
       when(() => mockAuth.currentUser).thenReturn(mockUser);
+      when(() => mockUser.reauthenticateWithCredential(any()))
+          .thenAnswer((invocation) => Future.value(mockUserCredential));
 
       // act
-      await dataSource.updatePassword(newPassword);
+      await dataSource.updatePassword(oldPassword, newPassword);
 
       // assert
       verify(() => mockUser.updatePassword(newPassword));
@@ -120,11 +131,13 @@ void main() {
 
     test('should throw an exception if the user is not logged', () async {
       // arrange
+      const oldPassword = 'oldPassword';
       const newPassword = 'newPassword';
       when(() => mockAuth.currentUser).thenReturn(null);
 
       // act/assert
-      expect(() async => dataSource.updatePassword(newPassword), throwsA(predicate((e) => e is ServerException)));
+      expect(() async => dataSource.updatePassword(oldPassword, newPassword),
+          throwsA(predicate((e) => e is ServerException)));
     });
   });
 

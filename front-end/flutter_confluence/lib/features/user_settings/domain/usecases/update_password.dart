@@ -1,18 +1,18 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 
-import '/core/error/auth_failures.dart';
 import '/core/error/failures.dart';
 import '/core/usecases/usecase.dart';
 import '/features/user_settings/domain/repositories/user_settings_repository.dart';
 
 class UpdatePasswordParams extends Equatable {
-  const UpdatePasswordParams({required this.password});
+  const UpdatePasswordParams({required this.oldPassword, required this.newPassword});
 
-  final String password;
+  final String oldPassword;
+  final String newPassword;
 
   @override
-  List<Object> get props => [password];
+  List<Object> get props => [oldPassword, newPassword];
 }
 
 class UpdatePassword implements UseCase<bool, UpdatePasswordParams> {
@@ -22,11 +22,6 @@ class UpdatePassword implements UseCase<bool, UpdatePasswordParams> {
 
   @override
   Future<Either<Failure, bool>> call(UpdatePasswordParams passwordParams) async {
-    final password = passwordParams.password;
-    if (password == null || password.isEmpty) {
-      return const Left(AuthFailure('New password cannot be null'));
-    }
-
-    return userSettingsRepository.updatePassword(passwordParams.password);
+    return userSettingsRepository.updatePassword(passwordParams.oldPassword, passwordParams.newPassword);
   }
 }

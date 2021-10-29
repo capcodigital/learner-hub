@@ -19,7 +19,8 @@ class SaveChangesEvent extends UserSettingsEvent {
 class CancelEditingEvent extends UserSettingsEvent {}
 
 class UpdatePasswordEvent extends UserSettingsEvent {
-  const UpdatePasswordEvent({required this.newPassword}) : super();
+  const UpdatePasswordEvent({required this.oldPassword, required this.newPassword}) : super();
 
+  final String oldPassword;
   final String newPassword;
 }

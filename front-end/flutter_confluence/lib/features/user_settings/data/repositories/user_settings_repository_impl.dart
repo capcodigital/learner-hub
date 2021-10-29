@@ -30,20 +30,6 @@ class UserSettingsRepositoryImpl implements UserSettingsRepository {
   }
 
   @override
-  Future<Either<Failure, bool>> updatePassword(String newPassword) async {
-    if (await networkInfo.isConnected) {
-      try {
-        await dataSource.updatePassword(newPassword);
-        return const Right(true);
-      } on Exception catch (ex) {
-        return Left(ServerFailure(message: '$ex'));
-      }
-    } else {
-      return Left(NoInternetFailure());
-    }
-  }
-
-  @override
   Future<Either<Failure, User>> getCurrentUser() async {
     if (await networkInfo.isConnected) {
       try {
@@ -51,6 +37,35 @@ class UserSettingsRepositoryImpl implements UserSettingsRepository {
         return Right(user);
       } on Exception {
         return const Left(AuthFailure("It's not possible to load the user"));
+      }
+    } else {
+      return Left(NoInternetFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> updatePassword(String oldPassword, String newPassword) async {
+    if (await networkInfo.isConnected) {
+      try {
+        await dataSource.updatePassword(oldPassword, newPassword);
+        return const Right(true);
+      } on AuthFailure catch (e) {
+        var reason = '';
+        if (e.message == 'user-mismatch') {
+          reason = 'User mismatch';
+        } else if (e.message == 'invalid-credential') {
+          reason = 'The credentials have expired. Please login again';
+        } else if (e.message == 'invalid-email') {
+          reason = 'Invalid email';
+        } else if (e.message == 'wrong-password') {
+          reason = 'The password entered is incorrect';
+        } else {
+          reason = e.message;
+        }
+
+        return Left(AuthFailure(reason));
+      } on Exception catch (ex) {
+        return Left(ServerFailure(message: '$ex'));
       }
     } else {
       return Left(NoInternetFailure());

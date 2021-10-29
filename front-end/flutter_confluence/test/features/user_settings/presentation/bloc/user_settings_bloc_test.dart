@@ -31,7 +31,7 @@ void main() {
 
   setUpAll(() {
     registerFallbackValue(NoParams());
-    registerFallbackValue(const UpdatePasswordParams(password: 'password'));
+    registerFallbackValue(const UpdatePasswordParams(oldPassword: 'old', newPassword: 'new'));
     registerFallbackValue(const UpdateUserSettingsParams(user: testUser));
   });
 
@@ -109,7 +109,8 @@ void main() {
         when(() => mockUpdatePassword(any())).thenAnswer((_) => Future.value(const Right(true)));
         return bloc;
       },
-      act: (UserSettingsBloc bloc) => bloc.add(const UpdatePasswordEvent(newPassword: 'new password')),
+      act: (UserSettingsBloc bloc) =>
+          bloc.add(const UpdatePasswordEvent(oldPassword: 'oldPassword', newPassword: 'new password')),
       expect: () => [
         const Loading(user: testUser),
         const PasswordUpdateSuccess(
@@ -125,7 +126,8 @@ void main() {
         when(() => mockUpdatePassword(any())).thenAnswer((_) => Future.value(const Left(ServerFailure(message: ''))));
         return bloc;
       },
-      act: (UserSettingsBloc bloc) => bloc.add(const UpdatePasswordEvent(newPassword: 'new password')),
+      act: (UserSettingsBloc bloc) =>
+          bloc.add(const UpdatePasswordEvent(oldPassword: 'oldPassword', newPassword: 'new password')),
       expect: () => [
         const Loading(user: testUser),
         const PasswordUpdateError(errorMessage: '', user: testUser),

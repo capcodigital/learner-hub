@@ -31,7 +31,8 @@ class ChangePasswordPageState extends State<ChangePasswordPage> with CustomAlert
     if (_formKey.currentState!.validate()) {
       final password = newPasswordController.text;
 
-      BlocProvider.of<UserSettingsBloc>(context).add(UpdatePasswordEvent(newPassword: password));
+      BlocProvider.of<UserSettingsBloc>(context)
+          .add(UpdatePasswordEvent(oldPassword: currentPasswordController.text, newPassword: password));
     }
   }
 
