@@ -28,7 +28,7 @@ void main() {
   late TodoBloc bloc;
 
   final todoParams = TodoParams(
-      title: 'test title', content: 'test content', isCompleted: false);
+      title: 'new title 1', content: 'new content 1', isCompleted: false);
 
   final todo = Todo(
       content: todoParams.content,
@@ -84,7 +84,7 @@ void main() {
         getTodosUsecase: mockGetTodos,
         updateTodoUsecase: mockUpdateTodo,
         deleteTodoUsecase: mockDeleteTodo);
-    bloc.todos = todos;
+    bloc.todos = [];
   });
 
   group('Get Todos Usecase', () {
@@ -145,30 +145,12 @@ void main() {
         return bloc;
       },
       act: (_) {
-        bloc.add(AddTodoEvent(todo: todoParams));
+        return bloc.add(AddTodoEvent(todo: todoParams));
       },
       expect: () {
         return [
           TodoLoading(),
-          TodoLoadedSuccess(
-              inProgressTodos: [
-                const Todo(
-                    id: '1',
-                    content: 'content 1',
-                    isCompleted: false,
-                    title: 'title 1',
-                    userId: '1'),
-                const Todo(
-                    id: '2',
-                    content: 'content 2',
-                    isCompleted: false,
-                    title: 'title 2',
-                    userId: '2'),
-                todo
-              ],
-              completedTodos: todos
-                  .where((element) => element.isCompleted == true)
-                  .toList())
+          TodoLoadedSuccess(inProgressTodos: [todo], completedTodos: const [])
         ];
       },
     );
@@ -186,6 +168,7 @@ void main() {
   group('Update Todo Usecase', () {
     test('bloc should call UpdateTodo usecase', () async {
       // Arrange
+      bloc.todos = todos;
       when(() => mockUpdateTodo(todo))
           .thenAnswer((invocation) async => Right(todo));
       // Act
@@ -197,12 +180,13 @@ void main() {
     blocTest(
       'Should emit correct order of states when UpdateTodo called with success',
       build: () {
+        bloc.todos = todos;
         when(() => mockUpdateTodo(todo))
             .thenAnswer((invocation) async => Right(todo));
         return bloc;
       },
       act: (_) {
-        bloc.add(UpdateTodoEvent(todo: todo));
+        return bloc.add(UpdateTodoEvent(todo: todo));
       },
       expect: () {
         return [
@@ -248,6 +232,7 @@ void main() {
     blocTest(
       'Should emit correct order of states when DeleteTodo called with success',
       build: () {
+        bloc.todos = todos;
         when(() => mockDeleteTodo(todo.id))
             .thenAnswer((invocation) async => Right(todo));
         return bloc;
@@ -256,7 +241,21 @@ void main() {
         return bloc.add(DeleteTodoEvent(todo: todo));
       },
       expect: () {
-        return todosOrderSuccess;
+        return [
+          TodoLoading(),
+          TodoLoadedSuccess(
+              inProgressTodos: const [
+                Todo(
+                    id: '2',
+                    content: 'content 2',
+                    isCompleted: false,
+                    title: 'title 2',
+                    userId: '2'),
+              ],
+              completedTodos: todos
+                  .where((element) => element.isCompleted == true)
+                  .toList())
+        ];
       },
     );
     blocTest(
