@@ -11,6 +11,7 @@ import '/core/utils/error_messages.dart';
 import '/core/utils/extensions/string_extensions.dart';
 import '/features/user_settings/domain/entities/user.dart';
 import '/features/user_settings/presentation/bloc/user_settings_bloc.dart';
+import '/features/user_settings/presentation/widgets/editable_text_form_field.dart';
 import 'change_password_page.dart';
 
 class UserSettingsPage extends StatefulWidget {
@@ -119,49 +120,22 @@ class UserSettingsPageState extends State<UserSettingsPage> with CustomAlertDial
                         ),
                       ),
                       Container(height: LayoutConstants.LARGE_PADDING),
-                      TextFormField(
-                        controller: nameController,
+                      EditableTextFormField(
                         readOnly: state.isEditing == false,
-                        style: Theme.of(context).textTheme.headline2,
-                        cursorColor: Colours.ACCENT_COLOR,
-                        decoration: InputDecoration(
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: state.isEditing ? Colours.ACCENT_COLOR : Colors.grey),
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: state.isEditing ? Colours.ACCENT_COLOR : Colors.grey),
-                          ),
-                        ),
+                        controller: nameController,
+                        textStyle: Theme.of(context).textTheme.headline2,
                       ),
                       Container(height: LayoutConstants.SMALL_PADDING),
-                      TextFormField(
+                      EditableTextFormField(
                         controller: lastNameController,
                         readOnly: state.isEditing == false,
-                        style: Theme.of(context).textTheme.headline2,
-                        cursorColor: Colours.ACCENT_COLOR,
-                        decoration: InputDecoration(
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: state.isEditing ? Colours.ACCENT_COLOR : Colors.grey),
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: state.isEditing ? Colours.ACCENT_COLOR : Colors.grey),
-                          ),
-                        ),
+                        textStyle: Theme.of(context).textTheme.headline2,
                       ),
                       Container(height: LayoutConstants.SMALL_PADDING),
-                      TextFormField(
+                      EditableTextFormField(
                         controller: jobTitleController,
                         readOnly: state.isEditing == false,
-                        style: Theme.of(context).textTheme.headline3,
-                        cursorColor: Colours.ACCENT_COLOR,
-                        decoration: InputDecoration(
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: state.isEditing ? Colours.ACCENT_COLOR : Colors.grey),
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: state.isEditing ? Colours.ACCENT_COLOR : Colors.grey),
-                          ),
-                        ),
+                        textStyle: Theme.of(context).textTheme.headline3,
                       ),
                       Container(height: LayoutConstants.LARGE_PADDING),
                       Text(
@@ -211,22 +185,13 @@ class UserSettingsPageState extends State<UserSettingsPage> with CustomAlertDial
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.headline3,
                       ),
-                      TextFormField(
+                      EditableTextFormField(
                         controller: bioController,
                         readOnly: state.isEditing == false,
-                        style: Theme.of(context).textTheme.bodyText2,
+                        textStyle: Theme.of(context).textTheme.bodyText2,
                         textAlign: TextAlign.center,
-                        cursorColor: Colours.ACCENT_COLOR,
                         maxLines: null,
                         keyboardType: TextInputType.multiline,
-                        decoration: InputDecoration(
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: state.isEditing ? Colours.ACCENT_COLOR : Colors.grey),
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: state.isEditing ? Colours.ACCENT_COLOR : Colors.grey),
-                          ),
-                        ),
                       ),
                       Container(height: LayoutConstants.REGULAR_PADDING),
                       Text(state.user.email, style: Theme.of(context).textTheme.headline3),
