@@ -19,6 +19,7 @@ class PrimaryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final ButtonStyle style = ElevatedButton.styleFrom(
         primary: color,
+        splashFactory: NoSplash.splashFactory,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(150),
             side: BorderSide(
