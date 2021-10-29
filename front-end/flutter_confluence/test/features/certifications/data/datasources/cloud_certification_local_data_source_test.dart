@@ -23,7 +23,8 @@ void main() {
 
   group('completedCertificationsCache', () {
     final expectedResult =
-        (json.decode(fixture('cached_certifications.json')) as List)
+        (json.decode(fixture('certifications/cached_certifications.json'))
+                as List)
             .map((e) => CloudCertificationModel.fromJson(e))
             .toList();
 
@@ -65,10 +66,11 @@ void main() {
   });
 
   group('inProgressCertificationsCache', () {
-    final expectedResult =
-        (json.decode(fixture('cached_completed_certifications.json')) as List)
-            .map((e) => CloudCertificationModel.fromJson(e))
-            .toList();
+    final expectedResult = (json.decode(
+                fixture('certifications/cached_completed_certifications.json'))
+            as List)
+        .map((e) => CloudCertificationModel.fromJson(e))
+        .toList();
 
     test(
         'should return a list of in progress certifications from '

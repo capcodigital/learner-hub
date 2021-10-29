@@ -21,7 +21,8 @@ void main() {
   group('deserialization', () {
     test('should return a valid model when the JSON contains the proper data',
         () {
-      final jsonMap = json.decode(fixture('cloud_certification_model.json'));
+      final jsonMap =
+          json.decode(fixture('certifications/cloud_certification_model.json'));
       final actual = CloudCertificationModel.fromJson(jsonMap);
       expect(actual, model);
     });

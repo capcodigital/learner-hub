@@ -25,13 +25,15 @@ class MockGetInProgressCertifications extends Mock
 class MockSearchCertifications extends Mock implements SearchCertifications {}
 
 void main() {
-  final mockCompletedCerts = (json.decode(fixture('completed.json')) as List)
-      .map((e) => CloudCertificationModel.fromJson(e))
-      .toList();
+  final mockCompletedCerts =
+      (json.decode(fixture('certifications/completed.json')) as List)
+          .map((e) => CloudCertificationModel.fromJson(e))
+          .toList();
 
-  final mockInProgressCerts = (json.decode(fixture('in_progress.json')) as List)
-      .map((e) => CloudCertificationModel.fromJson(e))
-      .toList();
+  final mockInProgressCerts =
+      (json.decode(fixture('certifications/in_progress.json')) as List)
+          .map((e) => CloudCertificationModel.fromJson(e))
+          .toList();
 
   final orderCompleted = [
     Loading(),

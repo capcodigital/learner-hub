@@ -28,14 +28,16 @@ void main() {
   late MockCloudCertificationLocalDataSource mockLocalDataSource;
   late MockNetworkInfo mockNetworkInfo;
 
-  final remoteCertifications = (json.decode(fixture('completed.json')) as List)
-      .map((e) => CloudCertificationModel.fromJson(e))
-      .toList();
-
-  final localCertifications =
-      (json.decode(fixture('cached_completed_certifications.json')) as List)
+  final remoteCertifications =
+      (json.decode(fixture('certifications/completed.json')) as List)
           .map((e) => CloudCertificationModel.fromJson(e))
           .toList();
+
+  final localCertifications = (json.decode(
+              fixture('certifications/cached_completed_certifications.json'))
+          as List)
+      .map((e) => CloudCertificationModel.fromJson(e))
+      .toList();
 
   setUp(() {
     mockRemoteDataSource = MockCloudCertificationRemoteDataSource();
