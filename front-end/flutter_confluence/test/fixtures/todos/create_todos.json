@@ -1,0 +1,10 @@
+{
+    "status": "success",
+    "data": {
+      "id": "1",
+      "userId": "1",
+      "title": "Book the certification exam",
+      "content": "It needs to be booked from the oficial website and then claim the expenses back",
+      "isCompleted": true
+    }
+  }
