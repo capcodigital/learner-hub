@@ -27,7 +27,7 @@ class RegisterUser implements UseCase<bool, UserRegistration> {
       final createUserResult = await registrationRepository.createUser(user);
       return createUserResult.fold((failure) async {
         await _handleCreateUserFailure(failure);
-        return Left(CreateUserError());
+        return const Left(CreateUserError());
       }, (success) => Right(success));
     });
   }

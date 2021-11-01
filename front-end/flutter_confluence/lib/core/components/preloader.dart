@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_confluence/core/shared_ui/custom_bottom_nav.dart';
 import 'package:lottie/lottie.dart';
 
 import '/core/colours.dart';
 import '/core/shared_ui/app_drawer.dart';
+import '/core/shared_ui/custom_bottom_nav.dart';
 import '/features/auth/presentation/bloc/auth_bloc.dart';
 import '/features/onboarding/presentation/pages/on_boarding.dart';
 
