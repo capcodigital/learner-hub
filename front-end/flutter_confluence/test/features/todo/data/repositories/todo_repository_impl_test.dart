@@ -7,6 +7,8 @@ import 'package:flutter_confluence/features/todo/data/datasources/todo_local_dat
 import 'package:flutter_confluence/features/todo/data/datasources/todo_remote_data_source.dart';
 import 'package:flutter_confluence/features/todo/data/models/todo_model.dart';
 import 'package:flutter_confluence/features/todo/data/repository/todo_repository_impl.dart';
+import 'package:flutter_confluence/features/todo/domain/entities/todo.dart';
+import 'package:flutter_confluence/features/todo/domain/params/todo_params.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -29,6 +31,16 @@ void main() {
   final remoteTodos =
       // ignore: avoid_dynamic_calls
       (result['data'] as List).map((e) => TodoModel.fromJson(e)).toList();
+
+  final todoParams =
+      TodoParams(title: 'title', content: 'content', isCompleted: false);
+
+  final todoFromParams = Todo(
+      id: '1',
+      userId: '1',
+      title: todoParams.title,
+      content: todoParams.content,
+      isCompleted: todoParams.isCompleted);
 
   setUp(() {
     mockRemoteDataSource = MockTodoRemoteDataSource();
@@ -78,6 +90,111 @@ void main() {
       final result = await repository.getTodos();
       // Assert
       verify(() => mockRemoteDataSource.getTodos());
+      expect(result, equals(Left(ServerFailure(message: 'Error'))));
+    });
+    test('Todos are retrieved from cache when call to remote data source fails',
+        () async {
+      // Arrange
+      when(() => mockRemoteDataSource.getTodos())
+          .thenThrow(ServerException(message: 'Error'));
+      when(() => mockLocalDataSource.getTodos())
+          .thenAnswer((invocation) async => cachedTodos);
+      final todos = cachedTodos.map((e) => e.toTodo).toList();
+      // Act
+      final result = await repository.getTodos();
+      final resultsFolded =
+          result.fold((l) => ServerFailure(message: l.toString()), (r) => r);
+      // Assert
+      verify(() => mockLocalDataSource.getTodos());
+      expect(result.isRight(), true);
+      expect(resultsFolded, todos);
+      expect(resultsFolded, equals(todos));
+    });
+  });
+  group('Create Todos', () {
+    test(
+        'Should return remote data when call to remote data source is successful',
+        () async {
+      // Arrange
+      when(() => mockRemoteDataSource.addTodo(todoParams))
+          .thenAnswer((invocation) async => remoteTodos.first);
+      final todo = remoteTodos.map((e) => e.toTodo).toList().first;
+      // Act
+      final result = await repository.createTodo(todoParams);
+      final resultsFolded =
+          result.fold((l) => ServerFailure(message: l.toString()), (r) => r);
+      // Assert
+      verify(() => mockRemoteDataSource.addTodo(todoParams));
+      expect(result.isRight(), true);
+      expect(resultsFolded, todo);
+      expect(resultsFolded, equals(todo));
+    });
+    test('Should return failure when remote data source fails', () async {
+      // Arrange
+      when(() => mockRemoteDataSource.addTodo(todoParams))
+          .thenThrow(ServerException(message: 'Error'));
+      // Act
+      final result = await repository.createTodo(todoParams);
+      // Assert
+      verify(() => mockRemoteDataSource.addTodo(todoParams));
+      expect(result, equals(Left(ServerFailure(message: 'Error'))));
+    });
+  });
+  group('Update Todos', () {
+    test(
+        'Should return remote data when call to remote data source is successful',
+        () async {
+      // Arrange
+      when(() => mockRemoteDataSource.updateTodo(todoFromParams))
+          .thenAnswer((invocation) async => remoteTodos.first);
+      final todo = remoteTodos.map((e) => e.toTodo).toList().first;
+      // Act
+      final result = await repository.updateTodo(todoFromParams);
+      final resultsFolded =
+          result.fold((l) => ServerFailure(message: l.toString()), (r) => r);
+      // Assert
+      verify(() => mockRemoteDataSource.updateTodo(todoFromParams));
+      expect(result.isRight(), true);
+      expect(resultsFolded, todo);
+      expect(resultsFolded, equals(todo));
+    });
+    test('Should return failure when remote data source fails', () async {
+      // Arrange
+      when(() => mockRemoteDataSource.updateTodo(todoFromParams))
+          .thenThrow(ServerException(message: 'Error'));
+      // Act
+      final result = await repository.updateTodo(todoFromParams);
+      // Assert
+      verify(() => mockRemoteDataSource.updateTodo(todoFromParams));
+      expect(result, equals(Left(ServerFailure(message: 'Error'))));
+    });
+  });
+  group('Delete Todos', () {
+    test(
+        'Should return remote data when call to remote data source is successful',
+        () async {
+      // Arrange
+      const done = 'done';
+      when(() => mockRemoteDataSource.deleteTodo(todoFromParams.id))
+          .thenAnswer((invocation) async => done);
+      // Act
+      final result = await repository.deleteTodo(todoFromParams.id);
+      final resultsFolded =
+          result.fold((l) => ServerFailure(message: l.toString()), (r) => r);
+      // Assert
+      verify(() => mockRemoteDataSource.deleteTodo(todoFromParams.id));
+      expect(result.isRight(), true);
+      expect(resultsFolded, done);
+      expect(resultsFolded, equals(done));
+    });
+    test('Should return failure when remote data source fails', () async {
+      // Arrange
+      when(() => mockRemoteDataSource.deleteTodo(todoFromParams.id))
+          .thenThrow(ServerException(message: 'Error'));
+      // Act
+      final result = await repository.deleteTodo(todoFromParams.id);
+      // Assert
+      verify(() => mockRemoteDataSource.deleteTodo(todoFromParams.id));
       expect(result, equals(Left(ServerFailure(message: 'Error'))));
     });
   });
