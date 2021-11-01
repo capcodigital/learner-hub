@@ -6,12 +6,13 @@ import '/core/colours.dart';
 import '/core/layout_constants.dart';
 import '/core/shared_ui/primary_button.dart';
 import '/core/shared_ui/secondary_button.dart';
-import '/core/shared_ui/skill_chip.dart';
 import '/core/utils/error_messages.dart';
 import '/core/utils/extensions/string_extensions.dart';
 import '/features/user_settings/domain/entities/user.dart';
 import '/features/user_settings/presentation/bloc/user_settings_bloc.dart';
 import '/features/user_settings/presentation/widgets/editable_text_form_field.dart';
+import '/features/user_settings/presentation/widgets/skills/editable_skills.dart';
+import '/features/user_settings/presentation/widgets/skills/skills_controller.dart';
 import 'change_password_page.dart';
 
 class UserSettingsPage extends StatefulWidget {
@@ -30,6 +31,7 @@ class UserSettingsPageState extends State<UserSettingsPage> with CustomAlertDial
   final lastNameController = TextEditingController();
   final jobTitleController = TextEditingController();
   final bioController = TextEditingController();
+  final skillsController = SkillsController();
 
   @override
   void initState() {
@@ -59,8 +61,8 @@ class UserSettingsPageState extends State<UserSettingsPage> with CustomAlertDial
           name: nameController.text,
           lastName: lastNameController.text,
           jobTitle: jobTitleController.text,
-          primarySkills: currentUser.primarySkills,
-          secondarySkills: currentUser.secondarySkills,
+          primarySkills: skillsController.primarySkills,
+          secondarySkills: skillsController.secondarySkills,
           bio: bioController.text,
           email: currentUser.email);
 
@@ -76,6 +78,10 @@ class UserSettingsPageState extends State<UserSettingsPage> with CustomAlertDial
           lastNameController.text = state.user.lastName;
           jobTitleController.text = state.user.jobTitle;
           bioController.text = state.user.bio;
+
+          // Map skills
+          skillsController.primarySkills = state.user.primarySkills;
+          skillsController.secondarySkills = state.user.secondarySkills;
         }
         if (state is UserLoadErrorState) {
           showAlertDialog(context, state.errorMessage, onDismiss: () {
@@ -138,48 +144,14 @@ class UserSettingsPageState extends State<UserSettingsPage> with CustomAlertDial
                         textStyle: Theme.of(context).textTheme.headline3,
                       ),
                       Container(height: LayoutConstants.LARGE_PADDING),
-                      Text(
-                        'Primary Skills',
-                        style: Theme.of(context).textTheme.headline3,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          top: LayoutConstants.SMALL_PADDING,
-                        ),
-                        child: Wrap(
-                          children: state.user.primarySkills
-                              .map((skillName) => SkillChip(
-                                    skill: Skill(name: skillName, isPrimary: true, isSecondary: false),
-                                    onPressed: null,
-                                  ))
-                              .toList(),
-                        ),
-                      ),
-                      Container(height: LayoutConstants.REGULAR_PADDING),
-                      Text(
-                        'Secondary Skills',
-                        style: Theme.of(context).textTheme.headline3,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          top: LayoutConstants.SMALL_PADDING,
-                          bottom: LayoutConstants.REGULAR_PADDING,
-                        ),
-                        child: Wrap(
-                          children: state.user.secondarySkills
-                              .map((skillName) => SkillChip(
-                                    skill: Skill(name: skillName, isPrimary: false, isSecondary: true),
-                                    onPressed: null,
-                                  ))
-                              .toList(),
-                        ),
-                      ),
+                      EditableSkills(isReadOnly: state.isEditing == false, controller: skillsController),
+                      Container(height: LayoutConstants.LARGE_PADDING),
                       const Divider(
                         // Style the divider like the underline of the input fields
                         color: Colors.grey,
                         thickness: 1,
                       ),
-                      Container(height: LayoutConstants.REGULAR_PADDING),
+                      Container(height: LayoutConstants.SMALL_PADDING),
                       Text(
                         'Bio',
                         textAlign: TextAlign.center,

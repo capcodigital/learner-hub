@@ -12,19 +12,22 @@ class EditableTextFormField extends StatelessWidget {
       required this.textStyle,
       this.textAlign = TextAlign.start,
       this.maxLines = 1,
-      this.keyboardType
-      });
+      this.keyboardType});
 
+  // Required fields
   final TextEditingController controller;
   final bool readOnly;
   final TextStyle? textStyle;
 
+  // Optional fields
   final TextAlign textAlign;
   final int? maxLines;
   final TextInputType? keyboardType;
 
-  get editingColour => Colours.ACCENT_COLOR;
-  get readOnlyColour => Colors.grey;
+  // Widget colours
+  get _editingColour => Colours.ACCENT_COLOR;
+  get _readOnlyColour => Colors.grey;
+  get _borderColour => readOnly ? _readOnlyColour : _editingColour;
 
   @override
   Widget build(BuildContext context) {
@@ -36,13 +39,13 @@ class EditableTextFormField extends StatelessWidget {
       textAlign: textAlign,
       maxLines: maxLines,
       keyboardType: keyboardType,
-      cursorColor: editingColour,
+      cursorColor: _editingColour,
       decoration: InputDecoration(
         enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: readOnly ? readOnlyColour : editingColour),
+          borderSide: BorderSide(color: _borderColour),
         ),
         focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: readOnly ? readOnlyColour : editingColour),
+          borderSide: BorderSide(color: _borderColour),
         ),
       ),
     ));
