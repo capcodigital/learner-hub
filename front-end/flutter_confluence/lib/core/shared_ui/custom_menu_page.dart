@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_confluence/core/shared_ui/custom_appbar.dart';
 
 import '/core/constants.dart';
 import '/core/layout_constants.dart';
@@ -8,7 +9,7 @@ import '/core/utils/error_messages.dart';
 import '/core/utils/media_util.dart';
 import '/features/auth/presentation/bloc/auth_bloc.dart';
 import '/features/onboarding/presentation/pages/on_boarding.dart';
-import 'custom_appbar.dart';
+import '/features/user_settings/presentation/pages/user_settings_page.dart';
 
 class CustomMenuPage extends StatefulWidget {
   const CustomMenuPage({Key? key, required this.child}) : super(key: key);
@@ -136,12 +137,17 @@ class CustomDrawer extends StatelessWidget {
                   id: 2,
                   icon: Icons.code,
                 ),
+                MenuButton(
+                  title: 'My Settings',
+                  id: 3,
+                  icon: Icons.settings,
+                ),
                 Expanded(
                   child: Align(
                     alignment: FractionalOffset.bottomCenter,
                     child: MenuButton(
                       icon: Icons.logout,
-                      id: 3,
+                      id: 4,
                       title: 'Logout',
                     ),
                   ),
@@ -181,7 +187,13 @@ class MenuButton extends StatelessWidget {
               print('Tech Radar Pressed');
               break;
             case 3:
-              print('User has logged out');
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const UserSettingsPage(),
+                      fullscreenDialog: true));
+              break;
+            case 4:
               BlocProvider.of<AuthBloc>(context).add(LogoutEvent());
               break;
           }

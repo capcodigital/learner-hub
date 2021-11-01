@@ -140,7 +140,7 @@ class LoginDetailsPageState extends State<LoginDetailsPage>
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Job title cannot be empty';
+                          return 'Password cannot be empty';
                         }
                         if (value != passwordController.text) {
                           return "Passwords don't match";

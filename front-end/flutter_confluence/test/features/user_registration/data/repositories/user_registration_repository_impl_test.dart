@@ -65,13 +65,13 @@ void main() {
         () async {
       // arrange
       when(() => mockDataSource.registerFirebaseUser(any(), any()))
-          .thenThrow(WeakPasswordFailure());
+          .thenThrow(const WeakPasswordFailure());
 
       // act
       final result = await repository.registerFirebaseUser('email', 'password');
 
       // assert
-      expect(result, Left(WeakPasswordFailure()));
+      expect(result, const Left(WeakPasswordFailure()));
     });
   });
 
@@ -105,13 +105,13 @@ void main() {
         () async {
       // arrange
       when(() => mockDataSource.createUser(any()))
-          .thenThrow(AuthFailure('unit test error'));
+          .thenThrow(const AuthFailure('unit test error'));
 
       // act
       final result = await repository.createUser(userRegistration);
 
       // assert
-      expect(result, Left(CreateUserError()));
+      expect(result, const Left(CreateUserError()));
     });
   });
 }

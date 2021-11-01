@@ -34,13 +34,13 @@ void main() {
     'should return a failure when credentials are not valid',
     () async {
       // arrange
-      when(() => mockRepository.loginUser(any(), any())).thenAnswer((_) => Future.value(Left(InvalidEmailFailure())));
+      when(() => mockRepository.loginUser(any(), any())).thenAnswer((_) => Future.value(const Left(InvalidEmailFailure())));
 
       // act
       final result = await useCase(const LoginParams(email: 'test@capco.com', password: '123456'));
 
       // assert
-      expect(result, Left(InvalidEmailFailure()));
+      expect(result, const Left(InvalidEmailFailure()));
     },
   );
 }

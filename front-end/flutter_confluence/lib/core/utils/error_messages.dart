@@ -26,7 +26,7 @@ mixin CustomAlertDialog {
     );
   }
 
-  showAlertDialog(BuildContext dialogContext, String message) {
+  showAlertDialog(BuildContext dialogContext, String message, { Function()? onDismiss}) {
     showPlatformDialog(
       context: dialogContext,
       builder: (_) => PlatformAlertDialog(
@@ -34,7 +34,12 @@ mixin CustomAlertDialog {
         actions: <Widget>[
           PlatformDialogAction(
             child: PlatformText(OK),
-            onPressed: () => Navigator.pop(dialogContext),
+            onPressed: () {
+              Navigator.pop(dialogContext);
+              if (onDismiss != null) {
+                onDismiss();
+              }
+            },
           )
         ],
       ),

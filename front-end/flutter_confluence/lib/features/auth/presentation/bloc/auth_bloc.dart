@@ -65,7 +65,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   String _mapFailureToMessage(Failure failure) {
     if (failure is AuthFailure) {
-      return failure.reason;
+      return failure.message;
     } else {
       return 'Constants.UNKNOWN_ERROR_MSG';
     }

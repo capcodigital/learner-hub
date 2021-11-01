@@ -44,13 +44,13 @@ main() {
 
     test('Should return error from repository when failure', () async {
       // Arrange
-      final error = ServerFailure(message: 'Error');
+      const error = ServerFailure(message: 'Error');
       when(() => mockTodoRepository.createTodo(todoParams))
-          .thenAnswer((invocation) async => Left(error));
+          .thenAnswer((invocation) async => const Left(error));
       // Act
       final result = await usecase(todoParams);
       // Assert
-      expect(result, Left(error));
+      expect(result, const Left(error));
       verify(() => mockTodoRepository.createTodo(todoParams));
       verifyNoMoreInteractions(mockTodoRepository);
     });

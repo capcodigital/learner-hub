@@ -73,7 +73,7 @@ class CloudCertificationsRepositoryImpl
         }
       }
     } on Exception {
-      return Left(ServerFailure(message: Constants.UNKNOWN_ERROR_MSG));
+      return const Left(ServerFailure(message: Constants.UNKNOWN_ERROR_MSG));
     }
   }
 

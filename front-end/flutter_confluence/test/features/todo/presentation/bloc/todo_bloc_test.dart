@@ -119,7 +119,7 @@ void main() {
       'Should emit correct order of states when GetTodos called with failure',
       build: () {
         when(() => mockGetTodos(NoParams())).thenAnswer(
-            (invocation) async => Left(ServerFailure(message: 'Error')));
+            (invocation) async => const Left(ServerFailure(message: 'Error')));
         return bloc;
       },
       act: (_) => bloc.add(GetTodosEvent()),
@@ -158,7 +158,7 @@ void main() {
       'Should emit correct order of states when CreateTodo called with failure',
       build: () {
         when(() => mockCreateTodo(todoParams)).thenAnswer(
-            (invocation) async => Left(ServerFailure(message: 'Error')));
+            (invocation) async => const Left(ServerFailure(message: 'Error')));
         return bloc;
       },
       act: (_) => bloc.add(AddTodoEvent(todo: todoParams)),
@@ -211,7 +211,7 @@ void main() {
       'Should emit correct order of states when UpdateTodo called with failure',
       build: () {
         when(() => mockUpdateTodo(todo)).thenAnswer(
-            (invocation) async => Left(ServerFailure(message: 'Error')));
+            (invocation) async => const Left(ServerFailure(message: 'Error')));
         return bloc;
       },
       act: (_) => bloc.add(UpdateTodoEvent(todo: todo)),
@@ -262,7 +262,7 @@ void main() {
       'Should emit correct order of states when GetTodos called with failure',
       build: () {
         when(() => mockDeleteTodo(todo.id)).thenAnswer(
-            (invocation) async => Left(ServerFailure(message: 'Error')));
+            (invocation) async => const Left(ServerFailure(message: 'Error')));
         return bloc;
       },
       act: (_) => bloc.add(DeleteTodoEvent(todo: todo)),

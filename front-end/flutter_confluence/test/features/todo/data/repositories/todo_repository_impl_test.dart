@@ -90,7 +90,7 @@ void main() {
       final result = await repository.getTodos();
       // Assert
       verify(() => mockRemoteDataSource.getTodos());
-      expect(result, equals(Left(ServerFailure(message: 'Error'))));
+      expect(result, equals(const Left(ServerFailure(message: 'Error'))));
     });
     test('Todos are retrieved from cache when call to remote data source fails',
         () async {
@@ -137,7 +137,7 @@ void main() {
       final result = await repository.createTodo(todoParams);
       // Assert
       verify(() => mockRemoteDataSource.addTodo(todoParams));
-      expect(result, equals(Left(ServerFailure(message: 'Error'))));
+      expect(result, equals(const Left(ServerFailure(message: 'Error'))));
     });
   });
   group('Update Todos', () {
@@ -166,7 +166,7 @@ void main() {
       final result = await repository.updateTodo(todoFromParams);
       // Assert
       verify(() => mockRemoteDataSource.updateTodo(todoFromParams));
-      expect(result, equals(Left(ServerFailure(message: 'Error'))));
+      expect(result, equals(const Left(ServerFailure(message: 'Error'))));
     });
   });
   group('Delete Todos', () {
@@ -195,7 +195,7 @@ void main() {
       final result = await repository.deleteTodo(todoFromParams.id);
       // Assert
       verify(() => mockRemoteDataSource.deleteTodo(todoFromParams.id));
-      expect(result, equals(Left(ServerFailure(message: 'Error'))));
+      expect(result, equals(const Left(ServerFailure(message: 'Error'))));
     });
   });
 }

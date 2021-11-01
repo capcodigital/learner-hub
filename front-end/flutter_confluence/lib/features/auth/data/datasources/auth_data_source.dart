@@ -32,13 +32,13 @@ class FirebaseAuthDataSourceImpl implements AuthDataSource {
       if (firebaseUser != null) {
         return true;
       } else {
-        throw AuthFailure('Is not possible to get the firebase user');
+        throw const AuthFailure('Is not possible to get the firebase user');
       }
     } on firebase.FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        throw InvalidEmailFailure();
+        throw const InvalidEmailFailure();
       } else if (e.code == 'wrong-password') {
-        throw InvalidPasswordFailure();
+        throw const InvalidPasswordFailure();
       } else {
         throw AuthFailure(e.code);
       }

@@ -20,26 +20,31 @@ class Skill extends Equatable {
 }
 
 class SkillChip extends StatelessWidget {
-  const SkillChip({required this.skill, required this.onPressed});
+  const SkillChip({required this.skill, required this.onPressed, this.isLightMode = false});
 
   final Skill skill;
-  final Function(Skill) onPressed;
+  final Function(Skill)? onPressed;
+  final bool isLightMode;
+
+  get _borderColour => isLightMode ? Colours.ALTERNATIVE_TEXT_COLOR : Colours.PRIMARY_TEXT_COLOR;
+  get _backgroundColour => isLightMode ? Colours.ALTERNATIVE_COLOR : Colours.PRIMARY_COLOR;
+  get _isSelected => skill.isPrimary || skill.isSecondary;
+  get _textColour => isLightMode && _isSelected ? Colours.PRIMARY_TEXT_COLOR : Colours.ALTERNATIVE_TEXT_COLOR;
 
   @override
   Widget build(BuildContext context) {
     return ActionChip(
-      side: const BorderSide(width: 1, color: Colours.PRIMARY_TEXT_COLOR),
+      side: BorderSide(width: 1, color: _borderColour),
       backgroundColor: skill.isPrimary
           ? Colours.ACCENT_2_COLOR
           : skill.isSecondary
               ? Colours.ACCENT_3_COLOR
-              : Colours.PRIMARY_COLOR,
-      label: Text(
-        skill.name,
-        style: Theme.of(context).textTheme.button,
-      ),
+              : _backgroundColour,
+      label: Text(skill.name, style: Theme.of(context).textTheme.button?.copyWith(color: _textColour)),
       onPressed: () {
-        onPressed(skill);
+        if (onPressed != null) {
+          onPressed!(skill);
+        }
       },
     );
   }

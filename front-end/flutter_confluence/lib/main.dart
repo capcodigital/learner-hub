@@ -19,6 +19,7 @@ import '/features/onboarding/presentation/pages/login_page.dart';
 import '/features/onboarding/presentation/pages/on_boarding.dart';
 import '/features/user_registration/presentation/bloc/user_registration_bloc.dart';
 import '/features/user_registration/presentation/pages/user_details_page.dart';
+import '/features/user_settings/presentation/bloc/user_settings_bloc.dart';
 import '/injection_container.dart';
 import '/injection_container.dart' as di;
 
@@ -55,7 +56,9 @@ class MyApp extends StatelessWidget {
             create: (_) => sl<UserRegistrationBloc>(),
           ),
           BlocProvider<TodoBloc>(
-            create: (_) => sl<TodoBloc>()..add(GetTodosEvent()),
+              create: (_) => sl<TodoBloc>()..add(GetTodosEvent())),
+          BlocProvider<UserSettingsBloc>(
+            create: (_) => sl<UserSettingsBloc>(),
           )
         ],
         child: MaterialApp(
