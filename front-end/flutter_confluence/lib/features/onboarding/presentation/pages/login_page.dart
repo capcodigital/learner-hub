@@ -3,15 +3,13 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '/core/colours.dart';
-import '/core/constants.dart';
 import '/core/layout_constants.dart';
 import '/core/shared_ui/app_drawer.dart';
-import '/core/shared_ui/custom_appbar.dart';
+import '/core/shared_ui/custom_bottom_nav.dart';
 import '/core/shared_ui/primary_button.dart';
 import '/core/utils/error_messages.dart';
 import '/core/utils/validators/email_validator.dart';
 import '/features/auth/presentation/bloc/auth_bloc.dart';
-import '/features/certifications/presentation/pages/home_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -42,8 +40,7 @@ class LoginPageState extends State<LoginPage> with CustomAlertDialog {
         final email = emailController.text;
         final password = passwordController.text;
 
-        BlocProvider.of<AuthBloc>(context)
-            .add(LoginEvent(email: email, password: password));
+        BlocProvider.of<AuthBloc>(context).add(LoginEvent(email: email, password: password));
       }
     }
 
@@ -51,14 +48,7 @@ class LoginPageState extends State<LoginPage> with CustomAlertDialog {
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => const AppDrawer(
-                child: HomePage(
-              appBar: CustomAppBar(
-                icon: Icons.menu,
-                color: Constants.JIRA_COLOR,
-                text: 'Cloud Certifications',
-              ),
-            )),
+            builder: (context) => const AppDrawer(child: CustomBottomNavBar()),
           ));
     }
 
@@ -86,16 +76,12 @@ class LoginPageState extends State<LoginPage> with CustomAlertDialog {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text('Welcome back',
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.headline2),
+                  Text('Welcome back', textAlign: TextAlign.center, style: Theme.of(context).textTheme.headline2),
                   Padding(
                     padding: const EdgeInsets.only(
-                        top: LayoutConstants.EXTRA_SMALL_PADDING,
-                        bottom: LayoutConstants.LARGE_PADDING),
+                        top: LayoutConstants.EXTRA_SMALL_PADDING, bottom: LayoutConstants.LARGE_PADDING),
                     child: Text('To access your account, log in below',
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.bodyText2),
+                        textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyText2),
                   ),
                   TextFormField(
                     controller: emailController,
