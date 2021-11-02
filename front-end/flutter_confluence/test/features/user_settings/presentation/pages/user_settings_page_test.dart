@@ -15,8 +15,8 @@ class TestEvent extends UserSettingsEvent {}
 
 void main() {
   setUpAll(() {
-    registerFallbackValue<UserSettingsState>(UserSettingsInitial());
-    registerFallbackValue<UserSettingsEvent>(TestEvent());
+    registerFallbackValue(UserSettingsInitial());
+    registerFallbackValue(TestEvent());
   });
 
   testWidgets('Change password page should show expected widgets', (tester) async {
