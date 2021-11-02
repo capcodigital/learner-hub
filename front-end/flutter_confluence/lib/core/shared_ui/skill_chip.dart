@@ -4,7 +4,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_confluence/core/colours.dart';
 
 class Skill extends Equatable {
-  const Skill({required this.name, required this.isPrimary, required this.isSecondary});
+  const Skill(
+      {required this.name, required this.isPrimary, required this.isSecondary});
 
   final String name;
   final bool isPrimary;
@@ -15,21 +16,28 @@ class Skill extends Equatable {
 
   Skill copyWith({String? name, bool? isPrimary, bool? isSecondary}) {
     return Skill(
-        name: name ?? this.name, isPrimary: isPrimary ?? this.isPrimary, isSecondary: isSecondary ?? this.isSecondary);
+        name: name ?? this.name,
+        isPrimary: isPrimary ?? this.isPrimary,
+        isSecondary: isSecondary ?? this.isSecondary);
   }
 }
 
 class SkillChip extends StatelessWidget {
-  const SkillChip({required this.skill, required this.onPressed, this.isLightMode = false});
+  const SkillChip(
+      {required this.skill, required this.onPressed, this.isLightMode = false});
 
   final Skill skill;
   final Function(Skill)? onPressed;
   final bool isLightMode;
 
-  get _borderColour => isLightMode ? Colours.ALTERNATIVE_TEXT_COLOR : Colours.PRIMARY_TEXT_COLOR;
-  get _backgroundColour => isLightMode ? Colours.ALTERNATIVE_COLOR : Colours.PRIMARY_COLOR;
+  get _borderColour =>
+      isLightMode ? Colours.ALTERNATIVE_TEXT_COLOR : Colours.PRIMARY_TEXT_COLOR;
+  get _backgroundColour =>
+      isLightMode ? Colours.ALTERNATIVE_COLOR : Colours.PRIMARY_COLOR;
   get _isSelected => skill.isPrimary || skill.isSecondary;
-  get _textColour => isLightMode && _isSelected ? Colours.PRIMARY_TEXT_COLOR : Colours.ALTERNATIVE_TEXT_COLOR;
+  get _textColour => isLightMode && _isSelected == false
+      ? Colours.ALTERNATIVE_TEXT_COLOR
+      : Colours.PRIMARY_TEXT_COLOR;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +48,9 @@ class SkillChip extends StatelessWidget {
           : skill.isSecondary
               ? Colours.ACCENT_3_COLOR
               : _backgroundColour,
-      label: Text(skill.name, style: Theme.of(context).textTheme.button?.copyWith(color: _textColour)),
+      label: Text(skill.name,
+          style:
+              Theme.of(context).textTheme.button?.copyWith(color: _textColour)),
       onPressed: () {
         if (onPressed != null) {
           onPressed!(skill);
