@@ -16,12 +16,11 @@ class MockCertificationBloc
     implements CloudCertificationBloc {}
 
 void main() {
-  setUp(() {
+  setUpAll(() {
     // Tests fails if not call registerFallbackValue for State and Event.
     // This requires Mocktail
-    mocktail.registerFallbackValue<CloudCertificationState>(Empty());
-    mocktail.registerFallbackValue<CloudCertificationEvent>(
-        GetInProgressCertificationsEvent());
+    mocktail.registerFallbackValue(Empty());
+    mocktail.registerFallbackValue(GetInProgressCertificationsEvent());
   });
 
   testWidgets('Home Page shows Loading Widget when bloc emits Loading',
