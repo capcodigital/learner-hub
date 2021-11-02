@@ -14,8 +14,8 @@ class TestAuthEvent extends AuthEvent {}
 
 void main() {
   setUpAll(() {
-    registerFallbackValue<AuthState>(AuthInitial());
-    registerFallbackValue<AuthEvent>(TestAuthEvent());
+    registerFallbackValue(AuthInitial());
+    registerFallbackValue(TestAuthEvent());
   });
 
   testWidgets('Login Page should show expected widgets', (tester) async {

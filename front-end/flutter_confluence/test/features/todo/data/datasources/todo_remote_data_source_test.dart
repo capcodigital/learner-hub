@@ -38,7 +38,7 @@ main() {
     mockFirebaseAuth = MockFirebaseAuth();
     remoteDataSourceImpl =
         TodoRemoteDataSourceImpl(auth: mockFirebaseAuth, client: mockClient);
-    registerFallbackValue<Uri>(Uri());
+    registerFallbackValue(Uri());
   });
 
   void _setUpMockHttpClientWithGet(String fixtureName, int statusCode) {

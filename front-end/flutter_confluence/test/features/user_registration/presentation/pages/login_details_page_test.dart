@@ -17,8 +17,8 @@ class TestAuthEvent extends UserRegistrationEvent {}
 
 void main() {
   setUpAll(() {
-    registerFallbackValue<UserRegistrationState>(UserRegistrationInitial());
-    registerFallbackValue<UserRegistrationEvent>(TestAuthEvent());
+    registerFallbackValue(UserRegistrationInitial());
+    registerFallbackValue(TestAuthEvent());
   });
 
   testWidgets('Login Details Page should show expected widgets',

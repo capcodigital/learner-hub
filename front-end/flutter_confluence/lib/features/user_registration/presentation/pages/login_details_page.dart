@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_confluence/core/constants.dart';
 import 'package:flutter_confluence/core/shared_ui/custom_bottom_nav.dart';
 
 import '/core/colours.dart';
-import '/core/constants.dart';
 import '/core/layout_constants.dart';
+import '/core/shared_ui/custom_bottom_nav.dart';
 import '/core/shared_ui/primary_button.dart';
 import '/core/utils/error_messages.dart';
 import '/core/utils/validators/email_validator.dart';
@@ -54,12 +55,11 @@ class LoginDetailsPageState extends State<LoginDetailsPage>
 
     void navigateToHome() {
       Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-            builder: (context) => const CustomMenuPage(
-                  child: CustomBottomNavBar(),
-                )),
-      );
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+                const CustomMenuPage(child: CustomBottomNavBar()),
+          ));
     }
 
     return Scaffold(

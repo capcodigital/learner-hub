@@ -8,13 +8,8 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '/core/components/preloader.dart';
-import '/core/constants.dart';
-import '/core/shared_ui/custom_appbar.dart';
 import '/core/themes.dart';
 import '/features/auth/presentation/bloc/auth_bloc.dart';
-import '/features/certifications/data/models/cloud_certification_model.dart';
-import '/features/certifications/presentation/bloc/cloud_certification_bloc.dart';
-import '/features/certifications/presentation/pages/home_page.dart';
 import '/features/onboarding/presentation/pages/login_page.dart';
 import '/features/onboarding/presentation/pages/on_boarding.dart';
 import '/features/user_registration/presentation/bloc/user_registration_bloc.dart';
@@ -27,7 +22,6 @@ import '/injection_container.dart' as di;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
-  Hive.registerAdapter(CloudCertificationModelAdapter());
   Hive.registerAdapter(TodoModelAdapter());
   await Firebase.initializeApp();
   // Initialize Local Auth Emulator if necessary
@@ -48,10 +42,6 @@ class MyApp extends StatelessWidget {
           BlocProvider<AuthBloc>(
             create: (_) => sl<AuthBloc>()..add(CheckAuthEvent()),
           ),
-          BlocProvider<CloudCertificationBloc>(
-            create: (_) => sl<CloudCertificationBloc>()
-              ..add(GetInProgressCertificationsEvent()),
-          ),
           BlocProvider<UserRegistrationBloc>(
             create: (_) => sl<UserRegistrationBloc>(),
           ),
@@ -66,13 +56,6 @@ class MyApp extends StatelessWidget {
             title: 'Flutter Demo',
             theme: buildAppTheme(),
             routes: {
-              HomePage.route: (context) => const HomePage(
-                    appBar: CustomAppBar(
-                      icon: Icons.menu,
-                      text: 'Cloud Certification',
-                      color: Constants.JIRA_COLOR,
-                    ),
-                  ),
               OnBoardingPage.route: (context) => OnBoardingPage(),
               LoginPage.route: (context) => const LoginPage(),
               UserDetailsPage.route: (context) => const UserDetailsPage(),

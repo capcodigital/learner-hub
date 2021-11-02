@@ -24,15 +24,6 @@ import '/features/auth/domain/usecases/is_session_valid.dart';
 import '/features/auth/domain/usecases/login.dart';
 import '/features/auth/domain/usecases/logout.dart';
 import '/features/auth/presentation/bloc/auth_bloc.dart';
-import '/features/certifications/data/datasources/certification_hive_helper.dart';
-import '/features/certifications/data/datasources/cloud_certification_local_data_source.dart';
-import '/features/certifications/data/datasources/cloud_certification_remote_data_source.dart';
-import '/features/certifications/data/repositories/cloud_certifications_repository_impl.dart';
-import '/features/certifications/domain/repositories/cloud_certification_repository.dart';
-import '/features/certifications/domain/usecases/get_completed_certifications.dart';
-import '/features/certifications/domain/usecases/get_in_progress_certifications.dart';
-import '/features/certifications/domain/usecases/search_certifications.dart';
-import '/features/certifications/presentation/bloc/cloud_certification_bloc.dart';
 import '/features/user_registration/data/datasources/register_user_data_source.dart';
 import '/features/user_registration/data/repositories/user_registration_repository_impl.dart';
 import '/features/user_registration/domain/repositories/user_registration_repository.dart';
@@ -49,26 +40,6 @@ import '/features/user_settings/presentation/bloc/user_settings_bloc.dart';
 final sl = GetIt.instance;
 
 Future<void> init() async {
-  sl.registerFactory(() => CloudCertificationBloc(
-      completedUseCase: sl(), inProgressUseCase: sl(), searchUserCase: sl()));
-  sl.registerLazySingleton(() => GetCompletedCertifications(sl()));
-  sl.registerLazySingleton(() => GetInProgressCertifications(sl()));
-  sl.registerLazySingleton(() => SearchCertifications(sl()));
-  sl.registerLazySingleton(() => CertificationHiveHelper());
-
-  sl.registerLazySingleton<CloudCertificationRepository>(
-    () => CloudCertificationsRepositoryImpl(
-        remoteDataSource: sl(), localDataSource: sl(), networkInfo: sl()),
-  );
-
-  sl.registerLazySingleton<CloudCertificationRemoteDataSource>(
-    () => CloudCertificationRemoteDataSourceImpl(client: sl()),
-  );
-
-  sl.registerLazySingleton<CloudCertificationLocalDataSource>(
-    () => CloudCertificationLocalDataSourceImpl(hiveHelper: sl()),
-  );
-
   sl.registerLazySingleton<NetworkInfo>(
     () => NetworkInfoImpl(sl()),
   );
