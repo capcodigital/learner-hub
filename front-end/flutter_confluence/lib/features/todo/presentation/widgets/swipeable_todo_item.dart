@@ -4,6 +4,7 @@ import 'package:flutter_confluence/core/utils/media_util.dart';
 import 'package:flutter_confluence/features/todo/domain/entities/todo.dart';
 import 'package:flutter_confluence/features/todo/presentation/widgets/circular_todo_icon.dart';
 
+/// Our `SwipeableTodoItem` is of type `Dismissible` to enable horizontal swiping.
 class SwipeableTodoItem extends StatefulWidget {
   const SwipeableTodoItem({
     Key? key,

@@ -12,6 +12,18 @@ import 'package:meta/meta.dart';
 part 'todo_event.dart';
 part 'todo_state.dart';
 
+/// Our BLoC class for handling events.
+///
+/// Our BLoC contains 4 unique events:
+/// 1. Adding a todo
+/// 2. Getting all todos
+/// 3. Updating a todo
+/// 4. Deleting a todo
+///
+/// Our class also holds a `List<Todo> todos`.
+/// This is so that after every event is calculated and ready to be emitted
+/// we don't need to call `GetTodosEvent`. We can simply update our array and
+/// emit our `TodoLoadedSuccess` state. This is done for performance reasons.
 class TodoBloc extends Bloc<TodoEvent, TodoState> {
   TodoBloc(
       {required this.createTodoUsecase,

@@ -7,6 +7,16 @@ import 'package:flutter_confluence/features/todo/presentation/bloc/todo_bloc.dar
 import 'package:flutter_confluence/features/todo/presentation/pages/todo_detail_page.dart';
 import 'package:flutter_confluence/features/todo/presentation/widgets/swipeable_todo_item.dart';
 
+/// Our root page of the todo flow.
+/// This page is the beginning of our todo flow, where upon landing,
+/// the user will be presented with their list of todos,
+///  either `in progress` or `done`.
+///
+/// The options that are given to users on this page are:
+/// 1. Add a new todo.
+/// 2. Delete an existing todo.
+/// 3. Update an exisitng todo.
+/// 4. Mark a todo as `done`. (If on the `in progress` tab).
 class TodoPage extends StatefulWidget {
   const TodoPage({Key? key}) : super(key: key);
 

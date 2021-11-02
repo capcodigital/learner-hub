@@ -2,6 +2,11 @@ import 'package:flutter_confluence/core/error/custom_exceptions.dart';
 import 'package:flutter_confluence/features/todo/data/models/todo_hive_helper.dart';
 import 'package:flutter_confluence/features/todo/data/models/todo_model.dart';
 
+/// Our `TodoLocalDataSource` abstraction class.
+///
+/// This abstraction will be implemented in both `TodoLocalDataSourceImpl` and
+/// `TodoHiveHelperImpl`, since they both require the same methods.
+
 abstract class TodoLocalDataSource {
   Future<List<TodoModel>> getTodos();
   saveTodos(List<TodoModel> todos);
