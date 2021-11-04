@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class TechRadarView extends StatefulWidget {
@@ -41,14 +42,19 @@ class TechRadarViewState extends State<TechRadarView> {
           onProgress: (int progress) {
             print('WebView is loading (progress : $progress%)');
           },
-          navigationDelegate: (NavigationRequest request) {
+          navigationDelegate: (NavigationRequest request) async {
             if (request.url
                 .startsWith('https://master.d3qm5n59wrk3b.amplifyapp.com/')) {
               print('allowing navigation to $request}');
               return NavigationDecision.navigate;
+              // }
+              // if (await canLaunch(request.url)) {
+              //   print('launching $request in external web browser');
+              //   await launch(request.url);
+              //   return NavigationDecision.prevent;
+            } else {
+              throw 'could not launch $request';
             }
-            print('blocking navigation to $request');
-            return NavigationDecision.prevent;
           },
           onPageStarted: (String url) {
             print('Page started loading: $url');
