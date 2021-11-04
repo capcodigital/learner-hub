@@ -42,19 +42,8 @@ class TechRadarViewState extends State<TechRadarView> {
           onProgress: (int progress) {
             print('WebView is loading (progress : $progress%)');
           },
-          navigationDelegate: (NavigationRequest request) async {
-            if (request.url
-                .startsWith('https://master.d3qm5n59wrk3b.amplifyapp.com/')) {
-              print('allowing navigation to $request}');
-              return NavigationDecision.navigate;
-              // }
-              // if (await canLaunch(request.url)) {
-              //   print('launching $request in external web browser');
-              //   await launch(request.url);
-              //   return NavigationDecision.prevent;
-            } else {
-              throw 'could not launch $request';
-            }
+          navigationDelegate: (NavigationRequest request) {
+            return _handleRequest(request);
           },
           onPageStarted: (String url) {
             print('Page started loading: $url');
@@ -64,5 +53,16 @@ class TechRadarViewState extends State<TechRadarView> {
           },
           gestureNavigationEnabled: false,
         )));
+  }
+
+  NavigationDecision _handleRequest(NavigationRequest request) {
+    if (request.url
+        .startsWith('https://master.d3qm5n59wrk3b.amplifyapp.com/')) {
+      print('allowing navigation to $request}');
+      return NavigationDecision.navigate;
+    } else {
+      launch(request.url);
+      return NavigationDecision.prevent;
+    }
   }
 }
