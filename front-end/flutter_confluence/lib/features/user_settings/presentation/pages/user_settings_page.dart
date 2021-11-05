@@ -207,7 +207,6 @@ class UserSettingsPageState extends State<UserSettingsPage>
                       ),
                       Container(height: LayoutConstants.SMALL_PADDING),
                       PrimaryButton(
-                        color: Colours.ACCENT_COLOR,
                         text: 'Save',
                         onPressed: () {
                           onSaveChanges(state.user);
