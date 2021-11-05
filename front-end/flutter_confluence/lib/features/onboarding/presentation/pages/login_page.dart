@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_confluence/core/constants.dart';
 import 'package:flutter_confluence/core/shared_ui/custom_bottom_nav.dart';
 import 'package:flutter_confluence/core/shared_ui/custom_menu_page.dart';
 
@@ -128,7 +127,6 @@ class LoginPageState extends State<LoginPage> with CustomAlertDialog {
                       child: PrimaryButton(
                         text: 'Log in',
                         onPressed: onLogin,
-                        color: Constants.ACCENT_COLOR,
                       ),
                     ),
                   ),

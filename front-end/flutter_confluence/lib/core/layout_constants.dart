@@ -25,7 +25,6 @@ class LayoutConstants {
   static const SMALL_SCALE = 0.16;
   static const REGULAR_SCALE = 0.24;
   static const LARGE_SCALE = 0.32;
-  static const MID_HEIGHT = 0.48;
   static const EXTRA_LARGE_SCALE = 0.64;
   static const X_EXTRA_LARGE_SCALE = 0.72;
   static const XX_EXTRA_LARGE_SCALE = 0.80;

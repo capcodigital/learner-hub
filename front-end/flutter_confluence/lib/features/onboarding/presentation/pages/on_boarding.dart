@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_confluence/core/constants.dart';
+import 'package:flutter_confluence/core/shared_ui/custom_menu_page.dart';
 
 import '/core/colours.dart';
 import '/core/layout_constants.dart';
@@ -12,7 +12,6 @@ import '/core/shared_ui/primary_button.dart';
 import '/core/utils/media_util.dart';
 import '/features/onboarding/presentation/widgets/onboarding_carousel.dart';
 import '/features/user_registration/presentation/pages/user_details_page.dart';
-import '../../../../core/shared_ui/custom_menu_page.dart';
 import 'login_page.dart';
 
 class OnBoardingPage extends StatelessWidget {
@@ -68,7 +67,6 @@ class OnBoardingPage extends StatelessWidget {
                 vertical: LayoutConstants.LARGE_PADDING,
                 horizontal: LayoutConstants.SMALL_PADDING),
             child: PrimaryButton(
-                color: Constants.ACCENT_COLOR,
                 text: 'Log in',
                 onPressed: () {
                   login(context);

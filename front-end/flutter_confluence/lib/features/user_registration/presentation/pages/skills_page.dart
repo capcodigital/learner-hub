@@ -82,7 +82,8 @@ class _SkillsPageState extends State<SkillsPage> {
           .toList();
 
       final navParameters = widget.navParameters
-        ..skills = Skills(primarySkills: primarySkill, secondarySkills: secondarySkills);
+        ..skills = Skills(
+            primarySkills: primarySkill, secondarySkills: secondarySkills);
 
       Navigator.push(
           context,
@@ -151,7 +152,6 @@ class _SkillsPageState extends State<SkillsPage> {
                     onPressed: () {
                       onNext();
                     },
-                    color: Constants.ACCENT_COLOR,
                   ),
                 ),
               ],

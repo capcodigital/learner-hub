@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_confluence/core/colours.dart';
 import 'package:flutter_confluence/core/layout_constants.dart';
 import 'package:flutter_confluence/core/shared_ui/primary_button.dart';
 import 'package:flutter_confluence/features/todo/domain/entities/todo.dart';
@@ -105,7 +106,7 @@ class _TodoPageState extends State<TodoPage> {
           final todos =
               inProgress ? state.inProgressTodos : state.completedTodos;
           return RefreshIndicator(
-            color: Colors.pink,
+            color: Colours.ACCENT_COLOR,
             backgroundColor: Colors.transparent,
             onRefresh: () async =>
                 BlocProvider.of<TodoBloc>(context).add(GetTodosEvent()),

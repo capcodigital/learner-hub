@@ -143,7 +143,6 @@ class ChangePasswordPageState extends State<ChangePasswordPage>
                                 child: PrimaryButton(
                                   text: 'Update Password',
                                   onPressed: onUpdatePassword,
-                                  color: Colours.ACCENT_COLOR,
                                 ))),
                       ],
                     ),

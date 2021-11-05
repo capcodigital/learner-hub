@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_confluence/core/constants.dart';
 
 import '/core/colours.dart';
 import '/core/layout_constants.dart';
@@ -130,7 +129,6 @@ class UserDetailsPageState extends State<UserDetailsPage> {
                       onPressed: () {
                         onNext();
                       },
-                      color: Constants.ACCENT_COLOR,
                     ),
                   ),
                 ),

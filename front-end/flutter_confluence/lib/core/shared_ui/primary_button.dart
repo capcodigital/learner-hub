@@ -8,7 +8,7 @@ class PrimaryButton extends StatelessWidget {
   const PrimaryButton(
       {required this.text,
       required this.onPressed,
-      required this.color,
+      this.color = Colours.ACCENT_COLOR,
       this.borderColor,
       this.isEnabled = true});
 

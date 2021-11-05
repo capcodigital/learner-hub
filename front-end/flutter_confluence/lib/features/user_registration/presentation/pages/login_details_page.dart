@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_confluence/core/constants.dart';
 import 'package:flutter_confluence/core/shared_ui/custom_bottom_nav.dart';
 
 import '/core/colours.dart';
@@ -153,7 +152,6 @@ class LoginDetailsPageState extends State<LoginDetailsPage>
                           child: PrimaryButton(
                             text: 'Done',
                             onPressed: onDone,
-                            color: Constants.ACCENT_COLOR,
                           ))),
                 ],
               ),

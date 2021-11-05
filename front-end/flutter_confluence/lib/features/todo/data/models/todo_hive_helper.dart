@@ -14,7 +14,6 @@ class TodoHiveHelperImpl implements TodoLocalDataSource {
   Future<void> saveTodos(List<TodoModel> todos) async {
     final box = await Hive.openBox<TodoModel>('todos');
     box.clear();
-    // ignore: prefer_foreach
     for (final todo in todos) {
       box.add(todo);
     }

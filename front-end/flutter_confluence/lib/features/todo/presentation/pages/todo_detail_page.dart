@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_confluence/core/constants.dart';
 import 'package:flutter_confluence/core/layout_constants.dart';
 import 'package:flutter_confluence/core/shared_ui/primary_button.dart';
 import 'package:flutter_confluence/features/todo/domain/entities/todo.dart';
@@ -133,9 +132,9 @@ class _TodoDetailPageState extends State<TodoDetailPage> {
                     height: LayoutConstants.REGULAR_PADDING,
                   ),
                   PrimaryButton(
-                      text: _isInEditingMode ? 'Update' : 'Add',
-                      onPressed: _isButtonDisabled ? null : save,
-                      color: Constants.ACCENT_COLOR),
+                    text: _isInEditingMode ? 'Update' : 'Add',
+                    onPressed: _isButtonDisabled ? null : save,
+                  ),
                 ],
               ),
             ),
