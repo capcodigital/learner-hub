@@ -1,6 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_confluence/core/ui/tech_radar_view.dart';
+import 'package:flutter_confluence/features/todo/data/models/todo_model.dart';
+import 'package:flutter_confluence/features/todo/presentation/bloc/todo_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -19,6 +22,7 @@ import '/injection_container.dart' as di;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
+  Hive.registerAdapter(TodoModelAdapter());
   await Firebase.initializeApp();
   // Initialize Local Auth Emulator if necessary
   // await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
@@ -41,6 +45,8 @@ class MyApp extends StatelessWidget {
           BlocProvider<UserRegistrationBloc>(
             create: (_) => sl<UserRegistrationBloc>(),
           ),
+          BlocProvider<TodoBloc>(
+              create: (_) => sl<TodoBloc>()..add(GetTodosEvent())),
           BlocProvider<UserSettingsBloc>(
             create: (_) => sl<UserSettingsBloc>(),
           )
@@ -53,6 +59,7 @@ class MyApp extends StatelessWidget {
               OnBoardingPage.route: (context) => OnBoardingPage(),
               LoginPage.route: (context) => const LoginPage(),
               UserDetailsPage.route: (context) => const UserDetailsPage(),
+              WebViewExample.route: (context) => const WebViewExample()
             },
             home: PreLoadWidget()));
   }

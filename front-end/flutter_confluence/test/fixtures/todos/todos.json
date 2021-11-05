@@ -1,0 +1,40 @@
+{
+    "status": "success",
+    "data": [
+      {
+        "id": "1",
+        "userId": "1",
+        "title": "Book the certification exam",
+        "content": "It needs to be booked from the oficial website and then claim the expenses back",
+        "isCompleted": false
+      },
+      {
+        "id": "2",
+        "userId": "2",
+        "title": "Book the certification exam",
+        "content": "It needs to be booked from the oficial website and then claim the expenses back",
+        "isCompleted": false
+      },
+      {
+        "id": "3",
+        "userId": "3",
+        "title": "Book the certification exam",
+        "content": "It needs to be booked from the oficial website and then claim the expenses back",
+        "isCompleted": false
+      },
+      {
+        "id": "4",
+        "userId": "4",
+        "title": "Book the certification exam",
+        "content": "It needs to be booked from the oficial website and then claim the expenses back",
+        "isCompleted": true
+      },
+      {
+        "id": "5",
+        "userId": "5",
+        "title": "Book the certification exam",
+        "content": "It needs to be booked from the oficial website and then claim the expenses back",
+        "isCompleted": true
+      }
+    ]
+  }

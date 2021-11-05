@@ -1,33 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_confluence/core/shared_ui/custom_appbar.dart';
 
 import '/core/constants.dart';
 import '/core/layout_constants.dart';
-import '/core/shared_ui/custom_appbar.dart';
+import '/core/ui/tech_radar_view.dart';
 import '/core/utils/error_messages.dart';
 import '/core/utils/media_util.dart';
 import '/features/auth/presentation/bloc/auth_bloc.dart';
 import '/features/onboarding/presentation/pages/on_boarding.dart';
 import '/features/user_settings/presentation/pages/user_settings_page.dart';
 
-class AppDrawer extends StatefulWidget {
-  const AppDrawer({Key? key, required this.child}) : super(key: key);
+class CustomMenuPage extends StatefulWidget {
+  const CustomMenuPage({Key? key, required this.child}) : super(key: key);
   final Widget child;
 
-  static AppDrawerState? of(BuildContext context) => context.findAncestorStateOfType<AppDrawerState>();
+  static CustomMenuPageState? of(BuildContext context) =>
+      context.findAncestorStateOfType<CustomMenuPageState>();
 
   @override
-  AppDrawerState createState() => AppDrawerState();
+  CustomMenuPageState createState() => CustomMenuPageState();
 }
 
-class AppDrawerState extends State<AppDrawer> with SingleTickerProviderStateMixin, CustomAlertDialog {
+class CustomMenuPageState extends State<CustomMenuPage>
+    with SingleTickerProviderStateMixin, CustomAlertDialog {
   static Duration duration = const Duration(milliseconds: 300);
   late AnimationController _controller;
 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(vsync: this, duration: AppDrawerState.duration);
+    _controller = AnimationController(
+        vsync: this, duration: CustomMenuPageState.duration);
   }
 
   @override
@@ -94,7 +98,8 @@ class CustomDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final MediaQueriesImpl mediaQueries = MediaQueriesImpl(buildContext: context);
+    final MediaQueriesImpl mediaQueries =
+        MediaQueriesImpl(buildContext: context);
     return Scaffold(
       appBar: const CustomAppBar(
         text: 'Menu',
@@ -103,7 +108,8 @@ class CustomDrawer extends StatelessWidget {
       ),
       backgroundColor: Colors.black,
       body: Container(
-        height: mediaQueries.applyHeight(context, LayoutConstants.EXTRA_LARGE_SCALE),
+        height: mediaQueries.applyHeight(
+            context, LayoutConstants.EXTRA_LARGE_SCALE),
         color: Colors.black,
         child: SafeArea(
           child: Theme(
@@ -114,7 +120,8 @@ class CustomDrawer extends StatelessWidget {
                 Padding(
                     padding: EdgeInsets.only(
                         top: LayoutConstants.APP_DRAWER_LOGO_VERTICAL_PADDING,
-                        bottom: LayoutConstants.APP_DRAWER_LOGO_VERTICAL_PADDING,
+                        bottom:
+                            LayoutConstants.APP_DRAWER_LOGO_VERTICAL_PADDING,
                         right: 0,
                         left: LayoutConstants.APP_DRAWER_LOGO_LEFT_PADDING),
                     child: Image(
@@ -176,11 +183,15 @@ class MenuButton extends StatelessWidget {
               print('My Profile pressed');
               break;
             case 2:
-              print('Standards pressed');
+              Navigator.pushNamed(context, WebViewExample.route);
+              print('Tech Radar Pressed');
               break;
             case 3:
               Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => const UserSettingsPage(), fullscreenDialog: true));
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const UserSettingsPage(),
+                      fullscreenDialog: true));
               break;
             case 4:
               BlocProvider.of<AuthBloc>(context).add(LogoutEvent());

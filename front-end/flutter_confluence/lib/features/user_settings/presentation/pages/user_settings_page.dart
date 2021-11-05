@@ -26,7 +26,8 @@ class UserSettingsPage extends StatefulWidget {
   }
 }
 
-class UserSettingsPageState extends State<UserSettingsPage> with CustomAlertDialog {
+class UserSettingsPageState extends State<UserSettingsPage>
+    with CustomAlertDialog {
   final nameController = TextEditingController();
   final lastNameController = TextEditingController();
   final jobTitleController = TextEditingController();
@@ -53,7 +54,8 @@ class UserSettingsPageState extends State<UserSettingsPage> with CustomAlertDial
     }
 
     void onChangePassword() {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => const ChangePasswordPage()));
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => const ChangePasswordPage()));
     }
 
     void onSaveChanges(User currentUser) {
@@ -66,7 +68,8 @@ class UserSettingsPageState extends State<UserSettingsPage> with CustomAlertDial
           bio: bioController.text,
           email: currentUser.email);
 
-      BlocProvider.of<UserSettingsBloc>(context).add(SaveChangesEvent(user: newUser));
+      BlocProvider.of<UserSettingsBloc>(context)
+          .add(SaveChangesEvent(user: newUser));
     }
 
     return BlocConsumer<UserSettingsBloc, UserSettingsState>(
@@ -98,7 +101,10 @@ class UserSettingsPageState extends State<UserSettingsPage> with CustomAlertDial
             actions: [
               Visibility(
                   visible: state.isEditing == false,
-                  child: IconButton(icon: Image.asset('assets/ic_edit.png'), tooltip: 'Edit', onPressed: onStartEdit))
+                  child: IconButton(
+                      icon: Image.asset('assets/ic_edit.png'),
+                      tooltip: 'Edit',
+                      onPressed: onStartEdit))
             ],
             title: Text(
               'Settings',
@@ -144,7 +150,9 @@ class UserSettingsPageState extends State<UserSettingsPage> with CustomAlertDial
                         textStyle: Theme.of(context).textTheme.headline3,
                       ),
                       Container(height: LayoutConstants.LARGE_PADDING),
-                      EditableSkills(isReadOnly: state.isEditing == false, controller: skillsController),
+                      EditableSkills(
+                          isReadOnly: state.isEditing == false,
+                          controller: skillsController),
                       Container(height: LayoutConstants.LARGE_PADDING),
                       const Divider(
                         // Style the divider like the underline of the input fields
@@ -166,7 +174,8 @@ class UserSettingsPageState extends State<UserSettingsPage> with CustomAlertDial
                         keyboardType: TextInputType.multiline,
                       ),
                       Container(height: LayoutConstants.REGULAR_PADDING),
-                      Text(state.user.email, style: Theme.of(context).textTheme.headline3),
+                      Text(state.user.email,
+                          style: Theme.of(context).textTheme.headline3),
                       const Divider(
                         height: LayoutConstants.LARGE_PADDING,
                         color: Colors.grey,
@@ -176,7 +185,8 @@ class UserSettingsPageState extends State<UserSettingsPage> with CustomAlertDial
                         onTap: onChangePassword,
                         child: Row(
                           children: [
-                            Text('Change password', style: Theme.of(context).textTheme.headline3),
+                            Text('Change password',
+                                style: Theme.of(context).textTheme.headline3),
                             const Expanded(
                               child: Align(
                                   alignment: Alignment.centerRight,

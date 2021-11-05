@@ -20,7 +20,8 @@ class ChangePasswordPage extends StatefulWidget {
   }
 }
 
-class ChangePasswordPageState extends State<ChangePasswordPage> with CustomAlertDialog {
+class ChangePasswordPageState extends State<ChangePasswordPage>
+    with CustomAlertDialog {
   final _formKey = GlobalKey<FormState>();
 
   final currentPasswordController = TextEditingController();
@@ -31,8 +32,8 @@ class ChangePasswordPageState extends State<ChangePasswordPage> with CustomAlert
     if (_formKey.currentState!.validate()) {
       final password = newPasswordController.text;
 
-      BlocProvider.of<UserSettingsBloc>(context)
-          .add(UpdatePasswordEvent(oldPassword: currentPasswordController.text, newPassword: password));
+      BlocProvider.of<UserSettingsBloc>(context).add(UpdatePasswordEvent(
+          oldPassword: currentPasswordController.text, newPassword: password));
     }
   }
 
@@ -71,12 +72,16 @@ class ChangePasswordPageState extends State<ChangePasswordPage> with CustomAlert
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text('Change your password',
-                            textAlign: TextAlign.center, style: Theme.of(context).textTheme.headline2),
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context).textTheme.headline2),
                         Padding(
                           padding: const EdgeInsets.only(
-                              top: LayoutConstants.EXTRA_SMALL_PADDING, bottom: LayoutConstants.LARGE_PADDING),
-                          child: Text('To change your password, use the form below.',
-                              textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyText2),
+                              top: LayoutConstants.EXTRA_SMALL_PADDING,
+                              bottom: LayoutConstants.LARGE_PADDING),
+                          child: Text(
+                              'To change your password, use the form below.',
+                              textAlign: TextAlign.center,
+                              style: Theme.of(context).textTheme.bodyText2),
                         ),
                         TextFormField(
                           controller: currentPasswordController,
@@ -135,7 +140,10 @@ class ChangePasswordPageState extends State<ChangePasswordPage> with CustomAlert
                         Expanded(
                             child: Align(
                                 alignment: FractionalOffset.bottomCenter,
-                                child: PrimaryButton(text: 'Update Password', onPressed: onUpdatePassword))),
+                                child: PrimaryButton(
+                                  text: 'Update Password',
+                                  onPressed: onUpdatePassword,
+                                ))),
                       ],
                     ),
                   ),

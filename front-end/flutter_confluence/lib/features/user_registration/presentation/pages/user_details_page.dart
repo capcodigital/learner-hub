@@ -125,10 +125,11 @@ class UserDetailsPageState extends State<UserDetailsPage> {
                   child: Align(
                     alignment: FractionalOffset.bottomCenter,
                     child: PrimaryButton(
-                        text: 'Next',
-                        onPressed: () {
-                          onNext();
-                        }),
+                      text: 'Next',
+                      onPressed: () {
+                        onNext();
+                      },
+                    ),
                   ),
                 ),
               ],

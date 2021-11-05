@@ -70,6 +70,8 @@ PODS:
     - Flutter
   - PromisesObjC (2.0.0)
   - Reachability (3.2)
+  - webview_flutter_wkwebview (0.0.1):
+    - Flutter
 
 DEPENDENCIES:
   - app_settings (from `.symlinks/plugins/app_settings/ios`)
@@ -80,6 +82,7 @@ DEPENDENCIES:
   - Flutter (from `Flutter`)
   - local_auth (from `.symlinks/plugins/local_auth/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
+  - webview_flutter_wkwebview (from `.symlinks/plugins/webview_flutter_wkwebview/ios`)
 
 SPEC REPOS:
   trunk:
@@ -112,6 +115,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/local_auth/ios"
   path_provider:
     :path: ".symlinks/plugins/path_provider/ios"
+  webview_flutter_wkwebview:
+    :path: ".symlinks/plugins/webview_flutter_wkwebview/ios"
 
 CHECKOUT OPTIONS:
   FirebaseFirestore:
@@ -127,7 +132,7 @@ SPEC CHECKSUMS:
   FirebaseAuth: bcf0adeff88bda5dcb3beeabe5760f1226ab7b2f
   FirebaseCore: 98b29e3828f0a53651c363937a7f7d92a19f1ba2
   FirebaseCoreDiagnostics: 5daa63f1c1409d981a2d5007daa100b36eac6a34
-  FirebaseFirestore: a62ba825627416e752b237fd0efe6857a6fee907
+  FirebaseFirestore: 0d1548ab6085002d87c173ce3f881129f39b3565
   Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
   GoogleDataTransport: 629c20a4d363167143f30ea78320d5a7eb8bd940
   GoogleUtilities: 684ee790a24f73ebb2d1d966e9711c203f2a4237
@@ -137,7 +142,8 @@ SPEC CHECKSUMS:
   path_provider: d1e9807085df1f9cc9318206cd649dc0b76be3de
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
+  webview_flutter_wkwebview: 44aa025fbcf6730d808f1e0d86a5af5ac25fa8de
 
-PODFILE CHECKSUM: 4846599520b03260ea719200498d678f762b5b46
+PODFILE CHECKSUM: f6f2787286f9688b2d68421d6df113af09d978fe
 
 COCOAPODS: 1.11.2
