@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_confluence/core/shared_ui/app_drawer.dart';
+import 'package:flutter_confluence/core/shared_ui/custom_menu_page.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar(
@@ -13,12 +13,16 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: color,
+      flexibleSpace: const Image(
+        image: AssetImage('assets/background.png'),
+        fit: BoxFit.cover,
+      ),
       leading: Builder(
         builder: (appBarContext) {
           return IconButton(
               icon: Icon(icon),
               onPressed: () {
-                AppDrawer.of(appBarContext)!.toggle();
+                CustomMenuPage.of(appBarContext)!.toggle();
               });
         },
       ),

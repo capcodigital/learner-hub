@@ -1,0 +1,25 @@
+{
+  "status": "success",
+  "data": {
+    "email": "luke.skywalker@capco.com",
+    "bio": "this is my bio",
+    "skills": {
+      "secondarySkills": [
+        "React Native",
+        "Swift",
+        "Java",
+        "React",
+        "Angular"
+      ],
+      "primarySkills": [
+        "Gradle",
+        "Kotlin",
+        "Flutter",
+        "Typescript"
+      ]
+    },
+    "lastName": "Skywalker",
+    "name": "Luke",
+    "jobTitle": "Master Jedi"
+  }
+}

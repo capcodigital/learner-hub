@@ -3,15 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_confluence/core/shared_ui/custom_menu_page.dart';
 
 import '/core/colours.dart';
-import '/core/constants.dart';
 import '/core/layout_constants.dart';
-import '/core/shared_ui/app_drawer.dart';
-import '/core/shared_ui/custom_appbar.dart';
+import '/core/shared_ui/custom_bottom_nav.dart';
 import '/core/shared_ui/primary_button.dart';
 import '/core/utils/media_util.dart';
-import '/features/certifications/presentation/pages/home_page.dart';
 import '/features/onboarding/presentation/widgets/onboarding_carousel.dart';
 import '/features/user_registration/presentation/pages/user_details_page.dart';
 import 'login_page.dart';
@@ -31,14 +29,8 @@ class OnBoardingPage extends StatelessWidget {
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => const AppDrawer(
-              child: HomePage(
-            appBar: CustomAppBar(
-              icon: Icons.menu,
-              text: 'Cloud Certifications',
-              color: Constants.JIRA_COLOR,
-            ),
-          )),
+          builder: (context) =>
+              const CustomMenuPage(child: CustomBottomNavBar()),
         ));
   }
 
@@ -71,7 +63,9 @@ class OnBoardingPage extends StatelessWidget {
           OnBoardingCarousel(),
           const Spacer(),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: LayoutConstants.LARGE_PADDING, horizontal: LayoutConstants.SMALL_PADDING),
+            padding: const EdgeInsets.symmetric(
+                vertical: LayoutConstants.LARGE_PADDING,
+                horizontal: LayoutConstants.SMALL_PADDING),
             child: PrimaryButton(
                 text: 'Log in',
                 onPressed: () {
@@ -83,7 +77,8 @@ class OnBoardingPage extends StatelessWidget {
   }
 
   Widget getFooter(BuildContext context) {
-    final MediaQueriesImpl mediaQueries = MediaQueriesImpl(buildContext: context);
+    final MediaQueriesImpl mediaQueries =
+        MediaQueriesImpl(buildContext: context);
     return Column(
       children: [
         Container(
@@ -93,11 +88,15 @@ class OnBoardingPage extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('Not a member yet?', style: Theme.of(context).textTheme.subtitle1),
+                Text('Not a member yet?',
+                    style: Theme.of(context).textTheme.subtitle1),
                 TextButton(
                     style: TextButton.styleFrom(
                         primary: Colours.ACCENT_COLOR,
-                        textStyle: Theme.of(context).textTheme.subtitle2?.copyWith(fontStyle: FontStyle.italic)),
+                        textStyle: Theme.of(context)
+                            .textTheme
+                            .subtitle2
+                            ?.copyWith(fontStyle: FontStyle.italic)),
                     onPressed: () {
                       register(context);
                     },

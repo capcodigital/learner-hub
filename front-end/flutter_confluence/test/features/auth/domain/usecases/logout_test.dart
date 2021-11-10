@@ -37,13 +37,13 @@ void main() {
     'should return a failure if something goes wrong n logging out the user',
     () async {
       // arrange
-      when(() => mockRepository.logout()).thenThrow(AuthFailure(''));
+      when(() => mockRepository.logout()).thenThrow(const AuthFailure(''));
       // act
       final result = await useCase(NoParams());
 
       // assert
       verify(() => mockRepository.logout());
-      expect(result, Left(AuthFailure('Is not possible to logout the user')));
+      expect(result, const Left(AuthFailure('Is not possible to logout the user')));
     },
   );
 }

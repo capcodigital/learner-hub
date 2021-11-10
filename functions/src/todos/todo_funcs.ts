@@ -43,7 +43,7 @@ export async function updateTODO(
     todo: TODO,
     res: functions.Response) {
     try {
-        const item = todoRepo.update(todoId, todo);
+        const item = await todoRepo.update(todoId, todo);
         res.setHeader('Content-Type', 'application/json');
         res.status(200).send(jsend.successfullResponse(item));
     } catch (e) {

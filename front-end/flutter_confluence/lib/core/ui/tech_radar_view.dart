@@ -5,16 +5,20 @@ import 'package:flutter/widgets.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class TechRadarView extends StatefulWidget {
-  const TechRadarView({Key? key}) : super(key: key);
+class WebViewExample extends StatefulWidget {
+  const WebViewExample({Key? key}) : super(key: key);
   static const route = 'TechRadarPage';
+
   @override
-  TechRadarViewState createState() => TechRadarViewState();
+  WebViewExampleState createState() => WebViewExampleState();
 }
 
-class TechRadarViewState extends State<TechRadarView> {
-  TextStyle optionStyle =
-      const TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+class WebViewExampleState extends State<WebViewExample> {
+  TextStyle optionStyle = const TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+
+  static const String _TECH_RADAR_HOME_PAGE = 'https://master.d3qm5n59wrk3b.amplifyapp.com/';
+  final whitelistedURLs = [_TECH_RADAR_HOME_PAGE];
+
   @override
   void initState() {
     super.initState();
@@ -27,8 +31,7 @@ class TechRadarViewState extends State<TechRadarView> {
     return Scaffold(
         extendBodyBehindAppBar: false,
         appBar: AppBar(
-          title:
-              Text('Tech Radar', style: Theme.of(context).textTheme.headline1),
+          title: Text('Tech Radar', style: Theme.of(context).textTheme.headline1),
           backgroundColor: Colors.black,
           elevation: 0,
         ),
@@ -36,18 +39,13 @@ class TechRadarViewState extends State<TechRadarView> {
         // to allow calling Scaffold.of(context) so we can show a snackbar.
         body: Center(
             child: WebView(
-          initialUrl: 'https://master.d3qm5n59wrk3b.amplifyapp.com/',
+          initialUrl: _TECH_RADAR_HOME_PAGE,
           javascriptMode: JavascriptMode.unrestricted,
           onWebViewCreated: (WebViewController webViewController) {},
           onProgress: (int progress) {
             print('WebView is loading (progress : $progress%)');
           },
-          navigationDelegate: (NavigationRequest request) {
-            return _handleRequest(request);
-          },
-          onPageStarted: (String url) {
-            print('Page started loading: $url');
-          },
+          navigationDelegate: _handleNavigation,
           onPageFinished: (String url) {
             print('Page finished loading: $url');
           },
@@ -55,12 +53,12 @@ class TechRadarViewState extends State<TechRadarView> {
         )));
   }
 
-  NavigationDecision _handleRequest(NavigationRequest request) {
-    if (request.url
-        .startsWith('https://master.d3qm5n59wrk3b.amplifyapp.com/')) {
-      print('allowing navigation to $request}');
+  NavigationDecision _handleNavigation(NavigationRequest request) {
+    if (whitelistedURLs.any((url) => request.url.startsWith(url))) {
+      print('Allowing navigation to ${request.url}');
       return NavigationDecision.navigate;
     } else {
+      print('URL ${request.url} not in whitelist - Opening in external browser');
       launch(request.url);
       return NavigationDecision.prevent;
     }

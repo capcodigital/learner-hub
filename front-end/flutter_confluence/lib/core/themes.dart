@@ -24,6 +24,11 @@ class Themes {
             fontFamily: futuraPTFontFamily,
             fontWeight: FontWeight.w800,
             fontSize: 22.0),
+        headline3: TextStyle(
+            color: Colours.ALTERNATIVE_TEXT_COLOR,
+            fontFamily: latoFontFamily,
+            fontWeight: FontWeight.w700,
+            fontSize: 19.0),
         bodyText1: TextStyle(
             color: Colours.PRIMARY_TEXT_COLOR,
             fontFamily: latoFontFamily,

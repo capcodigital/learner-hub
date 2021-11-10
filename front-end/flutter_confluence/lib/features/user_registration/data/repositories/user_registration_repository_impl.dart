@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 
 import '/core/error/auth_failures.dart';
 import '/features/user_registration/data/datasources/register_user_data_source.dart';
+import '/features/user_registration/data/models/skills_model.dart';
 import '/features/user_registration/data/models/user_registration_model.dart';
 import '/features/user_registration/domain/entities/user_registration.dart';
 import '/features/user_registration/domain/repositories/user_registration_repository.dart';
@@ -30,21 +31,19 @@ class UserRegistrationRepositoryIml implements UserRegistrationRepository {
           name: user.name,
           lastName: user.lastName,
           jobTitle: user.jobTitle,
-          primarySkills: user.primarySkills,
-          secondarySkills: user.secondarySkills,
+          skills: SkillsModel(
+              primarySkills: user.skills?.primarySkills ?? [], secondarySkills: user.skills?.secondarySkills ?? []),
           bio: user.bio,
-          email: user.email,
-          password: user.password);
+          email: user.email);
 
       final isUserCreated = await dataSource.createUser(userRequest);
       if (isUserCreated) {
         return const Right(true);
       } else {
-        return Left(CreateUserError());
+        return const Left(CreateUserError());
       }
     } catch (ex) {
-      print('Error: $ex');
-      return Left(CreateUserError());
+      return const Left(CreateUserError());
     }
   }
 
@@ -54,7 +53,7 @@ class UserRegistrationRepositoryIml implements UserRegistrationRepository {
       await dataSource.cleanUpFailedUser();
       return const Right(true);
     } catch (ex) {
-      return Left(AuthFailure("It's not possible to clean up the user"));
+      return const Left(AuthFailure("It's not possible to clean up the user"));
     }
   }
 }
