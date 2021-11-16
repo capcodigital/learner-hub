@@ -15,7 +15,8 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
   int _selectedIndex = 0;
   String _title = 'Users';
   final _kFontFam = 'CustomIconFont';
-  TextStyle optionStyle = const TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  TextStyle optionStyle =
+      const TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   late final List<Widget> _widgetOptions = <Widget>[
     Text(
       'Users',

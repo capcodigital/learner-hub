@@ -13,7 +13,8 @@ class UserRegistrationRepositoryIml implements UserRegistrationRepository {
   final RegisterUserDataSource dataSource;
 
   @override
-  Future<Either<AuthFailure, bool>> registerFirebaseUser(String email, String password) async {
+  Future<Either<AuthFailure, bool>> registerFirebaseUser(
+      String email, String password) async {
     try {
       await dataSource.registerFirebaseUser(email, password);
       return const Right(true);
@@ -32,7 +33,8 @@ class UserRegistrationRepositoryIml implements UserRegistrationRepository {
           lastName: user.lastName,
           jobTitle: user.jobTitle,
           skills: SkillsModel(
-              primarySkills: user.skills?.primarySkills ?? [], secondarySkills: user.skills?.secondarySkills ?? []),
+              primarySkills: user.skills?.primarySkills ?? [],
+              secondarySkills: user.skills?.secondarySkills ?? []),
           bio: user.bio,
           email: user.email);
 
