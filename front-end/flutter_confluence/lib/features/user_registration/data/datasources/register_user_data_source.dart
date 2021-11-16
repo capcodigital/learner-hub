@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -22,24 +23,27 @@ class RegisterUserDataSourceImpl implements RegisterUserDataSource {
 
   @override
   Future<User> registerFirebaseUser(String email, String password) async {
+    if (email == null || password == null) {
+      throw const AuthFailure('Email and password cannot be null');
+    }
     try {
       final userCredential = await auth.createUserWithEmailAndPassword(
           email: email, password: password);
       if (userCredential.user == null) {
-        throw AuthFailure('Is not possible to get the firebase user');
+        throw const AuthFailure('Is not possible to get the firebase user');
       } else {
         final appUser = userCredential.user;
         if (appUser == null) {
-          throw AuthFailure("It's not possible to get the user");
+          throw const AuthFailure("It's not possible to get the user");
         } else {
           return appUser;
         }
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-        throw WeakPasswordFailure();
+        throw const WeakPasswordFailure();
       } else if (e.code == 'email-already-in-use') {
-        throw AlreadyRegisteredFailure();
+        throw const AlreadyRegisteredFailure();
       } else {
         throw AuthFailure('Error registering the user: ${e.code}');
       }
@@ -55,9 +59,14 @@ class RegisterUserDataSourceImpl implements RegisterUserDataSource {
 
       final token = await auth.currentUser?.getIdToken();
 
+      final body = jsonEncode(userRequest);
+
       final response = await client.post(Uri.parse(url),
-          headers: {HttpHeaders.authorizationHeader: 'Bearer $token'},
-          body: userRequest.toJson());
+          headers: {
+            HttpHeaders.authorizationHeader: 'Bearer $token',
+            HttpHeaders.contentTypeHeader: 'application/json'
+          },
+          body: body);
 
       if (response.statusCode == HttpStatus.created) {
         return true;

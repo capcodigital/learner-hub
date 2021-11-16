@@ -7,14 +7,14 @@
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log",
-    "kill": "npx kill-port 5000 5001 8080 8085 4000 9229"
+    "kill": "npx kill-port 5000 5001 8080 8085 4000 9000 9229"
   },
   "engines": {
     "node": "14"
   },
   "main": "lib/index.js",
   "dependencies": {
-    "axios": "^0.21.1",
+    "axios": "^0.21.2",
     "express": "^4.17.1",
     "firebase-admin": "^9.11.1",
     "firebase-functions": "^3.15.7",

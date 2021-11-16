@@ -39,7 +39,7 @@ void main() {
 
       // assert
       verify(() => mockDataSource.checkLocalUserLogged()).called(1);
-      expect(result, equals(Left(NoCurrentUserLogged())));
+      expect(result, equals(const Left(NoCurrentUserLogged())));
     });
   });
 
@@ -62,13 +62,13 @@ void main() {
     test('Should call checkCachedAuth and return auth expiration failure', () async {
       // arrange
       when(() => mockDataSource.signInWithEmailAndPassword(any(), any()))
-          .thenThrow(AuthFailure('forced for unit test'));
+          .thenThrow(const AuthFailure('forced for unit test'));
 
       // act
       final result = await repository.loginUser('email', 'password');
 
       // assert
-      expect(result, equals(Left(AuthFailure('forced for unit test'))));
+      expect(result, equals(const Left(AuthFailure('forced for unit test'))));
     });
   });
 }

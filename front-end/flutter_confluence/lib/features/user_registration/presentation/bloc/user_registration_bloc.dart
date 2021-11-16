@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_confluence/core/constants.dart';
 
 import '/core/error/auth_failures.dart';
 import '/core/error/failures.dart';
@@ -27,16 +28,17 @@ class UserRegistrationBloc
       yield UserRegistrationLoading();
       final result = await registerUser(event.parameters);
       yield result.fold(
-              (failure) => UserRegistrationError(errorMessage: _mapFailureToMessage(failure)),
+          (failure) => UserRegistrationError(
+              errorMessage: _mapFailureToMessage(failure)),
           (user) => UserRegistrationSuccess());
     }
   }
 
   String _mapFailureToMessage(Failure failure) {
     if (failure is AuthFailure) {
-      return failure.reason;
+      return failure.message;
     } else {
-      return 'Constants.UNKNOWN_ERROR_MSG';
+      return Constants.UNKNOWN_ERROR_MSG;
     }
   }
 }

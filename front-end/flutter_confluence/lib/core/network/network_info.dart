@@ -18,6 +18,8 @@ class NetworkInfoImpl implements NetworkInfo {
         return true;
       case ConnectivityResult.none:
         return false;
+      case ConnectivityResult.ethernet:
+        return true;
     }
   }
 }

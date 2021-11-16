@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_confluence/core/shared_ui/custom_bottom_nav.dart';
 
 import '/core/colours.dart';
-import '/core/constants.dart';
 import '/core/layout_constants.dart';
-import '/core/shared_ui/app_drawer.dart';
-import '/core/shared_ui/custom_appbar.dart';
+import '/core/shared_ui/custom_bottom_nav.dart';
 import '/core/shared_ui/primary_button.dart';
 import '/core/utils/error_messages.dart';
 import '/core/utils/validators/email_validator.dart';
-import '/features/certifications/presentation/pages/home_page.dart';
 import '/features/user_registration/domain/entities/user_registration.dart';
 import '/features/user_registration/presentation/bloc/user_registration_bloc.dart';
+import '../../../../core/shared_ui/custom_menu_page.dart';
 
 class LoginDetailsPage extends StatefulWidget {
   const LoginDetailsPage({Key? key, required this.navParameters})
@@ -44,12 +43,9 @@ class LoginDetailsPageState extends State<LoginDetailsPage>
 
     void onDone() {
       if (_formKey.currentState!.validate()) {
-        final email = emailController.text;
-        final password = passwordController.text;
-
         final registrationParameters = widget.navParameters
-          ..email = email
-          ..password = password;
+          ..email = emailController.text
+          ..password = passwordController.text;
 
         BlocProvider.of<UserRegistrationBloc>(context)
             .add(RegisterUserEvent(parameters: registrationParameters));
@@ -60,14 +56,8 @@ class LoginDetailsPageState extends State<LoginDetailsPage>
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => const AppDrawer(
-                child: HomePage(
-              appBar: CustomAppBar(
-                icon: Icons.menu,
-                color: Constants.JIRA_COLOR,
-                text: 'Cloud Certifications',
-              ),
-            )),
+            builder: (context) =>
+                const CustomMenuPage(child: CustomBottomNavBar()),
           ));
     }
 
@@ -149,7 +139,7 @@ class LoginDetailsPageState extends State<LoginDetailsPage>
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Job title cannot be empty';
+                          return 'Password cannot be empty';
                         }
                         if (value != passwordController.text) {
                           return "Passwords don't match";
@@ -159,8 +149,10 @@ class LoginDetailsPageState extends State<LoginDetailsPage>
                   Expanded(
                       child: Align(
                           alignment: FractionalOffset.bottomCenter,
-                          child:
-                              PrimaryButton(text: 'Done', onPressed: onDone))),
+                          child: PrimaryButton(
+                            text: 'Done',
+                            onPressed: onDone,
+                          ))),
                 ],
               ),
             ),

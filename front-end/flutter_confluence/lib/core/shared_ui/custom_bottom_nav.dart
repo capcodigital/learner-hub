@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_confluence/core/constants.dart';
+import 'package:flutter_confluence/core/colours.dart';
 import 'package:flutter_confluence/core/shared_ui/custom_appbar.dart';
+import 'package:flutter_confluence/features/todo/presentation/pages/todo_page.dart';
 
 class CustomBottomNavBar extends StatefulWidget {
   const CustomBottomNavBar({Key? key}) : super(key: key);
+
   @override
   State<CustomBottomNavBar> createState() => _CustomBottomNavBarState();
 }
@@ -28,10 +30,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
       'My Profile',
       style: optionStyle,
     ),
-    Text(
-      'TODO',
-      style: optionStyle,
-    ),
+    const TodoPage()
   ];
 
   void _onItemTapped(int index) {
@@ -62,7 +61,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
     return Scaffold(
       appBar: CustomAppBar(
         icon: Icons.menu,
-        color: Constants.JIRA_COLOR,
+        color: Colours.ACCENT_COLOR,
         text: _title,
       ),
       body: Center(
@@ -98,10 +97,10 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
             icon: Icon(IconData(0xe803, fontFamily: _kFontFam), size: 75),
             label: '',
             tooltip: '',
-          )
+          ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.pink[300],
+        selectedItemColor: Colours.ACCENT_COLOR,
         onTap: _onItemTapped,
       ),
     );

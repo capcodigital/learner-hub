@@ -16,8 +16,8 @@ void main() {
   setUp(() {
     // Tests fails if not call registerFallbackValue for State and Event.
     // This requires Mocktail
-    mocktail.registerFallbackValue<AuthState>(AuthInitial());
-    mocktail.registerFallbackValue<AuthEvent>(TestEvent());
+    mocktail.registerFallbackValue(AuthInitial());
+    mocktail.registerFallbackValue(TestEvent());
   });
 
   testWidgets('Login Page should show expected widgets', (tester) async {
