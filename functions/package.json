@@ -10,20 +10,17 @@
     "kill": "npx kill-port 5000 5001 8080 8085 4000 9000 9229"
   },
   "engines": {
-    "node": "14"
+    "node": "16"
   },
   "main": "lib/index.js",
   "dependencies": {
-    "axios": "^0.21.2",
-    "express": "^4.17.1",
-    "firebase-admin": "^9.11.1",
-    "firebase-functions": "^3.15.7",
-    "jsdom": "^17.0.0"
+    "express": "^4.17.2",
+    "firebase-admin": "^10.0.2",
+    "firebase-functions": "^3.17.1"
   },
   "devDependencies": {
-    "@types/jsdom": "^16.2.13",
-    "firebase-tools": "^9.16.5",
-    "typescript": "^3.9.10"
+    "firebase-tools": "^10.1.4",
+    "typescript": "^4.5.5"
   },
   "private": true
 }
