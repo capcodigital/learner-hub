@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_confluence/core/ui/tech_radar_view.dart';
 import 'package:flutter_confluence/features/todo/data/models/todo_model.dart';
 import 'package:flutter_confluence/features/todo/presentation/bloc/todo_bloc.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '/core/components/preloader.dart';

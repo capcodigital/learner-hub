@@ -16,23 +16,11 @@ part 'user_registration_state.dart';
 class UserRegistrationBloc
     extends Bloc<UserRegistrationEvent, UserRegistrationState> {
   UserRegistrationBloc({required this.registerUser})
-      : super(UserRegistrationInitial());
+      : super(UserRegistrationInitial()) {
+    on<RegisterUserEvent>(onRegisterUser);
+  }
 
   final RegisterUser registerUser;
-
-  @override
-  Stream<UserRegistrationState> mapEventToState(
-    UserRegistrationEvent event,
-  ) async* {
-    if (event is RegisterUserEvent) {
-      yield UserRegistrationLoading();
-      final result = await registerUser(event.parameters);
-      yield result.fold(
-          (failure) => UserRegistrationError(
-              errorMessage: _mapFailureToMessage(failure)),
-          (user) => UserRegistrationSuccess());
-    }
-  }
 
   String _mapFailureToMessage(Failure failure) {
     if (failure is AuthFailure) {
@@ -40,5 +28,13 @@ class UserRegistrationBloc
     } else {
       return Constants.UNKNOWN_ERROR_MSG;
     }
+  }
+
+  FutureOr<void> onRegisterUser(RegisterUserEvent event, Emitter<UserRegistrationState> emit) async {
+    emit(UserRegistrationLoading());
+    final result = await registerUser(event.parameters);
+    emit(result.fold(
+        (failure) => UserRegistrationError(errorMessage: _mapFailureToMessage(failure)),
+        (user) => UserRegistrationSuccess()));
   }
 }

@@ -21,43 +21,18 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       {required this.isSessionValidUseCase,
       required this.loginUseCase,
       required this.logoutUseCase})
-      : super(AuthInitial());
+      : super(AuthInitial()){
+    on<CheckAuthEvent>(onCheckAuth);
+    on<LoginEvent>(onLogin);
+    on<LogoutEvent>(onLogout);
+  }
 
   final IsSessionValidUseCase isSessionValidUseCase;
   final LoginUseCase loginUseCase;
   final LogoutUseCase logoutUseCase;
 
-  @override
-  Stream<AuthState> mapEventToState(AuthEvent event) async* {
-    print('Event received: ${event.runtimeType}');
-
-    // Add user check for initial preloader
-    if (event is CheckAuthEvent) {
-      final result = await isSessionValidUseCase(NoParams());
-      yield* getStateFromCheckAuthResult(result);
-    }
-
-    // Login Event
-    if (event is LoginEvent) {
-      yield LoginLoading();
-      final params = LoginParams(email: event.email, password: event.password);
-      final result = await loginUseCase(params);
-      yield result.fold(
-              (failure) => AuthError(message: _mapFailureToMessage(failure)),
-              (user) => LoginSuccess());
-    }
-
-    // Logout
-    if (event is LogoutEvent) {
-      final result = await logoutUseCase(NoParams());
-      yield result.fold(
-              (failure) => AuthError(message: _mapFailureToMessage(failure)),
-              (success) => AuthLogout());
-    }
-  }
-
-  Stream<AuthState> getStateFromCheckAuthResult(Either<Failure, bool> arg) async* {
-    yield arg.fold(
+  AuthState getStateFromCheckAuthResult(Either<Failure, bool> arg)  {
+    return arg.fold(
       (failure) => InvalidUser(), // If there is an error with auth, treat it as if there is no user
       (success) => success ? ValidUser() : InvalidUser(),
     );
@@ -69,5 +44,26 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     } else {
       return 'Constants.UNKNOWN_ERROR_MSG';
     }
+  }
+
+  FutureOr<void> onCheckAuth(CheckAuthEvent event, Emitter<AuthState> emit) async {
+    final result = await isSessionValidUseCase(NoParams());
+    emit(getStateFromCheckAuthResult(result));
+  }
+
+  FutureOr<void> onLogin(LoginEvent event, Emitter<AuthState> emit) async {
+    emit(LoginLoading());
+    final params = LoginParams(email: event.email, password: event.password);
+    final result = await loginUseCase(params);
+    emit(result.fold(
+            (failure) => AuthError(message: _mapFailureToMessage(failure)),
+            (user) => LoginSuccess()));
+  }
+
+  FutureOr<void> onLogout(LogoutEvent event, Emitter<AuthState> emit) async {
+    final result = await logoutUseCase(NoParams());
+    emit(result.fold(
+            (failure) => AuthError(message: _mapFailureToMessage(failure)),
+            (success) => AuthLogout()));
   }
 }

@@ -16,10 +16,12 @@ class NetworkInfoImpl implements NetworkInfo {
         return true;
       case ConnectivityResult.mobile:
         return true;
-      case ConnectivityResult.none:
-        return false;
       case ConnectivityResult.ethernet:
         return true;
+      case ConnectivityResult.bluetooth:
+        return true;
+      case ConnectivityResult.none:
+        return false;
     }
   }
 }
