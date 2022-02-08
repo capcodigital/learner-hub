@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '/core/colours.dart';
@@ -76,7 +75,7 @@ class UserSettingsPageState extends State<UserSettingsPage>
       listener: (context, state) {
         print('NEW STATE RECEIVED: ${state.runtimeType}');
 
-        if (state is UserSettingsState) {
+        if (state is UserLoadedState) {
           nameController.text = state.user.name;
           lastNameController.text = state.user.lastName;
           jobTitleController.text = state.user.jobTitle;

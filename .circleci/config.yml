@@ -3,7 +3,7 @@ version: 2
 jobs:
   analysis:
     docker:
-      - image: "cirrusci/flutter:2.5.0"
+      - image: "cirrusci/flutter:2.10.0"
     steps:
       - checkout
       - run:
@@ -16,7 +16,7 @@ jobs:
           working_directory: ~/project/front-end/flutter_confluence
   tests:
     docker:
-      - image: "cirrusci/flutter:2.5.0"
+      - image: "cirrusci/flutter:2.10.0"
     steps:
       - checkout
       - run:
@@ -25,7 +25,7 @@ jobs:
           working_directory: ~/project/front-end/flutter_confluence
   deploy_functions:
     docker:
-      - image: "cimg/node:14.0.0"
+      - image: "cimg/node:16.0.0"
     steps:
       - checkout
       - run:

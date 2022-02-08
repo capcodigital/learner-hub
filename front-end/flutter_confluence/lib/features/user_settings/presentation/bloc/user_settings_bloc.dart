@@ -27,13 +27,6 @@ class UserSettingsBloc extends Bloc<UserSettingsEvent, UserSettingsState> {
   final UpdatePassword updatePassword;
   final LoadUser loadUser;
 
-  @override
-  Stream<UserSettingsState> mapEventToState(UserSettingsEvent event) async* {
-    // Note: this method is not needed, but it will be nice to print in the console
-    // each event received for debugging and traceability
-    print('EVENT RECEIVED: ${event.runtimeType}');
-  }
-
   FutureOr<void> onLoadUser(LoadUserEvent event, Emitter<UserSettingsState> emit) async {
     print('Loading user');
     final currentUser = state.user;
