@@ -16,10 +16,9 @@
   "dependencies": {
     "express": "^4.17.2",
     "firebase-admin": "^10.0.2",
-    "firebase-functions": "^3.17.1"
+    "firebase-functions": "^3.17.2"
   },
   "devDependencies": {
-    "firebase-tools": "^10.1.4",
     "typescript": "^4.5.5"
   },
   "private": true
