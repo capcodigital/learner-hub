@@ -56,7 +56,12 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 [Flutter Demo]()
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+* This application was initially developed by using data from the Cloud Certifications pages of Confluence that could be retrieved using FastAPI via the Confluence API. This data was then displayed in a Flutter UI. 
+
+*The application has now expanded with more features being integrated such as Authentication, profile, Todo
+
+<img src="images/signup-screen.png" alt="signup" width="80" height="80">
+<img src="images/login-screen.png" alt="Logo" width="80" height="80">
 
 
 ### Built With
@@ -102,6 +107,11 @@ source .env
 
 For details related to the user flow and usage, please visit the [confluence page](https://ilabs-capco.atlassian.net/wiki/spaces/BPG/pages/2610627123/Flutter+Confluence) for this project.
 
+
+### Architecture
+ We pass data through `cloud functions`  which is a serverless framework provided by Google Firebase. Hight level overview of the architecture can be seen below.
+
+<img src="images/flutter-arch-overview.png" alt="HomeScreen" width="200" height="400">
 <!-- Test Suite-->
 ### Test Suite
  Tests help ensure that your app performs correctly before you publish it, while retaining your feature and bug fix velocity. We have used following types of test in the project.. 
