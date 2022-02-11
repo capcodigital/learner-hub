@@ -45,7 +45,7 @@
         <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#installation">Installation</a></li>
         <li><a href="#running-the-app-locally">Running app locally</a></li>
-        <li><a href="#major-libraries-used">Major Libraries Used</a></li>
+        <li><a href="#major-libraries-used">Major libraries Used</a></li>
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
@@ -62,7 +62,9 @@
 [Flutter Demo]()
 * This application was initially developed by using data from the Cloud Certifications pages of Confluence that could be retrieved using FastAPI via the Confluence API. This data was then displayed in a Flutter UI. 
 
-*The application has now expanded with more features being integrated such as Authentication, profile, Todo
+* The application now uses firebase functions to fetch data from firestore database.
+
+* The application now has expanded with more features being integrated such as Authentication, profile, Todo
 
 <img src="images/signup-screen.png" alt="signup" width="80" height="80">
 <img src="images/login-screen.png" alt="Logo" width="80" height="80">
@@ -82,7 +84,7 @@ For details related to the user flow and usage, please visit the [confluence pag
 
 
 ### Architecture
- We pass data through `cloud functions`  which is a serverless framework provided by Google Firebase. Hight level overview of the architecture can be seen below. For details about this please visit the [confluence page](https://ilabs-capco.atlassian.net/wiki/spaces/BPG/pages/2610627123/Flutter+Demonstrator) for this project.
+ We pass data through `cloud functions`  which is a serverless framework provided by Google Firebase. High level overview of the architecture can be seen below. For details about this please visit the [confluence page](https://ilabs-capco.atlassian.net/wiki/spaces/BPG/pages/2610627123/Flutter+Demonstrator) for this project.
 
 <img src="images/flutter-arch-overview.png" alt="Architecture" width="200" height="400">
 
@@ -116,14 +118,14 @@ source .env
 ```
 
 ### Running the app locally.
- * To run the app locally you need flutter sdk and firebase cli installed as details provided in <a href="#prerequisites">prerequisites</a> section.
+  To run the app locally you need flutter sdk and firebase cli installed as details provided in <a href="#prerequisites">prerequisites</a> section.
 
- ####Steps to run firebase emulators.
+ #### Steps to run firebase emulators.
   1. Open terminal app and go to functions folder inside your project folder.
   2. Run `npm run serve`.(if you don't have npm installed, follow [this](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)).
   <img src="images/firebase-function-successful.png" alt="firebase functions" width="200" height="400">
   
- ####Steps to run flutter app locally.
+ #### Steps to run flutter app locally.
   1. Open flutter app located in `front-end/flutter_confluence` of your project folder in Android Studio, Intellij or Visual Studio Code.
   2. Go to  file named `constants.dart` and replace the `static const BASE_API_URL = 'https://europe-west2-io-capco-flutter-dev.cloudfunctions.net/app';` with `static const BASE_API_URL = 'http://localhost:5001/io-capco-flutter-dev/europe-west2/app';`.
   3. Go to file named `main.dart` and add `  await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);` before `runApp()`.
