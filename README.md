@@ -84,10 +84,13 @@ For details related to the user flow and usage, please visit the [confluence pag
 
 
 ### Architecture
- We pass data through `cloud functions`  which is a serverless framework provided by Google Firebase. High level overview of the architecture can be seen below. For details about this please visit the [confluence page](https://ilabs-capco.atlassian.net/wiki/spaces/BPG/pages/2610627123/Flutter+Demonstrator) for this project.
+* We pass data through `cloud functions`  which is a serverless framework provided by Google Firebase. High level overview of the architecture can be seen below. For details about this please visit the [confluence page](https://ilabs-capco.atlassian.net/wiki/spaces/BPG/pages/2610627123/Flutter+Demonstrator) for this project.
 
 <img src="images/flutter-arch-overview.png" alt="Architecture" width="200" height="400">
 
+* For the frontend flutter application we use, we use layered architecture to follow Bob-Martin's clean Architecture where we use repository pattern for data layer and use `Bloc pattern` in presentation layer.[More info](https://ilabs-capco.atlassian.net/wiki/spaces/BPG/pages/2769813521/Flutter+Standards#Clean-Architecture-for-Flutter)
+
+<img src="images/flutter-arch.png" alt="Architecture" width="200" height="400">
 <!-- GETTING STARTED -->
 ## Getting Started
 
@@ -105,7 +108,6 @@ In order to run the application locally, you must have the Flutter SDK installed
 #### Firebase CLI Installation
 
 In order to acess Firebase CLI, you must install it locally. Follow this [steps](https://firebase.google.com/docs/cli) 
-
 
 ### Installation
 
