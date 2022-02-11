@@ -102,6 +102,22 @@ source .env
 
 For details related to the user flow and usage, please visit the [confluence page](https://ilabs-capco.atlassian.net/wiki/spaces/BPG/pages/2610627123/Flutter+Confluence) for this project.
 
+<!-- Test Suite-->
+### Test Suite
+ Tests help ensure that your app performs correctly before you publish it, while retaining your feature and bug fix velocity. We have used following types of test in the project.. 
+ 
+ * Unit Test: tests a single function, method, or class.
+ * Widget Test: tests a single widget
+ * Integration Test: tests a complete app or a large part of an app.
+
+ more about testing in flutter can be found [here](https://docs.flutter.dev/testing).
+
+ Use following command
+ ```shell
+# to run test in terminal
+flutter test   
+```
+
 <!-- ROADMAP -->
 ## Roadmap
 
