@@ -55,18 +55,15 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-
+[Flutter Demo]()
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-Here's a blank template to get started:
-**To avoid retyping too much info. Do a search and replace with your text editor for the following:**
-`capcodigital`, `repo_name`, `twitter_handle`, `email`, `project_title`, `project_description`
 
 ### Built With
 
 * [Flutter](https://flutter.dev/)
+* [Firebase](https://https://firebase.google.com/)
 * [CircleCI](https://circleci.com/)
-* [Terraform](https://www.terraform.io/)
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -76,45 +73,15 @@ To get a local copy up and running follow these simple steps.
 ### Prerequisites
 
 * Flutter
-* Python Virtual Environment
-* Terraform
-* gGloud
-* GCP Service Account Key
+* Firebase CLI
 
 #### Flutter Installation
 
 In order to run the application locally, you must have the Flutter SDK installed.  Follow the steps within the [Flutter Documentation](https://flutter.dev/docs/get-started/install) to install the Flutter SDK on your local machine.
 
-#### Python Virtual Environment
+#### Firebase CLI Installation
 
-To use `pre-commit` isolated from other projects a virtual environment called _.venv-flutter-confluence_.  The virtual environment can be created in multiple ways, this example shows using `pyenv` which can be found [here](https://github.com/pyenv/pyenv).
-
-```shell
-pyenv virtualenv 3.9.1 .venv-flutter-confluence
-```
-
-#### Terraform
-
-To develop the `terraform` configuration you will need the correct version of `terraform` installed, currently `1.0.0`.  One approach is to use `tfenv` to enable local management of multiple versions.  For instructions on installing `tfenv` see [here](https://github.com/tfutils/tfenv).
-
-```shell
-tfenv install 1.0.0
-tfenv use 1.0.0
-```
-
-#### gCloud
-
-`gcloud` needs to to be installed on the local machine.  You can find installation instructions in the offical documentation [here](https://cloud.google.com/sdk/docs/install).
-
-#### GCP Service Account Key
-
-A service account key file is required to be located in the project root called `.gcloud.json`.
-
-This service account must have the following roles:
-
-* Service Usage Admin
-* Storage Admin
-* Storage Object Admin
+In order to acess Firebase CLI, you must install it locally. Follow this [steps](https://firebase.google.com/docs/cli) 
 
 ### Installation
 
@@ -134,6 +101,22 @@ source .env
 <img src="images/home-screen.png" alt="HomeScreen" width="200" height="400">
 
 For details related to the user flow and usage, please visit the [confluence page](https://ilabs-capco.atlassian.net/wiki/spaces/BPG/pages/2610627123/Flutter+Confluence) for this project.
+
+<!-- Test Suite-->
+### Test Suite
+ Tests help ensure that your app performs correctly before you publish it, while retaining your feature and bug fix velocity. We have used following types of test in the project.. 
+ 
+ * Unit Test: tests a single function, method, or class.
+ * Widget Test: tests a single widget
+ * Integration Test: tests a complete app or a large part of an app.
+
+ more about testing in flutter can be found [here](https://docs.flutter.dev/testing).
+
+ Use following command
+ ```shell
+# to run test in terminal
+flutter test   
+```
 
 <!-- ROADMAP -->
 ## Roadmap
