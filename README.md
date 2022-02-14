@@ -11,10 +11,10 @@
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">Flutter Confluence</h3>
+  <h2 align="center">Learner Hub</h2>
 
   <p align="center">
-  An application built in Flutter that showcases confluence pages
+  An application built in Flutter that showcases certifications and todo functionality. 
     <br />
     <a href="https://github.com/capcodigital/flutter-confluence"><strong>Explore the docs »</strong></a>
     <br />
@@ -35,6 +35,8 @@
       <a href="#about-the-project">About The Project</a>
       <ul>
         <li><a href="#built-with">Built With</a></li>
+        <li><a href="#designs">Designs</a></li>
+        <li><a href="#architecture">Architecture</a></li>
       </ul>
     </li>
     <li>
@@ -42,6 +44,8 @@
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#installation">Installation</a></li>
+        <li><a href="#running-the-app-locally">Running app locally</a></li>
+        <li><a href="#major-libraries-used">Major libraries Used</a></li>
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
@@ -56,7 +60,14 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 [Flutter Demo]()
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+* This application was initially developed by using data from the Cloud Certifications pages of Confluence that could be retrieved using FastAPI via the Confluence API. This data was then displayed in a Flutter UI. 
+
+* The application now uses firebase functions to fetch data from firestore database.
+
+* The application now has expanded with more features being integrated such as Authentication, profile, Todo
+
+<img src="images/signup-screen.png" alt="signup" width="80" height="80">
+<img src="images/login-screen.png" alt="Logo" width="80" height="80">
 
 
 ### Built With
@@ -65,6 +76,21 @@
 * [Firebase](https://https://firebase.google.com/)
 * [CircleCI](https://circleci.com/)
 
+### Designs
+
+<img src="images/home-screen.png" alt="HomeScreen" width="200" height="400">
+
+For details related to the user flow and usage, please visit the [confluence page](https://ilabs-capco.atlassian.net/wiki/spaces/BPG/pages/2610627123/Flutter+Confluence) for this project.
+
+
+### Architecture
+* We pass data through `cloud functions`  which is a serverless framework provided by Google Firebase. High level overview of the architecture can be seen below. For details about this please visit the [confluence page](https://ilabs-capco.atlassian.net/wiki/spaces/BPG/pages/2610627123/Flutter+Demonstrator) for this project.
+
+<img src="images/flutter-arch-overview.png" alt="Architecture" width="200" height="400">
+
+* For the frontend flutter application we use, we use layered architecture to follow Bob-Martin's clean Architecture where we use repository pattern for data layer and use `Bloc pattern` in presentation layer.[More info](https://ilabs-capco.atlassian.net/wiki/spaces/BPG/pages/2769813521/Flutter+Standards#Clean-Architecture-for-Flutter)
+
+<img src="images/flutter-arch.png" alt="Architecture" width="200" height="400">
 <!-- GETTING STARTED -->
 ## Getting Started
 
@@ -93,17 +119,33 @@ git clone https://github.com/capcodigital/flutter-confluence.git
 source .env
 ```
 
+### Running the app locally.
+  To run the app locally you need flutter sdk and firebase cli installed as details provided in <a href="#prerequisites">prerequisites</a> section.
+
+ #### Steps to run firebase emulators.
+  1. Open terminal app and go to functions folder inside your project folder.
+  2. Run `npm run serve`.(if you don't have npm installed, follow [this](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)).
+  <img src="images/firebase-function-successful.png" alt="firebase functions" width="200" height="400">
+  
+ #### Steps to run flutter app locally.
+  1. Open flutter app located in `front-end/flutter_confluence` of your project folder in Android Studio, Intellij or Visual Studio Code.
+  2. Go to  file named `constants.dart` and replace the `static const BASE_API_URL = 'https://europe-west2-io-capco-flutter-dev.cloudfunctions.net/app';` with `static const BASE_API_URL = 'http://localhost:5001/io-capco-flutter-dev/europe-west2/app';`.
+  3. Go to file named `main.dart` and add `  await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);` before `runApp()`.
+  4. Go to terminal and Run `Flutter pub get`.(This will load all dependencies).
+  5. Once dependencies are loaded. Run `Flutter run`. and The app will be launched in default device.
+
+### Major libraries Used.
+* <b>Flutter bloc:</b> Bloc design pattern helps to separate presentation from business logic. Following the BLoC pattern facilitates testability and reusability. [More info](https://pub.dev/packages/bloc)
+* <b>Firebase Auth:</b> Firebase Authentication provides backend services, easy-to-use SDKs, and ready-made UI libraries to authenticate users to your app.[More info](https://firebase.google.com/docs/auth)
+* <b>Firebase Functions:</b>Cloud Functions for Firebase is a serverless framework that lets you automatically run backend code in response to events triggered by Firebase features and HTTPS requests. [More info](https://firebase.google.com/docs/functions).
+* <b>Firebase Firestore:</b>Cloud Firestore is a flexible, scalable database for mobile, web, and server development from Firebase and Google Cloud. [More info](https://firebase.google.com/docs/firestore).
+* <b>Lottie:</b> Lottie is a mobile library for Android and iOS that parses Adobe After Effects animations exported as json with Bodymovin and renders them natively on mobile![More info](https://pub.dev/packages/lottie)
+
+
 <!-- USAGE EXAMPLES -->
 ## Usage
-
-### Designs
-
-<img src="images/home-screen.png" alt="HomeScreen" width="200" height="400">
-
-For details related to the user flow and usage, please visit the [confluence page](https://ilabs-capco.atlassian.net/wiki/spaces/BPG/pages/2610627123/Flutter+Confluence) for this project.
-
 <!-- Test Suite-->
-### Test Suite
+## Test Suite
  Tests help ensure that your app performs correctly before you publish it, while retaining your feature and bug fix velocity. We have used following types of test in the project.. 
  
  * Unit Test: tests a single function, method, or class.
