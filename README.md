@@ -11,10 +11,10 @@
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">Flutter Confluence</h3>
+  <h2 align="center">Learner Hub</h2>
 
   <p align="center">
-  An application built in Flutter that showcases confluence pages
+  An application built in Flutter that showcases certifications and todo functionality. 
     <br />
     <a href="https://github.com/capcodigital/flutter-confluence"><strong>Explore the docs »</strong></a>
     <br />
