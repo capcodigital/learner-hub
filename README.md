@@ -66,8 +66,8 @@
 
 * The application now has expanded with more features being integrated such as Authentication, profile, Todo
 
-<img src="images/signup-screen.png" alt="signup" width="80" height="80">
-<img src="images/login-screen.png" alt="Logo" width="80" height="80">
+<img src="images/signup-screen.png" alt="signup" width="250" height="450">
+<img src="images/login-screen.png" alt="Logo" width="250" height="450">
 
 
 ### Built With
@@ -78,7 +78,7 @@
 
 ### Designs
 
-<img src="images/home-screen.png" alt="HomeScreen" width="200" height="400">
+<img src="images/home.png" alt="HomeScreen" width="250" height="450">
 
 For details related to the user flow and usage, please visit the [confluence page](https://ilabs-capco.atlassian.net/wiki/spaces/BPG/pages/2610627123/Flutter+Confluence) for this project.
 
@@ -86,11 +86,11 @@ For details related to the user flow and usage, please visit the [confluence pag
 ### Architecture
 * We pass data through `cloud functions`  which is a serverless framework provided by Google Firebase. High level overview of the architecture can be seen below. For details about this please visit the [confluence page](https://ilabs-capco.atlassian.net/wiki/spaces/BPG/pages/2610627123/Flutter+Demonstrator) for this project.
 
-<img src="images/flutter-arch-overview.png" alt="Architecture" width="200" height="400">
+<img src="images/flutter-arch-overview.png" alt="Architecture" width="650" height="500">
 
 * For the frontend flutter application we use, we use layered architecture to follow Bob-Martin's clean Architecture where we use repository pattern for data layer and use `Bloc pattern` in presentation layer.[More info](https://ilabs-capco.atlassian.net/wiki/spaces/BPG/pages/2769813521/Flutter+Standards#Clean-Architecture-for-Flutter)
 
-<img src="images/flutter-arch.png" alt="Architecture" width="200" height="400">
+<img src="images/flutter-arch.png" alt="Architecture" width="550" height="400">
 <!-- GETTING STARTED -->
 ## Getting Started
 
@@ -125,7 +125,7 @@ source .env
  #### Steps to run firebase emulators.
   1. Open terminal app and go to functions folder inside your project folder.
   2. Run `npm run serve`.(if you don't have npm installed, follow [this](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)).
-  <img src="images/firebase-function-successful.png" alt="firebase functions" width="200" height="400">
+  <img src="images/firebase-function-successful.png" alt="firebase functions" width="600" height="400">
   
  #### Steps to run flutter app locally.
   1. Open flutter app located in `front-end/flutter_confluence` of your project folder in Android Studio, Intellij or Visual Studio Code.
@@ -139,7 +139,7 @@ source .env
 * <b>Firebase Auth:</b> Firebase Authentication provides backend services, easy-to-use SDKs, and ready-made UI libraries to authenticate users to your app.[More info](https://firebase.google.com/docs/auth)
 * <b>Firebase Functions:</b>Cloud Functions for Firebase is a serverless framework that lets you automatically run backend code in response to events triggered by Firebase features and HTTPS requests. [More info](https://firebase.google.com/docs/functions).
 * <b>Firebase Firestore:</b>Cloud Firestore is a flexible, scalable database for mobile, web, and server development from Firebase and Google Cloud. [More info](https://firebase.google.com/docs/firestore).
-* <b>Lottie:</b> Lottie is a mobile library for Android and iOS that parses Adobe After Effects animations exported as json with Bodymovin and renders them natively on mobile![More info](https://pub.dev/packages/lottie)
+* <b>Lottie:</b> Lottie is a mobile library for Android and iOS that parses Adobe After Effects animations exported as json with Bodymovin and renders them natively on mobile.[More info](https://pub.dev/packages/lottie)
 
 
 <!-- USAGE EXAMPLES -->
