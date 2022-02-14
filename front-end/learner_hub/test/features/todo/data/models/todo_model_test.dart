@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:flutter_confluence/features/todo/data/models/todo_model.dart';
-import 'package:flutter_confluence/features/todo/domain/entities/todo.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:learner_hub/features/todo/data/models/todo_model.dart';
+import 'package:learner_hub/features/todo/domain/entities/todo.dart';
 
 import '../../../../fixtures/fixture_reader.dart';
 

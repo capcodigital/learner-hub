@@ -1,12 +1,12 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_confluence/core/usecases/usecase.dart';
-import 'package:flutter_confluence/features/todo/domain/entities/todo.dart';
-import 'package:flutter_confluence/features/todo/domain/params/todo_params.dart';
-import 'package:flutter_confluence/features/todo/domain/usecases/create_todo.dart';
-import 'package:flutter_confluence/features/todo/domain/usecases/delete_todo.dart';
-import 'package:flutter_confluence/features/todo/domain/usecases/get_todos.dart';
-import 'package:flutter_confluence/features/todo/domain/usecases/update_todo.dart';
+import 'package:learner_hub/core/usecases/usecase.dart';
+import 'package:learner_hub/features/todo/domain/entities/todo.dart';
+import 'package:learner_hub/features/todo/domain/params/todo_params.dart';
+import 'package:learner_hub/features/todo/domain/usecases/create_todo.dart';
+import 'package:learner_hub/features/todo/domain/usecases/delete_todo.dart';
+import 'package:learner_hub/features/todo/domain/usecases/get_todos.dart';
+import 'package:learner_hub/features/todo/domain/usecases/update_todo.dart';
 import 'package:meta/meta.dart';
 
 part 'todo_event.dart';

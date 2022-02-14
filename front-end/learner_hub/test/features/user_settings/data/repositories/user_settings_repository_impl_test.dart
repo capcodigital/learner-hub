@@ -1,10 +1,10 @@
 import 'package:dartz/dartz.dart';
-import 'package:flutter_confluence/core/error/failures.dart';
-import 'package:flutter_confluence/core/network/network_info.dart';
-import 'package:flutter_confluence/features/user_settings/data/datasources/user_settings_data_source.dart';
-import 'package:flutter_confluence/features/user_settings/data/model/user_model.dart';
-import 'package:flutter_confluence/features/user_settings/data/repositories/user_settings_repository_impl.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:learner_hub/core/error/failures.dart';
+import 'package:learner_hub/core/network/network_info.dart';
+import 'package:learner_hub/features/user_settings/data/datasources/user_settings_data_source.dart';
+import 'package:learner_hub/features/user_settings/data/model/user_model.dart';
+import 'package:learner_hub/features/user_settings/data/repositories/user_settings_repository_impl.dart';
 import 'package:mocktail/mocktail.dart';
 
 class MockUserSettingsDataSource extends Mock implements UserSettingsDataSource {}

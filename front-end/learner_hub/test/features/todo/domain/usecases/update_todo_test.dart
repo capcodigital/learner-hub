@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
-import 'package:flutter_confluence/core/error/failures.dart';
-import 'package:flutter_confluence/features/todo/domain/entities/todo.dart';
-import 'package:flutter_confluence/features/todo/domain/repository/todo_repository.dart';
-import 'package:flutter_confluence/features/todo/domain/usecases/update_todo.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:learner_hub/core/error/failures.dart';
+import 'package:learner_hub/features/todo/domain/entities/todo.dart';
+import 'package:learner_hub/features/todo/domain/repository/todo_repository.dart';
+import 'package:learner_hub/features/todo/domain/usecases/update_todo.dart';
 import 'package:mocktail/mocktail.dart';
 
 class MockTodoRepository extends Mock implements TodoRepository {}

@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
-import 'package:flutter_confluence/core/usecases/usecase.dart';
-import 'package:flutter_confluence/features/auth/domain/repositories/auth_repository.dart';
-import 'package:flutter_confluence/features/auth/domain/usecases/is_session_valid.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:learner_hub/core/usecases/usecase.dart';
+import 'package:learner_hub/features/auth/domain/repositories/auth_repository.dart';
+import 'package:learner_hub/features/auth/domain/usecases/is_session_valid.dart';
 import 'package:mocktail/mocktail.dart';
 
 class MockAuthRepository extends Mock implements AuthRepository {}

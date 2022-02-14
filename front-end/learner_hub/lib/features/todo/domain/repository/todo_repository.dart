@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
-import 'package:flutter_confluence/core/error/failures.dart';
-import 'package:flutter_confluence/features/todo/domain/entities/todo.dart';
-import 'package:flutter_confluence/features/todo/domain/params/todo_params.dart';
+import 'package:learner_hub/core/error/failures.dart';
+import 'package:learner_hub/features/todo/domain/entities/todo.dart';
+import 'package:learner_hub/features/todo/domain/params/todo_params.dart';
 
 abstract class TodoRepository {
   Future<Either<Failure, List<Todo>>> getTodos();

@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
-import 'package:flutter_confluence/core/error/failures.dart';
-import 'package:flutter_confluence/core/usecases/usecase.dart';
-import 'package:flutter_confluence/features/todo/domain/entities/todo.dart';
-import 'package:flutter_confluence/features/todo/domain/repository/todo_repository.dart';
+import 'package:learner_hub/core/error/failures.dart';
+import 'package:learner_hub/core/usecases/usecase.dart';
+import 'package:learner_hub/features/todo/domain/entities/todo.dart';
+import 'package:learner_hub/features/todo/domain/repository/todo_repository.dart';
 
 class GetTodos implements UseCase<List<Todo>, NoParams> {
   GetTodos({required this.repository});

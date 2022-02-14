@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_confluence/core/layout_constants.dart';
-import 'package:flutter_confluence/core/utils/media_util.dart';
-import 'package:flutter_confluence/features/todo/domain/entities/todo.dart';
-import 'package:flutter_confluence/features/todo/presentation/widgets/circular_todo_icon.dart';
+import 'package:learner_hub/core/layout_constants.dart';
+import 'package:learner_hub/core/utils/media_util.dart';
+import 'package:learner_hub/features/todo/domain/entities/todo.dart';
+import 'package:learner_hub/features/todo/presentation/widgets/circular_todo_icon.dart';
 
 /// Our `SwipeableTodoItem` is of type `Dismissible` to enable horizontal swiping.
 class SwipeableTodoItem extends StatefulWidget {

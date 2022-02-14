@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_confluence/core/constants.dart';
-import 'package:flutter_confluence/core/shared_ui/primary_button.dart';
-import 'package:flutter_confluence/core/shared_ui/skill_chip.dart';
-import 'package:flutter_confluence/core/themes.dart';
-import 'package:flutter_confluence/features/user_registration/domain/entities/user_registration.dart';
-import 'package:flutter_confluence/features/user_registration/presentation/pages/skills_page.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:learner_hub/core/constants.dart';
+import 'package:learner_hub/core/shared_ui/primary_button.dart';
+import 'package:learner_hub/core/shared_ui/skill_chip.dart';
+import 'package:learner_hub/core/themes.dart';
+import 'package:learner_hub/features/user_registration/domain/entities/user_registration.dart';
+import 'package:learner_hub/features/user_registration/presentation/pages/skills_page.dart';
 
 void main() {
   testWidgets('Primary Skills Page should show expected widgets',

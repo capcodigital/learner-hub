@@ -1,4 +1,4 @@
-import 'package:flutter_confluence/core/shared_ui/skill_chip.dart';
+import 'package:learner_hub/core/shared_ui/skill_chip.dart';
 
 /// This is a really simple class to hold values across widgets
 /// Although it contains the word "controller" in the name, it won't notify

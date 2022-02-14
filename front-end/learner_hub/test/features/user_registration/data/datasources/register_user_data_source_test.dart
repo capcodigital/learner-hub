@@ -1,11 +1,11 @@
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_confluence/features/user_registration/data/datasources/register_user_data_source.dart';
-import 'package:flutter_confluence/features/user_registration/data/models/skills_model.dart';
-import 'package:flutter_confluence/features/user_registration/data/models/user_registration_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
+import 'package:learner_hub/features/user_registration/data/datasources/register_user_data_source.dart';
+import 'package:learner_hub/features/user_registration/data/models/skills_model.dart';
+import 'package:learner_hub/features/user_registration/data/models/user_registration_model.dart';
 import 'package:mocktail/mocktail.dart';
 
 class MockFirebaseAuth extends Mock implements FirebaseAuth {}

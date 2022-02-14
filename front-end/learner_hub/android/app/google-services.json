@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:604039122390:android:1f9937d31a1fc6f713e877",
         "android_client_info": {
-          "package_name": "com.example.flutter_confluence"
+          "package_name": "com.capco.learner_hub"
         }
       },
       "oauth_client": [
@@ -34,7 +34,7 @@
               "client_id": "604039122390-uvdu31s3jgriprek0dq4cs0cdukfpf2l.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.flutterConfluence"
+                "bundle_id": "com.capco.learnerHub"
               }
             }
           ]

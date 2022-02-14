@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_confluence/core/shared_ui/custom_menu_page.dart';
+import 'package:learner_hub/core/shared_ui/custom_menu_page.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar(

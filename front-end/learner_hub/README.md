@@ -1,4 +1,4 @@
-# flutter_confluence
+# learner_hub
 
 A new Flutter project.
 

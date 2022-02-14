@@ -1,12 +1,12 @@
 import 'package:dartz/dartz.dart';
-import 'package:flutter_confluence/core/error/custom_exceptions.dart';
-import 'package:flutter_confluence/core/error/failures.dart';
-import 'package:flutter_confluence/features/todo/data/datasources/todo_local_data_source.dart';
-import 'package:flutter_confluence/features/todo/data/datasources/todo_remote_data_source.dart';
-import 'package:flutter_confluence/features/todo/data/models/todo_model.dart';
-import 'package:flutter_confluence/features/todo/domain/entities/todo.dart';
-import 'package:flutter_confluence/features/todo/domain/params/todo_params.dart';
-import 'package:flutter_confluence/features/todo/domain/repository/todo_repository.dart';
+import 'package:learner_hub/core/error/custom_exceptions.dart';
+import 'package:learner_hub/core/error/failures.dart';
+import 'package:learner_hub/features/todo/data/datasources/todo_local_data_source.dart';
+import 'package:learner_hub/features/todo/data/datasources/todo_remote_data_source.dart';
+import 'package:learner_hub/features/todo/data/models/todo_model.dart';
+import 'package:learner_hub/features/todo/domain/entities/todo.dart';
+import 'package:learner_hub/features/todo/domain/params/todo_params.dart';
+import 'package:learner_hub/features/todo/domain/repository/todo_repository.dart';
 
 class TodoRepositoryImpl implements TodoRepository {
   TodoRepositoryImpl(

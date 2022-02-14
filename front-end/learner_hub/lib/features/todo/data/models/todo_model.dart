@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter_confluence/features/todo/domain/entities/todo.dart';
 import 'package:hive/hive.dart';
+import 'package:learner_hub/features/todo/domain/entities/todo.dart';
+
 part 'todo_model.g.dart';
 
 @HiveType(typeId: 2)

@@ -5,12 +5,12 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "flutter_confluence",
+            "name": "learner_hub",
             "request": "launch",
             "type": "dart"
         },
         {
-            "name": "flutter_confluence (profile mode)",
+            "name": "learner_hub (profile mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"

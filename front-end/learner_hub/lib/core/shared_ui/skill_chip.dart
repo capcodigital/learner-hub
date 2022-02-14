@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_confluence/core/colours.dart';
+import 'package:learner_hub/core/colours.dart';
 
 class Skill extends Equatable {
   const Skill(

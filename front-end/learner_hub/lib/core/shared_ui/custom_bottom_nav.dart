@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_confluence/core/colours.dart';
-import 'package:flutter_confluence/core/shared_ui/custom_appbar.dart';
-import 'package:flutter_confluence/features/todo/presentation/pages/todo_page.dart';
+import 'package:learner_hub/core/colours.dart';
+import 'package:learner_hub/core/shared_ui/custom_appbar.dart';
+import 'package:learner_hub/features/todo/presentation/pages/todo_page.dart';
 
 class CustomBottomNavBar extends StatefulWidget {
   const CustomBottomNavBar({Key? key}) : super(key: key);

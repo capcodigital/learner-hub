@@ -1,11 +1,11 @@
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_confluence/core/error/custom_exceptions.dart';
-import 'package:flutter_confluence/features/user_settings/data/datasources/user_settings_data_source.dart';
-import 'package:flutter_confluence/features/user_settings/data/model/user_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
+import 'package:learner_hub/core/error/custom_exceptions.dart';
+import 'package:learner_hub/features/user_settings/data/datasources/user_settings_data_source.dart';
+import 'package:learner_hub/features/user_settings/data/model/user_model.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../../../fixtures/fixture_reader.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_confluence/core/shared_ui/custom_appbar.dart';
+import 'package:learner_hub/core/shared_ui/custom_appbar.dart';
 
 import '/core/constants.dart';
 import '/core/layout_constants.dart';

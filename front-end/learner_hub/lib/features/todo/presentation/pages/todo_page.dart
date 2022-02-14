@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_confluence/core/colours.dart';
-import 'package:flutter_confluence/core/layout_constants.dart';
-import 'package:flutter_confluence/core/shared_ui/primary_button.dart';
-import 'package:flutter_confluence/features/todo/domain/entities/todo.dart';
-import 'package:flutter_confluence/features/todo/presentation/bloc/todo_bloc.dart';
-import 'package:flutter_confluence/features/todo/presentation/pages/todo_detail_page.dart';
-import 'package:flutter_confluence/features/todo/presentation/widgets/swipeable_todo_item.dart';
+import 'package:learner_hub/core/colours.dart';
+import 'package:learner_hub/core/layout_constants.dart';
+import 'package:learner_hub/core/shared_ui/primary_button.dart';
+import 'package:learner_hub/features/todo/domain/entities/todo.dart';
+import 'package:learner_hub/features/todo/presentation/bloc/todo_bloc.dart';
+import 'package:learner_hub/features/todo/presentation/pages/todo_detail_page.dart';
+import 'package:learner_hub/features/todo/presentation/widgets/swipeable_todo_item.dart';
 
 /// Our root page of the todo flow.
 /// This page is the beginning of our todo flow, where upon landing,

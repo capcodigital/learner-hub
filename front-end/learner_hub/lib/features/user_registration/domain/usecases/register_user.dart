@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:flutter_confluence/core/usecases/usecase.dart';
+import 'package:learner_hub/core/usecases/usecase.dart';
 
 import '/core/error/auth_failures.dart';
 import '/core/error/failures.dart';

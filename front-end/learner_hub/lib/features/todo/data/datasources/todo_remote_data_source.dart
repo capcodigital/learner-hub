@@ -4,12 +4,12 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_confluence/core/constants.dart';
-import 'package:flutter_confluence/core/error/custom_exceptions.dart';
-import 'package:flutter_confluence/features/todo/data/models/todo_model.dart';
-import 'package:flutter_confluence/features/todo/domain/entities/todo.dart';
-import 'package:flutter_confluence/features/todo/domain/params/todo_params.dart';
 import 'package:http/http.dart' as http;
+import '/core/constants.dart';
+import '/core/error/custom_exceptions.dart';
+import '/features/todo/data/models/todo_model.dart';
+import '/features/todo/domain/entities/todo.dart';
+import '/features/todo/domain/params/todo_params.dart';
 
 abstract class TodoRemoteDataSource {
   Future<List<TodoModel>> getTodos();

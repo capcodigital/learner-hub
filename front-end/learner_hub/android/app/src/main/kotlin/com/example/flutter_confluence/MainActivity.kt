@@ -1,4 +1,4 @@
-package com.example.flutter_confluence
+package com.example.learner_hub
 
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.embedding.android.FlutterFragmentActivity

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_confluence/core/layout_constants.dart';
-import 'package:flutter_confluence/core/shared_ui/primary_button.dart';
-import 'package:flutter_confluence/features/todo/domain/entities/todo.dart';
-import 'package:flutter_confluence/features/todo/domain/params/todo_params.dart';
-import 'package:flutter_confluence/features/todo/presentation/bloc/todo_bloc.dart';
-import 'package:flutter_confluence/features/todo/presentation/widgets/circular_todo_icon.dart';
+import 'package:learner_hub/core/layout_constants.dart';
+import 'package:learner_hub/core/shared_ui/primary_button.dart';
+import 'package:learner_hub/features/todo/domain/entities/todo.dart';
+import 'package:learner_hub/features/todo/domain/params/todo_params.dart';
+import 'package:learner_hub/features/todo/presentation/bloc/todo_bloc.dart';
+import 'package:learner_hub/features/todo/presentation/widgets/circular_todo_icon.dart';
 
 class TodoDetailPage extends StatefulWidget {
   const TodoDetailPage({Key? key, this.todo}) : super(key: key);

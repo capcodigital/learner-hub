@@ -1,13 +1,13 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:dartz/dartz.dart';
-import 'package:flutter_confluence/core/error/failures.dart';
-import 'package:flutter_confluence/core/usecases/usecase.dart';
-import 'package:flutter_confluence/features/user_settings/domain/entities/user.dart';
-import 'package:flutter_confluence/features/user_settings/domain/usecases/load_user.dart';
-import 'package:flutter_confluence/features/user_settings/domain/usecases/update_password.dart';
-import 'package:flutter_confluence/features/user_settings/domain/usecases/update_user_settings.dart';
-import 'package:flutter_confluence/features/user_settings/presentation/bloc/user_settings_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:learner_hub/core/error/failures.dart';
+import 'package:learner_hub/core/usecases/usecase.dart';
+import 'package:learner_hub/features/user_settings/domain/entities/user.dart';
+import 'package:learner_hub/features/user_settings/domain/usecases/load_user.dart';
+import 'package:learner_hub/features/user_settings/domain/usecases/update_password.dart';
+import 'package:learner_hub/features/user_settings/domain/usecases/update_user_settings.dart';
+import 'package:learner_hub/features/user_settings/presentation/bloc/user_settings_bloc.dart';
 import 'package:mocktail/mocktail.dart';
 
 class MockUpdateUserSettings extends Mock implements UpdateUserSettings {}

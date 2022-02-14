@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_confluence/core/constants.dart';
+import 'package:learner_hub/core/constants.dart';
 
 import '/core/error/auth_failures.dart';
 import '/core/error/failures.dart';

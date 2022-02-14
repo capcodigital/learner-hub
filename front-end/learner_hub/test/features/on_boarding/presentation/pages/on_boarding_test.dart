@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_confluence/core/shared_ui/primary_button.dart';
-import 'package:flutter_confluence/core/themes.dart';
-import 'package:flutter_confluence/features/onboarding/presentation/pages/on_boarding.dart';
-import 'package:flutter_confluence/features/onboarding/presentation/widgets/onboarding_carousel.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:learner_hub/core/shared_ui/primary_button.dart';
+import 'package:learner_hub/core/themes.dart';
+import 'package:learner_hub/features/onboarding/presentation/pages/on_boarding.dart';
+import 'package:learner_hub/features/onboarding/presentation/widgets/onboarding_carousel.dart';
 
 void main() {
   testWidgets('OnBoarding Page should show expected widgets', (tester) async {

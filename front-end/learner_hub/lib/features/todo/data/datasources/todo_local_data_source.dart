@@ -1,6 +1,6 @@
-import 'package:flutter_confluence/core/error/custom_exceptions.dart';
-import 'package:flutter_confluence/features/todo/data/models/todo_hive_helper.dart';
-import 'package:flutter_confluence/features/todo/data/models/todo_model.dart';
+import 'package:learner_hub/core/error/custom_exceptions.dart';
+import 'package:learner_hub/features/todo/data/models/todo_hive_helper.dart';
+import 'package:learner_hub/features/todo/data/models/todo_model.dart';
 
 /// Our `TodoLocalDataSource` abstraction class.
 ///

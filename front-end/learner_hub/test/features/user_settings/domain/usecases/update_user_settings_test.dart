@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
-import 'package:flutter_confluence/features/user_settings/domain/entities/user.dart';
-import 'package:flutter_confluence/features/user_settings/domain/repositories/user_settings_repository.dart';
-import 'package:flutter_confluence/features/user_settings/domain/usecases/update_user_settings.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:learner_hub/features/user_settings/domain/entities/user.dart';
+import 'package:learner_hub/features/user_settings/domain/repositories/user_settings_repository.dart';
+import 'package:learner_hub/features/user_settings/domain/usecases/update_user_settings.dart';
 import 'package:mocktail/mocktail.dart';
 
 class MockUserSettingsRepository extends Mock implements UserSettingsRepository {}

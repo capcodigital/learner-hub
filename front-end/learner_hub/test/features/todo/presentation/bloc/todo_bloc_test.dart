@@ -1,15 +1,15 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:dartz/dartz.dart';
-import 'package:flutter_confluence/core/error/failures.dart';
-import 'package:flutter_confluence/core/usecases/usecase.dart';
-import 'package:flutter_confluence/features/todo/domain/entities/todo.dart';
-import 'package:flutter_confluence/features/todo/domain/params/todo_params.dart';
-import 'package:flutter_confluence/features/todo/domain/usecases/create_todo.dart';
-import 'package:flutter_confluence/features/todo/domain/usecases/delete_todo.dart';
-import 'package:flutter_confluence/features/todo/domain/usecases/get_todos.dart';
-import 'package:flutter_confluence/features/todo/domain/usecases/update_todo.dart';
-import 'package:flutter_confluence/features/todo/presentation/bloc/todo_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:learner_hub/core/error/failures.dart';
+import 'package:learner_hub/core/usecases/usecase.dart';
+import 'package:learner_hub/features/todo/domain/entities/todo.dart';
+import 'package:learner_hub/features/todo/domain/params/todo_params.dart';
+import 'package:learner_hub/features/todo/domain/usecases/create_todo.dart';
+import 'package:learner_hub/features/todo/domain/usecases/delete_todo.dart';
+import 'package:learner_hub/features/todo/domain/usecases/get_todos.dart';
+import 'package:learner_hub/features/todo/domain/usecases/update_todo.dart';
+import 'package:learner_hub/features/todo/presentation/bloc/todo_bloc.dart';
 import 'package:mocktail/mocktail.dart';
 
 class MockCreateTodo extends Mock implements CreateTodo {}

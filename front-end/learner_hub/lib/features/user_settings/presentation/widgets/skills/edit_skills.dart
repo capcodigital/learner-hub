@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_confluence/core/layout_constants.dart';
+import 'package:learner_hub/core/layout_constants.dart';
 
 import '/core/constants.dart';
 import '/core/shared_ui/skill_chip.dart';
