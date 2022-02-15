@@ -45,6 +45,7 @@
         <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#installation">Installation</a></li>
         <li><a href="#running-the-app-locally">Running app locally</a></li>
+        <li><a href="#connecting-to-firebase">Connecting to Firebase</a></li>
         <li><a href="#major-libraries-used">Major libraries Used</a></li>
       </ul>
     </li>
@@ -140,6 +141,19 @@ source .env
 * <b>Firebase Functions:</b>Cloud Functions for Firebase is a serverless framework that lets you automatically run backend code in response to events triggered by Firebase features and HTTPS requests. [More info](https://firebase.google.com/docs/functions).
 * <b>Firebase Firestore:</b>Cloud Firestore is a flexible, scalable database for mobile, web, and server development from Firebase and Google Cloud. [More info](https://firebase.google.com/docs/firestore).
 * <b>Lottie:</b> Lottie is a mobile library for Android and iOS that parses Adobe After Effects animations exported as json with Bodymovin and renders them natively on mobile.[More info](https://pub.dev/packages/lottie)
+
+
+### Connecting To Firebase
+
+* Firebase is a Backend-as-a-Service (BaaS) app development platform that provides hosted backend services such as a realtime database, cloud storage, authentication, crash reporting, machine learning, remote configuration, and hosting for your static files.[More info](https://firebase.flutter.dev/docs/overview).
+
+* Before using Firebase on your application, you must first connect to your Firebase project with your application. Firebase provides well written documentation for different platforms. Follow these links for respective platforms:
+    * [Android](https://firebase.flutter.dev/docs/manual-installation/android)
+    * [IOS](https://firebase.flutter.dev/docs/manual-installation/ios) 
+    * [Web](https://firebase.flutter.dev/docs/manual-installation/web)
+    * [MacOS](https://firebase.flutter.dev/docs/manual-installation/macos)
+
+Note: In `Flutter hub` application we already have `google-services.json`(For Android) and `GoogleService-Info.plist`(For IOS) files, please replace these files with the one provided in [project setting console](https://console.firebase.google.com/) of your firebase app.
 
 
 <!-- USAGE EXAMPLES -->
