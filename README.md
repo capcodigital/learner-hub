@@ -155,7 +155,6 @@ source .env
 
 Note: In `Flutter hub` application we already have `google-services.json`(For Android) and `GoogleService-Info.plist`(For IOS) files, please replace these files with the one provided in [project setting console](https://console.firebase.google.com/) of your firebase app.
 
-
 <!-- USAGE EXAMPLES -->
 ## Usage
 <!-- Test Suite-->
