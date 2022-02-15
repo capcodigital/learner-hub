@@ -8,6 +8,7 @@ import * as userCertFuncs from "./user_certifications/user_certifications_funcs"
 import * as todoFuncs from "./todos/todo_funcs";
 import * as jsend from "./jsend";
 import cors from "cors";
+import helmet from "helmet";
 
 // Initialize Firebase app
 admin.initializeApp();
@@ -21,6 +22,7 @@ app.use(
     origin: ["http://localhost:58668"],
   })
 );
+app.use(helmet());
 app.use(validateFirebaseIdToken);
 
 // CERTIFICATION SUMMARY ENDPOINTS
