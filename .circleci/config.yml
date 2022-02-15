@@ -9,11 +9,11 @@ jobs:
       - run:
           name: check flutter requirements
           command: flutter doctor -v
-          working_directory: ~/project/front-end/flutter_confluence
+          working_directory: ~/project/front-end/learner_hub
       - run:
           name: run static analysis
           command: flutter analyze
-          working_directory: ~/project/front-end/flutter_confluence
+          working_directory: ~/project/front-end/learner_hub
   tests:
     docker:
       - image: "cirrusci/flutter:2.10.0"
@@ -22,7 +22,7 @@ jobs:
       - run:
           name: run tests
           command: flutter test
-          working_directory: ~/project/front-end/flutter_confluence
+          working_directory: ~/project/front-end/learner_hub
   deploy_functions:
     docker:
       - image: "cimg/node:16.0.0"

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<key>CLIENT_ID</key>
+		<string>604039122390-uvdu31s3jgriprek0dq4cs0cdukfpf2l.apps.googleusercontent.com</string>
+		<key>REVERSED_CLIENT_ID</key>
+		<string>com.googleusercontent.apps.604039122390-uvdu31s3jgriprek0dq4cs0cdukfpf2l</string>
+		<key>API_KEY</key>
+		<string>AIzaSyDe-lfRKN9KGiEAJX5qKyJ5OMwDsu1QB3M</string>
+		<key>GCM_SENDER_ID</key>
+		<string>604039122390</string>
+		<key>PLIST_VERSION</key>
+		<string>1</string>
+		<key>BUNDLE_ID</key>
+		<string>com.capco.learnerHub</string>
+		<key>PROJECT_ID</key>
+		<string>io-capco-flutter-dev</string>
+		<key>STORAGE_BUCKET</key>
+		<string>io-capco-flutter-dev.appspot.com</string>
+		<key>IS_ADS_ENABLED</key>
+		<false></false>
+		<key>IS_ANALYTICS_ENABLED</key>
+		<false></false>
+		<key>IS_APPINVITE_ENABLED</key>
+		<true></true>
+		<key>IS_GCM_ENABLED</key>
+		<true></true>
+		<key>IS_SIGNIN_ENABLED</key>
+		<true></true>
+		<key>GOOGLE_APP_ID</key>
+		<string>1:604039122390:ios:08495d795b9ec37b13e877</string>
+	</dict>
+</plist>
