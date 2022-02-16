@@ -14,7 +14,11 @@ import helmet from "helmet";
 admin.initializeApp();
 
 // Initialize and configure Express server
+var cookieParser = require('cookie-parser')
+var csrf = require('csurf')
+
 export const app = express();
+app.use(cookieParser())
 app.use(
   cors({
     // Add a list of allowed origins.
@@ -23,17 +27,18 @@ app.use(
   })
 );
 app.use(helmet());
+app.use(csrf({ cookie: true }));
 app.use(validateFirebaseIdToken);
 
 // CERTIFICATION SUMMARY ENDPOINTS
 
 // Returns all certification summaries from firestore as json
-app.get("/certificationSummary", async (req: Request, res: Response) => {
-  certSummaryFuncs.getAllCertificationSummaries(res);
+app.get("/certificationSummary",  async (req: Request, res: Response) => {
+  certSummaryFuncs.getAllCertificationSummaries(res); 
 });
 
 // Returns a certifications by id
-app.get("/certificationSummary/:id", async (req: Request, res: Response) => {
+app.get("/certificationSummary/:id",  async (req: Request, res: Response) => {
   const id = req.params.id as string;
   if (id == null) {
     res.statusCode = 400;
@@ -44,7 +49,7 @@ app.get("/certificationSummary/:id", async (req: Request, res: Response) => {
 });
 
 // Adds a certification summary to firestore
-app.post("/certificationSummary", async (req: Request, res: Response) => {
+app.post("/certificationSummary",  async (req: Request, res: Response) => {
   const summary = req.body as any;
   certSummaryFuncs.addCertificationSummary(summary, res);
 });
@@ -52,7 +57,7 @@ app.post("/certificationSummary", async (req: Request, res: Response) => {
 // USER ENDPOINTS
 
 // Adds user in firestore
-app.post("/user", async (req: Request, res: Response) => {
+app.post("/user",  async (req: Request, res: Response) => {
   const uid = req.user?.uid as string;
   const request = req.body;
   if (uid != null && request != null) userFuncs.registerUser(uid, request, res);
@@ -61,7 +66,7 @@ app.post("/user", async (req: Request, res: Response) => {
 });
 
 // Updates user in firestore
-app.put("/user", async (req: Request, res: Response) => {
+app.put("/user",  async (req: Request, res: Response) => {
   const uid = req.user?.uid as string;
   var user = req.body;
   if (user == null) res.status(400).send(jsend.error("Bad Request"));
@@ -79,7 +84,7 @@ app.get("/user", async (req: Request, res: Response) => {
 
 // Returns the certifications of user with passed id.
 // If no id passed, then user is current user.
-app.get("/certifications/:userId", async (req: Request, res: Response) => {
+app.get("/certifications/:userId",  async (req: Request, res: Response) => {
   var uid = req.params.userId;
   if (uid == null) uid = req.user?.uid as string;
   if (uid != null) userCertFuncs.getUserCertifications(uid, res);
@@ -157,7 +162,7 @@ app.put("/todos/:id", async (req: Request, res: Response) => {
 });
 
 // Deletes the TODO of given id in firestore
-app.delete("/todos/:id", async (req: Request, res: Response) => {
+app.delete("/todos/:id",  async (req: Request, res: Response) => {
   const uid = req.user?.uid as string;
   const todoId = req.params.id;
   if (todoId == null) res.status(400).send(jsend.error("Bad Request"));
