@@ -17,9 +17,6 @@ admin.initializeApp();
 var cookieParser = require('cookie-parser')
 var csrf = require('csurf')
 
-// setup route middlewares
-var csrfProtection = csrf({ cookie: true })
-
 export const app = express();
 app.use(cookieParser())
 app.use(
@@ -30,17 +27,18 @@ app.use(
   })
 );
 app.use(helmet());
+app.use(csrf({ cookie: true }));
 app.use(validateFirebaseIdToken);
 
 // CERTIFICATION SUMMARY ENDPOINTS
 
 // Returns all certification summaries from firestore as json
-app.get("/certificationSummary", csrfProtection, async (req: Request, res: Response) => {
+app.get("/certificationSummary",  async (req: Request, res: Response) => {
   certSummaryFuncs.getAllCertificationSummaries(res); 
 });
 
 // Returns a certifications by id
-app.get("/certificationSummary/:id", csrfProtection, async (req: Request, res: Response) => {
+app.get("/certificationSummary/:id",  async (req: Request, res: Response) => {
   const id = req.params.id as string;
   if (id == null) {
     res.statusCode = 400;
@@ -51,7 +49,7 @@ app.get("/certificationSummary/:id", csrfProtection, async (req: Request, res: R
 });
 
 // Adds a certification summary to firestore
-app.post("/certificationSummary", csrfProtection, async (req: Request, res: Response) => {
+app.post("/certificationSummary",  async (req: Request, res: Response) => {
   const summary = req.body as any;
   certSummaryFuncs.addCertificationSummary(summary, res);
 });
@@ -59,7 +57,7 @@ app.post("/certificationSummary", csrfProtection, async (req: Request, res: Resp
 // USER ENDPOINTS
 
 // Adds user in firestore
-app.post("/user", csrfProtection, async (req: Request, res: Response) => {
+app.post("/user",  async (req: Request, res: Response) => {
   const uid = req.user?.uid as string;
   const request = req.body;
   if (uid != null && request != null) userFuncs.registerUser(uid, request, res);
@@ -68,7 +66,7 @@ app.post("/user", csrfProtection, async (req: Request, res: Response) => {
 });
 
 // Updates user in firestore
-app.put("/user", csrfProtection, async (req: Request, res: Response) => {
+app.put("/user",  async (req: Request, res: Response) => {
   const uid = req.user?.uid as string;
   var user = req.body;
   if (user == null) res.status(400).send(jsend.error("Bad Request"));
@@ -76,7 +74,7 @@ app.put("/user", csrfProtection, async (req: Request, res: Response) => {
 });
 
 // Returns current user
-app.get("/user", csrfProtection, async (req: Request, res: Response) => {
+app.get("/user", async (req: Request, res: Response) => {
   const uid = req.user?.uid as string;
   if (uid != null) userFuncs.getUser(uid, res);
   else res.status(500).send(jsend.error);
@@ -86,7 +84,7 @@ app.get("/user", csrfProtection, async (req: Request, res: Response) => {
 
 // Returns the certifications of user with passed id.
 // If no id passed, then user is current user.
-app.get("/certifications/:userId", csrfProtection, async (req: Request, res: Response) => {
+app.get("/certifications/:userId",  async (req: Request, res: Response) => {
   var uid = req.params.userId;
   if (uid == null) uid = req.user?.uid as string;
   if (uid != null) userCertFuncs.getUserCertifications(uid, res);
@@ -94,7 +92,7 @@ app.get("/certifications/:userId", csrfProtection, async (req: Request, res: Res
 });
 
 // Creates a Certification to firestore for current user
-app.post("/certifications", csrfProtection, async (req: Request, res: Response) => {
+app.post("/certifications", async (req: Request, res: Response) => {
   const uid = req.user?.uid as string;
   const cert = req.body as any;
   if (uid == null) res.status(401).send(jsend.error("Unauthorized"));
@@ -103,7 +101,7 @@ app.post("/certifications", csrfProtection, async (req: Request, res: Response) 
 });
 
 // Updates the certification of given id in firestore
-app.put("/certifications/:id", csrfProtection, async (req: Request, res: Response) => {
+app.put("/certifications/:id", async (req: Request, res: Response) => {
   const uid = req.user?.uid as string;
   const certId = req.params.id;
   const cert = req.body as any;
@@ -113,7 +111,7 @@ app.put("/certifications/:id", csrfProtection, async (req: Request, res: Respons
 });
 
 // Deletes the certification of given id in firestore
-app.delete("/certifications/:id", csrfProtection, async (req: Request, res: Response) => {
+app.delete("/certifications/:id", async (req: Request, res: Response) => {
   const uid = req.user?.uid as string;
   const certId = req.params.id;
   if (certId == null) res.status(400).send(jsend.error("Bad Request"));
@@ -124,13 +122,13 @@ app.delete("/certifications/:id", csrfProtection, async (req: Request, res: Resp
 
 // Returns the TODOs of user with passed id.
 // If no id passed, then user is current user.
-app.get("/todos", csrfProtection, async (req: Request, res: Response) => {
+app.get("/todos", async (req: Request, res: Response) => {
   const uid = req.user?.uid as string;
   todoFuncs.getTODOs(uid, res);
 });
 
 // Creates a TODO to firestore for current user
-app.post("/todos", csrfProtection, async (req: Request, res: Response) => {
+app.post("/todos", async (req: Request, res: Response) => {
   const uid = req.user?.uid as string;
   const body = req.body as any;
   if (body == null) res.status(400).send(jsend.error("Bad Request"));
@@ -146,7 +144,7 @@ app.post("/todos", csrfProtection, async (req: Request, res: Response) => {
 });
 
 // Updates the TODO of given id in firestore
-app.put("/todos/:id", csrfProtection, async (req: Request, res: Response) => {
+app.put("/todos/:id", async (req: Request, res: Response) => {
   const uid = req.user?.uid as string;
   const todoId = req.params.id;
   const body = req.body as any;
@@ -164,7 +162,7 @@ app.put("/todos/:id", csrfProtection, async (req: Request, res: Response) => {
 });
 
 // Deletes the TODO of given id in firestore
-app.delete("/todos/:id", csrfProtection, async (req: Request, res: Response) => {
+app.delete("/todos/:id",  async (req: Request, res: Response) => {
   const uid = req.user?.uid as string;
   const todoId = req.params.id;
   if (todoId == null) res.status(400).send(jsend.error("Bad Request"));
