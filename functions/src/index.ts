@@ -16,6 +16,7 @@ admin.initializeApp();
 // Initialize and configure Express server
 var cookieParser = require('cookie-parser')
 var csrf = require('csurf')
+const { body } = require('express-validator');
 
 export const app = express();
 app.use(cookieParser())
@@ -68,7 +69,7 @@ app.post("/user", async (req: Request, res: Response) => {
 // Updates user in firestore
 app.put("/user", async (req: Request, res: Response) => {
   const uid = req.user?.uid as string;
-  var user = req.body;
+  var user = sanitizeUserInput(req.body);
   if (uid == null) res.status(401).send(jsend.error("Unauthorized"));
   if (user == null) res.status(400).send(jsend.error("Bad Request"));
   else userFuncs.updateUser(uid, user, res);
@@ -178,3 +179,21 @@ app.delete("/todos/:id", async (req: Request, res: Response) => {
 exports.app = functions
   .region("europe-west2") // London
   .https.onRequest(app);
+
+function sanitizeUserInput(user: User) {
+  return <User>{
+    name: body(user.name).trim().escape(),
+    lastName: body(user.lastName).trim().escape(),
+    bio: body(user.bio).trim().escape(),
+    jobTitle: body(user.jobTitle).trim().escape(),
+    email: body(user.email).normalizeEmail(),
+    skills: sanitizeSkills(user.skills)
+  };
+}
+
+function sanitizeSkills(skills: UserSkills) {
+  return <UserSkills>{
+    primarySkills: skills.primarySkills.map(function (value) { return body(value).trim().escape() }),
+    secondarySkills: skills.secondarySkills.map(function (value) { return body(value).trim().escape() }),
+  };
+}
